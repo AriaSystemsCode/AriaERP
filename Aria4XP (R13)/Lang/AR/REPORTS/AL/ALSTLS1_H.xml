@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<alstls1_h_ar row_key="LANG_SELECTING_RECORDS_FOR_REPORT" cproperty="Caption" orgtext="Selecting records for report ...                                                                                                                                                                        " orgcol="LANG_SELECTING_RECORDS_FOR_REPORT" langtext="...جاري تحديد سجلات للتقرير"/>
+	<alstls1_h_ar row_key="LANG_PIKTKT" cproperty="Caption" orgtext="Piktkt                                                                                                                                                                                                  " orgcol="LANG_PIKTKT" langtext="تذكرة انتقاء"/>
+	<alstls1_h_ar row_key="LANG_ACCOUNT" cproperty="Caption" orgtext="Account                                                                                                                                                                                                 " orgcol="LANG_ACCOUNT" langtext="حساب"/>
+	<alstls1_h_ar row_key="LANG_STORE" cproperty="Caption" orgtext="Store                                                                                                                                                                                                   " orgcol="LANG_STORE" langtext="المخزن"/>
+</VFPData>

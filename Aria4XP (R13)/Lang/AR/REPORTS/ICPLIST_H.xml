@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icplist_h_ar row_key="LANG_SECONDS" cproperty="Caption" orgtext="Seconds...                                                                                                                                                                                              " orgcol="LANG_SECONDS" langtext="...ثانية"/>
+	<icplist_h_ar row_key="LANG_STYLES" cproperty="Caption" orgtext="Style(s) in                                                                                                                                                                                             " orgcol="LANG_STYLES" langtext="Style(s) في"/>
+	<icplist_h_ar row_key="LANG_SELECTED" cproperty="Caption" orgtext="Selected                                                                                                                                                                                                " orgcol="LANG_SELECTED" langtext="تحديد"/>
+</VFPData>

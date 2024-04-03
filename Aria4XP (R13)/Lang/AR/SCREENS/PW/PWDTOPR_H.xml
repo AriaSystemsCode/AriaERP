@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<pwdtopr_h_ar row_key="LANG_MOVERTITLE" cproperty="Caption" orgtext="Detail Operation Tools                                                                                                                                                                                  " orgcol="LANG_MOVERTITLE" langtext="أدوات تشغيل التفاصيل"/>
+	<pwdtopr_h_ar row_key="LANG_DETOPFOR" cproperty="Caption" orgtext="Detail Operations for                                                                                                                                                                                   " orgcol="LANG_DETOPFOR" langtext="تشغيل التفاصيل لـ"/>
+	<pwdtopr_h_ar row_key="LANG_VIEW" cproperty="Caption" orgtext="View                                                                                                                                                                                                    " orgcol="LANG_VIEW" langtext="عرض"/>
+	<pwdtopr_h_ar row_key="LANG_MODIFY" cproperty="Caption" orgtext="Modify                                                                                                                                                                                                  " orgcol="LANG_MODIFY" langtext="تعديل"/>
+	<pwdtopr_h_ar row_key="LANG_DELETEOPERATION" cproperty="Caption" orgtext="Do you want to delete operation                                                                                                                                                                         " orgcol="LANG_DELETEOPERATION" langtext="هل تريد حذف العملية؟"/>
+</VFPData>

@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<mamatlck_h_ar row_key="LANG_LOCKDATE" cproperty="Caption" orgtext="Lock date can not be empty...                                                                                                                                                                           " orgcol="LANG_LOCKDATE" langtext="...لا يمكن أن يكون تاريخ قفل فارغة"/>
+	<mamatlck_h_ar row_key="LANG_POSTED" cproperty="Caption" orgtext="Posted                                                                                                                                                                                                  " orgcol="LANG_POSTED" langtext="نشرت"/>
+	<mamatlck_h_ar row_key="LANG_MARKDOWN" cproperty="Caption" orgtext="Mark Down                                                                                                                                                                                               " orgcol="LANG_MARKDOWN" langtext="وضع علامة لأسفل"/>
+	<mamatlck_h_ar row_key="LANG_LOCKED" cproperty="Caption" orgtext="Locked                                                                                                                                                                                                  " orgcol="LANG_LOCKED" langtext="مؤمن"/>
+</VFPData>

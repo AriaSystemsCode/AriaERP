@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<smclose_scx_ar row_key="_3N412VON5" cproperty="Caption" orgtext="From Company" orgcol="ariabranchformset.AriaForm1.Arialabel1" langtext="من الشركة"/>
+	<smclose_scx_ar row_key="_3N412VON9" cproperty="Caption" orgtext="Proceed" orgcol="ariabranchformset.AriaForm1.pbClose" langtext="المضي قدما"/>
+	<smclose_scx_ar row_key="_3N412VONA" cproperty="Caption" orgtext="Close" orgcol="ariabranchformset.AriaForm1.Ariacommandbutton1" langtext="قم بإغلاق"/>
+	<smclose_scx_ar row_key="_3N412VON5" cproperty="Caption" orgtext="From Company" orgcol="ariabranchformset.AriaForm1.Arialabel1" langtext="من الشركة"/>
+	<smclose_scx_ar row_key="_3N412VON9" cproperty="Caption" orgtext="Proceed" orgcol="ariabranchformset.AriaForm1.pbClose" langtext="المضي قدما"/>
+	<smclose_scx_ar row_key="_3N412VON5" cproperty="Caption" orgtext="From Company" orgcol="ariabranchformset.AriaForm1.Arialabel1" langtext="من الشركة"/>
+	<smclose_scx_ar row_key="_3N412VON9" cproperty="Caption" orgtext="Proceed" orgcol="ariabranchformset.AriaForm1.pbClose" langtext="المضي قدما"/>
+	<smclose_scx_ar row_key="_3N412VONA" cproperty="Caption" orgtext="Close" orgcol="ariabranchformset.AriaForm1.Ariacommandbutton1" langtext="التحقق من وجود عطب"/>
+	<smclose_scx_ar row_key="XX_HEADER_XX" cproperty="SMCLOSE.H" orgtext="SCREENS\SM\" orgcol="" langtext=""/>
+</VFPData>

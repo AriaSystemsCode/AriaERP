@@ -1,0 +1,1463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+<Header>
+<DocumentVersion>1.01</DocumentVersion>
+<MerchantIdentifier>M_LEAHHANNA_10142713</MerchantIdentifier>
+</Header>
+<MessageType>OrderReport</MessageType>
+<Message>
+<MessageID>1</MessageID>
+<OrderReport>
+<AmazonOrderID>105-2505723-5293845</AmazonOrderID>
+<AmazonSessionID>105-2505723-5293845</AmazonSessionID>
+<OrderDate>2010-07-31T08:01:06-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T08:01:06-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>731p9p9qmdmd9hw@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Herman Tucker</BuyerName>
+<BuyerPhoneNumber>718 4552496</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Herman Tucker</Name>
+<AddressFieldOne>589 Bainbridge St.</AddressFieldOne>
+<City>Brooklyn</City>
+<StateOrRegion>NEW YORK</StateOrRegion>
+<PostalCode>11233</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>718 455-2496</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>49033222473778</AmazonOrderItemCode>
+<SKU>AZC2019</SKU>
+<Title>stainless Steel Mother of Pearl Men's Cufflinks</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">9.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-3.00</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>330472010</TaxLocationCode>
+<City>KINGS</City>
+<County>KINGS</County>
+<State>NY</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">9.99</District>
+<City currency="USD">9.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">9.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">9.99</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>330472010</TaxLocationCode>
+<City>KINGS</City>
+<County>KINGS</County>
+<State>NY</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>2</MessageID>
+<OrderReport>
+<AmazonOrderID>002-7668051-6976219</AmazonOrderID>
+<AmazonSessionID>002-7668051-6976219</AmazonSessionID>
+<OrderDate>2010-07-31T08:57:44-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T08:57:44-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>b3knf5hl0lgyv6h@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Barbara Culp</BuyerName>
+<BuyerPhoneNumber>9169920951</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Barbara Culp</Name>
+<AddressFieldOne>PO BOX 207</AddressFieldOne>
+<City>ELVERTA</City>
+<StateOrRegion>CA</StateOrRegion>
+<PostalCode>95626-0207</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>9169920951</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>13440876928266</AmazonOrderItemCode>
+<SKU>AZP2269</SKU>
+<Title>Sterling Silver Hanging Flower Charms Necklace</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">17.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-4.60</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50678445</TaxLocationCode>
+<City>ELVERTA</City>
+<County>SACRAMENTO</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">17.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">17.99</County>
+<State currency="USD">17.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">17.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50678445</TaxLocationCode>
+<City>ELVERTA</City>
+<County>SACRAMENTO</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>3</MessageID>
+<OrderReport>
+<AmazonOrderID>102-3598714-3257847</AmazonOrderID>
+<AmazonSessionID>102-3598714-3257847</AmazonSessionID>
+<OrderDate>2010-07-31T09:06:22-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T09:06:22-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>zqrsgyy3vp0njck@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Clinton Sorensen</BuyerName>
+<BuyerPhoneNumber>8052029987</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Clinton Sorensen</Name>
+<AddressFieldOne>361 KENDALE RD</AddressFieldOne>
+<City>BUELLTON</City>
+<StateOrRegion>CA</StateOrRegion>
+<PostalCode>93427-9630</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>8052029987</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>48840197207442</AmazonOrderItemCode>
+<SKU>AZP2347</SKU>
+<Title>Sterling Silver Marcasite and CZ Flower Medallion Pendant</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">7.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-2.60</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50838627</TaxLocationCode>
+<City>BUELLTON</City>
+<County>SANTA BARBARA</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">7.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">7.99</County>
+<State currency="USD">7.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">7.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50838627</TaxLocationCode>
+<City>BUELLTON</City>
+<County>SANTA BARBARA</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>4</MessageID>
+<OrderReport>
+<AmazonOrderID>104-8860019-5030646</AmazonOrderID>
+<AmazonSessionID>104-8860019-5030646</AmazonSessionID>
+<OrderDate>2010-07-31T16:08:28-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T16:08:28-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>crj1qcmx2lx60fy@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Alexander Bogaev</BuyerName>
+<BuyerPhoneNumber>3603068457</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Kayla Lintner</Name>
+<AddressFieldOne>663 NEWPORT AVE</AddressFieldOne>
+<City>GROVER BEACH</City>
+<StateOrRegion>CA</StateOrRegion>
+<PostalCode>93433-1613</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>8187160331</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>39892297899858</AmazonOrderItemCode>
+<SKU>AZE2004</SKU>
+<Title>Sterling Silver Simulated Garnet Heart Earrings</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">9.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-3.00</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50791400</TaxLocationCode>
+<City>GROVER BEACH</City>
+<County>SAN LUIS OBISPO</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">9.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">9.99</County>
+<State currency="USD">9.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">9.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50791400</TaxLocationCode>
+<City>GROVER BEACH</City>
+<County>SAN LUIS OBISPO</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+<GiftMessageText>Happy Birthday!
+
+Love, 
+Aunt Leah &amp; Uncle Alex</GiftMessageText>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>5</MessageID>
+<OrderReport>
+<AmazonOrderID>102-8899168-6673009</AmazonOrderID>
+<AmazonSessionID>102-8899168-6673009</AmazonSessionID>
+<OrderDate>2010-07-31T18:41:18-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T18:41:18-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>vwnz2p9nlyxf9t3@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>MS DIANE C MUEHLER</BuyerName>
+<BuyerPhoneNumber>530-676-8556</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>diane muehler</Name>
+<AddressFieldOne>3300 paiute ct</AddressFieldOne>
+<City>cameron park</City>
+<StateOrRegion>ca</StateOrRegion>
+<PostalCode>95682</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>530-676-8556</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>25129295530714</AmazonOrderItemCode>
+<SKU>AZB2093</SKU>
+<Title>Sterling Silver Thin Line CZ Tennis Bracelet</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">17.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-4.60</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50178997</TaxLocationCode>
+<City>CAMERON PARK</City>
+<County>EL DORADO</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">17.99</County>
+<State currency="USD">17.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">17.99</District>
+<City currency="USD">17.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>50178997</TaxLocationCode>
+<City>CAMERON PARK</City>
+<County>EL DORADO</County>
+<State>CA</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>6</MessageID>
+<OrderReport>
+<AmazonOrderID>002-2030460-4136228</AmazonOrderID>
+<AmazonSessionID>002-2030460-4136228</AmazonSessionID>
+<OrderDate>2010-07-31T19:29:31-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T19:29:31-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>smcy1nxgglr4vnv@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Laurie A Christiansen</BuyerName>
+<BuyerPhoneNumber>9724919860</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Laurie A Christiansen</Name>
+<AddressFieldOne>3613 ASHINGTON LN</AddressFieldOne>
+<City>PLANO</City>
+<StateOrRegion>TX</StateOrRegion>
+<PostalCode>75023-3834</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>9724919860</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>39028569663498</AmazonOrderItemCode>
+<SKU>AZB2039</SKU>
+<Title>Sterling Silver Two Tone CZ Vintage Bracelet</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">19.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-5.00</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>440852310</TaxLocationCode>
+<City>PLANO</City>
+<County>COLLIN</County>
+<State>TX</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">19.99</District>
+<City currency="USD">19.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">19.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">19.99</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>440852310</TaxLocationCode>
+<City>PLANO</City>
+<County>COLLIN</County>
+<State>TX</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>7</MessageID>
+<OrderReport>
+<AmazonOrderID>105-4292495-4547410</AmazonOrderID>
+<AmazonSessionID>105-4292495-4547410</AmazonSessionID>
+<OrderDate>2010-07-31T20:41:19-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T20:41:19-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>8nvjbf377l5zhly@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>pamela olson</BuyerName>
+<BuyerPhoneNumber>903-266-1710</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>pamela olson</Name>
+<AddressFieldOne>13584 county road 2241</AddressFieldOne>
+<City>tyler</City>
+<StateOrRegion>tx</StateOrRegion>
+<PostalCode>75701</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>903-266-1710</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>07002300523106</AmazonOrderItemCode>
+<SKU>AZE2010</SKU>
+<Title>Sterling Silver Genuine Green Jade Carved Drop Earrings</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-2.00</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>444232980</TaxLocationCode>
+<City>TYLER</City>
+<County>SMITH</County>
+<State>TX</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">4.99</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>444232980</TaxLocationCode>
+<City>TYLER</City>
+<County>SMITH</County>
+<State>TX</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">4.99</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>8</MessageID>
+<OrderReport>
+<AmazonOrderID>104-9872841-9565859</AmazonOrderID>
+<AmazonSessionID>104-9872841-9565859</AmazonSessionID>
+<OrderDate>2010-07-31T20:59:38-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T20:59:38-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>2bfymwy7x0b2xvl@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Mary Slaughter</BuyerName>
+<BuyerPhoneNumber>8176947411</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Expedited</FulfillmentServiceLevel>
+<Address>
+<Name>Mary Slaughter</Name>
+<AddressFieldOne>HOTEL MONOCO</AddressFieldOne>
+<AddressFieldTwo>15 W 200 S</AddressFieldTwo>
+<City>SALT LAKE CITY</City>
+<StateOrRegion>UTAH</StateOrRegion>
+<PostalCode>84101-1604</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>8176947411</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>66945623195842</AmazonOrderItemCode>
+<SKU>AZR2025-7</SKU>
+<Title>Sterling Silver Marquise CZ Engagement Ring Size#7</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">19.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">9.50</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-5.90</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>450350270</TaxLocationCode>
+<City>SALT LAKE CITY</City>
+<County>SALT LAKE</County>
+<State>UT</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">19.99</District>
+<City currency="USD">19.99</City>
+<County currency="USD">19.99</County>
+<State currency="USD">19.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>450350270</TaxLocationCode>
+<City>SALT LAKE CITY</City>
+<County>SALT LAKE</County>
+<State>UT</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">9.50</District>
+<City currency="USD">9.50</City>
+<County currency="USD">9.50</County>
+<State currency="USD">9.50</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>9</MessageID>
+<OrderReport>
+<AmazonOrderID>103-5907183-8165842</AmazonOrderID>
+<AmazonSessionID>103-5907183-8165842</AmazonSessionID>
+<OrderDate>2010-07-31T22:06:40-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T22:06:40-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>rxlrr292452tt5r@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>John Christie</BuyerName>
+<BuyerPhoneNumber>7022451239</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Stacy Burpee</Name>
+<AddressFieldOne>181 ALTERRA DR</AddressFieldOne>
+<City>HENDERSON</City>
+<StateOrRegion>NV</StateOrRegion>
+<PostalCode>89074-0966</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>7024265248</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>52468491644938</AmazonOrderItemCode>
+<SKU>AZP2081</SKU>
+<Title>Sterling Silver Hamsa Pendant</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">15.95</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">4.99</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-4.19</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>290030070</TaxLocationCode>
+<City>HENDERSON</City>
+<County>CLARK</County>
+<State>NV</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">15.95</County>
+<State currency="USD">15.95</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">15.95</District>
+<City currency="USD">15.95</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>290030070</TaxLocationCode>
+<City>HENDERSON</City>
+<County>CLARK</County>
+<State>NV</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">4.99</County>
+<State currency="USD">4.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">4.99</District>
+<City currency="USD">4.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+<GiftMessageText>Happy Birthday Mom!!
+
+Love, Sarah</GiftMessageText>
+</Item>
+</OrderReport>
+</Message>
+<Message>
+<MessageID>10</MessageID>
+<OrderReport>
+<AmazonOrderID>103-6685930-0954636</AmazonOrderID>
+<AmazonSessionID>103-6685930-0954636</AmazonSessionID>
+<OrderDate>2010-07-31T22:22:53-07:00</OrderDate>
+<OrderPostedDate>2010-07-31T22:22:53-07:00</OrderPostedDate>
+<BillingData>
+<BuyerEmailAddress>0mqv1tjlrllwfky@marketplace.amazon.com</BuyerEmailAddress>
+<BuyerName>Verne Glassman</BuyerName>
+<BuyerPhoneNumber>303-690-0964</BuyerPhoneNumber>
+</BillingData>
+<FulfillmentData>
+<FulfillmentMethod>Ship</FulfillmentMethod>
+<FulfillmentServiceLevel>Standard</FulfillmentServiceLevel>
+<Address>
+<Name>Verne Glassman</Name>
+<AddressFieldOne>17537 E. Jarvis Place</AddressFieldOne>
+<City>Aurora</City>
+<StateOrRegion>Co</StateOrRegion>
+<PostalCode>80013</PostalCode>
+<CountryCode>US</CountryCode>
+<PhoneNumber>303-690-0964</PhoneNumber>
+</Address>
+</FulfillmentData>
+<Item>
+<AmazonOrderItemCode>26858009135234</AmazonOrderItemCode>
+<SKU>AZB2085</SKU>
+<Title>stainless Steel and Rubber Men's Bracelet By Chaylee</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">19.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">2.49</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-4.50</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>60010030</TaxLocationCode>
+<City>AURORA</City>
+<County>ADAMS</County>
+<State>CO</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">19.99</District>
+<City currency="USD">19.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">19.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">19.99</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>60010030</TaxLocationCode>
+<City>AURORA</City>
+<County>ADAMS</County>
+<State>CO</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">2.49</District>
+<City currency="USD">2.49</City>
+<County currency="USD">0.00</County>
+<State currency="USD">2.49</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">2.49</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+<Item>
+<AmazonOrderItemCode>65736959741498</AmazonOrderItemCode>
+<SKU>AZB2336</SKU>
+<Title>stainless Steel with Black Rubber Outline Men's Bracelet</Title>
+<Quantity>1</Quantity>
+<ProductTaxCode>A_GEN_NOTAX</ProductTaxCode>
+<ItemPrice>
+<Component>
+<Type>Principal</Type>
+<Amount currency="USD">19.99</Amount>
+</Component>
+<Component>
+<Type>Shipping</Type>
+<Amount currency="USD">2.50</Amount>
+</Component>
+<Component>
+<Type>Tax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+<Component>
+<Type>ShippingTax</Type>
+<Amount currency="USD">0.00</Amount>
+</Component>
+</ItemPrice>
+<ItemFees>
+<Fee>
+<Type>Commission</Type>
+<Amount currency="USD">-4.50</Amount>
+</Fee>
+</ItemFees>
+<ItemTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>60010030</TaxLocationCode>
+<City>AURORA</City>
+<County>ADAMS</County>
+<State>CO</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">19.99</District>
+<City currency="USD">19.99</City>
+<County currency="USD">0.00</County>
+<State currency="USD">19.99</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">19.99</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ItemTaxData>
+<ShippingTaxData>
+<TaxJurisdictions>
+<TaxLocationCode>60010030</TaxLocationCode>
+<City>AURORA</City>
+<County>ADAMS</County>
+<State>CO</State>
+</TaxJurisdictions>
+<TaxableAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxableAmounts>
+<NonTaxableAmounts>
+<District currency="USD">2.50</District>
+<City currency="USD">2.50</City>
+<County currency="USD">0.00</County>
+<State currency="USD">2.50</State>
+</NonTaxableAmounts>
+<ZeroRatedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">2.50</County>
+<State currency="USD">0.00</State>
+</ZeroRatedAmounts>
+<TaxCollectedAmounts>
+<District currency="USD">0.00</District>
+<City currency="USD">0.00</City>
+<County currency="USD">0.00</County>
+<State currency="USD">0.00</State>
+</TaxCollectedAmounts>
+<TaxRates>
+<District>0.0000</District>
+<City>0.0000</City>
+<County>0.0000</County>
+<State>0.0000</State>
+</TaxRates>
+</ShippingTaxData>
+</Item>
+</OrderReport>
+</Message>
+</AmazonEnvelope>

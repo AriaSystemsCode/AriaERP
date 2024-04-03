@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<objects_h_ar row_key="LANG_PicturePrompt" cproperty="Caption" orgtext="Picture                                                                                                                                                                                                 " orgcol="LANG_PicturePrompt" langtext="صورة"/>
+	<objects_h_ar row_key="LANG_PastPrompt" cproperty="Caption" orgtext="Paste Special...                                                                                                                                                                                        " orgcol="LANG_PastPrompt" langtext="...لصق خاص"/>
+	<objects_h_ar row_key="LANG_ReplacePrompt" cproperty="Caption" orgtext="Replace object...                                                                                                                                                                                       " orgcol="LANG_ReplacePrompt" langtext="...استبدال الكائن"/>
+	<objects_h_ar row_key="LANG_ObjectPrompt" cproperty="Caption" orgtext="Object...                                                                                                                                                                                               " orgcol="LANG_ObjectPrompt" langtext="...كائن"/>
+	<objects_h_ar row_key="LANG_WindowCaption" cproperty="Caption" orgtext="Object Link                                                                                                                                                                                             " orgcol="LANG_WindowCaption" langtext="ارتباط كائن"/>
+</VFPData>

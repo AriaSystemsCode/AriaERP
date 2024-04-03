@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<potmplt_scx_ar row_key="_27Y0UZBBT" cproperty="Caption" orgtext="Description   :                                                                                                                                                                                         " orgcol="ariaformset.AriaForm1.lblDesc" langtext="الوصف:"/>
+	<potmplt_scx_ar row_key="_27Y0UWNSA" cproperty="Caption" orgtext="Template ID :                                                                                                                                                                                           " orgcol="ariaformset.AriaForm1.lblTemplate" langtext="معرف القالب:"/>
+	<potmplt_scx_ar row_key="_27Y0UWNSA" cproperty="Caption" orgtext="Template Contents                                                                                                                                                                                       " orgcol="ariaformset.AriaForm1.chkContents" langtext="محتويات القالب"/>
+	<potmplt_scx_ar row_key="_27Y0V430R" cproperty="Caption" orgtext="Set as Default                                                                                                                                                                                          " orgcol="ariaformset.AriaForm1.chkDefault" langtext="تعيين كافتراضي"/>
+	<potmplt_scx_ar row_key="XX_HEADER_XX" cproperty="POTMPLT.H" orgtext="PRGS\PO\" orgcol="" langtext=""/>
+</VFPData>

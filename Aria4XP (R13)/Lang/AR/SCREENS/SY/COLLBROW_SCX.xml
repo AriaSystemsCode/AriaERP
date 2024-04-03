@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<collbrow_scx_ar row_key="_1HZ0XH7IO" cproperty="Caption" orgtext="Collecting Data                                                                                                                                                                                         " orgcol="frmCollectData" langtext="جاري تجميع البيانات"/>
+	<collbrow_scx_ar row_key="_1HZ0XPGTC" cproperty="Caption" orgtext="Please wait  ...                                                                                                                                                                                        " orgcol="frmCollectData.lblCreateIndex" langtext="...الرجاء الانتظار"/>
+	<collbrow_scx_ar row_key="_1HZ0XPGTD" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="frmCollectData.cmdCancel" langtext="إلغاء"/>
+</VFPData>

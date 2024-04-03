@@ -1,0 +1,54 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<sorddnin_frx_ar row_key="_RU30TLCPC" cproperty="Expr" orgtext="'O r d e r   D e t a i l   R e p o r t'" orgcol="Text" langtext="'تقـرير طلــــب الشـــراء التفصيلى'"/>
+	<sorddnin_frx_ar row_key="_RU30USAAS" cproperty="Expr" orgtext="'(1)'" orgcol="Text" langtext="'(1)'"/>
+	<sorddnin_frx_ar row_key="_RU30UTPOR" cproperty="Expr" orgtext="'(2)'" orgcol="Text" langtext="'(2)'"/>
+	<sorddnin_frx_ar row_key="_RU30UTWYU" cproperty="Expr" orgtext="'(3)'" orgcol="Text" langtext="'(3)'"/>
+	<sorddnin_frx_ar row_key="_RU30UU3DG" cproperty="Expr" orgtext="'(4)'" orgcol="Text" langtext="'(4)'"/>
+	<sorddnin_frx_ar row_key="_RU30USAAS" cproperty="Expr" orgtext="'(1)'" orgcol="Text" langtext="'(1)'"/>
+	<sorddnin_frx_ar row_key="_RU30UTPOR" cproperty="Expr" orgtext="'(2)'" orgcol="Text" langtext="'(2)'"/>
+	<sorddnin_frx_ar row_key="_RU30UTWYU" cproperty="Expr" orgtext="'(3)'" orgcol="Text" langtext="'(3)'"/>
+	<sorddnin_frx_ar row_key="_RU30UU3DG" cproperty="Expr" orgtext="'(4)'" orgcol="Text" langtext="'(4)'"/>
+	<sorddnin_frx_ar row_key="_04D0MD8DE" cproperty="Expr" orgtext="IIF(lcRpSortBy = 'S',PADR('Store',8),'')" orgcol="Text" langtext="IIF(lcRpSortBy = 'S',PADR('Store',8),'')"/>
+	<sorddnin_frx_ar row_key="_1AE127U0C" cproperty="Expr" orgtext="IIF(lcRpSortBy = 'S',PADR('Customer',20),PADR(lcStyTitle,20))" orgcol="Text" langtext="IIF(lcRpSortBy = 'S',PADR('Customer',20),PADR(lcStyTitle,20))"/>
+	<sorddnin_frx_ar row_key="_1EA11DGV1" cproperty="Expr" orgtext="IIF(lcRpKind = 'D',&quot;Detail&quot;,&quot;Summary&quot;)" orgcol="Text" langtext="IIF(lcRpKind = 'D',&quot;Detail&quot;,&quot;Summary&quot;)"/>
+	<sorddnin_frx_ar row_key="_1IE0UXNSK" cproperty="Expr" orgtext="IIF(EMPTY(laWip[9]),'',&quot;W.I.P.&quot;)" orgcol="Text" langtext="IIF(EMPTY(laWip[9]),'',&quot;W.I.P.&quot;)"/>
+	<sorddnin_frx_ar row_key="_1IE0UXNSL" cproperty="Expr" orgtext="IIF(EMPTY(laStock[9]),'',&quot;Stock&quot;)" orgcol="Text" langtext="IIF(EMPTY(laStock[9]),'',&quot;Stock&quot;)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZ4" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZ5" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZ6" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZ7" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZ8" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZ9" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZA" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZB" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZC" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TotQty)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TotQty)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZF" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZG" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZH" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZI" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZJ" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZK" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZL" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZM" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)"/>
+	<sorddnin_frx_ar row_key="_1IE0V1JZN" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TotQty)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TotQty)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDJ" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDK" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDL" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDM" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDN" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDO" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDP" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDQ" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)"/>
+	<sorddnin_frx_ar row_key="_1IE0VOMDR" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TotQty)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TotQty)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P13" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty1)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P14" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty2)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P15" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty3)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P16" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty4)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P17" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty5)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P18" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty6)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P19" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty7)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P1A" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,Qty8)"/>
+	<sorddnin_frx_ar row_key="_2XM0S9P1B" cproperty="Expr" orgtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TOTqty)" orgcol="Text" langtext="IIF(llPrntBoth AND EVALUATE(lcNoteLns+'.cRecord') = 'N2',0,TOTqty)"/>
+	<sorddnin_frx_ar row_key="_2XZ0IQI0N" cproperty="Expr" orgtext="'SKU                  :'" orgcol="Text" langtext="'SKU                  :'"/>
+</VFPData>

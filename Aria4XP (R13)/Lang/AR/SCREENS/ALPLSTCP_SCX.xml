@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<alplstcp_scx_ar row_key="_1E30Q57P7" cproperty="Caption" orgtext="Copy from another pack                                                                                                                                                                                  " orgcol="ariaformset.ARIAFORM1" langtext="نسخ من عبوة أخرى"/>
+	<alplstcp_scx_ar row_key="_1E30Q57P9" cproperty="Caption" orgtext="Pack #                                                                                                                                                                                                  " orgcol="ariaformset.ARIAFORM1.lblPackId" langtext="رقم العبوة"/>
+	<alplstcp_scx_ar row_key="_1E30Q57PD" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.ARIAFORM1.cmdOk" langtext="موافق"/>
+	<alplstcp_scx_ar row_key="_1E30Q57PE" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.ARIAFORM1.cmdCancel" langtext="إلغاء"/>
+</VFPData>

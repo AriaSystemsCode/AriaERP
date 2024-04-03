@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<favorite_scx_ar row_key="_1EB0BU8JI" cproperty="Caption" orgtext="Add Favorite" orgcol="frmFavorite" langtext="إضافة المفضلة"/>
+	<favorite_scx_ar row_key="_1EB0BU8JH" cproperty="Caption" orgtext="Aria 4 XP add this page to you" orgcol="frmFavorite.lblTitle" langtext="نغم 4 XP إضافة هذه الصفحة إلى قائمتك المفضلة"/>
+	<favorite_scx_ar row_key="_1EB0BU8JL" cproperty="Caption" orgtext="Name :" orgcol="frmFavorite.lblName" langtext="الاسم:"/>
+	<favorite_scx_ar row_key="_1EB0BXSD8" cproperty="Caption" orgtext="Create in :" orgcol="frmFavorite.Arialabel2" langtext="إنشاء في:"/>
+	<favorite_scx_ar row_key="_1EB0KEH4C" cproperty="Caption" orgtext="OK" orgcol="frmFavorite.cmdOK" langtext="موافق"/>
+	<favorite_scx_ar row_key="_1EB0KEH4D" cproperty="Caption" orgtext="Cancel" orgcol="frmFavorite.cmdCancel" langtext="إلغاء الأمر"/>
+	<favorite_scx_ar row_key="_1EB0KEH4E" cproperty="Caption" orgtext="Create in &lt;&lt;" orgcol="frmFavorite.cmdCreateIn" langtext="إنشاء في &lt;&lt;"/>
+	<favorite_scx_ar row_key="_1EB0KEH4F" cproperty="Caption" orgtext="New Folder ..." orgcol="frmFavorite.cmdNewFolder" langtext="مجلد جديد..."/>
+</VFPData>

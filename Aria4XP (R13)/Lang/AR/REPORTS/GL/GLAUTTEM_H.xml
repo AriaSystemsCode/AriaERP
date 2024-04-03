@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<glauttem_h_ar row_key="LANG_COLLECTING_DATA" cproperty="Caption" orgtext="Collecting data...                                                                                                                                                                                      " orgcol="LANG_COLLECTING_DATA" langtext="...جمع البيانات"/>
+	<glauttem_h_ar row_key="LANG_CODE" cproperty="Caption" orgtext="Code                                                                                                                                                                                                    " orgcol="LANG_CODE" langtext="التعليمات البرمجية"/>
+	<glauttem_h_ar row_key="LANG_DESCRIPTION" cproperty="Caption" orgtext="Description                                                                                                                                                                                             " orgcol="LANG_DESCRIPTION" langtext="الوصف"/>
+	<glauttem_h_ar row_key="LANG_TTL" cproperty="Caption" orgtext="Codes File                                                                                                                                                                                              " orgcol="LANG_TTL" langtext="ملف رموز"/>
+</VFPData>

@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<apvcont_h_ar row_key="LANG_Unselect" cproperty="Caption" orgtext="Unselect                                                                                                                                                                                                " orgcol="LANG_Unselect" langtext="إلغاء تحديد"/>
+	<apvcont_h_ar row_key="LANG_Select" cproperty="Caption" orgtext="Select                                                                                                                                                                                                  " orgcol="LANG_Select" langtext="حدد"/>
+	<apvcont_h_ar row_key="LANG_APVCONT_CONTACT" cproperty="Caption" orgtext="Contact                                                                                                                                                                                                 " orgcol="LANG_APVCONT_CONTACT" langtext="جهة الاتصال"/>
+</VFPData>

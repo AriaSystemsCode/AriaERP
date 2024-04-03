@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<rmrautsa_frx_ar row_key="_S9Q0V66NZ" cproperty="Expr" orgtext="&quot;RETURN AUTHORIZATION&quot;, IIF(lfLBHeader(),'',''),&quot;R/A #:&quot;,Retauth.rano" orgcol="Text" langtext="&quot;اذون الارتجاع&quot;, IIF (lfLBHeader (),'',''), &quot;R / A #:&quot; ,Retauth.rano"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O0" cproperty="Expr" orgtext="&quot;                     &quot; +   &quot;Void&quot;,&quot;:&quot;,Retauth.void" orgcol="Text" langtext="&quot;                     &quot; +   &quot;Void&quot;,&quot;:&quot;,Retauth.void"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O1" cproperty="Expr" orgtext="&quot;From:&quot;, laSoldTo[1]" orgcol="Text" langtext="laSoldTo[1],&quot;:من&quot;"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O2" cproperty="Expr" orgtext="&quot;      &quot;+laSoldTo[2]" orgcol="Text" langtext="&quot;      &quot;+laSoldTo[2]"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O3" cproperty="Expr" orgtext="&quot;      &quot;+laSoldTo[3]" orgcol="Text" langtext="&quot;      &quot;+laSoldTo[3]"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O4" cproperty="Expr" orgtext="&quot;      &quot;+laSoldTo[4]" orgcol="Text" langtext="&quot;      &quot;+laSoldTo[4]"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O5" cproperty="Expr" orgtext="&quot;      &quot;+laSoldTo[5]" orgcol="Text" langtext="&quot;      &quot;+laSoldTo[5]"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O6" cproperty="Expr" orgtext="&quot;-----------------------------------------------------------------&quot;" orgcol="Text" langtext="&quot;-----------------------------------------------------------------&quot;"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O7" cproperty="Expr" orgtext="&quot;Order&quot;,&quot;:&quot;,Retauth.order" orgcol="Text" langtext="Retauth.order,&quot;:&quot;, &quot;طلب&quot;"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O8" cproperty="Expr" orgtext="&quot;Invoice&quot;,&quot;:&quot;,Retauth.invoice,&quot;Cust PO&quot;,&quot;:&quot;,Retauth.custpo" orgcol="Text" langtext="Retauth.invoice,&quot;:&quot;, &quot;فاتورة&quot;, Retauth.custpo,&quot;:&quot;,&quot;طلب&quot;"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66O9" cproperty="Expr" orgtext="&quot;-----------------------------------------------------------------&quot;" orgcol="Text" langtext="&quot;-----------------------------------------------------------------&quot;"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66OA" cproperty="Expr" orgtext="&quot;To:&quot;,WAREHOUS.CDESC" orgcol="Text" langtext="WAREHOUS.CDESC,&quot;:الى&quot;"/>
+	<rmrautsa_frx_ar row_key="_S9Q0V66OE" cproperty="Expr" orgtext="&quot;Tot.Pcs&quot;,&quot;:&quot;,Retauth.auth,&quot;Box&quot;,lnCurLBL,&quot; of&quot;,IIF(RETAUTH.CARTONS=0,'1',RETAUTH.CARTONS)" orgcol="Text" langtext="IIF(RETAUTH.CARTONS=0,'1',RETAUTH.CARTONS),&quot; من &quot;, lnCurLBL, &quot;صندوق&quot;, Retauth.auth, &quot; : &quot;, &quot;اجمالى القطع&quot;"/>
+</VFPData>

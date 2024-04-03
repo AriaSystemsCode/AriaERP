@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<madatsen_h_ar row_key="LANG_MADATSEN_FABRIC" cproperty="Caption" orgtext="Fabric                                                                                                                                                                                                  " orgcol="LANG_MADATSEN_FABRIC" langtext="النسيج"/>
+	<madatsen_h_ar row_key="LANG_MADATSEN_LOCATION" cproperty="Caption" orgtext="Location                                                                                                                                                                                                " orgcol="LANG_MADATSEN_LOCATION" langtext="موقع"/>
+	<madatsen_h_ar row_key="LANG_MADATSEN_MSGCOLDATA" cproperty="Caption" orgtext="Collecting Data for                                                                                                                                                                                     " orgcol="LANG_MADATSEN_MSGCOLDATA" langtext="تجميع البيانات من أجل"/>
+</VFPData>

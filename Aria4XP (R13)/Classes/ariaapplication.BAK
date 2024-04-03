@@ -1,0 +1,24 @@
+#DEFINE LANG_LogMSG "System is locked by the administrator. Please try later"
+#DEFINE FILE_W 30
+#DEFINE FIELD_W 30
+#DEFINE INDEX_W 30
+*N000682,1 MMT 11/20/2012 Globalization project[Start]
+#DEFINE LANG_MAIN_CLOSE     'CLOSE'
+#DEFINE LANG_MAIN_ORDER     'ORDER'
+#DEFINE LANG_MAIN_SEEK_QUIK_FIND     'SEEK (QUIK FIND)'
+#DEFINE LANG_MAIN_STYLE     'STYLE'
+#DEFINE LANG_MAIN_CUSTOMER     'CUSTOMER'
+#DEFINE LANG_MAIN_VENDOR     'VENDOR'
+#DEFINE LANG_ARIA_CONNERR1  "Connection cannot be made due to error in connection string."
+#DEFINE LANG_ARIA_CONNERR2  "Connection cannot be made due to environmental error."
+#DEFINE LANG_ARIA_CONNERR5  "Connection cannot be made due to error in connection string."
+#DEFINE LANG_ARIA_CONNERR6  "No of connections exceed the maximum connections count."
+#DEFINE LANG_AUDITTRAIL_EVENT 'Event'
+#DEFINE LANG_AUDITTRAIL_USERID 'User ID'
+#DEFINE LANG_AUDITTRAIL_TIME 'Time'
+#DEFINE LANG_AUDITTRAIL_DATE 'Date' 
+#DEFINE LANG_AUDITTRAIL_NEEDEDINF 'Needed Information'
+#DEFINE LANG_AUDITTRAIL_USERCOMM 'User Comments'
+#DEFINE LANG_AUDITTRAIL_NORECORDTODISP "No records to display"
+#DEFINE LANG_AUDITTRAIL_BROWTITLE 'Audit Trails'
+*N000682,1 MMT 11/20/2012 Globalization project[End]

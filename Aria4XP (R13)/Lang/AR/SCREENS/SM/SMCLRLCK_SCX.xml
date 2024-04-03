@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<smclrlck_scx_ar row_key="_1KW0QG6JM" cproperty="Caption" orgtext="Clear Locks for SQL tables" orgcol="FrmClrLck" langtext="إقفال واضحة لجداول SQL"/>
+	<smclrlck_scx_ar row_key="_1KW0QG6JO" cproperty="Caption" orgtext="Start" orgcol="FrmClrLck.cmdStart" langtext="بدء تشغيل"/>
+	<smclrlck_scx_ar row_key="_1KW0ZX6BY" cproperty="Caption" orgtext="Close" orgcol="FrmClrLck.cmdClose" langtext="قم بإغلاق"/>
+</VFPData>

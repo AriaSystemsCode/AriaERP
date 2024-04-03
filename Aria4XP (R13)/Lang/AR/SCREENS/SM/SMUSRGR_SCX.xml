@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<smusrgr_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Group ID:" orgcol="ariaformset.AriaForm1.lblRepname" langtext="معرف المجموعة:"/>
+	<smusrgr_scx_ar row_key="_0TR12LILP" cproperty="Caption" orgtext="Name:" orgcol="ariaformset.AriaForm1.Arialabel1" langtext="الاسم:"/>
+	<smusrgr_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="General" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1" langtext="العام"/>
+	<smusrgr_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="Members" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2" langtext="أعضاء"/>
+	<smusrgr_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="Privileges" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page3" langtext="امتيازات"/>
+	<smusrgr_scx_ar row_key="_0UI0UTFM4" cproperty="Caption" orgtext="Notes" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Ariatitleshape5.Ariatitlelabel1" langtext="وتلاحظ"/>
+	<smusrgr_scx_ar row_key="_0UM0NYLNN" cproperty="Caption" orgtext="Header1" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.grdUser.Header1" langtext="Header1"/>
+	<smusrgr_scx_ar row_key="_0UM0NYLNP" cproperty="Caption" orgtext="Header1" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.grdUser.Header1" langtext="Header1"/>
+	<smusrgr_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Remove" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.cmdRemove" langtext="إزالة"/>
+	<smusrgr_scx_ar row_key="_1NL14DOEB" cproperty="Caption" orgtext="Add" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.cmdAdd" langtext="إضافة"/>
+	<smusrgr_scx_ar row_key="XX_HEADER_XX" cproperty="SMUSRGR.H" orgtext="SCREENS\SM\" orgcol="" langtext=""/>
+</VFPData>

@@ -1,0 +1,5 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<aredsal_h_ar row_key="LANG_CONCLUDE" cproperty="Caption" orgtext="Concluding Salutation                                                                                                                                                                                   " orgcol="LANG_CONCLUDE" langtext="تحية ختامية"/>
+	<aredsal_h_ar row_key="LANG_OPEN" cproperty="Caption" orgtext="Opening Salutation                                                                                                                                                                                      " orgcol="LANG_OPEN" langtext="التحية الافتتاحية"/>
+</VFPData>

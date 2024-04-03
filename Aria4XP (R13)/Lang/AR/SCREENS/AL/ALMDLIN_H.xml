@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<almdlin_h_ar row_key="LANG_AlloByStyle_StyDye" cproperty="Caption" orgtext="Style Dyelot                                                                                                                                                                                            " orgcol="LANG_AlloByStyle_StyDye" langtext="درجة لون النمط"/>
+	<almdlin_h_ar row_key="LANG_AlloByStyle_Dyelot" cproperty="Caption" orgtext="Dyelot      :                                                                                                                                                                                           " orgcol="LANG_AlloByStyle_Dyelot" langtext="درجة اللون:"/>
+	<almdlin_h_ar row_key="LANG_AlloByStyle_Config" cproperty="Caption" orgtext="Configration:                                                                                                                                                                                           " orgcol="LANG_AlloByStyle_Config" langtext="تكوين:"/>
+</VFPData>

@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<glacbrow_h_ar row_key="LANG_Acct" cproperty="Caption" orgtext="Chart of accounts                                                                                                                                                                                       " orgcol="LANG_Acct" langtext="دليل الحسابات"/>
+	<glacbrow_h_ar row_key="LANG_LngDesc" cproperty="Caption" orgtext="Long Description                                                                                                                                                                                        " orgcol="LANG_LngDesc" langtext="وصف طويل"/>
+	<glacbrow_h_ar row_key="LANG_ShrDesc" cproperty="Caption" orgtext="Short Description                                                                                                                                                                                       " orgcol="LANG_ShrDesc" langtext="وصف قصير"/>
+</VFPData>

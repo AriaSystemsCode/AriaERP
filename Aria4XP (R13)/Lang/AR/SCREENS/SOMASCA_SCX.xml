@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<somasca_scx_ar row_key="_1WV0LT2SO" cproperty="Caption" orgtext="Order Cancellation Reason :                                                                                                                                                                             " orgcol="ariaformset.Ariaform1.lblReason" langtext="سبب إلغاء الأمر:"/>
+	<somasca_scx_ar row_key="_1X20USUTJ" cproperty="Caption" orgtext="Edit Shaved Quantity                                                                                                                                                                                    " orgcol="ariaformset.Ariaform1.grdOrders.cmdShave" langtext="تحرير سبب إلغاء الكمية غير المحجوزة"/>
+	<somasca_scx_ar row_key="XX_HEADER_XX" cproperty="SOMASCA.H" orgtext="SCREENS\" orgcol="" langtext=""/>
+</VFPData>

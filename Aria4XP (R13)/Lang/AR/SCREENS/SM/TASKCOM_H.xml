@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<taskcom_h_ar row_key="LANG_Type1" cproperty="Caption" orgtext="Complete a Call                                                                                                                                                                                         " orgcol="LANG_Type1" langtext="استكمال الاستدعاء"/>
+	<taskcom_h_ar row_key="LANG_Type2" cproperty="Caption" orgtext="Complete an Appointment                                                                                                                                                                                 " orgcol="LANG_Type2" langtext="استكمال التعيين"/>
+	<taskcom_h_ar row_key="LANG_Type3" cproperty="Caption" orgtext="Complete a Todo                                                                                                                                                                                         " orgcol="LANG_Type3" langtext="استكمال أداة"/>
+	<taskcom_h_ar row_key="LANG_Type4" cproperty="Caption" orgtext="Complete an Email                                                                                                                                                                                       " orgcol="LANG_Type4" langtext="استكمال رسالة بريد إلكتروني"/>
+</VFPData>

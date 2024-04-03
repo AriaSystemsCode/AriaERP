@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icdsnpct_h_ar row_key="LANG_COLOR_COLL" cproperty="Caption" orgtext="Color Collection Picture                                                                                                                                                                                " orgcol="LANG_COLOR_COLL" langtext="صور مجموعة الألوان"/>
+	<icdsnpct_h_ar row_key="LANG_COLOR_SUB" cproperty="Caption" orgtext="Color Sub-group Picture                                                                                                                                                                                 " orgcol="LANG_COLOR_SUB" langtext="صورة مجموعة الألوان الفرعية"/>
+	<icdsnpct_h_ar row_key="LANG_PICTUREDESIGN" cproperty="Caption" orgtext="Design Picture                                                                                                                                                                                          " orgcol="LANG_PICTUREDESIGN" langtext="صورة التصميم"/>
+	<icdsnpct_h_ar row_key="LANG_TEMPPICTURE" cproperty="Caption" orgtext="Template Picture                                                                                                                                                                                        " orgcol="LANG_TEMPPICTURE" langtext="صورة القالب"/>
+</VFPData>

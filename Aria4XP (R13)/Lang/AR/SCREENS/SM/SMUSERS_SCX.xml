@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="User ID:" orgcol="ariaformset.AriaForm1.lblRepname" langtext="معرف المستخدم:"/>
+	<smusers_scx_ar row_key="_0TR12LILP" cproperty="Caption" orgtext="Name:" orgcol="ariaformset.AriaForm1.Arialabel1" langtext="الاسم:"/>
+	<smusers_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="General" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1" langtext="العام"/>
+	<smusers_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="Defaults &amp; Login Information" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2" langtext="افتراضيات آند معلومات تسجيل الدخول"/>
+	<smusers_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="Privileges" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page3" langtext="امتيازات"/>
+	<smusers_scx_ar row_key="_0UA0RJYFB" cproperty="Caption" orgtext="Login period" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Ariatitleshape3.Ariatitlelabel1" langtext="فترة تسجيل الدخول"/>
+	<smusers_scx_ar row_key="_0UA0R2IN2" cproperty="Caption" orgtext="Information" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Ariatitleshape1.Ariatitlelabel1" langtext="معلومات"/>
+	<smusers_scx_ar row_key="_0UA0R2IN3" cproperty="Caption" orgtext="Password:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel1" langtext="كلمة المرور:"/>
+	<smusers_scx_ar row_key="_0UA0R2IN5" cproperty="Caption" orgtext="Group:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel2" langtext="المجموعة:"/>
+	<smusers_scx_ar row_key="_1S712VWCL" cproperty="Caption" orgtext="E-Mail:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel11" langtext="البريد الإلكتروني:"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Phone #:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel3" langtext="رقم الهاتف:"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Typeahead:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel4" langtext="Typeahead:"/>
+	<smusers_scx_ar row_key="_0UA0RJYFL" cproperty="Caption" orgtext="Settings" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Ariatitleshape2.Ariatitlelabel1" langtext="إعدادات"/>
+	<smusers_scx_ar row_key="_0UA0SCTRC" cproperty="Caption" orgtext="Task Pane on Top" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.chkExpTop" langtext="جزء المهام في الأعلى"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Use Task Pane" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.chkUseExp" langtext="استخدم جزء المهام"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Change password" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.chkChngPass" langtext="تغيير كلمة المرور"/>
+	<smusers_scx_ar row_key="_0UA0RJYFN" cproperty="Caption" orgtext="Change Favorite" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.chkToolbar" langtext="تغير المفضل"/>
+	<smusers_scx_ar row_key="_0UA0RJYFO" cproperty="Caption" orgtext="Level:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel5" langtext="المستوى:"/>
+	<smusers_scx_ar row_key="_0UA0RJYFQ" cproperty="Caption" orgtext="Audit:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel6" langtext="مراجعة الحسابات:"/>
+	<smusers_scx_ar row_key="_0UA0RJYFS" cproperty="Caption" orgtext="Date From:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel7" langtext="وحتى الآن من:"/>
+	<smusers_scx_ar row_key="_0UA0RJYFT" cproperty="Caption" orgtext="Time From:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel8" langtext="الوقت من:"/>
+	<smusers_scx_ar row_key="_0UA0RJYFU" cproperty="Caption" orgtext="Through:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel9" langtext="من خلال:"/>
+	<smusers_scx_ar row_key="_0UA0RJYFV" cproperty="Caption" orgtext="Through:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page1.Arialabel10" langtext="من خلال:"/>
+	<smusers_scx_ar row_key="_0UA0THX8N" cproperty="Caption" orgtext="Defaults" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Ariatitleshape1.Ariatitlelabel1" langtext="الإعدادات الافتراضية"/>
+	<smusers_scx_ar row_key="_0UA0THX8O" cproperty="Caption" orgtext="Company:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Arialabel1" langtext="الشركة:"/>
+	<smusers_scx_ar row_key="_1S7138EMK" cproperty="Caption" orgtext="Rep. Temp.:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Arialabel12" langtext="قال النائب Temp.:"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Printer:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Arialabel3" langtext="الطابعة:"/>
+	<smusers_scx_ar row_key="_0UA0THX8Y" cproperty="Caption" orgtext="Login Information" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Ariatitleshape2.Ariatitlelabel1" langtext="معلومات تسجيل الدخول"/>
+	<smusers_scx_ar row_key="_1S713NIJH" cproperty="Caption" orgtext="Prompt Days:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.lblPromDays" langtext="موجه الأيام:"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Last login date:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Arialabel4" langtext="تاريخ تسجيل الدخول:"/>
+	<smusers_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Last login time:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Arialabel5" langtext="آخر وقت تسجيل الدخول:"/>
+	<smusers_scx_ar row_key="_0UA0THX8Z" cproperty="Caption" orgtext="Last logout time:" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.Arialabel6" langtext="آخر وقت تسجيل الخروج:"/>
+	<smusers_scx_ar row_key="_0UA0THX90" cproperty="Caption" orgtext="User currently loged" orgcol="ariaformset.AriaForm1.AriaPageFrame1.Page2.chkLoged" langtext="المستخدم حاليا تسجيل"/>
+</VFPData>

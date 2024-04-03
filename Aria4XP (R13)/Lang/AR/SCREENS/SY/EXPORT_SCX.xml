@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<export_scx_ar row_key="_1D6172CQH" cproperty="Caption" orgtext="Export Dialog                                                                                                                                                                                           " orgcol="ExportDlg" langtext="تصدير مربع الحوار"/>
+	<export_scx_ar row_key="_1D6172CQG" cproperty="Caption" orgtext="Export To :                                                                                                                                                                                             " orgcol="ExportDlg.lblTo" langtext="التصدير إلى:"/>
+	<export_scx_ar row_key="_1D6186R8Y" cproperty="Caption" orgtext="Path                                                                                                                                                                                                    " orgcol="ExportDlg.lblPath" langtext="مسار"/>
+	<export_scx_ar row_key="_1D6172CQG" cproperty="Caption" orgtext="Preview                                                                                                                                                                                                 " orgcol="ExportDlg.cmdPreview" langtext="معاينة"/>
+	<export_scx_ar row_key="_1D80O4U73" cproperty="Caption" orgtext="Export                                                                                                                                                                                                  " orgcol="ExportDlg.cmdExport" langtext="تصدير"/>
+	<export_scx_ar row_key="_1D80O4U74" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ExportDlg.cmdCancel" langtext="إلغاء"/>
+	<export_scx_ar row_key="XX_HEADER_XX" cproperty="OPTIONGRID.H" orgtext="CLASSES\" orgcol="" langtext=""/>
+</VFPData>

@@ -1,0 +1,45 @@
+#DEFINE LANG_ARIAEXPLORER_FULL_PREVIEW		"Full Preview"
+#DEFINE LANG_ARIAEXPLORER_NOT_VALID_PICTURE	"Unable to display image..."
+#DEFINE LANG_ARIAEXPLORER_REPORT_TASKS      "Report Tasks"
+#DEFINE LANG_ARIAEXPLORER_REPORT_DETAIL     "Report Details"
+#DEFINE LANG_ARIAEXPLORER_ZOOM              "Zoom"
+#DEFINE LANG_ARIAEXPLORER_REPORTS_TASKS     "Report Tasks"
+#DEFINE LANG_ARIAEXPLORER_SELECT_ITEM       "Select an item to view its description."
+#DEFINE LANG_ARIAEXPLORER_ITEM_SORTCUT      "Open,Sample"
+#DEFINE LANG_TASK_BAR_BASE_MODULES          "Base Modules"
+#DEFINE LANG_TASK_BAR_FINANCIAL_MODULES     "Financial Modules"
+#DEFINE LANG_TASK_BAR_PRODUCTION_MODULES    "Production Modules"
+#DEFINE LANG_TASK_BAR_PURCHASING_MODULES    "Purchasing Modules"
+#DEFINE LANG_TASK_BAR_EDI_MODULES           "EDI Modules"
+#DEFINE LANG_TASK_BAR_SM_MODULES            "System Manager"
+#DEFINE LANG_TASK_BAR_FILES                 "Master Files"
+#DEFINE LANG_TASK_BAR_TRANS                 "Transactions"
+#DEFINE LANG_TASK_BAR_REPORTS               "Reports"
+#DEFINE LANG_TASK_BAR_FAVORITES_SECTION     "Favorites"
+#DEFINE LANG_TASK_BAR_DETAILS               "Details"
+#DEFINE LANG_TASK_BAR_DETAILS_ZOOM          "Zoom"
+#DEFINE LANG_TASK_BAR_SHARE                 "Shared"
+
+#DEFINE LANG_ARIAEXPLORER_FULL_POSTYCSTSH    "Imported Style \<Cost Sheet"
+#DEFINE LANG_ARIAEXPLORER_FULL_MFSTYCSTSH    "Manufactured S\<tyle Cost Sheet"
+
+#DEFINE LANG_USER_SETTINGS             "User Settings"
+#DEFINE LANG_CURRENT_CONTROL_BACKCOLOR "Set Current Control Background Color"
+#DEFINE LANG_CURRENT_CONTROL_FONTCOLOR "Set Disabled Current Control Font Color"
+
+
+*N000682,1 MMT 11/13/2012 Modify Task bar to read to work in globalization[Start]
+#DEFINE LANG_MASTER_DATA  'Master Data'
+#DEFINE LANG_OUTPUT   'Output'
+#DEFINE LANG_TRANS 'Transactions'
+#DEFINE LANG_MY_TASKS 'My Tasks'
+#DEFINE LANG_SETUPS  'Setups'
+#DEFINE LANG_MY_TASKS  "My Tasks"
+#DEFINE LANG_MYARIA "My Aria"
+#DEFINE LANG_VIEW_FAVORITES "View Favorites"
+#DEFINE LANG_ORGANIZE_FAVORITES "Organize Favorites"
+*N000682,1 MMT 11/13/2012 Modify Task bar to read to work in globalization[End]
+*N000682,1 MMT 11/20/2012 Globalization project[Start]
+#DEFINE LANG_ARIAEXPLORER_FAVORITES     'Favorites'
+#DEFINE LANG_ARIAEXPLORER_ADD_FAVORITES  "Add to Favorites"
+*N000682,1 MMT 11/20/2012 Globalization project[End]

@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icitemve_scx_ar row_key="_0SL116FVX" cproperty="Caption" orgtext="Valid Enteries                                                                                                                                                                                          " orgcol="frmVldEnt.AriaForm1" langtext="إدخالات صالحة"/>
+	<icitemve_scx_ar row_key="_0SL13171K" cproperty="Caption" orgtext="Valid Entry                                                                                                                                                                                             " orgcol="frmVldEnt.AriaForm1.grdVldEnt.Column1.Header1" langtext="إدخال صالح"/>
+	<icitemve_scx_ar row_key="_0SL13171M" cproperty="Caption" orgtext="User Defined value                                                                                                                                                                                      " orgcol="frmVldEnt.AriaForm1.grdVldEnt.Column2.Header1" langtext="قيمة معرف من قبل المستخدم"/>
+	<icitemve_scx_ar row_key="_0SL116FW2" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="frmVldEnt.AriaForm1.cmdOk" langtext="موافق"/>
+</VFPData>
