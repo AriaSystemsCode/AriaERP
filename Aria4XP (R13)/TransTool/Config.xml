@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Data>
+<SETTING>
+ <SERVER>u4hfi3e5h9.database.windows.net</SERVER>
+ <UID>azuresqladmin</UID>
+ <PWD>aria_123</PWD>
+ <DATABASE>Aria5SystemAdmin</DATABASE>
+  <SYSPATH>C:\Users\PC1\Desktop\TransTool\sysfiles</SYSPATH>
+  <ARIAPATH>C:\Users\PC1\Desktop\TransTool\Shared</ARIAPATH>
+</SETTING>
+</Data>
