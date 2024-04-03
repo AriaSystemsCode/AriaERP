@@ -1,0 +1,6 @@
+#DEFINE LANG_MOVERTITLE  "Detail Operation Tools"
+#DEFINE LANG_DETOPFOR  "Detail Operations for " 
+#DEFINE LANG_VIEW "\<View"
+#DEFINE LANG_MODIFY "\<Modify"  
+#DEFINE LANG_DELETEOPERATION "Do you want to delete operation "
+

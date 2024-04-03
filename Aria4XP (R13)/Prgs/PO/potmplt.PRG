@@ -1,0 +1,609 @@
+*:************************************************************************
+*: File      : POTMPLT.PRG                                              :*
+*: System    : ARIA 4.0 XP                                              :*
+*: Modules   : PO                                                       :*
+*: Program   : Adjust Cost For receiving Template                       :*
+*: Developer : Mariam Mazhar[MMT]                                       :*
+*: Issue NO. : E302483                                                 :*
+**************************************************************************
+*Modifications:
+*E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004]
+*:************************************************************************
+#INCLUDE R:\Aria4XP\prgs\PO\POTMPLT.h
+DO FORM (oAriaApplication.ScreenHome+"\PO\POTMPLT.SCX")
+
+*!*****************************************************************************************
+*! Name      : lfInit
+*! Developer : Mariam Mazhar Tawfik [MMT]
+*! Date      : 01/03/2008
+*! Purpose   : init func of the Formset
+*!*****************************************************************************************
+FUNCTION lfInit
+LPARAMETERS LOFoRMSET
+
+SET MULTILOCKS ON
+
+=gfOpenTable('SHPCSTHD','SHPCSTHD','SH')
+=gfOpenTable('SHPCSTLN','SHPCSTLN','SH')
+=gfOpenTable('CODES','CCODE_NO','SH')
+
+
+WITH LOFoRMSET
+  .cBrowseTableDBEngine	  = "SQL"
+  .nWorkArea        	    = "SHPCSTHD"
+  .DataEnvironment.InitialSelectedAlias = "SHPCSTHD"
+  .cBrowseFileName        = "SHPCSTHD"
+  .cBrowseIndexExpression = "CTEMPLATE"
+  .cBrowseIndexFields     = "CTEMPLATE"
+  .cBrowseIndexName       = "SHPCSTHD"
+  .cBrowseAliasName       = "SHPCSTHD"
+  .cBrowseTableName       = "SHPCSTHD"
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*.BrowseTitle 		  	  = LANG_BROW_TITLE
+.BrowseTitle 		  	  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BROW_TITLE,loFormSet.GetHeaderText("LANG_BROW_TITLE",loFormSet.HeaderAlias))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+ENDWITH
+
+*!*****************************************************************************************
+*! Name      : lfValidTemp
+*! Developer : Mariam Mazhar Tawfik [MMT]
+*! Date      : 01/03/2008
+*! Purpose   : Validate Template Code
+*!*****************************************************************************************
+FUNCTION lfValidTemp
+PARAMETERS lcTValue  ,llBrowse ,loFormSet
+
+
+PRIVATE lnSlct,lcModalMes,lnResp
+lnSlct = SELECT(0)
+SELECT SHPCSTHD
+
+IF llBrowse  .OR. ('?' $ lcTValue)
+  =lfTmpltBr()
+  IF !EMPTY(loFormSet.ariaForm1.kbTemplate.keytextbox.Value)
+    =gfSEEK(PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value,6),'SHPCSTHD')
+    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+    loFormSet.ChangeMode("V")
+    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+  ENDIF
+  *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+  *loFormSet.ChangeMode("V")
+  *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+ELSE
+  IF !EMPTY(lcTValue)
+    IF !gfSeek(PADR(lcTValue,6),'SHPCSTHD')
+      *- Msg : 00001  = >   ð is not found in the data file.
+      *- Btn : 42003  = >  \<Add;\<Browse;\?\<Reenter
+      *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*lcModalMes = LANG_TEMP_CODE + ALLTRIM(lcTValue)+' '
+lcModalMes = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TEMP_CODE,loFormSet.GetHeaderText("LANG_TEMP_CODE",loFormSet.HeaderAlias)) + ALLTRIM(lcTValue)+' '
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+      lnResp = gfModalGen('QRM00001B42003','DIALOG',lcModalMes)
+
+      DO CASE
+        CASE lnResp = 1  && Add
+          loFormSet.ChangeMode("A")
+          DIMENSION loFormSet.laSource[1],loFormSet.laTarget[1]
+          loFormSet.laTarget = ''
+          SELECT (loFormSet.lctemplatetemp)
+          APPEND BLANK
+          REPLACE CTEMPLATE  WITH loFormSet.ariaForm1.kbTemplate.keytextbox.Value
+
+        CASE lnResp = 2  && Browse
+          =lfTmpltBr()
+          IF !EMPTY(loFormSet.ariaForm1.kbTemplate.keytextbox.Value)
+    		=gfSEEK(PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value,6),'SHPCSTHD')
+  		    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+      		loFormSet.ChangeMode("V")
+            *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+  		  ENDIF
+  		    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+      		*loFormSet.ChangeMode("V")
+            *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][END]
+        CASE lnResp = 3  && Reenter
+	        loFormSet.ChangeMode("S")
+       ENDCASE
+    ELSE
+      IF !EMPTY(loFormSet.ariaForm1.kbTemplate.keytextbox.Value)
+		=gfSEEK(PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value,6),'SHPCSTHD')
+  		*E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+      	loFormSet.ChangeMode("V")
+        *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+  	  ENDIF
+  	  *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+      *loFormSet.ChangeMode("V")
+      *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+    ENDIF
+  ENDIF
+ENDIF
+*:**************************************************************************
+*:* Name        : lfTmpltBr
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 01/03/2008
+*:* Purpose     : Browse Template codes
+*:***************************************************************************
+FUNCTION lfTmpltBr
+PRIVATE laTemp,lcFieldsNam,lcBrFields
+llBrowse = .F.
+
+SELECT SHPCSTHD
+=gfSeek('')
+GO TOP
+
+DIMENSION laTemp[2]
+latemp = ''
+lcFieldsNam = 'CTEMPLATE,CTMPLTDSC'
+
+lcBrFields = "CTEMPLATE :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BROW_FIELD_TITLE,loFormSet.GetHeaderText("LANG_BROW_FIELD_TITLE",loFormSet.HeaderAlias))+"',"+;
+"CTMPLTDSC :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BROW_DESC_TITLE,loFormSet.GetHeaderText("LANG_BROW_DESC_TITLE",loFormSet.HeaderAlias))+"'"
+
+PRIVATE lcFile_ttl,lcWinTitl
+=Ariabrow('',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BROW_TITLE,loFormSet.GetHeaderText("LANG_BROW_TITLE",loFormSet.HeaderAlias)),gnbrfsrow1, gnbrfscol1,gnbrfsrow2, gnbrfscol2, '','',;
+             lcFieldsNam,'laTemp')
+
+IF !EMPTY(laTemp[1])
+  IF gfSEEK(PADR(laTemp[1],6),'SHPCSTHD')
+    loFormSet.ariaForm1.kbTemplate.keytextbox.Value = laTemp[1]
+    loFormSet.ChangeMode("V")
+  ENDIF
+ELSE
+  loFormSet.ariaForm1.kbTemplate.keytextbox.Value = ""
+ENDIF
+
+*-- end of lfTmpltBr.
+*!*************************************************************************
+*!* Name        : lfvCstTmpl
+*!* Developer   : Mariam Mazhar[MMT]
+*!* Date        : 01/03/2008
+*!* Purpose     : Set up the Cost Items to be displayed in the shipment Cost
+*!*             : sheet Screen
+*!***************************************************************************
+FUNCTION lfvCstTmpl
+PARAMETERS loFormSet,lcActiveMode
+
+lfCstAray(loFormSet)
+DIMENSION laSource[1],laTarget[1]
+=ACOPY(loFormSet.laSource,laSource)
+=ACOPY(loFormSet.laTarget,laTarget)
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*llReturn = gfMover(@laSource,@laTarget,LANG_MOVER_TITLE,IIF(lcActiveMode = 'V',.F.,.T.),"",.T.,.F.,loFormSet)
+llReturn = gfMover(@laSource,@laTarget,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MOVER_TITLE,loFormSet.GetHeaderText("LANG_MOVER_TITLE",loFormSet.HeaderAlias)),IIF(lcActiveMode = 'V',.F.,.T.),"",.T.,.F.,loFormSet)
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+DIMENSION loFormSet.laTarget[ALEN(laTarget,1)]
+=ACOPY(laTarget,loFormSet.laTarget)
+
+IF EMPTY(loFormSet.laTarget[1])
+  loFormSet.ariaForm1.chkContents.Value  = .F.
+ELSE
+  loFormSet.ariaForm1.chkContents.Value  = .T.
+ENDIF
+
+*:***************************************************************************
+*:* Name        : lfGetTempInf
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 01/03/2008
+*:* Purpose     : Filling cost elements array
+*:***************************************************************************
+FUNCTION lfGetTempInf
+PARAMETERS loFormSet
+
+DIMENSION loFormSet.laSource[1],loFormSet.laTarget[1]
+loFormSet.laTarget = ''
+
+IF EOF('SHPCSTHD')
+  loFormSet.ChangeMode("S")
+  RETURN
+ENDIF
+
+
+lcTempVal = SHPCSTHD.CTEMPLATE
+loFormSet.ariaForm1.kbTemplate.keytextbox.Value = lcTempVal
+
+=gfSeek(lcTempVal,'SHPCSTHD')
+=gfSeek(lcTempVal,'SHPCSTLN')
+
+loFormSet.ariaForm1.chkDefault.Value = SHPCSTHD.LDEFAULT
+loFormSet.ariaForm1.txtTempDesc.Value = SHPCSTHD.CTMPLTDSC
+
+lfCstAray(loFormSet)
+*E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+*!*	SELECT PADR(cCode_No,6,' ') + '-' + PADR(cDescrip,30) + CCATGTYP+CBOMTYP ;
+*!*	      FROM SHPCSTLN ;
+*!*	      WHERE CTEMPLATE = lcTempVal ;
+*!*	      ORDER BY LINENO ;
+*!*	      INTO ARRAY loFormSet.laTarget
+SELECT PADR(cCode_No,6,' ') + '-' + PADR(cDescrip,60) + CCATGTYP+CBOMTYP ;
+      FROM SHPCSTLN ;
+      WHERE CTEMPLATE = lcTempVal ;
+      ORDER BY LINENO ;
+      INTO ARRAY loFormSet.laTarget
+*E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+
+*:***************************************************************************
+*:* Name        : lfCrtTemp
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 01/03/2008
+*:* Purpose     : Filling cost elements array
+*:***************************************************************************
+FUNCTION lfCrtTemp
+PARAMETERS lcCursorName,loFormSet
+
+SELECT SHPCSTHD
+DIMENSION laTableStruct[1,18]
+=AFIELDS(laTableStruct)
+=gfCrtTmp(lcCursorName,@laTableStruct,"CTEMPLATE",lcCursorName,.F.)
+
+
+SELECT SHPCSTLN
+DIMENSION laTableStrDt[1,18]
+=AFIELDS(laTableStrDt)
+lcCursName = LOFoRMSET.lcTempShpCst
+=gfCrtTmp(lcCursName ,@laTableStrDt,"CTEMPLATE+STR(LINENO,6)",lcCursName ,.F.)
+
+IF loFormSet.ActiveMode = 'E'
+  SELECT SHPCSTHD
+  =gfSeek(PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value ,6),'SHPCSTHD')
+  SCATTER MEMO MEMVAR
+  INSERT INTO (lcCursorName) FROM MEMVAR
+
+
+  SELECT SHPCSTLN
+  =gfSeek(PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value ,6),'SHPCSTLN')
+  SCAN REST WHILE CTEMPLATE+STR(LINENO,6)= PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value ,6)
+    SCATTER MEMO MEMVAR
+    INSERT INTO (LOFoRMSET.lcTempShpCst) FROM MEMVAR
+  ENDSCAN
+
+ENDIF
+*:***************************************************************************
+*:* Name        : lfCstAray
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 01/03/2008
+*:* Purpose     : Filling cost elements array
+*:***************************************************************************
+FUNCTION lfCstAray
+PARAMETERS loFormSet
+PRIVATE lnCnt,lcCnt,lnElmnts
+*@loFormSet.laSource,@loFormSet.laTarget
+DIMENSION laTarget[1],laSource[1]
+STORE '' TO laSource,laTarget
+
+STORE '' TO M_CISLBL1,M_CISLBL2,M_CISLBL3,M_CISLBL4,M_CISLBL5,M_CITYPE1,M_CITYPE2,M_CITYPE3,M_CITYPE4,M_CITYPE5,M_CITYPE6,M_CITYPE7
+=gfGetMemVar('M_CISLBL1,M_CISLBL2,M_CISLBL3,M_CISLBL4,M_CISLBL5,M_CITYPE1,M_CITYPE2,M_CITYPE3,M_CITYPE4,M_CITYPE5,M_CITYPE6,M_CITYPE7',oAriaApplication.ActiveCompanyID)
+
+lnElmnts = 0
+FOR lnCnt = 1 TO 7
+  lcCnt = STR(lnCnt,1)
+  IF M_CITYPE&lcCnt = 'D'
+    lnElmnts = lnElmnts + 1
+    DIMENSION loFormSet.laSource[lnElmnts]
+    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+*!*	    loFormSet.laSource[lnElmnts] = ;
+*!*	              PADR(M_CISLBL&lcCnt,6,' ') + '-' + ;
+*!*	              PADR(M_CISLBL&lcCnt, 30) + ;
+*!*	              'D'+STR(lnCnt,1)
+    loFormSet.laSource[lnElmnts] = ;
+              PADR(M_CISLBL&lcCnt,6,' ') + '-' + ;
+              PADR(M_CISLBL&lcCnt, 60) + ;
+              'D'+STR(lnCnt,1)
+    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+  ENDIF
+ENDFOR
+
+SELECT CODES
+IF gfSEEK('N'+'MFGCODE')
+  SCAN REST WHILE cdefcode+cfld_name+ccode_no+cdiscrep+crltd_nam = 'N' + 'MFGCODE' ;
+            FOR CRLTFIELD = 'N'
+    lnElmnts = lnElmnts + 1
+    DIMENSION loFormSet.laSource[lnElmnts]
+    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
+    *loFormSet.laSource[lnElmnts] = PADR(cCode_No,6,' ') + '-' + PADR(cDiscrep,30) + 'M '
+    loFormSet.laSource[lnElmnts] = PADR(cCode_No,6,' ') + '-' + PADR(cDiscrep,60) + 'M '
+    *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][End]
+  ENDSCAN
+ENDIF
+
+*-- end of lfCstAray.
+*:***************************************************************************
+*:* Name        : lfvDefault
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 01/03/2008
+*:* Purpose     : Filling cost elements array
+*:***************************************************************************
+FUNCTION lfvDefault
+PARAMETERS loFormSet,llValue
+
+PRIVATE lnSlct,lnResp
+lnSlct = SELECT()
+SELECT SHPCSTHD
+IF llValue
+  =gfSqlRun("SELECT * FROM SHPCSTHD WHERE (ldefault = '1')","SHPCSTHD",.T.,"TempDef")
+  SELECT TempDef
+  LOCATE
+  IF !EOF()
+    lnResp = gfModalGen('INM00000B00006',.F.,.F.,.F.,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TEMP_CODE_MSG,loFormSet.GetHeaderText("LANG_TEMP_CODE_MSG",loFormSet.HeaderAlias)) + ALLTRIM(TempDef.CTEMPLATE)+;
+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TEMP_DEF_MSG,loFormSet.GetHeaderText("LANG_TEMP_DEF_MSG",loFormSet.HeaderAlias)) +ALLTRIM(loFormSet.ariaForm1.kbTemplate.keytextbox.Value )+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TEMP_DEFAULT_MSG,loFormSet.GetHeaderText("LANG_TEMP_DEFAULT_MSG",loFormSet.HeaderAlias)))
+
+
+
+    loFormSet.ariaForm1.chkDefault.Value  = (lnResp = 1)
+  ENDIF
+ENDIF
+SELECT (loFormSet.lctemplatetemp)
+REPLACE ldefault WITH loFormSet.ariaForm1.chkDefault.Value
+SELECT (lnSlct)
+
+*:***************************************************************************
+*:* Name        : lfvDesc
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 01/03/2008
+*:* Purpose     : Filling cost elements array
+*:***************************************************************************
+FUNCTION lfvDesc
+PARAMETERS loFormSet,lcDescVal
+SELECT (loFormSet.lctemplatetemp)
+REPLACE CTMPLTDSC WITH lcDescVal
+*:***************************************************************************
+*:* Name        : lfSaveScr
+*:* Developer   : Mariam Mazhar[MMT]
+*:* Date        : 09/21/2005
+*:* Purpose     : Filling cost elements array
+*:***************************************************************************
+FUNCTION lfSaveScr
+PARAMETERS loFormSet
+
+lcValue = loFormSet.ariaForm1.kbTemplate.keytextbox.Value
+
+IF EMPTY(loFormSet.ariaForm1.txtTempDesc.Value)
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*=gfModalGen('INM36002B00000','DIALOG',LANG_DESC_TEMP)
+=gfModalGen('INM36002B00000','DIALOG',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESC_TEMP,loFormSet.GetHeaderText("LANG_DESC_TEMP",loFormSet.HeaderAlias)))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+  RETURN .F.
+ENDIF
+
+IF EMPTY(loFormSet.laTarget[1])
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*=gfModalGen('INM00000B00000',.F.,.F.,.F.,LANG_Cost_ITEM)
+=gfModalGen('INM00000B00000',.F.,.F.,.F.,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Cost_ITEM,loFormSet.GetHeaderText("LANG_Cost_ITEM",loFormSet.HeaderAlias)))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+  RETURN .F.
+ENDIF
+
+
+IF loFormSet.ariaForm1.chkDefault.Value
+   IF gfSqlRun("select top 1 *  from SHPCSTHD WHERE (ldefault = '1')","SHPCSTHD",.T.,"TempDef")
+     SELECT "TempDef"
+     LOCATE
+     IF !EOF()
+       lcOldDef = TempDef.CTEMPLATE
+       SELECT SHPCSTHD
+       IF gfSeek(lcOldDef)
+         gfReplace("ldefault with .F.")
+         =gfAdd_Info('SHPCSTHD')
+         SELECT SHPCSTHD
+         lcTranCode = oAriaApplication.RemoteCompanyData.BeginTran(oAriaApplication.ActiveCompanyConStr,3,'')
+         IF TYPE('lcTranCode') = 'N'
+           =oAriaApplication.RemoteCompanyData.CheckRetResult("BeginTran",lcTranCode,.T.)
+           RETURN .F.
+         ENDIF
+         llUpdate = .F.
+
+         llUpdate =gfTableUpdate(lcTranCode,'SHPCSTHD')
+
+         IF !llUpdate
+           =oAriaApplication.RemoteCompanyData.RollBackTran(lcTranCode)
+           RETURN .F.
+         ELSE
+           =oAriaApplication.RemoteCompanyData.CommitTran(lcTranCode)
+         ENDIF
+       ENDIF
+     ELSE
+       REPLACE  ldefault WITH loFormSet.ariaForm1.chkDefault.Value IN (loFormSet.lctemplatetemp)
+     ENDIF
+   ENDIF
+ELSE
+ IF gfSqlRun("select top 1 *  from SHPCSTHD WHERE (ldefault = '1')","SHPCSTHD",.T.,"TempDef")
+   SELECT "TempDef"
+   LOCATE
+   IF EOF()
+     *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*IF (gfModalGen('INM00000B00006',.F.,.F.,.F., LANG_FIND_DEF) = 1)
+IF (gfModalGen('INM00000B00006',.F.,.F.,.F., IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FIND_DEF,loFormSet.GetHeaderText("LANG_FIND_DEF",loFormSet.HeaderAlias))) = 1)
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+       loFormSet.ariaForm1.chkDefault.Value = .T.
+       SELECT (loFormSet.lctemplatetemp)
+       REPLACE ldefault WITH loFormSet.ariaForm1.chkDefault.Value
+     ENDIF
+   ENDIF
+ ENDIF
+ENDIF
+
+
+IF loFormSet.ActiveMode = 'A'
+  lnLn = 39
+  FOR lnI = 1  TO ALEN(loFormSet.laTarget,1)
+    SELECT (LOFoRMSET.lcTempShpCst)
+    loFormSet.laTarget[lnI] = PADR(loFormSet.laTarget[lnI],39)
+    APPEND BLANK
+    REPLACE CTEMPLATE WITH loFormSet.ariaForm1.kbTemplate.keytextbox.Value ;
+            LINENO    WITH lnI;
+            cCode_NO  WITH SUBSTR(loFormSet.laTarget[lnI],1,6)     ;
+            cDescRip  WITH SUBSTR(loFormSet.laTarget[lnI],8)       ;
+            CCATGTYP  WITH SUBSTR(loFormSet.laTarget[lnI],lnLn-1,1);
+            CBOMTYP   WITH SUBSTR(loFormSet.laTarget[lnI],lnLn,1)
+    =gfAdd_Info(LOFoRMSET.lcTempShpCst)
+  ENDFOR
+
+
+  SELECT (loFormSet.lctemplatetemp)
+  =gfAdd_Info(loFormSet.lctemplatetemp)
+  SELECT (loFormSet.lctemplatetemp)
+  SCATTER MEMO MEMVAR
+  SELECT SHPCSTHD
+  gfAppend('SHPCSTHD',.T.)
+
+   SELECT(LOFoRMSET.lcTempShpCst)
+   SCAN
+    SCATTER MEMO MEMVAR
+    SELECT SHPCSTLN
+    gfAppend('SHPCSTLN',.T.)
+   ENDSCAN
+
+
+   lcTranCode = oAriaApplication.RemoteCompanyData.BeginTran(oAriaApplication.ActiveCompanyConStr,3,'')
+   IF TYPE('lcTranCode') = 'N'
+     =oAriaApplication.RemoteCompanyData.CheckRetResult("BeginTran",lcTranCode,.T.)
+     RETURN .F.
+   ENDIF
+   llUpdate = .F.
+
+   llUpdate =gfTableUpdate(lcTranCode,'SHPCSTHD')
+   llUpdate =gfTableUpdate(lcTranCode,'SHPCSTLN')
+   IF !llUpdate
+     =oAriaApplication.RemoteCompanyData.RollBackTran(lcTranCode)
+     RETURN .F.
+   ELSE
+     =oAriaApplication.RemoteCompanyData.CommitTran(lcTranCode)
+   ENDIF
+ELSE
+
+  SELECT (loFormSet.lctemplatetemp)
+  =SEEK(PADR(lcValue ,6))
+  =gfAdd_Info(loFormSet.lctemplatetemp)
+  SELECT (loFormSet.lctemplatetemp)
+  =SEEK(PADR(lcValue ,6))
+  SCATTER MEMO MEMVAR
+  m.CTMPLTDSC = EVALUATE(loFormSet.lctemplatetemp+'.CTMPLTDSC')
+  m.ldefault= EVALUATE(loFormSet.lctemplatetemp+'.ldefault')
+  SELECT SHPCSTHD
+  gfSeek(PADR(lcValue ,6),'SHPCSTHD')
+  gfReplace("CTMPLTDSC WITH m.CTMPLTDSC")
+  gfReplace("ldefault  WITH m.ldefault")
+
+  SELECT (LOFoRMSET.lcTempShpCst)
+  ZAP
+
+  lnLn = 39
+  FOR lnI = 1  TO ALEN(loFormSet.laTarget,1)
+    SELECT (LOFoRMSET.lcTempShpCst)
+    loFormSet.laTarget[lnI] = PADR(loFormSet.laTarget[lnI],39)
+    APPEND BLANK
+    REPLACE CTEMPLATE WITH loFormSet.ariaForm1.kbTemplate.keytextbox.Value ;
+            LINENO    WITH lnI;
+            cCode_NO  WITH SUBSTR(loFormSet.laTarget[lnI],1,6)     ;
+            cDescRip  WITH SUBSTR(loFormSet.laTarget[lnI],8)       ;
+            CCATGTYP  WITH SUBSTR(loFormSet.laTarget[lnI],lnLn-1,1);
+            CBOMTYP   WITH SUBSTR(loFormSet.laTarget[lnI],lnLn,1)
+    =gfAdd_Info(LOFoRMSET.lcTempShpCst)
+  ENDFOR
+
+  gfSeek(PADR(lcValue ,6),'SHPCSTLN')
+  SELECT SHPCSTLN
+  SCAN REST WHILE CTEMPLATE+STR(LINENO,6)= PADR(lcValue ,6)
+    gfDelete()
+  ENDSCAN
+
+   SELECT(LOFoRMSET.lcTempShpCst)
+   SCAN
+    SCATTER MEMO MEMVAR
+    SELECT SHPCSTLN
+    gfAppend('SHPCSTLN',.T.)
+   ENDSCAN
+
+
+   lcTranCode = oAriaApplication.RemoteCompanyData.BeginTran(oAriaApplication.ActiveCompanyConStr,3,'')
+   IF TYPE('lcTranCode') = 'N'
+     =oAriaApplication.RemoteCompanyData.CheckRetResult("BeginTran",lcTranCode,.T.)
+     RETURN .F.
+   ENDIF
+   llUpdate = .F.
+
+   llUpdate =gfTableUpdate(lcTranCode,'SHPCSTHD')
+   llUpdate =gfTableUpdate(lcTranCode,'SHPCSTLN')
+   IF !llUpdate
+     =oAriaApplication.RemoteCompanyData.RollBackTran(lcTranCode)
+     RETURN .F.
+   ELSE
+     =oAriaApplication.RemoteCompanyData.CommitTran(lcTranCode)
+   ENDIF
+ENDIF
+*!*************************************************************
+*! Name      : lpDelScr
+*! Developer : Mariam Mazhar[MMT]
+*! Date      : 01/03/2008
+*! Purpose   : To make local delete.
+*!*************************************************************
+PROCEDURE lfDelScr
+PARAMETERS loFormSet
+PRIVATE lnSlct
+lnSlct = SELECT()
+lcValue = PADR(loFormSet.ariaForm1.kbTemplate.keytextbox.Value,6)
+
+=gfSeek(lcValue ,'SHPCSTHD')
+=gfOpenTable('SHPMTHDR','SHPMTHDR','SH')
+
+IF gfSEEK("PP"+lcValue ,'SHPMTHDR','shpmthtp')
+  SELECT SHPMTHDR
+  LOCATE REST WHILE CBUSDOCU+CSHPTYPE+CTEMPLATE+STATUS+SHIPNO = "PP"+lcValue FOR STATUS $ 'HOC'
+  IF FOUND()
+    *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*=gfModalGen('INM00000B00000',.F.,.F.,.F.,LANG_Temp_Used)
+=gfModalGen('INM00000B00000',.F.,.F.,.F.,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Temp_Used,loFormSet.GetHeaderText("LANG_Temp_Used",loFormSet.HeaderAlias)))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+    SELECT (lnSlct)
+    RETURN .F.
+  ENDIF
+ENDIF
+IF SHPCSTHD.ldefault
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*IF gfModalGen('INM00000B00006',.F.,.F.,.F.,LANG_Temp_Del_Def) <> 1
+IF gfModalGen('INM00000B00006',.F.,.F.,.F.,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Temp_Del_Def,loFormSet.GetHeaderText("LANG_Temp_Del_Def",loFormSet.HeaderAlias))) <> 1
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+    SELECT (lnSlct)
+    RETURN .F.
+  ENDIF
+ENDIF
+*- add here code to delete a Template
+SELECT SHPCSTHD
+=gfSeek(lcValue ,'SHPCSTHD')
+gfDelete()
+
+SELECT SHPCSTLN
+=gfSeek(lcValue ,'SHPCSTLN')
+SELECT SHPCSTLN
+SCAN REST WHILE CTEMPLATE+STR(LINENO,6)= lcValue
+  gfDelete()
+ENDSCAN
+
+ lcTranCode = oAriaApplication.RemoteCompanyData.BeginTran(oAriaApplication.ActiveCompanyConStr,3,'')
+ IF TYPE('lcTranCode') = 'N'
+   =oAriaApplication.RemoteCompanyData.CheckRetResult("BeginTran",lcTranCode,.T.)
+   RETURN .F.
+ ENDIF
+ llUpdate = .F.
+
+ llUpdate =gfTableUpdate(lcTranCode,'SHPCSTHD')
+ llUpdate =gfTableUpdate(lcTranCode,'SHPCSTLN')
+ IF !llUpdate
+   =oAriaApplication.RemoteCompanyData.RollBackTran(lcTranCode)
+   RETURN .F.
+ ELSE
+   =oAriaApplication.RemoteCompanyData.CommitTran(lcTranCode)
+ ENDIF
+
+ RETURN
+SELECT (lnSlct)
+
+
+

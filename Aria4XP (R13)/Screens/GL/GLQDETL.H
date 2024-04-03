@@ -1,0 +1,3 @@
+#DEFINE LANG_DEBIT 'Debit'
+#DEFINE LANG_CREDIT 'Credit'
+#DEFINE LANG_DESC 'Description'

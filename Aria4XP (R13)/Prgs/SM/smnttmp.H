@@ -1,0 +1,8 @@
+#DEFINE LANG_companies 'companies'
+#DEFINE LANG_Templates 'Templates'
+#DEFINE LANG_GP_Letter 'General Purpose Letters'
+#DEFINE LANG_Notepad_Templates 'Notepad Templates'
+#DEFINE LANG_customer_GPL 'Customer General Purpose Letters'
+#DEFINE LANG_Vendor_GPL 'Vendor General Purpose Letters'
+#DEFINE LANG_Template 'Template'
+#DEFINE LANG_Description 'Description'

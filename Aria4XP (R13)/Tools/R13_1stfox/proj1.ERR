@@ -1,0 +1,79 @@
+Program d:\aria27\a271strun\aria27.prg has the following errors:
+    Proc./Func. GPDFNPBL - Undefined
+    Proc./Func. PREPARE - Undefined
+    Unknown BP - Undefined
+    Proc./Func. SETSETS - Undefined
+    Unknown GFLOG_IN - Undefined
+    Proc./Func. GPRLSPBL - Undefined
+    Proc./Func. LPCLSSCR - Undefined
+    Unknown GFBROWS - Undefined
+    Proc./Func. LPSHOW - Undefined
+    Proc./Func. LPTOPSCR - Undefined
+    Proc./Func. LPBTMSCR - Undefined
+    Proc./Func. LPNXTSCR - Undefined
+    Proc./Func. LPPRVSCR - Undefined
+    Proc./Func. LPDELSCR - Undefined
+    Proc./Func. LPSAVSCR - Undefined
+    Unknown GFBFILTR - Undefined
+    Program RECHIST - Undefined
+    Program SYUSRLST - Undefined
+    Unknown LFREADACT - Undefined
+    Program SYABOUT - Undefined
+    Program SYTECINF - Undefined
+    Program SYNEWALL - Undefined
+    Program DISPMEM - Undefined
+    Program DISPCALP - Undefined
+    Program SYDEFMDL - Undefined
+    Program SYDEFCMP - Undefined
+    Program DISPSTAT - Undefined
+    Unknown LCCODEVAL - Undefined
+    Unknown LAARRAYNAM - Undefined
+    Program SYSNDMSG - Undefined
+    Unknown LFREFRESH - Undefined
+    Unknown LNLINENO - Undefined
+    Program SYCHRATE - Undefined
+    Unknown LFVACT_K - Undefined
+    Program SYACTKEY - Undefined
+    Program SYGETACT - Undefined
+    Unknown LABUILDMOD - Undefined
+    Library TXTSPOOL.FLL - Undefined
+    Unknown PRTWIN - Undefined
+    Unknown TXTSPOOL - Undefined
+    Unknown _PDPARMS - Undefined
+    Unknown ARIABROW - Undefined
+    Unknown QRECNO - Undefined
+    Proc./Func. LPPRESSF1 - Undefined
+    Proc./Func. GPMNUBLD - Undefined
+    Unknown GFMSGSTR - Undefined
+    Unknown TEMPNAME - Undefined
+    Unknown LAADDORD - Undefined
+    Proc./Func. FILEUTL - Undefined
+    Unknown SEL_DEV - Undefined
+    Program STYPRICE - Undefined
+    Unknown LARETVAL - Undefined
+    Unknown GFOPGRID - Undefined
+    Proc./Func. GETFILE - Undefined
+    Unknown LAINFARRAY - Undefined
+    Unknown LAQTY - Undefined
+    Unknown LAVARS - Undefined
+    Proc./Func. GFEHAN - Undefined
+    Unknown NOTEPAD - Undefined
+    Unknown LAFROMBROW - Undefined
+    Unknown LAPRUSRFIELDS - Undefined
+    Unknown LAUSRARRAY - Undefined
+    Program SYAUDTRL - Undefined
+    Program LFVFIND - Undefined
+    Program LFVFILTER - Undefined
+    Program SYLOGIN - Undefined
+
+Program d:\aria27\a271strun\blockfix.prg has the following errors:
+    Unknown LFREFRESH - Undefined
+    Unknown FIXDBF - Undefined
+    Unknown GFFIXDBF - Undefined
+
+Program d:\aria27\a271strun\updatestru.prg has the following errors:
+    Unknown LABUILDMOD - Undefined
+
+Program d:\aria27\a271strun\updpick.prg has the following errors:
+    Program FIXPICK - Undefined
+

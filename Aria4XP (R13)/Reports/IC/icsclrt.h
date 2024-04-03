@@ -1,0 +1,4 @@
+#DEFINE LANG_ONEDIME 'One Dimension '
+#DEFINE LANG_TWO 'Two'
+#DEFINE LANG_THREE 'Three'
+#DEFINE LANG_DIMES 'Dimensions '

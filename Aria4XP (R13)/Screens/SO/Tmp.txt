@@ -1,0 +1,41 @@
+PROCEDURE Init
+*E302546,1 WLD Adding and merging RFID label in SO Shipping Wizard 08/11/2008 T20080424.0024 [Begin]
+This.value = IIF(SYCASNHD.CTYPE="R",.T.,.F.) 
+*N000682,1 MMT 11/22/2012 Globalization changes[Start]
+*This.parent.cmdShipLabel.Caption = IIF(THIS.VALUE,"Print Shipping \<Labels [RFID]","Print Shipping \<Labels [Visual]")
+This.parent.cmdShipLabel.Caption = IIF(THIS.VALUE,LANG_SOWIZARD_LBL1,LANG_SOWIZARD_LBL2)
+*N000682,1 MMT 11/22/2012 Globalization changes[eND]
+*E302546,1 WLD Adding and merging RFID label in SO Shipping Wizard 08/11/2008 T20080424.0024 [End]
+ENDPROC
+PROCEDURE Click
+*E302546,1 WLD Adding and merging RFID label in SO Shipping Wizard 08/11/2008 T20080424.0024 [Begin]
+WITH This.parent
+IF THIS.VALUE
+  .cBOFORMAT.filterexpression = "cType = 'R' AND !lDetLabel and !lplt"
+  .cBOFORMAT.INIT()
+  .CBOFORMAT.ListIndex =1
+  .chkPrintDetailedLabel.VALUE = .F.
+  .chkPrintDetailedLabel.ENABLED = .F.
+  .chkPrintDetailedLabel.VALID()
+ELSE
+  .cBOFORMAT.filterexpression ="(ctype='Y' or ctype='R')  and !lDetLabel and !lplt "
+
+  IF gfSEEK('A'+  This.parent.CustomerKey.Keytextbox.value ,'Ediacprt','ACCFACT') AND ;
+      gfSEEK(EdiAcPrt.cPartCode,'Ediph','PARTNER')
+    .CBOFORMAT.VALUE = EdiPh.cAsnLbl1
+    GFseek(EdiPh.cAsnLbl1,"SYCASNHD","VERPRT")
+    THIS.VALUE = IIF(SYCASNHD.CTYPE="R",.T.,.F.)
+  ENDIF 
+  .chkPrintDetailedLabel.ENABLED = .T.
+  .chkPrintDetailedLabel.VALID()
+ENDIF
+ENDWITH 
+*N000682,1 MMT 11/22/2012 Globalization changes[Start]
+**This.parent.cmdShipLabel.Caption = IIF(THIS.VALUE,"Print Shipping \<Labels [RFID]","Print Shipping \<Labels [Visual]")
+This.parent.cmdShipLabel.Caption = IIF(THIS.VALUE,LANG_SOWIZARD_LBL1,LANG_SOWIZARD_LBL2 )
+*N000682,1 MMT 11/22/2012 Globalization changes[END]
+*E302546,1 WLD Adding and merging RFID label in SO Shipping Wizard 08/11/2008 T20080424.0024 [End]
+
+
+
+ENDPROC

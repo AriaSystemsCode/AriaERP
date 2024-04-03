@@ -1,0 +1,81 @@
+#DEFINE LANG_MFCSTSH_ACTIVE     'Active'
+#DEFINE LANG_MFCSTSH_HOLD       'Hold'
+#DEFINE LANG_MFCSTSH_INWORK     'In Work'
+#DEFINE LANG_MFCSTSH_CANCELED   'Canceled'
+
+#DEFINE LANG_MFCSTSH_COSTING    'Costing'
+#DEFINE LANG_MFCSTSH_SELOPR     'Select Operation'
+#DEFINE LANG_MFCSTSH_WAREA      'Preparing the work area ......'
+#DEFINE LANG_MFCSTSH_COSTITEM   'Cost Item'
+#DEFINE LANG_MFCSTSH_CRSREFAB   'Cross referencing Fabric colors'
+#DEFINE LANG_MFCSTSH_CRSRETRM   'Cross referencing Trim colors'
+#DEFINE LANG_MFCSTSH_FABRIC     'Fabric'
+#DEFINE LANG_MFCSTSH_STYLE      'Style'
+#DEFINE LANG_MFCSTSH_TRIM       'Trim'
+#DEFINE LANG_MFCSTSH_COLOR      'Color'
+#DEFINE LANG_MFCSTSH_DESC       'Description'
+#DEFINE LANG_MFCSTSH_COLORS     'Colors'
+#DEFINE LANG_MFCSTSH_MATERIAL   'Material'
+#DEFINE LANG_MFCSTSH_IMPRSTYL   'Imported Style Cost Sheet'
+#DEFINE LANG_MFCSTSH_MANFSTYL   'Manufactured Style Cost Sheet'
+#DEFINE LANG_MFCSTSH_MATCOST    'Material Cost Sheet'
+#DEFINE LANG_MFCSTSH_OPTIONS    'O\<ptions'
+#DEFINE LANG_MFCSTSH_MARKERS    'Markers'
+#DEFINE LANG_MFCSTSH_MARKER     'Marker'
+#DEFINE LANG_MFCSTSH_PATTERN    'Pattern# '
+#DEFINE LANG_MFCSTSH_GROSSUNT   'Gross Unit'
+#DEFINE LANG_MFCSTSH_COST       'cost'
+#DEFINE LANG_MFCSTSH_UPDFAB     'Updating the costing information to the material file...'
+#DEFINE LANG_MFCSTSH_UPDSTY     'Updating the costing information to the style file...'
+
+#DEFINE LANG_MFCSTSH_CITMMAJOR  'Item Code Major'
+#DEFINE LANG_MFCSTSH_CCSTSHT_ID 'Cost Sheet Template Code'
+#DEFINE LANG_MFCSTSH_CCSTSHTDSC 'Cost Sheet Template Description'
+#DEFINE LANG_MFCSTSH_LDEFCSTSHT 'Default Cost Sheet'
+#DEFINE LANG_MFCSTSH_CSTATUS    'Status'
+#DEFINE LANG_MFCSTSH_LBASONSIZ  'Base cost sheet on size'
+#DEFINE LANG_MFCSTSH_NCOST1     'Cost Element number 1'
+#DEFINE LANG_MFCSTSH_NCOST2     'Cost Element number 2'
+#DEFINE LANG_MFCSTSH_NCOST3     'Cost Element number 3'
+#DEFINE LANG_MFCSTSH_NCOST4     'Cost Element number 4'
+#DEFINE LANG_MFCSTSH_NCOST5     'Cost Element number 5'
+#DEFINE LANG_MFCSTSH_NCOST6     'Cost Element number 6'
+#DEFINE LANG_MFCSTSH_NCOST7     'Cost Element number 7'
+#DEFINE LANG_MFCSTSH_TOTCOST    'Total Cost'
+#DEFINE LANG_MFCSTSH_CCSTSHTTYP 'Procurement type'
+#DEFINE LANG_MFCSTSH_ADDING     'Adding'
+#DEFINE LANG_MFCSTSH_ElmnBaseOnAmount     'Amount Exceptions'
+#DEFINE LANG_MFCSTSH_ElmnBaseOnPerc       'Percentage Base'
+#DEFINE LANG_MFCSTSH_ElmnBaseOnCalc       "Element’s Formula"
+#DEFINE LANG_MFCSTSH_COSTSHTEMP           'Cost Sheet Template'
+#DEFINE LANG_MFCSTSH_CCSTSHT_ID       "Cost Sheet Code"
+#DEFINE LANG_MFCSTSH_CCSTSHTDSC       "Cost Sheet Description"
+#DEFINE LANG_MFCSTSH_CSTATUS          "Status"
+#DEFINE LANG_MFCSTSH_LBASONSIZ        "Base cost sheet on size"
+#DEFINE LANG_MFCSTSH_TOTCOST          "Total Cost"
+#DEFINE LANG_MFCSTSH_CCSTSHTTYP       "Procurement type"
+#DEFINE LANG_MFCSTSH_FABRIC           'Fabric'
+#DEFINE LANG_MFCSTSH_TRIM             'Trim'
+#DEFINE LANG_MFCSTSH_CRSREFAB  		  'Cross referencing Fabric colors'
+#DEFINE LANG_MFCSTSH_CRSRETRM 		  'Cross referencing Trim colors'
+#DEFINE LANG_MFCSTSH_CRSRESTY		  'Cross referencing Component style colors'
+#DEFINE LANG_MFCSTSH_COLOR1    		  ' Color'
+#DEFINE LANG_MFCSTSH_NonCosting		  'Non Costing Elements'
+#DEFINE LANG_MFCSTSH_UPDTMP           'Updating the Template information...'
+#DEFINE LANG_MFCSTSH_SORTBYLN		  'Sort by \<Line No.'
+#DEFINE LANG_MFCSTSH_SORTBYCTG		  'Sort by \<Category'
+#DEFINE  LANG_MFCSTSH_SHOWHIDEN		  '\<Show hidden lines'
+#DEFINE LANG_MFCSTSH_TempAttribute    '\<Template Attributes'
+#DEFINE LANG_MFCSTSH_AttributeValues  '\<Attributes Values'
+
+#DEFINE LANG_ObjectLink               "Image Link"
+#DEFINE LANG_CopyObjectLink           "Copy Images Link"
+
+*N000682,1 MMT 11/20/2012 Globalization project[Start]
+#DEFINE LANG_MFCSTSH_S_TEMPLATE    ' Template'
+#DEFINE LANG_MFCSTSH_NA 'N/A'
+#DEFINE LANG_MFCSTSH_ALL 'ALL'
+#DEFINE LANG_MFCSTSH_NOATTRIBUTES 'No Attributes found for this Cost Sheet Template.'
+#DEFINE LANG_MFCSTSH_THISLINE "This line is a part of formula for other line. Cann't remove."
+#DEFINE LANG_MFCSTSH_
+*N000682,1 MMT 11/20/2012 Globalization project[End]

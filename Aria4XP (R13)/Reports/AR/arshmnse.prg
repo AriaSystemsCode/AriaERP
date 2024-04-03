@@ -1,0 +1,544 @@
+*:***************************************************************************
+*: Program file  : ARSHMNSE
+*: Program desc. : Shipping Manifest Report For Sears
+*: System        : Aria4xp.
+*: Module        : Account Receivable (AR)
+*: Developer     : Tarek Mohamed Ibrahim  - TMI
+*: Tracking #    : E302957,1 TMI 08/18/2011 Convert UPS Manifist & SEARS Manifist reports to A4xp[T20110412.0010 ]
+*:***************************************************************************
+*: Calls :
+*:    Procedures : CusBrowM, CusBrowS, lpCollData, lpInsRecs, lpShowObj,
+*:                 lpCreatFil
+*:
+*:    Functions  : gfModalGen, lfwRepWhen, lfvAccount, lfPrintBy, lfwOldVal,
+*:               : lfvStoreDC, lfSRBillNo, lfClearRep.
+*:***************************************************************************
+*: Example : DO ARSHMNSE
+*:***************************************************************************
+*: Notes : if a change is done in Frx Remember to
+*:         1) Print the Report and count the number of lines per page
+*:         2) Adjust the number of lines (Hardcoded) in lfTotPages()
+*:***************************************************************************
+*:Modifications ..
+*:***************************************************************************
+*-- If user changed filter from OG [Begin.]
+#INCLUDE R:\Aria4xp\reports\ar\arshmnse.H
+*E302957,3 TMI 09/15/2011 [Start] an account should be selected
+IF EMPTY(lcRpAcct)
+  gfModalGen('INM52031B00000','DIALOG')
+  RETURN
+ENDIF
+*E302957,3 TMI 09/15/2011 [End  ]
+
+IF llOGFltCh
+  PRIVATE lcMasterFl
+  *-- If Temp file is used and has records inside
+  IF USED(lcWorkFile) AND RECCOUNT(lcWorkFile) > 0
+    DO lpCreatFil
+  ENDIF
+
+  *-- Case Print by BOL
+    lcMasterFl = 'Pack_Hdr'
+    SELECT Pack_Hdr
+    SET RELATION TO Account + Bill_ladg INTO BOL_Hdr
+    DO lpCollData WITH 'B'
+
+    SELECT Pack_Hdr
+    SET RELATION TO     && break relation after collecting Data
+
+ENDIF
+*-- EndIf of user changed filter from OG [End.]
+  lcRpName = 'ARSHMNSE'
+  lcOGFormArr = ''
+  = gfCrtFrm(lcRpName,lcOGFormArr,llOGRefForm)
+  = lfRepPltFr(lcRpName)
+
+*-- If no records in temp file (empty)
+SELECT (lcWorkFile)
+*-- If Seek is successful (There's Records)
+IF SEEK(lcRpAcct)
+  GO TOP
+  DO gfDispRe WITH EVALUATE('lcRpName')
+ELSE     && there is no records in Temp file
+  *-- No records to display.
+  = gfModalGen('TRM00052B00000','DIALOG' )
+ENDIF
+*-- EndIf of no records in temp file (empty)
+
+*!**************************************************************************
+*! Name      : lpCollData
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Collect data for the temporary file
+*!**************************************************************************
+*! Example   : DO lpCollData
+*!**************************************************************************
+*
+PROCEDURE lpCollData
+PARAMETERS lcPrintTyp
+IF TYPE('lcPrintTyp') $ 'UL'
+  RETURN
+ENDIF
+
+PRIVATE lcWareCode
+*-- Initializing memory variables used in the Temp File
+STORE '' TO m.cWareDesc,m.cWareAddr,m.cWareZip,m.cCusVend,;
+            m.cRoutePEPS,m.cStoreNo,m.cStoreLoc,m.cCustPo,;
+            m.cDC_Name,m.cDC_Addr1,m.cDC_Addr2,cDC_Addr3,m.cGroupKey,m.cBol,m.cCity,m.cState,cOldAlis
+STORE 0 TO m.nCartons,m.nWeight
+
+*-- Collect data according to Type of Print By [Begin.]
+*-- If Print by Bill of Lading
+  lcRpExp = [Account + Pack_no = lcRpAcct AND ] + lcRpExp + ;
+            [ AND !EOF('BOL_Hdr')]
+
+  PRIVATE lcBillNo
+  GO TOP
+  *-- Scan loop on Master file (Pack_Hdr) [Begin.]
+  SCAN FOR &lcRpExp WHILE INKEY() <> 32
+    lcWareCode   = BOL_Hdr.W_Code
+    m.cRoutePEPS = IIF(EMPTY(BOL_Hdr.Carrier) AND !EMPTY(BOL_Hdr.ShipVia),gfCodDes(BOL_Hdr.ShipVia,'SHIPVIA'),BOL_Hdr.Carrier)
+    m.cGroupKey  = lcRpAcct + Pack_Hdr.Bill_Ladg
+    *-- If (Bill of lading) Store Distr. Center will be BOL_Hdr Store
+    lcRpDistCt = BOL_Hdr.Store
+    m.nCartons  = Tot_Cart
+    m.nWeight   = Tot_Wght
+    m.cCustPo   = IIF(gfSEEK('O'+Pack_hdr.Order,'OrdHdr'),OrdHdr.CustPo,'')
+    m.cStoreNo  = Store
+    m.cStoreLoc = IIF(gfSEEK('S'+lcRpAcct+m.cStoreNo,'Customer'),;
+                  IIF(EMPTY(Customer.cAddress3),ALLTRIM(Customer.cAddress4),;
+                  ALLTRIM(Customer.cAddress3)+', '+ALLTRIM(Customer.cAddress4)),'')
+    m.cBol      = BOL_HDR.bol_no
+    DO lpInsRecs      && Insert record into the temporary file
+  ENDSCAN
+  *-- Scan loop on Master file (Pack_Hdr) [End.]
+
+*-- Collect data according to Type of Print By [End.]
+
+WAIT CLEAR
+*-- End of lpCollData.
+
+*!**************************************************************************
+*! Name      : lpInsRecs
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Store WareHouse Code , City , State , Zip in memory variables
+*!             also add records in Temp file
+*!**************************************************************************
+*! Example   : DO lpInsRecs
+*!**************************************************************************
+*
+PROCEDURE lpInsRecs
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*WAIT WINDOW LANG_SELECTING_RECORDS_SPACE_BAR_TO_ABORT NOWAIT
+WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SELECTING_RECORDS_SPACE_BAR_TO_ABORT,oAriaApplication.GetHeaderText("LANG_SELECTING_RECORDS_SPACE_BAR_TO_ABORT",AHEADERFILE)) NOWAIT
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+PRIVATE lnAlias
+lnAlias = SELECT()
+IF gfSEEK (lcWareCode,'WareHous')
+  m.cWareDesc = WareHous.cDesc
+
+  m.cWareAddr = IIF(EMPTY(WareHous.cAddress3),'',ALLTRIM(WareHous.cAddress3);
+                +', '+ALLTRIM(WareHous.cAddress4))
+
+    m.cWareAddr =  IIF(EMPTY(WareHous.cAddress1),'',ALLTRIM(WareHous.cAddress1))
+    m.cCity     =  IIF(EMPTY(WareHous.cAddress3),'',ALLTRIM(WareHous.cAddress3))
+    m.cState    =  IIF(EMPTY(WareHous.cAddress4),'',ALLTRIM(WareHous.cAddress4))
+  ENDIF
+  m.cWareZip  = m.cCity +', '+m.cState +', ' +ALLTRIM(WareHous.cAddress5)
+  *E302957,3 TMI 09/15/2011 [Start] remove commas if there is no address
+  m.cWareZip = IIF(EMPTY(CHRTRAN(m.cWareZip,',','')),'',m.cWareZip)
+  *E302957,3 TMI 09/15/2011 [End  ]
+
+m.cCusVend  = IIF(gfSEEK('M'+lcRpAcct,'Customer'),Customer.cCusVend,'')
+m.cDC_Name  = lcRpDistCt
+IF gfSEEK('S'+lcRpAcct+m.cDC_Name,'Customer')
+  m.cDC_Addr1 = Customer.cAddress1
+  lcAddr3     = ALLTRIM(Customer.cAddress3)+', '+ALLTRIM(Customer.cAddress4)+ALLTRIM(Customer.cAddress5)
+  *E302957,3 TMI 09/15/2011 [Start] if there is no address, remove the comma
+  lcAddr3 = IIF(EMPTY(CHRTRAN(lcAddr3,',','')),'',lcAddr3)
+  *E302957,3 TMI 09/15/2011 [End  ]
+  m.cDC_Addr2 = IIF(EMPTY(Customer.cAddress2),lcAddr3,ALLTRIM(Customer.cAddress2))
+  m.cDC_Addr3 = IIF(EMPTY(Customer.cAddress2),'',lcAddr3)
+ELSE
+  m.cDC_Addr1 = ''
+  m.cDC_Addr2 = ''
+  m.cDC_Addr3 = ''
+ENDIF
+*-- In case of SEARS form.
+  m.ACCOUNT  = Pack_hdr.Account
+  m.cWareCode= BOL_Hdr.W_Code
+  m.cShipVia = BOL_Hdr.ShipVia
+  SELECT (lcWorkFile )
+  LOCATE FOR Account+cStoreNo+cWareCode+cShipVia = m.ACCOUNT+m.cStoreNo+m.cWareCode+m.cShipVia
+  IF FOUND()
+    REPLACE &lcWorkFile..nWeight   WITH &lcWorkFile..nWeight + m.nWeight,;
+            &lcWorkFile..nCartons  WITH &lcWorkFile..nCartons+ m.nCartons
+    STORE 0 TO m.nWeight,m.nCartons
+  ENDIF
+INSERT INTO (lcWorkFile) FROM MEMVAR
+    m.Dept =  IIF(gfSEEK('O'+Pack_hdr.Order,'OrdHdr'),OrdHdr.Dept,'')
+    REPLACE &lcWorkFile..Dept WITH m.Dept
+SELECT (lnAlias)
+*-- End of lpInsRecs
+
+*!***************************************************************************
+*! Name      : lfwRepWhen
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : OG when function
+*!***************************************************************************
+*! Called from : OG
+*!***************************************************************************
+*! Example   : = lfwRepWhen()
+*!***************************************************************************
+*
+FUNCTION lfwRepWhen
+
+
+lnBillNoPo = lfItmPos('BOL_HDR.BOL_NO')
+lnStorDCPo = lfVarPos('lcRpDistCt')
+DO lpShowObj    && Enable/Disable all options in OG
+DO lpCreatFil   && Create the Work Temp file
+*-- End of lfwRepWhen.
+
+*!***************************************************************************
+*! Name      : lpShowObj
+*! Developer : Adel Mohammed El Gazzar (ADEL)
+*! Date      : 09/29/02
+*! Purpose   : Enable/Disable all options in OG
+*!***************************************************************************
+*! Example   : DO lpShowObj
+*!***************************************************************************
+*
+PROCEDURE lpShowObj
+PRIVATE lcShowStat,llShwInRng,lnDisBOL
+
+*-- Enable/Disable Distribution center in case of Bill of Lading [Begin.]
+*-- If Position of Store DC greater than Zero (Exist)
+IF lnStorDCPo > 0
+  *-- If Print by Bill of Lading
+    lcRpDistCt = ''
+    laOGObjCnt[lnStorDCPo] = .F.
+  =lfOGShowGet('lcRpDistCt')  && Show get Object .
+ENDIF
+*-- Enable/Disable Distribution center in case of Bill of Lading [End.]
+
+*-- Enable/Disable Objects in case of Empty Account [Begin.]
+*-- If Account is Empty
+IF EMPTY(lcRpAcct)
+  lcShowStat = "DISABLE"
+  llShwInRng = .F.          && Flag to Enable/Disable Object
+  *-- If Print by Bill of Lading
+    *-- If BOL Range Position greater than zero (Exist)
+    IF lnBillNoPo > 0
+      lnDisBOL   = ASUBSCRIPT(laOGObjType,ASCAN(laOGObjType,"laOGFxFlt[" + ;
+                   ALLTRIM(STR(lnBillNoPo)) + ",6]"),1)
+      laOGObjCnt[lnDisBOL] = llShwInRng
+      = lfOGShowGet('laOGFxFlt[' + ALLTRIM(STR(lnBillNoPo)) + ',6]')
+    ENDIF
+
+ELSE      && Account is not empty
+  llShwInRng = .T.
+  *-- If Print by Bill of Lading
+    lcShowStat = "ENABLE"
+    *-- If BOL Range Position greater than zero (Exist)
+    IF lnBillNoPo > 0
+      lnDisBOL   = ASUBSCRIPT(laOGObjType,ASCAN(laOGObjType,"laOGFxFlt[" + ;
+                   ALLTRIM(STR(lnBillNoPo)) + ",6]"),1)
+      laOGObjCnt[lnDisBOL] = llShwInRng
+      = lfOGShowGet('laOGFxFlt[' + ALLTRIM(STR(lnBillNoPo)) + ',6]')
+    ENDIF
+  *-- EndIf Print by Bill of Lading
+ENDIF
+
+SHOW GET pbOGPrevie &lcShowStat
+SHOW GET pbRun      &lcShowStat
+*-- Enable/Disable Objects in case of Empty Account [End.]
+*-- End of lpShowObj.
+
+*!***************************************************************************
+*! Name      : lfPrintBy
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Validate for Print By
+*!***************************************************************************
+*! Called from : OG
+*!***************************************************************************
+*! Example     : = lfPrintBy()
+*!***************************************************************************
+*
+FUNCTION lfPrintBy
+CLEARREAD()
+*-- End of lfPrintBy.
+
+*!***************************************************************************
+*! Name      : lpCreatFil
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Create work cursor.
+*!***************************************************************************
+*! Called from : Report code.
+*!***************************************************************************
+*! Example   : DO lpCreatFil
+*!***************************************************************************
+*
+PROCEDURE lpCreatFil
+*cWareAddr  --> WareHouse City + WareHouse State
+*cRoutePEPS --> Route to PEPS in Case of Print By (Bill of Lading) it will be
+*               BOL_HDR.Carrier
+*cStoreNo   --> Store No in Case of Print By (Bill of Lading) it will be
+*               Packing List Store
+*cStoreLoc  --> Store City + Store State
+*cMerchDesc --> Merchandise Description (free format to be entered in OG)
+
+CREATE CURSOR (lcWorkFile) ;
+  (ACCOUNT C(5),cWareCode C(6),cShipVia C(6), cWareDesc C(35), cWareAddr C(50), cWareZip C(60), cCusVend C(15), ;
+   cRoutePEPS C(40), cStoreNo C(8), cStoreLoc C(18), nCartons N(5,0),;
+   nWeight N(6,0), Dept C(3),cCustPo C(15), cDC_Name C(35), cDC_Addr1 C(30),;
+   cDc_Addr2 C(32),cDc_Addr3 C(32), cGroupKey C(17),cCity C(40) , cStore C(40) ,cBol C(6))
+
+SELECT (lcWorkFile)
+ZAP
+INDEX ON cGroupKey + cStoreNo  TAG (lcWorkFile)
+
+*-- End of lpCreatFil.
+
+*!***************************************************************************
+*! Name      : lfvAccount
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Account Validation.
+*!***************************************************************************
+*! Called from : OG
+*!***************************************************************************
+*! Example   : =lfvAccount()
+*!***************************************************************************
+*
+FUNCTION lfvAccount
+
+PRIVATE loObj
+loObj = _SCREEN.ActiveForm.ActiveControl
+IF !(loObj.Value == loObj.OldValue)
+  PRIVATE lnAlsNo,lcCustOrd,lcObjName
+  lnAlsNo = SELECT(0)
+  SELECT CUSTOMER
+  lcCustOrd = ORDER()
+  SET ORDER TO TAG CUSTOMER
+
+  IF !EMPTY(lcRpAcct) AND ('?'$lcRpAcct OR !gfSeek('M'+lcRpAcct,'CUSTOMER'))
+    DO CUSBROWM WITH lcRpAcct
+  ENDIF
+
+  lcRpDistCt = ''
+  llClearBno = .T.  && Clear previous Bill no Range
+
+  DO lpShowObj    && Enable/Disable all options in OG
+
+  SELECT CUSTOMER
+  SET ORDER TO &lcCustOrd
+  SELECT(lnAlsNo)
+ENDIF
+*-- End of lfvAccount.
+
+*!***************************************************************************
+*! Name      : lfvStoreDC
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Validate Distribution Center Store
+*!***************************************************************************
+*! Example   : =lfvStoreDC()
+*!***************************************************************************
+*
+FUNCTION lfvStoreDC
+PRIVATE xStore,lcObjVal
+lcObjVal = EVALUATE(SYS(18))  && Varible to hold  the value of the current GET field
+
+*-- Notes : Store variable must be named as
+IF !(lcObjVal == lcOldVal)
+  PRIVATE lnAlsNo,lcCustOrd,lcObjName
+  lnAlsNo = SELECT(0)
+  SELECT CUSTOMER
+  lcCustOrd = ORDER()
+  SET ORDER TO TAG CUSTOMER
+
+  lcObjName = SYS(18)           && Varible to hold  the name of the memory variable used to create the current GET field
+
+  *IF The user want to Browse or if Store He/She entered is not in the file
+  IF '?' $ lcObjVal OR (!EMPTY(lcObjVal) AND !gfSEEK('S'+lcRpAcct+lcObjVal,'CUSTOMER'))
+    xStore   = lcObjVal
+    IF !CusBrowS(lcRpAcct,.T.)
+      STORE SPACE(8) TO xStore
+      lcObjVal = lcOldVal
+    ENDIF
+    lcObjVal = xStore
+    &lcObjName = lcObjVal
+  ENDIF
+
+  *-- Clear previous Bill no Range
+  STORE !(lcObjVal == lcOldVal) TO llClearBno
+
+  DO lpShowObj    && Enable/Disable all options in OG
+
+  SELECT Customer
+  SET ORDER TO &lcCustOrd
+  SELECT(lnAlsNo)
+
+ENDIF
+*-- End of lfvStoreDC.
+
+
+*!***************************************************************************
+*! Name      : lfSRBillNo
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : control browse BOL_No for Bill of Lading file
+*!***************************************************************************
+*! Called from : Option Grid
+*!***************************************************************************
+*! Example   : =lfSRBillNo()
+*!***************************************************************************
+*! Note      : SR symbol is [S,Set--R,Reset]
+*!***************************************************************************
+*
+FUNCTION lfSRBillNo
+PARAMETERS lcParm
+
+PRIVATE lnAlias
+lnAlias = SELECT(0)
+SELECT BOL_Hdr
+
+DO CASE
+  CASE lcParm = 'S'  && Set code
+    SET KEY TO lcRpAcct
+    LOCATE
+
+  CASE lcParm = 'R'  && Reset code
+    SET KEY TO
+    LOCATE
+    llClearBno = .F.
+    SELECT (lnAlias)
+ENDCASE
+*-- End of lfSRBillNo.
+
+*!***************************************************************************
+*! Name      : lfClearRep
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : Function that we call when Close the option grid.
+*!***************************************************************************
+*! Called from : [Option Grid] < Close > button.
+*!***************************************************************************
+*! Example     : = lfClearRep()
+*!***************************************************************************
+*
+FUNCTION lfClearRep
+
+SELECT Pack_Hdr
+CLOSE INDEXES
+
+IF FILE(gcWorkDir+lcPckIndex+'.CDX')
+  ERASE (gcWorkDir+lcPckIndex+'.CDX')
+ENDIF
+
+*-- Close temp. opended files, if it used.
+IF USED(lcWorkFile)
+  USE IN (lcWorkFile)
+ENDIF
+*-- End of lfClearRep.
+
+*!***************************************************************************
+*! Name      : lfItmPos
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : to get the position of the fixed filter in OG
+*!***************************************************************************
+*! Called from : OG When Function
+*!***************************************************************************
+*! Example   : = lfItmPos()
+*!***************************************************************************
+*
+FUNCTION lfItmPos
+PARAMETERS lcItmInFlt
+PRIVATE lnItmPos
+
+lnItmPos = ASCAN(laOGFxFlt,lcItmInFlt)
+IF lnItmPos > 0
+  lnItmPos = ASUBSCRIPT(laOGFxFlt,lnItmPos,1)
+ENDIF
+RETURN lnItmPos
+*-- End of lfItmPos.
+
+*!***************************************************************************
+*! Name      : lfVarPos
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : OG when function
+*!***************************************************************************
+*! Called from : to get the position of the Variable in OG
+*!***************************************************************************
+*! Example   : = lfVarPos()
+*!***************************************************************************
+*
+FUNCTION lfVarPos
+PARAMETERS lcItmInFlt
+PRIVATE lnItmPos
+lnItmPos = ASCAN(laOGObjType,lcItmInFlt)
+IF lnItmPos > 0
+  lnItmPos = ASUBSCRIPT(laOGObjType,lnItmPos,1)
+ENDIF
+RETURN lnItmPos
+*-- End of lfVarPos.
+
+*!***************************************************************************
+*! Name      : lfTotPages
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/18/2011
+*! Purpose   : to get the total number of pages
+*!***************************************************************************
+*! Called from : Report
+*!***************************************************************************
+*! Example     : = lfTotPages()
+*!***************************************************************************
+*: Notes : if a change is done in Frx Remember to
+*:         1) Print the Report and count the number of lines per page
+*:         2) Adjust the number of lines (Hardcoded) in lfTotPages()
+
+*-- we add one page in case of 31 lines or its multiple 'cause we have to
+*-- print an excess page for Group Footer
+FUNCTION lfTotPages
+PRIVATE lnRecNo,lnNoOfLns
+
+SELECT (lcWorkFile)
+lnRecNo = RECNO()
+
+IF !(cGroupKey==lcGroupKey)
+  lcGroupKey = cGroupKey
+
+  SET ORDER TO TAG (lcWorkFile) DESCENDING
+  =SEEK(lcGroupKey,lcWorkFile)
+  lnNoOfLns = RECNO() - lnRecNo + 1
+
+  lnNoOfLns = ABS(lnNoOfLns)
+
+  IF MOD(lnNoOfLns,31) = 0
+    lnPages = lnNoOfLns/31 + 1
+  ELSE
+    IF lnNoOfLns = 30
+      lnPages = CEILING(lnNoOfLns/31) + 1
+    ELSE
+      lnPages = CEILING(lnNoOfLns/31)
+    ENDIF
+  ENDIF
+  SET ORDER TO TAG (lcWorkFile) ASCENDING
+ENDIF
+
+GO lnRecNo
+RETURN ''
+*-- End of lfTotPages.
+
+FUNCTION lfvClrRd
+
+CLEARREAD()

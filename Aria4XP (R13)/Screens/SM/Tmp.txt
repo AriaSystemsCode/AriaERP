@@ -1,0 +1,35 @@
+PROCEDURE Valid
+
+*lfvDate(thisformset,this)
+IF EMPTY(this.Value) 
+  *N000682,1 04/16/2013 HES Globlization changes[Start]
+*!*	  =gfModalGen('INM36002B00000','ALERT','Date')
+  =gfModalGen('INM36002B00000','ALERT',LANG_Date)  
+  *N000682,1 04/16/2013 HES Globlization changes[End  ]
+  RETURN 0
+ENDIF 
+IF YEAR(this.Value)<>VAL(thisformset.loFormSet.laData[2])
+  =gfModalGen('INM00080B00000','DIALOG')
+  This.Value = this.OldValue
+  RETURN 0
+ENDIF   
+
+*- check duplicate
+FOR i=1 TO ThisForm.lsHoliday.listcount
+  IF CTOD(ThisForm.lsHoliday.listitem(i,1))=this.value
+    =gfModalGen('INM00079B00000','DIALOG')
+    this.Value = this.OldValue
+    RETURN 0
+  ENDIF 
+ENDFOR 
+  
+ThisForm.lsHoliday.ListItem(ThisForm.lsHoliday.ListItemId,1) = DTOC(this.Value  )
+lnID = ThisForm.lsHoliday.listItemID
+ThisForm.lsHoliday.Sorted = .T.    
+ThisForm.lsHoliday.listItemID = lnID
+ThisForm.lsHoliday.Refresh()
+ENDPROC
+PROCEDURE When
+DODEFAULT()
+RETURN thisformset.loFormset.ActiveMode $ 'AE' AND ThisForm.lsHoliday.ListCount>0
+ENDPROC

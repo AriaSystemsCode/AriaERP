@@ -1,0 +1,1 @@
+requesthandler.exe /regserver

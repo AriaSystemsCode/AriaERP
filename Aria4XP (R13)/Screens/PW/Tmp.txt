@@ -1,0 +1,803 @@
+PROCEDURE createtmp
+*- Get the file structure of the ctktrcvh table 
+DECLARE laFileStru[1]
+SELECT ctktrcvh
+=AFIELDS(laFileStru)
+
+*- Create a temporary file (tmpCutLns) with the above structure and add an index tag on Cuttkt
+=gfCrtTmp(ThisFormSet.lctmpopenbatch ,@laFileStru,'tmprcvnum','tmprcvnum',.F.)
+SELECT (ThisFormSet.lctmpopenbatch )
+INDEX on ctype+tmprcvnum TAG CTKTRCVH
+
+DO lfCreatTmp WITH thisformset 
+
+*- Get the file structure of the Tracking header file 
+DECLARE laFileStru[1]
+SELECT PWTRKDT
+=AFIELDS(laFileStru)
+
+*- Add four extra fields to the structure as follows:
+lnFileStru    = ALEN(laFileStru,1)
+DIMENSION laFileStru[lnFileStru+6, 18]
+
+laFileStru[lnFileStru+1, 1] = 'LINCLUDE' && for select check box
+laFileStru[lnFileStru+1, 2] = 'L'
+laFileStru[lnFileStru+1, 3] = 1
+laFileStru[lnFileStru+1, 4] = 0
+
+laFileStru[lnFileStru+2, 1] = 'cSize'    && Hold Bundle Size.
+laFileStru[lnFileStru+2, 2] = 'C'
+laFileStru[lnFileStru+2, 3] = 6
+laFileStru[lnFileStru+2, 4] = 0
+
+laFileStru[lnFileStru+3, 1] = 'nQty'     && hold Issued QTY.
+laFileStru[lnFileStru+3, 2] = 'N'
+laFileStru[lnFileStru+3, 3] = 8
+laFileStru[lnFileStru+3, 4] = 0
+
+laFileStru[lnFileStru+4, 1] = 'nCNCLQTY' && hold Damadge QTY if exist.
+laFileStru[lnFileStru+4, 2] = 'N'
+laFileStru[lnFileStru+4, 3] = 8
+laFileStru[lnFileStru+4, 4] = 0
+
+laFileStru[lnFileStru+5, 1] = 'nRCVQTY'  && hold Complete Qty - Damadge QTY (If exist).
+laFileStru[lnFileStru+5, 2] = 'N'
+laFileStru[lnFileStru+5, 3] = 8
+laFileStru[lnFileStru+5, 4] = 0
+
+laFileStru[lnFileStru+6, 1] = 'nSize'  && hold Size No.
+laFileStru[lnFileStru+6, 2] = 'N'
+laFileStru[lnFileStru+6, 3] = 1
+laFileStru[lnFileStru+6, 4] = 0
+
+FOR lnRowPos = lnFileStru+1 TO lnFileStru+6
+  FOR lnColPos = 7 TO 16
+    laFileStru[lnRowPos, lnColPos] = ""
+  ENDFOR
+  FOR lnColPos = 17 TO 18
+    laFileStru[lnRowPos, lnColPos] = 0
+  ENDFOR
+ENDFOR
+
+*- Create a temporary file (tmpCutLns) with the above structure and add an index tag on Cuttkt
+=gfCrtTmp(ThisFormSet.tmpCutLns,@laFileStru,'LINCLUDE','LINCLUDE',.F.)
+SELECT (ThisFormSet.tmpCutLns)
+INDEX on Cuttkt+cbundle TAG Cuttkt
+
+ENDPROC
+PROCEDURE moptiongrid
+&&Default variables for option grid
+PRIVATE lcrpoutnam, lcrpacct, lcexp &&
+STORE "" TO lcrpoutnam,lcrpacct, lcexp, loogscroll
+
+&& Call Option Grid
+lcexp = gfopgrid('PWTMPRC' , .T.)&&,.F.,.F.,.T.,.T.)  &&
+
+THISFORMSET.lcexprsion = lcexp
+THISFORMSET.rpoutnam   = lcrpoutnam
+
+&& Empty the temp order table
+SELECT (THIS.tmpcutlns)
+zap 
+lcexp            = UPPER(lcexp)
+
+&& Collect the order header data according to the option grid criteria.
+SELECT pwtrkhd
+=gfseek('')
+
+SELECT pwtrkdt
+=gfseek('')
+
+*- Define the Progress Bar Object
+LOCAL opross, lncurpross, lntotpross
+lntotpross = RECCOUNT('PWTRKDT')
+
+STORE "" TO lccuttktno, lcbundle
+STORE 0 TO lncurpross, lnqty, lncnclqty, lnrcvqty, m.nqty, m.ncnclqty, m.nrcvqty
+
+*- Create (This.tmpCutLns) file as follows :
+SELECT pwtrkdt
+SCAN
+  IF EMPTY(pwtrkdt.tmprcvnum) OR ISNULL(pwtrkdt.tmprcvnum)
+    SELECT pwtrkdt
+    SCATTER MEMVAR MEMO
+    STORE 0 TO m.nqty, m.ncnclqty, m.nrcvqty 
+    
+    lcstyle  = M.style
+    lddate   = M.date
+    lccuttkt = m.cuttkt
+    IF !EMPTY(lcexp) AND !(lcexp='.T.')
+      IF &lcexp.
+      ELSE
+        LOOP
+      ENDIF
+    ENDIF
+    
+    lccuttktno = m.cuttkt
+    lcbundle   = m.cbundle
+    &&CUR_MFGOPRDT.CTKTNO+ PWCTKBOM.MFGCODE+ PWCTKBOM.COPRCODE+ PEPERSON.CPERSON_ID+PWCTKBOM.CBUNDLE+PWCTKBOM.type
+
+    IF SEEK(m.cuttkt+m.cbundle,'pwbundl')
+      lcsize = SUBSTR(pwbundl.lotsize,2,LEN(pwbundl.lotsize))
+      lnsize = VAL(SUBSTR(pwbundl.lotsize,1,1))
+    ELSE
+      lcsize = ""
+      lnsize = 0
+    ENDIF
+
+    IF SEEK(m.mfgcode+m.coprcode,'PWOPERAT') AND ALLTRIM(UPPER(pwoperat.coper_type)) = 'C'
+
+      SELECT (THISFORMSET.tmpcutlns)
+      IF !SEEK(m.cuttkt+m.cbundle)
+        && Insert Line
+        APPEND BLANK
+        GATHER MEMVAR MEMO
+        REPLACE nqty     WITH nqty + IIF(m.type = 'I',m.ntotqty,0) &&lnqty
+        REPLACE ncnclqty WITH ncnclqty + IIF(m.type = 'Q',m.ntotqty,0) &&lncnclqty
+        REPLACE nrcvqty  WITH nrcvqty + IIF(m.type = 'C',m.ntotqty,0) &&lnrcvqty
+        REPLACE csize    WITH lcsize
+        REPLACE linclude WITH .F.
+        REPLACE nsize    WITH lnsize
+      ELSE
+
+        REPLACE nqty     WITH nqty + IIF(m.type = 'I',m.ntotqty,0) &&lnqty
+        REPLACE ncnclqty WITH ncnclqty + IIF(m.type = 'Q',m.ntotqty,0) &&lncnclqty
+        REPLACE nrcvqty  WITH nrcvqty + IIF(m.type = 'C',m.ntotqty,0) &&lnrcvqty
+
+      ENDIF
+
+    ENDIF
+
+  ENDIF
+ENDSCAN
+SELECT (THISFORMSET.tmpcutlns)
+SCAN
+  IF nqty<= 0
+    DELETE
+  ENDIF
+ENDSCAN
+
+&& Adjust the select buttons state.
+WITH THISFORMSET.ariaform1
+  IF RECCOUNT(THIS.tmpcutlns) > 0
+    STORE .T. TO .cmdselect.ENABLED, .cmdselectall.ENABLED, .cmdinvert.ENABLED
+    .cmdselectnone.ENABLED = .F.
+  ELSE
+    STORE .F. TO .cmdselect.ENABLED, .cmdselectall.ENABLED, .cmdselectnone.ENABLED, .cmdinvert.ENABLED
+  ENDIF
+ENDWITH
+
+&& adjust the grid and edit [read only as per Wael] region source.
+SELECT (THIS.tmpcutlns)
+THIS.addgridsource()
+
+
+ENDPROC
+PROCEDURE generate
+lccuralias = ALIAS()
+SELECT CTKTRCVL
+=gfseek('')
+
+SELECT (THISFORMSET.tmpcutlns)
+lctmpcutlns = THISFORMSET.tmpcutlns
+oldrecno    = RECNO()
+
+*- Check Number of records that match the expression criteria
+COUNT FOR linclude TO lntotrec
+TRY
+  GO  (oldrecno)
+CATCH
+  GO TOP
+ENDTRY
+IF lntotrec < 1
+  *** Message : "   No Records Selected "
+  ***                 <  OK  >
+  =gfmodalgen("TRM42153B00000", "DIALOG" )
+  RETURN
+ENDIF
+
+*- Prepare thermometer variables
+lncurrec     = 0
+lbatchstart = .F.
+lsaveddata  = .F.
+SELECT (lctmpcutlns)
+
+SCAN
+  SELECT (lctmpcutlns)
+  SCATTER MEMVAR MEMO
+  IF m.linclude = .T.
+
+    *** Increment thermometer step
+    lncurrec = lncurrec + 1
+    WAIT WINDOW "Check Open Cut Ticket Receiving Batches for Cut Ticket: "+ALLTRIM(m.cuttkt) NOWAIT
+    lccuttkt   = m.cuttkt
+    lccbundle  = m.cbundle
+    lchoice    = 3 && 1 Add, 2 Create New , 3 Cancel
+    lctmprcvno = ""
+    IF SEEK('M'+m.cuttkt,"CTKTRCVL","CTKTRCVLC")
+
+      SELECT (THISFORMSET.lctmpopenbatch)
+      ZAP 
+      SELECT ctktrcvl
+      SCAN REST WHILE ctype+cuttkt+STYLE+dyelot+STR(nlineno,6)+tmprcvnum+trancd = 'M'+m.cuttkt
+        IF SEEK('M'+ctktrcvl.tmprcvnum,"ctktrcvh") AND ctktrcvh.cSTATUS = "O"
+          IF !SEEK('M'+ctktrcvl.tmprcvnum,THISFORMSET.lctmpopenbatch)
+            SELECT ctktrcvh
+            SCATTER MEMVAR MEMO
+            SELECT (THISFORMSET.lctmpopenbatch)
+            APPEND BLANK
+            GATHER MEMVAR MEMO
+          ENDIF
+        ENDIF
+      ENDSCAN
+      SELECT (THISFORMSET.lctmpopenbatch)
+      IF RECCOUNT()>0
+       lchoice = gfmodalgen("INM54037B54036", "DIALOG" )
+      ELSE
+       lchoice = 2 && Create New
+      ENDIF        
+    ELSE
+      lchoice = 2 && Create New
+    ENDIF
+
+    DO CASE
+    CASE lchoice = 1 && Add
+      THISFORMSET.addrcvlines()
+      lsaveddata  = .T.
+    CASE lchoice = 2 && Create New
+      THISFORMSET.createnewbatch()
+      lsaveddata  = .T.
+    OTHERWISE
+      lctmprcvno = ""
+    ENDCASE
+
+    SELECT (lctmpcutlns)
+    IF !EMPTY(lctmprcvno)
+      REPLACE tmprcvnum WITH lctmprcvno
+    ENDIF
+
+  ENDIF
+ENDSCAN
+
+&& Data saves successfully
+IF lsaveddata  = .T.
+  =THISFORMSET.savefiles()
+  =THISFORMSET.moptiongrid()
+ELSE
+  SELECT (THISFORMSET.tmpcutlns)
+  TRY
+    GO  (oldrecno)
+  CATCH
+    GO TOP
+  ENDTRY
+  THISFORMSET.ariaform1.grdorder.REFRESH()
+
+
+ENDIF
+
+
+ENDPROC
+PROCEDURE addgridsource
+SELECT (This.tmpCutLns)
+LOCATE
+WITH ThisFormset.Ariaform1.grdOrder
+  .RecordSource           = ""
+  .RecordSource           = This.tmpCutLns
+  .Column1.ControlSource  = "LINCLUDE" 
+  .Column1.currentcontrol = "chkSelect"  
+  .Column1.sparse         = .F. 
+  .Column2.ControlSource  = "cuttkt"  
+  .Column3.ControlSource  = "clotno"
+  .Column4.ControlSource  = "style"
+  .Column5.ControlSource  = "cSize"
+  .Column6.ControlSource  = "cBundle"
+  .Column7.ControlSource  = "nQty"
+  .Column8.ControlSource  = "nRcvQty"
+  .Column9.ControlSource  = "nCnclQty"
+  .Refresh()  
+ENDWITH
+
+lcSource = ThisFormSet.tmpCutLns
+
+
+ENDPROC
+PROCEDURE validselect
+PARAMETERS lctype
+PRIVATE llselall
+
+SELECT (THIS.tmpcutlns)
+lnrecno = RECNO()
+
+DO CASE
+CASE lctype = 'S'
+
+  REPLACE LINCLUDE WITH IIF(THIS.lcselectcap = '\<Select', .T.,.F.)
+
+CASE lctype = 'A'
+  REPLACE LINCLUDE WITH .T.  ALL
+
+CASE lctype = 'N'
+  REPLACE LINCLUDE WITH .F.  ALL
+
+CASE lctype = 'V'
+  REPLACE LINCLUDE WITH !LINCLUDE ALL
+
+OTHERWISE
+
+ENDCASE
+
+
+
+SELECT (THIS.tmpcutlns)
+
+LOCATE FOR LINCLUDE
+IF FOUND()
+  THIS.llselectnoneena =.T.
+ELSE
+  THIS.llselectnoneena =.F.
+ENDIF
+
+LOCATE FOR !LINCLUDE
+IF FOUND()
+  THIS.llselectallena = .T.
+ELSE
+  THIS.llselectallena = .F.
+ENDIF
+
+TRY
+  GO lnrecno
+CATCH
+  GO TOP
+ENDTRY
+
+IF !LINCLUDE
+  THIS.lcselectcap = '\<Select'
+ELSE
+  THIS.lcselectcap = '\<Unselect'
+ENDIF
+
+
+
+ENDPROC
+PROCEDURE addrcvlines
+* Browse all open batches for that cut ticket and get
+*THISFORMSET.ariaform1.cntbatch.kbbatchno.keytextbox.VALUE
+*THISFORMSET.ariaForm1.cntBatch.txtBatchDesc.Value
+*THISFORMSET.ariaForm1.cntBatch.cboBatchStatus.Value
+SELECT (THISFORMSET.lctmpline)
+ZAP 
+
+SELECT (THISFORMSET.lctmpopenbatch)
+LOCATE
+lcTmpExp = thisformset.lcexp
+keyexp = "tmprcvnum"
+lcbrfields = "tmprcvnum :h='"+lang_batch_no+"',cdesc:h='"+lang_description+"',"+;
+  "ddate :H='"+lang_creation_date+"',"+;
+  "ntotstk :H='"+lang_total_receive+"'"
+
+lctmpopenbatch = THISFORMSET.lctmpopenbatch
+lcwintitl      = lang_open_batch_tile
+llselected     = gfbrowse(lcbrfields,lcwintitl,.F.,.F.,'',.F., .T.,.F., .F., .F.,thisformset.lcexp, 'tmprcvnum')
+SET STEP ON 
+=SEEK('P'+'M'+m.cuttkt,'POSHDR')
+IF llselected 
+  * for selected one add its number
+  SELECT (thisformset.lcexp)
+  THISFORMSET.ariaform1.cntbatch.kbbatchno.keytextbox.VALUE = tmprcvnum
+  THISFORMSET.ariaform1.cntbatch.txtbatchdesc.VALUE         = ALLTRIM(cdesc)
+  THISFORMSET.ariaform1.cntbatch.cbobatchstatus.VALUE       = ALLTRIM(cstatus)
+
+  * Fill temp line cursor
+  lcnewrec = tmprcvnum
+  loformset = THISFORMSET
+  loformset.lcinvtype = "0001"
+  loformset.lcptype   = ""
+  loformset.llmfcall  = .T.
+  &&loformset.llimpcost = .F. in init method
+  loformset.llapprovebatch = .F.
+  lctmpline = THISFORMSET.lctmpline
+  *loFormSet.ariaForm1.dtPickerPostingDate.value = ThisFormSet.ARIAFORM1.DTpShipDate.text1.VALUE
+  SELECT (THISFORMSET.tmpcutlns)
+  lnrec = RECNO()
+  *ncnclqty  &&lncnclqty 'Q'
+  *nrcvqty  'Received'
+
+    SELECT (THISFORMSET.tmpcutlns)
+    SCATTER MEMVAR memo 
+    = SEEK('P'+'M'+m.cuttkt+'0001'+M.style,'POSLN')
+    &&cbusdocu+cstytype+PO+cinvtype+STYLE+LINENO+TRANCD
+    =SEEK(M.style,"STYLE")
+    IF M.nrcvqty > 0
+      SELECT (lctmpline)
+      APPEND BLANK
+      REPLACE &lctmpline..cretsty WITH POSLN.cretsty,;
+        &lctmpline..cstygrade WITH POSLN.cstygrade  ,;
+        &lctmpline..po        WITH m.cuttkt          ,;
+        &lctmpline..cwarecode WITH style.cdefware   ,;
+        &lctmpline..dyelot    WITH POSLN.dyelot     ,;
+        &lctmpline..LINENO    WITH POSLN.LINENO     ,;
+        &lctmpline..qty1      WITH IIF(m.nSize = 1,m.nqty1,0),; 
+        &lctmpline..qty2      WITH IIF(m.nSize = 2,m.nqty2,0),; 
+        &lctmpline..qty3      WITH IIF(m.nSize = 3,m.nqty3,0),; 
+        &lctmpline..qty4      WITH IIF(m.nSize = 4,m.nqty4,0),; 
+        &lctmpline..qty5      WITH IIF(m.nSize = 5,m.nqty5,0),; 
+        &lctmpline..qty6      WITH IIF(m.nSize = 6,m.nqty6,0),; 
+        &lctmpline..qty7      WITH IIF(m.nSize = 7,m.nqty7,0),; 
+        &lctmpline..qty8      WITH IIF(m.nSize = 8,m.nqty8,0),; 
+        &lctmpline..REFERENCE WITH POSLN.REFERENCE,;
+        &lctmpline..STYLE     WITH m.style         ,;
+        &lctmpline..totqty    WITH m.nrcvqty       ,;
+        &lctmpline..trancd    WITH "2" && RECEIVED
+    ENDIF
+    IF M.ncnclqty > 0
+      SELECT (lctmpline)
+      APPEND BLANK
+      REPLACE &lctmpline..cretsty WITH POSLN.cretsty,;
+        &lctmpline..cstygrade WITH POSLN.cstygrade  ,;
+        &lctmpline..po        WITH m.cuttkt          ,;
+        &lctmpline..cwarecode WITH style.cdefware   ,;
+        &lctmpline..dyelot    WITH POSLN.dyelot     ,;
+        &lctmpline..LINENO    WITH POSLN.LINENO        ,;
+        &lctmpline..qty1      WITH IIF(m.nSize = 1,m.nqty1,0),; 
+        &lctmpline..qty2      WITH IIF(m.nSize = 2,m.nqty2,0),; 
+        &lctmpline..qty3      WITH IIF(m.nSize = 3,m.nqty3,0),; 
+        &lctmpline..qty4      WITH IIF(m.nSize = 4,m.nqty4,0),; 
+        &lctmpline..qty5      WITH IIF(m.nSize = 5,m.nqty5,0),; 
+        &lctmpline..qty6      WITH IIF(m.nSize = 6,m.nqty6,0),; 
+        &lctmpline..qty7      WITH IIF(m.nSize = 7,m.nqty7,0),; 
+        &lctmpline..qty8      WITH IIF(m.nSize = 8,m.nqty8,0),; 
+        &lctmpline..REFERENCE WITH POSLN.REFERENCE,;
+        &lctmpline..STYLE     WITH m.style         ,;
+        &lctmpline..totqty    WITH m.ncnclqty      ,;
+        &lctmpline..trancd    WITH "5" && Cancelled 
+    ENDIF
+
+  SELECT (lctmpline)
+  DO lfsavebatch WITH THISFORMSET
+  
+  SELECT (thisformset.lcexp)
+  lctmprcvno = &lcTmpExp..tmprcvnum && fill  
+  ZAP 
+ 
+  SELECT (THISFORMSET.tmpcutlns)
+  
+ENDIF
+
+ENDPROC
+PROCEDURE createnewbatch
+loformset = THISFORMSET
+
+lcNewRec = ""
+loformset.lcinvtype = "0001"
+loformset.lcptype   = "" && as per Mariam
+loformset.llmfcall  = .T.
+&&loformset.llimpcost = .F. in init method.
+loformset.llapprovebatch = .F.
+lctmpline = THISFORMSET.lctmpline
+*loFormSet.ariaForm1.dtPickerPostingDate.value = ThisFormSet.ARIAFORM1.DTpShipDate.text1.VALUE
+SELECT (lctmpline)
+ZAP 
+
+SELECT (THISFORMSET.tmpcutlns)
+lnrec = RECNO()
+*ncnclqty  &&lncnclqty 'Q'
+*nrcvqty  'Received'
+
+=SEEK('P'+'M'+m.cuttkt,'POSHDR')
+&&cbusdocu+cstytype+PO
+*SELECT (THISFORMSET.tmpcutlns)
+
+SELECT (THISFORMSET.tmpcutlns)
+SCATTER MEMVAR MEMO
+
+= SEEK('P'+'M'+m.cuttkt+'0001'+M.style,'POSLN')
+&&cbusdocu+cstytype+PO+cinvtype+STYLE+LINENO+TRANCD
+=SEEK(M.style,"STYLE")
+IF M.nrcvqty > 0
+  SELECT (lctmpline)
+  APPEND BLANK
+  REPLACE &lctmpline..cretsty WITH POSLN.cretsty,;
+    &lctmpline..cstygrade WITH POSLN.cstygrade    ,;
+    &lctmpline..po        WITH m.cuttkt            ,;
+    &lctmpline..cwarecode WITH STYLE.cdefware     ,;
+    &lctmpline..dyelot    WITH POSLN.dyelot       ,;
+    &lctmpline..LINENO WITH POSLN.LINENO          ,;
+    &lctmpline..qty1 WITH IIF(m.nSize = 1,m.nqty1,0),;
+    &lctmpline..qty2 WITH IIF(m.nSize = 2,m.nqty2,0),;
+    &lctmpline..qty3 WITH IIF(m.nSize = 3,m.nqty3,0),;
+    &lctmpline..qty4 WITH IIF(m.nSize = 4,m.nqty4,0),;
+    &lctmpline..qty5 WITH IIF(m.nSize = 5,m.nqty5,0),;
+    &lctmpline..qty6 WITH IIF(m.nSize = 6,m.nqty6,0),;
+    &lctmpline..qty7 WITH IIF(m.nSize = 7,m.nqty7,0),;
+    &lctmpline..qty8 WITH IIF(m.nSize = 8,m.nqty8,0),;
+    &lctmpline..REFERENCE WITH POSLN.REFERENCE   ,;
+    &lctmpline..STYLE WITH m.style                ,;
+    &lctmpline..totqty WITH m.nrcvqty             ,;
+    &lctmpline..trancd WITH "2" && RECEIVED
+ENDIF
+IF M.ncnclqty > 0
+  SELECT (lctmpline)
+  APPEND BLANK
+  REPLACE &lctmpline..cretsty WITH POSLN.cretsty,;
+    &lctmpline..cstygrade WITH POSLN.cstygrade    ,;
+    &lctmpline..po        WITH m.cuttkt            ,;
+    &lctmpline..cwarecode WITH STYLE.cdefware     ,;
+    &lctmpline..dyelot    WITH POSLN.dyelot       ,;
+    &lctmpline..LINENO    WITH POSLN.LINENO       ,;
+    &lctmpline..qty1      WITH IIF(m.nSize = 1,m.nqty1,0),;
+    &lctmpline..qty2      WITH IIF(m.nSize = 2,m.nqty2,0),;
+    &lctmpline..qty3      WITH IIF(m.nSize = 3,m.nqty3,0),;
+    &lctmpline..qty4      WITH IIF(m.nSize = 4,m.nqty4,0),;
+    &lctmpline..qty5      WITH IIF(m.nSize = 5,m.nqty5,0),;
+    &lctmpline..qty6      WITH IIF(m.nSize = 6,m.nqty6,0),;
+    &lctmpline..qty7      WITH IIF(m.nSize = 7,m.nqty7,0),;
+    &lctmpline..qty8      WITH IIF(m.nSize = 8,m.nqty8,0),;
+    &lctmpline..REFERENCE WITH POSLN.REFERENCE        ,;
+    &lctmpline..STYLE     WITH m.style                 ,;
+    &lctmpline..totqty    WITH m.ncnclqty              ,;
+    &lctmpline..trancd    WITH "5" && Cancelled
+ENDIF
+
+SELECT (THISFORMSET.lctmpline)
+DO lfsavebatch WITH THISFORMSET
+
+SELECT (THISFORMSET.tmpcutlns)
+lctmprcvno = lcNewRec && fill
+
+ENDPROC
+PROCEDURE refreshall
+LPARAMETER oContainer
+DODEFAULT(oContainer)
+
+ThisFormSet.oToolbar.cmdSelect.ControlEnable = 0
+ThisFormSet.oToolbar.cmdSelect.Enabled       = .F.
+
+&& Get system data
+ThisFormSet.ldRpGenDat = oAriaApplication.SystemDate
+ThisFormSet.ARIAFORM1.dtPickerPostingDate.VALUE = oAriaApplication.SystemDate
+ThisFormSet.ARIAFORM1.dtPickerPostingDate.text1.VALUE = oAriaApplication.SystemDate 
+ThisFormSet.ARIAFORM1.dtPickerPostingDate.Enabled = .T.
+ENDPROC
+PROCEDURE beforesave
+&& As per Saber should return .T. 
+DODEFAULT()
+RETURN .T.
+ENDPROC
+PROCEDURE Load
+SET MULTILOCKS ON
+
+IF !USED('PWTRKHD')
+  =GFOPENTABLE('PWTRKHD','PWTRKHD','SH')
+  *SET ORDER TO PWTRKHD && CUTTKT+MFGCODE+COPRCODE+CPERSON_ID
+ENDIF
+
+*Collect PWTRKDT data.
+IF !USED('PWTRKDT')
+  =GFOPENTABLE('PWTRKDT','PWTRKDT','SH')
+  *SET ORDER TO PWTRKHD && CUTTKT+MFGCODE+COPRCODE+CPERSON_ID+CBUNDLE+TYPE
+ENDIF  
+
+*Collect Detail Operations data.
+IF !USED('PWOPERAT')
+  =gfOpenTable('PWOPERAT','PWOPERAT','SH')
+  *SET ORDER TO PWOPERAT   && MFGCODE+COPRCODE
+ENDIF
+SELECT PWOPERAT
+=GFSEEK('')
+
+*Collect PWBUNDL data.
+IF !USED('PWBUNDL')
+  =GFOPENTABLE('PWBUNDL','PWBUNDL','SH')
+  *SET ORDER TO PWBUNDL&& CUTTKT+CBUNDLE.
+ENDIF
+SELECT PWBUNDL
+=GFSEEK('')
+
+*Collect CTKTRCVH data.
+IF !USED('CTKTRCVH')
+  =GFOPENTABLE('CTKTRCVH','CTKTRCVH','SH')
+ENDIF
+SELECT CTKTRCVH
+=GFSEEK('')
+
+
+*Collect CTKTRCVL data.
+IF !USED('CTKTRCVL')
+  =GFOPENTABLE('CTKTRCVL','CTKTRCVLC','SH')
+ENDIF
+SELECT CTKTRCVL
+=GFSEEK('')
+
+
+IF !USED('STYLE')
+  =GFOPENTABLE('STYLE','STYLE','SH')
+ENDIF
+SELECT STYLE
+=GFSEEK('')
+
+IF !USED('POSHDR')
+  =GFOPENTABLE('POSHDR','POSHDR','SH')
+ENDIF
+SELECT POSHDR
+=GFSEEK('')
+*cbusdocu+cstytype+PO
+
+IF !USED('POSLN')
+  =GFOPENTABLE('POSLN','POSLN','SH')
+ENDIF
+SELECT POSLN
+=GFSEEK('')
+*cbusdocu+cstytype+PO+cinvtype+STYLE+LINENO+TRANCD
+
+
+DODEFAULT()
+
+ENDPROC
+PROCEDURE Destroy
+IF USED('PWTRKHD')
+  =gfCloseTable('PWTRKHD')
+ENDIF
+
+IF USED('PWTRKDT')
+  =gfCloseTable('PWTRKDT')
+ENDIF
+
+IF USED('PWBUNDL')
+  =gfCloseTable('PWBUNDL')
+ENDIF
+
+IF USED('PWOPERAT')
+  =gfCloseTable('PWOPERAT')
+ENDIF
+
+IF Thisformset.lPostRemove = .T.
+  RELEASE PROCEDURE ADDBS(oAriaApplication.ApplicationHome)+"POSTREC.FXP"
+ENDIF 
+
+DODEFAULT()
+ENDPROC
+PROCEDURE documentation
+*****************************************************************************
+*: Program file  : PWTMPRCV.SCX 
+*: Program desc. : Temporary receiveing
+*: Module        : PW
+*: System		 : Aria Apparel System (A4xp)
+*: Developer	 : [HIA] 
+*****************************************************************************
+*Modifications :
+*****************************************************************************
+ENDPROC
+PROCEDURE changemode
+lParameters  lcModeToChange
+
+DODEFAULT(lcModeToChange)
+
+WITH ThisFormSet.Ariaform1 
+  .grdOrder.Enabled = .T.
+  DO CASE
+  CASE ThisFormSet.ActiveMode = "S"	              && SELECT Mode    
+    
+  CASE ThisFormSet.ActiveMode = "V"	              && VIEW Mode
+    
+  CASE ThisFormSet.ActiveMode $ "E"	              && EDIT Mode    
+    
+  CASE ThisFormSet.ActiveMode $ "A"	              && ADD Mode    
+    
+  ENDCASE
+ENDWITH
+ENDPROC
+PROCEDURE Init
+&& Temp order table, contains all selected orders, by option grid.
+THISFORMSET.tmpCutLns      = gfTempName()
+THISFORMSET.lctmpline      = gfTempName()
+THISFORMSET.lctmpopenBatch = gfTempName()
+THISFORMSET.lcExp          = gfTempName()
+THISFORMSET.lctemloc       = gfTempName()
+THISFORMSET.lcPosLn        = "PosLn"
+THISFORMSET.llWareLoc      = .F. 
+
+DIMENSION laSetups[1,2]
+laSetups[1,1]  = 'M_LImpCost'  &&-- Use Detail Costing (PO)
+THISFORMSET.lcInvType='0001'
+=gfGetMemVar(@laSetups,oAriaApplication.ActiveCompanyID)
+
+*-- Use Detail Costing (PO)
+llImpCost = laSetups[1,2]
+THISFORMSET.llImpCost = IIF(THISFORMSET.lcInvType='0002' OR EMPTY(llImpCost),.F.,llImpCost)
+
+THISFORMSET.lPostRemove = .F.
+IF ! "\POSTREC.FXP" $ UPPER(SET("Procedure" ))
+  THISFORMSET.lPostRemove = .T.
+  SET PROCEDURE TO ADDBS(oAriaApplication.ApplicationHome)+"POSTREC.FXP"
+ENDIF
+
+THISFORMSET.createtmp()
+
+&& Add Scope button, on the toolbar.
+DECLARE THIS.laPanelObj[2,6]
+STORE '' TO THIS.laPanelObj
+THIS.laPanelObj[1,1] = 'pbOptGrid' && the button name
+THIS.laPanelObj[1,2] = oAriaApplication.BitMapHome+"SCOPE.bmp" && Assign button image.
+THIS.laPanelObj[1,3] = 'mOptionGrid'  && formset method, to fir when click the button.
+THIS.laPanelObj[1,4] = 'Scope' &&Tooltip & caption
+THIS.laPanelObj[1,5] = 'Scope' &&Tooltip & caption
+THIS.laPanelObj[1,6] = 'SV'
+
+&& Add Send button, on the toolbar.
+THIS.laPanelObj[2,1] = 'pbSave' && the button name
+THIS.laPanelObj[2,2] = oAriaApplication.BitMapHome+"GENERAT.bmp"
+THIS.laPanelObj[2,3] = 'Generate' && formset method, to fir when click the button.
+THIS.laPanelObj[2,4] = 'Generate' &&Tooltip & caption
+THIS.laPanelObj[2,5] = 'Generate' &&Tooltip & caption
+THIS.laPanelObj[2,6] = 'SV'
+
+DODEFAULT()
+SELECT (THISFORMSET.tmpCutLns)
+WITH THISFORMSET
+  .nWorkArea                            = THISFORMSET.tmpCutLns
+  .cBrowseTableDbEngine                 = 'NATIVE'
+  .DATAENVIRONMENT.INITIALSELECTEDALIAS = THISFORMSET.tmpCutLns
+  .cBrowseFileName                      = THISFORMSET.tmpCutLns
+  .cBrowseIndexExpression               = ''
+  .cBrowseIndexFields                   = ''
+  .cBrowseIndexName                     = ''
+  .cBrowseKey                           = ''
+  .cBrowseAliasName                     = THISFORMSET.tmpCutLns
+  .cBrowseTableName                     = THISFORMSET.tmpCutLns
+  .cBrowseFilter                        = ''
+  .BrowseTitle                          = 'Temporary Receive '
+  .AriaBrFields.EdtBrowseFields.VALUE   = [Cut Ticket :6:H='Cut Ticket #']
+ENDWITH
+THIS.FormHasToolbar = '000000'
+THIS.ChangeMode('S')
+
+&& Init progress bar control
+THISFORMSET.opross = CREATEOBJECT('ariaprogressbar')
+
+&& Run option gride and fill the temp order table.
+THISFORMSET.mOptionGrid()
+THISFORMSET.REFRESH()
+
+ENDPROC
+PROCEDURE undo
+LPARAMETERS tlSaveWithoutAsk
+
+IF gfModalGen('TRM00031B40000','ALERT') = 1
+
+  DODEFAULT(tlSaveWithoutAsk)
+  
+  ThisFormSet.mOptionGrid()
+  
+ENDIF
+ENDPROC
+PROCEDURE savefiles
+LPARAMETERS llcalledfromdelete
+
+TRY
+  SELECT (THISFORMSET.tmpcutlns)
+ 
+  SCAN
+    SELECT (THISFORMSET.tmpcutlns)
+    SCATTER MEMVAR MEMO
+    IF M.linclude and !ISNULL(m.tmprcvnum) And !ISNULL(m.tmprcvnum)
+      SELECT pwtrkdt
+      IF SEEK(m.cuttkt+m.mfgcode+m.coprcode+m.cperson_id+m.cbundle,"PWTRKDT")
+        SCAN REST WHILE cuttkt+mfgcode+coprcode+cperson_id+cbundle +TYPE = m.cuttkt+m.mfgcode+m.coprcode+m.cperson_id+m.cbundle
+          replace tmprcvnum WITH m.tmprcvnum
+          =gfreplace('')
+          SELECT pwtrkdt
+          =gftableupdate()
+        ENDSCAN
+      ENDIF
+    ENDIF
+    SELECT (THISFORMSET.tmpcutlns)
+  ENDSCAN
+  SELECT (THISFORMSET.tmpcutlns)
+  =gfmodalgen('TRM54005B00000','ALERT')
+CATCH
+
+ENDTRY
+
+
+
+ENDPROC

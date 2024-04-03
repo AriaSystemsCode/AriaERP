@@ -1,0 +1,153 @@
+PRGS Log File create on:02/19/13    08:22:03
+R:\ARIA4XP\REPORTS\GL\GLACCREC.PRG
+GLACCREC.PRG  lcBrFields    = "CGrpCode:H='"+LANG_CODE+;  Needs comment lcBrFields    = "CGrpCode:H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLACCREC.PRG  RETURN LANG_DETAILENT+' '+DTOC(lcRpFrDay)+' '+;  Needs comment RETURN IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DETAILENT,oAriaApplication.GetHeaderText("LANG_DETAILENT",AHEADERFILE))+' '+DTOC(lcRpFrDay)+' '+;
+GLACCREC.PRG  LANG_TO+' '+DTOC(lcRpToDay)+' '+;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TO,oAriaApplication.GetHeaderText("LANG_TO",AHEADERFILE))+' '+DTOC(lcRpToDay)+' '+;
+GLACCREC.PRG  RETURN LANG_DETAILENT+' '+DTOC(lcRpFrDay)+' '+;  Needs comment RETURN IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DETAILENT,oAriaApplication.GetHeaderText("LANG_DETAILENT",AHEADERFILE))+' '+DTOC(lcRpFrDay)+' '+;
+GLACCREC.PRG  LANG_TO+' '+DTOC(lcRpToDay)+' '+;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TO,oAriaApplication.GetHeaderText("LANG_TO",AHEADERFILE))+' '+DTOC(lcRpToDay)+' '+;
+GLACCREC.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLACTCHR.PRG
+GLACTCHR.PRG  has no .h file
+R:\ARIA4XP\REPORTS\GL\GLACTGRP.PRG
+GLACTGRP.PRG  lcBrFields    = "CGrpCode:H='"+LANG_CODE+;  Needs comment lcBrFields    = "CGrpCode:H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLACTGRP.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLACTTYP.PRG
+GLACTTYP.PRG  lcBrFields    = [CTYPECODE:H="]+LANG_TYPECODE+[",CtypeDesc:H="]+LANG_TYPEDESC+["]+;  Needs comment lcBrFields    = [CTYPECODE:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TYPECODE,oAriaApplication.GetHeaderText("LANG_TYPECODE",AHEADERFILE))+[",CtypeDesc:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TYPEDESC,oAriaApplication.GetHeaderText("LANG_TYPEDESC",AHEADERFILE))+["]+;
+GLACTTYP.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLAUTALT.PRG
+GLAUTALT.PRG  lcBrFields    = 'CAutCode:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CAutCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLAUTALT.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLAUTDIS.PRG
+R:\ARIA4XP\REPORTS\GL\GLAUTREC.PRG
+GLAUTREC.PRG  lcBrFields    = 'CAutCode:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CAutCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLAUTREC.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLAUTTEM.PRG
+GLAUTTEM.PRG  lcBrFields    = 'CAutCode:H="'+LANG_Code+;  Needs comment lcBrFields    = 'CAutCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Code,oAriaApplication.GetHeaderText("LANG_Code",AHEADERFILE))+;
+GLAUTTEM.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLBALSHT.PRG
+GLBALSHT.PRG  lcBrFields    = 'CGrpCode:H="'+LANG_Code+;  Needs comment lcBrFields    = 'CGrpCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Code,oAriaApplication.GetHeaderText("LANG_Code",AHEADERFILE))+;
+GLBALSHT.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLBALSHT.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLBALSHT.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLBALSHT.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLBALSHT.PRG  lcBrFields    = 'CFisFYear:H= "'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H= "'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLBALSHT.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLBALSHT.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLBALSHT.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLBALSHT.PRG  lcBrFields    = 'CBUDCODE:H="'+LANG_Budget_code+;  Needs comment lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
+GLBALSHT.PRG  '",CBUDYEAR:H="'+LANG_Year+'",CBUDDES:H="'+;  Needs comment '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+'",CBUDDES:H="'+;
+GLBALSHT.PRG  lcBrFields    = 'CBUDCODE:H="'+LANG_Budget_code+;  Needs comment lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
+GLBALSHT.PRG  '",CBUDYEAR:H="'+LANG_Year+;  Needs comment '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLBALSHT.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLBUDGET.PRG
+R:\ARIA4XP\REPORTS\GL\GLCAFLOW.PRG
+GLCAFLOW.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_YEAR+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE))+;
+GLCAFLOW.PRG  '",DFisBgDat:H="'+LANG_BEGDATE+;  Needs comment '",DFisBgDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BEGDATE,oAriaApplication.GetHeaderText("LANG_BEGDATE",AHEADERFILE))+;
+GLCAFLOW.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLCASHFL.PRG
+GLCASHFL.PRG  has no .h file
+R:\ARIA4XP\REPORTS\GL\GLHOSROW.PRG
+GLHOSROW.PRG  lcBrFields    = 'CBUDCODE:H="'+LANG_Budget_code+;  Needs comment lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
+GLHOSROW.PRG  '",CBUDYEAR:H="'+LANG_Year+;  Needs comment '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLHOSROW.PRG  lcBrFields    = 'CBUDCODE:H="'+LANG_Budget_code+;  Needs comment lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
+GLHOSROW.PRG  '",CBUDYEAR:H="'+LANG_Year+;  Needs comment '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLHOSROW.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLHOSROW.PRG  '",CFspprdid:H="'+LANG_Period+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Period,oAriaApplication.GetHeaderText("LANG_Period",AHEADERFILE))+;
+GLHOSROW.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLHOSROW.PRG  '",CFspprdid:H="'+LANG_Period+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Period,oAriaApplication.GetHeaderText("LANG_Period",AHEADERFILE))+;
+GLHOSROW.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLINCSTA.PRG
+GLINCSTA.PRG  lcBrFields    = 'CGrpCode:H="'+LANG_Code+;  Needs comment lcBrFields    = 'CGrpCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Code,oAriaApplication.GetHeaderText("LANG_Code",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year +;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE)) +;
+GLINCSTA.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  '" ,CFspprdid:H="'+LANG_PERIOD+;  Needs comment '" ,CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  '" ,CFspprdid:H="'+LANG_PERIOD+;  Needs comment '" ,CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year +;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE)) +;
+GLINCSTA.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CBUDCODE:H="'+LANG_Budget_code+;  Needs comment lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
+GLINCSTA.PRG  '",CBUDYEAR:H="'+LANG_Year+;  Needs comment '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  lcBrFields    = 'CBUDCODE:H="'+LANG_Budget_code+;  Needs comment lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
+GLINCSTA.PRG  '",CBUDYEAR:H="'+LANG_Year+;  Needs comment '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLINCSTA.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLPBATRN.PRG
+GLPBATRN.PRG  lcBrFields    = 'CBATCHNO:H="'+LANG_Code+;  Needs comment lcBrFields    = 'CBATCHNO:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Code,oAriaApplication.GetHeaderText("LANG_Code",AHEADERFILE))+;
+GLPBATRN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLPOBATS.PRG
+GLPOBATS.PRG  lcBrFields    = 'CBATCHNO:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CBATCHNO:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLPOBATS.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLPOTRAN.PRG
+GLPOTRAN.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLPOTRAN.PRG  '",DFisBgDat:H="'+LANG_Begin_date+;  Needs comment '",DFisBgDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Begin_date,oAriaApplication.GetHeaderText("LANG_Begin_date",AHEADERFILE))+;
+GLPOTRAN.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLPOTRAN.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLPOTRAN.PRG  lcBrFields    = 'CTranNO:H="'+LANG_Code+;  Needs comment lcBrFields    = 'CTranNO:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Code,oAriaApplication.GetHeaderText("LANG_Code",AHEADERFILE))+;
+GLPOTRAN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLPRATIO.PRG
+GLPRATIO.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
+GLPRATIO.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLPRATIO.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_Year +;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE)) +;
+GLPRATIO.PRG  '",CFspprdid:H="'+ LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLPRATIO.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLREPFNC.PRG
+GLREPFNC.PRG  lcBrFields    = 'CSEGRATIO:H="'+LANG_RATIOCODE+;  Needs comment lcBrFields    = 'CSEGRATIO:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_RATIOCODE,oAriaApplication.GetHeaderText("LANG_RATIOCODE",AHEADERFILE))+;
+GLREPFNC.PRG  lcBrFields    = 'CACCTCODE:H="'+LANG_ACCCODE +;  Needs comment lcBrFields    = 'CACCTCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ACCCODE,oAriaApplication.GetHeaderText("LANG_ACCCODE",AHEADERFILE)) +;
+GLREPFNC.PRG  lcBrFields    = 'Capp_id:H="'+LANG_MODCODE+;  Needs comment lcBrFields    = 'Capp_id:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MODCODE,oAriaApplication.GetHeaderText("LANG_MODCODE",AHEADERFILE))+;
+GLREPFNC.PRG  lcBrFields    = [CFisFYear:H="]+LANG_YEAR+;  Needs comment lcBrFields    = [CFisFYear:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE))+;
+GLREPFNC.PRG  [",CFspprdid:H="]+LANG_PERIOD+;  Needs comment [",CFspprdid:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLREPFNC.PRG  lcBrFields    = [CSRCJRNL:H="]+LANG_SJENTRY+;  Needs comment lcBrFields    = [CSRCJRNL:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SJENTRY,oAriaApplication.GetHeaderText("LANG_SJENTRY",AHEADERFILE))+;
+GLREPFNC.PRG  lcBrFields    = [CBUDCODE:H="]+LANG_BUDCODE+;  Needs comment lcBrFields    = [CBUDCODE:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BUDCODE,oAriaApplication.GetHeaderText("LANG_BUDCODE",AHEADERFILE))+;
+GLREPFNC.PRG  lcBrFields    = 'CFISFYEAR:H="'+LANG_YEAR+;  Needs comment lcBrFields    = 'CFISFYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE))+;
+GLREPFNC.PRG  '",DFisBgDat:H="'+LANG_BEGINDATE+;  Needs comment '",DFisBgDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BEGINDATE,oAriaApplication.GetHeaderText("LANG_BEGINDATE",AHEADERFILE))+;
+GLREPFNC.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_YEAR+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE))+;
+GLREPFNC.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLREPFNC.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLSEGVAL.PRG
+R:\ARIA4XP\REPORTS\GL\GLSOUJOR.PRG
+GLSOUJOR.PRG  has no .h file
+R:\ARIA4XP\REPORTS\GL\GLTRABAL.PRG
+GLTRABAL.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_YEAR +;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE)) +;
+GLTRABAL.PRG  '",CFspprdid:H="'+LANG_PERIOD+;  Needs comment '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
+GLTRABAL.PRG  lcBrFields    = 'CGrpCode:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CGrpCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLTRABAL.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLUBATRN.PRG
+GLUBATRN.PRG  lcBrFields    = 'CBATCHNO:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CBATCHNO:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLUBATRN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLUBATRS.PRG
+GLUBATRS.PRG  lcBrFields    = 'CAutCode:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CAutCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLUBATRS.PRG  lcBrFields    = [CUser_ID:H="]+LANG_USERID+;  Needs comment lcBrFields    = [CUser_ID:H="]+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_USERID,oAriaApplication.GetHeaderText("LANG_USERID",AHEADERFILE))+;
+GLUBATRS.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLUNBATS.PRG
+GLUNBATS.PRG  m.TYPE = IIF(cbattype='N',LANG_NORMAL,;  Needs comment m.TYPE = IIF(cbattype='N',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_NORMAL,oAriaApplication.GetHeaderText("LANG_NORMAL",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cbattype='S',LANG_STATIS,;  Needs comment IIF(cbattype='S',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_STATIS,oAriaApplication.GetHeaderText("LANG_STATIS",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cbattype='B',LANG_BEGBAL,;  Needs comment IIF(cbattype='B',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BEGBAL,oAriaApplication.GetHeaderText("LANG_BEGBAL",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cbattype='L',LANG_SUBLED,;  Needs comment IIF(cbattype='L',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SUBLED,oAriaApplication.GetHeaderText("LANG_SUBLED",AHEADERFILE)),;
+GLUNBATS.PRG  m.STATUS = IIF(cBatstat='E',LANG_EMPTY,;  Needs comment m.STATUS = IIF(cBatstat='E',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_EMPTY,oAriaApplication.GetHeaderText("LANG_EMPTY",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cBatstat='O',LANG_OUTOFBAL,;  Needs comment IIF(cBatstat='O',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_OUTOFBAL,oAriaApplication.GetHeaderText("LANG_OUTOFBAL",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cBatstat='U',LANG_UNPOSTED,;  Needs comment IIF(cBatstat='U',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_UNPOSTED,oAriaApplication.GetHeaderText("LANG_UNPOSTED",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cBatstat='A',LANG_APPOVED,;  Needs comment IIF(cBatstat='A',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_APPOVED,oAriaApplication.GetHeaderText("LANG_APPOVED",AHEADERFILE)),;
+GLUNBATS.PRG  IIF(cBatstat='V',LANG_VOID,;  Needs comment IIF(cBatstat='V',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_VOID,oAriaApplication.GetHeaderText("LANG_VOID",AHEADERFILE)),;
+GLUNBATS.PRG  m.ELPRN = IIF(lfEditList(),LANG_YES,;  Needs comment m.ELPRN = IIF(lfEditList(),IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YES,oAriaApplication.GetHeaderText("LANG_YES",AHEADERFILE)),;
+GLUNBATS.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_YEAR+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE))+;
+GLUNBATS.PRG  '",DFisBgDat:H="'+LANG_BEGINDATE+;  Needs comment '",DFisBgDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BEGINDATE,oAriaApplication.GetHeaderText("LANG_BEGINDATE",AHEADERFILE))+;
+GLUNBATS.PRG  lcBrFields       = 'cbatchno:H="'+LANG_BATNO +;  Needs comment lcBrFields       = 'cbatchno:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BATNO,oAriaApplication.GetHeaderText("LANG_BATNO",AHEADERFILE)) +;
+GLUNBATS.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLUNPREC.PRG
+GLUNPREC.PRG  lcBrFields    = 'CFisFYear:H="'+LANG_YEAR+;  Needs comment lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YEAR,oAriaApplication.GetHeaderText("LANG_YEAR",AHEADERFILE))+;
+GLUNPREC.PRG  '",DFisBgDat:H="'+LANG_BEGINDATE+;  Needs comment '",DFisBgDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BEGINDATE,oAriaApplication.GetHeaderText("LANG_BEGINDATE",AHEADERFILE))+;
+GLUNPREC.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\GL\GLUNTRAN.PRG
+GLUNTRAN.PRG  lcBrFields    = 'CTranNO:H="'+LANG_CODE+;  Needs comment lcBrFields    = 'CTranNO:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLUNTRAN.PRG  lcBrFields    = 'CautType='+lcAutType+':H="'+LANG_AUTOTYPE+;  Needs comment lcBrFields    = 'CautType='+lcAutType+':H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_AUTOTYPE,oAriaApplication.GetHeaderText("LANG_AUTOTYPE",AHEADERFILE))+;
+GLUNTRAN.PRG  '",CAutCode:H="'+LANG_CODE+;  Needs comment '",CAutCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODE,oAriaApplication.GetHeaderText("LANG_CODE",AHEADERFILE))+;
+GLUNTRAN.PRG  has compilation errors
+End on:02/19/13    08:33:11

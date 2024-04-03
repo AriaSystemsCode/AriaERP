@@ -1,0 +1,24 @@
+#DEFINE LANG_Alo1   "allocation"
+#DEFINE LANG_Alo2   "Allocation transaction code "
+#DEFINE LANG_On     "On "
+#DEFINE LANG_Upd    "Updating master files."
+#DEFINE LANG_AloTrn "Allocation trn."
+#DEFINE LANG_Create "Created by "
+#DEFINE LANG_GenAlo "Generating allocation ... "
+#DEFINE LANG_Sel    "Select"
+#DEFINE LANG_UnSel  "Unselect"
+#DEFINE LANG_UnPost "Unposted"
+#DEFINE LANG_OutBal "Out of Balance"
+#DEFINE LANG_Delete "Deleted"
+#DEFINE LANG_Post   "Posted"
+#DEFINE LANG_Hold   "Hold"
+#DEFINE LANG_Yes    "Yes"
+#DEFINE LANG_No     "No"
+#DEFINE LANG_Skip   "Skipped"
+#DEFINE LANG_Ready  "Ready"
+#DEFINE LANG_Amount "Amount"
+#DEFINE LANG_Percnt "Percent"
+*N000682,1 12/13/2012 TMI Globlization changes[Start] added new captions
+#DEFINE LANG_DET_screen_caption 'Allocation Details'
+#DEFINE LANG_GLGNALO_CAPTION 'Generate Allocation Transaction'
+*N000682,1 12/13/2012 TMI Globlization changes[End  ] 

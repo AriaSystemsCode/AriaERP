@@ -1,0 +1,16 @@
+#DEFINE LANG_CONS_BarDesc 'Color   DivisionSeason  Scale   DomesticQuality Group   Other   Free    Remove  '
+#DEFINE LANG_CONS_CodeTypes 'CDGZ'
+#DEFINE LANG_CONS_BarTypes 'VOF'
+#DEFINE LANG_CONS_ViewMode 'V'
+#DEFINE LANG_CONS_AddMode 'A'
+#DEFINE LANG_CONS_Scale 'S'
+#DEFINE LANG_CONS_Quality 'Q'
+#DEFINE LANG_Quality 'Quality'
+#DEFINE LANG_CONS_Domestic 'T'
+#DEFINE LANG_Domestic 'Domestic'
+#DEFINE LANG_CONS_UserDefined 'U'
+#DEFINE LANG_CONS_AddEditMode 'AE'
+#DEFINE LANG_CONS_SEGS 'Seg '
+*E303419,1 TMI 09/16/2013 [Start] add a new constant used as the screen caption
+#DEFINE LANG_STYLE_CODE_STRUCTURE 'Style Code Structure'
+*E303419,1 TMI 09/16/2013 [End  ] 

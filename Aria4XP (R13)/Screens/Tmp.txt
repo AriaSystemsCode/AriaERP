@@ -1,0 +1,39 @@
+PROCEDURE Unload
+DODEFAULT()
+RETURN Thisformset.ReturnValue
+
+ENDPROC
+PROCEDURE Init
+LPARAMETERS lcStyle,lcLevel, lcCuurCode
+
+lcCuurCode = IIF(TYPE('lcCuurCode')='C' AND !EMPTY(lcCuurCode),lcCuurCode,oAriaApplication.BaseCurrency)
+
+This.ariaform1.Caption = PROPER(gfItemMask("HI"))+': '+lcStyle
+
+=SEEK(lcStyle,'Style')
+ 
+This.lnPrice1 = IIF(lcCuurCode=oAriaApplication.BaseCurrency, Style.PriceA,;
+                          gfStyPrice(lcStyle,'A',lcCuurCode))
+This.lnPrice2 = IIF(lcCuurCode=oAriaApplication.BaseCurrency, Style.PriceB,;
+                          gfStyPrice(lcStyle,'B',lcCuurCode))
+This.lnPrice3 = IIF(lcCuurCode=oAriaApplication.BaseCurrency, Style.PriceC,;
+                          gfStyPrice(lcStyle,'C',lcCuurCode))
+This.AriaForm1.lblPriceTitle.Caption  = LANG_PriceLevel+lcLevel+LANG_PriceMessage
+WITH This.AriaForm1.optPrices
+  .Value = IIF(This.lnPrice1 >0,1,IIF(This.lnPrice2 >0,2,AT(lcLevel,'ABC')))
+  *N000682,1 MMT 11/20/2012 Globalization Changes[Start]
+  *.Option1.Caption = 'Price level A, '+ALLTRIM(STR(This.lnPrice1,12,2))
+  .Option1.Caption =LANG_SOSTYPRI_PRICE_LEVEL_A+ALLTRIM(STR(This.lnPrice1,12,2))
+  *N000682,1 MMT 11/20/2012 Globalization Changes[End]
+
+  *N000682,1 MMT 11/20/2012 Globalization Changes[Start]
+  *.Option2.Caption = 'Price level B, '+ALLTRIM(STR(This.lnPrice2,12,2))
+  .Option2.Caption =LANG_SOSTYPRI_PRICE_LEVEL_B+ALLTRIM(STR(This.lnPrice2,12,2))
+  *N000682,1 MMT 11/20/2012 Globalization Changes[End]
+
+  *N000682,1 MMT 11/20/2012 Globalization Changes[Start]
+  *.Option3.Caption = 'Price level C, '+ALLTRIM(STR(This.lnPrice3,12,2))
+  .Option3.Caption =LANG_SOSTYPRI_PRICE_LEVEL_C+ALLTRIM(STR(This.lnPrice3,12,2))
+  *N000682,1 MMT 11/20/2012 Globalization Changes[End]
+ENDWITH
+ENDPROC

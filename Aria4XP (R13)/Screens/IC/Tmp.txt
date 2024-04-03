@@ -1,0 +1,134 @@
+PROCEDURE mvcpfrmsty
+*--To validate the style code.
+LPARAMETERS llbrowse
+
+*N039535,1 WSH [Start]
+*IF llbrowse OR ( !EMPTY(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value) AND ;
+   !SEEK(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value,'STYLE') )
+IF llbrowse OR ( !EMPTY(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value) AND ;
+   !gfSeek(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value,'STYLE') )
+*N039535,1 WSH [End]
+
+  LOCAL lcBrowChr, lcMajor
+  
+  lcMajor    = RTRIM(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value)
+  lcBrowChr  = RIGHT(lcMajor,1)
+  lcMajor    = IIF(lcBrowChr=='?',SUBSTR(lcMajor,1,LEN(lcMajor)-1),lcMajor)
+
+  
+  ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value = gfStyBrw('M',lcMajor ,'',.F.)
+
+  IF EMPTY(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value)
+    RETURN .F.
+  ENDIF  
+
+ENDIF
+
+*- Restrict adding "Obsolete" colors to style, call
+*- Check for the copyied colors if status is 
+*- Obsolete for one or more color.[Begin]
+IF !EMPTY(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value) 
+  *-- Function to Check for the copyied colors if
+  *-- status is obsolete for one or more color.
+  RETURN Thisformset.mObsColor()
+ENDIF
+
+llbrowse = .F.
+RETURN .T.
+
+ENDPROC
+PROCEDURE mobscolor
+*!*************************************************************
+*! Developer : Abdou ElGendi _ (ABD)
+*! Purpose   : Function to Check for the copyied colors if
+*              status is obsolete for one or more color.
+*!*************************************************************
+Private lnAlias , laColorObs , lcColorObs , llColorObs ;
+        llAllClrOs , llOneClrOs , llNewClor
+
+
+
+DECLARE laColorObs[1,2] ,laObsColor[1]
+STORE '' TO lcColorObs
+laColorObs[1,1] = 'LLOBSOLETE'
+laColorObs[1,2] = 'llColorObs'
+STORE .T. TO  llAllClrOs 
+STORE .F. TO  llOneClrOs,laObsColor,llNewClor
+
+lnAlias = SELECT(0)
+SELECT STYLE
+*N039535,1 WSH [Start]
+*= SEEK(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value)
+= gfSeek(ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value)
+*N039535,1 WSH [End]
+
+SCAN REST WHILE LEFT(Style,ThisFormset.lnStyWidth) = ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value
+  *-- Store Emty to the next Variable.
+  STORE .F. TO llColorObs
+  *-- Get the color from the style file.
+  lcColorObs = SUBSTR(STYLE,ThisFormset.lnStyWidth+2,ThisFormset.lnClrWidth)
+  =gfRltFld(lcColorObs , @laColorObs, 'COLOR'))
+  *-- check for this color if Obsolete.
+  llAllClrOs = IIF(!llAllClrOs,llAllClrOs,llColorObs)
+  llOneClrOs = IIF(llOneClrOs,llOneClrOs,llColorObs)
+  IF llColorObs
+    DECLARE laObsColor [ALEN(laObsColor)+IIF(!llNewClor,0,1)]
+    laObsColor[ALEN(laObsColor)] = lcColorObs
+    llNewClor = .T.
+  ENDIF
+ENDSCAN
+
+DO CASE
+  *-- Check if all color are obsolete yes , don't let the user to
+  *-- Copy this style.
+  CASE llAllClrOs
+    *- Message Text   :- All Style colors are Obsolete, Can not copy this style.
+    *- Message Number :- 42224.
+    *- button message :- OK.
+    *- button Number  :- 42001
+    = gfModalGen('INM42224B42001','DIALOG',LANG_Style+'|'+LANG_Copy)
+    ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Value = " "
+    *-- WSH
+    *** ThisFormset.Ariaform1.kbFromStyle.Keytextbox.SetFocus
+    RETURN .F.
+    
+
+  *-- Check if at least one color was obsolete , let the user know that
+  *-- By a message and don't copy this color for the new style.
+  CASE llOneClrOs
+    *- Message Text   :- One or more of the style colors will not be 
+    *- Message Text   :- copied because their statuses are obsolete.
+    *- Message Number :- 42225
+    *- button message :- OK.
+    *- button Number  :- 00000
+    = gfModalGen('INM42225B00000','DIALOG',LANG_Style)
+  SELECT (lnAlias)
+ENDCASE
+
+RETURN .T.
+
+*-- End OF lfObsColor
+
+ENDPROC
+PROCEDURE Init
+PARAMETERS lcStyLable,lcMajMask1,lnStyWidth,lnClrWidth
+
+ThisFormset.Ariaform1.lblStyle.Caption = lcStyLable
+
+*--Set the correct item mask.
+lctxtPicture = STRTRAN(lcMajMask1,"X","!")
+ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Width = (7*(LEN(lcMajMask1))+10)
+ThisFormset.Ariaform1.kbFromStyle.Keytextbox.InputMask = lctxtPicture
+ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Format  = lctxtPicture
+ThisFormset.Ariaform1.kbFromStyle.KeyCmd.Left = ThisFormset.Ariaform1.kbFromStyle.Keytextbox.Width + 5
+
+
+ThisFormset.lnStyWidth = lnStyWidth
+ThisFormset.lnClrWidth = lnClrWidth
+
+ENDPROC
+PROCEDURE Ariaform1.KeyPress
+LPARAMETERS nKeyCode, nShiftAltCtrl
+RETURN
+
+ENDPROC

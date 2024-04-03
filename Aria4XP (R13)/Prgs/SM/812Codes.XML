@@ -1,0 +1,873 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<adjreasrelcodes>
+		<code>71</code>
+		<desc>Advertising Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>78</code>
+		<desc>Competitive Price</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>79</code>
+		<desc>Cooperative Advertising</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>82</code>
+		<desc>Defective Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>85</code>
+		<desc>Distribution Discount/Allowanc</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>89</code>
+		<desc>Early Buy Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>94</code>
+		<desc>Fixtures Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>95</code>
+		<desc>Floor Stock Protection</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A3</code>
+		<desc>New Store Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A8</code>
+		<desc>Promotional Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BE</code>
+		<desc>Fixture Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BF</code>
+		<desc>Return Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BH</code>
+		<desc>Opportunity Buy</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D8</code>
+		<desc>Count and Recount Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D9</code>
+		<desc>Store Stock Price Protection</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E4</code>
+		<desc>Warehouse Stock Price Protecti</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E5</code>
+		<desc>Invoice Price Protection</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GE</code>
+		<desc>Slotting Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GH</code>
+		<desc>Billback Allowance Deduction</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>MA</code>
+		<desc>Marketing Allowance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>54</code>
+		<desc>Freight Deducted</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GC</code>
+		<desc>Market Development Fund Deduct</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GJ</code>
+		<desc>Unsalable Payments Deduction</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GK</code>
+		<desc>Split Commission Deduction - B</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GM</code>
+		<desc>Split Commissions Deduction C</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>62</code>
+		<desc>Material/Item Description Erro</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>H1</code>
+		<desc>Information Forthcoming</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>J8</code>
+		<desc>Unable to Process</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>30</code>
+		<desc>Delivery Charge Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>31</code>
+		<desc>Pickup Charge Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>32</code>
+		<desc>Oversize Premium Invalid</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>36</code>
+		<desc>Scale Number Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>39</code>
+		<desc>Shipper/Consignee Ref. Number</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>40</code>
+		<desc>Address Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>46</code>
+		<desc>Transportation Charge Incorrec</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>83</code>
+		<desc>Delivery Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D2</code>
+		<desc>Transportation Direct Billing</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>08</code>
+		<desc>Substitute Product</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>10</code>
+		<desc>Pallet/Container Charge Error</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>27</code>
+		<desc>Product Transfers Subject to C</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>35</code>
+		<desc>Commodity Code Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>70</code>
+		<desc>Advanced Ship Notice Not Recei</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>73</code>
+		<desc>Bill of Lading Not Received</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>87</code>
+		<desc>Duplicate Shipment</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>99</code>
+		<desc>Late Shipment of Goods</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A5</code>
+		<desc>Overage</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A9</code>
+		<desc>Proof of Delivery Not Received</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B1</code>
+		<desc>Proof of Shipment Not Received</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D4</code>
+		<desc>Unauthorized Product</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E9</code>
+		<desc>Order Cancelled</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>01</code>
+		<desc>Pricing Error</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>03</code>
+		<desc>Extension Error</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>09</code>
+		<desc>Terms of Sale Error</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>18</code>
+		<desc>Not Company Bill</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>19</code>
+		<desc>Duplicate Billing</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>20</code>
+		<desc>Balance Due Declined</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>21</code>
+		<desc>Shipment Method of Payment Inc</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>24</code>
+		<desc>Incorrect Discount</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>26</code>
+		<desc>Invoice Cancelled</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>29</code>
+		<desc>Fee Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>33</code>
+		<desc>Currency Exchange Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>44</code>
+		<desc>Required Documents Missing</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>45</code>
+		<desc>Stale Bill Over 180 Days Old</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>47</code>
+		<desc>Advanced Charge Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>48</code>
+		<desc>Service Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>49</code>
+		<desc>Processing Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>50</code>
+		<desc>Late Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>52</code>
+		<desc>Credit for Previous Overpaymen</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>53</code>
+		<desc>Remittance for Previous Underp</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>59</code>
+		<desc>Item not received</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>60</code>
+		<desc>No open item on file</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>61</code>
+		<desc>No open order on file</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>63</code>
+		<desc>Customer Paid Invoice Which Wa</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>64</code>
+		<desc>Sale of Property</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>74</code>
+		<desc>Cancel or Adjust Prior Credit/</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>76</code>
+		<desc>Cash Discount</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>81</code>
+		<desc>Credit as Agreed</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>86</code>
+		<desc>Duplicate Payment</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>96</code>
+		<desc>Goods to Follow</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A4</code>
+		<desc>Nonreceipt of Goods</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A7</code>
+		<desc>Payment on Account</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>AH</code>
+		<desc>Origination Fee</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>AT</code>
+		<desc>Account Closed</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B2</code>
+		<desc>Rebate</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B6</code>
+		<desc>Repay Discount</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B9</code>
+		<desc>Samples Not Received</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BJ</code>
+		<desc>Insurance Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BK</code>
+		<desc>Postage Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BL</code>
+		<desc>Net Check Returned</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BM</code>
+		<desc>Net Collection Expense (Factor</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BP</code>
+		<desc>Net Chargeback of Client Risk</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D3</code>
+		<desc>Unauthorized Deduction</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D1</code>
+		<desc>Transfer Between Accounts</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>CM</code>
+		<desc>Covered by Credit Memo</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>C1</code>
+		<desc>Settlement of Account</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>M3</code>
+		<desc>Gift Certificates</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>LO</code>
+		<desc>Ledger Overdraft Charge Revers</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>L9</code>
+		<desc>Military Distribution Adjustme</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>L4</code>
+		<desc>Administrative Fees</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>L3</code>
+		<desc>Penalty</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>L1</code>
+		<desc>Audit</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>J3</code>
+		<desc>Promised Adjustment Not Receiv</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>IA</code>
+		<desc>Invoice Amount Does Not Match</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>HD</code>
+		<desc>Expense Payment</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>H8</code>
+		<desc>Bill Mortgagee</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>H7</code>
+		<desc>Payment Forthcoming</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>H6</code>
+		<desc>Partial Payment Remitted</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>H3</code>
+		<desc>Loan Paid in Full</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>H2</code>
+		<desc>Payment Previously Sent</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GR</code>
+		<desc>Guarantee</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GR</code>
+		<desc>Guarantee</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GN</code>
+		<desc>General Advance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GL</code>
+		<desc>Unresolved Customer Deduction</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GB</code>
+		<desc>Coupon Related</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GA</code>
+		<desc>Free Goods</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>FA</code>
+		<desc>Anticipation Taken</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E1</code>
+		<desc>Recoupment</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E2</code>
+		<desc>Covered By Debit Memo</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>D5</code>
+		<desc>Volume Discount</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>UB</code>
+		<desc>Uncollected Balance Charge Rev</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>W6</code>
+		<desc>Safety Violations</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>37</code>
+		<desc>Dimensions Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>M2</code>
+		<desc>Commissions Deductions</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>M4</code>
+		<desc>Salary Deduction</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>04</code>
+		<desc>Item Not Accepted - Damaged</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>05</code>
+		<desc>Item Not Accepted - Quality</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GD</code>
+		<desc>Samples</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>11</code>
+		<desc>Returns - Damage</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>12</code>
+		<desc>Returns - Quality</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>13</code>
+		<desc>Returns - Dating</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>14</code>
+		<desc>Returns - Promotion</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>15</code>
+		<desc>Returns - Recall</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>RM</code>
+		<desc>Returned Material</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>GG</code>
+		<desc>Unsalable Merchandise</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>25</code>
+		<desc>Items Not Accepted</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>F1</code>
+		<desc>Defective</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>C4</code>
+		<desc>Stock Balance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>72</code>
+		<desc>Authorized Return</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>92</code>
+		<desc>Entire Shipment Not Ordered</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>93</code>
+		<desc>Field Destroy</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>22</code>
+		<desc>Weight Error</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BC</code>
+		<desc>Canadian Harmonized Goods and</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BB</code>
+		<desc>Quebec Goods and Services Tax</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BA</code>
+		<desc>Canadian Goods and Services Ta</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B7</code>
+		<desc>Restocking Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B5</code>
+		<desc>Repair of Goods</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>B4</code>
+		<desc>Refurbishing Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A1</code>
+		<desc>Layout/Design Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>34</code>
+		<desc>Declared Value Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>98</code>
+		<desc>Labor Charges</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>88</code>
+		<desc>Duty Charge Variance</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>91</code>
+		<desc>Engraving Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>38</code>
+		<desc>Service Incorrect</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>SC</code>
+		<desc>Service Cancelled</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>PP</code>
+		<desc>Quebec Pension Plan</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>OL</code>
+		<desc>Court Ordered Lien</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>LF</code>
+		<desc>Lawyer or Claimant Attorney Fe</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E8</code>
+		<desc>Goods and Services Tax Increas</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E7</code>
+		<desc>Goods and Services Tax Decreas</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>E6</code>
+		<desc>Goods and Services Tax 0% Rate</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BG</code>
+		<desc>Bag Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BI</code>
+		<desc>Hanger Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>BS</code>
+		<desc>Paid During Period</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>C3</code>
+		<desc>Special Finish</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>CU</code>
+		<desc>Charge for Unrequested Service</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>C9</code>
+		<desc>Ticketing Service</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>C8</code>
+		<desc>Ticketing Error</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>C6</code>
+		<desc>Testing Charge</desc>
+		<type>R</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>A</code>
+		<desc>Off Invoice (Deduction from Or</desc>
+		<type>H</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>J</code>
+		<desc>Payment Requested (Adjustment</desc>
+		<type>H</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>K</code>
+		<desc>Reimbursement to Follow</desc>
+		<type>H</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>L</code>
+		<desc>Apply on Account</desc>
+		<type>H</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>O</code>
+		<desc>Deduct from Next Remittance</desc>
+		<type>H</type>
+	</adjreasrelcodes>
+	<adjreasrelcodes>
+		<code>Q</code>
+		<desc>Credit Due, Payment Being Issu</desc>
+		<type>H</type>
+	</adjreasrelcodes>
+</VFPData>

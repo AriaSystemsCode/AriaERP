@@ -1,0 +1,72 @@
+PRGS Log File create on:02/18/13    15:55:45
+R:\ARIA4XP\REPORTS\MA\MABARC.PRG
+MABARC.PRG  has no .h file
+R:\ARIA4XP\REPORTS\MA\MADATSEN.PRG
+R:\ARIA4XP\REPORTS\MA\MAMATLCK.PRG
+R:\ARIA4XP\REPORTS\MA\MAMATLST.PRG
+R:\ARIA4XP\REPORTS\MA\MAMATP.PRG
+MAMATP.PRG  lcPoFlds = "CBUSDOCU :R :H='"+LANG_MAMATP_Type+;  Needs comment lcPoFlds = "CBUSDOCU :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Type,oAriaApplication.GetHeaderText("LANG_MAMATP_Type",AHEADERFILE))+;
+MAMATP.PRG  "' ,PO :R :H='"+LANG_MAMATP_TitlePO +;  Needs comment "' ,PO :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_TitlePO,oAriaApplication.GetHeaderText("LANG_MAMATP_TitlePO",AHEADERFILE)) +;
+MAMATP.PRG  "',STATUS :R :H='"+ LANG_MAMATP_S+"' ," + ;  Needs comment "',STATUS :R :H='"+ LANG_MAMATP_S+"' ," + ;
+MAMATP.PRG  " VENDOR :R :H='"+LANG_MAMATP_Vendor+;  Needs comment " VENDOR :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Vendor,oAriaApplication.GetHeaderText("LANG_MAMATP_Vendor",AHEADERFILE))+;
+MAMATP.PRG  "',APVENDOR.cVenComp :R :H ='"+LANG_MAMATP_Name+;  Needs comment "',APVENDOR.cVenComp :R :H ='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Name,oAriaApplication.GetHeaderText("LANG_MAMATP_Name",AHEADERFILE))+;
+MAMATP.PRG  "',COMPLETE:R :H='"+LANG_MAMATP_Complete+"'," + ;  Needs comment "',COMPLETE:R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Complete,oAriaApplication.GetHeaderText("LANG_MAMATP_Complete",AHEADERFILE))+"'," + ;
+MAMATP.PRG  " TOTQTY= OPEN+ RECEIVE :R :H ='"+LANG_MAMATP_TotQty+;  Needs comment " TOTQTY= OPEN+ RECEIVE :R :H ='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_TotQty,oAriaApplication.GetHeaderText("LANG_MAMATP_TotQty",AHEADERFILE))+;
+MAMATP.PRG  "',POTOTAL :R :H='"+LANG_MAMATP_Amount+;  Needs comment "',POTOTAL :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Amount,oAriaApplication.GetHeaderText("LANG_MAMATP_Amount",AHEADERFILE))+;
+MAMATP.PRG  "',RECEIVE :R :H='"+LANG_MAMATP_Receive+;  Needs comment "',RECEIVE :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Receive,oAriaApplication.GetHeaderText("LANG_MAMATP_Receive",AHEADERFILE))+;
+MAMATP.PRG  lcPoFlds = " PO :R  :H='"+ LANG_MAMATP_TitlePO +;  Needs comment lcPoFlds = " PO :R  :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_TitlePO,oAriaApplication.GetHeaderText("LANG_MAMATP_TitlePO",AHEADERFILE)) +;
+MAMATP.PRG  "', STATUS :R :H='"+ LANG_MAMATP_S +;  Needs comment "', STATUS :R :H='"+ LANG_MAMATP_S +;
+MAMATP.PRG  "', VENDOR :R :H='"+ LANG_MAMATP_Vendor +"'," + ;  Needs comment "', VENDOR :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Vendor,oAriaApplication.GetHeaderText("LANG_MAMATP_Vendor",AHEADERFILE)) +"'," + ;
+MAMATP.PRG  " APVENDOR.cVenComp :R :H ='"+ LANG_MAMATP_Name  +;  Needs comment " APVENDOR.cVenComp :R :H ='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Name,oAriaApplication.GetHeaderText("LANG_MAMATP_Name",AHEADERFILE))  +;
+MAMATP.PRG  "',COMPLETE :R :H='"+ LANG_MAMATP_Complete +;  Needs comment "',COMPLETE :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Complete,oAriaApplication.GetHeaderText("LANG_MAMATP_Complete",AHEADERFILE)) +;
+MAMATP.PRG  "', TOTQTY= OPEN+ RECEIVE :R :H ='"+ LANG_MAMATP_TotQty  +"'," + ;  Needs comment "', TOTQTY= OPEN+ RECEIVE :R :H ='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_TotQty,oAriaApplication.GetHeaderText("LANG_MAMATP_TotQty",AHEADERFILE))  +"'," + ;
+MAMATP.PRG  " POTOTAL :R :H='"+ LANG_MAMATP_Amount +;  Needs comment " POTOTAL :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Amount,oAriaApplication.GetHeaderText("LANG_MAMATP_Amount",AHEADERFILE)) +;
+MAMATP.PRG  "', RECEIVE :R :H='"+ LANG_MAMATP_Receive +;  Needs comment "', RECEIVE :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_Receive,oAriaApplication.GetHeaderText("LANG_MAMATP_Receive",AHEADERFILE)) +;
+MAMATP.PRG  lcTitle =   IIF(PosHdrM.cBusDocu = 'P',LANG_MAMATP_PurOrd,;  Needs comment lcTitle =   IIF(PosHdrM.cBusDocu = 'P',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_PurOrd,oAriaApplication.GetHeaderText("LANG_MAMATP_PurOrd",AHEADERFILE)),;
+MAMATP.PRG  lcCHTitle = IIF(PosHdrM.cBusDocu = 'P',LANG_MAMATP_PurOrd + ' 定购单',;  Needs comment lcCHTitle = IIF(PosHdrM.cBusDocu = 'P',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAMATP_PurOrd,oAriaApplication.GetHeaderText("LANG_MAMATP_PurOrd",AHEADERFILE)) + ' 定购单',;
+MAMATP.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\MA\MAMATREF.PRG
+MAMATREF.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\MA\MAMATRGM.PRG
+R:\ARIA4XP\REPORTS\MA\MAMATRQ.PRG
+MAMATRQ.PRG  "lcDesc = lfGetStyDesc(Style)  :R :H='"+LANG_DESC+"' :41,"+;  Needs comment "lcDesc = lfGetStyDesc(Style)  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESC,oAriaApplication.GetHeaderText("LANG_DESC",AHEADERFILE))+"' :41,"+;
+MAMATRQ.PRG  "OReqTot  :R :H='"+LANG_Open+"'      :12,"+;  Needs comment "OReqTot  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Open,oAriaApplication.GetHeaderText("LANG_Open",AHEADERFILE))+"'      :12,"+;
+MAMATRQ.PRG  "OHReqTot :R :H='"+LANG_Open+Lang_Hold+"' :12,"+;  Needs comment "OHReqTot :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Open,oAriaApplication.GetHeaderText("LANG_Open",AHEADERFILE))+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Hold,oAriaApplication.GetHeaderText("Lang_Hold",AHEADERFILE))+"' :12,"+;
+MAMATRQ.PRG  =ARIABROW('',LANG_EDITPROJ,gnbrfsrow1,gnbrfscol1,gnbrfsrow2,gnbrfscol2,'=lfvEdtPrj()',;  Needs comment =ARIABROW('',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_EDITPROJ,oAriaApplication.GetHeaderText("LANG_EDITPROJ",AHEADERFILE)),gnbrfsrow1,gnbrfscol1,gnbrfsrow2,gnbrfscol2,'=lfvEdtPrj()',;
+MAMATRQ.PRG  lcBrFields = "lnType=IIF(cCatGTyp = 'S', '"+LANG_Style_Component+"', IIF(cCatGTyp = 'F', '"+LANG_Fabric+"', '"+LANG_Trim+"'))  :R :H='"+LANG_Item_Type+"',"+;  Needs comment lcBrFields = "lnType=IIF(cCatGTyp = 'S', '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Style_Component,oAriaApplication.GetHeaderText("LANG_Style_Component",AHEADERFILE))+"', IIF(cCatGTyp = 'F', '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Fabric,oAriaApplication.GetHeaderText("LANG_Fabric",AHEADERFILE))+"', '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Trim,oAriaApplication.GetHeaderText("LANG_Trim",AHEADERFILE))+"'))  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Item_Type,oAriaApplication.GetHeaderText("LANG_Item_Type",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "Fabric     :R :H='"+LANG_Item+"',"+;  Needs comment "Fabric     :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Item,oAriaApplication.GetHeaderText("LANG_Item",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "Vendor     :R :H='"+LANG_Vendor+"',"+;  Needs comment "Vendor     :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Vendor,oAriaApplication.GetHeaderText("LANG_Vendor",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  IIF(llVenRef,"dDelivDate :R :H='"+LANG_Delivry+"' ,","Complete   :R :H='"+LANG_Complete+"' ,")+;  Needs comment IIF(llVenRef,"dDelivDate :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Delivry,oAriaApplication.GetHeaderText("LANG_Delivry",AHEADERFILE))+"' ,","Complete   :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Complete,oAriaApplication.GetHeaderText("LANG_Complete",AHEADERFILE))+"' ,")+;
+MAMATRQ.PRG  "nFabcost   :R :H='"+LANG_Price+"' ,"+;  Needs comment "nFabcost   :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Price,oAriaApplication.GetHeaderText("LANG_Price",AHEADERFILE))+"' ,"+;
+MAMATRQ.PRG  "lnBsPrc=lfGetEquv(cPriceCur,nFabcost,nPriceRat,nCurrUnit) :R :H=lcPBseSmbl+'"+LANG_PRICE+"'  :P='999999.99',"+;  Needs comment "lnBsPrc=lfGetEquv(cPriceCur,nFabcost,nPriceRat,nCurrUnit) :R :H=lcPBseSmbl+'"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PRICE,oAriaApplication.GetHeaderText("LANG_PRICE",AHEADERFILE))+"'  :P='999999.99',"+;
+MAMATRQ.PRG  "nQty1 :R :H='"+LANG_Qty_1_Needed+"',"+;  Needs comment "nQty1 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_1_Needed,oAriaApplication.GetHeaderText("LANG_Qty_1_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty2 :R :H='"+LANG_Qty_2_Needed+"',"+;  Needs comment "nQty2 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_2_Needed,oAriaApplication.GetHeaderText("LANG_Qty_2_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty3 :R :H='"+LANG_Qty_3_Needed+"',"+;  Needs comment "nQty3 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_3_Needed,oAriaApplication.GetHeaderText("LANG_Qty_3_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty4 :R :H='"+LANG_Qty_4_Needed+"',"+;  Needs comment "nQty4 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_4_Needed,oAriaApplication.GetHeaderText("LANG_Qty_4_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty5 :R :H='"+LANG_Qty_5_Needed+"',"+;  Needs comment "nQty5 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_5_Needed,oAriaApplication.GetHeaderText("LANG_Qty_5_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty6 :R :H='"+LANG_Qty_6_Needed+"',"+;  Needs comment "nQty6 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_6_Needed,oAriaApplication.GetHeaderText("LANG_Qty_6_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty7 :R :H='"+LANG_Qty_7_Needed+"',"+;  Needs comment "nQty7 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_7_Needed,oAriaApplication.GetHeaderText("LANG_Qty_7_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nQty8 :R :H='"+LANG_Qty_8_Needed+"',"+;  Needs comment "nQty8 :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Qty_8_Needed,oAriaApplication.GetHeaderText("LANG_Qty_8_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "nFabTotQty :R :H='"+LANG_Tot_Qty_Needed+"',"+;  Needs comment "nFabTotQty :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Tot_Qty_Needed,oAriaApplication.GetHeaderText("LANG_Tot_Qty_Needed",AHEADERFILE))+"',"+;
+MAMATRQ.PRG  "UOMBUY     :R :H='"+LANG_UOMBUY+"'    ,"+;  Needs comment "UOMBUY     :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_UOMBUY,oAriaApplication.GetHeaderText("LANG_UOMBUY",AHEADERFILE))+"'    ,"+;
+MAMATRQ.PRG  "cPriceCur  :R :H='"+LANG_PRICECURR+"' ,"+;  Needs comment "cPriceCur  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PRICECURR,oAriaApplication.GetHeaderText("LANG_PRICECURR",AHEADERFILE))+"' ,"+;
+MAMATRQ.PRG  "nPriceRat  :R :H='"+LANG_PRICERATE+"' ,"+;  Needs comment "nPriceRat  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PRICERATE,oAriaApplication.GetHeaderText("LANG_PRICERATE",AHEADERFILE))+"' ,"+;
+MAMATRQ.PRG  "cDutyCur   :R :H='"+LANG_Duty_Cur+"' ,"+;  Needs comment "cDutyCur   :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Duty_Cur,oAriaApplication.GetHeaderText("LANG_Duty_Cur",AHEADERFILE))+"' ,"+;
+MAMATRQ.PRG  =ARIABROW('',LANG_NEGTTLBROW,gnbrfsrow1,gnbrfscol1,gnbrfsrow2,gnbrfscol2,'=lfvEdtMat()',;  Needs comment =ARIABROW('',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_NEGTTLBROW,oAriaApplication.GetHeaderText("LANG_NEGTTLBROW",AHEADERFILE)),gnbrfsrow1,gnbrfscol1,gnbrfsrow2,gnbrfscol2,'=lfvEdtMat()',;
+MAMATRQ.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\MA\MAMATST.PRG
+R:\ARIA4XP\REPORTS\MA\MAOTS.PRG
+R:\ARIA4XP\REPORTS\MA\MAPMMO.PRG
+MAPMMO.PRG  lcStatus = lcStatus + IIF(laRpTarget[lnI] = LANG_MAPMMO_Open2      ,'O',;  Needs comment lcStatus = lcStatus + IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAPMMO_Open2,oAriaApplication.GetHeaderText("LANG_MAPMMO_Open2",AHEADERFILE))      ,'O',;
+MAPMMO.PRG  IIF(laRpTarget[lnI] = LANG_MAPMMO_Hold2      ,'H',;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAPMMO_Hold2,oAriaApplication.GetHeaderText("LANG_MAPMMO_Hold2",AHEADERFILE))      ,'H',;
+MAPMMO.PRG  IIF(laRpTarget[lnI] = LANG_MAPMMO_Actual2    ,'A',;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAPMMO_Actual2,oAriaApplication.GetHeaderText("LANG_MAPMMO_Actual2",AHEADERFILE))    ,'A',;
+MAPMMO.PRG  IIF(laRpTarget[lnI] = LANG_MAPMMO_Closed2    ,'S',;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAPMMO_Closed2,oAriaApplication.GetHeaderText("LANG_MAPMMO_Closed2",AHEADERFILE))    ,'S',;
+MAPMMO.PRG  IIF(laRpTarget[lnI] = LANG_MAPMMO_Bid        ,'B',;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAPMMO_Bid,oAriaApplication.GetHeaderText("LANG_MAPMMO_Bid",AHEADERFILE))        ,'B',;
+MAPMMO.PRG  IIF(laRpTarget[lnI] = LANG_MAPMMO_Cancelled2 ,'X',;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MAPMMO_Cancelled2,oAriaApplication.GetHeaderText("LANG_MAPMMO_Cancelled2",AHEADERFILE)) ,'X',;
+MAPMMO.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\MA\MAROLINV.PRG
+R:\ARIA4XP\REPORTS\MA\MASTKJL.PRG
+R:\ARIA4XP\REPORTS\MA\MAUTLJL.PRG
+R:\ARIA4XP\REPORTS\MA\MAWIPAC.PRG
+MAWIPAC.PRG  has compilation errors
+End on:02/18/13    16:04:21

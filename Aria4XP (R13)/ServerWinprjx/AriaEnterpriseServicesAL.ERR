@@ -1,0 +1,59 @@
+Visual Class Library c:\my work\aria4xp\serverclasses\ariamain.vcx has the following errors:
+    Unknown LCCODEVAL - Undefined
+    Unknown LCFILESTRUC - Undefined
+    Unknown LAFILTERARRAY - Undefined
+    Unknown CDATETOSTRING - Undefined
+    Unknown LARANGEINFO - Undefined
+    Unknown LAFLDSVAL - Undefined
+    Unknown GFOPENFILE - Undefined
+    Form SYCONSTR - Undefined
+    Unknown EXTRACT - Undefined
+    Unknown COPYOBJECT - Undefined
+    Unknown FILE2VAR - Undefined
+    Unknown GOURL - Undefined
+    Unknown GFCRTFRM - Undefined
+    Proc./Func. GFDISPRE - Undefined
+    Unknown GFENDPRN - Undefined
+    Unknown SETPRINTERTO - Undefined
+    Unknown GFMODALGEN - Undefined
+    Unknown GFPDFVIEWER - Undefined
+
+Program c:\my work\aria4xp\serverprgs\al\alautal.prg has the following errors:
+    Unknown GFOPENFILE - Undefined
+    Unknown GFMODALGEN - Undefined
+    Unknown GFGETMEMVAR - Undefined
+    Unknown GFTEMPNAME - Undefined
+    Unknown GFUSERPRIV - Undefined
+    Unknown GFOPGRID - Undefined
+    Unknown GFCRTTMP - Undefined
+    Unknown GFSTYBRW - Undefined
+    Unknown GPADSTYWAR - Undefined
+    Unknown GFADD_INFO - Undefined
+    Unknown SDYEBROW - Undefined
+    Unknown LFCALAVAL - Undefined
+    Unknown CLEARREAD - Undefined
+    Unknown OGSYS18 - Undefined
+    Unknown FABROW - Undefined
+    Unknown GFBROWWARE - Undefined
+    Unknown ORDBROWO - Undefined
+    Unknown POSBROW - Undefined
+    Unknown CUTBROW - Undefined
+    Unknown CUSBROWM - Undefined
+    Unknown LFOGSHOWGET - Undefined
+    Unknown LAOGOBJCNT - Undefined
+
+Form c:\my work\aria4xp\serverscreens\al\alautal.scx has the following errors:
+    Visual Class Library MAIN - Undefined
+    Visual Class Library UTILITY - Undefined
+
+Program c:\program files\microsoft visual foxpro 9\genhtml.prg has the following errors:
+    Visual Class Library _HTML - Undefined
+    Visual Class Library _HTMLSTY - Undefined
+    Program RUNCODE - Undefined
+
+Program c:\my work\aria4xp\serverprgs\al\alautp.prg has the following errors:
+    Unknown GFUSERPRIV - Undefined
+    Visual Class Library ALAUTP - Undefined
+    Unknown LFCLCULT - Undefined
+    Unknown GFITEMMASK - Undefined
+

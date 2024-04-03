@@ -1,0 +1,5 @@
+*N000682,1 MMT 12/11/2012 Create File for Crystal reports to translated
+#DEFINE LANG_HRPLANT_SECTION1_ITEM1 'User             :             '
+#DEFINE LANG_HRPLANT_SECTION1_ITEM2 'Date             : '
+#DEFINE LANG_HRPLANT_SECTION3_ITEM10 'Address:'
+#DEFINE LANG_HRPLANT_SECTION3_ITEM13 'PlantID:'

@@ -1,0 +1,26 @@
+PROCEDURE Init
+LPARAMETERS lcProfList,lcProfile
+
+this.lcproflist = lcProfList
+this.lcprofile  = lcProfile
+*N000682,1 MMT 11/22/2012 Globalization changes[Start]
+*this.ariaForm1.Caption = "Profile List of Values"
+this.ariaForm1.Caption = LANG_PRFILELIST
+*N000682,1 MMT 11/22/2012 Globalization changes[END]
+WITH this.AriaForm1
+  WITH .grdValues
+    .RecordSource             = this.lcproflist
+    .Column1.ControlSource    = this.lcproflist+'.cPro_Value'
+  ENDWITH
+ENDWITH
+ENDPROC
+PROCEDURE documentation
+*!*  ************************************************************************
+*!*  Descrption    : Profile Screen
+*!*  Developer     : AHMED MAHER (AMH)
+*!*  Date          : 01/30/2006
+*!*  Entry #       : N040084,1
+*!*  ************************************************************************
+*!*  Modification 
+* E302650,2 MMT 12/22/2009 add Close button and prevent repated profile values[T20091118.0003]
+ENDPROC

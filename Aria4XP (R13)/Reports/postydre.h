@@ -1,0 +1,20 @@
+* N000682 ,1 Thabet Handle globalization issues [Start]
+#DEFINE LANG_FORMAT_A_DETAILED  'Format A - Detailed'
+#DEFINE LANG_FORMAT_A_SUMMARY  'Format A - Summary'
+#DEFINE LANG_FORMAT_B_DETAILED  'Format B - Detailed'
+#DEFINE LANG_FORMAT_B_SUMMARY  'Format B - Summary'
+#DEFINE LANG_FORMAT_C_DETAILED  'Format C - Detailed'
+#DEFINE LANG_FORMAT_C_SUMMARY  'Format C - Summary'
+#DEFINE LANG_FORMAT_D_DETAILED  'Format D - Detailed'
+#DEFINE LANG_FORMAT_D_SUMMARY  'Format D - Summary'
+#DEFINE LANG_STYLE_PURCHASE_ORDER_DETAIL 'Style Purchase Order Detail'
+#DEFINE LANG_MATERIAL_PURCHASE_ORDER_DETAIL 'Material Purchase Order Detail'
+#DEFINE LANG_PO_NUMBER 'PO Number'
+#DEFINE LANG_STYLE 'Style'
+#DEFINE LANG_VENDOR 'Vendor'
+#DEFINE LANG_COLOR 'Color'
+#DEFINE LANG_DEPARTMENT 'Department'
+#DEFINE LANG_ITEM 'Item' 
+#DEFINE LANG_COMPLETE_DATE 'Complete Date' 
+#DEFINE LANG_COLLECTDATA " Collecting data for Report... "
+* N000682 ,1 Thabet Handle globalization issues [END]

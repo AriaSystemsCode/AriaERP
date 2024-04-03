@@ -1,0 +1,109 @@
+*-- #DEFINE LANG_Msg_1            "You are about to lose all changes !" 
+#DEFINE LANG_Msg_1  'Are you sure you want to lose all your changes?'
+
+*-- #DEFINE LANG_Msg_2            "Would you like to save changes to the notepad ? "
+#DEFINE LANG_Msg_2  'You will lose all your changes.' + CHR(13) + CHR(10) + 'Do you want to save changes before closing?'
+
+#DEFINE LANG_Msg_3            "No notes were Found."
+#DEFINE LANG_Msg_4            "Proceed to replace the original note with the copied one, Cancel to preserve it." 
+#DEFINE LANG_Msg_5            "No notes found. Unable to continue ." 
+#DEFINE LANG_Msg_6            "No notes found for "
+
+#DEFINE LANG_InputData_Txt01_1    "Account Number"
+#DEFINE LANG_InputData_Txt01_3    "Notes For Account Number : "             
+#DEFINE LANG_InputData_Txt01_4    "Accounts"
+
+#DEFINE LANG_InputData_Txt02_1    "Order Number"
+#DEFINE LANG_InputData_Txt02_3    "Notes For Order Number : "             
+#DEFINE LANG_InputData_Txt02_4    "Orders"
+
+#DEFINE LANG_InputData_Txt03_1    "Invoice Number"
+#DEFINE LANG_InputData_Txt03_3    "Notes For Invoice Number : "             
+#DEFINE LANG_InputData_Txt03_4    "Invoices"             
+
+#DEFINE LANG_InputData_Txt04_1    "Style Number"
+#DEFINE LANG_InputData_Txt04_3    "Notes For Style Number : "             
+#DEFINE LANG_InputData_Txt04_4    "Styles"
+
+#DEFINE LANG_InputData_Txt05_1    "Item Number"
+#DEFINE LANG_InputData_Txt05_3    "Notes For Item Number : "             
+#DEFINE LANG_InputData_Txt05_4    "Items"
+
+#DEFINE LANG_InputData_Txt06_1    "Style P/O Number"
+#DEFINE LANG_InputData_Txt06_3    "Notes For Style P/O Number : "             
+#DEFINE LANG_InputData_Txt06_4    "Style Purchase Orders"
+
+#DEFINE LANG_InputData_Txt07_1    "Vendor Number"
+#DEFINE LANG_InputData_Txt07_3    "Notes For Vendor Number : "             
+#DEFINE LANG_InputData_Txt07_4    "Vendors"
+
+#DEFINE LANG_InputData_Txt08_1    "C/T Number"
+#DEFINE LANG_InputData_Txt08_3    "Notes For Cutting Ticket Number : "             
+#DEFINE LANG_InputData_Txt08_4    "Cutting Tickets"
+
+#DEFINE LANG_InputData_Txt09_1    "Salesrep Code"
+#DEFINE LANG_InputData_Txt09_3    "Notes For Salesrep : "
+#DEFINE LANG_InputData_Txt09_4    "Sales Representatives"
+
+#DEFINE LANG_InputData_Txt10_1    "User Name"
+#DEFINE LANG_InputData_Txt10_3    "Notes For User : "
+#DEFINE LANG_InputData_Txt10_4    "Users"
+
+#DEFINE LANG_InputData_Txt11_1    "L/C Number"
+#DEFINE LANG_InputData_Txt11_3    "Notes For Letter of Credit : "
+#DEFINE LANG_InputData_Txt11_4    "Letters of Credit"
+
+#DEFINE LANG_InputData_Txt12_1    "Item P/O Number"
+#DEFINE LANG_InputData_Txt12_3    "Notes For Item P/O Number : "
+#DEFINE LANG_InputData_Txt12_4    "Item Purchase Orders"
+
+#DEFINE LANG_InputData_Txt13_1    "Template"
+#DEFINE LANG_InputData_Txt13_3    "Template : "
+#DEFINE LANG_InputData_Txt13_4    "Templates"
+
+#DEFINE LANG_InputData_Txt14_1    "Material Manufacturing Order"
+#DEFINE LANG_InputData_Txt14_3    "Notes For Material Manufacturing Order Number :"
+#DEFINE LANG_InputData_Txt14_4    "Material Manufacturing Orders"
+
+#DEFINE LANG_InputData_Txt15_1    "Customer Letters"
+#DEFINE LANG_InputData_Txt15_3    "Customer General Purpose Letter : "             
+#DEFINE LANG_InputData_Txt15_4    "General Purpose Letters"
+
+#DEFINE LANG_InputData_Txt16_1    "Vendor Letters"
+#DEFINE LANG_InputData_Txt16_3    "Vendor General Purpose Letter : "
+#DEFINE LANG_InputData_Txt16_4    "General Purpose Letters"
+
+#DEFINE LANG_InputData_Txt17_1    "Forecasting"
+#DEFINE LANG_InputData_Txt17_3    "Notes for forecasting code : "
+#DEFINE LANG_InputData_Txt17_4    "Forecasting"
+
+#DEFINE LANG_InputData_Txt18_1    "Credit Memos"
+#DEFINE LANG_InputData_Txt18_3    "Credit Memos : "
+#DEFINE LANG_InputData_Txt18_4    "Credit Memos"
+
+#DEFINE LANG_InputData_Txt19_1    "Return Authorization"
+#DEFINE LANG_InputData_Txt19_3    "Return Authorization: "
+#DEFINE LANG_InputData_Txt19_4    "Return Authorization"
+
+#DEFINE LANG_InputData_Txt20_1    "Customer System Settings"
+#DEFINE LANG_InputData_Txt20_3    "Customer : "
+#DEFINE LANG_InputData_Txt20_4    "Customer System Settings"
+
+#DEFINE LANG_InputData_Txt21_1    "Commercial Invoice"
+#DEFINE LANG_InputData_Txt21_3    "Invoice : "
+#DEFINE LANG_InputData_Txt21_4    "Commerical Invoice"
+
+#DEFINE LANG_InputData_Txt22_1    "Style Configuratio"
+#DEFINE LANG_InputData_Txt22_3    "Style Configuratio: "
+#DEFINE LANG_InputData_Txt22_4    "Style Configuratio"
+
+*E302483,1 MMT 01/03/2008 Convert Shipment Cost sheet program to ARIA4[Start]
+#DEFINE LANG_InputData_Txt23_1    "Shipment Number"
+#DEFINE LANG_InputData_Txt23_3    "Notes For Shipment Number: "
+#DEFINE LANG_InputData_Txt23_4    "Shipment Number"
+*E302483,1 MMT 01/03/2008 Convert Shipment Cost sheet program to ARIA4[End]
+*N000682,1 MMT 11/22/2012 Globalization changes[Start]
+#DEFINE LANG_InputData_S_NOTE " Notes"
+#DEFINE LANG_INPUTDATA_DESCNOTE  "Notes Description"
+*N000682,1 MMT 11/22/2012 Globalization changes[END]
+*! -------------------------------------------------------------

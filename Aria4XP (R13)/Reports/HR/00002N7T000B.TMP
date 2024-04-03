@@ -1,0 +1,190 @@
+*:***************************************************************************
+*: Program file  : HRDEPART
+*: Program desc. : Department
+*: System        : Aria Advantage Series ARIA4XP.
+*: Module        : HR
+*: Developer     : Mahmoud Said (MAH)
+*! Date          : 05/07/2012
+*: Reference     : N000681 - Convert Department Report to A27 to A4XP
+*:***************************************************************************
+a
+IF llOgFltCh
+  WAIT WINDOW "Collecting Data......." NOWAIT 
+  
+  DIMENSION loOgScroll.laCRParams[1,2]
+
+  loOgScroll.laCRParams[1,1] = 'ReportName'
+  loOgScroll.laCRParams[1,2] = 'Department Report'
+  
+  LOCAL lnSelect
+  lnSelect = SELECT()
+
+  LOCAL lcSqlStatment, lcSqlWhere, lnConnectionHandlar, lcDepartmentCursor, lcEmployeeCursor
+  lcDepartmentCursor       = loOGScroll.gfTempName()
+  lcEmployeeCursor    = loOGScroll.gfTempName()
+  
+  lcSqlStatment = "SELECT CDEPTID, CDEPTNAME " + ;
+                  ",CDEPTID + '-' + CDEPTNAME AS CDEPTDESC "
+
+  lcSqlStatment = lcSqlStatment + " FROM PEDEPART "
+
+  *-- Set filter
+  LOCAL llAddWhere, lnPos, lcFilter, lnCounter
+
+  lcSqlWhere = ""
+  
+  *-- Department
+  lnPos = ASUBSCRIPT(loOGScroll.laOGFXFlt, ASCAN(loOGScroll.laOGFXFlt,'PEDEPART.CDEPTID'), 1)
+
+  IF lnPos > 0
+    lcFilter = loOGScroll.laOGFXFlt[lnPos, 6]
+
+    IF !EMPTY(lcFilter) .AND. RECCOUNT(lcFilter) > 0
+      IF !llAddWhere
+        lcSqlWhere = lcSqlWhere + " WHERE ("
+        llAddWhere = .T.
+      ENDIF
+
+      SELECT(lcFilter)
+      LOCATE
+      lcSqlWhere = lcSqlWhere + "(PEDEPART.CDEPTID = '" + keyexp + "')";
+
+      lnCounter = 0
+      SCAN
+        IF lnCounter > 0
+          lcSqlWhere = lcSqlWhere + " OR (PEDEPART.CDEPTID = '" + keyexp + "')"
+        ENDIF
+        lnCounter = lnCounter + 1
+      ENDSCAN
+
+      lcSqlWhere = lcSqlWhere + ")"
+    ENDIF
+  ENDIF
+      
+  lcSqlStatment = lcSqlStatment + lcSqlWhere + " ORDER BY CDEPTID"
+
+  lnConnectionHandlar = loOGScroll.oRDA.sqlrun(lcSqlStatment, lcDepartmentCursor, "", oAriaApplication.ActiveCompanyConStr, 3, 'BROWSE', SET("DATASESSION"))
+  
+  lcSqlStatment = "SELECT CPERSON_ID, CNAME, CDEPTID FROM PEPERSON " + ;
+                  "WHERE CDEPTID IN (SELECT CDEPTID FROM PEDEPART " + lcSqlWhere + ") ORDER BY CPERSON_ID"
+  lnConnectionHandlar = loOGScroll.oRDA.sqlrun(lcSqlStatment, lcEmployeeCursor, "", oAriaApplication.ActiveCompanyConStr, 3, 'BROWSE', SET("DATASESSION"))
+  
+  WAIT WINDOW 'Selected ' + ALLTRIM(STR(RECCOUNT(lcDepartmentCursor))) + ' Records.' NOWAIT
+
+
+  *-- Loop to fill addtional infotmation to Department
+  WAIT WINDOW 'Creating temp. Department file.' NOWAIT 
+  
+  lcDepartmentTable = loOGScroll.gfTempName()
+
+  CREATE TABLE (oAriaApplication.WorkDir + lcDepartmentTable) ;
+               (CDEPTID C(6) NULL, CDEPTNAME c(30) NULL, CDEPTDESC C(37) NULL, LPEMP L NULL)
+
+  SELECT (lcDepartmentCursor)
+  LOCATE
+
+  SCAN
+    SELECT (lcDepartmentTable)
+    APPEND BLANK
+    
+    REPLACE CDEPTID    WITH &lcDepartmentCursor..CDEPTID
+    REPLACE CDEPTNAME  WITH &lcDepartmentCursor..CDEPTNAME
+    REPLACE CDEPTDESC  WITH &lcDepartmentCursor..CDEPTDESC
+
+    REPLACE LPEMP      WITH llRpPrintEmps
+
+    SELECT (lcDepartmentCursor)
+  ENDSCAN
+
+
+  *-- Loop to fill addtional infotmation to Employee
+  WAIT WINDOW 'Creating temp. Employee file.' NOWAIT 
+  
+  lcEmployeeTable = loOGScroll.gfTempName()
+                  
+  CREATE TABLE (oAriaApplication.WorkDir + lcEmployeeTable) ;
+               (CPERSON_ID C(8) NULL, CNAME C(30) NULL, CDEPTID C(6) NULL)
+
+  SELECT (lcEmployeeCursor)
+  LOCATE
+
+  SCAN
+    SELECT (lcEmployeeTable)
+    APPEND BLANK
+    
+    REPLACE CPERSON_ID WITH &lcEmployeeCursor..CPERSON_ID
+    REPLACE CNAME      WITH &lcEmployeeCursor..CNAME
+    REPLACE CDEPTID    WITH &lcEmployeeCursor..CDEPTID
+    
+    SELECT (lcEmployeeCursor)
+  ENDSCAN
+
+  *-- Set Report Data Source
+  DIMENSION loOGScroll.laCRTables[2]
+  loOGScroll.laCRTables[1] = oAriaApplication.WorkDir + lcDepartmentTable + ".DBF"
+  loOGScroll.laCRTables[2] = oAriaApplication.WorkDir + lcEmployeeTable + ".DBF"
+
+  DIMENSION loOGScroll.laCRTablesSubReport[2]
+  loOGScroll.laCRTablesSubReport[1] = ""
+  loOGScroll.laCRTablesSubReport[2] = "Employee"
+  
+  WAIT CLEAR
+  
+  SELECT (lcDepartmentTable)
+  IF !RECCOUNT() > 0
+    *-- Message : There are no records to display...!
+    *--                < Ok >
+    =gfModalGen('TRM00052B40011','ALERT')
+    RETURN
+  ENDIF
+
+  IF USED(lcDepartmentTable)
+    USE IN (lcDepartmentTable)
+  ENDIF
+
+  IF USED(lcEmployeeTable)
+    USE IN (lcEmployeeTable)
+  ENDIF
+
+  =gfDispRe()
+ELSE
+  lcDepartmentTable = loOGScroll.gfTempName()
+  
+  USE loOGScroll.laCRTables[1] IN 0 ALIAS (lcDepartmentTable) AGAIN
+  
+  SELECT (lcDepartmentTable)
+  IF !RECCOUNT() > 0
+    *-- Message : There are no records to display...!
+    *--                < Ok >
+    =gfModalGen('TRM00052B40011','ALERT')
+    RETURN
+  ENDIF
+
+  IF USED(lcDepartmentTable)
+    USE IN (lcDepartmentTable)
+  ENDIF
+
+  =gfDispRe()
+ENDIF
+
+*:****************************************************************
+*: Name        : lfwOGWhen
+*: Developer   : Mahmoud Said (MAH)
+*: Date        : 02/20/2007
+*: Purpose     : Intialize the report
+*:****************************************************************
+*: Calls       : None.
+*:****************************************************************
+*: Called from : Option Grid
+*:****************************************************************
+*: Passed Parameters  : None
+*:****************************************************************
+*: Returns     : 
+*:****************************************************************
+*: Example     : =lfwOGWhen()
+*:****************************************************************
+*
+FUNCTION lfwOGWhen 
+DECLARE loOgScroll.laRepModes[1]
+loOgScroll.laRepModes[1] = "WINDOWS"
+RETURN .T.

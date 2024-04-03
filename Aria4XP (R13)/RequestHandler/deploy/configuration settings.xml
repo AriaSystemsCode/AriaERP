@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurations>
+  <DatabaseSetup>
+    <ServerName>.\SQLEXPRESS</ServerName>
+    <ServerLoginType>SqlServerAuthentication</ServerLoginType>
+    <UserName>sa</UserName>
+    <Password>mmt123</Password>
+  </DatabaseSetup>
+  <OpenRowSetServer>
+    <ServerName>.\SQLEXPRESS</ServerName>
+    <ServerLoginType>SqlServerAuthentication</ServerLoginType>
+    <UserName>sa</UserName>
+    <Password>mmt123</Password>
+  </OpenRowSetServer>
+  <FileServer>
+    <Aria40SharedPath>C:\Aria\R13\Aria4xp\</Aria40SharedPath>
+  </FileServer>
+  <RequestServer>
+    <Port>1500</Port>
+    <MaxRecordsPerAgent>1000</MaxRecordsPerAgent>
+  </RequestServer>
+ <RequestServer>
+    <Port>1500</Port>
+    <MaxRecordsPerAgent>100000000</MaxRecordsPerAgent>
+    <MaxRecordsPerReport>100000000</MaxRecordsPerReport>
+    <MaxExecutionTimePerRequest>300</MaxExecutionTimePerRequest>
+    <ExceedLimitNotificationEmail>AriaRBTest@gmail.com</ExceedLimitNotificationEmail>
+  </RequestServer>
+</configurations>
