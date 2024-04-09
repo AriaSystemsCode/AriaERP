@@ -1,6 +1,0 @@
-#DEFINE LANG_StyForCst_Option         "O\<ptions"
-#DEFINE LANG_StyForCst_UpdPlan        "\<Update Plan"
-#DEFINE LANG_StyForCst_WeekNo         "Week number"
-#DEFINE LANG_StyForCst_Weeks          " weeks!."
-#DEFINE LANG_StyForCst_Year           "year"
-#DEFINE LANG_StyForCst_Quantity       "Quantity"

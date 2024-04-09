@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<smglent_frx_ar row_key="_S03109P2S" cproperty="Expr" orgtext="'General Ledger Distribution Report'" orgcol="Text" langtext="'General Ledger Distribution Report'"/>
-	<smglent_frx_ar row_key="_S4510M40W" cproperty="Expr" orgtext="IIF(lcRpFormat='S','', ' \ '+ tran_desc)" orgcol="Text" langtext="IIF(lcRpFormat='S','', ' \ '+ tran_desc)"/>
-	<smglent_frx_ar row_key="_S4510O1G1" cproperty="Expr" orgtext="IIF(lcRpFormat='S','',PADR(GLACCOUNT,lnAccLen) + ' / ' + IIF(lcGLVer = 'O','',IIF(SEEK(ALLTRIM(GLACCOUNT),lcFileName),ALLTRIM(EVALUATE(lcFileName+'.'+lcFieldNam)),'')))" orgcol="Text" langtext="IIF(lcRpFormat='S','',PADR(GLACCOUNT,lnAccLen) + ' / ' + IIF(lcGLVer = 'O','',IIF(SEEK(ALLTRIM(GLACCOUNT),lcFileName),ALLTRIM(EVALUATE(lcFileName+'.'+lcFieldNam)),'')))"/>
-</VFPData>

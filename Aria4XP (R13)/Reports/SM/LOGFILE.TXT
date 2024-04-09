@@ -1,7 +1,0 @@
-PRGS Log File create on:02/18/13    16:38:40
-R:\ARIA4XP\REPORTS\SM\PMPRJSCH.PRG
-R:\ARIA4XP\REPORTS\SM\SMCCODE.PRG
-SMCCODE.PRG  has no .h file
-R:\ARIA4XP\REPORTS\SM\SMREBAL.PRG
-SMREBAL.PRG  RETURN "lcAria4Modules, lcToReb, lcCompCode, llPurge, llOgForAut, llAutoBal ,LANG_SMREBAL_REBLOG ,laRebMsg ,lcAria4Modules ,lcWinTitl,"+;  Needs comment RETURN "lcAria4Modules, lcToReb, lcCompCode, llPurge, llOgForAut, llAutoBal ,LANG_SMREBAL_REBLOG ,laRebMsg ,lcAria4Modules ,lcWinTitl,"+;
-End on:02/18/13    16:39:46

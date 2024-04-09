@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<ariacodes_h_ar row_key="LANG_ARIACODES_ALLVALUE" cproperty="Caption" orgtext="ALL                                                                                                                                                                                                     " orgcol="LANG_ARIACODES_ALLVALUE" langtext="جميع"/>
-	<ariacodes_h_ar row_key="LANG_ARIACODES_NOTAPPLICABLE" cproperty="Caption" orgtext="N/A                                                                                                                                                                                                     " orgcol="LANG_ARIACODES_NOTAPPLICABLE" langtext="غير مطبق"/>
-	<ariacodes_h_ar row_key="LANG_ARIACODES_ADDNEWCODE" cproperty="Caption" orgtext="(Add New Code)                                                                                                                                                                                          " orgcol="LANG_ARIACODES_ADDNEWCODE" langtext="(إضافة كود جديد)"/>
-</VFPData>

@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<icstkjl_h_ar row_key="LANG_SHORT" cproperty="Caption" orgtext="Short                                                                                                                                                                                                   " orgcol="LANG_SHORT" langtext="قصيرة"/>
-	<icstkjl_h_ar row_key="LANG_LONG" cproperty="Caption" orgtext="Long                                                                                                                                                                                                    " orgcol="LANG_LONG" langtext="طويلة"/>
-	<icstkjl_h_ar row_key="LANG_STOCK_ADJUSTMENTS_JOURNAL" cproperty="Caption" orgtext="Stock Adjustments Journal                                                                                                                                                                               " orgcol="LANG_STOCK_ADJUSTMENTS_JOURNAL" langtext="دفتر يومية التسويات الأسهم"/>
-	<icstkjl_h_ar row_key="LANG_SELECT_INVENTORY_TRANSACTION_TYPE" cproperty="Caption" orgtext="Select Inventory Transaction type                                                                                                                                                                       " orgcol="LANG_SELECT_INVENTORY_TRANSACTION_TYPE" langtext="حدد نوع &quot;حركة المخزون&quot;"/>
-	<icstkjl_h_ar row_key="LANG_ONLYTHESE" cproperty="Caption" orgtext="Only These                                                                                                                                                                                              " orgcol="LANG_ONLYTHESE" langtext="هذه فقط"/>
-</VFPData>

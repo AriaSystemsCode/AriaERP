@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<mfprjtsk_scx_ar row_key="_2NO0RWDZ1" cproperty="Caption" orgtext="Activity Information                                                                                                                                                                                    " orgcol="ariabranchformset.AriaForm1" langtext="معلومات النشاط"/>
-	<mfprjtsk_scx_ar row_key="_2PB0SMH1R" cproperty="Caption" orgtext="6                                                                                                                                                                                                       " orgcol="ariabranchformset.AriaForm1.Taskdet1.cmdMore" langtext="6"/>
-	<mfprjtsk_scx_ar row_key="XX_HEADER_XX" cproperty="MFPJMON.H" orgtext="PRGS\" orgcol="" langtext=""/>
-</VFPData>

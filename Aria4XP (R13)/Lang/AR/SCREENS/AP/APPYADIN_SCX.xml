@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<appyadin_scx_ar row_key="_3FC13MHQ8" cproperty="Caption" orgtext="Check number                                                                                                                                                                                            " orgcol="ariabranchformset.Ariaform1.Arialabel4" langtext="رقم الشيك"/>
-	<appyadin_scx_ar row_key="_3FC1386JR" cproperty="Caption" orgtext="Proceed..                                                                                                                                                                                               " orgcol="ariabranchformset.Ariaform1.cmdProceed" langtext="...متابعة"/>
-	<appyadin_scx_ar row_key="_3FC13MHQB" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.Ariaform1.cmdCancel" langtext="إلغاء"/>
-	<appyadin_scx_ar row_key="XX_HEADER_XX" cproperty="APADVPAY.H" orgtext="PRGS\AP\" orgcol="" langtext=""/>
-</VFPData>

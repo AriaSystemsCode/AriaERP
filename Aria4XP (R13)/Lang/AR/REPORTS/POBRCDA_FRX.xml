@@ -1,9 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<pobrcda_frx_ar row_key="_RY311JWZM" cproperty="Caption" orgtext="Price:                                                                                                                                                                                                  " orgcol="Label" langtext="السعر:"/>
-	<pobrcda_frx_ar row_key="_RY311U1JQ" cproperty="Caption" orgtext="Size:                                                                                                                                                                                                   " orgcol="Label" langtext="الحجم:"/>
-	<pobrcda_frx_ar row_key="_RY313Y4BY" cproperty="Caption" orgtext="Price:                                                                                                                                                                                                  " orgcol="Label" langtext="السعر:"/>
-	<pobrcda_frx_ar row_key="_RY313Y4C1" cproperty="Caption" orgtext="Size:                                                                                                                                                                                                   " orgcol="Label" langtext="الحجم:"/>
-	<pobrcda_frx_ar row_key="_RY313YLEA" cproperty="Caption" orgtext="Price:                                                                                                                                                                                                  " orgcol="Label" langtext="السعر:"/>
-	<pobrcda_frx_ar row_key="_RY313YLED" cproperty="Caption" orgtext="Size:                                                                                                                                                                                                   " orgcol="Label" langtext="الحجم:"/>
-</VFPData>

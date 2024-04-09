@@ -1,5 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<srreptr_h_ar row_key="LANG_Select" cproperty="Caption" orgtext="Select                                                                                                                                                                                                  " orgcol="LANG_Select" langtext="حدد"/>
-	<srreptr_h_ar row_key="LANG_UnSelect" cproperty="Caption" orgtext="Unselect                                                                                                                                                                                                " orgcol="LANG_UnSelect" langtext="إلغاء تحديد"/>
-</VFPData>

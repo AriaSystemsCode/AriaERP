@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<warebrow_h_ar row_key="LANG_NOLOC" cproperty="Caption" orgtext="No locations found.                                                                                                                                                                                     " orgcol="LANG_NOLOC" langtext="لم يتم العثور على أية مواقع."/>
-	<warebrow_h_ar row_key="LANG_NOTASN" cproperty="Caption" orgtext="is not asssigned to any location.                                                                                                                                                                       " orgcol="LANG_NOTASN" langtext="لم يتم تعيينه لأي الموقع"/>
-	<warebrow_h_ar row_key="LANG_STYLE" cproperty="Caption" orgtext="Style                                                                                                                                                                                                   " orgcol="LANG_STYLE" langtext="النمط"/>
-	<warebrow_h_ar row_key="LANG_ITMCLR" cproperty="Caption" orgtext="Item/Color                                                                                                                                                                                              " orgcol="LANG_ITMCLR" langtext="الصنف/اللون"/>
-	<warebrow_h_ar row_key="LANG_ITEMCOL" cproperty="Caption" orgtext="Item:                                                                                                                                                                                                   " orgcol="LANG_ITEMCOL" langtext="البند:"/>
-</VFPData>

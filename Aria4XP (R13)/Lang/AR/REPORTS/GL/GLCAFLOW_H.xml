@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<glcaflow_h_ar row_key="LANG_COLLECTING_DATA" cproperty="Caption" orgtext="Collecting data...                                                                                                                                                                                      " orgcol="LANG_COLLECTING_DATA" langtext="...جمع البيانات"/>
-	<glcaflow_h_ar row_key="LANG_ENDDATE" cproperty="Caption" orgtext="End date                                                                                                                                                                                                " orgcol="LANG_ENDDATE" langtext="تاريخ الانتهاء"/>
-	<glcaflow_h_ar row_key="LANG_BEGDATE" cproperty="Caption" orgtext="Begin date                                                                                                                                                                                              " orgcol="LANG_BEGDATE" langtext="تاريخ البدء"/>
-	<glcaflow_h_ar row_key="LANG_YEAR" cproperty="Caption" orgtext="Year                                                                                                                                                                                                    " orgcol="LANG_YEAR" langtext="السنة"/>
-	<glcaflow_h_ar row_key="LANG_FISYEAR" cproperty="Caption" orgtext="Fiscal year                                                                                                                                                                                             " orgcol="LANG_FISYEAR" langtext="السنة المالية"/>
-</VFPData>

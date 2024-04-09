@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<sygraph_scx_ar row_key="_0S811CDLO" cproperty="Caption" orgtext="Graph                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1" langtext="الرسم البياني"/>
-	<sygraph_scx_ar row_key="_0S90IL4KK" cproperty="Caption" orgtext="Graph                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.Ariapageframe1.Page1" langtext="الرسم البياني"/>
-	<sygraph_scx_ar row_key="_0S90IL4KK" cproperty="Caption" orgtext="Settings                                                                                                                                                                                                " orgcol="ariaformset.AriaForm1.Ariapageframe1.Page2" langtext="إعدادات"/>
-	<sygraph_scx_ar row_key="XX_HEADER_XX" cproperty="SYGRAPH.H" orgtext="SCREENS\SY\" orgcol="" langtext=""/>
-</VFPData>

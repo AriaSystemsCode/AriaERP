@@ -1,5 +1,0 @@
-#Define LANG_DEPT_NAME "Department Name"
-#Define LANG_DEPT_ID "Department ID"
-#Define LANG_ENTRY_EXIST "This entity has a reference in "
-#Define LANG_CANNOT_DELETE " table, can't delete it."
-#Define LANG_ENTER_DEPT "You must enter a department name.."

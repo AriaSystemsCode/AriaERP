@@ -1,5 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<pomahdr_h_ar row_key="LANG_REPORTPOTTL" cproperty="Caption" orgtext="Style Purchase Order Header Report                                                                                                                                                                      " orgcol="LANG_REPORTPOTTL" langtext="تقرير ملخص أمر شراء نمط"/>
-	<pomahdr_h_ar row_key="LANG_REPORTMATTL" cproperty="Caption" orgtext="Material Purchase Order Header Report                                                                                                                                                                   " orgcol="LANG_REPORTMATTL" langtext="تقرير ملخص أمر شراء المواد"/>
-</VFPData>

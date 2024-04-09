@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<ickword_scx_ar row_key="_0QZ0X6DD3" cproperty="Caption" orgtext="Keywords                                                                                                                                                                                                " orgcol="ariaformset.AriaForm1" langtext="كلمات رئيسية"/>
-	<ickword_scx_ar row_key="_1QU0V6TYG" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-	<ickword_scx_ar row_key="_0QZ0X6DD2" cproperty="Caption" orgtext="Save                                                                                                                                                                                                    " orgcol="ariaformset.AriaForm1.cmdSave" langtext="حفظ"/>
-	<ickword_scx_ar row_key="_1VN0YZQMD" cproperty="Caption" orgtext="Remove                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdRemove" langtext="إزالة"/>
-	<ickword_scx_ar row_key="_1VN0YZQME" cproperty="Caption" orgtext="Add                                                                                                                                                                                                     " orgcol="ariaformset.AriaForm1.cmdAdd" langtext="إضافة"/>
-</VFPData>

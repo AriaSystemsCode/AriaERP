@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arstmsg_scx_ar row_key="_1ZT0PWQ0H" cproperty="Caption" orgtext="Advertisement Message                                                                                                                                                                                   " orgcol="ariaformset.Ariaform1.LBLCL" langtext="رسالة إعلان"/>
-	<arstmsg_scx_ar row_key="_1ZT0PWQ0H" cproperty="Caption" orgtext="Advertisement Message                                                                                                                                                                                   " orgcol="ariaformset.Ariaform1.LBLNOCL" langtext="رسالة إعلان"/>
-	<arstmsg_scx_ar row_key="_1ZT0PWQ0H" cproperty="Caption" orgtext="label1                                                                                                                                                                                                  " orgcol="ariaformset.Ariaform1.LBLCL2" langtext="بطاقة1"/>
-	<arstmsg_scx_ar row_key="_20Y0QHPON" cproperty="Caption" orgtext="label1                                                                                                                                                                                                  " orgcol="ariaformset.Ariaform1.LBLNOCL1" langtext="بطاقة1"/>
-	<arstmsg_scx_ar row_key="XX_HEADER_XX" cproperty="ARSTMSG.H" orgtext="PRGS\AR\" orgcol="" langtext=""/>
-</VFPData>

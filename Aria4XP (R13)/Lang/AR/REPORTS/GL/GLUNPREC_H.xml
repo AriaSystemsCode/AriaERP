@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<glunprec_h_ar row_key="LANG_SINGLE" cproperty="Caption" orgtext="SINGLE                                                                                                                                                                                                  " orgcol="LANG_SINGLE" langtext="واحد"/>
-	<glunprec_h_ar row_key="LANG_ENDDATE" cproperty="Caption" orgtext="End date                                                                                                                                                                                                " orgcol="LANG_ENDDATE" langtext="تاريخ الانتهاء"/>
-	<glunprec_h_ar row_key="LANG_BEGINDATE" cproperty="Caption" orgtext="Begin date                                                                                                                                                                                              " orgcol="LANG_BEGINDATE" langtext="تاريخ البدء"/>
-	<glunprec_h_ar row_key="LANG_YEAR" cproperty="Caption" orgtext="Year                                                                                                                                                                                                    " orgcol="LANG_YEAR" langtext="السنة"/>
-	<glunprec_h_ar row_key="LANG_TRANCODE" cproperty="Caption" orgtext="Transaction Codes                                                                                                                                                                                       " orgcol="LANG_TRANCODE" langtext="أكواد المعاملة"/>
-</VFPData>

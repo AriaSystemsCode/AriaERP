@@ -1,9 +1,0 @@
-#DEFINE LANG_SELECTACCOUNT "Please select Account Code to print Customer Item #."
-#DEFINE LANG_NOREC 'No records to display'
-#DEFINE LANG_UPCREPORT 'UPC Report'
-#DEFINE LANG_PACKID 'Pack ID'
-#DEFINE LANG_STYLENO 'Style #'
-#DEFINE LANG_UPCNO 'UPC #'
-#DEFINE LANG_S_PACK 'Pack'
-#DEFINE LANG_S_STYLE 'Style'
-#DEFINE LANG_S_UPC 'UPC#'

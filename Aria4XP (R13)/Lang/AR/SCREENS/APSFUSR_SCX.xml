@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<apsfusr_scx_ar row_key="_1YC0QE9WV" cproperty="Caption" orgtext="Select safe user                                                                                                                                                                                        " orgcol="ariabranchformset.AriaForm1" langtext="حدد مستخدم الخزينة"/>
-	<apsfusr_scx_ar row_key="_3F115K1T6" cproperty="Caption" orgtext="User                                                                                                                                                                                                    " orgcol="ariabranchformset.AriaForm1.lblBankCode" langtext="المستخدم"/>
-	<apsfusr_scx_ar row_key="_3F115K1TB" cproperty="Caption" orgtext="Password                                                                                                                                                                                                " orgcol="ariabranchformset.AriaForm1.lblCheckingAccount" langtext="كلمة المرور"/>
-</VFPData>

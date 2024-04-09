@@ -1,5 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<reqmont_scx_ar row_key="_26N04E6I6" cproperty="Caption" orgtext="Request Monitor" orgcol="frmRequestMonitor" langtext="طلب مراقب"/>
-	<reqmont_scx_ar row_key="_26O0AJ953" cproperty="Caption" orgtext="Clear All" orgcol="frmRequestMonitor.cmdClearAll" langtext="مسح الكل"/>
-</VFPData>

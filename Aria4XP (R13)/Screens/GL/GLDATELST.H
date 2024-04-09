@@ -1,1 +1,0 @@
-#DEFINE LANG_SELECT_DATE 'Select Date screen'

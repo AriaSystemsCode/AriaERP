@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<soaltshp_scx_ar row_key="_2LW0LU5F0" cproperty="Caption" orgtext="Alternate Shipping Addresses                                                                                                                                                                            " orgcol="ariaformset.Ariaform1" langtext="عناوين شحن بديلة"/>
-	<soaltshp_scx_ar row_key="_2LW0LU5F5" cproperty="Caption" orgtext="Account :                                                                                                                                                                                               " orgcol="ariaformset.Ariaform1.lblAcc" langtext="حساب:"/>
-	<soaltshp_scx_ar row_key="XX_HEADER_XX" cproperty="SOORD.H" orgtext="SCREENS\SO\" orgcol="" langtext=""/>
-</VFPData>

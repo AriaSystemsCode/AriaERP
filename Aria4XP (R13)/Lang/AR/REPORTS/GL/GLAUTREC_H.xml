@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<glautrec_h_ar row_key="LANG_COLLDATA" cproperty="Caption" orgtext="Collecting data...                                                                                                                                                                                      " orgcol="LANG_COLLDATA" langtext="...جمع البيانات"/>
-	<glautrec_h_ar row_key="LANG_DESC" cproperty="Caption" orgtext="Description                                                                                                                                                                                             " orgcol="LANG_DESC" langtext="الوصف"/>
-	<glautrec_h_ar row_key="LANG_CODE" cproperty="Caption" orgtext="Code                                                                                                                                                                                                    " orgcol="LANG_CODE" langtext="التعليمات البرمجية"/>
-	<glautrec_h_ar row_key="LANG_TTL" cproperty="Caption" orgtext="Codes File                                                                                                                                                                                              " orgcol="LANG_TTL" langtext="ملف رموز"/>
-</VFPData>

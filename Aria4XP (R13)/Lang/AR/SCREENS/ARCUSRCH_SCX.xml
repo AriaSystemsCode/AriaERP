@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arcusrch_scx_ar row_key="_25V0OXQQ5" cproperty="Caption" orgtext="Search                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1" langtext="بحث"/>
-	<arcusrch_scx_ar row_key="_25V0OXQQ4" cproperty="Caption" orgtext="Check #  :                                                                                                                                                                                              " orgcol="ariabranchformset.AriaForm1.lblCheck" langtext="رقم الشيك:"/>
-	<arcusrch_scx_ar row_key="_25V0P807Q" cproperty="Caption" orgtext="Invoice # :                                                                                                                                                                                             " orgcol="ariabranchformset.AriaForm1.lblInVNUM" langtext="رقم الفاتورة:"/>
-	<arcusrch_scx_ar row_key="_25V0P807S" cproperty="Caption" orgtext="Search                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.cmdFinf" langtext="بحث"/>
-	<arcusrch_scx_ar row_key="_25V0P807T" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-</VFPData>

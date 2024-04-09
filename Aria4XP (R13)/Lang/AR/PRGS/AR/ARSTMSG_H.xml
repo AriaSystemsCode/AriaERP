@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arstmsg_h_ar row_key="LANG_OVER120DAY" cproperty="Caption" orgtext="Over 120 Days                                                                                                                                                                                           " orgcol="LANG_OVER120DAY" langtext="أكثر من 120 يوما"/>
-	<arstmsg_h_ar row_key="LANG_OVER90DAY" cproperty="Caption" orgtext="Over 90 Days                                                                                                                                                                                            " orgcol="LANG_OVER90DAY" langtext="أكثر من 90 يوما"/>
-	<arstmsg_h_ar row_key="LANG_OVER60DAY" cproperty="Caption" orgtext="Over 60 Days                                                                                                                                                                                            " orgcol="LANG_OVER60DAY" langtext="أكثر من 60 يوما"/>
-	<arstmsg_h_ar row_key="LANG_OVER30DAY" cproperty="Caption" orgtext="Over 30 Days                                                                                                                                                                                            " orgcol="LANG_OVER30DAY" langtext="أكثر من 30 يوما"/>
-</VFPData>

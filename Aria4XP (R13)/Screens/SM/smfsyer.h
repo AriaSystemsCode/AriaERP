@@ -1,1 +1,0 @@
-#DEFINE LANG_Select_Company 'Select Company'

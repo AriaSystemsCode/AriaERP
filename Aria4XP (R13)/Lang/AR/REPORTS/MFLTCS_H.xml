@@ -1,5 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<mfltcs_h_ar row_key="LANG_TTL_PO" cproperty="Caption" orgtext="Purchase Order                                                                                                                                                                                          " orgcol="LANG_TTL_PO" langtext="أمر الشراء"/>
-	<mfltcs_h_ar row_key="LANG_TTL_MFG" cproperty="Caption" orgtext="MFG Order                                                                                                                                                                                               " orgcol="LANG_TTL_MFG" langtext="ترتيب مبدعين"/>
-</VFPData>

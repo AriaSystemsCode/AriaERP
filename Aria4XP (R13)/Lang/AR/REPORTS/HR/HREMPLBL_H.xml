@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<hremplbl_h_ar row_key="LANG_COLLECT_DATA" cproperty="Caption" orgtext="Collecting Data.......                                                                                                                                                                                  " orgcol="LANG_COLLECT_DATA" langtext="...جمع البيانات"/>
-	<hremplbl_h_ar row_key="LANG_SELECTED" cproperty="Caption" orgtext="Selected                                                                                                                                                                                                " orgcol="LANG_SELECTED" langtext="تحديد"/>
-	<hremplbl_h_ar row_key="LANG_RECORDS" cproperty="Caption" orgtext="Records.                                                                                                                                                                                                " orgcol="LANG_RECORDS" langtext="السجلات."/>
-	<hremplbl_h_ar row_key="LANG_CREATING_TEMP_EMPLOYEE" cproperty="Caption" orgtext="Creating temp. Employee file.                                                                                                                                                                           " orgcol="LANG_CREATING_TEMP_EMPLOYEE" langtext="تجهيز ملف موظفين مؤقت"/>
-</VFPData>

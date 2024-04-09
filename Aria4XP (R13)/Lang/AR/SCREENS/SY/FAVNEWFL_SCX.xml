@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<favnewfl_scx_ar row_key="_1EB0H5QU1" cproperty="Caption" orgtext="Create New Folder" orgcol="favNewFl" langtext="إنشاء مجلد جديد"/>
-	<favnewfl_scx_ar row_key="_1EB0H5QU2" cproperty="Caption" orgtext="Aria 4 XP will create the followin" orgcol="favNewFl.lblTitle" langtext="سيتم إنشاء الجلد التالي في إكس بي الأغنية 4"/>
-	<favnewfl_scx_ar row_key="_1EB0H5QU4" cproperty="Caption" orgtext="Folder Name :" orgcol="favNewFl.lblName" langtext="اسم المجلد:"/>
-	<favnewfl_scx_ar row_key="_1EB0KOTYL" cproperty="Caption" orgtext="OK" orgcol="favNewFl.cmdOK" langtext="موافق"/>
-	<favnewfl_scx_ar row_key="_1EB0KOTYM" cproperty="Caption" orgtext="Cancel" orgcol="favNewFl.cmdCancel" langtext="إلغاء الأمر"/>
-</VFPData>

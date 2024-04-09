@@ -1,9 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<mfcpytmp_scx_ar row_key="_20J0YWJSN" cproperty="Caption" orgtext="Copy Cost Sheet Template                                                                                                                                                                                " orgcol="ariabranchformset.AriaForm1" langtext="نسخ قالب كشف التكاليف"/>
-	<mfcpytmp_scx_ar row_key="_20J0YWJSQ" cproperty="Caption" orgtext="Cost Sheet Template ID                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.lblTemplateCode" langtext="معرف قالب كشف التكاليف"/>
-	<mfcpytmp_scx_ar row_key="_20J0YWJSS" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariabranchformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<mfcpytmp_scx_ar row_key="_20J0YWJST" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-	<mfcpytmp_scx_ar row_key="_20J0YWJSN" cproperty="Caption" orgtext="Copy Cost Sheet Template                                                                                                                                                                                " orgcol="ariabranchformset.AriaForm1" langtext="نسخ قالب كشف التكاليف"/>
-	<mfcpytmp_scx_ar row_key="XX_HEADER_XX" cproperty="MFCSTSH.H" orgtext="SCREENS\" orgcol="" langtext=""/>
-</VFPData>

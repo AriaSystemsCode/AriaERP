@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<maots_h_ar row_key="LANG_INLOCATION" cproperty="Caption" orgtext="in location                                                                                                                                                                                             " orgcol="LANG_INLOCATION" langtext="في موقع"/>
-	<maots_h_ar row_key="LANG_CALCREQ" cproperty="Caption" orgtext="Calculating requirements                                                                                                                                                                                " orgcol="LANG_CALCREQ" langtext="حساب متطلبات"/>
-	<maots_h_ar row_key="LANG_STYLE" cproperty="Caption" orgtext="Style                                                                                                                                                                                                   " orgcol="LANG_STYLE" langtext="نمط"/>
-</VFPData>

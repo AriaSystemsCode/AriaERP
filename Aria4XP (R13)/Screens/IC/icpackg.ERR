@@ -1,5 +1,0 @@
-Error in global include file: Include file 'r:\aria4xp\screens\ic\icpackg.h' is not found.
-lcBrFields = [Account   :R :H=LANG_AccountHeader :16 , Pack_ID   :R :H=LANG_PACK_ID :16 , cpkcolor  :R :H=LANG_ColorHeader :16 , CPCKSIZE :R :H=LANG_SizeHeader :16 , Desc     :R :H=LANG_DescHeader :30 , CPKVERSION :R :H=LANG_VersionHeader :12 , cDivision  :R :H=LANG_DivisionHeader :12, Season     :R :H=LANG_SeasonHeader  :12, ]
-Error in line 681 of ariaformset.mverioncount (record 14): Command contains unrecognized phrase/keyword.
-lcBrFields = [Account   :R :H=LANG_AccountHeader :16 , Pack_ID   :R :H=LANG_PACK_ID :16 , cpkcolor  :R :H=LANG_ColorHeader :16 , PSIZE     :R :H=LANG_SizeHeader :16 , PDesc     :R :H=LANG_DescHeader :30 , CPKVERSION :R :H=LANG_VersionHeader :12 , cDivision  :R :H=LANG_DivisionHeader :12, Season     :R :H=LANG_SeasonHeader  :12, ]
-Error in line 206 of ariaformset.AriaForm1.kbPackId.KeyCmd.Click (record 83): Command contains unrecognized phrase/keyword.

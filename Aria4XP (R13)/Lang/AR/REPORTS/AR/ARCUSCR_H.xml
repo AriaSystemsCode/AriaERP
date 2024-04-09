@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arcuscr_h_ar row_key="LANG_CUSTOMER_CREDIT" cproperty="Caption" orgtext="Customer Credit                                                                                                                                                                                         " orgcol="LANG_CUSTOMER_CREDIT" langtext="اضافة رصيد للعميل"/>
-	<arcuscr_h_ar row_key="LANG_COLLECTING_DATA" cproperty="Caption" orgtext="Collecting Data.......                                                                                                                                                                                  " orgcol="LANG_COLLECTING_DATA" langtext="...جمع البيانات"/>
-	<arcuscr_h_ar row_key="LANG_TOTAL_TIME_IS" cproperty="Caption" orgtext="Total time is                                                                                                                                                                                           " orgcol="LANG_TOTAL_TIME_IS" langtext="إجمالي الوقت"/>
-	<arcuscr_h_ar row_key="LANG_SECONDS" cproperty="Caption" orgtext="Seconds...                                                                                                                                                                                              " orgcol="LANG_SECONDS" langtext="...ثانية"/>
-</VFPData>

@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<srtrn_h_ar row_key="LANG_Pay" cproperty="Caption" orgtext="*PAYMENT*                                                                                                                                                                                               " orgcol="LANG_Pay" langtext="* دفع *"/>
-	<srtrn_h_ar row_key="LANG_Delete" cproperty="Caption" orgtext="Delete                                                                                                                                                                                                  " orgcol="LANG_Delete" langtext="حذف"/>
-	<srtrn_h_ar row_key="LANG_ColData" cproperty="Caption" orgtext="Collecting Data...                                                                                                                                                                                      " orgcol="LANG_ColData" langtext="جاري تجميع البيانات"/>
-	<srtrn_h_ar row_key="LANG_SavData" cproperty="Caption" orgtext="Files are now being updated...                                                                                                                                                                          " orgcol="LANG_SavData" langtext="...يجري الآن تحديث الملفات"/>
-</VFPData>

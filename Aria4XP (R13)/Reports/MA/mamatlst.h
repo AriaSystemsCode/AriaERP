@@ -1,8 +1,0 @@
-#DEFINE LANG_Mamatlst_Collecting          "Collecting Data For Fabric "
-#DEFINE LANG_Mamatlst_Color               "  Color "
-#DEFINE LANG_Mamatlst_Dyelots             "Collecting Dyelots Information For Fabric "
-#DEFINE LANG_Mamatlst_Sorting             "SORTING "
-#DEFINE LANG_Mamatlst_Records             " RECORDS FOR MATERIAL MASTER LIST ..."
-#DEFINE LANG_Mamatlst_NoRecord            "NO RECORDS SELECTED FOR REPORT!"
-#DEFINE LANG_Mamatlst_PrintDyelot            "Print Dyelot"
-#DEFINE LANG_Mamatlst_PrintConfig            "Print Configeration"

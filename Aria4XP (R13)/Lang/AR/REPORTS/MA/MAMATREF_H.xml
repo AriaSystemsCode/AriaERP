@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<mamatref_h_ar row_key="LANG_SELECTED" cproperty="Caption" orgtext="Selected                                                                                                                                                                                                " orgcol="LANG_SELECTED" langtext="تحديد"/>
-	<mamatref_h_ar row_key="LANG_RECORDS_IN" cproperty="Caption" orgtext="Records in                                                                                                                                                                                              " orgcol="LANG_RECORDS_IN" langtext="السجلات في"/>
-	<mamatref_h_ar row_key="LANG_SECONDS" cproperty="Caption" orgtext="Seconds...                                                                                                                                                                                              " orgcol="LANG_SECONDS" langtext="...ثانية"/>
-</VFPData>

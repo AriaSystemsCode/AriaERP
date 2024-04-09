@@ -1,7 +1,0 @@
-#DEFINE LANG_CopyInformation  	"Copy Information From Pack_ID"
-#DEFINE LANG_PACK_ID			"Pack ID"
-#DEFINE LANG_BrowseTitle		"Available Packs"
-#DEFINE LANG_AccountHeader		"Account"
-#DEFINE LANG_DescHeader			"Desc"
-#DEFINE LANG_DivisionHeader    	"Division"
-#DEFINE LANG_SeasonHeader		"Season"

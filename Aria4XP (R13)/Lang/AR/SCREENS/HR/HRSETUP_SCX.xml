@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<hrsetup_scx_ar row_key="_3HR1D8O2S" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariabranchformset.Ariaform1.cmdOk" langtext="موافق"/>
-	<hrsetup_scx_ar row_key="_3HR1D8O2U" cproperty="Caption" orgtext="Plant                                                                                                                                                                                                   " orgcol="ariabranchformset.Ariaform1.lblPlants" langtext="محطة"/>
-	<hrsetup_scx_ar row_key="_3HR1D8O2W" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.Ariaform1.cmdCancel" langtext="إلغاء"/>
-	<hrsetup_scx_ar row_key="XX_HEADER_XX" cproperty="TIMECRD.H" orgtext="SCREENS\HR\" orgcol="" langtext=""/>
-</VFPData>

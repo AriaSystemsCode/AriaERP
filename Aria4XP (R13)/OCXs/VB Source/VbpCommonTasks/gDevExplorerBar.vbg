@@ -1,4 +1,0 @@
-VBGROUP 5.0
-StartupProject=pTestExplorerBar.vbp
-Project=vbalExplorerBarLib.vbp
-Project=..\vbalExplorerBar\TestInControl\pInControl.vbp

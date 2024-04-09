@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<glpobats_h_ar row_key="LANG_COLLECTING_DATA" cproperty="Caption" orgtext="Collecting data...                                                                                                                                                                                      " orgcol="LANG_COLLECTING_DATA" langtext="...جمع البيانات"/>
-	<glpobats_h_ar row_key="LANG_DESCRIPTION" cproperty="Caption" orgtext="Description                                                                                                                                                                                             " orgcol="LANG_DESCRIPTION" langtext="الوصف"/>
-	<glpobats_h_ar row_key="LANG_CODE" cproperty="Caption" orgtext="Code                                                                                                                                                                                                    " orgcol="LANG_CODE" langtext="التعليمات البرمجية"/>
-	<glpobats_h_ar row_key="LANG_BATCODES" cproperty="Caption" orgtext="Batches Codes                                                                                                                                                                                           " orgcol="LANG_BATCODES" langtext="رموز دفعات"/>
-</VFPData>

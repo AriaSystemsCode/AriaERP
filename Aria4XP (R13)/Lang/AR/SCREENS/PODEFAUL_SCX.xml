@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<podefaul_scx_ar row_key="_0P40JZQDM" cproperty="Caption" orgtext="Complete                                                                                                                                                                                                " orgcol="PODefault.Ariaform1.lblCompleteDate" langtext="استكمال"/>
-	<podefaul_scx_ar row_key="_0P40JZQDS" cproperty="Caption" orgtext="Mutliple Ship to                                                                                                                                                                                        " orgcol="PODefault.Ariaform1.chkDefMultiPO" langtext="شحن متعدد إلى"/>
-	<podefaul_scx_ar row_key="_0P40JZQDM" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="PODefault.Ariaform1.cmdOk" langtext="موافق"/>
-	<podefaul_scx_ar row_key="XX_HEADER_XX" cproperty="POSTY.H" orgtext="SCREENS\" orgcol="" langtext=""/>
-</VFPData>

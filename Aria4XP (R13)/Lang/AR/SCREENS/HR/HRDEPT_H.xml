@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<hrdept_h_ar row_key="LANG_DEPT_NAME" cproperty="Caption" orgtext="Department Name                                                                                                                                                                                         " orgcol="LANG_DEPT_NAME" langtext="اسم الإدارة"/>
-	<hrdept_h_ar row_key="LANG_DEPT_ID" cproperty="Caption" orgtext="Department ID                                                                                                                                                                                           " orgcol="LANG_DEPT_ID" langtext="معرف الإدارة"/>
-	<hrdept_h_ar row_key="LANG_ENTRY_EXIST" cproperty="Caption" orgtext="This entity has a reference in                                                                                                                                                                          " orgcol="LANG_ENTRY_EXIST" langtext="يحتوي هذا الكيان على مرجع"/>
-	<hrdept_h_ar row_key="LANG_CANNOT_DELETE" cproperty="Caption" orgtext="table, can't delete it.                                                                                                                                                                                 " orgcol="LANG_CANNOT_DELETE" langtext="لا يمكن حذف الجدول."/>
-	<hrdept_h_ar row_key="LANG_ENTER_DEPT" cproperty="Caption" orgtext="You must enter a department name..                                                                                                                                                                      " orgcol="LANG_ENTER_DEPT" langtext="...يجب عليك إدخال اسم القسم"/>
-</VFPData>

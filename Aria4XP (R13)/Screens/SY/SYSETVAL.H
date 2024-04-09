@@ -1,1 +1,0 @@
-#DEFINE LANG_PRFILELIST "Profile List of Values"

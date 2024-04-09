@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<syardyrl_scx_ar row_key="_0T10LPR6R" cproperty="Caption" orgtext="Arrange (Fabric/Color/Dyelots)                                                                                                                                                                          " orgcol="ariaformset.AriaForm1" langtext="ترتيب (القماش/اللون/درجات اللون)"/>
-	<syardyrl_scx_ar row_key="_0T10M1F2D" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.cmdClose" langtext="إغلاق"/>
-	<syardyrl_scx_ar row_key="_0T10LPR6Q" cproperty="Caption" orgtext="Fabric                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.lblFabric" langtext="النسيج"/>
-	<syardyrl_scx_ar row_key="_0T10M1F2X" cproperty="Caption" orgtext="Color                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.lblColor" langtext="لون"/>
-	<syardyrl_scx_ar row_key="_0T10MH21L" cproperty="Caption" orgtext="Dyelots                                                                                                                                                                                                 " orgcol="ariaformset.AriaForm1.lblDyeTitle" langtext="درجات اللون"/>
-</VFPData>

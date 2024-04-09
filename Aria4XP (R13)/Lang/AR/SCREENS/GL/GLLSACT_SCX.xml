@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<gllsact_scx_ar row_key="_0RU0Q5EM9" cproperty="Caption" orgtext="Segments                                                                                                                                                                                                " orgcol="ariaformset.AriaForm1" langtext="مجموعات"/>
-	<gllsact_scx_ar row_key="_0RU0Q5EMG" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<gllsact_scx_ar row_key="_0RU0Q5EMC" cproperty="Caption" orgtext="Segment value                                                                                                                                                                                           " orgcol="ariaformset.AriaForm1.grdSeg.Column1.Header1" langtext="قيمة المقطع"/>
-	<gllsact_scx_ar row_key="_0RU0Q5EME" cproperty="Caption" orgtext="Segment description                                                                                                                                                                                     " orgcol="ariaformset.AriaForm1.grdSeg.Column2.Header1" langtext="وصف المجموعة"/>
-</VFPData>

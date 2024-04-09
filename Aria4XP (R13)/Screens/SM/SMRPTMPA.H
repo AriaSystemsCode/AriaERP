@@ -1,4 +1,0 @@
-#DEFINE LANG_MODIFYRECORD  "Modify Record"
-#DEFINE LANG_ADDNEWRECORD "Add a new record"
-#DEFINE LANG_SELECTACTIVITIES "Selecting Activities"
-#DEFINE LANG_CREATETEMPLATE 'creating a template'

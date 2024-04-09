@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<pobtchsl_scx_ar row_key="_3AJ0MBLA2" cproperty="Caption" orgtext="Select Batch#                                                                                                                                                                                           " orgcol="ariabranchformset.AriaForm1" langtext="حدد رقم الدفعة"/>
-	<pobtchsl_scx_ar row_key="_3AJ0MEIJH" cproperty="Caption" orgtext="Batch#        :                                                                                                                                                                                         " orgcol="ariabranchformset.AriaForm1.lblBatch" langtext="رقم الدفعة:"/>
-	<pobtchsl_scx_ar row_key="_3AJ0MBLA1" cproperty="Caption" orgtext="OK                                                                                                                                                                                                      " orgcol="ariabranchformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<pobtchsl_scx_ar row_key="_3AJ0MJY0F" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-	<pobtchsl_scx_ar row_key="XX_HEADER_XX" cproperty="POSTY.H" orgtext="SCREENS\" orgcol="" langtext=""/>
-</VFPData>

@@ -1,1 +1,0 @@
-#DEFINE LANG_WARNING "Warning: Locking Flags are used to prevent data inconsistency that occurs if multiple users are editing the same data at the same time. You should be sure that no users are currently locking this data. Proceed with clearing the locking flags ?"

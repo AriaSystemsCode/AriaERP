@@ -1,1 +1,0 @@
-#DEFINE LANG_SELECT_CARR "Select Carrier" 

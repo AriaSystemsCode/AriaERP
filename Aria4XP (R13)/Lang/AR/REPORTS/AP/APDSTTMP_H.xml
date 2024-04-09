@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<apdsttmp_h_ar row_key="LANG_DISTRIBUTION_TEMPLATES" cproperty="Caption" orgtext="Distribution Templates                                                                                                                                                                                  " orgcol="LANG_DISTRIBUTION_TEMPLATES" langtext="توزيع قوالب"/>
-	<apdsttmp_h_ar row_key="LANG_TEMPLATE_TYPE" cproperty="Caption" orgtext="Template type                                                                                                                                                                                           " orgcol="LANG_TEMPLATE_TYPE" langtext="نوع القالب"/>
-	<apdsttmp_h_ar row_key="LANG_TEMPLATE_CODE" cproperty="Caption" orgtext="Template code                                                                                                                                                                                           " orgcol="LANG_TEMPLATE_CODE" langtext="رمز قالب"/>
-	<apdsttmp_h_ar row_key="LANG_TEMPLATES" cproperty="Caption" orgtext="Templates                                                                                                                                                                                               " orgcol="LANG_TEMPLATES" langtext="قوالب"/>
-</VFPData>

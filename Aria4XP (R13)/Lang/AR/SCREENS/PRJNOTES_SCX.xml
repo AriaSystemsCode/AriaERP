@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<prjnotes_scx_ar row_key="_2LH0UOEWR" cproperty="Caption" orgtext="Notes                                                                                                                                                                                                   " orgcol="ariabranchformset.AriaForm1" langtext="ملاحظات"/>
-	<prjnotes_scx_ar row_key="_2LH0UOEWT" cproperty="Caption" orgtext="OK                                                                                                                                                                                                      " orgcol="ariabranchformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<prjnotes_scx_ar row_key="_2LH0UOEXS" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.cmdCanc" langtext="إلغاء"/>
-</VFPData>

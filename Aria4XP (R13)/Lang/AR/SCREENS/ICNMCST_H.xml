@@ -1,5 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<icnmcst_h_ar row_key="LANG_CostTitle" cproperty="Caption" orgtext="Costs                                                                                                                                                                                                   " orgcol="LANG_CostTitle" langtext="التكاليف"/>
-	<icnmcst_h_ar row_key="LANG_EditTitle" cproperty="Caption" orgtext="Edit Cost for                                                                                                                                                                                           " orgcol="LANG_EditTitle" langtext="تحرير التكلفة لـ"/>
-</VFPData>

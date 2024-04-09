@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<icupdsv_h_ar row_key="LANG_UPDATE_GL" cproperty="Caption" orgtext="Updating the general ledger distribution file.                                                                                                                                                          " orgcol="LANG_UPDATE_GL" langtext="جاري تحديث ملف توزيع دفتر الأستاذ العام."/>
-	<icupdsv_h_ar row_key="LANG_UPDATE_STK" cproperty="Caption" orgtext="**Adjust Stock Value**                                                                                                                                                                                  " orgcol="LANG_UPDATE_STK" langtext="** ضبط قيمة الأسهم **"/>
-	<icupdsv_h_ar row_key="LANG_UPDATE_TOTCST" cproperty="Caption" orgtext="The total cost for                                                                                                                                                                                      " orgcol="LANG_UPDATE_TOTCST" langtext="إجمالي التكلفة لـ"/>
-	<icupdsv_h_ar row_key="LANG_UPDATE_CHNG   '" cproperty="Caption" orgtext="has been changed.                                                                                                                                                                                       " orgcol="LANG_UPDATE_CHNG   '" langtext="تم تغييره."/>
-</VFPData>

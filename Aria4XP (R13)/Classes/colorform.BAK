@@ -1,9 +1,0 @@
-#DEFINE ConPrefSeperator CHR(161)
-#DEFINE Lang_ColorFormCaption "Color scheme condition"
-#DEFINE Lang_FlterMsg  "Filter was created by old version. Cannot edit."
-*N000682,1 MMT 11/20/2012 Globalization project[Start]
-#DEFINE LANG_MAIN_OK     "OK"
-*N000682,1 MMT 11/20/2012 Globalization project[End]
-*N000682,1 MMT 11/20/2012 Globalization project[Start]
-#DEFINE LANG_MAIN_CLOSE     'CLOSE'
-*N000682,1 MMT 11/20/2012 Globalization project[End]

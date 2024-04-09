@@ -1,9 +1,0 @@
-*N000682,1 MMT 02/05/2013 Globalization changes[Start]
-#DEFINE LANG_MANUALCHECK 'Manual Checks'
-#DEFINE LANG_PRINTEDCHECK 'Printed Checks'
-#DEFINE LANG_CASHPAY 'Cash Payment'
-#DEFINE LANG_NONCHECK 'Non Check Payment'
-#DEFINE LANG_S_VENDOR 'Vendor'
-#DEFINE LANG_COMPANY 'Company'
-#DEFINE LANG_VENDORS "Vendors"
-*N000682,1 MMT 02/05/2013 Globalization changes[End]

@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arvdate_scx_ar row_key="_0SR0V64QE" cproperty="Caption" orgtext="Void Invoice Date                                                                                                                                                                                       " orgcol="ariaformset.AriaForm1" langtext="تاريخ الفاتورة الملغاة"/>
-	<arvdate_scx_ar row_key="_0SR0VAWUH" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<arvdate_scx_ar row_key="_0SR0VAWUJ" cproperty="Caption" orgtext="Void Date:                                                                                                                                                                                              " orgcol="ariaformset.AriaForm1.Arialabel1" langtext="تاريخ الإلغاء:"/>
-	<arvdate_scx_ar row_key="_0SR0VAWUI" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-</VFPData>

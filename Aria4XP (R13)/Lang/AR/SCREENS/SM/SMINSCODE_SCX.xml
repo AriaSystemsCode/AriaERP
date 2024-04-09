@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<sminscode_scx_ar row_key="_1GL15T60I" cproperty="Caption" orgtext="Insert Code                                                                                                                                                                                             " orgcol="ariaformset.AriaForm1" langtext="إدراج رمز"/>
-	<sminscode_scx_ar row_key="_1GM0X689N" cproperty="Caption" orgtext="Code                                                                                                                                                                                                    " orgcol="ariaformset.AriaForm1.cntCode.lblCode" langtext="كود"/>
-	<sminscode_scx_ar row_key="_1GM0X689T" cproperty="Caption" orgtext="Description                                                                                                                                                                                             " orgcol="ariaformset.AriaForm1.cntDesc.lblDesc" langtext="وصف"/>
-	<sminscode_scx_ar row_key="_1GM0X689U" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<sminscode_scx_ar row_key="_1GM0X689V" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-</VFPData>

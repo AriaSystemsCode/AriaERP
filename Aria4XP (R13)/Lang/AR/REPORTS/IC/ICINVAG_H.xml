@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<icinvag_h_ar row_key="LANG_ONLYTHESE" cproperty="Caption" orgtext="Only These                                                                                                                                                                                              " orgcol="LANG_ONLYTHESE" langtext="هذه فقط"/>
-	<icinvag_h_ar row_key="LANG_SELECT" cproperty="Caption" orgtext="Selected                                                                                                                                                                                                " orgcol="LANG_SELECT" langtext="تحديد"/>
-	<icinvag_h_ar row_key="LANG_RECORDS_IN" cproperty="Caption" orgtext="Records in                                                                                                                                                                                              " orgcol="LANG_RECORDS_IN" langtext="السجلات في"/>
-	<icinvag_h_ar row_key="LANG_SECONDS" cproperty="Caption" orgtext="Seconds...                                                                                                                                                                                              " orgcol="LANG_SECONDS" langtext="...ثانية"/>
-	<icinvag_h_ar row_key="LANG_COLLECTING_DATA" cproperty="Caption" orgtext="Collecting data... Please wait                                                                                                                                                                          " orgcol="LANG_COLLECTING_DATA" langtext="جمع البيانات... الرجاء الانتظار"/>
-</VFPData>

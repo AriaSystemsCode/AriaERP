@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arcusprf_h_ar row_key="LANG_SelectProfile" cproperty="Caption" orgtext="Select a Profile                                                                                                                                                                                        " orgcol="LANG_SelectProfile" langtext="تحديد ملف التعريف"/>
-	<arcusprf_h_ar row_key="LANG_Close" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="LANG_Close" langtext="إغلاق"/>
-	<arcusprf_h_ar row_key="LANG_Cancel" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="LANG_Cancel" langtext="إلغاء"/>
-</VFPData>

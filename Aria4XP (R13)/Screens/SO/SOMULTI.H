@@ -1,5 +1,0 @@
-#DEFINE LANG_LabelBook           "BOOKED" 
-#DEFINE LANG_LabelUsed           "Used"
-#DEFINE LANG_LabelBalance        "Balance"
-#DEFINE LANG_LabelOpen           "Open"
-#DEFINE LANG_LabelColorDesc      "Color Description"

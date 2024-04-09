@@ -1,5 +1,0 @@
-#DEFINE LANG_FILETAG "Tag Name"
-#DEFINE LANG_ASCEN   "Ascending"
-#DEFINE LANG_UNIQ    "Unique"
-#DEFINE LANG_APPID   "Module ID"
-#DEFINE LANG_APPNAME "Module Name"

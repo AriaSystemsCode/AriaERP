@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<icstlb_cr_h_ar row_key="LANG_ICSTLB_SECTION3_ITEM8" cproperty="Caption" orgtext="STY:                                                                                                                                                                                                    " orgcol="LANG_ICSTLB_SECTION3_ITEM8" langtext="النمط:"/>
-	<icstlb_cr_h_ar row_key="LANG_ICSTLB_SECTION3_ITEM9" cproperty="Caption" orgtext="SIZ:                                                                                                                                                                                                    " orgcol="LANG_ICSTLB_SECTION3_ITEM9" langtext="الحجم:"/>
-	<icstlb_cr_h_ar row_key="LANG_ICSTLB_SECTION3_ITEM10" cproperty="Caption" orgtext="CLR:                                                                                                                                                                                                    " orgcol="LANG_ICSTLB_SECTION3_ITEM10" langtext="مسح:"/>
-	<icstlb_cr_h_ar row_key="LANG_ICSTLB_SECTION5_ITEM2" cproperty="Caption" orgtext="FAB:                                                                                                                                                                                                    " orgcol="LANG_ICSTLB_SECTION5_ITEM2" langtext="القوات المسلحة البوروندية:"/>
-</VFPData>

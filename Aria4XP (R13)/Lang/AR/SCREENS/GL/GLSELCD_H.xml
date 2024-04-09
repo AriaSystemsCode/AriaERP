@@ -1,5 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<glselcd_h_ar row_key="LANG_Sel" cproperty="Caption" orgtext="Select                                                                                                                                                                                                  " orgcol="LANG_Sel" langtext="حدد"/>
-	<glselcd_h_ar row_key="LANG_UnSel" cproperty="Caption" orgtext="Unselect                                                                                                                                                                                                " orgcol="LANG_UnSel" langtext="إلغاء تحديد"/>
-</VFPData>

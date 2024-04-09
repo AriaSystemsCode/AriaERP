@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<favmvfld_scx_ar row_key="_1EB0BU8JI" cproperty="Caption" orgtext="Browse for Folder" orgcol="frmFavMvFld" langtext="الاستعراض بحثاً عن مجلد"/>
-	<favmvfld_scx_ar row_key="_1EB0BXSD8" cproperty="Caption" orgtext="Click the folder that you want to mov" orgcol="frmFavMvFld.Arialabel2" langtext="انقر فوق المجلد الذي تريد نقله"/>
-	<favmvfld_scx_ar row_key="_1EB0KEH4C" cproperty="Caption" orgtext="OK" orgcol="frmFavMvFld.cmdOK" langtext="موافق"/>
-	<favmvfld_scx_ar row_key="_1EB0KEH4D" cproperty="Caption" orgtext="Cancel" orgcol="frmFavMvFld.cmdCancel" langtext="إلغاء الأمر"/>
-</VFPData>

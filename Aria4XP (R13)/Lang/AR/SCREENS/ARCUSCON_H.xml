@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arcuscon_h_ar row_key="LANG_SelectedRoles" cproperty="Caption" orgtext="Select Roles                                                                                                                                                                                            " orgcol="LANG_SelectedRoles" langtext="حدد الأدوار"/>
-	<arcuscon_h_ar row_key="LANG_CloseCaption" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="LANG_CloseCaption" langtext="إغلاق"/>
-	<arcuscon_h_ar row_key="LANG_CancelCaption" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="LANG_CancelCaption" langtext="إلغاء"/>
-</VFPData>

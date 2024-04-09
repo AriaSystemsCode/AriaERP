@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<alpktk_h_ar row_key="LANG_ALPKTK_COLORTOT" cproperty="Caption" orgtext="Total on Colors                                                                                                                                                                                         " orgcol="LANG_ALPKTK_COLORTOT" langtext="إجمالي الألوان"/>
-	<alpktk_h_ar row_key="LANG_SELECTING_PICKING_TICKETS" cproperty="Caption" orgtext="Selecting picking tickets...                                                                                                                                                                            " orgcol="LANG_SELECTING_PICKING_TICKETS" langtext="...جاري تحديد تذاكر الانتقاء"/>
-	<alpktk_h_ar row_key="LANG_PRINTING_REPORT" cproperty="Caption" orgtext="Printing Report...                                                                                                                                                                                      " orgcol="LANG_PRINTING_REPORT" langtext="...جاري طباعة التقرير"/>
-</VFPData>

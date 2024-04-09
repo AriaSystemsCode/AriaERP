@@ -1,9 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<mailtemp_scx_ar row_key="_0R80VYAFM" cproperty="Caption" orgtext="Letter Template" orgcol="ariaformset.AriaForm1" langtext="قالب الرسالة"/>
-	<mailtemp_scx_ar row_key="_0XX0OKP8F" cproperty="Caption" orgtext="Opening:" orgcol="ariaformset.AriaForm1.Arialabel2" langtext="الافتتاحية:"/>
-	<mailtemp_scx_ar row_key="_0XX0OKP8G" cproperty="Caption" orgtext="Concluding:" orgcol="ariaformset.AriaForm1.Arialabel3" langtext="الختامية:"/>
-	<mailtemp_scx_ar row_key="_0XX0OKP8I" cproperty="Caption" orgtext="Letter:" orgcol="ariaformset.AriaForm1.Arialabel4" langtext="رسالة:"/>
-	<mailtemp_scx_ar row_key="_0XX0ORWAF" cproperty="Caption" orgtext="Ok" orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<mailtemp_scx_ar row_key="_0XX0ORWAG" cproperty="Caption" orgtext="Cancel" orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء الأمر"/>
-</VFPData>

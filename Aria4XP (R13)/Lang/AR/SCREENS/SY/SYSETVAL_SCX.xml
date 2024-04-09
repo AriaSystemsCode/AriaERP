@@ -1,9 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<sysetval_scx_ar row_key="_1Q010TRFX" cproperty="Caption" orgtext="Profile List of Values                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cntValues.Ariatitlelabel1" langtext="قائمة قيم ملف التعريف"/>
-	<sysetval_scx_ar row_key="_1Q010TRG1" cproperty="Caption" orgtext="New Value                                                                                                                                                                                               " orgcol="ariaformset.AriaForm1.cmdNewValue" langtext="القيمة الجديدة"/>
-	<sysetval_scx_ar row_key="_1Q010TRG2" cproperty="Caption" orgtext="Remove Value                                                                                                                                                                                            " orgcol="ariaformset.AriaForm1.cmdRemoveValue" langtext="إزالة القيمة"/>
-	<sysetval_scx_ar row_key="_1Q010TRFZ" cproperty="Caption" orgtext="Values                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.grdValues.Column1.Header1" langtext="قيم"/>
-	<sysetval_scx_ar row_key="_2TO0RHQKI" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.cmdClose" langtext="إغلاق"/>
-	<sysetval_scx_ar row_key="XX_HEADER_XX" cproperty="SYSETVAL.H" orgtext="SCREENS\SY\" orgcol="" langtext=""/>
-</VFPData>

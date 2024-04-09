@@ -1,5 +1,0 @@
-#DEFINE LANG_SELECTED 'Selected'
-#DEFINE LANG_RECIN 'Record(s) in'
-#DEFINE LANG_SECO 'Seconds...' 
-#DEFINE LANG_ONLYTHIS 'Only This'
-#DEFINE LANG_STYLEBIN 'Style Bin'

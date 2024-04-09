@@ -1,8 +1,0 @@
-#DEFINE LANG_GLDSTTR_DESCRIPTION 'Description'
-#DEFINE LANG_GLDSTTR_DISTRIBUTION 'Distribution %'
-#DEFINE LANG_GLDSTTR_ON "On"
-#DEFINE LANG_GLDSTTR_CREATEDBY "Created by"
-#DEFINE LANG_GLDSTTR_DISTRIUTEDAMOUNT "distributed amounts" 
-#DEFINE LANG_GLDSTTR_DISTRIBUTONTRAN "distribution transaction|distribution transaction"
-#DEFINE LANG_GLDSTTR_TOTALOFALL "Total of all entries"
-#DEFINE LANG_GLDSTTR_SAVING 'Saving automatic distribution '

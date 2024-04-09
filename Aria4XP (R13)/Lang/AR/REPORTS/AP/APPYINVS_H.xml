@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<appyinvs_h_ar row_key="LANG_CURRENCY" cproperty="Caption" orgtext="Currency                                                                                                                                                                                                " orgcol="LANG_CURRENCY" langtext="العملة:"/>
-	<appyinvs_h_ar row_key="LANG_CURRENCY_CODE" cproperty="Caption" orgtext="Currency code                                                                                                                                                                                           " orgcol="LANG_CURRENCY_CODE" langtext="رمز العملة"/>
-	<appyinvs_h_ar row_key="LANG_DESCRIPTION" cproperty="Caption" orgtext="Description                                                                                                                                                                                             " orgcol="LANG_DESCRIPTION" langtext="الوصف"/>
-	<appyinvs_h_ar row_key="LANG_SYMBOL" cproperty="Caption" orgtext="Symbol                                                                                                                                                                                                  " orgcol="LANG_SYMBOL" langtext="الرمز"/>
-	<appyinvs_h_ar row_key="LANG_COLLECTDATA" cproperty="Caption" orgtext="Collecting Data ...                                                                                                                                                                                     " orgcol="LANG_COLLECTDATA" langtext="...جمع البيانات"/>
-</VFPData>

@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<glacseg_h_ar row_key="LANG_Seg" cproperty="Caption" orgtext="Sg                                                                                                                                                                                                      " orgcol="LANG_Seg" langtext="مجموعة"/>
-	<glacseg_h_ar row_key="LANG_ColTit" cproperty="Caption" orgtext="Values of                                                                                                                                                                                               " orgcol="LANG_ColTit" langtext="قيم"/>
-	<glacseg_h_ar row_key="LANG_GLACSEG_VALUES_OF" cproperty="Caption" orgtext="Values Of                                                                                                                                                                                               " orgcol="LANG_GLACSEG_VALUES_OF" langtext="قيم"/>
-</VFPData>

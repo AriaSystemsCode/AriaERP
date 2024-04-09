@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<smnmcnt_h_ar row_key="LANG_SEQUENCE_NUM" cproperty="Caption" orgtext="Sequence #                                                                                                                                                                                              " orgcol="LANG_SEQUENCE_NUM" langtext="تسلسل #"/>
-	<smnmcnt_h_ar row_key="LANG_TRANSACTION" cproperty="Caption" orgtext="Transaction                                                                                                                                                                                             " orgcol="LANG_TRANSACTION" langtext="الحركة"/>
-	<smnmcnt_h_ar row_key="LANG_SEQUENCES" cproperty="Caption" orgtext="Sequences                                                                                                                                                                                               " orgcol="LANG_SEQUENCES" langtext="تسلسل"/>
-</VFPData>

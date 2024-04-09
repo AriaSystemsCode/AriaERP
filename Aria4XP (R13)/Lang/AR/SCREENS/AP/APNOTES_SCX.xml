@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<apnotes_scx_ar row_key="_0PT0SNWBH" cproperty="Caption" orgtext="Notes                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1" langtext="ملاحظات"/>
-	<apnotes_scx_ar row_key="_0PT0SNWBG" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<apnotes_scx_ar row_key="_1GZ0QCZSF" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-	<apnotes_scx_ar row_key="XX_HEADER_XX" cproperty="APPYINV.H" orgtext="PRGS\AP\" orgcol="" langtext=""/>
-</VFPData>

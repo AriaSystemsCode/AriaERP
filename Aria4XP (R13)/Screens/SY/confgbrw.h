@@ -1,6 +1,0 @@
-#DEFINE LANG_ConfigBrow_Style      'Style '
-#DEFINE LANG_ConfigBrow_Config     ' Configurations'
-#DEFINE LANG_ConfigBrow_Cancel     '\<Cancel'
-#DEFINE LANG_ConfigBrow_Close      '\<Close'
-#DEFINE LANG_ConfigBrow_Save       '\<Save'
-#DEFINE LANG_ConfigBrow_Add        '\<Add'

@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<rmrautsb_frx_ar row_key="_S9B0T8LN4" cproperty="Caption" orgtext="RA #                                                                                                                                                                                                    " orgcol="Label" langtext="رقم حساب المقبوضات"/>
-	<rmrautsb_frx_ar row_key="_S9B0TACBM" cproperty="Caption" orgtext="VOID:                                                                                                                                                                                                   " orgcol="Label" langtext="إلغاء:"/>
-	<rmrautsb_frx_ar row_key="_S9I0VM5X4" cproperty="Caption" orgtext="Tot. Pcs                                                                                                                                                                                                " orgcol="Label" langtext="إجمالي الصور"/>
-</VFPData>

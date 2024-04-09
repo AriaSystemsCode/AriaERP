@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<icspcopy_scx_ar row_key="_0P40MI1NR" cproperty="Caption" orgtext="Copy Information Fro                                                                                                                                                                                    " orgcol="ariaformset.Ariaform1" langtext="نسخ معلومات من"/>
-	<icspcopy_scx_ar row_key="_0P40MI1NQ" cproperty="Caption" orgtext="Pack Id                                                                                                                                                                                                 " orgcol="ariaformset.Ariaform1.lblCopyFrom" langtext="معرف الحزمة"/>
-	<icspcopy_scx_ar row_key="_0P40MI1NQ" cproperty="Caption" orgtext="OK                                                                                                                                                                                                      " orgcol="ariaformset.Ariaform1.cmdCopyOk" langtext="موافق"/>
-	<icspcopy_scx_ar row_key="_0P40MYINT" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.Ariaform1.cmdCancel" langtext="إلغاء"/>
-	<icspcopy_scx_ar row_key="XX_HEADER_XX" cproperty="ICSPCOPY.H" orgtext="SCREENS\IC\" orgcol="" langtext=""/>
-</VFPData>

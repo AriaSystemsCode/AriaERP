@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<somulti_h_ar row_key="LANG_LabelBook" cproperty="Caption" orgtext="BOOKED                                                                                                                                                                                                  " orgcol="LANG_LabelBook" langtext="محجوز"/>
-	<somulti_h_ar row_key="LANG_LabelUsed" cproperty="Caption" orgtext="Used                                                                                                                                                                                                    " orgcol="LANG_LabelUsed" langtext="تستخدم"/>
-	<somulti_h_ar row_key="LANG_LabelBalance" cproperty="Caption" orgtext="Balance                                                                                                                                                                                                 " orgcol="LANG_LabelBalance" langtext="الرصيد"/>
-	<somulti_h_ar row_key="LANG_LabelOpen" cproperty="Caption" orgtext="Open                                                                                                                                                                                                    " orgcol="LANG_LabelOpen" langtext="فتح"/>
-	<somulti_h_ar row_key="LANG_LabelColorDesc" cproperty="Caption" orgtext="Color Description                                                                                                                                                                                       " orgcol="LANG_LabelColorDesc" langtext="وصف اللون"/>
-</VFPData>

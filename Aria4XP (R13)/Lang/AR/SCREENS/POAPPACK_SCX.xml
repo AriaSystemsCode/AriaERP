@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<poappack_scx_ar row_key="_1561B4TBW" cproperty="Caption" orgtext="Pack Id :                                                                                                                                                                                               " orgcol="ariaformset.AriaForm1.lblPackId" langtext="معرف الحزمة:"/>
-	<poappack_scx_ar row_key="_1561B4TBX" cproperty="Caption" orgtext="Quantity :                                                                                                                                                                                              " orgcol="ariaformset.AriaForm1.lblQuanity" langtext="الكمية:"/>
-	<poappack_scx_ar row_key="_1561BE7PA" cproperty="Caption" orgtext="OK                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
-	<poappack_scx_ar row_key="_1561BE7PB" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
-	<poappack_scx_ar row_key="XX_HEADER_XX" cproperty="POSTY.H" orgtext="SCREENS\" orgcol="" langtext=""/>
-</VFPData>

@@ -1,2 +1,0 @@
-#DEFINE LANG_All "All"
-#DEFINE LANG_None "None"

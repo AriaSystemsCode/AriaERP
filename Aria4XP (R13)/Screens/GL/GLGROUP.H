@@ -1,7 +1,0 @@
-#DEFINE LANG_DelGrp  'Deleting group: '
-#DEFINE LANG_SavGrp  'Saving Group: '
-#DEFINE LANG_Type    'Type'
-#DEFINE LANG_Desc    'Description'
-#DEFINE LANG_Seq     'Sequence'
-#DEFINE LANG_Exclude 'Exclude'
-#DEFINE LANG_Group   'Group'

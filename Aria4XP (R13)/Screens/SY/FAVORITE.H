@@ -1,5 +1,0 @@
-#DEFINE LANG_CREATEDIN1 '\<Create in <<'
-#DEFINE LANG_CREATEDIN2 '\<Create in >>'
-#DEFINE LANG_NAMEENRTEDEXIST 'The name you have entered already exists.' 
-#DEFINE LANG_ADDFAVORITE  'Add Favorites'
-#DEFINE LANG_CANNOTCREATE 'Cannot create a folder when that folder already exists.'

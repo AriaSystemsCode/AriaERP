@@ -1,1 +1,0 @@
-#DEFINE LANG_SELECTING_RECORDS_SPACE_BAR_TO_ABORT  'Selecting records ...<Space Bar> to abort'

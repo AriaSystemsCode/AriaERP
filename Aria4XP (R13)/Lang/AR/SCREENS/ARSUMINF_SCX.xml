@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<arsuminf_scx_ar row_key="_0Q90QUM7O" cproperty="Caption" orgtext="Summary information                                                                                                                                                                                     " orgcol="ariaformset.AriaForm1" langtext="معلومات تلخيصية"/>
-	<arsuminf_scx_ar row_key="_0Q90QUM82" cproperty="Caption" orgtext="AR High Water Mark :                                                                                                                                                                                    " orgcol="ariaformset.AriaForm1.Arialabel1" langtext="علامة مائية أعلى سحاب المقبوضات"/>
-	<arsuminf_scx_ar row_key="_0Q90QUM84" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.Ariacommandbutton1" langtext="إغلاق"/>
-	<arsuminf_scx_ar row_key="_0Q90QUM83" cproperty="Caption" orgtext="Post 12 Months Average Days Past Due:                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.AriaLabel2" langtext="ترحيل متوسط أيام 12 شهر متأخر"/>
-</VFPData>

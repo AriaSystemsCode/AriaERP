@@ -1,7 +1,0 @@
-<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
-<VFPData>
-	<smrptmpa_h_ar row_key="LANG_MODIFYRECORD" cproperty="Caption" orgtext="Modify Record                                                                                                                                                                                           " orgcol="LANG_MODIFYRECORD" langtext="تعديل سجل"/>
-	<smrptmpa_h_ar row_key="LANG_ADDNEWRECORD" cproperty="Caption" orgtext="Add a new record                                                                                                                                                                                        " orgcol="LANG_ADDNEWRECORD" langtext="إضافة سجل جديد"/>
-	<smrptmpa_h_ar row_key="LANG_SELECTACTIVITIES" cproperty="Caption" orgtext="Selecting Activities                                                                                                                                                                                    " orgcol="LANG_SELECTACTIVITIES" langtext="جاري تحديد الأنشطة"/>
-	<smrptmpa_h_ar row_key="LANG_CREATETEMPLATE" cproperty="Caption" orgtext="creating a template                                                                                                                                                                                     " orgcol="LANG_CREATETEMPLATE" langtext="جاري إنشاء قالب"/>
-</VFPData>
