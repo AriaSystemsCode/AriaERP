@@ -1,0 +1,2722 @@
+
+Process log started:  09/13/00  16:28:15
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/13/00  16:28:15
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 1001
+card data         = 54321543219
+amount            = 2500
+
+OUTPUT ----------------------------- 16:28:15
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 1001
+card data         = 54321543219
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+Process log stopped:  09/13/00  16:31:11
+
+Process log started:  09/14/00  10:30:36
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  10:30:36
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+
+OUTPUT ----------------------------- 10:30:36
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+Process log stopped:  09/14/00  12:02:54
+
+Process log started:  09/14/00  15:44:12
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  15:44:12
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+
+OUTPUT ----------------------------- 15:44:12
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+Process log stopped:  09/14/00  15:44:48
+
+Process log started:  09/14/00  16:01:42
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:01:43
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+
+OUTPUT ----------------------------- 16:01:43
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+Process log stopped:  09/14/00  16:02:55
+
+Process log started:  09/14/00  16:03:57
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:03:57
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+
+OUTPUT ----------------------------- 16:03:57
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+Process log stopped:  09/14/00  16:05:32
+
+Process log started:  09/14/00  16:05:39
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:05:39
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+
+OUTPUT ----------------------------- 16:05:39
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:30:25
+action flag       = X
+Process log stopped:  09/14/00  16:30:26
+
+Process log started:  09/14/00  16:30:45
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:30:45
+action flag       = X
+Process log stopped:  09/14/00  16:30:45
+
+Process log started:  09/14/00  16:37:23
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:37:23
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+
+OUTPUT ----------------------------- 16:37:23
+tran ID           = 1001
+action flag       = P
+tran type         = 5
+entry method      = 2
+receipt number    = 00010
+card data         = 600123T40099988A1456
+amount            = 2500
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/14/00  16:37:26
+action flag       = X
+Process log stopped:  09/14/00  16:37:26
+
+Process log started:  09/17/00  15:56:25
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  15:56:25
+tran ID           = 0642
+action flag       = O
+
+OUTPUT ----------------------------- 15:56:27
+tran ID           = 0642
+action flag       = O
+error code        = 105
+resp text         = INPUT FILE ERROR
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  15:56:36
+action flag       = X
+Process log stopped:  09/17/00  15:56:37
+
+Process log started:  09/17/00  16:00:43
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:00:43
+tran ID           = 0643
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000643
+card data         = 234234234333
+exp date          = 1299
+amount            = 9000
+
+OUTPUT ----------------------------- 16:00:43
+tran ID           = 0643
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000643
+card data         = 234234234333
+exp date          = 1299
+amount            = 9000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:00:44
+action flag       = X
+Process log stopped:  09/17/00  16:00:45
+
+Process log started:  09/17/00  16:01:21
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:01:21
+tran ID           = 0643
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000643
+card data         = 434234234234333
+exp date          = 1299
+amount            = 9000
+
+OUTPUT ----------------------------- 16:01:21
+tran ID           = 0643
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000643
+card data         = 434234234234333
+exp date          = 1299
+amount            = 9000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:01:22
+action flag       = X
+Process log stopped:  09/17/00  16:01:23
+
+Process log started:  09/17/00  16:04:18
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:04:18
+tran ID           = 0644
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000644
+card data         = 223323333333
+exp date          = 1299
+amount            = 10000
+
+OUTPUT ----------------------------- 16:04:18
+tran ID           = 0644
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000644
+card data         = 223323333333
+exp date          = 1299
+amount            = 10000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:05:05
+action flag       = X
+Process log stopped:  09/17/00  16:05:05
+
+Process log started:  09/17/00  16:23:45
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:23:45
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = ddssdsdsd
+amount            = 9000
+
+OUTPUT ----------------------------- 16:23:45
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = ddssdsdsd
+amount            = 9000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:23:47
+action flag       = X
+Process log stopped:  09/17/00  16:23:47
+
+Process log started:  09/17/00  16:24:04
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:24:04
+action flag       = X
+Process log stopped:  09/17/00  16:24:05
+
+Process log started:  09/17/00  16:24:11
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:24:11
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 1212121121
+exp date          = 1111
+amount            = 9000
+
+OUTPUT ----------------------------- 16:24:11
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 1212121121
+exp date          = 1111
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:24:12
+action flag       = X
+Process log stopped:  09/17/00  16:24:12
+
+Process log started:  09/17/00  16:24:20
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:24:20
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 1111212121121
+exp date          = 1111
+amount            = 9000
+
+OUTPUT ----------------------------- 16:24:20
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 1111212121121
+exp date          = 1111
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:24:21
+action flag       = X
+Process log stopped:  09/17/00  16:24:22
+
+Process log started:  09/17/00  16:25:04
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:25:04
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = ssdsdsd1111212121121
+exp date          = 1111
+amount            = 9000
+
+OUTPUT ----------------------------- 16:25:04
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = ssdsdsd1111212121121
+exp date          = 1111
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:25:05
+action flag       = X
+Process log stopped:  09/17/00  16:25:06
+
+Process log started:  09/17/00  16:25:11
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:25:11
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 233223
+amount            = 9000
+
+OUTPUT ----------------------------- 16:25:11
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 233223
+amount            = 9000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:25:12
+action flag       = X
+Process log stopped:  09/17/00  16:25:13
+
+Process log started:  09/17/00  16:25:17
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:25:17
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 233223
+exp date          = 1111
+amount            = 9000
+
+OUTPUT ----------------------------- 16:25:17
+tran ID           = 0645
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000645
+card data         = 233223
+exp date          = 1111
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:25:18
+action flag       = X
+Process log stopped:  09/17/00  16:25:19
+
+Process log started:  09/17/00  16:29:36
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:29:36
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = sdfsdfsdfs
+amount            = 9000
+
+OUTPUT ----------------------------- 16:29:36
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = sdfsdfsdfs
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:29:37
+action flag       = X
+Process log stopped:  09/17/00  16:29:38
+
+Process log started:  09/17/00  16:29:52
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:29:52
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = 12212121211-1111
+amount            = 9000
+
+OUTPUT ----------------------------- 16:29:52
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = 12212121211-1111
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:29:53
+action flag       = X
+Process log stopped:  09/17/00  16:29:53
+
+Process log started:  09/17/00  16:30:16
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:30:16
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = 586987ju 6978py0ioj;ljkl;
+amount            = 9000
+
+OUTPUT ----------------------------- 16:30:16
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = 586987ju 6978py0iojljkl
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:30:17
+action flag       = X
+Process log stopped:  09/17/00  16:30:17
+
+Process log started:  09/17/00  16:30:26
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:30:26
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = sdsdfsdfsdfsdfsdfssdfsdfsdfsdffsdfsdfdsfdsfsfsdfsdfsdfsdfsdd
+amount            = 9000
+
+OUTPUT ----------------------------- 16:30:26
+tran ID           = 0646
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000646
+card data         = sdsdfsdfsdfsdfsdfssdfsdfsdfsdffsdfsdfdsfdsfsfsdfsdfsdfsdfsdd
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:30:27
+action flag       = X
+Process log stopped:  09/17/00  16:30:28
+
+Process log started:  09/17/00  16:31:57
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:31:57
+tran ID           = 0647
+action flag       = H
+tran type         = 0
+entry method      = 1
+receipt number    = 000647
+card data         = hjgkjg
+amount            = 0
+
+OUTPUT ----------------------------- 16:31:57
+tran ID           = 0647
+action flag       = H
+tran type         = 0
+entry method      = 1
+receipt number    = 000647
+card data         = hjgkjg
+amount            = 0
+error code        = 41
+resp text         = Amount missing
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:31:58
+action flag       = X
+Process log stopped:  09/17/00  16:31:59
+
+Process log started:  09/17/00  16:32:36
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:32:36
+tran ID           = 0647
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000647
+card data         = 2342342343-1999
+amount            = 19000
+
+OUTPUT ----------------------------- 16:32:36
+tran ID           = 0647
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000647
+card data         = 2342342343-1999
+amount            = 19000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:32:37
+action flag       = X
+Process log stopped:  09/17/00  16:32:37
+
+Process log started:  09/17/00  16:33:34
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:33:34
+tran ID           = 0647
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000647
+card data         = werwewerwer
+amount            = 9000
+
+OUTPUT ----------------------------- 16:33:34
+tran ID           = 0647
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000647
+card data         = werwewerwer
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:33:35
+action flag       = X
+Process log stopped:  09/17/00  16:33:35
+
+Process log started:  09/17/00  16:33:53
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:33:53
+tran ID           = 0647
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000647
+card data         = erwere
+amount            = 9000
+
+OUTPUT ----------------------------- 16:33:53
+tran ID           = 0647
+action flag       = H
+tran type         = 5
+entry method      = 1
+receipt number    = 000647
+card data         = erwere
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/17/00  16:33:54
+action flag       = X
+Process log stopped:  09/17/00  16:33:55
+
+Process log started:  09/18/00  10:36:16
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:36:16
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = dfgfdgdfgfdfgdfdfgdgdfdfdgf
+amount            = 10000
+
+OUTPUT ----------------------------- 10:36:16
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = dfgfdgdfgfdfgdfdfgdgdfdfdgf
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:36:18
+action flag       = X
+Process log stopped:  09/18/00  10:36:19
+
+Process log started:  09/18/00  10:36:38
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:36:38
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = 3453453545345454
+exp date          = 1199
+amount            = 10000
+
+OUTPUT ----------------------------- 10:36:38
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = 3453453545345454
+exp date          = 1199
+amount            = 10000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:36:39
+action flag       = X
+Process log stopped:  09/18/00  10:36:40
+
+Process log started:  09/18/00  10:37:13
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:37:13
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = 4444444445345454
+exp date          = 1199
+amount            = 10000
+
+OUTPUT ----------------------------- 10:37:13
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = 4444444445345454
+exp date          = 1199
+amount            = 10000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:37:14
+action flag       = X
+Process log stopped:  09/18/00  10:37:15
+
+Process log started:  09/18/00  10:38:04
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:38:04
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = eeee444445345454
+exp date          = 1199
+amount            = 10000
+
+OUTPUT ----------------------------- 10:38:04
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = eeee444445345454
+exp date          = 1199
+amount            = 10000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:38:05
+action flag       = X
+Process log stopped:  09/18/00  10:38:05
+
+Process log started:  09/18/00  10:38:35
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:38:35
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = dfgfdf
+amount            = 6000
+
+OUTPUT ----------------------------- 10:38:35
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = dfgfdf
+amount            = 6000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:38:36
+action flag       = X
+Process log stopped:  09/18/00  10:38:36
+
+Process log started:  09/18/00  10:40:16
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:40:16
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = fdgdfgdf
+amount            = 10000
+
+OUTPUT ----------------------------- 10:40:16
+tran ID           = 0648
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000648
+card data         = fdgdfgdf
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  10:40:17
+action flag       = X
+Process log stopped:  09/18/00  10:40:18
+
+Process log started:  09/18/00  18:54:28
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  18:54:28
+tran ID           = 0651
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000651
+card data         = werrwewerwewerwr
+amount            = 9000
+
+OUTPUT ----------------------------- 18:54:29
+tran ID           = 0651
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000651
+card data         = werrwewerwewerwr
+amount            = 9000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  18:54:31
+action flag       = X
+Process log stopped:  09/18/00  18:54:31
+
+Process log started:  09/18/00  19:00:23
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  19:00:23
+tran ID           = 0651
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000651
+card data         = dfdfdfdfdfdfdf
+amount            = 5000
+
+OUTPUT ----------------------------- 19:00:23
+tran ID           = 0651
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000651
+card data         = dfdfdfdfdfdfdf
+amount            = 5000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  19:00:25
+action flag       = X
+Process log stopped:  09/18/00  19:00:25
+
+Process log started:  09/18/00  20:54:51
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:54:52
+tran ID           = 0653
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000653
+card data         = WEDEWEEEWE
+amount            = 10000
+
+OUTPUT ----------------------------- 20:54:52
+tran ID           = 0653
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000653
+card data         = WEDEWEEEWE
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:54:54
+action flag       = X
+Process log stopped:  09/18/00  20:54:54
+
+Process log started:  09/18/00  20:59:07
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:59:07
+tran ID           = 0654
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000654
+card data         = WDFSDFDFSDFSDF
+amount            = 10000
+
+OUTPUT ----------------------------- 20:59:07
+tran ID           = 0654
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000654
+card data         = WDFSDFDFSDFSDF
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:59:08
+action flag       = X
+Process log stopped:  09/18/00  20:59:09
+
+Process log started:  09/18/00  20:59:10
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:59:10
+tran ID           = 0654
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000654
+card data         = WDFSDFDFSDFSDF
+amount            = 10000
+
+OUTPUT ----------------------------- 20:59:10
+tran ID           = 0654
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000654
+card data         = WDFSDFDFSDFSDF
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:59:11
+action flag       = X
+Process log stopped:  09/18/00  20:59:12
+
+Process log started:  09/18/00  20:59:12
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:59:12
+tran ID           = 0654
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000654
+card data         = WDFSDFDFSDFSDF
+amount            = 10000
+
+OUTPUT ----------------------------- 20:59:12
+tran ID           = 0654
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000654
+card data         = WDFSDFDFSDFSDF
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  20:59:13
+action flag       = X
+Process log stopped:  09/18/00  20:59:14
+
+Process log started:  09/18/00  21:04:31
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:04:31
+tran ID           = 0655
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000655
+card data         = SDSDDDDSD
+amount            = 10000
+
+OUTPUT ----------------------------- 21:04:31
+tran ID           = 0655
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000655
+card data         = SDSDDDDSD
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:04:32
+action flag       = X
+Process log stopped:  09/18/00  21:04:32
+
+Process log started:  09/18/00  21:10:06
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:10:06
+tran ID           = 0656
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000656
+card data         = SDDSDS
+amount            = 10000
+
+OUTPUT ----------------------------- 21:10:06
+tran ID           = 0656
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000656
+card data         = SDDSDS
+amount            = 10000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:10:07
+action flag       = X
+Process log stopped:  09/18/00  21:10:07
+
+Process log started:  09/18/00  21:10:50
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:10:50
+tran ID           = 0656
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000656
+card data         = 6799788908990
+amount            = 2000
+
+OUTPUT ----------------------------- 21:10:50
+tran ID           = 0656
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000656
+card data         = 6799788908990
+amount            = 2000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:10:51
+action flag       = X
+Process log stopped:  09/18/00  21:10:51
+
+Process log started:  09/18/00  21:11:52
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:11:52
+action flag       = X
+Process log stopped:  09/18/00  21:11:53
+
+Process log started:  09/18/00  21:26:24
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:26:24
+tran ID           = 0658
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000658
+card data         = 2342323233233
+exp date          = 2322
+amount            = 10000
+
+OUTPUT ----------------------------- 21:26:24
+tran ID           = 0658
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000658
+card data         = 2342323233233
+exp date          = 2322
+amount            = 10000
+error code        = 36
+resp text         = Invalid month
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/18/00  21:26:25
+action flag       = X
+Process log stopped:  09/18/00  21:26:26
+
+Process log started:  09/19/00  15:23:57
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:23:57
+tran ID           = 0696
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000696
+card data         = 4599201200145674
+exp date          = 100
+amount            = 9000
+
+OUTPUT ----------------------------- 15:23:57
+tran ID           = 0696
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000696
+card data         = 4599201200145674
+exp date          = 0100
+amount            = 9000
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:23:59
+action flag       = X
+Process log stopped:  09/19/00  15:24:00
+
+Process log started:  09/19/00  15:35:25
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:35:25
+tran ID           = 0700
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000700
+card data         = 465454
+amount            = 9000
+
+OUTPUT ----------------------------- 15:35:25
+tran ID           = 0700
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000700
+card data         = 465454
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:35:27
+action flag       = X
+Process log stopped:  09/19/00  15:35:27
+
+Process log started:  09/19/00  15:51:15
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:51:15
+action flag       = X
+Process log stopped:  09/19/00  15:51:16
+
+Process log started:  09/19/00  15:51:45
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:51:45
+action flag       = X
+Process log stopped:  09/19/00  15:51:45
+
+Process log started:  09/19/00  15:51:56
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:51:56
+action flag       = X
+Process log stopped:  09/19/00  15:51:57
+
+Process log started:  09/19/00  15:52:08
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:52:08
+action flag       = X
+Process log stopped:  09/19/00  15:52:08
+
+Process log started:  09/19/00  15:59:58
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  15:59:58
+action flag       = X
+Process log stopped:  09/19/00  15:59:59
+
+Process log started:  09/19/00  16:01:00
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:01:00
+action flag       = X
+Process log stopped:  09/19/00  16:01:01
+
+Process log started:  09/19/00  16:02:17
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:02:17
+action flag       = X
+Process log stopped:  09/19/00  16:02:18
+
+Process log started:  09/19/00  16:02:29
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:02:29
+action flag       = X
+Process log stopped:  09/19/00  16:02:30
+
+Process log started:  09/19/00  16:08:11
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:08:11
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+
+OUTPUT ----------------------------- 16:08:11
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:08:12
+action flag       = X
+Process log stopped:  09/19/00  16:08:12
+
+Process log started:  09/19/00  16:08:30
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:08:30
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+
+OUTPUT ----------------------------- 16:08:30
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:08:31
+action flag       = X
+Process log stopped:  09/19/00  16:08:32
+
+Process log started:  09/19/00  16:08:46
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:08:46
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+
+OUTPUT ----------------------------- 16:08:46
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:08:47
+action flag       = X
+Process log stopped:  09/19/00  16:08:48
+
+Process log started:  09/19/00  16:22:27
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:22:27
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+
+OUTPUT ----------------------------- 16:22:27
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:22:28
+action flag       = X
+Process log stopped:  09/19/00  16:22:29
+
+Process log started:  09/19/00  16:22:58
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:22:58
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+
+OUTPUT ----------------------------- 16:22:58
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 459910
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:22:59
+action flag       = X
+Process log stopped:  09/19/00  16:23:00
+
+Process log started:  09/19/00  16:23:47
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:23:47
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 4599102100145674
+amount            = 2000
+
+OUTPUT ----------------------------- 16:23:47
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 4599102100145674
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:23:48
+action flag       = X
+Process log stopped:  09/19/00  16:23:49
+
+Process log started:  09/19/00  16:24:14
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:24:14
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 4599102100145674
+amount            = 2000
+
+OUTPUT ----------------------------- 16:24:14
+tran ID           = 0702
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000702
+card data         = 4599102100145674
+amount            = 2000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  16:24:15
+action flag       = X
+Process log stopped:  09/19/00  16:24:16
+
+Process log started:  09/19/00  17:02:05
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:05
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = TGJFDLKGJLFD
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:05
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = TGJFDLKGJLFD
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:07
+action flag       = X
+Process log stopped:  09/19/00  17:02:07
+
+Process log started:  09/19/00  17:02:12
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:12
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = TGJFDLKGJLFD
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:12
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = TGJFDLKGJLFD
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:13
+action flag       = X
+Process log stopped:  09/19/00  17:02:13
+
+Process log started:  09/19/00  17:02:41
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:41
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:41
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:42
+action flag       = X
+Process log stopped:  09/19/00  17:02:42
+
+Process log started:  09/19/00  17:02:50
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:50
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:50
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:51
+action flag       = X
+Process log stopped:  09/19/00  17:02:52
+
+Process log started:  09/19/00  17:02:52
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:52
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:52
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:53
+action flag       = X
+Process log stopped:  09/19/00  17:02:54
+
+Process log started:  09/19/00  17:02:55
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:55
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:55
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:56
+action flag       = X
+input file name = c:\atomic\AUTH0707.IN
+input from file: 0707,P,5,1,4599102100145674+1100,9000,,,,000707,,,
+
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:02:57
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:02:57
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+Process log stopped:  09/19/00  17:02:57
+
+Process log started:  09/19/00  17:18:38
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:18:38
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:18:38
+tran ID           = 0707
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000707
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+input file name = c:\atomic\AUTH0708.IN
+input from file: 0708,P,5,1,4599102100145674+1100,9000,,,,000708,,,
+
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:18:38
+tran ID           = 0708
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000708
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:18:38
+tran ID           = 0708
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000708
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:18:40
+action flag       = X
+Process log stopped:  09/19/00  17:18:41
+
+Process log started:  09/19/00  17:21:15
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:21:15
+tran ID           = 0708
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000708
+card data         = 4599102100145674
+amount            = 9000
+
+OUTPUT ----------------------------- 17:21:15
+tran ID           = 0708
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000708
+card data         = 4599102100145674
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:21:16
+action flag       = X
+Process log stopped:  09/19/00  17:21:16
+
+Process log started:  09/19/00  17:26:46
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:26:46
+tran ID           = 0709
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000709
+card data         = K
+amount            = 9000
+
+OUTPUT ----------------------------- 17:26:46
+tran ID           = 0709
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000709
+card data         = K
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:26:47
+action flag       = X
+Process log stopped:  09/19/00  17:26:48
+
+Process log started:  09/19/00  17:27:03
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:27:03
+tran ID           = 0709
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000709
+card data         = K
+amount            = 9000
+
+OUTPUT ----------------------------- 17:27:03
+tran ID           = 0709
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000709
+card data         = K
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:27:04
+action flag       = X
+Process log stopped:  09/19/00  17:27:05
+
+Process log started:  09/19/00  17:27:14
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:27:14
+tran ID           = 0709
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000709
+card data         = K
+amount            = 9000
+
+OUTPUT ----------------------------- 17:27:14
+tran ID           = 0709
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000709
+card data         = K
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:27:15
+action flag       = X
+Process log stopped:  09/19/00  17:27:15
+
+Process log started:  09/19/00  17:54:33
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:54:33
+action flag       = X
+Process log stopped:  09/19/00  17:54:34
+
+Process log started:  09/19/00  17:54:42
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:54:42
+action flag       = X
+Process log stopped:  09/19/00  17:54:42
+
+Process log started:  09/19/00  17:58:18
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  17:58:18
+action flag       = X
+Process log stopped:  09/19/00  17:58:18
+
+Process log started:  09/19/00  18:01:49
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:01:49
+tran ID           = 0713
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000713
+card data         = 010011
+amount            = 9000
+
+OUTPUT ----------------------------- 18:01:49
+tran ID           = 0713
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000713
+card data         = 010011
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:01:50
+action flag       = X
+Process log stopped:  09/19/00  18:01:50
+
+Process log started:  09/19/00  18:01:53
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:01:53
+tran ID           = 0713
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000713
+card data         = 010011
+amount            = 9000
+
+OUTPUT ----------------------------- 18:01:53
+tran ID           = 0713
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000713
+card data         = 010011
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:01:54
+action flag       = X
+Process log stopped:  09/19/00  18:01:54
+
+Process log started:  09/19/00  18:09:32
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:09:32
+tran ID           = 0714
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000714
+card data         = KLLKLKLK
+amount            = 9000
+
+OUTPUT ----------------------------- 18:09:32
+tran ID           = 0714
+action flag       = P
+tran type         = 5
+entry method      = 1
+receipt number    = 000714
+card data         = KLLKLKLK
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:09:33
+action flag       = X
+Process log stopped:  09/19/00  18:09:34
+
+Process log started:  09/19/00  18:13:34
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:13:34
+action flag       = X
+Process log stopped:  09/19/00  18:13:34
+
+Process log started:  09/19/00  18:13:41
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:13:41
+action flag       = X
+Process log stopped:  09/19/00  18:13:42
+
+Process log started:  09/19/00  18:14:50
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:14:50
+tran ID           = 0715
+action flag       = H
+tran type         = 5
+entry method      = 2
+receipt number    = 000715
+card data         = 564654654
+amount            = 9000
+
+OUTPUT ----------------------------- 18:14:50
+tran ID           = 0715
+action flag       = H
+tran type         = 5
+entry method      = 2
+receipt number    = 000715
+card data         = 564654654
+amount            = 9000
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:14:51
+action flag       = X
+Process log stopped:  09/19/00  18:14:51
+
+Process log started:  09/19/00  18:51:26
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:51:26
+action flag       = X
+Process log stopped:  09/19/00  18:51:26
+
+Process log started:  09/19/00  18:51:35
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:51:35
+tran ID           = 0053
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00053
+card data         = 1212154545454
+amount            = 12000
+
+OUTPUT ----------------------------- 18:51:35
+tran ID           = 0053
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00053
+card data         = 1212154545454
+amount            = 12000
+error code        = 42
+resp text         = Invalid expiration date
+Process log stopped:  09/19/00  18:52:47
+
+Process log started:  09/19/00  18:55:10
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:55:10
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = 21213523266
+amount            = 12000
+
+OUTPUT ----------------------------- 18:55:10
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = 21213523266
+amount            = 12000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:55:11
+action flag       = X
+Process log stopped:  09/19/00  18:55:12
+
+Process log started:  09/19/00  18:55:51
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:55:51
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = 212545456465656565
+amount            = 12000
+
+OUTPUT ----------------------------- 18:55:51
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = 212545456465656565
+amount            = 12000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:55:52
+action flag       = X
+Process log stopped:  09/19/00  18:55:52
+
+Process log started:  09/19/00  18:56:24
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:56:24
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = jdfkjrjkljkljkl
+amount            = 12000
+
+OUTPUT ----------------------------- 18:56:24
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = jdfkjrjkljkljkl
+amount            = 12000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:56:25
+action flag       = X
+Process log stopped:  09/19/00  18:56:25
+
+Process log started:  09/19/00  18:56:43
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:56:43
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = 1232356565656565
+amount            = 12000
+
+OUTPUT ----------------------------- 18:56:43
+tran ID           = 0054
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = C00054
+card data         = 1232356565656565
+amount            = 12000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 09/19/00  18:56:44
+action flag       = X
+Process log stopped:  09/19/00  18:56:45
+
+Process log started:  01/04/01  17:06:09
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:06:09
+tran ID           = 0790
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000790
+card data         = fdgfdfdgdswgwfggwg
+amount            = 800
+
+OUTPUT ----------------------------- 17:06:09
+tran ID           = 0790
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000790
+card data         = fdgfdfdgdswgwfggwg
+amount            = 800
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:06:11
+action flag       = X
+Process log stopped:  01/04/01  17:06:12
+
+Process log started:  01/04/01  17:06:30
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:06:30
+tran ID           = 0790
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000790
+card data         = fdgfdfdgdswgwfggwg
+amount            = 800
+
+OUTPUT ----------------------------- 17:06:30
+tran ID           = 0790
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000790
+card data         = fdgfdfdgdswgwfggwg
+amount            = 800
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:06:31
+action flag       = X
+Process log stopped:  01/04/01  17:06:32
+
+Process log started:  01/04/01  17:07:34
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:07:34
+tran ID           = 0791
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000791
+card data         = etretrtrete
+amount            = 1000
+
+OUTPUT ----------------------------- 17:07:34
+tran ID           = 0791
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 000791
+card data         = etretrtrete
+amount            = 1000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:07:35
+action flag       = X
+Process log stopped:  01/04/01  17:07:36
+
+Process log started:  01/04/01  17:11:54
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:11:54
+action flag       = X
+Process log stopped:  01/04/01  17:11:54
+
+Process log started:  01/04/01  17:11:56
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/04/01  17:11:56
+action flag       = X
+Process log stopped:  01/04/01  17:11:57
+
+Process log started:  01/11/01  10:56:04
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  10:56:04
+tran ID           = 0522
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000522
+card data         = 123456789
+exp date          = 1299
+amount            = 1700
+
+OUTPUT ----------------------------- 10:56:04
+tran ID           = 0522
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000522
+card data         = 123456789
+exp date          = 1299
+amount            = 1700
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  10:56:05
+action flag       = X
+Process log stopped:  01/11/01  10:56:06
+
+Process log started:  01/11/01  10:56:08
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  10:56:08
+tran ID           = 0522
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000522
+card data         = 123456789
+exp date          = 1299
+amount            = 1700
+
+OUTPUT ----------------------------- 10:56:08
+tran ID           = 0522
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000522
+card data         = 123456789
+exp date          = 1299
+amount            = 1700
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  10:56:09
+action flag       = X
+Process log stopped:  01/11/01  10:56:09
+
+Process log started:  01/11/01  11:10:58
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  11:10:58
+tran ID           = 0524
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000524
+card data         = 012345678901234
+exp date          = 1299
+amount            = 1700
+
+OUTPUT ----------------------------- 11:10:58
+tran ID           = 0524
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 000524
+card data         = 012345678901234
+exp date          = 1299
+amount            = 1700
+error code        = 37
+resp text         = Expired Card
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  11:10:59
+action flag       = X
+Process log stopped:  01/11/01  11:11:00
+
+Process log started:  01/11/01  14:50:52
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  14:50:52
+tran ID           = 0057
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00057
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 26100
+
+OUTPUT ----------------------------- 14:50:52
+tran ID           = 0057
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00057
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 26100
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  14:50:53
+action flag       = X
+Process log stopped:  01/11/01  14:50:54
+
+Process log started:  01/11/01  14:55:41
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  14:55:41
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+
+OUTPUT ----------------------------- 14:55:41
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  14:55:42
+action flag       = X
+Process log stopped:  01/11/01  14:55:43
+
+Process log started:  01/11/01  14:58:21
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  14:58:21
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+
+OUTPUT ----------------------------- 14:58:21
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  14:58:22
+action flag       = X
+Process log stopped:  01/11/01  14:58:23
+
+Process log started:  01/11/01  15:00:54
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  15:00:54
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+
+OUTPUT ----------------------------- 15:00:54
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  15:00:55
+action flag       = X
+Process log stopped:  01/11/01  15:00:56
+
+Process log started:  01/11/01  15:06:28
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  15:06:28
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+
+OUTPUT ----------------------------- 15:06:28
+tran ID           = 0058
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = B00058
+card data         = 1111111111111111
+exp date          = 1234
+amount            = 58500
+error code        = 32
+resp text         = Invalid card number
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/11/01  15:06:29
+action flag       = X
+Process log stopped:  01/11/01  15:06:30
+
+Process log started:  01/16/01  13:02:20
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/16/01  13:02:20
+tran ID           = 4206
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 004206
+card data         = fds
+amount            = 1000
+
+OUTPUT ----------------------------- 13:02:20
+tran ID           = 4206
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 004206
+card data         = fds
+amount            = 1000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/16/01  13:02:21
+action flag       = X
+Process log stopped:  01/16/01  13:02:21
+
+Process log started:  01/16/01  13:02:23
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/16/01  13:02:23
+tran ID           = 4206
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 004206
+card data         = fds
+amount            = 1000
+
+OUTPUT ----------------------------- 13:02:23
+tran ID           = 4206
+action flag       = H
+tran type         = 5
+entry method      = 0
+receipt number    = 004206
+card data         = fds
+amount            = 1000
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/16/01  13:02:24
+action flag       = X
+Process log stopped:  01/16/01  13:02:25
+
+Process log started:  01/25/01  14:17:27
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/25/01  14:17:27
+tran ID           = 4266
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 004266
+card data         = 123456
+amount            = 4320
+
+OUTPUT ----------------------------- 14:17:27
+tran ID           = 4266
+action flag       = P
+tran type         = 5
+entry method      = 0
+receipt number    = 004266
+card data         = 123456
+amount            = 4320
+error code        = 42
+resp text         = Invalid expiration date
+hold line time = 5
+using single-user mode
+
+INPUT ******************** 01/25/01  14:17:28
+action flag       = X
+Process log stopped:  01/25/01  14:17:28

@@ -1,0 +1,58 @@
+<html>
+<SCRIPT LANGUAGE=javascript>
+<!--
+function fill()
+{	
+var strUrl;
+var strFrameUrl;
+
+strUrl=window.location.href;
+strUrl=strUrl.slice(strUrl.lastIndexOf("?"));
+strUrl = "../invoice/InvoicePaymentResponse.asp" + strUrl;
+
+strFrameUrl = document.frames[1].location.href;
+strFrameUrl = strFrameUrl.slice(strFrameUrl.lastIndexOf("?"));
+strFrameUrl = "../invoice/InvoicePaymentResponse.asp" + strFrameUrl;
+
+//strUrl = "http://webserver/invoice/InvoicePaymentResponse.asp" + strUrl  ;
+alert(strUrl);
+alert(strFrameUrl);
+alert(strUrl == strFrameUrl);
+
+	if (strUrl == strFrameUrl){
+		document.frames[1].location.href = strUrl ;
+		return true;
+	}
+	
+}
+//-->
+</SCRIPT>
+
+<head>
+<title>Bill Blass New York</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+</head>
+
+<frameset rows="72,*" framespacing="0" border="0" frameborder="0" onload="fill()">
+    <frame name="header" scrolling="no" noresize target="main" src="../Banner.asp">
+    <frame name="main" src="InvoicePaymentResponse.asp">
+    <SCRIPT LANGUAGE=javascript>
+	<!--
+	//fill();
+	//document.write("<frame name=main src=InvoicePaymentResponse.asp" + strUrl +">");
+	//document.write(strUrl);
+
+	//-->
+	</SCRIPT>
+
+  <noframes>
+  <body>
+
+  <p>This page uses frames, but your browser doesn't support them.</p>
+
+  </body>
+  </noframes>
+</frameset>
+
+</html>

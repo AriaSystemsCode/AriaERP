@@ -1,0 +1,9 @@
+Style Conversion log:
+Item: DISCOUNT1 ele1 column is empty.
+Item: DISCOUNT2 ele1 column is empty.
+Item: DISCOUNTCA1 ele1 column is empty.
+Item: DISCOUNTCA2 ele1 column is empty.
+Item: GIFTWRAP ele1 column is empty.
+Item: TEST-0606 ele1 column is empty.
+Item: TEST-060618 ele1 column is empty.
+Item: TEST-JUN6 ele1 column is empty.

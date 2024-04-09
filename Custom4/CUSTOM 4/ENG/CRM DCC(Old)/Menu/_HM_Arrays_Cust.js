@@ -1,0 +1,5 @@
+HM_Array1 = [[window.screen.availWidth /9.3,'HM_f_CenterMenu("HM_Menu1")',0,'White','White','#0066cc','#0099ff','#0099ff','#0099ff',1,1,0,1,0,1,'null','null',,0]
+,['Catalogue','catalog.asp',1,0,1]
+,['Documents','documents.asp',1,0,1]
+,['Log Off','logoff.asp',1,0,1]
+]

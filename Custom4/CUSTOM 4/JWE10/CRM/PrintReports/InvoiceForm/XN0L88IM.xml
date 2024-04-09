@@ -1,0 +1,715 @@
+<?xml version="1.0"?>
+  <xdoc>
+    <Parameters>
+      <row>
+        <DataType>System.String</DataType>
+        <Name>gcOutFile</Name>
+        <Value>C:\ARIA\R13\ARIA4XP\OUTPUT\XN0L88IL.PDF</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>cTextRepType</Name>
+        <Value>PDF</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>USER_ID</Name>
+        <Value xml:space="preserve">MMT       </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>cCROrientation</Name>
+        <Value>L</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llCrystal</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcOGLastForm</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcActiveMod</Name>
+        <Value>SM</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>gcDevice</Name>
+        <Value>SCREEN</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcrpExp</Name>
+        <Value>INVHDR.PRTFLAG = lcRpPrSt  AND  INLIST(INVHDR.INVOICE,[050886])</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcOGFormV </Name>
+        <Value>lcFormName</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpSqlExp</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,1]</Name>
+        <Value xml:space="preserve">INVHDR.PRTFLAG   </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGHdFlt[1,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,5]</Name>
+        <Value xml:space="preserve">Like                </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,6]</Name>
+        <Value>lcRpPrSt</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,7]</Name>
+        <Value>E</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,5]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,7]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,1]</Name>
+        <Value xml:space="preserve">INVHDR.INVOICE   </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGVrFlt[1,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,5]</Name>
+        <Value xml:space="preserve">In List             </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,6]</Name>
+        <Value>XN0L8F8H</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,7]</Name>
+        <Value>R</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,1]</Name>
+        <Value xml:space="preserve">INVHDR.INVDATE   </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,3]</Name>
+        <Value>D</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGVrFlt[2,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,5]</Name>
+        <Value xml:space="preserve">Between             </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,7]</Name>
+        <Value>V</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,1]</Name>
+        <Value xml:space="preserve">INVHDR.ACCOUNT   </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGVrFlt[3,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,5]</Name>
+        <Value xml:space="preserve">In List                </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,7]</Name>
+        <Value>R</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,1]</Name>
+        <Value>INVHDR</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,2]</Name>
+        <Value>INVHDR.PRTFLAG = lcRpPrSt .AND. INLIST(INVHDR.INVOICE,[050886])</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,3]</Name>
+        <Value>FOX</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,4]</Name>
+        <Value>INVHDR</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>AHEADERFILE</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcPrnComp </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llNoRec   </Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llPrnFact </Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcFormName</Name>
+        <Value>ARPINVA</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpMsg1  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpMsg2  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOldVal  </Name>
+        <Value>XN0L8F8H</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcStyTitle</Name>
+        <Value xml:space="preserve">Style       -Color </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcDumFile</Name>
+        <Value>XN0L8ARB</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcInvHdTag</Name>
+        <Value>INVHDR</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcCstmrTag</Name>
+        <Value>CUSTOMER</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpMsg3</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laScale
+</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcOldInv</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lnInvRecNo</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>LCINVLINE_A</Name>
+        <Value>XN0L8ARC</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcTypInv</Name>
+        <Value>InvMessg</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpOld</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcDiscnt1</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcDiscnt2</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcNoteT1</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcNoteT2</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcNoteT3</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcNoteT4</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnColorL</Name>
+        <Value>         0</Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnColorP</Name>
+        <Value>         0</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcCustmr</Name>
+        <Value>XN0L8ARD</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laRpSParts</Name>
+        <Value>INVOICE</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laRpTParts</Name>
+        <Value>INVOICE</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcPrintPart</Name>
+        <Value>AB</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcArrtDumy</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcInvhFile</Name>
+        <Value>XN0L8ARK</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpPrSt  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnOptMsg  </Name>
+        <Value>         0</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpInvNot</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpInvLNt</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcFactrInv</Name>
+        <Value>B</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpPrtSku</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpSkuSize
+</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnRpParts</Name>
+        <Value>         0</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llPrnComCd </Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llPrnCvenS</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpPrSKU</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpPrSDC</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpStyCont</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpConsInfo</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpCustSKU</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Table</DataType>
+        <Name>XN0L8F8H</Name>
+        <Value>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;xdoc&gt;
+&lt;xn0l8f8h&gt;
+	&lt;row&gt;
+		&lt;keyexp&gt;050886&lt;/keyexp&gt;
+		&lt;invoice&gt;050886&lt;/invoice&gt;
+	&lt;/row&gt;
+&lt;/xn0l8f8h&gt;
+
+&lt;/xdoc&gt;
+</Value>
+        <CursorStrucutre>
+        <Field>
+        <Name>KEYEXP</Name>
+        <Type>C</Type>
+        <Width>6</Width>
+        <Decimals>0</Decimals>
+        </Field>
+        <Field>
+        <Name>INVOICE</Name>
+        <Type>C</Type>
+        <Width>6</Width>
+        <Decimals>0</Decimals>
+        </Field>        </CursorStrucutre>      </row>
+
+
+
+    </Parameters>
+  </xdoc>

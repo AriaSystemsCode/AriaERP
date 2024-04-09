@@ -1,0 +1,5 @@
+Order	String	6	
+Status	String	1	
+Entered	Date		
+Store	String	8	
+stName	String	30	

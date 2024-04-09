@@ -1,0 +1,27 @@
+Style	String	19	
+major	String	19	
+Desc	String	60	
+complete1	Date	
+complete2	Date	
+complete3	Date	
+complete4	Date	
+complete5	Date	
+complete6	Date	
+complete7	Date	
+complete8	Date	
+Sz1	String	5	
+Sz2	String	5	
+Sz3	String	5	
+Sz4	String	5	
+Sz5	String	5	
+Sz6	String	5	
+Sz7	String	5	
+Sz8	String	5	
+Ava1	String	1	
+Ava2	String	1	
+Ava3	String	1	
+Ava4	String	1	
+Ava5	String	1	
+Ava6	String	1	
+Ava7	String	1	
+Ava8	String	1	

@@ -1,0 +1,1 @@
+DO (gcAppHome+gcWinAppl+'\MAINVC') WITH 2

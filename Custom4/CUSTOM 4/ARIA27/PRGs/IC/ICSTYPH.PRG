@@ -1,0 +1,1 @@
+DO (gcAppHome+gcWinAppl+'\ICINVTA') WITH 2

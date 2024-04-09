@@ -1,0 +1,1 @@
+DO (oAriaApplication.ProgramHome+oAriaApplication.ActiveModuleID+'\EBCAPIN') WITH 'O'

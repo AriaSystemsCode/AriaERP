@@ -1,0 +1,15 @@
+Account	String	6	
+DueDate	Date		
+TranDate	Date	
+TranNo	String	6	
+Description	String	20	
+Reference	String	30	
+Amount	Number	
+Balance	Number	
+GroupNo	Number	
+DC	String	6	
+trantype	String	1	
+TotalDueNow	Number	
+TotalCurrent	Number	
+TotalCredit	Number	
+TotalBalance	Number	

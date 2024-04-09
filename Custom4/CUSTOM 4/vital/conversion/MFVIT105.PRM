@@ -1,0 +1,395 @@
+STORE SPACE(0) TO LAOLDVAL
+STORE 54 TO LNMAXROW
+STORE 1 TO PAGENO
+XREPORT = 'MFOPTR'
+R_TITLE = 'CONTRACTOR TRACKING REPORT'
+LCCURSNAME = GFTEMPNAME()
+LCMAJ = GFITEMMASK('PM')
+LNMAJSIZE = LEN(LCMAJ)
+LCSTYTITLE = GFITEMMASK('HI')
+SELECT STYLE
+SET RELATION TO 'S'+STYLE->SCALE INTO SCALE
+IF LFSELECT()
+   SET DEVICE TO PRINTER
+   IF LCRPFRMAB='A'
+      = LFPRINT()
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFPRINT                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFPRINT
+DO RPT_HDR WITH XREPORT, XTITLE, R_WIDTH
+STORE 5 TO LNROW
+DIMENSION LABUDGET(9), LACANCEL(9), LADAMAGED(9), LARECEIVE(9), LAOPEN;
+(9)
+SELECT (LCCURSNAME)
+SET RELATION TO ITEM INTO STYLE ADDITIVE
+GOTO TOP
+DO WHILE .NOT.EOF()
+   LCOPRCODE = COPRCODE
+   LCODESC = GFCODDES(LCOPRCODE,'MFGCODE')
+   @ LNROW, 1 SAY REPLICATE('-',120)
+   @ LNROW+1, 1 SAY 'Operation :'+LCOPRCODE+SPACE(5)+LCODESC
+   IF SEEK(CIMTYP+CTKTNO+SPACE(25)+COPRCODE,'Ctktbom')
+      @ LNROW+1, 45 SAY 'Rate : '
+      @ LNROW+1, 52 SAY CTKTBOM->UNTCOST
+   ENDIF
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSELECT                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSELECT
+PRIVATE LCTICKFILT, LCSTYFILT, LCDATEFILT, LCKEY, LNOPEN
+STORE '.T.' TO LCTICKFILT, LCSTYFILT, LCDATEFILT
+SELECT MFGOPRDT
+= AFIELDS(LAFILESTRU)
+LNFILESTRU = ALEN(LAFILESTRU,1)
+DIMENSION LAFILESTRU(LNFILESTRU+2, 4)
+LNFILESTRU = LNFILESTRU+1
+LAFILESTRU(LNFILESTRU, 1) = 'Flag'
+LAFILESTRU(LNFILESTRU, 2) = 'L'
+LAFILESTRU(LNFILESTRU, 3) = 1
+LAFILESTRU(LNFILESTRU, 4) = 0
+LNFILESTRU = LNFILESTRU+1
+LAFILESTRU(LNFILESTRU, 1) = 'dDate'
+LAFILESTRU(LNFILESTRU, 2) = 'C'
+LAFILESTRU(LNFILESTRU, 3) = 10
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCOSTITEM                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCOSTITEM
+PRIVATE LNALIAS
+LNALIAS = SELECT()
+SELECT BOMCOST
+IF SEEK(LCIMTYP+LCCUTTKT)
+   LOCATE REST FOR COPRCODE+CLOTNO=LCOPRCODE+LCLOTNO WHILE CTKTNO=LCCUTTKT
+   IF FOUND()
+      @ LNROW, 1 SAY REPLICATE('-',120)
+      @ LNROW+1, 1 SAY 'Issued cost items :'
+      @ LNROW+2, 1 SAY REPLICATE('-',120)
+      @ LNROW+3, 1 SAY 'Date       Item                Color  MFG     Quantity;
+   Unit Cost      Tot. Cost Unt Act Cst    Tot Act Cst Invoice No.'
+      @ LNROW+4, 1 SAY REPLICATE('-',120)
+      = LFINCROW(5)
+      SCAN REST FOR COPRCODE+CLOTNO=LCOPRCODE+LCLOTNO WHILE CTKTNO=LCCUTTKT
+         @ LNROW, 1 SAY DTRANDATE
+         @ LNROW, 12 SAY ITEM
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFINCROW                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFINCROW
+PARAMETERS LNINCBY
+LNROW = LNROW+LNINCBY
+IF LNROW>=LNMAXROW
+   PAGENO = PAGENO+1
+   DO RPT_HDR WITH XREPORT, XTITLE, R_WIDTH
+   LNROW = 5
+ENDIF
+RETURN (.T.)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFPRITOTAL                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFPRITOTAL
+PARAMETERS LCTIT, LAARRAY
+@ LNROW, 44 SAY LCTIT
+FOR LNCOUNT = 1 TO 8
+   @ lnRow,61+(lnCount-1)*6 SAY &laArray[lnCount] PICTURE '99999'
+ENDFOR
+@ lnRow, 111 SAY &laArray[9] PICTURE '999999'
+= LFINCROW(1)
+RETURN (.T.)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCONT                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCONT
+PRIVATE LCVAR, LCOBJ
+LNALIAS = SELECT(0)
+LCVAR = SYS(18)
+LCOBJ = ALLTRIM((EVALUATE(SYS(18))))
+SELECT APVENDOR
+SET ORDER TO VenCode
+IF .NOT.EMPTY(LCOBJ) .AND. ('?'$LCOBJ)
+   IF .NOT.SEEK(LCOBJ,'APVENDOR')
+      = GFAPVNBROW(LCOBJ)
+      IF .NOT.EMPTY(LCOBJ)
+         &lcVar = lcObj     
+      ELSE
+         &lcVar = laOldVal
+      ENDIF
+   ENDIF
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOLDVAL                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOLDVAL
+LAOLDVAL = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFGETTIT                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFGETTIT
+PRIVATE LCTIT
+DO CASE
+CASE GCACT_APPL='PO'
+   LCTIT = 'Purchase Order'
+   LCIMTYP = 'I'
+CASE GCACT_APPL='MA'
+   LCTIT = 'MFG Order'
+   LCIMTYP = 'T'
+CASE GCACT_APPL='MF'
+   LCTIT = ALLTRIM(GFGETMEMVA('M_PRDLNLBL',GCACT_COMP))
+   LCIMTYP = 'M'
+ENDCASE
+LCTIT = IIF(RIGHT(LCTIT,1)='#',LCTIT,LCTIT+'#')
+RETURN LCTIT
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOGWHEN                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOGWHEN
+DO CASE
+CASE GCACT_APPL='PO'
+   LCFILE = 'POSHDR'
+   LCFIELD = 'PO'
+CASE GCACT_APPL='MA'
+   LCFILE = 'MMFGORDH'
+   LCFIELD = 'cMFGOrdNo'
+CASE GCACT_APPL='MF'
+   LCFILE = 'CUTTKTH'
+   LCFIELD = 'CutTkt'
+ENDCASE
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llrpcontr'),1)
+LAOGOBJCNT(LNPOS) = LCRPFRMAB='B'
+= LFOGSHOWGE('llrpcontr')
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llDispCost'),1)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVTRANS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVTRANS
+PARAMETERS LCPARM
+PRIVATE LNALIAS
+LNALIAS = SELECT(0)
+DO CASE
+CASE LCPARM='S'
+   SET ORDER TO VENCODE IN APVENDOR
+   SELECT POSHDR
+   SET RELATION TO POSHDR->VENDOR INTO APVENDOR ADDITIVE
+CASE LCPARM='R'
+   SELECT POSHDR
+   SET RELATION TO
+ENDCASE
+SELECT (LNALIAS)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVSTY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVSTY
+PARAMETERS LCPARM
+IF LCPARM='S'
+   SET ORDER TO CSTYLE IN STYLE
+ELSE
+   SET ORDER TO STYLE IN STYLE
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFFILTMPCT                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFFILTMPCT
+LCCUTFILE = ''
+LLUSECUT = .F.
+LNPOSITION = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.CUTTKT'),1)
+IF LNPOSITION>0
+   LCCUTFILE = LAOGFXFLT(LNPOSITION,6)
+   LLUSECUT = IIF(.NOT.EMPTY(LCCUTFILE) .AND. USED(LCCUTFILE) .AND. RECCOUNT;
+(LCCUTFILE)>0,.T.,.F.)
+ENDIF
+LCSTYLFILE = ''
+LLUSESTYLE = .F.
+LNPOSITION = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.STYLE'),1)
+IF LNPOSITION>0
+   LCSTYLFILE = LAOGFXFLT(LNPOSITION,6)
+   LLUSESTYLE = IIF(.NOT.EMPTY(LCSTYLFILE) .AND. USED(LCSTYLFILE) .AND.;
+ RECCOUNT(LCSTYLFILE)>0,.T.,.F.)
+ENDIF
+LCCONTFILE = ''
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFFILTMPPO                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFFILTMPPO
+LCPOFILE = ''
+LLUSEPO = .F.
+LNPOSITION = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,"IIF(.T.,MFGOPRHD.CTKTNO;
+,'')"),1)
+IF LNPOSITION>0
+   LCPOFILE = LAOGFXFLT(LNPOSITION,6)
+   LLUSEPO = IIF(.NOT.EMPTY(LCPOFILE) .AND. USED(LCPOFILE) .AND. RECCOUNT;
+(LCPOFILE)>0,.T.,.F.)
+ENDIF
+LCCONTFILE = ''
+LLUSECONTR = .F.
+LNPOSITION = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'MFGOPRHD.CCONTCODE');
+,1)
+IF LNPOSITION>0
+   LCCONTFILE = LAOGFXFLT(LNPOSITION,6)
+   LLUSECONTR = IIF(.NOT.EMPTY(LCCONTFILE) .AND. USED(LCCONTFILE) .AND.;
+ RECCOUNT(LCCONTFILE)>0,.T.,.F.)
+ENDIF
+LCOPERTS = ''
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFPNOSZ                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFPNOSZ
+LCCSTEXP = '0'
+DO CASE
+CASE LCRPCOSTL='S'
+   DO CASE
+   CASE LCRPCOSTT='E'
+      LCCSTEXP = 'IIF(CUTTKTH.PCS_BUD#0,(CUTTKTH.NEST_COST1+CUTTKTH.NEST_COST2;
++CUTTKTH.NEST_COST3+CUTTKTH.NEST_COST4+CUTTKTH.NEST_COST5)/CUTTKTH.PCS_BUD;
+,0)'
+   CASE LCRPCOSTT='L'
+      LCCSTEXP = 'IIF(CUTTKTH.PCS_REC#0,(CUTTKTH.NLAN_COST1+CUTTKTH.NLAN_COST2;
++CUTTKTH.NLAN_COST3+CUTTKTH.NLAN_COST4+CUTTKTH.NLAN_COST5)/CUTTKTH.PCS_REC;
+,0)'
+   CASE LCRPCOSTT='A'
+      LCCSTEXP = 'IIF(CUTTKTH.PCS_REC#0,(CUTTKTH.NACT_COST1+CUTTKTH.NACT_COST2;
++CUTTKTH.NACT_COST3+CUTTKTH.NACT_COST4+CUTTKTH.NACT_COST5)/CUTTKTH.PCS_REC;
+,0)'
+   ENDCASE
+CASE LCRPCOSTL='O'
+   DO CASE
+   CASE LCRPCOSTT='E'
+      LCCSTEXP = 'IIF(CUTTKTH.PCS_BUD#0,CUTTKTH.NEST_COST4/CUTTKTH.PCS_BUD;
+,0)'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVPBOK                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVPBOK
+IF LDFROM>LDTO
+   WAIT WINDOW NOWAIT '"From" value must be less than or equal to "To";
+ value'
+   _CUROBJ = OBJNUM(LDFROM)
+ELSE
+   CLEAR READERROR
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDATERNG                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDATERNG
+PRIVATE LNFROM, LNTO
+LDFROM = LDRPTRLD
+LDTO = LDRPTRHD
+LCTITLE = 'Transaction Date Range'
+DO DateRng.Spx
+LDRPTRLD = LDFROM
+LDRPTRHD = LDTO
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVFORMAT                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVFORMAT
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llrpcontr'),1)
+IF LCRPFRMAB='A'
+   STORE .F. TO LLRPCONTR, LAOGOBJCNT(LNPOS)
+ELSE
+   LAOGOBJCNT(LNPOS) = .T.
+ENDIF
+= LFOGSHOWGE('llrpcontr')
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llDispCost'),1)
+LAOGOBJCNT(LNPOS) = LCRPFRMAB='A'
+= LFOGSHOWGE('llDispCost')
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'lcRepForm'),1)
+LAOGOBJCNT(LNPOS) = LCRPFRMAB='A'
+= LFOGSHOWGE('lcRepForm')
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llrpcolor'),1)
+LAOGOBJCNT(LNPOS) = (.NOT.LLRPCONTR .AND. LCRPFRMAB='B')
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVOSTATUS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVOSTATUS
+= GFMOVER(LARPSOURCE,LARPTARGET,'Select Cut Ticket Status',.T.,'')
+LCRPSTATUS = ''
+FOR LNI = 1 TO ALEN(LARPTARGET,1)
+   LCRPSTATUS = LCRPSTATUS+IIF(LARPTARGET(LNI)='Open','O',IIF(LARPTARGET;
+(LNI)='Hold','H',IIF(LARPTARGET(LNI)='Closed','S',IIF(LARPTARGET(LNI)='Actual';
+,'A',IIF(LARPTARGET(LNI)='Complete','C','')))))
+ENDFOR
+LCRPSTATUS = IIF(EMPTY(LCRPSTATUS),'OHCAS',ALLTRIM(LCRPSTATUS))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCONTR                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCONTR
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llrpcolor'),1)
+LAOGOBJCNT(LNPOS) = .NOT.LLRPCONTR
+= LFOGSHOWGE('llrpcolor')
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCOSTL                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCOSTL
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'lcrpcostt'),1)
+LAOGOBJCNT(LNPOS) = (LCRPCOSTL<>'N')
+= LFOGSHOWGE('lcrpcostt')
+
+

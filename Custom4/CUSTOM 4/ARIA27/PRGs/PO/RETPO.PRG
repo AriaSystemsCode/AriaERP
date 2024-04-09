@@ -1,0 +1,1 @@
+DO (gcAppHome+'POSTYLE') WITH 'R'

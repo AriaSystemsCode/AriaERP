@@ -1,0 +1,33 @@
+<%@ Language=VBScript %>
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<title>Zoom</title>
+</HEAD>
+<BODY>
+
+<%
+'Make A connection to the SQL Server
+Dim Conn
+Set Conn = Server.CreateObject("ADODB.Connection")
+StrConnParam = Application("SqlServer")
+Conn.Open StrConnParam
+
+Dim rsResponse
+Set rsResponse = Server.CreateObject("ADODB.RecordSet")
+strSQL = "Select * from suIssDT Where CIssueNo='"& Trim(Request.QueryString("strIssue")) &"' AND intLineNo="& CInt(Request.QueryString("intLine")) 
+'Response.Write strSQL
+rsResponse.Open strSQL,Conn
+If rsResponse.EOF Then
+	Response.Write("Error")
+Else
+	Response.Write(rsResponse("mRespAct"))
+End If
+'Release all objects
+rsResponse.Close()
+Set rsResponse = Nothing
+Conn.Close()
+Set Conn = Nothing
+%>
+</BODY>
+</HTML>

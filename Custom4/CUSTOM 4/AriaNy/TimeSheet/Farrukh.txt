@@ -1,0 +1,15 @@
+[Aria]
+SysPath=p:\aria27\sysfiles\
+DataPath=p:\aria27\dbfs\01\
+ActiveCompany=01
+SQLServerName=ariasrv1
+OpenIssuesSQLServerName=ariasrv1
+OpenIssuesDataBaseName=openissueS
+CCMailAddress=farrukh@ARIANY.COM
+ProFileName=Farrukh N. Awan
+
+SendMail=True
+
+UserId=FAR
+UserName=Farrukh N. Awan
+SqlString="driver={SQL Server};server=ariasrv1;DATABASE=db01;uid=web;pwd=ariaweb"

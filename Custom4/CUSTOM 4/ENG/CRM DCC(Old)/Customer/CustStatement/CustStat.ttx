@@ -1,0 +1,27 @@
+Account	String	6	
+Name	String	30	
+laCompany1	String	30	
+laCompany2	String	30	
+laCompany3	String	30	
+laCompany4	String	30	
+laCompany5	String	30	
+laCompany6	String	30	
+
+CompName	String	30	
+laSoldTo1	String	30	
+laSoldTo2	String	30	
+laSoldTo3	String	30	
+laSoldTo4	String	30	
+laSoldTo5	String	30	
+laSoldTo6	String	30	
+
+Advertise1	String	20	
+Advertise2	String	20	
+Advertise3	String	20	
+Advertise4	String	20	
+Advertise5	String	20	
+OrderDue1	String	20	
+OrderDue2	String	20	
+OrderDue3	String	20	
+
+PostDChecks	String	20	

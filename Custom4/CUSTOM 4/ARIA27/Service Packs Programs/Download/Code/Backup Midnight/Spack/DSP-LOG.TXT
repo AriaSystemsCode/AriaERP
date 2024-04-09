@@ -1,0 +1,214 @@
+
+  New 'Download Service Packs' Session...
+  Started on: 1/5/2003 12:46:57 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		
+  2	VERIFY		Successfully found the IP address of the specified host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Disconnecting from the host computer.
+  2	VERIFY		Successfully disconnected from the host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  220	CONNECT		ariasrv0 Microsoft FTP Service (Version 5.0).
+  331	CONNECT		Password required for SPACK.
+  230	CONNECT		User SPACK logged in.
+  350	RESTQRY		Restarting at 100.
+  350	REST 0		Restarting at 0.
+
+  New 'Download Service Packs' Session...
+  Started on: 1/5/2003 12:49:10 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Disconnecting from the host computer.
+  2	VERIFY		Successfully disconnected from the host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  220	CONNECT		ariasrv0 Microsoft FTP Service (Version 5.0).
+  331	CONNECT		Password required for SPACK.
+  230	CONNECT		User SPACK logged in.
+  350	RESTQRY		Restarting at 100.
+  350	REST 0		Restarting at 0.
+
+  New 'Download Service Packs' Session...
+  Started on: 1/5/2003 12:51:15 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Disconnecting from the host computer.
+  2	VERIFY		Successfully disconnected from the host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  220	CONNECT		ariasrv0 Microsoft FTP Service (Version 5.0).
+  331	CONNECT		Password required for SPACK.
+  230	CONNECT		User SPACK logged in.
+  350	RESTQRY		Restarting at 100.
+  350	REST 0		Restarting at 0.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+
+  New 'Download Service Packs' Session...
+  Started on: 1/5/2003 12:56:28 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Disconnecting from the host computer.
+  2	VERIFY		Successfully disconnected from the host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  220	CONNECT		ariasrv0 Microsoft FTP Service (Version 5.0).
+  331	CONNECT		Password required for SPACK.
+  230	CONNECT		User SPACK logged in.
+  350	RESTQRY		Restarting at 100.
+  350	REST 0		Restarting at 0.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  200	LIST		PORT command successful.
+  150	LIST		Opening ASCII mode data connection for file list.
+  226	LIST		Transfer complete.
+  ----------------------------------------------------------------------------
+  End of Session.
+  Finished on: 1/5/2003 12:57:23 PM
+
+
+

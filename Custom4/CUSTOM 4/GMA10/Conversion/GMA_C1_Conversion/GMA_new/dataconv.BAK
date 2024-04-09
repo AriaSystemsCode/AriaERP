@@ -1,0 +1,4 @@
+_Screen.Visible =.T.
+DO FORM dataconv.scx
+READ EVENTS
+ 

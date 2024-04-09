@@ -1,0 +1,30 @@
+OrderType	String	1
+Order	String	6
+lineno	Number
+Style	String	19	
+Group	String	1	
+TotQty	Number
+Price	Number
+Desc	String	60
+qty1	Number	
+qty2	Number	
+qty3	Number	
+qty4	Number	
+qty5	Number	
+qty6	Number	
+qty7	Number	
+qty8	Number	
+sz1	String	5	
+sz2	String	5	
+sz3	String	5	
+sz4	String	5	
+sz5	String	5	
+sz6	String	5	
+sz7	String	5	
+sz8	String	5	
+Complete	Date	
+Note1	Memo	
+Note2	Memo	
+LNotes1	Boolean
+LNotes2	Boolean
+StyImage	Blob

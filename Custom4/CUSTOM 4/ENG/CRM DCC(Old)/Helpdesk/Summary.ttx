@@ -1,0 +1,8 @@
+CIssueNo	String	6	
+DIssStart	Date		
+CIssType	String	1	
+CIssPrior	String	1	
+CissSubjct	String	60	
+CissStat	String	1	
+nIssPercnt	Number		
+Cdiscrep	String	30	

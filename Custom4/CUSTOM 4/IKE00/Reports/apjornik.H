@@ -1,0 +1,17 @@
+* N000682 ,1 Thabet Handle globalization issues [Start]
+#DEFINE LANG_PLEASE_WAIT 'Please wait .. '
+#DEFINE LANG_ACCOUNT_CODE 'Account Code'
+#DEFINE LANG_ACCOUNT_DESCRIPTION 'Account Description'
+#DEFINE LANG_CHART_OF_ACCOUNTS 'Chart of accounts'
+#DEFINE LANG_VENDOR_CODE 'Vendor code'
+#DEFINE LANG_INVOICE_NUMBER 'Invoice number'
+#DEFINE LANG_INVOICE_DATE 'Invoice date'
+#DEFINE LANG_REFERENCE 'Reference'
+#DEFINE LANG_INVOICE 'Invoice'
+#DEFINE LANG_DMAPPL 'DM application' 
+#DEFINE LANG_BANLADJ 'Bank adjustment'
+#DEFINE LANG_CASHPAY 'Cash payments'
+#DEFINE LANG_MANUALCHECK 'Manual checks'
+#DEFINE LANG_NONCHECK 'Non check payment'
+#DEFINE LANG_PRINTEDCHECK 'Printed checks'
+* N000682 ,1 Thabet Handle globalization issues [END]

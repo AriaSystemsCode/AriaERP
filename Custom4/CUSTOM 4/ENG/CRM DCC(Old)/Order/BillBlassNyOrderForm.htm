@@ -1,0 +1,62 @@
+<html> 
+<head> 
+<title>Order Form</title> 
+<base href="http://www.billblassny.com/images/"> 
+</head> 
+
+<body background="background.jpg" text="#000000" link="#0000FF" alink="#FF0000" vlink="#FF0000"> 
+<div align="center">
+<img src="logo.gif">
+</div>
+<div align="left">
+<p>message to be displayed at the top of the order form here
+</div>
+<form method="post" action="https://pay1.plugnpay.com/payment/billblasspay.cgi">
+
+<input type="hidden" name="publisher-email" value="wma@aria.com.eg">
+<input type="hidden" name="publisher-name" value="billblass">
+<input type="hidden" name="order-id" value="billblass_order">
+<input type="hidden" name="card-allowed" value="Visa,Mastercard,Amex,Discover,Diners,JCB">
+<!--input type="hidden" name="shipinfo" value="1"-->
+<!--input type="hidden" name="easycart" value="1"-->
+<!--input type="hidden" name="success-link" value="http://www.billblassny.com/crm/order/saveord.asp"-->
+<input type="hidden" name="success-link" value="http://www.billblassny.com/crm/order/test.asp">
+<input type="hidden" name="shipping" value="0.0">
+<input type="hidden" name="tax-rate" value="0.1">
+<input type="hidden" name="taxstate" value="AL">
+<input type="hidden" name="card-amount" value="0.01">
+<input type="hidden" name="message" value="Thank you for your order, please note that you can check your order status at our web site www.billblassny.com/crm">
+<input type="hidden" name="currency_symbol" value="$">
+
+<p> 
+<div align="center">
+<table border="0" cellspacing="0" cellpadding="3" width="75%">
+  <tr> 
+    <th></th>
+    <th>Product Description</th>
+    <th>Cost</th> 
+    <th>Quantity</th>
+  </tr>
+  <tr> 
+    <td align="center"><img src="Product1"></td>
+    <input type="hidden" name="item1" value="SKU1">
+    <td align="center"><input type="hidden" name="description1" value="Description1">Description1</td>
+    <td align="center"><input type="hidden" name="cost1" value="0.01">$0.01</td>
+    <td align="center" width="10%"><input type="text" name="quantity1" size="2" value=""></td>
+  </tr>
+</table> 
+</div> 
+<div align="center"> 
+<p> Please Select Your Payment Method: 
+<select name="paymethod">
+<option value="credit">Credit Card</option>
+<option value="onlinecheck">Online Check</option>
+</select>
+<p><input type="submit" name="return" value="Submit Order"> &nbsp; <input type="reset" value="Clear Form">
+</div>
+</form> 
+<div align="left"> 
+<p>message to be displayed at the bottom of the order form here 
+</div> 
+</body> 
+</html> 

@@ -1,0 +1,4696 @@
+*:**********************************************************************************************
+*: Program file        : MAMFORD.PRG
+*: Program description : Material Manufacturing Order
+*: For screen          : MAMFORD.SPR
+*: For System          : Aria Advantage Series - Version 2.7
+*: For Module          : Materials Module (MA)
+*: Developer Name      : Hossam El Etreby (HDM)
+*: Tracking Job Number : E301234,4
+*:**********************************************************************************************
+*: Calls               : MAMFORD.SPR
+*:**********************************************************************************************
+*: Passed Parameters   : lcPMMONum.
+*:**********************************************************************************************
+*: Example             : DO MAMFORD
+*:**********************************************************************************************
+*: Documented          : 09/05/1999
+*:**********************************************************************************************
+*: Modifications       :
+*:  B803011,1 HDM 01/30/2000 Manual Order# Entry Screen Name is MAMFGNum not MAMOGNum
+*:  B803362,1 BWA 08/09/2000 Fix the bug of wrong spelling manufacturing under options.
+*:  B603987,1 KAM 11/2/20000 fix bug of do nesting loop
+*:  B604786,1 MHM 08/23/2001 Fix the bug of The (FABDYE) file  does not updated correctly when you remove lines.
+*:  C200253,1 ADEL 12/18/01  Add custom screen-only-field for Con10 to show contractor.
+*:  B604856,1 AMH 08/21/2002 Fix some bugs in the material manufacturing order screen in
+*:  B604856,1                in case of Multi-location .
+*:  E302018,1 ABD 09/24/2002 Add Account Code & Cutomer Po# to Material Manfu. Header file , to
+*:  E302018,1 ABD            Print it at the Dye Order form.
+*:  B606496,1 AMH 11/03/2002 Fix the bug of Incorrect MFO Cost Sheet required qty.
+*:**********************************************************************************************
+PARAMETER lcPMMONum
+
+*-- lcPMMONum : - Parameter to Detrmine if the program called from the system menu or from
+*--           : - Another program.
+*-- laScrMode : - Detrmine which mode we are in. [Edit , View....]
+*-- laData    : - Array hold all filed on the screen.
+*-- laKeyField: - Array hold the key filed in the screen.
+*--laFoldWinds: - Array hold folders screens.
+*-- laWare    : - Array Hold the warehouses from warehouse file.
+
+EXTERNAL ARRAY laDefProc, laCtrStat ,laKeyField
+llFromMenu = TYPE("lcPMMONum") # "C"
+
+DIMENSION laRecTtl[3]
+laRecTtl[1] = 'To Stock'
+laRecTtl[2] = 'Others'
+laRecTtl[3] = 'To Cancel'
+
+
+STORE '' TO lcOrdNo , lcFabDesc , lcCanStat , lcCostShSt , lcSetExa , lcOldVal , laKeyField
+STORE .F. TO llMultiLot , llAllColrs , llDyeEmp , DyeYn , llMdWarRec , llMdDyeRec , llOMulWH , llNewRec
+STORE 0 TO lnEstTotal , lnActTotal , lnNumOfDets , lnOldVal , puWare , lnWarNum
+DECLARE laWare[1] , laBomQty[9]
+
+*-- Define the used arrays.
+DIMENSION laScrMode[4], laData[26], laKeyField[1,4], laFoldWinds[2,2]
+STORE 1 TO puLnWare , puWare
+STORE .F. TO laScrMode
+laScrMode[1] = .T. && View Mode.
+
+*C200253,1 (Begin) Initialize variale to distingwish Con10.
+llConCase = .F.
+STORE "" TO lcMFCont,lcMFContN
+*C200253,1 (End)
+
+*-- To force the control pannel to call the local save and close
+*-- procedures (lpSavScr, lpClsScr , lpDelScr)
+
+laDefProc[07] = .F.  && Disable the control panel delete proc.(lpDelScr).
+laDefProc[09] = .F.  && Disable the control panel save proc.  (lpSavScr).
+laDefProc[10] = .F.  && Disable the control panel close proc. (lpClsScr)
+
+lnActBar = 1
+*-- The screen keys.
+laKeyField[1,1] = "laData[1]"
+laKeyField[1,2] =.T.
+laKeyField[1,3] = "MfgOrd#"
+laKeyField[1,4] = 1
+
+*-- The system/company setup variables.
+STORE .F. TO llCostPrv, llMultiWar, llDyelot
+lcGnCTBom  = SPACE(0)
+
+ldOEntered = {}  && Material Manfacturning Order Entered date.
+ldOComplet = {}  && Material Manfacturning Order Complete date.
+
+*-- Set the displayed Manufacturing order status variable.
+= lfSetStat()
+
+*-- Option pad variables.
+llCTZoom   = .F.             && IS the lines browse zoomed or not.
+lcActTrnBr = "B"             && What is the active option. 
+
+*-- Windows names.
+lcCTChWin2 = SPACE(0)
+lcCTChWin4 = SPACE(0)
+lcCTChWn40 = SPACE(0)
+lcCTChWn41 = SPACE(0)
+lcCTChWn42 = SPACE(0)
+lcCTChWn43 = SPACE(0)
+lcCTChWn44 = SPACE(0)
+lcCTChWn45 = SPACE(0)
+lcCTChWin5 = SPACE(0)
+
+*-- First folder variables.
+*-- Flag to tell if we should generate the Material MO lines
+*-- or not, this will only be true if the lines are generated, 
+*-- and that's will happen if the user select the add mode and
+*-- entered the Fabric major value, and entered the header warehouse
+*-- and then activate the 2nd tab in the screen's folder (Details).
+llGenLines = .T.
+
+*-- First variables.
+lcTmpMmoLn = SPACE(0)
+lcTmpRec   = SPACE(0)
+lcLinesBrw = SPACE(0)
+lcLnScFlds = SPACE(0)
+lnLnRecNo  = 0
+lcOptBrwTl = SPACE(1)
+lcRecStat  = SPACE(0)
+lcTmpCtPk  = SPACE(0)
+lcNonMaj   = SPACE(0)
+lcONonMaj  = SPACE(0)
+lcOLinWare = 0
+lcScalFlsd = SPACE(0)
+lnLnNo     = 0
+lnOLnQty   = 0
+
+*-- 2nd Folder variables.
+lcOrderKy  = SPACE(0)
+lcLabel1   = SPACE(0)
+lcLabel2   = SPACE(0)
+lcLabel3   = SPACE(0)
+lcLabel4   = SPACE(0)
+
+*-- Variable to hold the alias name for the MMFGORDD file when opened to
+*-- calculate the totals per line.
+lcMMOLnTot = SPACE(0)
+
+*-- Following set of variables are used to save/restore the
+*-- filter, index status of the used files, to be used to
+*-- save/restore these status when branching to another prgram.
+
+lcMMFGORD  = SPACE(0)
+lcRecLogKy = SPACE(0)
+
+*-- Initialize the Folders array.
+lcFolder     = SPACE(0)
+lcwFoldChng  = SPACE(0)
+lcFoldPush   = SPACE(0)
+laFoldWind   = SPACE(0)
+lcFoldPrnt   = SPACE(0)
+lnActFolder  = 1
+lnFolderCEnd = 0
+lnFolderREnd = 0
+
+*-- Following variables are used to handel the incomplete program 
+*-- session concept.
+lcSession  = SPACE(1)                  && Sequence number to flag the program sessions.
+lnThisSess = gnProgCopy                && Current running session number.
+lnUnCmSeRc = 0                         && The incomplete session record number.
+lcProgID   = PADR("MAMFORD", 10)       && The program ID in the incomplete session file.
+llUnComp   = .F.                       && Are we comming from an incomplete session?
+lcScrMode  = SPACE(1)
+llContinue = .F.
+
+*-- Variables that need to be saved and restored when detecting an
+*-- uncomplete program session.
+DIMENSION laVars[12]
+laVars[01] = "lcScrMode"
+laVars[02] = "lnUnCmSeRc"
+laVars[03] = "lcActTrnBr"
+laVars[04] = "llGenLines"
+laVars[05] = "lnActFolder"
+laVars[06] = "llCUpDate"
+laVars[07] = "llMultiLot"
+laVars[08] = "laWare[puWare,1]"
+laVars[09] = "lcMFStatus"
+laVars[10] = "lcFabDesc"
+laVars[11] = "laData"
+laVars[12] = "llContinue"
+
+*-- Add the screen header fields saved in the laData Array to the 
+*-- list of the variables to be restored when detecting an uncomplete 
+*-- program session.
+FOR lnI = 1 TO 25
+  DIMENSION laVars[ALEN(laVars)+1]
+  laVars[ALEN(laVars)] = "laData[" + ALLTRIM(STR(lnI,2)) + "]"
+ENDFOR
+
+IF !gfSetup()
+  RETURN
+ENDIF
+*C200253,1 (Begin) Initialize variale to distingwish Con10.
+llConCase = ASCAN(laEvntTrig , PADR('GETCONT',10)) <> 0 
+*C200253,1 (End)
+
+
+*--View Order Receiving Log in the View Mode.
+DECLARE laTrans[4]
+laTrans[2] = 'Received '
+laTrans[3] = 'Damaged  '
+laTrans[4] = 'Cancelled'
+lcRecvLog  = gfTempName()
+*lcTmpRec   = gfTempName()
+
+lcTNegNums = 'Negative amounts are not allowed.'
+
+lcNrmStat  = "DISABLE"
+lcMajStat  = "ENABLE"
+  
+  
+STORE "DISABLE" TO lcClrStat, lcLineStat, lcWareStat, lcDyeStat
+  
+*--Adding this variable to 2nd Folder variables to be used as Flag
+*-- to indicate whether the new Added Push Button is pressed or not by
+*-- default , its value is False (not pressed)
+llByUnit = .F.
+
+
+*-- Header screen variables.
+llBrowse   = .F.
+lcMFStatus = SPACE(0)
+
+llAlowNew  = .F.             && Flag to allow adding new CTs.
+
+*-- Variables used to display the line totals in the "Transactions Totals"
+*-- bar from the "Option" menu pad.
+lcTNonMaj  = SPACE(0)                && The nonmajor code in this screen.
+lnFabBud   = 0                       && Total budget for the active line.
+lnFabRec   = 0                       && Total received for the active line.
+lnFabDam   = 0                       && Total dameged for the active line.
+lnFabCan   = 0                       && Total canceled for the active line.
+lnFabOpn   = 0                       && Total open for the active line.
+
+*-- 2nd Folder variables.
+lcLabel1     = ALLTRIM(PROPER(gfGetMemVar('M_CTSLBL1')))
+lcLabel2     = ALLTRIM(PROPER(gfGetMemVar('M_CTSLBL2')))
+lcLabel3     = ALLTRIM(PROPER(gfGetMemVar('M_CTSLBL3')))
+lcLabel4     = ALLTRIM(PROPER(gfGetMemVar('M_CTSLBL4')))
+                                            
+
+*-- Change the "Delete" button in the "Control Pannel" to be
+*-- "Cancel/Uncancel"
+
+lcCancel   = gcBmpHome + "TRASH.BMP"
+lcUnCanc   = gcBmpHome + "UNTRASH.BMP"
+lcPromp    = lcCancel
+lcDelMesag = 'cancel'
+lcMenProm  = PROPER(lcDelMesag) + " Material Manfacturning Order"
+
+*-- Load the system/company setup variables.
+llCostPrv    = gfUserPriv('IC','ICFABRIC','COSTING')
+llMultiWar   = gfGetMemVar("M_WAREHOUSE") = "Y"
+llDyelot     = gfGetMemVar("M_MATDYE")    = "Y"
+lcGnCTBom    = gfGetMemVar("M_GNMMOBOM")
+
+*-- This variable is used to refresh the 1st tab in the folder screen, it
+*-- will be effective only when you run the screen at the first time
+*--       when you come back to the program from another session or program.
+llRefPage2 = .T.
+
+DIMENSION laPanelObj[2,3]
+*-- To add the "Cost Sheet" button in the control pannel.
+laPanelObj[1,1] = "pbCostSh"
+laPanelObj[1,2] = gcBmpHome + "COMM.BMP"
+laPanelObj[1,3] = [VALID lfvCostSh() MESSAGE 'Cutting Ticket Cost Sheet' DISABLE]
+
+laPanelObj[2,1] = 'pbObjlnk'
+laPanelObj[2,2] = gcBmpHome+'RELATE.BMP'
+laPanelObj[2,3] = [VALID lfvObjLnk()]
+
+llAlowNew=.T.
+
+*-- Change the "Delete" button in the "Control Pannel" to be
+*-- "Cancel/Uncancel"
+*lcCancel   = gcBmpHome + "TRASH.BMP"
+*lcUnCanc   = gcBmpHome + "UNTRASH.BMP"
+*lcPromp    = lcCancel
+*lcDelMesag = 'cancel'
+*lcMenProm  = PROPER(lcDelMesag) + " Material Manufacturing Order"
+
+
+IF !WEXIST(gcBaseWind)
+
+ *--MAKES THE WAREHOUSE ARRAY TO FILL puWare
+ IF !lfMakArry()  
+    RETURN
+  ENDIF  
+  llAlowNew  = .T.
+  SELECT (lcBaseFile)
+
+  *-- Screen fields variable, to be used to build the laData array.
+  *lcScFields = " cMfgOrdNo  , cFabric    , Status     , cWareCode  , Entered    , " +;
+               " Complete   , Pattern    , nMmgBudget , received   , damaged    , " +;
+               " canceled   , nMmfgOpen  , nEst_Cost1 , nEst_Cost2 , nEst_Cost3 , " +;
+               " nEst_Cost4 , nLan_Cost1 , nLan_Cost2 , nLan_Cost3 , nLan_Cost4 , " +;
+               " nAct_Cost1 , nAct_Cost2 , nAct_Cost3 , nAct_Cost4 , lMultiWare , " +;
+               " cMultiLot "
+  *E302018,1 ABD - Add Account Code & Cutomer Po# to Material Manfu. Header file , to
+  *E302018,1 ABD - Print it at the Dye Order form. [Begin]
+  *lcScFields = " cMfgOrdNo  , cFabric    , Status     , cWareCode  , Entered    , " +;
+               " Complete   , nMmgBudget , received   , damaged    , " +;
+               " canceled   , nMmfgOpen  , nEst_Cost1 , nEst_Cost2 , nEst_Cost3 , " +;
+               " nEst_Cost4 , nLan_Cost1 , nLan_Cost2 , nLan_Cost3 , nLan_Cost4 , " +;
+               " nAct_Cost1 , nAct_Cost2 , nAct_Cost3 , nAct_Cost4 , lMultiWare , " +;
+               " cMultiLot  , Pcs_Act"
+  
+  lcScFields = " cMfgOrdNo  , cFabric    , Status     , cWareCode  , Entered    , " +;
+               " Complete   , nMmgBudget , received   , damaged    , " +;
+               " canceled   , nMmfgOpen  , nEst_Cost1 , nEst_Cost2 , nEst_Cost3 , " +;
+               " nEst_Cost4 , nLan_Cost1 , nLan_Cost2 , nLan_Cost3 , nLan_Cost4 , " +;
+               " nAct_Cost1 , nAct_Cost2 , nAct_Cost3 , nAct_Cost4 , lMultiWare , " +;
+               " cMultiLot  , Pcs_Act , Account , CustPo"
+  *E302018,1 ABD - [End]
+*-- laData Map
+*    laData[1]    laData[2]    laData[3]     laData[4]     laData[5]
+*    cMfgOrdNo  , cFabric    , Status      , cWareCode  ,  Entered    
+
+*    laData[6]    laData[7]    laData[8]     laData[9]     laData[10]
+*    Complete   , nMmgBudget , received    , damaged    ,  canceled
+
+*    laData[11]   laData[12]   laData[13]    laData[14]    laData[15]
+*    nMmfgOpen  , nEst_Cost1 , nEst_Cost2  , nEst_Cost3 ,  nEst_Cost4
+
+*    laData[16]   laData[17]   laData[18]    laData[19]    laData[20]
+*    nLan_Cost1 , nLan_Cost2 , nLan_Cost3  , nLan_Cost4 ,  nAct_Cost1
+
+*    laData[21]   laData[22]   laData[23]    laData[24]    laData[25]
+*    nAct_Cost2 , nAct_Cost3 , nAct_Cost4  , lMultiWare ,  cMultiLot "
+
+*    laData[26]
+*    Pcs_Act
+
+*--
+*  SCATTER FIELDS &lcScFields TO laData BLANK
+
+  
+  *-- Windows Names.
+  lcCTChWin2   = gfTempName()
+  lcCTChWin4   = gfTempName()
+  lcCTChWn40   = gfTempName()
+  lcCTChWn41   = gfTempName()
+  lcCTChWn42   = gfTempName()
+  lcCTChWn43   = gfTempName()
+  lcCTChWn44   = gfTempName()
+  lcCTChWn45   = gfTempName()
+  lcCTChWin5   = gfTempName()
+  
+  *-- Initialize the folders information.
+  lcwFoldChng  = "= lfActFolder()"
+  lcFoldPush   = "pbFolder"
+  lnFolderCEnd = 102.50
+  lnFolderREnd = 2.00
+  lcFolder     = gfTempName()
+  lcFoldPrnt   = gcBaseWind
+  lnActFolder  = 1
+  
+  laFoldWinds[1,1] = "Detail"
+  laFoldWinds[1,2] = lcCTChWin4
+  laFoldWinds[2,1] = "Summary"
+  laFoldWinds[2,2] = lcCTChWin5
+  
+  *-- Build the main temporary file.
+  lcTmpMmoLn = gfTempName()
+  lcTmpRec   = gfTempName()
+  lcLinesBrw = "Materials Manufacturing Order Lines"
+  lcLnScFlds= " Color , Pattern , cWareCode , Dyelot , nmfgtotqty , Reference , Lineno"
+
+  *-- Get a session number, to be updated in the uncomplete session
+  *-- number file foe each session.
+  lcSession  = gfsequence('CSESSION')
+
+  = lfCrtTmpLn()
+  IF !llFromMenu AND SEEK(lcPMMONum)
+    laData[1]    = lcPMMONum
+    laScrMode    = .F.
+    laScrMode[2] = .T.
+    SCATTER FIELDS &lcScFields TO laData
+    M.DYEYN = FABRIC.CDYE_FLG
+  ELSE
+    SCATTER FIELDS &lcScFields TO laData BLANK
+    M.DYEYN = FABRIC.CDYE_FLG
+  ENDIF
+ELSE
+  *-- If comming back from the cutting ticket bill of material program
+  *-- then switch the screen mode to the select mode.
+  IF laScrMode[4] AND !EMPTY(laData[1])
+    laScrMode    = .F.
+    laScrMode[1] = .T.
+    KEYBOARD "{PGDN}"
+  ENDIF
+ENDIF  
+
+*-- Empty out all the displayed objects on the screen.
+
+SELECT (lcTmpMmoLn)
+SCATTER FIELDS &lcLnScFlds MEMVAR BLANK
+SHOW GET laData[2] DISABLE
+*--Open Header file(parent)
+*--Set realtion between parent & child file
+SELECT MMFGORDH
+SET RELATION TO cMfgOrdNo INTO MMFGORDD
+
+SELECT MMFGORDH
+lcHDROrd = ORDER()
+SET ORDER TO Mmfgordh
+
+*IF !llFromMenu AND SEEK(lcPMMONum)
+*  laData[1]    = lcPMMONum
+*  laScrMode    = .F.
+*  laScrMode[2] = .T.
+*  SCATTER FIELDS &lcScFields TO laData
+*  M.DYEYN = FABRIC.CDYE_FLG
+*ELSE
+*  SCATTER FIELDS &lcScFields TO laData BLANK
+*  M.DYEYN = FABRIC.CDYE_FLG
+*ENDIF
+
+SET ORDER TO &lcHDROrd
+
+m.cWareCode = laData[4]
+
+lcDelPadNm = SPACE(0)
+PUSH MENU _MSYSMENU
+lnDelBarNo = lfGtDelBar()
+= lfActPad()
+llNoShow = .F. &&!(laScrMode[2] OR (laScrMode[4] AND !EMPTY(laData[1])))
+= lfStDelBar()
+
+IF WEXIST(gcBaseWind)
+  *-- If the active bar was receiving re-build the screen
+  IF lcActTrnBr = 'R'
+    DO lpvCTTran WITH 2
+  ENDIF
+ENDIF
+
+DO (gcScrDir+gcWinAppl+"\MaMfOrd.SPR")
+RELEASE WINDOW (lcLinesBrw)
+POP MENU _MSYSMENU
+*-- Also release optional browse it found
+IF WEXIST(lcOptBrwTl)
+  RELEASE WINDOW (lcOptBrwTl)
+ENDIF
+
+*--Deactivate options menue
+=lfDeActPad()
+
+SELECT MMFGORDH
+SET RELATION TO 
+
+
+*-- Erase all the created temporary files, close all the conditionally
+*-- opened aliases.
+IF glQuitting
+  USE IN (lcTmpMmoLn )
+  ERASE (gcWorkDir+lcTmpMmoLn +".DBF")
+  ERASE (gcWorkDir+lcTmpMmoLn +".CDX")
+  ERASE (gcWorkDir+lcTmpMmoLn +".FPT")
+  IF USED(lcTmpRec)
+    USE IN (lcTmpRec)
+    ERASE (gcWorkDir+lcTmpRec +".DBF")
+    ERASE (gcWorkDir+lcTmpRec +".CDX")
+    ERASE (gcWorkDir+lcTmpRec +".FPT")
+  ENDIF
+ENDIF
+
+*-- Functions and Procedures :
+*:***************************************************************************
+*: Name       : lpShow
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/03/1999
+*: Purpose    : Screen modes controlling procedure.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : DO lpShow
+*:***************************************************************************
+PROCEDURE lpShow
+
+DO CASE
+  *                ---> S E L E C T  M O D E <---
+  CASE laScrMode[1]
+  
+    *-- Check if there is any previuosly uncompleted session of the 
+    *-- program.
+    IF lfChkUnComS()
+      RETURN
+    ENDIF
+  
+    SCATTER FIELDS &lcScFields MEMO TO laData BLANK
+    SELECT (lcTmpMMOLn)
+    BLANK ALL
+    DELETE ALL
+    SET FILTER TO cStatus <> 'D'
+    *=lfREFRESH(lcCTCHWIN4)
+    llGenLines = .T.
+    STORE SPACE(0) TO lcMFStatus, lcFabDesc
+    
+    *STORE 0 TO puWare &&, puLnWare
+    
+    SHOW GET ibFabBrow ENABLE  
+    SHOW GET laData[2] ENABLE  
+    SHOW GET laData[5] DISABLE
+    SHOW GET laData[6] DISABLE
+    SHOW GET puWare   DISABLE
+    SHOW GET puLnWare DISABLE
+    SHOW GET m.Color 
+    SHOW GET ibColor DISABLE
+    SHOW GET m.Dyelot DISABLE
+    SHOW GET pbCostSh DISABLE
+    SHOW GET pbNew DISABLE
+    SHOW GET pbRem DISABLE
+    *E302018,1 ABD - Enable and disable the fields. [Begin]
+    SHOW GET  ibAccount DISABLE
+    SHOW GET laData[27] DISABLE
+    SHOW GET laData[28] DISABLE
+    *E302018,1 ABD - [End]
+    
+    =lfShowLine("D")
+    *-- Activate the first fab of the screen's folders, and disable the
+    *-- 2nd one.
+    lnLastFold = lnActFolder
+    lnActFolder = 1
+    llNoThing   = lfChngFolder(lnActFolder)
+    SHOW GET ibFolder[1] DISABLE
+
+    *-- Prepare the variables used to switch the prompt of the "Delete"
+    *-- bar in the system menu, and the status of the "Cancel" button in
+    *-- the control panell.
+    lcCanStat    = "DISABLE"
+    laCtrStat[8] = lcCanStat
+    lcPromp      = lcCancel
+
+    *-- Force the activation of the first object in the screen.
+    *_CUROBJ = OBJNUM(laData[1])
+    =lfShowEnd()
+
+
+  *                 --> V I E W  M O D E <--
+  CASE laScrMode[2]
+  
+    STORE SPACE(0) TO lcFabDesc
+    SCATTER FIELDS &lcScFields MEMO TO laData
+    lcMajStat    = "DISABLE"
+    lcNrmStat    = "DISABLE"
+
+    *-- Get the header warehouse.
+    lcSetExa     = SET('EXACT')
+    puWare       = lfGetWare(laData[4])
+    
+    *-- Adjust order status
+    = lfSetStat(laData[3])
+
+    
+    llMultiLot   = laData[25] = "M"
+    lcEdtStat    = IIF(laData[3] $ "CSX", "DISABLE", "ENABLE")
+    laCtrStat[7] = lcEdtStat
+    lcPromp      = IIF(laData[3]="X" , lcUnCanc, lcCancel )
+    lcCanStat    = IIF(laData[3]$"HX", "ENABLE", "DISABLE")
+    lcCostShSt   = "ENABLE"
+    lcGnLinsSt   = "DISABLE"
+    IF laData[3] = "X"
+      =gfOpenFile(gcDataDir+'CTKTBOM' , 'CTKTBOM' , 'SH')
+      lcCostShSt = IIF(SEEK("T"+laData[1], "CtktBom"), "ENABLE", "DISABLE")
+    ENDIF
+    llCUpdate    = .F.
+    lcScrMode    = "V"
+    
+    *-- Enable/Disable the controlled objectes.
+    SHOW GET pbEdt       &lcEdtStat
+    SHOW GET laData[1]   DISABLE
+    SHOW GET ibFabBrow   DISABLE
+    SHOW GET laData[2]   DISABLE
+    SHOW GET laData[5]   DISABLE
+    SHOW GET laData[6]   DISABLE
+    SHOW GET puWare DISABLE
+    SHOW GET laData[10]  DISABLE
+    SHOW GET llMultiLot  DISABLE
+    SHOW GET pbCostSh &lcCostShSt
+    
+    *E302018,1 ABD - Enable and disable the fields. [Begin]
+    SHOW GET  ibAccount DISABLE
+    SHOW GET laData[27] DISABLE
+    SHOW GET laData[28] DISABLE
+    *E302018,1 ABD - [End]
+    
+    SHOW GET m.Color 
+    SHOW GET ibColor DISABLE
+    SHOW GET m.Dyelot   DISABLE
+    =lfShowLine("D")
+    SHOW GET pbMMONote    ENABLE
+    
+    *SHOW GET pbObjlnk    ENABLE
+    *SHOW GET pbCostSh    &lcCostShSt
+    *SHOW GET pbMMOGnLns   &lcGnLinsSt
+    =lfShowEnd()
+
+    lcFabDesc = IIF(SEEK(laData[2] , 'Fabric') , FABRIC.Desc , ' ')
+
+    SHOW GET ibFolder[1] ENABLE
+    SHOW GET laData[24] DISABLE    
+    SHOW GET puWare DISABLE
+    SHOW GET pbNew DISABLE
+    SHOW GET pbRem DISABLE
+    SHOW GET m.pattern DISABLE
+    SHOW GET m.reference DISABLE
+    SHOW GET m.nmfgtotqty DISABLE
+
+    =lfLnBrowse()
+    *-- Check if Receivings browse is on
+    *-- Just refresh it
+    IF lcActTrnBr = "R"
+      =lfOptBrows()
+    ENDIF
+    SHOW GET ibTrap04 ENABLE
+    *C200253,1 (Begin) Get contractor.
+    IF ASCAN(laEvntTrig , PADR('GETCONT',10)) <> 0 
+      =gfDoTriger('MAMFORD',PADR('GETCONT',10))    
+    ENDIF
+    *C200253,1 (End)
+
+  *                ----> E D I T  M O D E <----
+  CASE laScrMode[3]
+    
+    IF !llContinue
+      SELECT (lcTmpMMOLn)
+      BLANK ALL
+      DELETE ALL
+      SET FILTER TO cStatus <> 'D'
+    ELSE
+      SELECT (lcTmpMMOLn)
+      SCATTER FIELDS &lcScFields TO laData
+    ENDIF
+    
+    SELECT MMFGORDD
+    SET ORDER TO TAG Mmfgordd
+    SET RELATION TO cFabric + Color INTO FABRIC ADDITIVE
+    lnNumOfDets = 0
+    llCUpdate    = .T.
+    IF !llContinue
+      IF SEEK(laData[1])
+        SCAN REST WHILE cMFGOrdNo = laData[1]
+          SCATTER MEMVAR MEMO
+          lnNumOfDets = lnNumOfDets + 1       
+          m.cStatus = 'S'
+          m.nRecNo  = RECNO() 
+          m.DyeYN   = FABRIC.cDye_Flg
+          INSERT INTO (lcTmpMMOLn) FROM MEMVAR
+        ENDSCAN
+      ENDIF
+    ELSE
+      SELECT (lcTmpMMOLn)
+      SCATTER FIELDS &lcScFields TO laData
+    ENDIF
+    SET RELATION OFF INTO FABRIC
+    *SELECT MMFGORDH
+    SELECT (lcTmpMMOLn)
+
+    *-- Reinitialize some of the screen's objects.
+    *-- This will only effictive when trying to reset an uncomplete 
+    *-- session of the program (not all of the used variables are
+    *-- saven in the uncomplete session file).
+    lcPromp      = IIF(laData[3]="X", lcUnCanc, lcCancel) 
+    lcCanStat    = "DISABLE"
+    laCtrStat[8] = lcCanStat
+    lcFabDesc    = IIF(SEEK(laData[2],"Fabric"), Fabric.Desc, "")
+    
+    puWare       = lfGetWare(laData[4])
+    SHOW GET puWare
+    
+    puLnWare = IIF(lnWarNum = 0 , 1 , ASUBSCRIPT(laWare,lnWarNum,1))
+    
+    SHOW GET puLnWare
+    llNoThing    = lfSetStat(laData[3])
+    llMultiLot   = laData[25] = "M"
+
+    *-- Enable/Disable the controlled objectes.
+    lcMajStat  = "DISABLE"
+    lcNrmStat  = "ENABLE"
+    lcCostShSt = "DISABLE"
+    lcGnLinsSt = IIF(laData[3]="H", "ENABLE", "DISABLE")
+    SHOW GET ibOrdBrow  DISABLE
+    SHOW GET laData[1]  DISABLE
+    SHOW GET ibFabBrow  DISABLE
+    SHOW GET laData[2]  DISABLE
+    SHOW GET laData[5]  ENABLE
+    SHOW GET laData[6]  ENABLE
+
+    *E302018,1 ABD - Enable and disable the fields. [Begin]
+    SHOW GET  ibAccount ENABLE
+    SHOW GET laData[27] ENABLE
+    SHOW GET laData[28] ENABLE
+    *E302018,1 ABD - [End]
+
+    
+    *-- Case Multi warehouse enable and disable according to Multi Loc. field
+    *-- Else (Single Warehouse) Disable warehouse selection and Multi Loc. field
+    
+    IF llMultiWar
+      SHOW GET laData[24] ENABLE
+      IF !laData[24]
+        SHOW GET puLnWare DISABLE
+        SHOW GET puWare   ENABLE
+      ELSE
+        SHOW GET puLnWare ENABLE
+        SHOW GET puWare   DISABLE
+      ENDIF
+    ELSE
+      SHOW GET laData[24] DISABLE
+      SHOW GET puWare     DISABLE
+      SHOW GET puLnWare   DISABLE
+    ENDIF
+    
+    SHOW GET llMultiLot ENABLE
+
+    IF llDyelot
+      SHOW GET m.Dyelot DISABLE
+    ENDIF
+
+    =lfShowLine("E")
+    SHOW GET pbMONote   ENABLE
+
+    *~~SHOW GET pbObjlnk   ENABLE
+    SHOW GET pbCostSh   DISABLE
+    *~~SHOW GET pbMOGnLns  &lcGnLinsSt
+    *lcMFStatus=''
+    SHOW GET lcMFStatus
+
+    SHOW GET ibFolder[1] ENABLE
+
+    SELECT (lcTmpMMOLn)
+
+
+    = lfLnBrowse()
+    IF EMPTY(lcTmpMMOLn) 
+      SHOW GET pbRem DISABLED
+    ENDIF
+    
+    SHOW GET llMultiLot ENABLE  
+    SHOW GET pbNew ENABLE
+   IF !EMPTY(lcTmpMMOLn)             
+    SHOW GET pbRem ENABLE  
+   ELSE
+    SHOW GET pbRem DISABLE 
+   ENDIF
+    
+   *-- Check if Receivings browse is on
+   *-- Just refresh it
+   IF lcActTrnBr = "R"
+     =lfOptBrows()
+   ENDIF
+   *-- Create an "Open" record in the uncomplete session file.
+   *-- This will be done only if we are not comeing from 
+   *-- an uncomplete session number.
+   lcScrMode = "E"
+   
+   llNoThing = IIF(lnUnCmSeRc=0, lfAdUnCmSR(), .T.)
+
+   =lfShowEnd()
+  *                   ----> A D D  M O D E <----
+  CASE laScrMode[4] 
+    IF EMPTY(laData[2])
+      IF !llContinue
+        *SHOW GET laData[2] DISABLE
+        *SHOW GET ibFabBrow DISABLE
+      ELSE
+        **-- Make sure the tepmorary file is empty
+        SELECT (lcTmpMMOLn)
+        BLANK ALL
+        DELETE ALL
+        SET FILTER TO cStatus <> 'D'
+        *-- Clear fabric field, and position the cursor on that field
+        laData[2]  = SPACE(7)
+        lcFabDesc  = SPACE(1)
+      ENDIF
+      llCUpdate    = .T.
+      puWare = 1
+      lnNumOfDets = 0
+      lcMFStatus=''
+      laData[3]  = 'H'
+      lcMfStatus = 'On Hold'
+      *-- Case Multi warehouse enable and disable according to Multi Loc. field
+      *-- Else (Single Warehouse) Disable warehouse selection and Multi Loc. field
+      IF llMultiWar
+        SHOW GET laData[24] ENABLE
+        IF !laData[24]
+          SHOW GET puLnWare DISABLE
+          SHOW GET puWare   ENABLE
+        ELSE
+          SHOW GET puLnWare ENABLE
+          SHOW GET puWare   DISABLE
+        ENDIF
+      ELSE
+        SHOW GET laData[24] DISABLE
+        SHOW GET puWare     DISABLE
+        SHOW GET puLnWare   DISABLE
+      ENDIF
+   
+      SHOW GET m.Pattern DISABLE
+      SHOW GET m.Reference DISABLE 
+      SHOW GET m.nMfgTotQty DISABLE
+      SHOW GET ibFolder[2] DISABLE
+      IF llContinue
+        SELECT (lcTmpMMOLn)
+        DELETE ALL
+        SET FILTER TO cStatus <> 'D'
+        SCATTER MEMVAR MEMO BLANK
+      ENDIF
+      llMultiLot = .F.
+      SHOW GET llMultiLot
+      SHOW GET laData[24] DISABLE
+      SHOW GET llMultiLot DISABLE
+      SHOW GET pbObjlnk   DISABLE
+      SHOW GET pbCostSh   DISABLE
+      IF !llContinue
+        SHOW GET ibFabBrow ENABLE
+        SHOW GET laData[2] ENABLE
+      ELSE
+        SHOW GET ibFabBrow DISABLE
+        SHOW GET laData[2] DISABLE
+      ENDIF
+      lcPromp      = lcCancel
+      lcCanStat    = "DISABLE"
+      laCtrStat[8] = lcCanStat
+      lcCostShSt   = "DISABLE"
+      SHOW GET pbNew DISABLE
+      SHOW GET pbRem DISABLE
+    
+      *=lfRefresh(lcCTChWin2)
+      *SHOW WINDOW(lcCTChWin2) REFRESH
+      _CUROBJ = OBJNUM(laData[2])
+
+      = lfLnBrowse()
+
+      *-- Create an "Open" record in the uncomplete session file.
+      *-- This will be done only if we are not comeing from 
+      *-- an uncomplete session number.
+      lcScrMode = "A"
+      llNoThing = IIF(lnUnCmSeRc=0, lfAdUnCmSR(), .T.)
+    ELSE
+      lcMFStatus = ''
+      laData[3]  = 'H'
+      lcMfStatus = 'On Hold'
+
+      SHOW GET ibFabBrow DISABLE
+      SHOW GET laData[2] DISABLE
+      lcPromp      = lcCancel
+      lcCanStat    = "DISABLE"
+      laCtrStat[8] = lcCanStat
+      lcCostShSt   = "DISABLE"
+      SHOW GET pbNew ENABLE
+      SHOW GET pbRem ENABLE
+      *-- Case Multi warehouse enable and disable according to Multi Loc. field
+      *-- Else (Single Warehouse) Disable warehouse selection and Multi Loc. field
+      IF llMultiWar
+        SHOW GET laData[24] ENABLE
+        IF !laData[24]
+          SHOW GET puLnWare DISABLE
+          SHOW GET puWare   ENABLE
+        ELSE
+          SHOW GET puLnWare ENABLE
+          SHOW GET puWare   DISABLE
+        ENDIF
+      ELSE
+        SHOW GET laData[24] DISABLE
+        SHOW GET puWare     DISABLE
+        SHOW GET puLnWare   DISABLE
+      ENDIF
+      llMultiLot = .F.
+      SHOW GET llMultiLot ENABLE
+      SHOW GET pbObjlnk   DISABLE
+      SHOW GET pbCostSh   DISABLE
+
+    ENDIF
+
+    *E302018,1 ABD - Enable and disable the fields. [Begin]
+    SHOW GET  ibAccount DISABLE
+    SHOW GET laData[27] DISABLE
+    SHOW GET laData[28] DISABLE
+    *E302018,1 ABD - [End]
+    
+    SHOW GET laData[1] DISABLE
+    _CUROBJ = OBJNUM(laData[2])
+ENDCASE
+IF lnActFolder = 1
+  SHOW GET PbSwitch DISABLE
+ENDIF
+*:***************************************************************************
+*: Name       : lfSetStat
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/03/1999
+*: Purpose    : To convert the status character to words that will
+*:              be displayed in the screen.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : lcStat : The status code.
+*:***************************************************************************
+*: Returns    : The "lcMFStatus" variable is updated.
+*:***************************************************************************
+*: Example    : = lfSetStat()
+*:***************************************************************************
+FUNCTION lfSetStat
+PARAMETERS lcStat
+
+lcStat = IIF(TYPE("lcStat")#"C","",lcStat)
+IF !EMPTY(lcStat)
+  lcAll  = PADR("Open",10)+PADR("Hold",10)+PADR("Complete",10)+;
+           PADR("Canceled",10)+PADR("Actualized",10)+PADR("Closed",10)
+  lcMFStatus = ALLTRIM(SUBSTR(lcAll,ATC(lcStat,"OHCXAS")*10-9,10))
+ELSE
+  lcMFStatus = SPACE(0)
+ENDIF
+IF !llFromMenu
+  lNoThing = IIF(WEXIST(gcBaseWind), lfRefresh(lcCTChWin2), .T.) 
+ENDIF
+
+*!*************************************************************
+*! Name       : lfvMFGOrdNo
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/03/1999
+*! Purpose    : Valid function for get field m.cMFGOrdNo, 
+*!             (key field)
+*!*************************************************************
+*! Calls      : lfMFGOrdShow()
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  =lfvMFGOrdNo()
+*!*************************************************************
+FUNCTION lfvMFGOrdNo
+PRIVATE  lnCurAlias, lnOption
+lnCurAlias = SELECT (0)
+laData[1]  = PADR(ALLTRIM(laData[1]), 6)
+*B603987,1 KAM if user press mouse[start]
+IF MDOWN()
+  RETURN
+ENDIF
+*B603987,1 KAM [end]
+IF llBrowse .OR. !EMPTY(laData[1])
+
+  lnCurAlias = SELECT(0)
+  SELECT MMFGORDH
+  *-- If browsing
+  IF llBrowse .OR. !SEEK(laData[1])
+     lcOrdNo = laData[1]
+    IF gfMFGOrdBr(@lcOrdNo)
+      SCATTER FIELDS &lcScFields MEMO TO laData
+      laScrMode=.F.
+      laScrMode[2]=.T.
+      SHOW GETS
+    ELSE
+     laData[1]   = ''
+     _CUROBJ     = _CUROBJ
+    ENDIF
+  ELSE
+     IF !SEEK(laData[1])
+       *-- Browse the orders from the base file.  
+       =ARIABROW()
+    ELSE
+      SCATTER FIELDS &lcScFields MEMO TO laData
+      laScrMode=.F.
+      laScrMode[2]=.T.
+      SHOW GETS
+    ENDIF
+  ENDIF
+  *C200253,1 (Begin) Get contractor.
+  IF ASCAN(laEvntTrig , PADR('GETCONT',10)) <> 0 
+    =gfDoTriger('MAMFORD',PADR('GETCONT',10))    
+  ENDIF
+  *C200253,1 (End)
+  llBrowse = .F.
+ENDIF
+SELECT (lnCurAlias)
+
+*!*************************************************************
+*! Name       : lfvData_2
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/03/1999
+*! Purpose    : Valid function for get field laData[2]
+*!             Called from lcCTCHWin2 
+*!*************************************************************
+*! Calls      : FABROW
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  =lfvData_2()
+*!*************************************************************
+FUNCTION lfvData_2
+PRIVATE lcSelFab, lnCurAlias
+
+lnCurAlias = SELECT(0)
+IF MDOWN()
+  laData[2] = SPACE(7)
+  RETURN
+ENDIF
+
+laData[2]    = PADR(ALLTRIM(laData[2]), 7)
+IF llBrowse .OR. !EMPTY(laData[2]) 
+  lnCurAlias = SELECT()
+  SELECT FABRIC
+  lcSelFab = laData[2]
+  IF llBrowse .OR. '?' $ laData[1] .OR. !SEEK(laData[2]) 
+    IF FABROW(@lcSelFab, '*') 
+      laData[2] = lcSelFab
+    ELSE
+      laData[2] = SPACE(7)
+      _CUROBJ   = _CUROBJ
+    ENDIF
+  ENDIF
+  SELECT (lnCurAlias)
+  IF !EMPTY(laData[2])
+    *--Enter M.F.G. Orders for Manufactured Materials Only.
+
+    IF !Fabric.Make .AND. gfDialog('I','Only Manufactured Materials are allowed.')=1
+      laData[2] = SPACE(7)
+      _CUROBJ   = _CUROBJ
+    ELSE
+      *-- Get fabric information
+      lcFabDesc  = FABRIC.Desc
+      m.DyeYN   = FABRIC.cDye_Flg
+      DO CASE
+        CASE laScrMode[1]
+          lcOrdNo=laData[1]
+          IF gfMFGOrdBr(@lcOrdNo,lcSelFab)
+            laScrMode   =.F.
+            laScrMode[2] =.T.
+            SHOW GETS 
+          ELSE
+            laData[2]  = SPACE(7)
+            _CUROBJ    = _CUROBJ
+          ENDIF
+      
+        CASE laScrMode[4]
+          *-- Default entered date with the system date
+          laData[ 5] = gdSysDate
+          *-- Default complete date with the system date + 90 days
+          laData[ 6] = laData[ 5] + 90
+          
+          = lfvEntered()
+          = lfvComplet()
+          
+          SHOW GET laData[2] DISABLE
+          SHOW GET ibFabBrow DISABLE
+          SHOW GET laData[ 5] ENABLE
+          SHOW GET laData[ 6] ENABLE
+          SHOW GET laData[24] ENABLE
+          SHOW GET llMultiLot ENABLE
+          SHOW GET puWare     ENABLE
+
+          *E302018,1 ABD - Enable and disable the fields. [Begin]
+          SHOW GET  ibAccount ENABLE
+          SHOW GET laData[27] ENABLE
+          SHOW GET laData[28] ENABLE
+          *E302018,1 ABD - [End]
+
+          *-- we have to check the full key case there is no dyelots and no multi W/H
+          =lfChkLnKey('C')
+
+          =lfGenLines(laData[2])
+
+          SHOW GET pbMONote   ENABLE
+          SHOW GET ibFolder[2] ENABLE
+          
+          =lfRefresh(lcCTChWin2)
+          
+          llBrowse = .F.
+          *B603987,1 KAM we stopping calling function 
+          *=lfvColor()
+          *B603987,1 KAM[end]
+       ENDCASE      
+    ENDIF
+    =gfUpdate()
+    llBrowse = .F.
+  ENDIF    && ENDIF !EMPTY(laData[2])
+ENDIF
+=lfUpdVars()
+SELECT (lnCurAlias)
+*:***************************************************************************
+*: Name       : lfCrtTmpLn
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/09/99
+*: Purpose    : To create the program temp file.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfCrtTmpLn()
+*:***************************************************************************
+FUNCTION lfCrtTmpLn
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+
+*-- Read the Material MO line structure into an array.
+SELECT MMFGORDD
+lnMOLnFlds = AFIELDS(laMOLnFlds)
+
+*-- The "nStep" field is to handel the incomplete session.
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "nStep"
+laMOLnFlds[lnMOLnFlds, 2] = "N"
+laMOLnFlds[lnMOLnFlds, 3] = 2
+laMOLnFlds[lnMOLnFlds, 4] = 0
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "cStatus"
+laMOLnFlds[lnMOLnFlds, 2] = "C"
+laMOLnFlds[lnMOLnFlds, 3] = 1
+laMOLnFlds[lnMOLnFlds, 4] = 0
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "DyeYN"
+laMOLnFlds[lnMOLnFlds, 2] = "C"
+laMOLnFlds[lnMOLnFlds, 3] = 1
+laMOLnFlds[lnMOLnFlds, 4] = 0
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "nMCost1"
+laMOLnFlds[lnMOLnFlds, 2] = "N"
+laMOLnFlds[lnMOLnFlds, 3] = 9
+laMOLnFlds[lnMOLnFlds, 4] = 2
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "nMCost2"
+laMOLnFlds[lnMOLnFlds, 2] = "N"
+laMOLnFlds[lnMOLnFlds, 3] = 9
+laMOLnFlds[lnMOLnFlds, 4] = 2
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "nMCost3"
+laMOLnFlds[lnMOLnFlds, 2] = "N"
+laMOLnFlds[lnMOLnFlds, 3] = 9
+laMOLnFlds[lnMOLnFlds, 4] = 2
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "nMCost4"
+laMOLnFlds[lnMOLnFlds, 2] = "N"
+laMOLnFlds[lnMOLnFlds, 3] = 9
+laMOLnFlds[lnMOLnFlds, 4] = 2
+
+lnMOLnFlds = lnMOLnFlds + 1
+DIMENSION laMOLnFlds[lnMOLnFlds, 4]
+laMOLnFlds[lnMOLnFlds, 1] = "nRecNo"
+laMOLnFlds[lnMOLnFlds, 2] = "N"
+laMOLnFlds[lnMOLnFlds, 3] = 10 
+laMOLnFlds[lnMOLnFlds, 4] = 0
+
+*-- Create the temp file.
+=gfCrtTmp(lcTmpMMOLn, @laMOLnFlds,;
+         [cmfgordno+cfabric+color+cwarecode+dyelot+trancd] , lcTmpMMOLn)
+
+*=gfCrtTmp(lcTmpMMOLn, @laMOLnFlds,;
+         [cmfgordno+STR(lineno,6)+trancd] , lcTmpMMOLn)
+SELECT (lcTmpMMOLn)
+SET FILTER TO cStatus <> 'D'
+          
+
+*[cmfgordno+cfabric+color+dyelot+trancd] , lcTmpMMOLn)
+
+SELECT(lnAlias)
+
+
+*:***************************************************************************
+*: Name       : lfActFolder
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/09/1999
+*: Purpose    : Refresh the active folder objects and disable
+*:              the other object in the other folders.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfActFolder()
+*:***************************************************************************
+FUNCTION lfActFolder
+
+DO CASE
+  *-- The details folder.
+  CASE lnActFolder = 1
+    *-- Disble the other folders objects.
+    SHOW GET PbSwitch DISABLE
+    SHOW GETS WINDOW (lcCTChWin5) DISABLE ONLY
+
+    SHOW WINDOW (lcCTChWin4) TOP
+    
+    SELECT (lcTmpMMOLn)
+    GO TOP
+    SCATTER MEMVAR MEMO
+    =lfChkLnKey('',.T.)
+    
+    *-- Prevent the activation of this folder if we are in add 
+    *-- mode and the manfacturining order is a multi warehouse MMF
+    *-- and the header warehouse is empty.
+    *-- Otherwise build the temporary lines file if it's not built
+    *-- yet.
+
+    IF llMultiWar AND laScrMode[4] AND !laData[24]  AND EMPTY(puWare)
+      *-- You have to select a warehouse first
+      =gfModalGen('TRM36162B00000')
+      lnActFolder = lnLastFold
+      lnLastFold  = 1
+      =lfChngFolder(lnActFolder)
+      _CUROBJ     = OBJNUM(puWare)
+    ENDIF
+
+    SHOW GET PbSwitch DISABLE     && Push Botton is Disabled 
+    
+    *-- If comming from another session or another active program
+    *-- then refresh the browse and the window that's below it
+    *-- according to the status of the selected bars in the 
+    *-- "Option" menu pad.
+    *-- The usage of this flag is usefull because we do not need to 
+    *-- do this refresh every time the user change the folders, it's
+    *-- only needed when comming from another session.
+    =lfwLnBrow()
+
+    *-- Always enable the Trapping invisable button.
+    SHOW GET ibTrap04 ENABLE
+    SHOW GET PbSwitch DISABLE
+    SHOW GET ibFolder[2] ENABLE
+    
+    
+  CASE lnActFolder = 2 && The summary folder.
+    *-- Refresh the says in this window.
+    SHOW WINDOW (lcCTChWin5) TOP
+    llNoThing = lfRefresh(lcCTChWin5)
+
+    *-- Disble the other folders objects.
+    SHOW GETS WINDOW (lcCTChWin4) DISABLE ONLY
+    SHOW GETS WINDOW (lcCTChWn40) DISABLE ONLY
+    SHOW GETS WINDOW (lcCTChWn41) DISABLE ONLY
+    SHOW GETS WINDOW (lcCTChWn42) DISABLE ONLY
+
+    IF laScrMode[1] = .T.  OR lnActFolder = 1        && Select Mode
+      SHOW GET PbSwitch DISABLE     && Push Botton is Disabled 
+    ELSE                            && View,Edit,Add Mode
+      SHOW GET PbSwitch ENABLE      && Push Botton is Enabled 	
+    ENDIF                          
+    SHOW GET ibFolder[1] ENABLE
+    
+ENDCASE
+
+*-- Refresh the memo field in the uncomplete session file with the 
+*-- value of the active folder number that will be used to activate 
+*-- the folder that was active in the uncomplete session of the program.
+llNoThing = lfUpdVars()
+
+*!*************************************************************
+*! Name      : lfwOldValm
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/09/1999
+*! Purpose   : When function of get fields.
+*!             Stores a fields old value
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  lfwOldVals()
+*!*************************************************************
+FUNCTION lfwOldValm
+lcOldVal = EVALUATE('m.'+SYS(18))
+
+*!*************************************************************
+*! Name      : lfwOldVal
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/09/1999
+*! Purpose   : When function of get fields.
+*!             Stores a fields old value
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  lfwOldVals()
+*!*************************************************************
+FUNCTION lfwOldVal
+lcOldVal = EVALUATE(SYS(18))
+
+*:***************************************************************************
+*: Name       : lfvEntered
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/10/1999
+*: Purpose    : Material Manfacturning Order Entered date valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvEntered()
+*:***************************************************************************
+FUNCTION lfvEntered
+PRIVATE lnPrevAl
+
+lnPrevAl = SELECT(0)
+SELECT (lcTmpMMOLn)
+
+IF EMPTY(laData[5])
+  laData[5] = ldOEntered
+  _CUROBJ   = _CUROBJ
+ENDIF
+
+
+*-- Update the new value in the uncomltet session file.
+llNoThing = lfUpdVars()
+
+
+*:***************************************************************************
+*: Name       : lfvComplet
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/10/1999
+*: Purpose    : Material Manfacturning Order Complete date valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvComplet()
+*:***************************************************************************
+FUNCTION lfvComplet
+
+IF EMPTY(laData[6])
+  laData[6] = ldOComplet
+  _CUROBJ   = _CUROBJ
+ELSE
+  IF laScrMode[3] AND MMFGORDH.Complete # laData[6]
+    *-- Would you like the system to store 99\99\99 as the
+    *-- initial comp. date ?
+    *-- < Yes > < No >
+    lcDate = DTOC(MMFGORDH.Complete)
+    IF gfModalGen("QRM36146B38006","DIALOG",lcDate) = 1
+      laData[6] = MMFGORDH.Complete
+      llNoThing  = lfRefresh(lcCTChWn3)
+    ENDIF
+  ENDIF
+ENDIF
+
+*-- Update the new value in the uncomltet session file.
+llNoThing = lfUpdVars()
+
+*:***************************************************************************
+*: Name       : lfLnBrowse
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/13/1999
+*: Purpose    : Browse the Material Manfacturning Order lines.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfLnBrowse()
+*:***************************************************************************
+FUNCTION lfLnBrowse
+PRIVATE lnAlias
+
+lnAlias    = SELECT(0)
+
+IF WEXIST(lcLinesBrw) and lnActBar <> 2
+  RELEASE WINDOW (lcLinesBrw)
+ENDIF
+
+lcFields   = "cMarker=IIF(RECNO()=lnLnRecNo,'>',' '):1:R:H=' ':W=.F.,"          +;
+             "Color:12:H='Color':R,"+"Pattern:12:H='Pattern':R," +;
+             "Reference:32:H='Reference':R,"            +;
+             "nmfgtotqty:12:H='Quantity':R"                       +;
+             IIF(llMultiWar,",cWareCode:R:H='Warehouse'","")                    +;
+             IIF(llDyelot,",Dyelot:R:H='Dyelot'","")
+
+lcFile     = IIF( laScrMode[2], "MMFGORDD", lcTmpMMOLn)
+SELECT (lcFile)
+
+BROWSE FIELDS &lcFields WINDOW (lcCTChWn41) IN WINDOW (lcCTChWin4) ;
+		  FOR cMfgOrdNo + cFabric + Color + Dyelot+TranCD = laData[1] ;
+         .AND. TranCd = '1';
+          LOCK 0 SAVE NOWAIT NOEDIT NOCLEAR NOAPPEND NODELETE         ;
+          NOMENU TITLE (lcLinesBrw) WHEN lfwLnBrow() VALID :F lfvBrow()
+
+
+=lfRefresh(lcCTChWn41)
+=lfwLnBrow()
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfwLnBrow
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/13/1999
+*: Purpose    : "WHEN" function of the Material MO lines browse.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfwLnBrow()
+*:***************************************************************************
+FUNCTION lfwLnBrow
+PRIVATE lnAlias , lcObjPar
+lcObjPar = 'C'
+
+lnAlias    = SELECT(0)
+lcFile     = IIF(laScrMode[2],  "MMFGORDD", lcTmpMMOLn)
+SELECT (lcFile)
+lnLnRecNo = RECNO()
+SCATTER MEMVAR MEMO
+
+
+IF llMultiWar
+  puLnWare      = lfGetWare(m.cWareCode)
+ENDIF
+
+SHOW GET m.Color
+SHOW GET m.Dyelot
+SHOW GET m.Pattern
+SHOW GET m.Reference
+SHOW GET m.nMFGTotQty
+
+*B604856,1 AMH Enable the warehouse popup in add mode for multi. location M.M.O. [Start]
+*IF !laData[24] OR(laData[24] AND !EMPTY(CWARECODE))
+IF !laData[24] OR(laData[24] AND !EMPTY(CWARECODE) AND !laScrMode[4])
+*B604856,1 AMH [End]
+
+  SHOW GET puLnWare DISABLE
+ELSE
+  SHOW GET puLnWare ENABLE
+ENDIF
+
+*=lfRefresh(lcCTChWn41)
+IF (laScrMode[4]AND !EMPTY(laData[2])) OR laScrMode[3]
+  SHOW GET pbNew ENABLED
+  IF !EOF(lcFile)
+    SHOW GET pbRem ENABLED
+  ENDIF
+ENDIF
+*ACTIVATE WINDOW (lcCTChWn41)
+
+IF WEXIST(lcLinesBrw)
+  SHOW WINDOW (lcLinesBrw) REFRESH SAME
+ENDIF
+
+IF lcActTrnBr = 'R'
+  =lfwOptBrow()
+ENDIF
+
+IF WONTOP(lcLinesBrw)
+  =lfvBrow()
+ENDIF
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfvBrow
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/13/1999
+*: Purpose    : Valid function for all the screen's browses.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfvBrow()
+*:***************************************************************************
+FUNCTION lfvBrow
+
+*-- Call the global function "gfStopBrow" if one of the screen's
+*-- browses is active.
+IF !INLIST(WONTOP(), lcLinesBrw, lcOptBrwTl)
+  glFromBrow = .T.
+  = gfStopBrow()
+ENDIF
+*-- Validate the color to force lfChkLnKey execution to control
+*-- Key fields enabling and disabling
+*B603987,1 KAM we cancel calling function to prevent deep nested loop[start]
+*IF laScrMode[4]
+*  =lfChkLnKey(IIF(DYEYN = 'Y' AND !EMPTY(DYEYN) ,'D',IIF(laData[24],'L','')))
+*ENDIF
+*B603987,1 KAM[end]
+*IF lcActTrnBr='R'
+*  =lfOptBrows()
+*ENDIF
+*:***************************************************************************
+*: Name       : lfvLineWar
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/13/1999
+*: Purpose    : The line warehouse valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvLineWar()
+*:***************************************************************************
+FUNCTION lfvLineWar
+PRIVATE lnAlias, llAssign, lcSetExa
+
+lnAlias    = SELECT(0)
+*lcFabric=laData[2]
+*IF llBrowse OR (!EMPTY(m.cWareCode) AND !(lcOLinWare == m.cWareCode))
+*  SELECT WareHous
+*  m.cWareCode = IIF(llBrowse OR !SEEK(m.cWareCode), gfBrowWare(.T.), m.cWareCode)
+*  IF !EMPTY(m.cWareCode)
+*    SELECT (lcTmpMmoLn) 
+*    lcFabric    = cFabric
+*    lcWareDesc = ALLTRIM(WareHous.cDesc)
+*    lcStr      = &lcTmpMmoLn..cFabric + "|" + lcWareDesc
+*    llCkInFabDy = .T.
+*    lnTmpRecNo = RECNO()
+*    IF (!(llDyelot AND (DyeYN = "Y"))) OR  ;
+*       ( (llDyelot AND (DyeYN = "Y"))  AND ;
+*       (!EMPTY(Dyelot) AND SEEK(lcFabric+m.cWareCode+Dyelot)))
+*      lcExp = lcFabric+m.cWareCode+IIF(!(llDyelot AND (DyeYN = "Y")),"",Dyelot)
+*      IF SEEK(lcExp)
+*        GOTO lnTmpRecNo
+*        BLANK
+*        DELETE
+*        = SEEK(lcExp)
+*        llCkInFabDy = .F.
+*      ELSE
+*        GOTO lnTmpRecNo
+*      ENDIF
+*    ENDIF
+      
+SELECT (lcTmpMMOLn)
+lcExp  =  cFabric + Color + cWareCode
+*-- Check if a record exists in FabDye
+IF !SEEK(lcExp + SPACE(10), "FABDYE")
+  IF gfModalGen("QRM36049B36004","DIALOG",;
+                     ALLTRIM(cFabric)+'/'+ALLTRIM(Color) + "|" + ALLTRIM(cWarecODE)) = 1
+    =gpAdFabWar(cFabric, color, SPACE(10),cWareCode)
+    *-- Update the warecode field
+    REPLACE cWareCode WITH m.cWareCode,;
+    	    cStatus   WITH IIF(cStatus = "A" OR EMPTY(cStatus), "A", "M")
+  lcSetExa =SET('EXACT')
+  SET EXACT ON
+  lnWarNum=ASCAN(laWare,m.cWareCode)
+  SET EXACT &lcSetExa
+  puLnWare=IIF(lnWarNum=0,0,ASUBSCRIPT(laWare,lnWarNum,1))
+
+ ELSE
+    *-- Return the old value
+  ENDIF
+ELSE
+  *-- Update the warecode field  
+  llNoThing = RLOCK()
+  m.cWareCode=laWare(puWare,2)
+  REPLACE cWareCode WITH m.cWareCode,;
+  	      cStatus   WITH IIF(cStatus = "A" OR EMPTY(cStatus), "A", "M")
+  lcSetExa =SET('EXACT')
+  SET EXACT ON
+  lnWarNum=ASCAN(laWare,m.cWareCode)
+  SET EXACT &lcSetExa
+  puLnWare=IIF(lnWarNum=0,0,ASUBSCRIPT(laWare,lnWarNum,1))
+
+  UNLOCK
+ENDIF        
+= lfwLnBrow()
+SHOW WINDOW (lcCTCHWN42) REFRESH SAME
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfClrTrap
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : Screen's "Activate" function that is used to 
+*:              release the window trapping.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfClrTrap()
+*:***************************************************************************
+FUNCTION lfClrTrap
+
+IF glFromBrow
+  = gfStopBrow()
+  glFromBrow = .F.
+ENDIF
+
+*-- If none of the screen's browses is active then clear the 
+*-- trapped keys.
+IF !INLIST(WONTOP(), lcLinesBrw, lcOptBrwTl)
+  ON KEY LABEL TAB
+  ON KEY LABEL BACKTAB
+  ON KEY LABEL Ctrl+ENTER
+  ON KEY LABEL Ctrl+HOME 
+  ON KEY LABEL Ctrl+END  
+ENDIF
+
+*:***************************************************************************
+*: Name       : lfTab
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : The "Tab" key trapping procedure.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : ON KEY LABEL TAB DO lfTab
+*:***************************************************************************
+FUNCTION lfTab
+
+DO CASE
+  *-- If the active browse is the details browse..
+  CASE WONTOP() = lcLinesBrw
+    IF lcActTrnBr = "R"
+      KEYBOARD "{ALT+K}" PLAIN CLEAR
+    ELSE
+        ON KEY LABEL TAB
+        ACTIVATE WINDOW (lcCTChWn42)
+    ENDIF
+    RETURN
+  
+  
+    *DO CASE
+      *-- And it is zoomed or not zoomed and the active option 
+      *-- is the "Transactions Totals" then activate the control
+      *-- pannel.
+      *CASE llMOZoom OR (!llMOZoom AND lcActTrnBr = "T")
+        ON KEY LABEL TAB
+        ACTIVATE WINDOW gwcContrl1
+
+      *-- And it is not zoomed and the active option is the 
+      *-- "Browse edit regon" then activate it.
+      *CASE !llMOZoom AND lcActTrnBr = "B"
+        *ON KEY LABEL TAB
+        *ACTIVATE WINDOW (lcCTChWn42)
+
+      *-- Othrewise activate the Option browse.
+      *CASE !llMOZoom AND lcActTrnBr # "B"
+      *  KEYBOARD "{ALT+J}" PLAIN CLEAR
+    *ENDCASE
+
+  *-- If teh active browse is the Contractor browse or the Options
+  *-- browse then activate the control pannel window.
+  CASE INLIST(WONTOP(), lcOptBrwTl)
+    ON KEY LABEL TAB
+    ACTIVATE WINDOW gwcContrl1
+ENDCASE
+
+*:***************************************************************************
+*: Name       : lfShtTab
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : The "Shift+Tab" key trapping procedure.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : ON KEY LABEL TAB DO lfShtTab
+*:***************************************************************************
+FUNCTION lfShtTab
+
+DO CASE
+  *-- If the active browse is the "Line" browse then activate the 
+  *-- invisable button to handel the next movement.
+  CASE WONTOP() = lcLinesBrw
+    ON KEY LABEL BACKTAB
+    ACTIVATE WINDOW (lcCTChWn40)
+
+  *-- If the active browse is the "Option" browse then activate the
+  *-- "Line" browse.
+  CASE WONTOP() = lcOptBrwTl
+    KEYBOARD "{ALT+Q}" PLAIN
+ENDCASE
+
+*:***************************************************************************
+*: Name       : lfActPad
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/13/1999
+*: Purpose    : To create the "Option" menu pad.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfActPad()
+*:***************************************************************************
+FUNCTION lfActPad
+
+*-- Define the "Options" menu pad.
+DEFINE PAD   _OPTIONS OF _MSYSMENU PROMPT 'O\<ptions' KEY ALT+P , SPACE(1)
+
+*-- Define the "Options" and the "Transactions" popups.
+DEFINE POPUP _OPTIONPOP MARGIN SHADOW
+DEFINE POPUP _CTTRANS   MARGIN SHADOW
+
+*-- Define the "Options" bars in the "Options" menu pad.
+
+*B803362,1 BWA 08/09/2000 Fix the bug of wrong spelling manufacturing under options.[START]
+*DEFINE BAR 1 OF _OPTIONPOP PROMPT "Material Manfacturning Order Transactions" SKIP FOR !((lnActFolder=1) AND (laScrMode[1]=.F.))
+*DEFINE BAR 2 OF _OPTIONPOP PROMPT "Material Manfacturning Order Cost Sheet  " SKIP FOR lcCostShSt = "DISABLE"
+
+DEFINE BAR 1 OF _OPTIONPOP PROMPT "Material Manufacturing Order Transactions" SKIP FOR !((lnActFolder=1) AND (laScrMode[1]=.F.))
+DEFINE BAR 2 OF _OPTIONPOP PROMPT "Material Manufacturing Order Cost Sheet  " SKIP FOR lcCostShSt = "DISABLE"
+*B803362,1 [END]
+
+*-- Define the "Transactions" bars in the "Transactions" menu pad.
+DEFINE BAR 1 OF _CTTRANS   PROMPT "Budget"              KEY ALT+G
+SET MARK OF BAR 1 OF _CTTRANS TO .T.
+DEFINE BAR 2 OF _CTTRANS   PROMPT "Receivings"          KEY ALT+V SKIP FOR laData[3]='H'
+
+*-- Define the action to be done when activating the pad and the popup.
+ON PAD _OPTIONS OF _MSYSMENU ACTIVATE POPUP _OPTIONPOP
+ON BAR 1 OF _OPTIONPOP ACTIVATE POPUP _CTTRANS
+
+*-- Define the action to be done when selecting the bars.
+ON SELECTION BAR 1 OF _CTTRANS   DO lpvCTTran WITH 1
+ON SELECTION BAR 2 OF _CTTRANS   DO lpvCTTran WITH 2
+ON SELECTION BAR 2 OF _OPTIONPOP DO lfvCostSh
+
+DEFINE BAR 101 OF P01PU01 PROMPT lcOptBrwTl KEY ALT+K SKIP FOR (lnActFolder#1 AND wexist(lcOptBrwTl))
+DEFINE BAR 102 OF P01PU01 PROMPT lcLinesBrw KEY ALT+Q SKIP FOR (lnActFolder#1)
+
+*-- Activate the browses when selecting there bars.
+ON SELECTION BAR 101 OF P01PU01 ACTIVATE WINDOW(lcOptBrwTl)
+ON SELECTION BAR 102 OF P01PU01 ACTIVATE WINDOW(lcLinesBrw)
+
+
+*:***************************************************************************
+*: Name       : lfDeActPad
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : To release the "Options" menu pad.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfDeActPad()
+*:***************************************************************************
+FUNCTION lfDeActPad
+
+RELEASE PAD _OPTIONS OF _MSYSMENU 
+RELEASE POPUP _OPTIONPOP
+RELEASE POPUP _CTTRANS
+
+RELEASE BAR 100 OF P01PU01
+RELEASE BAR 101 OF P01PU01
+RELEASE BAR 102 OF P01PU01
+RELEASE BAR 103 OF P01PU01
+
+*:***************************************************************************
+*: Name       : lfGtDelBar
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : To specify the "Delete" bar number in the "File" 
+*:              pad in the system menu.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : The "Delete" bar number in the "File" system menu.
+*:***************************************************************************
+*: Example    : lnDelBarNo = lfGtDelBar()
+*:***************************************************************************
+FUNCTION lfGtDelBar
+
+*-- Open the system menu file.
+*E301077,56 YM 03/03/99 Start - Use the gfOpenfile instead.
+= gfOpenFile(gcSysHome+"SYCMenu","Pross_ID","SH")
+*USE (gcSysHome+"SYCMenu") IN 0 ORDER Pross_ID AGAIN ALIAS MenuFile
+*E301077,56 YM 03/03/99 End.
+
+IF SEEK("GFCPDELETE", "SYCMenu")
+  lcDelPadNm = UPPER(ALLTRIM(SYCMenu.cMstr_Nam))
+  lnRetVal   = VAL(SYCMenu.cBar_Pos)
+ELSE
+  *-- The default values.
+  lcDelPadNm = "P03PU03"
+  lnRetVal   = 10
+ENDIF
+= gfCloseFile("SYCMenu")
+
+RETURN (lnRetVal)
+*:***************************************************************************
+*: Name       : lfTrap
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : Screen's "Deactivate" function that is used to 
+*:              establish the window trapping.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfTrap()
+*:***************************************************************************
+FUNCTION lfTrap
+
+*-- Set the global flag "glFromBrow" to true only if one of the
+*-- screen's browses is active.
+glFromBrow = INLIST(WONTOP(), lcLinesBrw, lcOptBrwTl) 
+
+*-- If any of the screen's browses is active then trap the 
+*-- Tab, ShiftTab, Ctrl+Enter, Ctrl+Home and Ctrl+End keys.
+IF glFromBrow
+  ON KEY LABEL TAB     DO lfTab
+  ON KEY LABEL BACKTAB DO lfShtTab
+  ON KEY LABEL Ctrl+ENTER lnDummy = 1
+  ON KEY LABEL Ctrl+HOME  lnDummy = 1
+  ON KEY LABEL Ctrl+END   lnDummy = 1
+ENDIF  
+
+*:***************************************************************************
+*: Name       : lfClrTrap
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/14/1999
+*: Purpose    : Screen's "Activate" function that is used to 
+*:              release the window trapping.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfClrTrap()
+*:***************************************************************************
+FUNCTION lfClrTrap
+
+IF glFromBrow
+  = gfStopBrow()
+  glFromBrow = .F.
+ENDIF
+
+*-- If none of the screen's browses is active then clear the 
+*-- trapped keys.
+IF !INLIST(WONTOP(), lcLinesBrw, lcOptBrwTl)
+  ON KEY LABEL TAB
+  ON KEY LABEL BACKTAB
+  ON KEY LABEL Ctrl+ENTER
+  ON KEY LABEL Ctrl+HOME 
+  ON KEY LABEL Ctrl+END  
+ENDIF
+
+*:***************************************************************************
+*: Name       : lfvSwitch
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/15/1999
+*: Purpose    : Controls the show & hide of the "Average Unit Cost" Screen
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfvSwitch()
+*:***************************************************************************
+FUNCTION lfvSwitch
+PRIVATE lnOldAlias
+
+lnOldAlias = SELECT()
+SELECT MMFGORDH
+IF llByUnit
+
+  SHOW GET pbSwitch,1 PROMPT 'C\<ost by Unit' 
+  llByUnit = .F.
+ELSE
+
+  SHOW GET pbSwitch,1 PROMPT 'C\<ost by MMO'
+  llByUnit = .T.
+ENDIF
+= lfRefresh()
+SHOW GET PbSwitch
+SELECT (lnOldAlias)
+
+*:***************************************************************************
+*: Name       : lfShowEnd
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/15/1999
+*: Purpose    : To be called at the end of the lpShow
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfShowEnd()
+*:***************************************************************************
+FUNCTION lfShowEnd
+
+lcMmfOrd  = laData[1]
+IF laScrMode[2]
+  GOTO TOP IN MMFGORDD
+ENDIF
+lcFltFile = IIF (laScrMode[1] OR laScrMode[2], "MMFGORDD", lcTmpMMOLn)
+lcOrderKy = IIF (laScrMode[3],&lcFltFile..cFabric,"1"+lcMmfOrd+&lcFltFile..cFabric)
+
+*-- Refresh the "Delete" bar in the system menu, and the lines browse
+*-- and the active folder.
+llNoThing = lfStDelBar()
+llNoThing = lfActFolder()
+*:***************************************************************************
+*: Name       : lfStDelBar
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/16/1999
+*: Purpose    : Change the prompt of the "Delete" bar number in 
+*:              the "File" pad in the system menu to be...
+*:              "Cancel/Uncancel"
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfStDelBar()
+*:***************************************************************************
+FUNCTION lfStDelBar
+
+lcDelMesag = IIF(lcPromp = lcCancel, "cancel", "uncancel") 
+lcMenProm  = PROPER(lcDelMesag) + " Material Manufacturing Order "
+DEFINE BAR lnDelBarNo OF (lcDelPadNm) PROMPT (lcMenProm)
+ON SELECTION BAR lnDelBarNo OF (lcDelPadNm) DO gfCPDelete
+SET SKIP OF  BAR lnDelBarNo OF (lcDelPadNm) lcCanStat  = "DISABLE"
+SHOW GET pbDlt,1 PROMPT lcPromp
+SHOW GET pbDlt &lcCanStat
+
+
+*:***************************************************************************
+*: Name       : lpvCTTran
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/16/1999
+*: Purpose    : Perfprm the "Options" selection.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : lnActBar : The bar number selected.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lpvCTTran()
+*:***************************************************************************
+FUNCTION lpvCTTran
+PARAMETERS lnActBar
+
+
+*-- If the parameter is not passed, means that the function is
+*-- called from the menu (No activation of any bar is forced).
+lnActBar = IIF(TYPE("lnActBar")#"N", BAR(), lnActBar)
+DO CASE
+
+  CASE lnActBar = 1
+    SET MARK OF BAR 1 OF _CTTRANS TO (lnActBar = 1)
+    SET MARK OF BAR 2 OF _CTTRANS TO .F.
+    lcActTrnBr = IIF(lnActBar = 1, "B", "T") 
+    IF !EMPTY(lcOptBrwTl) AND WEXIST(lcOptBrwTl)
+      RELEASE WINDOW (lcOptBrwTl)
+      = lfRefresh(lcCTChWin4)
+    ENDIF
+    *SHOW GETS WINDOW (lcCTChWn42) DISABLE ONLY
+    HIDE WINDOW (lcCTChWn44) SAME
+    SHOW WINDOW (lcCTChWn42) SAME
+    RELEASE BAR 103 OF P01PU01
+
+
+
+  *-- If the bar is "Receiving Browse"
+  CASE lnActBar = 2
+    SET MARK OF BAR 1 OF _CTTRANS TO .F.
+    SET MARK OF BAR 2 OF _CTTRANS TO (lnActBar = 2)
+    lcActTrnBr = IIF(lnActBar = 1, "R", "R") 
+    ACTIVATE WINDOW gwcContrl1
+    
+    SHOW GETS WINDOW (lcCTChWn42) DISABLE ONLY
+    SHOW GETS WINDOW (lcCTChWn41) DISABLE ONLY
+    SHOW GETS WINDOW (lcCTChWn44) ENABLE ONLY
+    
+    HIDE WINDOW (lcCTChWn42) SAME
+    
+    = lfOptBrows()
+    
+    DEFINE BAR 103 OF P01PU01 PROMPT lcOptBrwTl KEY ALT+J SKIP FOR (lnActFolder#2)
+    ON SELECTION BAR 103 OF P01PU01 ACTIVATE WINDOW (lcOptBrwTl)
+ENDCASE
+
+
+=lfUpdVars()
+llNoThing = lfwLnBrow()
+
+*:***************************************************************************
+*: Name       : lfvCostSh
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/16/1999
+*: Purpose    : Valid function for the "Cost Sheet" button in the 
+*:              control pannel.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfvCostSh()
+*:***************************************************************************
+FUNCTION lfvCostSh
+PRIVATE llOpnBom
+
+
+llCllCstSh = .T.
+
+*-- If the Material Mfg Order has no cost sheet and the Fabric used in the 
+*-- Material Mfg Order has also no cost sheet then display a message telling
+*-- that, and do not run the cost sheet program.
+IF laData[3] = "H"
+  =gfOpenFile(gcDataDir+"BOM","BOM","SH")
+  
+  *-- XXXXXXXXXX cost sheet not found for XXXXXXXXXX : 'XXXXXXXXXX'. 
+  *-- Cannot proceed with the Material MO cost sheet.
+  *-- < Ok >
+  lcStr      = ALLTRIM(laData[2])
+  llCllCstSh = !(!SEEK(ALLTRIM(laData[2]),"Bom") AND ;
+               gfModalGen("TRM36150B00000","DIALOG",lcStr)=1)
+ENDIF
+
+*-- Call the Material Mfg Order cost sheet program.
+IF llCllCstSh
+  *lcParameter = "'T','" + laData[1] + "'"
+  lcParameter = "'" + laData[1] + "'"
+  DO gpDoProg WITH "AWRMACSSH", .F., "MA", lcParameter
+ENDIF  
+
+*:***************************************************************************
+*: Name       : lfvQty
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/16/1999
+*: Purpose    : Current edited quantity field valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvQty()
+*:***************************************************************************
+FUNCTION lfvQty
+PRIVATE lnAlias, lcVarNam , lnLineNo
+
+IF m.nMFGTotQty  <> lcOldVal
+  *-- If negative, present a message
+  IF m.nMFGTotQty < 0
+     m.nMFGTotQty = lcOldVal
+    _CUROBJ = _CUROBJ
+  ELSE
+    lnAlias   = SELECT(0)
+    llNewLine = laScrMode[4] OR &lcTmpMMOLn..cStatus = "A"
+
+    SELECT (lcTmpMMOLn)
+    lnNewTot   = m.nMFGTotQty
+    lnOldTot   = lcOldVal
+    lnLineNo   = &lcTmpMMOLn..LineNo
+    llNoThing  = lfUpdHEst(lnOldTot, -1)
+    
+    *-- Seek In Fabric File to get Estimated cost
+    *-- only in case of add mode
+    *-- in case of Edit mode these cost elements contained in the mmfgordh file
+    IF SEEK(laData[2]+M.Color, 'Fabric')
+      
+      REPLACE nCost1     WITH FABRIC.nMCost1    ,;
+              nCost2     WITH FABRIC.nMCost2    ,;
+              nCost3     WITH FABRIC.nMCost3    ,;
+              nCost4     WITH FABRIC.nMCost4    ,;
+              nmfgtotqty WITH m.nmfgtotqty ,;
+              cStatus    WITH IIF(cStatus = "A" OR EMPTY(cStatus), "A", "M")
+    ENDIF
+   
+    *llNoThing =lfUpdHEst(nmfgtotqty, 1)
+    llNoThing =lfUpdHEst(lnNewTot, 1)
+    IF llNewLine
+      *-- Update budget amounts
+      laData[7]  = laData[7]  - lnOldTot + lnNewTot
+      *-- Update open amounts
+      laData[11] = laData[11] - lnOldTot + lnNewTot
+      IF !laData[24]
+        REPLACE CWARECODE WITH laWare[puWare,2]
+      ENDIF
+    ELSE
+      IF laData[3] = "A"
+        lnNewAct = laData[15]-(lnOldTot-lnNewTot)
+        IF laData[15] <= lnNewAct
+          laData[11] = laData[11] + (lnNewAct - laData[15])
+          laData[15] = lnNewAct
+        ELSE
+          laData[10] = laData[10] + (laData[15] - lnNewAct)
+          laData[11] = laData[11] - (laData[15] - lnNewAct)
+        ENDIF
+      ELSE
+        lnNewBud = laData[7]-(lnOldTot-lnNewTot)
+        IF laData[7] <= lnNewBud
+          laData[11] = laData[11] + (lnNewBud - laData[7])
+          laData[7] = lnNewBud
+        ELSE
+          laData[10] = laData[10] + (laData[7]-lnNewBud)
+          laData[11] = laData[11] - (laData[7]-lnNewBud)
+        ENDIF
+      ENDIF
+    ENDIF
+    
+    lNoThing = lfUpdVars()
+    SELECT(lnAlias)
+    SHOW WINDOW (lcLinesBrw) REFRESH SAME
+  ENDIF  
+ENDIF
+SHOW GET PBSWITCH DISABLE
+*:***************************************************************************
+*: Name       : lfUpdVars
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/17/99
+*: Purpose    : To update the incomplete session record with the
+*:              needed files names and variables.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfUpdVars()
+*:***************************************************************************
+FUNCTION lfUpdVars
+PRIVATE lnAlias
+lnAlias=SELECT(0)
+IF lnUnCmSeRc # 0
+  *-- Build the files names string.
+  lcFiles = "lcTmpMMOLn," + lcTmpMMOLn + ","   + ORDER(lcTmpMMOLn) + "; "
+  *-- Go and update the incomplete session record.
+  llNoThing = gfSavSess(lcProgID, lcFiles, @laVars, lcSession)
+ENDIF
+SELECT (lnAlias)
+
+*:***************************************************************************
+*: Name       : lfvNew
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/17/1999
+*: Purpose    : Add new line valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvNew()
+*:***************************************************************************
+FUNCTION lfvNew
+PRIVATE lcSetDele, lnAlias
+
+
+lnAlias = SELECT(0)
+SELECT (lcTmpMMOLn)
+
+*-- Prevent the user from adding more than one empty line
+*-- Seek There is empty line 19 spaces ( 6-cmfgordno + 7-FABRIC + 6-COLOR )
+
+IF !SEEK(SPACE(6)+laData[2]+SPACE(6))
+  APPEND BLANK
+ENDIF
+
+*-- If multiple location, clear the wareyouse
+IF laData[24]
+  m.cWareCode = SPACE(6)
+  puLnWare    = 0
+
+*-- Default the warehouse with the location of the header.
+ELSE
+  m.cWareCode = laData[4]
+  puLnWare    = puWare
+ENDIF
+
+REPLACE cMFGOrdNo WITH laData[1] ,;
+        cFabric   WITH laData[2] ,;
+        cWareCode WITH m.cWareCode,;
+        TranCd    WITH  '1'
+*        ,;
+*        cStatus   WITH "A"
+
+lcClrStat     = "ENABLE"
+SHOW GET m.Color ENABLE
+SHOW GET ibColor ENABLE
+=lfShowLine("D")
+_CUROBJ       = OBJNUM(m.Color)
+=lfwLnBrow()  
+SELECT(lnAlias)
+RETURN
+
+
+lnAlias = SELECT(0)
+SELECT (lcTmpMMOLn)
+
+m.Color     = SPACE(6)
+*-- If multiple location, clear the wareyouse
+IF laData[24]
+  m.cWareCode = SPACE(6)
+  puLnWare    = 0
+*-- Default the warehouse with the location of the header.
+ELSE
+  m.cWareCode = laData[4]
+  puLnWare    = puWare
+ENDIF
+
+*-- Be sure that the user does not add more that one empty new line.
+lcSetDele = SET("DELETED")
+SET DELETED OFF
+
+IF !SEEK(" ")
+  =SEEK(" ")
+  INSERT INTO (lcTmpMMOLn);
+  	(cMFGOrdNo, cFabric, cWareCode, TranCd, cStatus);
+	VALUES (laData[1], laData[2], m.cWareCode,'1',"A")
+
+ELSE
+ REPLACE cMFGOrdNo WITH laData[1] ,;
+  		  cFabric   WITH laData[2] ,;
+  		  cWareCode WITH m.cWareCode,;
+  		  TranCd    WITH  '1',;
+  		  cStatus   WITH "A"       
+ENDIF
+
+*Lineno
+SET DELETED &lcSetDele
+lcClrStat     = "ENABLE"
+SHOW GET m.Color ENABLE
+SHOW GET ibColor ENABLE
+=lfShowLine("D")
+_CUROBJ       = OBJNUM(m.Color)
+=lfwLnBrow()  
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lpSavScr
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/20/1999
+*: Purpose    : Local save function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lpSavScr()
+*:***************************************************************************
+PROCEDURE lpSavScr
+PRIVATE lnAlias, lcFldNam
+
+lnAlias    = SELECT(0)
+
+*-- Perform saving validations
+*-- If total pieces are zero, do not save
+
+IF !lfChkQty()
+  *-- Total pieces is zero. Tansaction cancelled.
+    = gfModalGen("INM38051B00000")
+  llCSave = .F.
+ELSE
+
+  SELECT (lcTmpMMOLN)
+  SET FILTER TO
+  GO TOP
+
+  *--Set Relation to Fabric File To Seek when FAbric+Color found
+  SET RELATION TO cFabric+Color INTO Fabric ADDITIVE
+
+  *-- Set Relation to FabDye File To Seek if FAbric + Color + WareHouse + Dyelot found
+  SET RELATION TO cFabric + Color + cWareCode + IIF(EMPTY(&lcTmpMMOLn..Dyelot) , SPACE(10) , &lcTmpMMOLn..Dyelot) INTO FabDye ADDITIVE
+
+  lnLstLine  = 0
+  llRecSaved = .F.
+
+  *-- Check if Manual order number
+  llEdtMONum = gfGetMemVar('M_GENMONUM') = "Y"
+
+  laData[01] = IIF(laScrMode[4], lfGetMONum(), laData[1])
+  laData[04] = laWare[puWare,2]
+  laData[25] = IIF(llMultiLot, "M", "S")
+
+  *-- If there is no open quantity
+  IF laScrMode[3] AND laData[11] = 0
+    *-- Complete the order if it is received, otherwise, Cancel
+    laData[3] = IIF(laData[8] > 0, "C", "X")
+    llNoThing    = lfSetStat(laData[3])
+    lcPromp      = IIF(laData[3]="X", lcUnCanc, lcCancel) 
+    lcCanStat    = "DISABLE"
+    llNoThing    = lfRefresh() AND lfStDelBar()
+    lcEdtStat    = "DISABLE"
+    laCtrStat[7] = lcEdtStat
+    SHOW GET pbEdt &lcEdtStat
+  ENDIF
+
+  *-- Open the BOM\FABDYE files.
+  =gfOpenFile(gcDataDir+"BOM","BOM","SH")
+
+  *-- Recall all the deleted lines.
+  lnODelStat = SET ("DELETE")
+  SET DELETE OFF
+  SELECT (lcTmpMMOLn)
+  RECALL FOR cMFGOrdNo = laData[1] .AND. cStatus ='D'
+  
+  SET DELETE &lnODelStat
+
+  *-- Count all the records to be processed to be used in the 
+  *-- Thermometer.
+  SELECT (lcTmpMMOLn)
+  COUNT ALL TO lnTotLine FOR cFabric+cWareCode+Dyelot = "" AND !EMPTY(cFabric)
+  lcHdrMsg  = "Updating Material Manufacturing Order..."
+  lnCurLine = 0
+
+  *-- These two files are required by the global function that 
+  *-- updates the BOM files.
+  llOpnOpr  = gfOpenFile(gcDataDir+"MFGOprHd","MFGOprHd","SH")
+
+  *-- Update the uncomplete session file with the object name.
+  llNoThing = lfUpdUnCmS("Open", "pbSav", .T.)
+
+  SELECT (lcTmpMMOLn)
+  GO TOP
+
+  llNoThing  = RLOCK()
+  REPLACE ALL cMfgOrdNo WITH laData[1]
+  UNLOCK
+
+  SCAN FOR !EMPTY(cFabric)
+    lnCurLine = lnCurLine + 1
+    = gfThermo(lnTotLine, lnCurLine, lcHdrMsg, &lcTmpMMOLn..cFabric)
+    SCATTER FIELDS nMfgTotQty  TO laNewQty
+
+    DO CASE
+  
+      CASE cStatus = "A"
+        llNoThing = IIF(nMfgTotQty > 0, lfAddLine(), .T.)
+    
+      CASE cStatus = "M"
+
+        llNoThing = lfModLine()
+      
+      CASE cStatus = "D"
+        llNoThing = lfDelLine()
+      
+      CASE cStatus = "S"
+        *-- Nothing has to be done here.
+     ENDCASE
+
+  ENDSCAN
+  
+  *-- Update the uncomplete session file.
+  llNoThing = lfUpdUnCmS("Complete", SPACE(0), .F.)
+  
+  lcScrMode = IIF(laScrMode[3], "V", "S")
+  IF WEXIST('gwdThermo')
+    =gfThermo(lnTotLine,lnTotLine,lcHdrMsg,"")
+  ENDIF
+  
+  *-- If Add mode add new record to the header file
+  *-- Else (Edit Mode) Update the header file form MEMVAR(s)
+  
+  IF laScrMode[4]
+    = lfDone()
+  ELSE
+    SELECT MMFGORDH
+    GATHER FROM laData FIELDS &lcScFields
+    REPLACE LastLine WITH lnLstLine
+
+    *=gfArDyRl('' , '' , lcCTChWin2,.T.)
+  ENDIF
+  SELECT (lcTmpMMOLN)
+
+  *-- Remove the relations
+  
+  SET RELATION TO
+  SELECT MMFGORDH
+  SET RELATION TO
+  SELECT MMFGORDD
+  *SET ORDER TO
+  
+  *-- Select base file to make global save unlock the record in base file
+  SELECT (lcBaseFile)
+
+ENDIF
+*:***************************************************************************
+*: Name       : lfGetMONum
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 06/20/1999
+*: Purpose    : Generate a new MMO number.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfGetMONum()
+*:***************************************************************************
+FUNCTION lfGetMONum
+PRIVATE lcRetVal
+
+IF llEdtMONum
+  lcMONum = SPACE(0)
+  PUSH KEY 
+  ON KEY
+  *B803011,1 [Start] Screen Name is MAMFGNum not MAMOGNum
+  *DO (gcScrDir+gcWinAppl+"\MAMOGNum.SPX")
+  DO (gcScrDir+gcWinAppl+"\MAMFGNum.SPX")
+  *B803011,1 [End]
+  POP KEY
+  lcRetVal = lcMONum
+ELSE
+  lcRetVal = gfSequence("cMfgOrdNo","","")
+ENDIF
+
+RETURN (lcRetVal)
+
+*:***************************************************************************
+*: Name       : lfDone
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/20/1999
+*: Purpose    : Take the last actions to be taken when creating 
+*:              new MMO
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfDone()
+*:***************************************************************************
+FUNCTION lfDone
+PRIVATE lnAlias
+
+lnAlias  = SELECT(0)
+IF llRecSaved
+  SHOW GET laData[1]
+  SELECT MMFGORDH
+
+  APPEND BLANK
+  llRLock = RLOCK()
+  GATHER FROM laData FIELDS &lcScFields
+  REPLACE LastLine WITH lnLstLine
+  UNLOCK
+  = IIF(llEdtMONum,.T.,gfModalGen("INM36147B00000","",laData[1]))
+
+  llGoToBom = .F.
+  DO CASE
+    CASE INLIST(lcGnCTBom,"A","T")      && Always/Automatic
+      llGoToBom = .T.
+
+    CASE lcGnCTBom = "M"              && Manual
+      llGoToBom = .F.
+
+    CASE lcGnCTBom = "S"              && Ask
+      *-- Would you like to create the Material MO cost sheet ?
+      *-- < Yes > < No >
+      llGoToBom = gfModalGen('QRM36161B38006') = 1
+  ENDCASE
+  
+  IF llGoToBom
+    IF SEEK(ALLTRIM(laData[2]), "Bom")
+      lcParameter = "'" + laData[1] + "'"+IIF(lcGnCTBom="T",",.T.",',.F.')
+      *lcParameter = "'T','" + laData[1] + "'"+IIF(lcGnCTBom="T",",.T.",',.F.')
+      STORE .F. TO laScrMode
+      laScrMode[1] = .T.
+      
+      DO gpDoProg WITH "AWRMACSSH", .F., "MA", lcParameter
+
+      llShow = .F.
+    ELSE
+      *-- XXXXXXXXXX cost sheet not found for XXXXXXXXXX : 'XXXXXXXXXX'. 
+      *-- Cannot proceed with the Material Manufacturing Order cost sheet.
+      *-- < Ok >
+      lcStr      = ALLTRIM(laData[2])
+      = gfModalGen("TRM36012B00000","DIALOG",lcStr)
+    ENDIF
+  ENDIF
+  
+ELSE
+  *-- Total pieces is zero. Tansaction cancelled.
+  = gfModalGen("INM38051B00000")
+
+  *--Reduce sequence file as MMO not saved
+  llSeqOpen = gfOpenFile(gcDataDir+"SEQUENCE","cSeq_Type","SH")
+  SELECT SEQUENCE
+  IF SEEK('cmMfgOrdH')
+    REPLACE nSeq_No WITH (nSeq_No - 1)
+  ENDIF
+  IF llSeqOpen
+    USE IN SEQUENCE
+  ENDIF
+ENDIF
+SELECT (lnAlias)
+*:***************************************************************************
+*: Name       : lpvCTZoom
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/22/1999
+*: Purpose    : Zoom/Unzoom the line browse, and call the cost sheet
+*:              program.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lpvCTZoom()
+*:***************************************************************************
+FUNCTION lpvCTZoom
+
+*-- Get the bar number clicked in the popup.
+lnBarNo = BAR()
+DO CASE
+  *-- Zoom
+  CASE lnBarNo = 2
+    *-- Reset the zoom flag.
+    llCTZoom = !llCTZoom
+    IF llCTZoom
+      *-- If we are zooming, then hide the edit regon objects, and 
+      *-- reelase the "Options" browse window if exist and re-browse
+      *-- the lines in the zoom window.
+      ACTIVATE WINDOW gwcContrl1
+      SHOW GETS WINDOW (lcCTChWn42) DISABLE ONLY
+      HIDE WINDOW (lcCTChWn42) SAME
+      RELEASE BAR 103 OF P01PU01
+      IF !EMPTY(lcOptBrwTl) AND WEXIST(lcOptBrwTl)
+        RELEASE WINDOW (lcOptBrwTl)
+        = lfRefresh(lcCTChWin4)
+      ENDIF
+    ELSE
+      *-- If we are unzooming then activate the "Option" window.
+      = lpvCTTran(ATC(lcActTrnBr,"BRO-T"))
+    ENDIF
+    *-- Update the zoom bar "Set Skip" flag.
+    SET MARK OF BAR 2 OF _OPTIONPOP TO llCTZoom
+    
+    *-- Refresh the lines browse, and save the zoom flag value in the
+    *-- uncomplete session file.
+    = lfLnBrowse() AND lfwLnBrow() AND lfUpdVars()
+    
+  *-- Call the Material MO Cost Sheet program.
+  CASE lnBarNo = 4
+    = lfvCostSh()
+ENDCASE
+*:***************************************************************************
+*: Name       : lfGtNewLn
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 07/01/1999
+*: Purpose    : Generate a new MO line number.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfGtNewLn()
+*:***************************************************************************
+FUNCTION lfGtNewLn
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+IF lnLstLine  = 0
+   lcMstMMOLn = SPACE(0)
+  = gfOpenFile(gcDataDir+"MMFGORDD","MMFGORDD","SH", @lcMstMMOLn, .T.)
+      
+  SELECT (lcMstMMOLn)
+  IF SEEK(laData[1])
+    SCAN REST WHILE cMfgOrdNo = laData[1]
+      lnLstLine = MAX(lnLstLine, LineNo)
+    ENDSCAN
+  ENDIF
+  = gfCloseFile(lcMstMMOLn)
+ENDIF
+lnLstLine = lnLstLine + 1
+
+SELECT (lcTmpMMOLn)
+llNoThing = RLOCK()
+REPLACE LineNo WITH lnLstLine
+m.lineno = lnLstLine
+UNLOCK
+
+SELECT(lnAlias)
+RETURN lnLstLine
+*!*************************************************************
+*! Name      : lfMakArry
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/22/1999
+*! Purpose   : Makes the Array to fill the WareHouse PopUp with.
+*!*************************************************************
+*! Calls     :  None.
+*!*************************************************************
+*! Parameters:  None
+*!*************************************************************
+*! Returns   :  None.
+*!*************************************************************
+*! Example   :  lfMakArry()
+*!*************************************************************
+FUNCTION lfMakArry
+
+*-- Opens the file needed to fill our array (laWare) with 2 fields from it
+*-- Then using this array (laWare) to fill the puWare popup 
+PRIVATE lnCurAlias
+
+lnCurAlias = SELECT(0)   && save current work area
+=gfOpenFile(gcDataDir+'WAREHOUS', 'WAREHOUS', 'SH')
+
+*IF llMultiWar
+ *--IF Multi WareHous , SQL & Fill array of WareHous POPUp.
+ SELECT 	cDesc, cWareCode;
+   FROM 	WAREHOUS      ;
+   INTO 	ARRAY laWare 
+  puWare=1
+  puLnWare=1
+  SHOW GET puWare
+  SHOW GET puLnWare
+* ELSE
+* ENDIF
+SELECT (lnCurAlias)
+
+
+*!*************************************************************
+*! Name      : lfGetWare
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/22/1999
+*! Purpose   : Shows in the WareHous Popup the WareHous of the selected 
+*!             order.Called only in View Mode
+*!*************************************************************
+*! Calls     :  None.
+*!*************************************************************
+*! Parameters:  None
+*!*************************************************************
+*! Returns   :  warehouse popup value
+*!*************************************************************
+*! Example   :  lfGetWare(m.cWareCode)
+*!*************************************************************
+FUNCTION lfGetWare
+PARAMETERS lcWareCode
+PRIVATE lcSetExact, lnWareNum
+
+lcSetExact = SET('EXACT')
+SET EXACT ON
+lnWareNum  = ASCAN(laWare, lcWareCode)
+SET EXACT &lcSetExact
+*-- hdm[start]
+*RETURN IIF(lnWareNum = 0, 0, ASUBSCRIPT(laWare, lnWareNum, 1))
+RETURN IIF(lnWareNum = 0, 1, ASUBSCRIPT(laWare, lnWareNum, 1))
+*--hdm [end]
+*!*************************************************************
+*! Name      : lfvpuWare
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/22/1999
+*! Purpose   : Valid Function of WareHouse PopUp
+*!*************************************************************
+*! Calls     :  None.
+*!*************************************************************
+*! Parameters:  None
+*!*************************************************************
+*! Returns   :  None.
+*!*************************************************************
+*! Example   :  lfvpuWare()
+*!*************************************************************
+ FUNCTION lfvpuWare
+ laWare[puWare,1]=laWare(puWare,1)
+ 
+ SELECT (lcTmpMmoLn)
+ IF !laData[24]
+   REPLACE ALL CWARECODE WITH laWare[puWare,2]
+ ENDIF
+
+*!*************************************************************
+*! Name      : lfGenLines
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/23/1999
+*! Purpose   : Generates details lines for MMO in ADD Mode.
+*!*************************************************************
+*! Calls     :  None.
+*!*************************************************************
+*! Parameters:  None
+*!*************************************************************
+*! Returns   :  None.
+*!*************************************************************
+*! Example   :  lfGenLines()
+*!*************************************************************
+
+FUNCTION lfGenLines
+*-- Paramter that holds data of Fabric ,so if we're in Add Mode
+*-- Colors,Patterns...etc,will be displayed in Order lines with 0 quantites
+PARAMETERS lcFabric
+PRIVATE lcSetExa, lnCurAlias
+
+*--Having selected a fabric before reaching this step,
+* the file pointer of FABRIC file should be positioned
+*on the correct fabric, hence use the following defaults.
+* Fill the cursor with all available colors from the fabric file
+lnNumOfDets = 0
+lnCurAlias = SELECT(0)
+
+*--If not multi warehouses, use default warehouse code 'DEFWHE' 
+
+IF !laData[24]
+
+  *m.cWareCode = laWare[puLnWare,2]
+  m.cWareCode = laWare[puWare,2]
+  lcSetExa =SET('EXACT')
+  SET EXACT ON
+  lnWarNum=ASCAN(laWare,m.cWareCode) 
+  SET EXACT &lcSetExa
+  puLnWare=IIF(lnWarNum = 0 , 0 , ASUBSCRIPT(laWare,lnWarNum,1))
+  SHOW GET puLnWare DISABLE
+ENDIF
+
+*-- Place the record pointer in FABRIC file on the current fabric.
+SELECT FABRIC
+IF SEEK(lcFabric)
+  *-- Collect all available colors for the fabric, lcFabric, 
+  *-- from FABRIC file. Place each color in a record as a default
+  *-- detail line with zero quantities and Transaction code = '1',
+  *-- giving it an 'A'dded record status.
+  SCAN REST WHILE Fabric = lcFabric
+  
+    lnNumOfDets = lnNumOfDets + 1       
+    INSERT INTO (lcTmpMMOLn) ;
+             (cFabric, Color, TranCd, Pattern, nmfgtotqty, cStatus, cWareCode, LineNo, DyeYN);
+             VALUES (lcFabric, FABRIC.Color, '1', FABRIC.Pattern, 0.000, 'A',laWare[puWare,2],0, FABRIC.cDye_Flg)
+    *lnNumOfDets
+  ENDSCAN
+  GO TOP IN (lcTmpMMOLn)
+ENDIF
+
+=lfwLnBrow()
+
+SELECT (lnCurAlias)
+RETURN lnNumOfDets
+
+*:***************************************************************************
+*: Name       : lfOptBrows
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/24/1999
+*: Purpose    : To browse the receivings for the current active MMO.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfOptBrows()
+*:***************************************************************************
+FUNCTION lfOptBrows
+PRIVATE lnAlias , lcMstrFile , lcMstrRec
+
+
+*-- Define array to hold Transaction Types
+
+lnAlias = SELECT(0)
+
+SELECT MMFGORDD
+*SET FILTER TO TranCD+cMfgOrdNo+cFabric = (lcOrderKy)
+
+
+*-- Be sure to release the options browse window before using it
+*-- again.
+IF !EMPTY(lcOptBrwTl) AND WEXIST(lcOptBrwTl)
+  RELEASE WINDOW (lcOptBrwTl)
+  = lfRefresh(lcCTChWin4)
+ENDIF
+
+
+*-- Determine which file to collect data from
+*-- If View mode Master File (MMFGORDD)
+*-- Else lcTmpMmoLn file
+lcMstrFile = IIF(laScrMode[2] , 'MMFGORDD' , lcTmpMmoLn)
+
+*-- Get The lines file record Number to display
+*-- the correct data in the optional browse
+lcMstrRec = IIF(EOF(lcMstrFile) , 0 , RECNO(lcMstrFile))
+
+*-- Set the proper file, fields and browse window title according to
+*-- the Selected bar in the "Option" menu pad.
+
+IF lcActTrnBr = "R"
+
+  *lcFields   = "cMarker=IIF(RECNO()=lnLnNo,'>',' '):1:R:H=' ':W=.F.,"+;
+               "lcRecTtl = IIF(!EMPTY(&lcTmpRec..TRANCD),laRecTtl[VAL(&lcTmpRec..TRANCD)-1],'E'):H='Receive',"+;
+               "&lcTmpRec..nmfgTotqty :H='Received QTY',"+;
+               IIF(llMultiWar,"&lcTmpRec..cWareCode:R:H='Warehouse',","")       +;
+               IIF(llDyelot,"&lcTmpRec..Dyelot:R:H='Dyelot'","")
+  lcFields   = "cMarker=IIF(RECNO()=lnLnNo,'>',' '):1:R:H=' ':W=.F.,"+;
+               "lcRecTtl = IIF(!EMPTY(&lcTmpRec..TRANCD),laRecTtl[VAL(&lcTmpRec..TRANCD)-1],'E'):H='Receive',"+;
+               "&lcTmpRec..nmfgTotqty :H='Received QTY'"+;
+               IIF(llMultiWar , ", &lcTmpRec..cWareCode:R:H='Warehouse'" , "")+;
+               IIF(llDyelot,",&lcTmpRec..Dyelot:R:H='Dyelot'","")               
+ENDIF               
+
+lcOptBrwTl = "Receive Log"
+
+
+*-- Create the receivings temporary file BASED ON MMFGORDD FILE STRUCTURE
+SELECT MMFGORDD
+=AFIELDS(laTmpStruc)
+CREATE TABLE (gcWorkDir+lcTmpRec+'.DBF') FROM ARRAY laTmpStruc
+SELECT (lcTmpRec)
+INDEX ON cmfgordno+cfabric+color+dyelot TAG lcTmpRec
+
+lcKey = "laData[1]"
+SELECT MMFGORDD
+lcFilterEx = FILTER()
+SET FILTER TO
+
+*-- Collect received lines from master file
+IF SEEK(laData[1])
+  lnRecNo = RECNO()
+  SCAN REST WHILE cmfgordno+cfabric+color+dyelot+trancd = laData[1] FOR trancd $ '234'
+    SCATTER MEMVAR MEMO
+    SELECT (lcTmpRec)
+    APPEND BLANK
+    GATHER MEMVAR MEMO
+  ENDSCAN
+ENDIF
+*SET FILTER TO TranCD+cMfgOrdNo+cFabric = (lcOrderKy)
+
+*-- Establish a relation between Lines Browse file and temporary receivings file
+*-- Just to browse receivings only for selected color
+*-- in the lines browse
+SELECT (lcMstrFile)
+SET RELATION TO cmfgordno+cfabric+color+dyelot INTO (lcTmpRec) ADDITIVE
+
+SHOW WINDOW (lcCTChWn41) REFRESH SAME
+
+ACTIVATE WINDOW (lcCTChWn44)
+SELECT (lcTmpRec)
+*GO TOP
+
+BROWSE FIELDS &lcFields WINDOW (lcCTChWn44) IN WINDOW (lcCTChWin4);
+       LOCK 0 SAVE NOWAIT NOEDIT NOCLEAR NOAPPEND NODELETE ;
+       NOMENU TITLE (lcOptBrwTl) WHEN lfwOptBrow() VALID :F lfvBrow()
+
+
+*=lfRefresh(lcCTChWn41)
+
+*-- Just to refresh the browse pointer.
+*-- and adjust the record pinter in the
+*-- lines browsing file
+IF lcMstrRec > 0 
+  GO lcMstrRec IN (lcMstrFile)
+ENDIF
+= lfwOptBrow()
+SHOW WINDOW (lcOptBrwTl) REFRESH SAME
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfChkUnComS
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/26/99
+*: Purpose    : To check if there is any privous incomplete 
+*:              session for the program.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : .T. -> Yes I found a privous incomplete session.
+*:              .F. -> No I did not find any privous incomplete 
+*:                     session.
+*:***************************************************************************
+*: Example    : = lfChkUnComS()
+*:***************************************************************************
+FUNCTION lfChkUnComS
+PRIVATE llFondSess, lnAlias
+
+= gfOpenFile(gcDataDir+"UnCmSess","TRANS","SH")
+
+*-- Is there any previous incomplete program session ???
+IF gfUnCompSession(lcProgID, lnThisSess, "Material Manufacturing Order")
+  *-- If yes, please tell me where did we stop in that session..
+  llFondSess = .T.
+  lcCurObj   = ALLTRIM(UnCmSess.cCurrObj)
+ = lfRestVar()
+  SHOW GETS
+  IF !EMPTY(lcCurObj)
+    _CUROBJ = OBJNUM(&lcCurObj)
+    KEYBOARD "{ENTER}" PLAIN CLEAR
+  ENDIF
+ELSE
+  *-- If there is no incomplete session, please create the temp
+  *-- files.
+  = lfCrtTmpLn()
+  llFondSess = .F.
+ENDIF
+
+*-- Do all the needed browses..
+lnAlias    = SELECT(0)
+lcFile     = IIF(laScrMode[1] OR laScrMode[2], "MMFGORDD", lcTmpMMOLn)
+SELECT (lcFile)
+GOTO TOP
+llNoThing = lfLnBrowse() AND lfwLnBrow()
+SELECT(lnAlias)
+
+RETURN (llFondSess)
+*:***************************************************************************
+*: Name       : lfRestVar
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/26/99
+*: Purpose    : Reset the needed variables when finding any previous
+*:              incomplete session.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfRestVar()
+*:***************************************************************************
+FUNCTION lfRestVar
+
+laScrMode  = .F.
+laScrMode[ATC(lcScrMode,"SVEA")] = .T.
+llCUpdate  = .T.
+llContinue = .T.
+lcSession  = UnCmSess.cSession
+= IIF(laScrMode[3], SEEK(laData[1], "MMFGORDH"), .T.)
+llRefPage2 = .T.
+= lfChngFolder(lnActFolder)
+
+*:*************************************************************************
+*! Name      : lfTotalAct
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/26/1999
+*! Purpose   : to get the TOTAL OF ACTUAL COST
+*:*************************************************************************
+*! Calls     : None
+*:*************************************************************************
+*! Passed Parameters  : None
+*:*************************************************************************
+*! Returns            : None
+*:*************************************************************************
+*! Example   : = lfTotalAct()
+*:*************************************************************************
+*E301243,1
+FUNCTION lfTotalAct
+PARAMETERS lcTotal
+RETURN (IIF(laData[3] $ 'A' AND laData[26] > 0 ,;
+        ROUND((laData[20]+laData[21]+ladata[22]+ladata[23])/laData[26],4),;
+        IIF(laData[3]$'CS' AND laData[8]>0,ROUND((laData[20]+laData[21]+ladata[22]+ladata[23])/laData[13],4),;
+        0)))
+*-- End of lfTotalAct.
+*!*************************************************************
+*! Name      : lfvOrdQty
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/27/1999
+*! Purpose   : Valid function of browse fields.
+*!             Validates the order quantity per line.
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  BROWSE FIELDS TotQty:V=lfvOrdQty()
+*!*************************************************************
+FUNCTION lfvOrdQty
+PRIVATE lcCurField, lnCurField
+
+lcCurField = SYS(18)
+lnCurField = EVALUATE(SYS(18))
+*--If the current field content is negative, replace it with the
+*-- old value and present a message.
+IF lnCurField < 0 
+  =gfDialog('I', lcTNegNums)
+  lcCurField = SYS(18)
+  REPLACE &lcCurField WITH lnOldVal
+
+*--Else, reflect the current update on m.Budget, m.Open
+*--and mark the record status as 'M'odified for existing entries
+*--and 'A'dded for new entries.
+ELSE 
+  m.nMmgBudget= laData[7]
+  m.nMmfgopen= laData[11]
+  m.nMmgBudget  = m.nMmgBudget - lnOldVal + lnCurField
+  ** REN
+  *m.nMmfgopen    = m.nMmfgopen   - lnOldVal + lnCurField
+  m.nMmfgopen    = MAX(m.nMmfgopen   - lnOldVal + lnCurField, 0)
+  =gfUpdate()
+  
+REPLACE nMfgTotQty WITH PADR(ALLTRIM(m.nMfgTotQty),6),;
+        cStatus WITH SUBSTR('MMA', AT(cStatus, 'SMA'), 1)  
+SHOW GET m.nMfgTotQty
+  =lfRefresh('lcCTChWn41')         
+ENDIF  
+*!*************************************************************
+*! Name      : lfBrOldVals
+*! Developer : Hossam El Etreby {HDM}
+*! Date      : 06/27/1999
+*! Purpose   : When function of browse fields.
+*!             Stores a fields old value
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  BROWSE FIELDS nmfgtotqty:W=lfBrOldVals()
+*!*************************************************************
+FUNCTION lfBrOldVals
+m.nMfgTotQty = EVALUATE(SYS(18))
+SHOW GET m.nMfgTotQty
+
+*!*************************************************************
+*! Name      : lfvFldObj
+*! Developer : Hossam El Etreby {HDM} 
+*! Date      : 06/27/1999
+*! Purpose   : Valid function of any free format get field
+*!*************************************************************
+*! Returns            :  None
+*!*************************************************************
+*! Example            :  =lfvFldObj()
+*!*************************************************************
+FUNCTION lfvFldObj
+PRIVATE lcFldName, lcObjVal, lnAlias
+
+lcFldName = SYS(18)
+lcObjVal  = EVALUATE("m."+lcFldName)
+IF lcOldVal <> lcObjVal
+  lnAlias    = SELECT(0)
+  SELECT(lcTmpMMOLn)
+  REPLACE &lcFldName WITH PADR(ALLTRIM(lcObjVal), FSIZE(lcFldName, "MMFGORDD")),;
+          cStatus WITH SUBSTR('MMA', AT(cStatus, 'SMA'), 1)  
+  =gfUpdate()
+  SHOW WINDOW (lcLinesBrw) REFRESH SAME
+  SELECT (lnAlias)        
+ENDIF
+
+
+*:***************************************************************************
+*: Name       : lfAdUnCmSR
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/29/99
+*: Purpose    : To add an incomplete session record.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfAdUnCmSR()
+*:***************************************************************************
+FUNCTION lfAdUnCmSR
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+
+*-- Open the UnCmSess file.
+= gfOpenFile(gcDataDir+"UnCmSess","TRANS","SH")
+
+
+*-- Look for any record with the status "Initial".
+SELECT UnCmSess
+IF !SEEK('I')
+  *-- If you do not find any, please add a new record.
+  APPEND BLANK
+ENDIF
+
+*-- Save the record number..
+lnUnCmSeRc = RECNO()
+
+*-- Be sure to blank the record..
+BLANK
+
+*-- Update the record with my program information.
+REPLACE Status     WITH 'O'       ,;
+        cUTranType WITH lcProgID  ,;
+        cProgram   WITH lcProgID  ,;
+        cCurrScr   WITH lcProgID  ,;
+        cUserId    WITH gcUser_id ,;
+        cSession   WITH lcSession ,;
+        cCurrObj   WITH SPACE(0)  ,;
+        dTranDate  WITH gdSysDate ,;
+        cTranTime  WITH TIME()
+llNoThing = lfUpdVars()
+llNoThing = RLOCK()
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfUpdUnCmS
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/29/99
+*: Purpose    : To update the incomplete session record.
+*:***************************************************************************
+*: Parameters : lcStatus : Update the record with this status.
+*:              lcCurObj : Update the record with this object name.
+*:              llSetCon : Lock\Unlock the record.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfUpdUnCmS()
+*:***************************************************************************
+FUNCTION lfUpdUnCmS
+PARAMETERS lcStatus, lcCurObj, llSetCon
+PRIVATE lnAlias
+
+*-- If there is an incomplete session record for this session..
+IF lnUnCmSeRc <> 0
+  lnAlias  = SELECT(0)
+  lcStatus = UPPER(LEFT(lcStatus,1))
+
+  *-- Go and update it..
+  SELECT UnCmSess
+  GOTO lnUnCmSeRc
+  UNLOCK
+  REPLACE cCurrObj WITH lcCurObj ,;
+          Status   WITH lcStatus
+  llNoThing = RLOCK()
+
+  *-- If you are asked to unlock the record, please do..
+  IF !llSetCon
+    UNLOCK 
+  ENDIF
+
+  SELECT(lnAlias)
+ENDIF
+*:***************************************************************************
+*: Name       : lfvDyelot
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/29/1999
+*: Purpose    : The Dyelot valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvDyelot()
+*:***************************************************************************
+FUNCTION lfvDyelot
+PRIVATE lnAlias, lnDyeRec
+lnAlias = SELECT(0)
+SELECT (lcTmpMMOLn)
+lnDyeRec = IIF(EOF(),0,RECNO())
+IF !EMPTY(m.Dyelot)
+  lnRecTmp = IIF(EOF(),0,RECNO())
+  lcExp = cmfgordno + cfabric + m.color + m.cwarecode + m.dyelot + trancd
+  IF SEEK(lcExp) AND lnRecTmp <> RECNO()
+    IF lnRecTmp > 0
+      GOTO lnRecTmp
+    ENDIF
+    BLANK
+    DELETE
+    = SEEK(lcExp)
+  ELSE
+    SELECT (lcTmpMMOLn)
+    IF lnRecTmp > 0
+    GOTO lnRecTmp
+    ENDIF
+    llSaveRec = .T.
+
+    IF llSaveRec
+      *llNoThing = RLOCK()
+      REPLACE Dyelot WITH m.Dyelot,;
+              DYEYN  WITH 'Y'
+      *UNLOCK
+      =lfChkLnKey('D')
+      SHOW GET m.Dyelot DISABLE
+    ELSE
+      m.Dyelot = SPACE(10)
+      _CUROBJ  = _CUROBJ
+    ENDIF
+  ENDIF
+ENDIF  
+IF lnDyeRec >0
+  SELECT (lcTmpMMOLn)
+  GO lnDyeRec
+ELSE
+*  GO TOP
+ENDIF
+llNoThing = lfwLnBrow()
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfColorBr
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/29/1999
+*: Purpose    : The Color Browse Function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfColorBr()
+*:***************************************************************************
+FUNCTION lfColorBr
+IF !EMPTY(m.Color)
+ m.Fabric=laData[2]
+ DO FABROW WITH m.Fabric,m.Color
+ SHOW GET m.nmfgtotqty ENABLE
+ENDIF
+
+*!*************************************************************
+*! Name      : lfvColor
+*! Developer : Hossam El Etreby {HDM}
+*! Date      : 07/01/1999
+*! Purpose   : Validation color field
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Parameters: None
+*!*************************************************************
+*! Returns   :  None.
+*!*************************************************************
+FUNCTION lfvColor
+PRIVATE lnAlias , lnRecNo
+*B603987,1 KAM we add declartion variables,also chechk if user click mouse
+*B603987,1  for browsing  
+*--lnRecNo  hold current record in lcTmpMMOLn file
+*--lnAlias  hold the current number area
+*--lnRecPos hold  the record number in case no dye for returng back it
+
+lnRecPos=0
+lnAlias = SELECT(0)
+lnRecNo = IIF(EOF(lcTmpMMOLn) , 0 , RECNO(lcTmpMMOLn))
+IF MDOWN()
+  RETURN
+ENDIF
+*B603987,1 KAM[end]
+
+*-- If browsing, or, if the field is not empty
+IF llBrowse .OR. !EMPTY(m.Color)
+  *-- If the color is a valid color from the Fabric file, 
+  lnAlias = SELECT(0)
+  IF lfVldColor(@m.Color)
+    *-- Check for duplicate entries..
+    lnRecNo = IIF(EOF(lcTmpMMOLn) , 0 , RECNO(lcTmpMMOLn))
+    
+    IF lfChkLnKey("C")
+      IF lnRecNo > 0
+        GO lnRecNo IN &lcTmpMMOLn
+      ENDIF
+      SELECT(lcTmpMMOLn)
+      REPLACE Color    WITH m.Color,;
+              DyeYN    WITH FABRIC.cDye_Flg,;
+              PATTERN  WITH FABRIC.PATTERN
+
+      m.Pattern = FABRIC.PATTERN
+    *B603987,1 KAM here we add else statement if lfchklnkey return false[start]
+    ELSE   && lfchklnkey
+      IF !llDyelot or m.DyeYN = 'N' 
+        SELECT(lcTmpMMOLn)
+        IF !EOF()
+          GO lnRecNo
+          BLANK
+          DELETE
+          GO lnRecPos
+          =lfwLnBrow()
+          lnRecPos=0
+        ENDIF
+      ENDIF  
+    *B603987,1 KAM[end]
+    ENDIF && lfchklnkey
+    SHOW GET m.Color DISABLE
+    SHOW GET ibColor DISABLE
+    lcClrStat      = "DISABLE"
+    IF laData[24]
+      SHOW GET puLnWare ENABLE
+      lcWareStat = "ENABLE"
+    *B603987,1 KAM assign default value to m.cwarestat[start]
+    ELSE
+      m.cWareCode=laWare(puWare,2)
+      REPLACE cWareCode WITH m.cWareCode
+    *B603987,1 KAM[end]
+    ENDIF
+    IF llDyelot .AND. DyeYN = "Y" AND EMPTY(m.Dyelot)
+      IF laScrMode[4] OR laScrMode[3]
+        SHOW GET m.Dyelot ENABLE
+        lcDyeStat = "ENABLE"
+      ELSE
+        SHOW GET m.Dyelot DISABLE
+        lcDyeStat = "DISABLE"
+      ENDIF
+    ENDIF  
+    *-- Else 
+  ELSE && if lfVldColor
+    *-- Clear the field, and make it the current object.
+    *B603987,1 KAM we add else statement for invalid color selection
+    *m.Color = SPACE(6)
+    *_CUROBJ = _CUROBJ
+    SELECT(lcTmpMMOLn)
+    IF !EOF()
+      GO lnRecNo
+      BLANK
+      DELETE
+      GO TOP
+      =lfwLnBrow()
+    ENDIF  
+    SHOW GET ibColor DISABLE
+    SHOW GET m.Color DISABLE
+    SHOW GET m.pattern ENABLE
+    SHOW GET m.reference ENABLE
+    SHOW GET m.nmfgtotqty ENABLE
+    _CUROBJ = OBJNUM(pbNew )
+    *B603987,1 KAM[end]
+  ENDIF  && if lfVldColor
+  *B603987,1 KAM we add else statement fo invalid color selection
+  *B603987,1     also we make deletion operation for duplicate record
+  *B603987,1     in cases we determined here[start] 
+ELSE  && if llBrowse .OR. !EMPTY(m.Color)
+  SELECT(lcTmpMMOLn)
+  IF !EOF()
+    GO lnRecNo
+    BLANK
+    DELETE
+    GO TOP
+    =lfwLnBrow()
+  ENDIF  
+  SHOW GET ibColor DISABLE
+  SHOW GET m.Color DISABLE
+  SHOW GET m.pattern ENABLE
+  SHOW GET m.reference ENABLE
+  SHOW GET m.nmfgtotqty ENABLE
+  _CUROBJ = OBJNUM(pbNew )
+*B603987,1 KAM[end]
+ENDIF  && if llBrowse .OR. !EMPTY(m.Color)
+SELECT (lnAlias)
+*!*************************************************************
+*! Name      : lfVldColor
+*! Developer : Hossam El Etreby {HDM}
+*! Date      : 07/01/1999
+*! Purpose   : Validation color field
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Parameters: None
+*!*************************************************************
+*! Returns   :  None.
+*!*************************************************************
+FUNCTION lfVldColor
+PARAMETER lcColor
+PRIVATE lcVldClr, llRetVal , lcAlias
+
+lcAlias = SELECT(0)
+lcVldClr = lcColor
+
+*-- IF browsing or, the color is not found in fabric file
+
+IF llBrowse .OR. !SEEK(laData[2] + lcVldClr, "Fabric")
+  lcVldClr = CHR(240)
+  IF FABROW(laData[2], @lcVldClr)
+    llRetVal = .T.
+    lcColor  = lcVldClr
+  *-- Assign value to m.DyeYN variable
+  m.DyeYN = FABRIC.cDye_Flg
+  llRetVal = .T.  
+  ELSE
+    llRetVal = .F.
+  ENDIF
+ELSE
+  *-- Assign value to m.DyeYN variable
+  m.DyeYN = FABRIC.cDye_Flg
+  llRetVal = .T.  
+ENDIF
+SELECT(lcAlias)
+RETURN llRetVal
+
+
+*!*************************************************************
+*! Name      : lfChkLnKey
+*! Developer : Hossam El Etreby {HDM}
+*! Date      : 07/01/1999
+*! Purpose   : 
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Parameters: None
+*!*************************************************************
+*! Returns   :  None.
+*!*************************************************************
+FUNCTION lfChkLnKey
+PARAMETER lcObject , llNoAdd
+PRIVATE lcLnKeyExp, lnAlias, llEndOfKey, llUpdLine,lnRecNo
+
+lnAlias = SELECT(0)
+
+llEndOfKey=.F.
+
+*-- Check if the current fabric uses dyelots
+IF llDyelot .AND. m.DyeYN = 'Y'
+  IF !EMPTY(M.DYELOT)
+    llEndOfKey = lcObject = "D"
+    lcLnKeyExp = laData[1] + laData[2] + m.Color + m.cWareCode + m.Dyelot
+    SHOW GET M.DYELOT DISABLE
+    =lfShowLine("E")
+  ELSE
+    IF laScrMode[3] OR laScrMode[4]
+      SHOW GET M.DYELOT ENABLED
+    ENDIF
+    =lfShowLine("D")
+  ENDIF
+ELSE
+  *-- Check if the current order has multiple locations
+  IF laData[24]
+    IF !EMPTY(M.cWareCode)
+      llEndOfKey = lcObject = "L"
+      SHOW GET puLnWare DISABLE
+    ELSE
+      IF laScrMode[3] OR laScrMode[4]
+        *SHOW GET puLnWare ENABLE
+      ENDIF
+    ENDIF
+  ELSE
+    llEndOfKey = .T.
+  ENDIF  
+  IF laData[24]
+    lcLnKeyExp = laData[1] + laData[2] + m.Color + m.cWareCode
+    
+  ELSE
+    lcLnKeyExp = laData[1] + laData[2] + m.Color
+    
+  ENDIF
+ENDIF  
+
+llUpdLine = .T.
+
+*-- Proceed with validation if it is the end of the key
+IF llEndOfKey AND !EMPTY(laData[2])
+    
+  *lnAlias = SELECT(0)
+  SELECT (lcTmpMMOLn)
+  =SEEK(lcLnKeyExp)
+  *-- If a key is found, 
+  *KAM
+  IF FOUND()
+    IF !llDyelot or m.DyeYN = 'N' 
+       lnRecPos=RECNO()
+       llUpdLine = .F.
+    ENDIF  
+  ENDIF  
+  *KAM
+  lnRecNo = IIF(EOF(lcTmpMMOLn), 0 ,RECNO(lcTmpMMOLn))
+  *-- if it already exists, delete the current record,
+  IF EMPTY(CSTATUS)  AND SEEK(lcLnKeyExp) &&AND !llNoAdd
+    GO lnRecNo
+    *-- Position the record pointer on the existing record.
+    SEEK(lcLnKeyExp)
+    *-- Refresh display
+    =lfwLnBrow()
+    llUpdLine = .F.
+  ELSE
+    IF !EOF()
+      IF lnRecNo > 0
+        GO lnRecNo
+      ENDIF
+
+      *-- REPLACE CSTATUS in add  mode with A --> Add
+      *--                    Edit mode with M --> Modified
+      REPLACE cStatus WITH IIF(cStatus = "A" , "A" , "M")
+    ENDIF
+  ENDIF  
+  lnNumOfDets = lnNumOfDets + 1
+  *-- disable key objects
+  *-- enable the rest of the objects 
+  IF laScrMode[3] OR laScrMode[4]
+    =lfShowLine("E")
+  ENDIF
+ELSE
+  IF laScrMode[3] OR laScrMode[4]
+  IF EMPTY(lcObject)
+    =lfShowLine("E")
+  ELSE
+    =lfShowLine("D")
+  ENDIF
+  ENDIF
+ENDIF
+*IF !EMPTY(lnAlias)
+SELECT (lnAlias)
+*ENDIF
+RETURN llUpdLine
+*:***************************************************************************
+*: Name       : lfvRem
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/06/1999
+*: Purpose    : Remove line valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvRem()
+*:***************************************************************************
+FUNCTION lfvRem
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+SELECT (lcTmpMMOLn)
+
+IF laScrMode[3] AND lfChkPrc()
+  *-- There has been activity against this line. Not allowed to delete
+  *-- < Ok > 
+  = gfModalGen('TRM38101B00000')
+ELSE
+  *-- Are you sure you want to delete this line ?
+  *-- < Yes > < No > 
+  IF gfModalGen('QRM38102B38006') = 1
+    llDelete = .T.
+    IF llDelete
+      SELECT (lcTmpMMOLn)
+      llNoThing = lfUpdHEst(nMfgTotQty, -1)
+      llNewLine = laScrMode[4] OR &lcTmpMMOLn..cStatus = "A"
+      IF llNewLine
+        laData[7] = laData[7] - nMfgTotQty
+        laData[11] = laData[11] - nMfgTotQty
+      ELSE
+        laData[10] = laData[10] + nMfgTotQty
+        *laData[35] = laData[35] + IIF(laData[3]="A", 0, nMfgTotQty)
+        laData[11] = laData[11] - nMfgTotQty
+      ENDIF
+      IF cStatus = "A" OR EMPTY(cStatus)
+        DELETE
+      ELSE
+        REPLACE cStatus WITH "D"
+      ENDIF
+      *DELETE
+      GOTO TOP
+      lnNumOfDets = lnNumOfDets - 1
+      IF lnNumOfDets = 0
+        SHOW GET pbRem DISABLE
+        =lfShowLine("D")
+      ENDIF
+      = lfwLnBrow()
+    ENDIF
+  ENDIF
+ENDIF
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfChkPrc
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/06/1999
+*: Purpose    : Check that the active MMO line has no
+*:              receivings, this check will be performed prior to 
+*:              deleteing the active MMO line.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfChkPrc()
+*:***************************************************************************
+FUNCTION lfChkPrc
+PRIVATE lcExp, lnAlias, llRetVal , lcOldTag
+
+lnAlias    = SELECT(0)
+llRetVal   = .F.
+*lcExp      = laData[1] + laData[2] 
+lcExp      = laData[1] + STR(m.LineNo,6)
+
+*cMfgOrdNo+cFabric = lcExp FOR TranCD <> "1"
+
+SELECT MMFGORDD
+lcOldTag = ORDER()
+SET ORDER TO TAG Mmfgorddln
+
+IF SEEK(lcExp)
+  LOCATE REST WHILE cMfgOrdNo + STR(Lineno,6) = lcExp;
+     FOR TranCD <> "1"
+  llRetVal = FOUND()
+ENDIF
+SET ORDER TO (lcOldTag)
+SELECT (lnAlias)
+RETURN llRetVal
+
+
+*:***************************************************************************
+*: Name       : lfUpdHEst
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/06/1999
+*: Purpose    : Update the MMO header estimated cost fields that are
+*:              dislayed in the summary folder on the screen.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfUpdHEst()
+*:***************************************************************************
+FUNCTION lfUpdHEst
+PARAMETERS lnQty, lnSign
+PRIVATE lnAlias, llComFrFab , lnFabQty , lnItemAmnt ,lnCstType , llComFrFab
+
+llComFrFab = .T.
+IF laData[3] # "H"
+  lnAlias = SELECT(0)
+
+  *- Open the BomLine file.
+  = gfOpenFile(gcDataDir+"BomLine","BomLine","SH")
+  SELECT BomLine
+  IF SEEK("T"+"1"+laData[1] + STR(LineNo,6))
+    SCAN WHILE cIMTyp + cType + CtktNo    + STR(LineNo,6) =;
+               "T"    + "1"   + laData[1] + STR(&lcTmpMMOLn..LineNo,6) ;
+           FOR STYLE = PADR(&lcTmpMMOLn..cFabric,19) AND ;
+               SCLR  = PADR(&lcTmpMMOLn..COLOR,6)    AND ;
+               !lVoid
+      
+      *lnFabQty         = m.nMfgTotQty
+      lnFabQty          = lnQty
+      lnItemAmnt        = lnFabQty * UnitQty * UnitCost
+      lnCstType         = 11 + VAL(cBomTyp)
+      laData[lnCstType] = laData[lnCstType]+(lnItemAmnt*lnSign)
+      llComFrFab        = .F.
+    ENDSCAN
+  ENDIF
+  SELECT(lnAlias)
+ENDIF
+
+IF llComFrFab
+  laData[12] = laData[12] + (lnSign * FABRIC.nMCost1 * lnQty)
+  laData[13] = laData[13] + (lnSign * FABRIC.nMCost2 * lnQty)
+  laData[14] = laData[14] + (lnSign * FABRIC.nMCost3 * lnQty)
+  laData[15] = laData[15] + (lnSign * FABRIC.nMCost4 * lnQty)
+ENDIF
+
+*:***************************************************************************
+*: Name       : lfUpdBom
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/06/1999
+*: Purpose    : Update the master BomLine, CtktBom file for the
+*:              currently edited MMO it has a cost
+*:              sheet, that's in case of Add, Modify, Delete a
+*:              material Manufacturing order line, and upon saving 
+*:              to the master files.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfUpdBom()
+*:***************************************************************************
+FUNCTION lfUpdBom
+PRIVATE lnAlias , lnRecNo , lnOfsQty
+
+
+lnAlias  = SELECT(0)
+llRetVal = .T.
+IF laScrMode[3] AND laData[3] = "O"
+  
+  *-- Prepare the sent parameters to the global function.
+  =gfOpenFile(gcDataDir+'CTKTBOM' , 'CTKTBOM' , 'SH')
+  llNoThing  = SEEK("T"+laData[1], "CTktBom")
+  llNoThing  = SEEK(laData[1]    , "MMFGORDH")
+  lcLinkCode = CTktBom.Link_Code
+  lnLineNo   = &lcTmpMMOLn..LineNo
+  lcFabric   = &lcTmpMMOLn..cFabric
+  lcColor    = &lcTmpMMOLn..Color
+  lcDyelot   = &lcTmpMMOLn..Dyelot
+  lcWareCode = &lcTmpMMOLn..cWareCode
+  lcLastOpr  = MMFGORDH.cLastOpr
+  lcAction   = &lcTmpMMOLn..cStatus
+  lnEst1     = &lcTmpMMOLn..ncost1
+  lnEst2     = &lcTmpMMOLn..ncost2
+  lnEst3     = &lcTmpMMOLn..ncost3
+  lnEst4     = &lcTmpMMOLn..ncost4
+  
+  *-- The array to be sent to the global function should hold
+  *-- the new values - the old values
+  SELECT (lcTmpMMOLn)
+  STORE 0 TO laBomQty
+  IF SEEK(cmfgordno + cfabric + color + dyelot + trancd,'MMFGORDD')
+    lnOfsQty = (MMFGORDD.nMFGTotQty - nMFGTotQty ) * -1
+  ELSE
+    lnOfsQty = nMFGTotQty
+  ENDIF
+  IF lcAction = 'D'
+    lnOfsQty = &lcTmpMMOLn..nMFGTotQty *(-1)
+  ENDIF
+  laBomQty[1] = lnOfsQty
+  laBomQty[9] = lnOfsQty
+
+  IF &lcTmpMMOLn..nStep < 1
+    *-- Open the BomLine file.
+    = gfOpenFile(gcDataDir+"BomLine","BomLine","SH")
+    lcFabric=PADR(ALLTRIM(laData[2]), 7)
+
+    *-- Call the global function to
+    *-- Update MMO line no in cost sheet files
+
+    WAIT WINDOW 'Updating Cost sheet for fabric/color: ' + lcFabric +"/"+ lcColor NOWAIT
+    lnRecNo = IIF(EOF(lcTmpMMOLn) , 0 , RECNO(lcTmpMMOLn))
+    
+    *B606496,1 AMH Fix the bug of Incorrect PO Cost Sheet required qty because of using the bom file
+    *B606496,1     instead of bomline. If its a new line then we will use the bom file, otherwise
+    *B606496,1     we will simulate the bom file from the bomline[Start]
+    *llRetVal = gfSheetItem("T"       , laData[1] , lcLinkCode         , lcFabric          , lcColor   ,;
+                           lnLineNo  , lcDyelot  , MMFGORDH.cWareCode , MMFGORDH.cMatWare , @laBomQty ,;
+                           "Bom"     , "CtktBom" , "BomLine"          , "MFGOprHd"        , lcLastOpr ,;
+                           0         , 0         , 0                  , 0                 , 0         ,;
+                           0         , lcCTChWin2)
+    IF lcAction = 'A'
+      llRetVal = gfSheetItem("T"       , laData[1] , lcLinkCode         , lcFabric          , lcColor   ,;
+                             lnLineNo  , lcDyelot  , MMFGORDH.cWareCode , MMFGORDH.cMatWare , @laBomQty ,;
+                             "Bom"     , "CtktBom" , "BomLine"          , "MFGOprHd"        , lcLastOpr ,;
+                             0         , 0         , 0                  , 0                 , 0         ,;
+                             0         , lcCTChWin2)
+    ELSE
+      =lfModBom()
+    ENDIF
+    *B606496,1 AMH [End]
+    
+    IF lnRecNo > 0
+      GO lnRecNo IN &lcTmpMMOLn
+    ENDIF
+    llNoThing = lfUpdStp(lcTmpMMOLn, 1)
+  ENDIF
+ENDIF
+
+SELECT (lnAlias)
+RETURN (llRetVal)
+
+*:***************************************************************************
+*: Name       : lfUpdStp
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/06/99
+*: Purpose    : To update the nStep field in a specific temp file.
+*:***************************************************************************
+*: Parameters : lcFileName : Please update this file.
+*:              lnStepNo   : Please update the step field with this
+*:                           number.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfUpdStp("ARHIST", 1)
+*:***************************************************************************
+FUNCTION lfUpdStp
+PARAMETERS lcFileName, lnStepNo
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+SELECT (lcFileName)
+*-- Update the needed file with the new step number..
+llNoThing  = RLOCK()
+REPLACE nStep WITH lnStepNo
+UNLOCK
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfAddLine
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/06/1999
+*: Purpose    : Add new line in the MMO to the master files.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfAddLine()
+*:***************************************************************************
+FUNCTION lfAddLine
+PRIVATE lnAlias, lnOrdQty   
+lnAlias    = SELECT(0)
+lnXLine  = IIF(Empty(LineNo), lfGtNewLn(), LineNo)
+
+SELECT (lcTmpMMOLn)
+lnOrdQty = nMFGTotQty
+
+IF lfUpdBom()
+  llRecSaved = .T.
+  IF &lcTmpMMOLn..nStep < 2
+    =lfUpdFabric(lnOrdQty) 
+    =lfUpdStp(lcTmpMMOLn, 2)
+  ENDIF
+  IF &lcTmpMMOLn..nStep < 3
+    =lfUpdFabDye(lnOrdQty) 
+    =lfUpdStp(lcTmpMMOLn, 3)
+  ENDIF
+
+  IF &lcTmpMMOLn..nStep < 4
+    SCATTER MEMVAR
+    SELECT MMFGORDD
+    IF SEEK(' ')
+      GATHER MEMVAR MEMO
+    ELSE  
+      INSERT INTO MMFGORDD FROM MEMVAR
+    ENDIF
+    *REPLACE LINENO WITH lnXLine
+    llNoThing = lfUpdStp(lcTmpMMOLn, 4)
+  ENDIF    
+ENDIF  
+
+SELECT(lnAlias)
+
+*:***************************************************************************
+*: Name       : lfModLine
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/05/1999
+*: Purpose    : Modify a line in the MMO in the master files.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfModLine()
+*:***************************************************************************
+FUNCTION lfModLine
+PRIVATE lnAlias , lnRecNo , lnMasRec , lnOfsQty
+
+lnAlias  = SELECT(0)
+SELECT (lcTmpMMOLn)
+lnRecNo = RECNO()
+=SEEK(&lcTmpMMOLn..cMFGOrdNo+&lcTmpMMOLn..cFabric+&lcTmpMMOLn..Color+&lcTmpMMOLn..Dyelot,'MMFGORDD')
+GO (lnRecNo)
+lnOfsQty = nMFGTotQty - MMFGORDD.nMFGTotQty
+
+lnMasRec = IIF(EOF(),0,RECNO())
+
+IF lfUpdBom()
+  IF lnMasRec > 0
+    GO lnMasRec
+  ENDIF
+
+  SELECT MMFGORDD
+  IF SEEK(&lcTmpMMOLn..cmfgordno+&lcTmpMMOLn..cfabric+&lcTmpMMOLn..color+&lcTmpMMOLn..Dyelot)
+    REPLACE nmfgtotqty with m.nmfgtotqty
+  ENDIF
+
+  lcNewWare  = &lcTmpMMOLn..cWareCode
+  lcOldWare  = MMFGORDD.cWareCode
+  lcOldKey   = MMFGORDD.cFabric + lcOldWare + SPACE(10)
+  lcNewKey   = &lcTmpMMOLn..cFabric + lcNewWare + SPACE(10)
+  IF &lcTmpMMOLn..nStep < 2
+    =lfUpdFabric(lnOfsQty)
+    =lfUpdStp(lcTmpMMOLn, 2)
+  ENDIF  
+  IF &lcTmpMMOLn..nStep < 3
+    IF lcNewWare = lcOldWare
+      =lfUpdFabDye(lnOfsQty)
+      =lfUpdStp(lcTmpMMOLn, 3)
+    ENDIF  
+  ELSE
+    =lfUpdFabDye(lnOfsQty)
+    =lfUpdStp(lcTmpMMOLn, 3)
+  ENDIF  
+ENDIF
+IF &lcTmpMMOLn..nStep < 4
+  
+  SELECT (lcTmpMMOLn)
+  SCATTER MEMVAR
+  SELECT MMFGORDD
+  GATHER MEMVAR
+ENDIF
+SELECT(lnAlias)
+
+
+*:***************************************************************************
+*: Name       : lfDelLine
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 07/06/1999
+*: Purpose    : Delete line in the CT in the master files.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfDelLine()
+*:***************************************************************************
+FUNCTION lfDelLine
+PRIVATE lnAlias, lnOrdQty
+lnAlias = SELECT(0)
+
+*wab
+*lnOrdQty = &lcTmpMMOLn..nmfgtotqty
+lnOrdQty = &lcTmpMMOLn..nmfgtotqty * -1
+*wab
+
+IF SEEK(laData[1]+&lcTmpMMOLn..cFabric + &lcTmpMMOLn..Color + &lcTmpMMOLn..Dyelot + "1" , "MMFGORDD")
+  llNoThing = lfUpdBom()
+
+  IF &lcTmpMMOLn..nStep < 2
+    =lfUpdFabric(lnOrdQty)
+    =lfUpdStp(lcTmpMMOLn, 2)
+  ENDIF  
+
+  IF &lcTmpMMOLn..nStep < 3
+    =lfUpdFabDye(lnOrdQty)
+    =lfUpdStp(lcTmpMMOLn, 3)
+  ENDIF  
+  IF &lcTmpMMOLn..nStep < 4
+    SELECT MMFGORDD
+    IF SEEK(laData[1] + &lcTmpMMOLn..cFabric + &lcTmpMMOLn..Color + &lcTmpMMOLn..Dyelot + "1" , "MMFGORDD")
+      llNoThing = RLOCK()
+      BLANK
+      DELETE
+      UNLOCK
+    ENDIF
+    llNoThing = lfUpdStp(lcTmpMMOLn, 4)
+  ENDIF
+ENDIF
+SELECT (lnAlias)
+
+*:***************************************************************************
+*: Name       : lfColBrwNew
+*: Developer  : Hossam El Etreby {HDM}
+*: Date       : 07/06/1999
+*: Purpose    : Browsing colors of selected Fabric/When issuing a new Order
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfColBrwNew()
+*:***************************************************************************
+FUNCTION lfColBrwNew
+PRIVATE lnAlias
+lnAlias = SELECT(0)
+IF !EMPTY(laData[2])
+    lcOldItm  = laData[2]
+    lcBrowItm = laData[2]
+    lcBrowClr = CHR(240)
+    m.Color = CHR(240)
+  
+   IF SEEK(laData[2],'Fabric')
+   laData[2]=PADR(laData[2],7)
+    SELECT FABRIC
+    SCAN WHILE( Fabric.Fabric = laData[2])
+     SELECT(lcTmpMMOLn)
+     SET ORDER TO (lcTmpMMOLn) 
+      REPLACE Color WITH Fabric.Color,;
+            Pattern WITH Fabric.Pattern,;
+            cWareCode WITH laWare(puWare,2),;      
+            nMfgTotQty WITH 0.00
+      SELECT FABRIC       
+     LOOP    
+    ENDSCAN       
+   ENDIF 
+    *DO FABROW WITH lcBrowItm,lcBrowClr
+    *laData[2] = lcBrowItm  
+    *m.Color = lcBrowClr
+    *SHOW GET m.Color 
+    *SELECT(lcTmpMMOLn)
+    *SET ORDER TO (lcTmpMMOLn) 
+    *REPLACE Color WITH m.Color,;
+    *         Pattern WITH Pattern
+ENDIF
+SELECT (lnAlias)
+*:***************************************************************************
+*: Name       : lpClsScr
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/12/1999
+*: Purpose    : Local cancel function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lpClsScr()
+*:***************************************************************************
+FUNCTION lpClsScr
+PRIVATE lnAlias
+
+llNoThing = lfUpdUnCmS("Complete", SPACE(0), .F.)
+
+*!**************************************************************************
+*: Name       : lfvMONumOk
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/13/1999
+*: Purpose    : Valid ok button in the new MO number screen.
+*!**************************************************************************
+*: Calls      : None.
+*!**************************************************************************
+*: Parameters : None.
+*!**************************************************************************
+*: Returns    : None
+*!**************************************************************************
+*: Example    : = lfvMONumOk()
+*!**************************************************************************
+FUNCTION lfvMONumOk
+PRIVATE llRet 
+
+*-- You cannot leave the Manufacturing Order number empty.
+*-- Manufacturing Order number must be six digits.
+*-- This Manufacturing Order number is already exist.
+
+llRet = .F.
+IF EMPTY(lcMONum)
+  lnNoThing = gfModalGen('TRM38047B00000','DIALOG',"Manufacturing Order")
+ELSE
+  IF LEN(ALLTRIM(lcMONum)) < 6
+    lnNoThing = gfModalGen('TRM38048B00000','DIALOG',"Manufacturing Order")
+  ELSE
+    IF SEEK(lcMONum,"MMFGORDH")
+      lnNoThing = gfModalGen('TRM38049B00000','DIALOG',"Manufacturing Order")
+    ELSE
+      llRet = .T.
+    ENDIF
+  ENDIF
+ENDIF
+
+IF llRet
+  CLEAR READ
+ELSE
+  _CUROBJ = OBJNUM(lcMONum)
+ENDIF
+*:***************************************************************************
+*: Name       : lfUpdFabric
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/15/1999
+*: Purpose    : Add the MMO lines qty to the onorder qty in the Fabric file.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfUpdFabric()
+*:***************************************************************************
+FUNCTION lfUpdFabric
+PARAMETERS lnOrdQty
+PRIVATE lnCurAlias 
+
+lnCurAlias = SELECT(0)
+SELECT FABRIC
+IF SEEK(laData[2] + &lcTmpMMOLN..Color)
+  REPLACE ONORDER WITH ONORDER + (lnOrdQty * FABRIC.CONV)
+ENDIF
+SELECT(lnCurAlias)
+
+
+*:***************************************************************************
+*: Name       : lfUpdFabDye
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/15/1999
+*: Purpose    : Add the MMO lines qty to the onorder qty in the FabDye file.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfUpdFabDye()
+*:***************************************************************************
+FUNCTION lfUpdFabDye
+PARAMETERS lnOrdQty
+PRIVATE lnCurAlias 
+lnCurAlias = SELECT(0)
+SELECT (lcTmpMMOLn)
+
+*-- IF THIS FABRIC NOT FOUND IN FABDYE FILE add it considering the dyelot
+
+IF !SEEK(cFabric+color+cWareCode+SPACE(10),'FABDYE')
+  =gpAdFabWar(cFabric,color, SPACE(10) ,cWareCode)
+ENDIF
+IF !SEEK(cFabric + color + cWareCode + IIF(EMPTY(DYELOT) , SPACE(10) , PADR(DYELOT,10)),'FABDYE')
+  =gpAdFabWar(cFabric,color, IIF(EMPTY(DYELOT) , SPACE(10) , DYELOT),cWareCode)
+ENDIF
+SELECT FABDYE
+*-- Update master record in fabdye
+IF SEEK(&lcTmpMMOLn..cFabric + &lcTmpMMOLn..color + &lcTmpMMOLn..cWareCode+SPACE(10),'FABDYE')
+  REPLACE ONORDER WITH ONORDER + (lnOrdQty * FABRIC.CONV)
+ENDIF
+*-- Update dyelot record in fabdye
+IF !EMPTY(&lcTmpMMOLn..DYELOT) AND SEEK(&lcTmpMMOLn..cFabric + &lcTmpMMOLn..color + &lcTmpMMOLn..cWareCode + &lcTmpMMOLn..DYELOT),'FABDYE')
+  REPLACE ONORDER WITH ONORDER + (lnOrdQty * FABRIC.CONV)
+ENDIF
+SELECT(lnCurAlias)
+*:***************************************************************************
+*: Name       : lfChkQty
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 07/18/1999
+*: Purpose    : Check before saving that Sum of Order quantity <> zero
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : .T. IF quantity > 0
+*:              .F. IF quantity = 0 
+*:***************************************************************************
+*: Example    : = lfChkQty()
+*:***************************************************************************
+FUNCTION lfChkQty
+PRIVATE lnOrdQty,llFlag,lnCurAlias 
+
+lnCurAlias = SELECT(0)
+lnOrdQty=0
+SELECT (lcTmpMMOLn)
+
+SCAN
+ lnOrdQty = lnOrdQty + &lcTmpMMOLn..nMfgTotQty
+ENDSCAN
+
+IF lnOrdQty >0
+ llFlag=.T.
+ELSE
+ llFlag=.F.
+ENDIF
+SELECT(lnCurAlias)
+RETURN llFlag
+ 
+
+*!*************************************************************
+*! Name      : lfvLnWare
+*! Developer : Hossam El Etreby {HDM}
+*! Date      : 07/18/1999
+*! Purpose   : Validation function of WareHousePopUp
+*!*************************************************************
+*! Returns   :  None
+*!*************************************************************
+*! Example   :  lfvLnWare()
+*!*************************************************************
+FUNCTION lfvLnWare
+PRIVATE lnAlias , lnTmpRec , lnLnRecNo
+
+SELECT(lcTmpMMOLn)
+lnTmpRec = RECNO()
+IF !llDyelot OR DYEYN = 'N'
+  lnLnRecNo = RECNO()
+  IF SEEK(laData[1]+laData[2]+m.color+laWare[puLnWare,2])
+    GO lnLnRecNo
+    DELETE
+    =SEEK(laData[1]+laData[2]+m.color+laWare[puLnWare,2])
+    SCATTER MEMVAR MEMO
+    SHOW WINDOW (lcLinesBrw) REFRESH SAME
+  ELSE
+    GO lnLnRecNo
+    *SCATTER MEMVAR MEMO
+    M.cWareCode = laWare[puLnWare,2]
+    IF llMultiWar
+      puLnWare      = lfGetWare(m.cWareCode)
+    ENDIF
+    SHOW GET m.Color
+    SHOW GET m.Dyelot
+    SHOW GET m.Pattern
+    SHOW GET m.Reference
+    SHOW GET m.nMFGTotQty
+  ENDIF
+  *=lfwLnBrow()
+  *RETURN
+ELSE
+  lnLnRecNo=RECNO()
+  =SEEK(laData[1]+laData[2]+m.color+laWare[puLnWare,2])
+  GO lnLnRecNo
+  SHOW GET m.Color
+  SHOW GET m.Dyelot
+  SHOW GET m.Pattern
+  SHOW GET m.Reference
+  SHOW GET m.nMFGTotQty
+
+ENDIF
+
+*-- If the value is changed...
+IF lcOldVal <> puLnWare
+  *-- If the color is a valid color from the Fabric file, 
+  lnAlias = SELECT(0)
+  IF lfVldWare(@m.cWareCode)
+    *-- Check for duplicate entries..
+    IF lfChkLnKey("L",.T.)
+      SELECT(lcTmpMMOLn)
+      GO (lnTmpRec)
+      REPLACE cWareCode WITH laWare[puLnWare,2]
+    ENDIF
+    SHOW GET puLnWare DISABLE
+    lcWareStat      = "DISABLE"
+  ELSE
+    *-- Clear the field, and make it the current object.
+    m.cWareCode = SPACE(6)
+    puLnWare    = 0
+    _CUROBJ     = _CUROBJ
+  ENDIF
+  SELECT (lnAlias)
+ELSE
+  lnAlias = SELECT(0)
+  *M.cWareCode = laWare[pulnWare,2]
+  lnTmpRec = IIF(EOF(lcTmpMMOLn),0,RECNO(lcTmpMMOLn))
+  IF lfChkLnKey("L",.T.)
+    SELECT(lcTmpMMOLn)
+    IF lnTmpRec > 0
+      GO lnTmpRec
+      lcWare = laWare[puLnWare,2]
+      REPLACE cWareCode WITH lcWare
+    ENDIF
+  ELSE
+    SHOW GET puLnWare DISABLE
+    lcWareStat      = "DISABLE"
+  ENDIF
+  SELECT (lnAlias)
+ENDIF
+
+****************************************************************
+FUNCTION lfVldWare
+PARAMETER lcWareCode
+
+*-- Get warehouse code.
+lcWareCode = IIF(puLnWare > 0, laWare[puLnWare,2], SPACE(6))
+
+*-- Check if the warehouse exist in FABDYE 
+
+*:***************************************************************************
+*: Name       : lfvMulWH
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/23/1999
+*: Purpose    : Material Manfact. Order multi warehouse valid function.
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfvMulWH()
+*:***************************************************************************
+FUNCTION lfvMulWH
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+IF llOMulWH # laData[24]
+  *-- If there is any receivings against this MMO then
+  *-- refuse to change the status of the MMO multi warehouse.
+  IF laScrMode[3] AND (MMFGORDH.Received+MMFGORDH.Damaged+MMFGORDH.Canceled)>0
+    *-- MMO has been received.  
+    *-- You cannot change the warehouse type.
+    *-- < Ok >
+    = gfModalGen("TRM36168B00000")
+    laData[24] = llOMulWH
+  ELSE
+    SELECT (lcTmpMMOLn)
+    GOTO TOP
+    *-- Be sure that there is a warehouse code in the MMO  header.
+    IF !laData[24] AND EMPTY(laWare[puWare,1]) AND !(EOF() OR BOF())
+      *-- Cannot change a multi warehouse MMO to a 
+      *-- single warehouse MMO without entering the 
+      *-- header warehouse.
+      = gfModalGen("TRM36145B00000")
+      laData[24] = .T.
+      _CUROBJ = OBJNUM(puWare)
+    ELSE
+    
+      IF !laData[24]
+        *--M36167 Changing the current Multi location MMO to be Single location MMO.
+        *--M36167 Do you want to assign the MMO lines to the Header default location?
+        *--                        Y/N
+        
+        IF gfModalGen("QRM36167B36001","DIALOG") = 1
+          REPLACE ALL CWARECODE WITH laWare[puWare,2]
+          GO TOP
+          =lfChkRedun()
+          GO TOP
+          =lfwLnBrow()
+          SHOW GET puLnWare DISABLE
+          SHOW GET puWare   ENABLE
+          RETURN
+        ELSE
+         laData[24] = .T.
+         SHOW GET laData[24]
+         RETURN
+        ENDIF
+
+      ENDIF
+    
+      SELECT (lcTmpMMOLn)
+      
+      *B604856,1 AMH Privent saving order lines without warehouse code [Start]
+      *IF laScrMode[4]
+      *  REPLACE ALL CWARECODE WITH ''
+      *ENDIF
+      *GO TOP
+      *B604856,1 AMH [End]
+      
+      *--Enable WareHousePopUp to allow selecting a diff wareH. in MMO lines
+      SHOW GET puWare DISABLE
+      *-- IF we're going to make is
+      *-- single W/H replace all lines with the selected
+      *-- header W/H
+      IF !laData[24]
+        _CUROBJ = OBJNUM(puWare)
+        KEYBOARD '{SPACEBAR}'
+      ENDIF
+      SHOW GET puLnWare ENABLE
+      SHOW GET ibFolder[2] ENABLE
+      SHOW WINDOW (lcCTCHWN42) REFRESH 
+    ENDIF
+   ENDIF  
+  ENDIF 
+ IF !laData[24]   
+   SHOW GET puLnWare DISABLE
+   SHOW GET puWare   ENABLE
+ ELSE  
+   SHOW GET puLnWare ENABLE
+   SHOW GET puWare   DISABLE
+ ENDIF
+ SELECT (lnAlias)
+ 
+*:***************************************************************************
+*: Name       : lfShowLine
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/23/1999
+*: Purpose    : 
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = lfShowLine()
+*:***************************************************************************
+FUNCTION lfShowLine
+PARAMETERS lcShowSTat
+
+*SHOW GET m.Color
+IF lcShowSTat = "E"
+  lcLineStat    = "ENABLE"
+  SHOW GET m.Pattern    ENABLE
+  SHOW GET m.Reference  ENABLE
+  SHOW GET m.nMFGTotQty ENABLE
+ELSE
+  lcLineStat    = "DISABLE"
+  SHOW GET m.Pattern    DISABLE
+  SHOW GET m.Reference  DISABLE
+  SHOW GET m.nMFGTotQty DISABLE
+ENDIF  
+
+******************************************************************************************
+FUNCTION lfwOptBrow
+
+
+PRIVATE lnAlias
+
+lnAlias    = SELECT(0)
+SELECT (lcTmpRec)
+lnLnNo = RECNO()
+SHOW WINDOW (lcOptBrwTl) REFRESH SAME
+SELECT(lnAlias)
+
+
+******************************************************************************************
+FUNCTION lfvObjLnk
+PRIVATE lnAlias
+
+*-- Call Object link program
+lnAlias = SELECT(0)
+DO GetObj WITH 'U',laData[1]
+SELECT(lnalias)
+
+******************************************************************************************
+
+FUNCTION lfWDumm
+
+lnLastKey = LASTKEY()
+lcWLast   = UPPER(WLAST())
+
+DO CASE
+  CASE lnLastKey = 4
+    ACTIVATE WINDOW (lcLinesBrw) TOP
+    _CUROBJ = OBJNUM(ibFolder[1])
+ENDCASE
+
+
+*:***************************************************************************
+*: Name       : lpDelScr
+*: Developer  : Hossam El Etreby {HDM} 
+*: Date       : 06/23/1999
+*: Purpose    : Local Delete to Cancel / UnCancel MMO
+*:            : This Function will be called only 
+*:            : if the Oreder status is 'H' OR 'X'
+*:***************************************************************************
+*: Calls      : None.
+*:***************************************************************************
+*: Parameters : None.
+*:***************************************************************************
+*: Returns    : None
+*:***************************************************************************
+*: Example    : = gfCPDelete()
+*:***************************************************************************
+
+FUNCTION lpDelScr
+PRIVATE lnSign , lnAlias , llCont , lnToCan
+STORE .T. TO llCont
+STORE 0 TO lnToCan
+
+*-- Save current ENVIRONMENT settings
+lnAlias = ALIAS()
+
+*-- IF the status is Hold We're going to cancel this Order
+*-- OTHERWISE Un-Cancel
+IF laData[3] = 'H'
+  STORE -1 TO lnSign
+ELSE
+  STORE 1 TO lnSign
+ENDIF
+
+
+SELECT MMFGORDD
+
+IF SEEK(laData[1])
+  SCAN REST WHILE CMFGORDNO = laData[1] FOR TRANCD = '1'
+
+    *-- SEEK the current fabric in fabric file
+    IF SEEK(MMFGORDD.CFABRIC + MMFGORDD.COLOR,'FABRIC')
+      *-- Updata the ONORDER field QTY
+      SELECT FABRIC
+      =RLOCK()
+      REPLACE ONORDER WITH ONORDER + (NMFGTOTQTY * FABRIC.CONV * lnSign)
+      UNLOCK
+    ELSE
+      llCont = .F.
+    ENDIF
+
+    *-- SEEK the current fabric+color+w/h+dyelot In FabDye File
+    IF llCont AND SEEK(MMFGORDD.CFABRIC + MMFGORDD.COLOR + MMFGORDD.CWARECODE + ;
+            IIF(EMPTY(MMFGORDD.DYELOT) , SPACE(10) , MMFGORDD.DYELOT) , 'FABDYE')
+      *-- Updata the ONORDER field QTY
+      SELECT FABDYE
+      =RLOCK()
+      REPLACE ONORDER WITH ONORDER + (NMFGTOTQTY * FABRIC.CONV * lnSign)
+      UNLOCK
+    ELSE
+      llCont = .F.
+    ENDIF
+    lnToCan = nMFGTotQty + lnToCan
+  ENDSCAN
+  IF llCont AND SEEK(laData[1],'MMFGORDH')
+    SELECT MMFGORDH
+    =RLOCK()
+    REPLACE STATUS WITH IIF(lnSign < 0 ,'X','H')
+    REPLACE NMMFGOPEN WITH NMMFGOPEN + (lnToCan * lnSign)  ,;
+            CANCELED  WITH CANCELED  + (lnToCan * (-lnSign))
+    UNLOCK
+  ENDIF
+ENDIF
+
+*-- Restore current ENVIRONMENT settings
+SELECT(lnAlias)
+
+
+*:***************************************************************************
+*: Name       : lfUpdUnCmS
+*: Developer  : Hossam El Etreby - (HDM)
+*: Date       : 02/21/98
+*: Purpose    : To update the incomplete session record.
+*:***************************************************************************
+*: Parameters : lcStatus : Update the record with this status.
+*:              lcCurObj : Update the record with this object name.
+*:              llSetCon : Lock\Unlock the record.
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfUpdUnCmS()
+*:***************************************************************************
+FUNCTION lfUpdUnCmS
+PARAMETERS lcStatus, lcCurObj, llSetCon
+PRIVATE lnAlias
+
+*-- If there is an incomplete session record for this session..
+IF lnUnCmSeRc <> 0
+  lnAlias  = SELECT(0)
+  lcStatus = UPPER(LEFT(lcStatus,1))
+
+  *-- Go and update it..
+  SELECT UnCmSess
+  GOTO lnUnCmSeRc
+  UNLOCK
+  REPLACE cCurrObj WITH lcCurObj ,;
+          Status   WITH lcStatus
+  llNoThing = RLOCK()
+
+  *-- If you are asked to unlock the record, please do..
+  IF !llSetCon
+    UNLOCK 
+  ENDIF
+
+  SELECT(lnAlias)
+ENDIF
+
+*:***************************************************************************
+*: Name       : lfWLNWare
+*: Developer  : Hossam El Etreby - (HDM)
+*: Date       : 11/15/1999
+*: Purpose    : When Function for lines W/H popup to force the user to
+*:            : select a W/H
+*:***************************************************************************
+*: Parameters : None
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfWLNWare()
+*:***************************************************************************
+
+FUNCTION lfWLNWare
+*IF LASTKEY() = 9 OR LASTKEY() = 15 OR LASTKEY() = 13
+  KEYBOARD '{SPACEBAR}'
+*ENDIF
+
+*:***************************************************************************
+*: Name       : lfChkRedun
+*: Developer  : Hossam El Etreby - (HDM)
+*: Date       : 11/15/1999
+*: Purpose    : Function to check the repeated fields when changing
+*:            : from M.Location Order to Single Location Order
+*:***************************************************************************
+*: Parameters : None
+*:***************************************************************************
+*: Returns    : None.
+*:***************************************************************************
+*: Example    : = lfChkRedun()
+*:***************************************************************************
+FUNCTION lfChkRedun
+PRIVATE lnAlias
+
+lnAlias = SELECT(0)
+SELECT (lcTmpMmoLn)
+SCAN
+  lnTotQty = nMFGTotqty
+  IF llDyelot .AND. !EMPTY(DyeYN)
+    LOOP
+  ENDIF
+  lcKey = CMFGORDNO + cFabric+Color
+  lnRecNo = RECNO()
+  SCAN REST WHILE CMFGORDNO + cFabric+Color = lcKey
+    IF RECNO() = lnRecNo
+      LOOP
+    ENDIF
+    lnTotQty = nMFGTotqty
+    REPLACE cStatus WITH 'D'
+    SKIP -1
+    REPLACE nMFGTotqty WITH nMFGTotqty + lnTotQty
+    SKIP
+  ENDSCAN
+ENDSCAN
+
+SELECT(lnAlias)
+*!*************************************************************
+*! Name      : lfvAccount
+*! Developer : Abdou Elgendy
+*! Date      : 09/24/2002
+*! Purpose   : Validate Account
+*!*************************************************************
+*! Calls     : CUSBROWM.
+*!*************************************************************
+*! Parameters: None
+*!*************************************************************
+*! Returns   :  .f.
+*!*************************************************************
+*! Example   :  =lfvAccount()
+*!*************************************************************
+*E302018,1 ABD - Add Account Code & Cutomer Po# to Material Manfu. Header file , to
+*E302018,1 ABD - Print it at the Dye Order form. [Begin]
+
+FUNCTION lfvAccount
+PRIVATE xAccount, lnAlias
+
+lnAlias = SELECt(0)
+
+IF llBrowse .OR. (!EMPTY(laData[27]) .AND. !SEEK('M'+laData[27],'CUSTOMER'))
+  xAccount = laData[27]
+  SELECT CUSTOMER
+  DO CUSBROWM WITH xAccount
+  laData[27] = xAccount
+ENDIF
+llBrowse = .F.
+=lfREFRESH(lcCTChWin2)
+
+SELECt(lnAlias)
+
+*--End OF lfvAccount
+*E302018,1 ABD - [End]
+*!*************************************************************
+
+*!*************************************************************
+*! Name    : lfModBom
+*! Developer : AHMED MAHER (AMH)
+*! Date      : 11/14/2002
+*! Purpose : Function to update MFO bill of material for modified and removed lines
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lf..()
+*!*************************************************************
+*B606496,1 AMH
+FUNCTION lfModBom
+
+PRIVATE lcTmpBomLn
+lcTmpBomLn = gfTempName()
+SELECT BOM
+=AFIELDS(laFileStru)
+CREATE TABLE (gcWorkDir+lcTmpBomLn) FROM ARRAY laFileStru
+INDEX ON citmmajor+typ+citmmask+mfgcode+item+iclr TAG (lcTmpBomLn)
+SELECT BomLine
+SEEK "T1"+laData[1]+STR(lnLineNo,6)
+SCAN REST WHILE cImTyp+cType+cTktNo+STR(LineNo,6)+cBomTyp+Style+SClr+Item+IClr+MfgCode =;
+                "T1"+laData[1]+STR(lnLineNo,6) ;
+            FOR Style = lcFabric .AND. SCLR = lcColor
+  llTrim_Inv = .F.
+  lcRecDesc  = ""
+  lcUom      = ''
+  lcMarker   = ''
+  llBaseOnSz = .F.
+  IF SEEK('M'+laData[1]+cBomtyp+Item+IClr+MfgCode+dyelot,'CTktBom')
+    llTrim_Inv = cTktBom.Trim_Invt
+    lcRecDesc  = cTktBom.Desc
+    lcUom      = cTktBom.Uom
+    lcMarker   = cTktBom.cMarker
+  ENDIF
+  SELECT (lcTmpBomLn)
+  APPEND BLANK
+  REPLACE cItmMajor  WITH lcFabric         ,;
+          Typ        WITH BomLine.cBomtyp  ,;
+          cItmMask   WITH lcColor          ,;
+          cOprCode   WITH BomLine.cOprCode ,;
+          MfgCode    WITH BomLine.MfgCode  ,;
+          Item       WITH BomLine.Item     ,;
+          IClr       WITH BomLine.IClr     ,;
+          Trim_Invt  WITH llTrim_Inv       ,;
+          Desc       WITH lcRecDesc        ,;
+          lBasOnSiz  WITH llBaseOnSz
+  REPLACE UOM        WITH lcUom            ,;
+          UNTCOST    WITH BOMLINE.UNITCOST ,;
+          NPERCENT   WITH BOMLINE.NPERCENT ,;
+          NESTBOMQTY WITH BOMLINE.UNITQTY  ,;
+          NBOMWASTGE WITH 0                ,;
+          NBOMTOTQTY WITH NESTBOMQTY       ,;
+          TOTCOST    WITH NESTBOMQTY*UNTCOST,;
+          CCOSTSTAT  WITH BOMLINE.CCOSTSTAT,;
+          LMATERIAL  WITH .T.
+  REPLACE CCATGTYP   WITH BOMLINE.CCATGTYP ,;
+          CMARKER    WITH lcMarker
+ENDSCAN
+
+llRetVal = gfSheetItem("T"       , laData[1] , lcLinkCode         , lcFabric          , lcColor   ,;
+                       lnLineNo  , lcDyelot  , MMFGORDH.cWareCode , MMFGORDH.cMatWare , @laBomQty ,;
+                       lcTmpBomLn, "CtktBom" , "BomLine"          , "MFGOprHd"        , lcLastOpr ,;
+                       0         , 0         , 0                  , 0                 , 0         ,;
+                       0         , lcCTChWin2)
+USE IN (lcTmpBomLn)
+ERASE (gcWorkDir+lcTmpBomLn+'.DBF')
+ERASE (gcWorkDir+lcTmpBomLn+'.CDX')
+ERASE (gcWorkDir+lcTmpBomLn+'.FPT')
+*-- end of lfModBom.

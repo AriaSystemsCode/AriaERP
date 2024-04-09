@@ -1,0 +1,26 @@
+LCMAINF = GFTEMPNAME()
+LCTBLSTORE = GFTEMPNAME()
+SELECT ORDHDR
+= AFIELDS(LAFILESTRU)
+LNFILESTRU = ALEN(LAFILESTRU,1)
+DIMENSION LAFILESTRU(LNFILESTRU+1, 4)
+LNFILESTRU = LNFILESTRU+1
+LAFILESTRU(LNFILESTRU, 1) = 'nstore'
+LAFILESTRU(LNFILESTRU, 2) = 'N'
+LAFILESTRU(LNFILESTRU, 3) = 3
+LAFILESTRU(LNFILESTRU, 4) = 0
+CREATE DBF (GCWORKDIR+LCMAINF) FROM ARRAY LAFILESTRU
+INDEX ON CORDTYPE+ORDER TAG (LCMAINF)
+SELECT 0
+CREATE TABLE &GCWORKDIR.&lctblstore (order C(6),STORE C(8))
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+= GFOPENFILE(GCDATADIR+'ORDLINE','ORDLINE','SH')
+
+

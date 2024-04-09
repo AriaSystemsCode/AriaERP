@@ -1,0 +1,1097 @@
+<?xml version="1.0"?>
+  <xdoc>
+    <Parameters>
+      <row>
+        <DataType>System.String</DataType>
+        <Name>gcOutFile</Name>
+        <Value>D:\ARIA4XP\OUTPUTTEst.PDF</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>cTextRepType</Name>
+        <Value>PDF</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>USER_ID</Name>
+        <Value xml:space="preserve">MMT       </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>cCROrientation</Name>
+        <Value>L</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llCrystal</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcOGLastForm</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcActiveMod</Name>
+        <Value>SM</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>gcDevice</Name>
+        <Value>SCREEN</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcrpExp</Name>
+        <Value>IIF(lcRpOrdTyp = &apos;A&apos;,.T.,OrdHdr.cOrdType = lcRpOrdTyp) .AND. IIF(EMPTY(lcRpOrdSta) , .T., OrdHdr.Status $ lcRpOrdSta) =  .T.   AND  INLIST(ORDHDR.ORDER,[051307])</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcOGFormV </Name>
+        <Value>lcFormName</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpSqlExp</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,1]</Name>
+        <Value>IIF(lcRpOrdTyp = &apos;A&apos;,.T.,OrdHdr.cOrdType = lcRpOrdTyp) .AND. IIF(EMPTY(lcRpOrdSta) , .T., OrdHdr.Status $ lcRpOrdSta)</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,3]</Name>
+        <Value>L</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGHdFlt[1,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,5]</Name>
+        <Value xml:space="preserve">Like                </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,6]</Name>
+        <Value>.T.</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGHdFlt[1,7]</Name>
+        <Value>V</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,1]</Name>
+        <Value xml:space="preserve">ORDHDR.SEASON </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGFxFlt[1,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,5]</Name>
+        <Value xml:space="preserve">In List              </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,7]</Name>
+        <Value>V</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[1,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,1]</Name>
+        <Value xml:space="preserve">ORDHDR.CDIVISION </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGFxFlt[2,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,5]</Name>
+        <Value xml:space="preserve">In List              </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,7]</Name>
+        <Value>V</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[2,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,1]</Name>
+        <Value>CUSTOMER.ACCOUNT</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGFxFlt[3,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,5]</Name>
+        <Value xml:space="preserve">In List              </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,7]</Name>
+        <Value>R</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[3,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,1]</Name>
+        <Value>ORDLINE.PACK_ID</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGFxFlt[4,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,5]</Name>
+        <Value xml:space="preserve">In List              </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,7]</Name>
+        <Value>R</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGFxFlt[4,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,1]</Name>
+        <Value xml:space="preserve">ORDHDR.ORDER     </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,3]</Name>
+        <Value>C</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGVrFlt[1,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,5]</Name>
+        <Value xml:space="preserve">In List             </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,6]</Name>
+        <Value>XH0X1ZQO</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,7]</Name>
+        <Value>R</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[1,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,1]</Name>
+        <Value xml:space="preserve">ORDHDR.ENTERED   </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,3]</Name>
+        <Value>D</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGVrFlt[2,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,5]</Name>
+        <Value xml:space="preserve">Between             </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,7]</Name>
+        <Value>V</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[2,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,1]</Name>
+        <Value xml:space="preserve">ORDHDR.COMPLETE   </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,2]</Name>
+        <Value>F</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,3]</Name>
+        <Value>D</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laOGVrFlt[3,4]</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,5]</Name>
+        <Value xml:space="preserve">Between             </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,6]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,7]</Name>
+        <Value>V</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOGVrFlt[3,8]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,1]</Name>
+        <Value>IIF(lcRpOrdTyp = &apos;A&apos;,</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,2]</Name>
+        <Value xml:space="preserve">IIF(lcRpOrdTyp = &apos;A&apos;,.T.,OrdHdr.cOrdType = lcRpOrdTyp) .AND. IIF(EMPTY(lcRpOrdSta) , .T., OrdHdr.Status $ lcRpOrdSta) =  .T. </Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[1,3]</Name>
+        <Value>FOX</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>laFltExp[1,4]</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,1]</Name>
+        <Value>ORDHDR</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,2]</Name>
+        <Value>INLIST(ORDHDR.ORDER,[051307])</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,3]</Name>
+        <Value>FOX</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[2,4]</Name>
+        <Value>ORDHDR</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[3,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[4,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[5,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[5,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[5,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[5,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[6,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[6,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[6,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[6,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[7,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[7,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[7,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[7,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[8,1]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[8,2]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[8,3]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laFltExp[8,4]</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>AHEADERFILE</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcFormName</Name>
+        <Value>SOORCNA</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laOldVal  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpMsg1  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpMsg2  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpMsg3  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llFrTime  </Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llLogo    </Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcLogoPic </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcStyTitle</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lnMajorLen</Name>
+        <Value>0</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcPhonPict</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcNoteLns </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcSolTName</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcShpTName</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcShipVia </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcSeason  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcSpcInst </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcTerms   </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laCompAdd </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laSoldTo  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laShipTo  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laDivLName</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcCompName</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcCompPhon</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llOGRefFor</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llClearSel</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcCompFax</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laSortDesc</Name>
+        <Value>Style</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laSortVal</Name>
+        <Value>S</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>lcSortDumy</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llConfig</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpOrdSta</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laRpSource</Name>
+        <Value>Open</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laRpTarget</Name>
+        <Value>Open</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llDonprnt</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpStrOrd</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcTmpStr</Name>
+        <Value>XH0X1OQQ</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcTmpOrStr</Name>
+        <Value>XH0X1OQR</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcStoreTmp</Name>
+        <Value>XH0X1OQS</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcOrdPrtUp</Name>
+        <Value>XH0X1OQT</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpPrSt  </Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laStorScr</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laStorTar</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>laStores</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llOneMulti</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcContactN</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcEmplTmp</Name>
+        <Value>XH0X1OQU</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcUserPhon</Name>
+        <Value></Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnColorLen</Name>
+        <Value>         6</Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnFreeLen</Name>
+        <Value>         6</Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnNonMajSt</Name>
+        <Value>        14</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>lnXDummy</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>lnORDCHG</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpSortBy</Name>
+        <Value>S</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpOrdTyp</Name>
+        <Value>O</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpEdiFlt</Name>
+        <Value>B</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRcpOnly</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnRpStatus</Name>
+        <Value>         0</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpOrdLnt</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpOrdNot</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRPSizes   </Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRPPicture </Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Decimal</DataType>
+        <Name>lnOptMsg  </Name>
+        <Value>         0</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpDeciml</Name>
+        <Value>Y</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpBook</Name>
+        <Value>N</Value>
+      </row>
+
+      <row>
+        <DataType>System.String</DataType>
+        <Name>lcRpSortDR</Name>
+        <Value>S</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpPack</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpPrTCon</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpSQty</Name>
+        <Value>false</Value>
+      </row>
+
+      <row>
+        <DataType>System.Boolean</DataType>
+        <Name>llRpPrTPak</Name>
+        <Value>true</Value>
+      </row>
+
+      <row>
+        <DataType>System.Table</DataType>
+        <Name>XH0X1ZQO</Name>
+        <Value>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;xdoc&gt;
+&lt;xh0x1zqo&gt;
+	&lt;row&gt;
+		&lt;keyexp&gt;051307&lt;/keyexp&gt;
+		&lt;order&gt;051307&lt;/order&gt;
+	&lt;/row&gt;
+&lt;/xh0x1zqo&gt;
+
+&lt;/xdoc&gt;
+</Value>
+        <CursorStrucutre>
+        <Field>
+        <Name>KEYEXP</Name>
+        <Type>C</Type>
+        <Width>6</Width>
+        <Decimals>0</Decimals>
+        </Field>
+        <Field>
+        <Name>ORDER</Name>
+        <Type>C</Type>
+        <Width>6</Width>
+        <Decimals>0</Decimals>
+        </Field>        </CursorStrucutre>      </row>
+
+
+
+    </Parameters>
+  </xdoc>

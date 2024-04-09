@@ -1,0 +1,189 @@
+STORE '' TO LCDTFLT, LCOLDSCL
+LCSTFLT = '.T.'
+STORE .F. TO LLCUSTFLT, LLORDFLT
+STORE .T. TO LLNEWPG, LLPRNTSZ
+= LFCRTTEMP()
+= LFGETDTFLT()
+LNCUSTPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'ORDHDR.ACCOUNT'),1)
+IF LNCUSTPOS>0
+   LCCUSTFILE = LAOGFXFLT(LNCUSTPOS,6)
+   LLCUSTFLT = .NOT.EMPTY(LCCUSTFILE) .AND. USED(LCCUSTFILE) .AND. RECCOUNT;
+(LCCUSTFILE)>0
+ENDIF
+LNORDPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'ORDHDR.ORDER'),1)
+IF LNORDPOS>0
+   LCORDFILE = LAOGFXFLT(LNORDPOS,6)
+   LLORDFLT = .NOT.EMPTY(LCORDFILE) .AND. USED(LCORDFILE) .AND. RECCOUNT;
+(LCORDFILE)>0
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVSTY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVSTY
+PARAMETERS LCPARM
+IF LCPARM='S'
+   SET ORDER TO CSTYLE IN STYLE
+   GOTO TOP
+ELSE
+   SET ORDER TO STYLE IN STYLE
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVORD                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVORD
+PARAMETERS LCPARM
+IF LCPARM='S'
+   SET ORDER TO ORDHDR IN ORDHDR
+   GOTO TOP
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVOSTATUS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVOSTATUS
+PRIVATE LCOLDSTAT, LCCURRCHR
+LCOLDSTAT = LCRPSTATUS
+= GFMOVER(LARPSOURCE,LARPTARGET,'Select Order Status',.T.,'')
+LCRPSTATUS = ' '
+IF .NOT.EMPTY(LARPTARGET(1))
+   FOR LNI = 1 TO ALEN(LARPTARGET,1)
+      LCRPSTATUS = LCRPSTATUS+IIF(LARPTARGET(LNI)='Bid','B',IIF(LARPTARGET;
+(LNI)='Open','O',IIF(LARPTARGET(LNI)='Hold','H',IIF(LARPTARGET(LNI)='Complete';
+,'C',IIF(LARPTARGET(LNI)='Canceled','X','')))))
+   ENDFOR
+ENDIF
+LCRPSTATUS = IIF(EMPTY(LCRPSTATUS),'BOHCX',ALLTRIM(LCRPSTATUS))
+IF LEN(LCOLDSTAT)<>LEN(LCRPSTATUS)
+   LLOGFLTCH = .T.
+ELSE
+   FOR LNJ = 1 TO LEN(LCOLDSTAT)
+      LCCURRCHR = SUBSTR(LCOLDSTAT,LNJ,LNJ)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOGWHEN                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOGWHEN
+SET ORDER TO "CUSTOMER" IN CUSTOMER
+SET ORDER TO "ORDACCT" IN ORDHDR
+SET ORDER TO "ORDLINE" IN ORDLINE
+SET ORDER TO "SCALE" IN SCALE
+DIMENSION LARPSOURCE(5)
+IF TYPEAHEAD('laRpTarget[1]')='C'
+   IF EMPTY(LARPTARGET(1))
+      DIMENSION LARPTARGET(1)
+   ELSE
+      FOR LNI = 2 TO ALEN(LARPTARGET)
+         IF TYPEAHEAD('laRpTarget[lnI]')='U'
+            LARPTARGET(LNI) = ''
+         ENDIF
+      ENDFOR
+   ENDIF
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFITMPOSF                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFITMPOSF
+PARAMETERS LCITMINFLT
+PRIVATE LNITMPOS
+LNITMPOS = ASCAN(LAOGFXFLT,LCITMINFLT)
+IF LNITMPOS>0
+   LNITMPOS = ASUBSCRIPT(LAOGFXFLT,LNITMPOS,1)
+ENDIF
+RETURN LNITMPOS
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFITMPOSV                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFITMPOSV
+PARAMETERS LCITMINFLT
+PRIVATE LNITMPOS
+LNITMPOS = ASCAN(LAOGVRFLT,LCITMINFLT)
+IF LNITMPOS>0
+   LNITMPOS = ASUBSCRIPT(LAOGVRFLT,LNITMPOS,1)
+ENDIF
+RETURN LNITMPOS
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCRTTEMP                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCRTTEMP
+CREATE DBF (GCWORKDIR+LCTMPORD)(ACCOUNT C(5), ORDER C(6), STATUS C(1),;
+ STYLE C(19), CUSTPO C(15), START D(8), COMPLETE D(8), QTY1 N(10), QTY2;
+ N(10), QTY3 N(10), QTY4 N(10), QTY5 N(10), QTY6 N(10), QTY7 N(10), QTY8;
+ N(10), TOTQTY N(12), BOOK1 N(10), BOOK2 N(10), BOOK3 N(10), BOOK4 N(10);
+, BOOK5 N(10), BOOK6 N(10), BOOK7 N(10), BOOK8 N(10), TOTBOOK N(10), PRICE;
+ N(12, 2), SHIP N(15, 2))
+DO CASE
+CASE LCRPSORT='A'
+   INDEX ON account+Order+STYLE TAG &lcTmpord
+CASE LCRPSORT='S'
+   INDEX ON DTOS(START)+account+Order+STYLE TAG &lcTmpord
+CASE LCRPSORT='C'
+   INDEX ON DTOS(COMPLETE)+account+Order+STYLE TAG &lcTmpord
+ENDCASE
+RETURN
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFGETDTFLT                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFGETDTFLT
+LCDTFLT = "ORDHDR.STATUS = 'H' "
+LNDATEPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'ORDHDR.START'),1)
+LCREPRNGF = LEFT(LAOGFXFLT(LNDATEPOS,6),10)
+LCREPRNGT = RIGHT(LAOGFXFLT(LNDATEPOS,6),10)
+LCEDTFLT = '.T.'
+DO CASE
+CASE .NOT.EMPTY(CTOD(LCREPRNGF)) .AND. .NOT.EMPTY(CTOD(LCREPRNGT))
+   LCEDTFLT = "BETWEEN(ALLTRIM(DTOS(ORDHDR.START)),'"+ALLTRIM(DTOS(CTOD;
+(LCREPRNGF)))+"','"+ALLTRIM(DTOS(CTOD(LCREPRNGT)))+"')"
+CASE EMPTY(CTOD(LCREPRNGF)) .AND. .NOT.EMPTY(CTOD(LCREPRNGT))
+   LCREPRNGT = ALLTRIM(DTOS(CTOD(LCREPRNGT)))
+   LCREPRNGF = ''
+   LCEDTFLT = 'ALLTRIM(DTOS(ORDHDR.START)) <= "'+LCREPRNGT+'"'
+CASE EMPTY(CTOD(LCREPRNGF)) .AND. EMPTY(CTOD(LCREPRNGT))
+   LCREPRNGF = ''
+   LCREPRNGT = ''
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFPRNTSZ                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFPRNTSZ
+PARAMETERS LCPARAM
+IF LCPARAM='P'
+   LLPRNTSZ = .T.
+   LLNEWPG = .T.
+ELSE
+   IF .NOT.EMPTY(LCOLDSCL) .AND. STYLE->SCALE=LCOLDSCL .AND. .NOT.LLNEWPG
+      LLPRNTSZ = .F.
+   ELSE
+      LCOLDSCL = STYLE->SCALE
+      LLPRNTSZ = .T.
+   ENDIF
+   LLNEWPG = .F.
+ENDIF
+RETURN ''
+
+

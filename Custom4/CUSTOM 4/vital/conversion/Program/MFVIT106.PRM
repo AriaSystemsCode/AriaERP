@@ -1,0 +1,174 @@
+LCVENFILE = 'ApVendor'
+LNVENPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'APVENDOR.CVENDCODE'),1)
+LNCUTPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.CUTTKT'),1)
+LNDATEPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.COMPLETE'),1)
+LNENRDPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.ENTERED'),1)
+LNDIVPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.CDIVISION'),1)
+LNSESPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTH.SEASON'),1)
+LNGRPPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'STYLE.CSTYGROUP'),1)
+LNSTYPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTL.STYLE'),1)
+LNFABPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'STYLE.FABRIC'),1)
+IF .F.
+   LNCNTPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'MFGOPRHD.CCONTCODE');
+,1)
+   IF EMPTY(LAOGFXFLT(LNCNTPOS,6))
+      LCCRFLT = '.T.'
+   ELSE
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSTYLE                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSTYLE
+LCSTYLE = VARREAD()
+IF EMPTY(EVALUATE(LCSTYLE))
+   RETURN
+ENDIF
+LCTAG = ORDER('STYLE')
+SET ORDER TO cStyle IN STYLE
+IF LASTKEY()=13 .AND. .NOT.MDOWN()
+   IF SEEK(&lcStyle.,'Style')
+   &lcStyle = STYLE.cStyMajor
+ELSE
+   &lcStyle = gfStyBrw('M',"","",.F.)
+ENDIF
+ELSE
+   &lcStyle = ''
+ENDIF
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFOLDVAL                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFOLDVAL
+LAOLDVAL = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+DIMENSION LARPSOURCE(6), LARPTARGET(1)
+STORE '' TO LARPTARGET
+LNSTATUS = LCRPSTATUS
+STORE 'Open' TO LARPSOURCE(1)
+STORE 'Hold' TO LARPSOURCE(2)
+STORE 'Canceled' TO LARPSOURCE(3)
+STORE 'Complete' TO LARPSOURCE(4)
+STORE 'Closed' TO LARPSOURCE(5)
+STORE 'Actual' TO LARPSOURCE(6)
+LCRPSTATUS = ''
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVACCOUNT                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVACCOUNT
+PRIVATE LCOBJNAME, LCOBJVAL, LLOBJRET
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+SELECT APVENDOR
+SET ORDER TO VenCode
+IF LASTKEY()=13 .AND. .NOT.MDOWN() .OR. .NOT.EMPTY(LCOBJVAL)
+   IF .NOT.SEEK(LCOBJVAL,'APVENDOR')
+      LLOBJRET = GFAPVNBROW(LCOBJVAL)
+      LCOBJVAL = IIF(LLOBJRET,LCOBJVAL,LAOLDVAL)
+      &lcObjName = lcObjVal
+   ENDIF
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVOSTATUS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVOSTATUS
+PRIVATE LCOLDSTAT, LCCURRCHR
+LCOLDSTAT = LCRPSTATUS
+= GFMOVER(LARPSOURCE,LARPTARGET,'Cutting Ticket Status',.T.,'')
+LCRPSTATUS = ' '
+FOR LNI = 1 TO ALEN(LARPTARGET,1)
+   LCRPSTATUS = LCRPSTATUS+IIF(LARPTARGET(LNI)='Open','O',IIF(LARPTARGET;
+(LNI)='Hold','H',IIF(LARPTARGET(LNI)='Canceled','X',IIF(LARPTARGET(LNI)='Complete';
+,'C',IIF(LARPTARGET(LNI)='CLOSED','S',IIF(LARPTARGET(LNI)='Actual','A';
+,''))))))
+ENDFOR
+LCRPSTATUS = IIF(EMPTY(LCRPSTATUS),LCRPSTATUS,ALLTRIM(LCRPSTATUS))
+IF LEN(LCOLDSTAT)<>LEN(LCRPSTATUS)
+   LLCHSTATUS = .T.
+ELSE
+   FOR LNJ = 1 TO LEN(LCOLDSTAT)
+      LCCURRCHR = SUBSTR(LCOLDSTAT,LNJ,LNJ)
+      IF .NOT.(LCCURRCHR$LCRPSTATUS)
+         LLCHSTATUS = .T.
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCUTNUM                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCUTNUM
+PRIVATE LCVAR, LCOBJ, LATEMP, LCBROWFIEL
+LCVAR = SYS(18)
+LCOBJ = EVALUATE(SYS(18))
+LCOBJ = IIF(EMPTY(LCOBJ) .OR. '?'$LCOBJ,LCOBJ,PADL(ALLTRIM(LCOBJ),6,'0'))
+LCPREVAL = SELECT()
+STORE '' TO LCBROWCOND
+DIMENSION LATEMP(1)
+SELECT CUTTKTH
+SET ORDER TO CUTTKTH
+DIMENSION LATEMP(1)
+IF .NOT.EMPTY(LCOBJ) .AND. .NOT.(SEEK(LCOBJ,'CUTTKTH'))
+   LCBRFIELDS = "CUTTKT    :R :H='CUTTKT'   ,"+"STYLE     :R :H='Style';
+    ,"+"STATUS    :R :H='Status'   ,"+"ENTERED   :R :H='Issue'    ,"+"COMPLETE;
+  :R :H='Complete' ,"+"SEASON    :R :H='Season'   ,"+"CDIVISION :R :H='Division';
+ ,"+"PCS_BUD   :R :H='Budget'   ,"+"PCS_REC   :R :H='Received' ,"+"PCS_DAM;
+   :R :H='Damaged'  ,"+"PCS_OPN   :R :H='Open' "
+   LNTHING = GFBROWS(LCBROWCOND,'CUTTKT','laTemp')
+ENDIF
+IF .NOT.EMPTY(LATEMP(1))
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVFABRIC                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVFABRIC
+LCFABOBJ = VARREAD()
+lcFab    = &lcFabObj
+IF LASTKEY()=13 .AND. .NOT.MDOWN() .OR. .NOT.EMPTY(LCFAB)
+   SELECT FABRIC
+   IF SEEK(LCFAB,'FABRIC')
+      &lcFabObj = FABRIC.Fabric
+   ELSE
+      = FABROW(LCFAB,'*')
+      &lcFabObj = lcFab
+   ENDIF
+ENDIF
+SET ORDER TO FABRIC IN FABRIC
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCONT                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCONT
+SELECT APVENDOR
+SET ORDER TO VenCode
+LCOBJNAME = SYS(18)
+LCOBJVAL = ALLTRIM(EVALUATE(SYS(18)))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'APVENDOR'))
+   = GFAPVNBROW(LCOBJVAL)
+   LCOBJVAL = IIF(.NOT.EMPTY(LCOBJVAL),LCOBJVAL,LAOLDVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+

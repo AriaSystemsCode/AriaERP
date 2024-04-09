@@ -1,0 +1,57 @@
+Company Name	String	30	
+OrderType	String	1	
+Address1	String	30	
+Address2	String	30	
+Address3	String	30	
+Address4	String	30	
+Address5	String	30	
+Order	String	6	
+Phone	String	20	
+Fax	String	20	
+Entered	Date	
+Location	String	6	
+Start	Date
+Complete	Date
+Status	String	1	
+Approval	String	10
+SAddress1	String	30	
+SAddress2	String	30	
+SAddress3	String	100	
+SAddress4	String	30	
+SAddress5	String	30
+SName	String	30	
+Store	String	8	
+StName	String	30	
+ShAddress1	String	30	
+ShAddress2	String	30	
+ShAddress3	String	100	
+ShAddress4	String	30	
+ShAddress5	String	30
+ShipVia	String	30	
+SpcInst	String	30	
+Terms	String	30
+Account	String	5
+porder	String	15
+dept	String	5
+rep1	String	3
+rep2	String	3
+Season	String	30
+StyleCode	String	19
+totQty	Number	
+Amount	Number
+Disc	Number	
+NetAmt	Number	
+freight	Number	
+weight	Number	
+insur	Number	
+tax_rate	Number	
+tax_amt	Number	
+totchg	Number	
+discount	Number	
+COD	Number	
+deposit	Number	
+cartons	Number	
+PriChg	Number	
+DropChg	Number	
+Ldropchg	Boolean	
+Lprichg	Boolean	

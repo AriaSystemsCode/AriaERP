@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<xsd:schema id="VFPData" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="VFPData" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="ordline" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="order">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="6"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="style">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="19"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty2">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty3">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty4">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty5">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty6">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty7">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="qty8">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="6"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="totqty">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="7"/>
+											<xsd:fractionDigits value="0"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="price">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:decimal">
+											<xsd:totalDigits value="11"/>
+											<xsd:fractionDigits value="2"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="employee">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="12"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+				<xsd:anyAttribute namespace="http://www.w3.org/XML/1998/namespace" processContents="lax"/>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<ordline>
+		<order>051226</order>
+		<style>0101        -BLACK</style>
+		<qty1>1</qty1>
+		<qty2>5</qty2>
+		<qty3>8</qty3>
+		<qty4>1</qty4>
+		<qty5>8</qty5>
+		<qty6>2</qty6>
+		<qty7>8</qty7>
+		<qty8>2</qty8>
+		<totqty>35</totqty>
+		<price>10.05</price>
+		<employee>MIRO</employee>
+	</ordline>
+<ordline>
+		<order>051226</order>
+		<style>0101        -BLUE</style>
+		<qty1>1</qty1>
+		<qty2>5</qty2>
+		<qty3>8</qty3>
+		<qty4>1</qty4>
+		<qty5>8</qty5>
+		<qty6>2</qty6>
+		<qty7>8</qty7>
+		<qty8>2</qty8>
+		<totqty>35</totqty>
+		<price>10.05</price>
+		<employee>MIRO</employee>
+	</ordline>	
+<ordline>
+		<order>051226</order>
+		<style>0101        -GREEN</style>
+		<qty1>1</qty1>
+		<qty2>5</qty2>
+		<qty3>8</qty3>
+		<qty4>1</qty4>
+		<qty5>8</qty5>
+		<qty6>2</qty6>
+		<qty7>8</qty7>
+		<qty8>2</qty8>
+		<totqty>35</totqty>
+		<price>10.05</price>
+		<employee>MIRO</employee>
+	</ordline>	
+
+</VFPData>

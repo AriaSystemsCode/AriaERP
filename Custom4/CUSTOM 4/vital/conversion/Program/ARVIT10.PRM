@@ -1,0 +1,310 @@
+LCSTTIME = TIME()
+IF LCRPSORTBY='L' .AND. EMPTY(LAOGFXFLT(LNSLREPPOS,6))
+   = GFMODALGEN('TRM000000B00000','DIALOG','','','You have to select a;
+ sales representative code.')
+   RETURN
+ENDIF
+IF LLCLEARFN .OR. LLOGFLTCH
+   LLCLEARFN = .F.
+   LCLASTTAG = ''
+   LCLASTEXPR = LCRPEXP
+   IF .NOT.USED(LCWORKFILE) .OR. (RECCOUNT(LCWORKFILE)>0)
+      IF USED(LCWORKFILE)
+         USE IN (LCWORKFILE)
+      ENDIF
+      = LFWORKFILE()
+   ENDIF
+endif
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSTITLE                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSTITLE
+SET ORDER TO Ccomp_id IN SYCCOMP
+IF .NOT.USED('SYCINT')
+   = GFOPENFILE(GCSYSHOME+'SYCINT',GCSYSHOME+'Ccontcode','SH')
+ELSE
+   SET ORDER TO Ccontcode IN SYCINT
+ENDIF
+= SEEK(GCACT_COMP,'SYCCOMP') .AND. SEEK(SYCCOMP->CCONT_CODE,'SYCINT')
+LLCANADA = 'CAN'$ALLTRIM(UPPER(SYCCOMP->CCONT_CODE))
+LLENGLAND = 'ENG'$ALLTRIM(UPPER(SYCCOMP->CCONT_CODE))
+RETURN (SYCINT->CPART4LAB)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+LNSLREPPOS = LFITMPOS('INVHDR.REP1')
+LNCURRPOS = LFITMPOS('INVHDR.CCURRCODE')
+IF TYPEAHEAD('lcLastTag')='N'
+   SET ORDER TO CUSTOMER IN CUSTOMER
+   SET ORDER TO Codes IN CODES
+   SET ORDER TO INVHDR IN INVHDR
+   SET ORDER TO INVLINE IN INVLINE
+   SET ORDER TO STYLE IN STYLE
+   LNDATEPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'INVLINE.INVDATE');
+,1)
+   IF EMPTY(LAOGFXFLT(LNDATEPOS,6))
+      LAOGFXFLT(LNDATEPOS, 6) = DTOC(DATE())+'|'+DTOC(DATE())
+   ENDIF
+   IF LLMULTCURR
+      SET ORDER TO CCURRCODE IN SYCCURR
+      LNCURRPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'INVHDR.CCURRCODE');
+,1)
+endif
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFITMPOS                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFITMPOS
+PARAMETERS LCITMINFLT
+PRIVATE LNITMPOS
+LNITMPOS = ASCAN(LAOGFXFLT,LCITMINFLT)
+IF LNITMPOS>0
+   LNITMPOS = ASUBSCRIPT(LAOGFXFLT,LNITMPOS,1)
+ENDIF
+RETURN LNITMPOS
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWORKFILE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWORKFILE
+CREATE CURSOR (LCWORKFILE) FROM ARRAY LATEMPSTRU
+SELECT (LCWORKFILE)
+INDEX ON CTEMPKEY TAG (LCWORKFILE)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOLDVAL                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOLDVAL
+LAOLDVAL = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVACC                              *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVACC
+PRIVATE LCITSNAME, LCITSVAL, LLOBJRET
+LCITSNAME = SYS(18)
+LCITSVAL = EVALUATE(SYS(18))
+IF '?'$LCITSVAL .OR. (.NOT.EMPTY(LCITSVAL) .AND. .NOT.SEEK('M'+LCITSVAL;
+,'CUSTOMER'))
+LLOBJRET = CUSBROWM(LCITSVAL,'','M')
+LCITSVAL = IIF(LLOBJRET,LCITSVAL,LAOLDVAL)
+&lcItsName = lcItsVal
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVLOC                              *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVLOC
+PRIVATE LCOBJNAME, LCOBJVAL
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'WAREHOUS'))
+   LCOBJVAL = GFBROWWARE(.T.)
+   LCOBJVAL = IIF(EMPTY(LCOBJVAL),LAOLDVAL,LCOBJVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSTATES                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSTATES
+PRIVATE LCSTATEOBJ, LCSTATEVAL
+LCSTATEOBJ = SYS(18)
+LCSTATEVAL = EVALUATE(SYS(18))
+IF '?'$LCSTATEVAL .OR. (.NOT.EMPTY(LCSTATEVAL) .AND. .NOT.SEEK('N'+PADR;
+(ALLTRIM(LCSTATEVAL),6)+'N'+'STATE','CODES'))
+LNCURALIAS = SELECT(0)
+SELECT CODES
+DIMENSION LACODEFLD(2)
+LCFILE_TTL = ALLTRIM(LCSTITLE)+' Codes'
+LCBRFIELDS = 'cCode_No :H= ALLTRIM(lcSTitle) + " Code " ,cDiscrep :H="Description";
+ :30'
+IF GFBROWS('FOR cdefcode+cfld_name+ccode_no+cdiscrep =      "NSTATE" AND;
+ cRltField="N"','cCode_No','laCodeFld')
+LCSTATEVAL = LACODEFLD(1)
+ENDIF
+SELECT (LNCURALIAS)
+ENDIF
+LCSTATEVAL = IIF('?'$LCSTATEVAL,'',LCSTATEVAL)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCOLLTIME                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCOLLTIME
+PARAMETERS LCSTART, LCEND
+LNSTHOUR = IIF(VAL(LEFT(LCSTART,2))=0,VAL(LEFT(LCSTART,2))+24,VAL(LEFT;
+(LCSTART,2)))
+LNENDHOUR = IIF(VAL(LEFT(LCEND,2))=0,VAL(LEFT(LCEND,2))+24,VAL(LEFT(LCEND;
+,2)))
+LNSTART = 3600*LNSTHOUR+60*VAL(SUBSTR(LCSTART,4,2))+VAL(RIGHT(LCSTART,2))
+LNEND = 3600*LNENDHOUR+60*VAL(SUBSTR(LCEND,4,2))+VAL(RIGHT(LCEND,2))
+RETURN (LNEND-LNSTART)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCLEARREP                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCLEARREP
+LLCLEARFN = .T.
+IF USED(LCWORKFILE)
+   USE IN (LCWORKFILE)
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFEVALVARS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFEVALVARS
+LLMULTCURR = GFGETMEMVA('llMulCurr')
+LCSTYGRP = LCSTYMAJOR+' Group'
+DIMENSION LASORTDESC(6, 1), LASORTVAL(6, 1)
+LASORTDESC(1) = 'Account'
+LASORTDESC(2) = LCSTYMAJOR
+LASORTDESC(3) = LCSTYGRP
+LASORTDESC(4) = LCSTITLE
+LASORTDESC(5) = 'Sales Representative'
+LASORTDESC(6) = 'Royality'
+LASORTVAL(1) = 'A'
+LASORTVAL(2) = 'S'
+LASORTVAL(3) = 'G'
+LASORTVAL(4) = 'T'
+LASORTVAL(5) = 'L'
+LASORTVAL(6) = 'R'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSHOWSZ                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSHOWSZ
+LCRPFORM = IIF(LLRPSHOWSZ,'ARVIT10S','ARVIT10N')
+= LFREPPLTFR(LCRPFORM)
+= LFVSORTBY(.T.)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSORTBY                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSORTBY
+PARAMETERS LLDETONLY
+DO CASE
+CASE LCRPSORTBY='S'
+   IF .NOT.LLDETONLY
+      LCRPHEDTLT = ALLTRIM(LCSTYMAJOR)
+   ENDIF
+   IF EMPTY(LCFREE_CLR)
+      IF .NOT.LLDETONLY
+         LCRPINDTAG = 'STYLE + ACCOUNT + INVOICE'
+         LCRPGROUP1 = 'STYLE'
+         LCRPGRPHD1 = "lcStyTitle + ' : ' + Style + ' - ' + Style.Desc1"
+         LCRPGRPFT1 = "'*   ' + Style + ' Totals ==>'"
+         STORE '' TO LCRPGROUP2, LCRPGROUP3, LCRPGRPHD2, LCRPGRPHD3, LCRPGRPFT2;
+, LCRPGRPFT3
+      ENDIF
+      IF LLRPSHOWSZ
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVOGSTYLE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVOGSTYLE
+PRIVATE LNCURSELCT, LCSTYORDER
+LNCURSELCT = SELECT(0)
+SELECT STYLE
+LCSTYORDER = ORDER()
+SET ORDER TO cStyle
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'STYLE'))
+   LCOBJVAL = GFSTYBRW('M','','',.F.)
+   LCOBJVAL = IIF(.NOT.EMPTY(LCOBJVAL),LCOBJVAL,LAOLDVAL)
+   &lcObjName = lcObjVal
+ENDIF
+SELECT STYLE
+SET ORDER TO &lcStyOrder
+SELECT (LNCURSELCT)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVREPCODE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVREPCODE
+PRIVATE LCVAR, LCOBJ, LATEMP
+LCVAR = SYS(18)
+LCOBJ = EVALUATE(SYS(18))
+IF .NOT.EMPTY(LCOBJ) .AND. ('?'$LCOBJ .OR. .NOT.SEEK(LCOBJ,'SALESREP'))
+   SELECT SALESREP
+   DIMENSION LATEMP(1)
+   LATEMP = ''
+   LCBRFIELDS = "REPCODE   :R :H= 'Code' , "+"NAME      :R :H= 'Name' ;
+,"+"cAddress6 :R :H= 'Country' ,"+"PHONE     :R :H= 'Phone' ,"+"BALANCE;
+   :R :H= 'Balance' "
+   LCFILE_TTL = 'Sales Representative ...'
+   = GFBROWS('','REPCODE','laTemp')
+   IF .NOT.EMPTY(LATEMP(1))
+      LCOBJ = LATEMP(1)
+   ELSE
+      LCOBJ = LAOLDVAL
+   ENDIF
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOLDVAL                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOLDVAL
+LAOLDVAL = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LPGENEXPR                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LPGENEXPR
+DIMENSION LATEMPEXPR(1)
+= ACOPY(LAOGFXFLT,LATEMPEXPR)
+IF 'INVHDR.REP1'$LCRPEXP
+   DIMENSION LAOGFXFLT(1, 7)
+   = ACOPY(LATEMPEXPR,LAOGFXFLT,AELEMENT(LATEMPEXPR,LNSLREPPOS,1),7)
+   PRIVATE LCSLREPEXP
+   LCSLREPEXP = GFGENFLT('laOGFxFlt',.T.,.T.)
+   LCRPEXP = STRTRAN(LCRPEXP,LCSLREPEXP,'('+LCSLREPEXP+' .OR. '+STRTRAN;
+(LCSLREPEXP,'INVHDR.REP1','INVHDR.REP2')+')')
+ENDIF
+DIMENSION LAOGFXFLT(1)
+= ACOPY(LATEMPEXPR,LAOGFXFLT)
+
+

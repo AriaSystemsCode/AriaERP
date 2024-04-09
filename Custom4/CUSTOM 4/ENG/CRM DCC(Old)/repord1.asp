@@ -1,0 +1,1 @@
+<%Response.Redirect("order/repord1.asp")%>

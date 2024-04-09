@@ -1,0 +1,5 @@
+cRespBy	String	60	
+mRespAct	String	8000	
+DRespDate	Date		
+tRespTime	Date		
+CIssueNo	String	6	

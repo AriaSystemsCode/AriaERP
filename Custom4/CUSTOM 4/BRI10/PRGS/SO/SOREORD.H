@@ -1,0 +1,20 @@
+#DEFINE LANG_AAA "AAA"
+
+#DEFINE LANG_GRID_ORDER            "Order"
+#DEFINE LANG_GRID_ACCOUNT          "Account"
+#DEFINE LANG_GRID_STORE            "Store"
+#DEFINE LANG_GRID_STYLE            "Style    -Color"
+#DEFINE LANG_GRID_NMININVQTY       "Min Qty"
+#DEFINE LANG_GRID_NMAXINVQTY       "Max Qty"
+#DEFINE LANG_GRID_TOTAVLBL         "Tot Avail"
+#DEFINE LANG_GRID_OPEN             "Open"
+#DEFINE LANG_GRID_ONHAND           "On Hand"
+#DEFINE LANG_GRID_REORDER          "Re-Order"
+#DEFINE LANG_ACCOUNT_NOT_PARTNER   "The selected account is not a Valid EDI 852 Account"
+#DEFINE LANG_COLECT_MSG1           "Collecting data for Store "
+#DEFINE LANG_COLECT_MSG2           " Style " 
+
+#DEFINE LANG_SELECT                "Se\<lect"
+#DEFINE LANG_UNSELECT              "Unse\<lect"
+
+#DEFINE LANG_NO_SELECTED_ORDERS    "No selected orders to save."

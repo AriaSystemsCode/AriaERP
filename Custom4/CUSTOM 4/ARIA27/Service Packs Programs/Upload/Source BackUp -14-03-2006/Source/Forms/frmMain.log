@@ -1,0 +1,12 @@
+Line 276: Class MSComctlLib.ProgressBar of control cntTherm was not a loaded control class.
+Line 432: Class MSComctlLib.ImageList of control imlStatus was not a loaded control class.
+Line 282: The property name _ExtentX in cntTherm is invalid.
+Line 283: The property name _ExtentY in cntTherm is invalid.
+Line 284: The property name _Version in cntTherm is invalid.
+Line 435: The property name _ExtentX in imlStatus is invalid.
+Line 436: The property name _ExtentY in imlStatus is invalid.
+Line 438: The property name ImageWidth in imlStatus is invalid.
+Line 439: The property name ImageHeight in imlStatus is invalid.
+Line 440: The property name MaskColor in imlStatus is invalid.
+Line 441: The property name _Version in imlStatus is invalid.
+Line 453: The property name Images in imlStatus is invalid.

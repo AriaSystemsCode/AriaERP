@@ -1,0 +1,103 @@
+R_TITLE = 'MATERIAL INVENTORY ADJUSTMENT JOURNAL'
+IF LLMULTWARE
+   LNSTRTCOL = 7
+ELSE
+   LNSTRTCOL = 0
+ENDIF
+SELECT FINVTADJ
+GOTO TOP
+IF .NOT.EMPTY(LCRPINVEXP)
+   LCRPEXP = LCRPEXP+' AND (FInvtAdj.Type $ lcRpInvExp)'
+ENDIF
+IF .NOT.EMPTY(LCRPLOC)
+   IF .NOT.EMPTY(LCRPEXP)
+      LCRPEXP = LCRPEXP+' .AND.'
+   ENDIF
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVFABRIC                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVFABRIC
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'FABRIC'))
+   LLOBJRET = FABROW(LCOBJVAL,'*')
+   LCOBJVAL = IIF(LLOBJRET,LCOBJVAL,LCOLDVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOLDVAL                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOLDVAL
+LCOLDVAL = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVWARECOD                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVWARECOD
+PRIVATE LCOBJNAME, LCOBJVAL
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'WAREHOUS'))
+   LCOBJVAL = GFBROWWARE(.T.)
+   LCOBJVAL = IIF(EMPTY(LCOBJVAL),LCOLDVAL,LCOBJVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVINVTRAN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVINVTRAN
+= GFMOVER(LARPSORINV,LARPTARINV,'Select Inventory Transaction type',.T.;
+,'')
+= LFINVEXPR()
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFINVEXPR                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFINVEXPR
+PRIVATE LATARGET
+IF EMPTY(LARPTARINV)
+   = ACOPY(LARPSORINV,LATARGET)
+ELSE
+   = ACOPY(LARPTARINV,LATARGET)
+ENDIF
+= ASORT(LATARGET)
+LCRPINVEXP = ''
+FOR LNI = 1 TO ALEN(LATARGET,1)
+   LCRPINVEXP = IIF(EMPTY(LCRPINVEXP),LEFT(LATARGET(LNI),1),LCRPINVEXP;
++','+LEFT(LATARGET(LNI),1))
+ENDFOR
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWRUNGRID                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWRUNGRID
+R_WIDTH = 'W'
+LNDATEPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'FINVTADJ.DATE'),1)
+IF EMPTY(LAOGFXFLT(LNDATEPOS,6))
+   LAOGFXFLT(LNDATEPOS, 6) = DTOC(GDSYSDATE)+'|'+DTOC(GDSYSDATE)
+ENDIF
+LNARRAYLEN = IIF(LLMULTWARE,3,2)
+DIMENSION LARPSORINV(LNARRAYLEN, 1), LARPTARINV(LNARRAYLEN, 1)
+STORE 'Adjustments' TO LARPSORINV(1), LARPTARINV(1)
+STORE 'Physical' TO LARPSORINV(2), LARPTARINV(2)
+IF LNARRAYLEN=3
+   STORE 'Transfer' TO LARPSORINV(3), LARPTARINV(3)
+ENDIF
+
+

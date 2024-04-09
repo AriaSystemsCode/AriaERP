@@ -1,0 +1,16 @@
+Order	String	6	
+Invoice	String	6	
+Invdate	date	
+PikTkt	String	6	
+Style	String	19	
+Price	Currency	
+Ship1	Number	
+Ship2	Number	
+Ship3	Number	
+Ship4	Number	
+Ship5	Number	
+Ship6	Number	
+Ship7	Number	
+Ship8	Number	
+TotQty	Number	
+InvLine Number	

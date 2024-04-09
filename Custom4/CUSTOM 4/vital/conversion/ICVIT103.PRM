@@ -1,0 +1,68 @@
+LCREPRNGT = LDRPPHDATE
+LCREPRNGF = LDRPPLDATE
+LCEXACTS = SET('EXACT')
+SET EXACT OFF
+SET ORDER TO STYDATE IN STYINVJL
+LCDTFLT = "reference = 'Auto cost adj.'"
+DO CASE
+CASE .NOT.EMPTY(LDRPPLDATE) .AND. .NOT.EMPTY(LDRPPHDATE)
+   LCDTFLT = LCDTFLT+" .AND. BETWEEN(ALLTRIM(DTOS(STYINVJL.DTRDATE)),'";
++ALLTRIM(DTOS(LDRPPLDATE))+"','"+ALLTRIM(DTOS(LDRPPHDATE))+"')"
+CASE EMPTY(LDRPPLDATE) .AND. .NOT.EMPTY(LDRPPHDATE)
+   LCREPRNGT = ALLTRIM(DTOS(LDRPPLDATE))
+   LCREPRNGF = ''
+   LCDTFLT = LCDTFLT+' .AND. ALLTRIM(DTOS(STYINVJL.DTRDATE)) <= "'+LCREPRNGT;
++'"'
+CASE EMPTY(LDRPPLDATE) .AND. EMPTY(LDRPPHDATE)
+   LCREPRNGF = ''
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+SET ORDER TO Cstyle IN STYLE
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVSTY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVSTY
+PARAMETERS LCPARM
+DO CASE
+CASE LCPARM='S'
+CASE LCPARM='R'
+ENDCASE
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDATERNG                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDATERNG
+PRIVATE LDFROM, LDTO
+LDFROM = LDRPPLDATE
+LDTO = LDRPPHDATE
+LCTITLE = 'Invoice Date'
+DO DateRng.Spx
+LDRPPLDATE = LDFROM
+LDRPPHDATE = LDTO
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVPBOK                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVPBOK
+IF LDFROM>LDTO
+   WAIT WINDOW NOWAIT '"From" value must be less than or equal to "To";
+ value'
+   _CUROBJ = OBJNUM(LDFROM)
+ELSE
+   CLEAR READERROR
+ENDIF
+
+

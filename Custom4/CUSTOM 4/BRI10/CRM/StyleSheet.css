@@ -1,0 +1,197 @@
+﻿body {
+}
+.AccordionCollapsedHeader
+{
+	height:30px;
+	width:790px;	
+    margin-top: 3px;
+	cursor: pointer;
+	background-image:url("resources/images/small.png");
+}
+.AccordionExpandedHeader
+{
+	height:30px;
+	width:790px;	
+    margin-top: 3px;
+	cursor: pointer;		
+	background-image:url("resources/images/small.png");	
+}
+.AccordionContent
+{		
+	width:790px;
+	
+}
+
+.AutoCompleteList1
+{	
+   	height:150px;   	
+    overflow:auto;
+}	
+
+.autocomplete_SalesRep1{ max-height:200px; font:tahoma !important; font-size:0.8em; overflow:auto !important; width:200px !important;}
+.autocomplete_SalesRep1 div:hover{color:white !important;background-color:#3666CC !important; overflow:auto !important;}
+.autocomplete_SalesRep1 div {color:Black !important;background-color:#FFFFFF !important; overflow:auto !important;}
+
+.autocomplete_SalesRep2{ max-height:200px; font:tahoma !important; font-size:0.8em; overflow:auto !important; width:200px !important;}
+.autocomplete_SalesRep2 div:hover{color:white !important;background-color:#3666CC !important; overflow:auto !important;}
+.autocomplete_SalesRep2 div {color:Black !important;background-color:#FFFFFF !important; overflow:auto !important;}
+
+
+.AutoCompleteExtenderAccount
+{  
+    max-height:300px; 
+	margin : 0px!important;
+	background-color : inherit;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    width: 630px !important;
+    left : inherit !important;
+    overflow :auto;
+    font-size:0.8em; 
+}
+
+.AutoCompleteExtenderAccountRight
+{  
+    max-height:300px; 
+	margin : 0px!important;
+	background-color : inherit;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    width: 630px !important;
+    left : 55px !important;
+    overflow :auto;
+    font-size:0.8em; 
+}
+
+
+.AutoCompleteExtenderStore
+{  
+    max-height:300px; 
+	margin : 0px!important;
+	background-color : inherit;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    width: 300px !important;
+    left : inherit !important;
+    overflow :auto;
+    font-size:0.8em; 
+}
+
+.Style
+{  
+    max-height:200px; 
+	margin : 0px!important;
+	background-color : inherit;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    left : inherit !important;
+    overflow :auto;
+    font-size:0.8em; 
+    width: 500px !important;
+}
+
+.Contact
+{  
+    max-height:100px; 
+	margin : 0px!important;
+	background-color : #FF00FF;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    left : inherit !important;
+    overflow : visible;
+    font-size:0.8em; 
+    z-index: 0;
+}
+
+.StyleDescription
+{  
+    max-height:200px; 
+	margin : 0px!important;
+	background-color : inherit;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    left : inherit !important;
+    overflow :auto;
+    font-size:0.8em; 
+}
+
+.SalesRep
+{  
+	margin : 0px!important;
+	background-color : inherit;
+	color : windowtext;
+	border : buttonshadow;
+	border-width : 1px;
+	border-style : solid;
+	overflow : auto !important;
+    text-align : left; 
+    left : inherit !important;
+    overflow :auto;
+    font-size:0.8em; 
+    width:200px !important;
+    max-height:100px; 
+}
+
+.autocomplete_SalesRep1{ max-height:200px; font:tahoma !important; font-size:0.8em; overflow:auto !important; width:200px !important;}
+.autocomplete_SalesRep1 div:hover{color:white !important;background-color:#3666CC !important; overflow:auto !important;}
+.autocomplete_SalesRep1 div {color:Black !important;background-color:#FFFFFF !important; overflow:auto !important;}
+
+.style_dropdown{ max-height:200px; font:tahoma !important; font-size:0.8em; overflow:auto !important; width:120px !important;}
+.style_dropdown div:hover{color:white !important;background-color:#3666CC !important; overflow:auto !important;}
+.style_dropdown div {color:Black !important;background-color:#FFFFFF !important; overflow:auto !important;}
+
+
+.description_dropdown{ max-height:200px; font:tahoma !important; font-size:0.8em; overflow:auto !important; width:575px !important;}
+.description_dropdown div:hover{color:white !important;background-color:#3666CC !important; overflow:auto !important;}
+.description_dropdown div {color:Black !important;background-color:#FFFFFF !important; overflow:auto !important;}
+
+.profile_div{width: 774px !important; font:tahoma !important; font-size:0.8em; overflow:auto !important; }
+
+.popupControl {
+	background-color:#AAD4FF;
+	position:absolute;
+	visibility:hidden;
+	border-style:solid;
+	border-color: Black;
+	border-width: 2px;
+}
+
+.modalBackground {
+	background-color:Gray;
+	filter:alpha(opacity=70);
+	opacity:0.7;
+}
+
+.modalPopup {
+	background-color:#ffffdd;
+	border-width:3px;
+	border-style:solid;
+	border-color:Gray;
+	padding:3px;
+	width:220px;
+}
+

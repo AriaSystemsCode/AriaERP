@@ -1,0 +1,24 @@
+Style	String	19	
+Desc1	String	60	
+Price	Number	
+Qty1	Number	
+Qty2	Number	
+Qty3	Number	
+Qty4	Number	
+Qty5	Number	
+Qty6	Number	
+Qty7	Number	
+Qty8	Number	
+Totqty	Number	
+Amount	Number	
+Sz1	String	5	
+Sz2	String	5	
+Sz3	String	5	
+Sz4	String	5	
+Sz5	String	5	
+Sz6	String	5	
+Sz7	String	5	
+Sz8	String	5	
+Invoice	String	6	
+Flag	String	1	
+CcomCode	String	20	

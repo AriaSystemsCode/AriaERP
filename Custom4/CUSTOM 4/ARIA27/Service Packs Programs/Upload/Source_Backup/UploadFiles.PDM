@@ -1,0 +1,110 @@
+[Root]
+Most Recent Package=Upload Tracking Entries
+
+
+[Package|Upload Tracking Entries|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Media
+
+[Package|Upload Tracking Entries|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Upload Tracking Entries|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Upload Tracking Entries|Files Found]
+
+[Package|Upload Tracking Entries|Files Released]
+
+[Package|Upload Tracking Entries|Missing Dependency Information]
+C:\WINNT\system32\Mscomctl.ocx=
+C:\WINNT\system32\xFTPPro.ocx=
+C:\WINNT\system32\scrrun.dll=
+
+[Package|Upload Tracking Entries|Out-of-Date Dependency Information]
+
+[Package|Upload Tracking Entries|Files Added]
+
+[Package|Upload Tracking Entries|Files Removed]
+
+[Package|Upload Tracking Entries|Files In Project]
+C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Source\UploadFiles.exe=Yes
+C:\WINNT\system32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINNT\system32\MSRDO20.DLL=Yes
+C:\WINNT\system32\RDOCURS.DLL=Yes
+C:\WINNT\system32\scrrun.dll=Yes
+C:\WINNT\system32\TABCTL32.OCX=Yes
+C:\WINNT\system32\COMDLG32.OCX=Yes
+C:\WINNT\system32\MSINET.OCX=Yes
+C:\WINNT\system32\xFTPPro.ocx=Yes
+C:\WINNT\system32\Mscomctl.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINNT\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|Upload Tracking Entries|Configure Registry Files]
+Applicable=No
+
+[Package|Upload Tracking Entries|Configure Remote Servers]
+Applicable=No
+
+[Package|Upload Tracking Entries|Install Locations]
+C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Source\UploadFiles.exe=$(AppPath)
+C:\WINNT\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\MSRDO20.DLL=$(WinSysPath)
+C:\WINNT\system32\RDOCURS.DLL=$(WinSysPath)
+C:\WINNT\system32\scrrun.dll=$(WinSysPath)
+C:\WINNT\system32\TABCTL32.OCX=$(WinSysPath)
+C:\WINNT\system32\COMDLG32.OCX=$(WinSysPath)
+C:\WINNT\system32\MSINET.OCX=$(WinSysPath)
+C:\WINNT\system32\xFTPPro.ocx=$(WinSysPath)
+C:\WINNT\system32\Mscomctl.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|Upload Tracking Entries|Configure Shared Files]
+Applicable=Yes
+C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Source\UploadFiles.exe=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+
+[Package|Upload Tracking Entries|Distribution]
+Type=single
+Size=
+Title=Upload Tracking Entries
+
+[Package|Upload Tracking Entries|IconGroups]
+Group0=Upload Tracking Entries
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|Upload Tracking Entries|Upload Tracking Entries]
+Icon1=UploadFiles.exe
+Title1=Upload Tracking Entries
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|Upload Tracking Entries|Package]
+PackageFolder=C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Media
+ProjectFolder=C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Source
+ServerSideCab=
+File1=C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Media\setup.exe
+File2=C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Media\Setup.Lst
+File3=C:\Documents and Settings\yma\My Documents\My Programs\ServicePacks\Upload\Media\UploadFiles.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

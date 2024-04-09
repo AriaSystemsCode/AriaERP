@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<CRMTHEME>CRM
+	<THEME>
+		<NAME>
+			STANDARD
+		</NAME>
+	</THEME>
+	<THEME>
+		<NAME>
+			Theme1
+		</NAME>
+	</THEME>
+	<THEME>
+		<NAME>
+			Theme2
+		</NAME>
+	</THEME>
+
+</CRMTHEME>

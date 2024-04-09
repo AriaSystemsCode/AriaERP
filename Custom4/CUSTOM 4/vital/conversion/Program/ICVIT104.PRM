@@ -1,0 +1,239 @@
+LNMAJORLEN = LEN(ALLTRIM(GFITEMMASK('PM')))
+STORE '' TO LCCOLORTLT, LCSEPART
+DIMENSION LAAGING(5)
+STORE 0 TO LAAGING, LNTOTSTY, LNTOTVAL
+LCSTKVAL = 'IIF(lcrpPrqty="Q",STYINVJL.NTOTSTK,STYINVJL.NTOTSTK*STYLE.Ave_Cost)'
+IF LLOGFLTCH
+   IF USED(LCWRKTMP) .AND. RECCOUNT(LCWRKTMP)>0
+      SELECT (LCWRKTMP)
+      USE
+      ERASE (GCWORKDIR+LCWRKTMP+'.dbf')
+      ERASE (GCWORKDIR+LCWRKTMP+'.cdx')
+      IF LCRPPRQTY='Q'
+         CREATE DBF (GCWORKDIR+LCWRKTMP)(CSTYGROUP C(6), STY C(19), NRECV;
+ N(7), STYLE C(LNMAJORLEN), STYSHRTD C(15), STYLONGD C(30), COLOR C(LNCOLORLEN);
+, COLORDSC C(15), TOTAL N(7), UNITCOST N(7, 2), COSTVAL N(12, 2), NAGE90;
+ N(12), NAGE180 N(12), NAGE270 N(12), NAGE360 N(12), NAGEABV N(12), ADJUSTMNTS;
+ N(12, 2), NISSUED N(12))
+      ELSE
+         CREATE DBF (GCWORKDIR+LCWRKTMP)(CSTYGROUP C(6), STY C(19), NRECV;
+ N(7), STYLE C(LNMAJORLEN), STYSHRTD C(15), STYLONGD C(30), COLOR C(LNCOLORLEN);
+, COLORDSC C(15), TOTAL N(7), UNITCOST N(7, 2), COSTVAL N(12, 2), NAGE90;
+ N(12, 2), NAGE180 N(12, 2), NAGE270 N(12, 2), NAGE360 N(12, 2), NAGEABV;
+ N(12, 2), ADJUSTMNTS N(12, 2), NISSUED N(12, 2))
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVSTY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVSTY
+PARAMETERS LCPARM
+DO CASE
+CASE LCPARM='S'
+   USE IN 0 (GCDATADIR+'Style') AGAIN ALIAS STYLE_X ORDER Style
+   SELECT STYLE
+   SET ORDER TO Cstyle
+   SET RELATION TO STYLE->STYLE INTO STYLE_X
+   GOTO IN STYLE TOP
+   LLCHSTYLE = .T.
+CASE LCPARM='R'
+   USE IN STYLE_X
+   SELECT STYLE
+   SET ORDER TO STYLE
+   LLCLEARSTY = .F.
+ENDCASE
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSTYSUM                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSTYSUM
+PARAMETERS LCSTY, LCCOMP, LNADDTOVAR
+PRIVATE LNSTYREC
+LNSTYREC = IIF(RECNO('STYLE')<=RECCOUNT('STYLE'),RECNO('STYLE'),1)
+LNTOTCOMP = 0
+SELECT STYLE_X
+SUM &lcCOMP TO lnTotcomp WHILE Style = ALLTRIM(lcSty)
+SELECT STYLE
+GOTO LNSTYREC
+DO CASE
+CASE LNADDTOVAR=1
+   LNO_T_S = LNTOTCOMP
+CASE LNADDTOVAR=2
+   LNO_T_S = LNO_T_S+LNTOTCOMP
+CASE LNADDTOVAR=3
+   LNO_T_S = LNO_T_S-LNTOTCOMP
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+IF .NOT.USED('STYINVJL')
+   = GFOPENFILE(GCDATADIR+'STYINVJL',GCDATADIR+'STYINVJL','SH')
+   SET ORDER TO STYDATE
+ENDIF
+IF .NOT.USED(LCWRKTMP)
+   IF LCRPPRQTY='Q'
+      CREATE DBF (GCWORKDIR+LCWRKTMP)(CSTYGROUP C(6), STY C(19), NRECV;
+ N(7), STYLE C(LNMAJORLEN), STYSHRTD C(15), STYLONGD C(30), COLOR C(LNCOLORLEN);
+, COLORDSC C(15), TOTAL N(7), UNITCOST N(7, 2), COSTVAL N(12, 2), NAGE90;
+ N(12), NAGE180 N(12), NAGE270 N(12), NAGE360 N(12), NAGEABV N(12), ADJUSTMNTS;
+ N(12, 2), NISSUED N(12))
+   ELSE
+      CREATE DBF (GCWORKDIR+LCWRKTMP)(CSTYGROUP C(6), STY C(19), NRECV;
+ N(7), STYLE C(LNMAJORLEN), STYSHRTD C(15), STYLONGD C(30), COLOR C(LNCOLORLEN);
+, COLORDSC C(15), TOTAL N(7), UNITCOST N(7, 2), COSTVAL N(12, 2), NAGE90;
+ N(12, 2), NAGE180 N(12, 2), NAGE270 N(12, 2), NAGE360 N(12, 2), NAGEABV;
+ N(12, 2), ADJUSTMNTS N(12, 2), NISSUED N(12, 2))
+   ENDIF
+   INDEX ON CSTYGROUP+STYLE+COLOR TAG (LCWRKTMP)
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFEVALSEGS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFEVALSEGS
+LNMAJORLEN = LEN(ALLTRIM(GFITEMMASK('PM')))
+LNMAJSEG = GFITEMMASK('SM')
+DIMENSION LAMAJSEGS(1, 1)
+= GFITEMMASK(LAMAJSEGS)
+LCNONMAJTL = ''
+LCNONMAJPI = ''
+LNMAJSEG = GFITEMMASK('SM')
+DIMENSION LAMAJSEGS(1, 1)
+= GFITEMMASK(LAMAJSEGS)
+FOR LNI = LNMAJSEG+1 TO ALEN(LAMAJSEGS,1)
+   IF LAMAJSEGS(LNI,1)='C'
+      LCFREE_CLR = LAMAJSEGS(LNI,1)
+      LNCLRPO = LAMAJSEGS(LNI,4)
+      LCNONMAJPI = IIF(EMPTY(LCNONMAJPI) .OR. LAMAJSEGS(LNI,1)='C',LAMAJSEGS;
+(LNI,3),LCNONMAJPI+LAMAJSEGS(LNI-1,6)+LAMAJSEGS(LNI,3))
+      LCNONMAJTL = IIF(EMPTY(LCNONMAJTL) .OR. LAMAJSEGS(LNI,1)='C',PADR;
+(LAMAJSEGS(LNI,2),LEN(LAMAJSEGS(LNI,3))),LCNONMAJTL+LAMAJSEGS(LNI-1,6);
++PADR(LAMAJSEGS(LNI,2),LEN(LAMAJSEGS(LNI,3))))
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LPCOLLECT                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LPCOLLECT
+DIMENSION LAAGING(5)
+STORE 0 TO LAAGING, LNTOTSTY, LNTOTVAL
+SELECT STYLE
+SET RELATION TO STYLE INTO STYINVJL
+GOTO TOP
+SCAN FOR &lcRpExp
+WAIT WINDOW NOWAIT LCSTYMAJOR+' group\'+LCSTYMAJOR+': '+CSTYGROUP+'\'+STYLE;
+->CSTYMAJOR
+SELECT STYINVJL
+IF STYLE->TOTSTK>0 .AND. .NOT.EOF('STYINVJL')
+   WAIT WINDOW NOWAIT LCSTYMAJOR+' group\'+LCSTYMAJOR+'-'+LCCOLORTLT+':;
+ '+STYLE->CSTYGROUP+'\'+STYLE
+   LCKEY = STYLE->CSTYGROUP+SUBSTR(STYLE->CSTYMAJOR,1,LNMAJORLEN)+LCSEPART;
++SUBSTR(STYLE->STYLE,LNCLRPO,LNCOLORLEN)
+   LNSTKQTY = STYLE->TOTSTK
+   SELECT STYINVJL
+   SCAN FOR DTRDATE<=LDRPENDDAT WHILE STYLE=STYLE->STYLE
+      LDDATE = STYINVJL->DTRDATE
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFRECV                              *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFRECV
+PRIVATE LCSLCT, LLFOUND
+LCSLCT = SELECT(0)
+LLFOUND = .F.
+IF SEEK(STYLE->STYLE,'STYINVJL')
+   SELECT STYINVJL
+   SCAN REST FOR CIRTYPE='R' .AND. CTRTYPE$'56' WHILE STYLE+CWARECODE+CSESSION;
++DTOS(DTRDATE)+CTRCODE+STR(LINENO,6)=STYLE->STYLE
+   LLFOUND = .T.
+   EXIT
+ENDSCAN
+ENDIF
+SELECT (LCSLCT)
+RETURN LLFOUND
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDAY1                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDAY1
+IF LNRPDAY1<=0
+   = GFMODALGEN('TRM40132B40011','ALERT')
+   LNRPDAY1 = LNOLDDAYS
+ENDIF
+IF LNRPDAY1>=LNRPDAY2
+   = GFMODALGEN('TRM40133B40011','ALERT','2nd|1st')
+   LNRPDAY1 = LNOLDDAYS
+ENDIF
+LLOGFLTCH = .T.
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWDAYS                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWDAYS
+LNOLDDAYS = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDAY2                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDAY2
+IF LNRPDAY2<=LNRPDAY1
+   = GFMODALGEN('TRM40133B40011','ALERT','2nd|1st')
+   LNRPDAY2 = LNOLDDAYS
+ENDIF
+IF LNRPDAY2>=LNRPDAY3
+   = GFMODALGEN('TRM40133B40011','ALERT','3rd|2nd')
+   LNRPDAY2 = LNOLDDAYS
+ENDIF
+LLOGFLTCH = .T.
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDAY3                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDAY3
+IF LNRPDAY3<=LNRPDAY2
+   = GFMODALGEN('TRM40133B40011','ALERT','3rd|2nd')
+   LNRPDAY3 = LNOLDDAYS
+ENDIF
+IF LNRPDAY3>=LNRPDAY4
+   = GFMODALGEN('TRM40133B40011','ALERT','3rd|2nd')
+   LNRPDAY3 = LNOLDDAYS
+ENDIF
+LLOGFLTCH = .T.
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDAY4                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDAY4
+IF LNRPDAY4<=LNRPDAY3
+   = GFMODALGEN('TRM40133B40011','ALERT','4th|3rd')
+   LNRPDAY4 = LNOLDDAYS
+ENDIF
+LLOGFLTCH = .T.
+
+

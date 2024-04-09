@@ -1,0 +1,67 @@
+:Base AUTHORIZ.HLP
+:Title Authorizer 3.0
+1 Contents
+1 Setup
+2 Processor Setup
+3 Processor Data
+4 Processor Setup=PROCESSOR_SETUP_HELP_ID
+4 Access Setup=ACCESS_SETUP_HELP_ID
+4 BuyPass Setup=BUYPASS_SETUP_HELP_ID
+4 Discover/Novus Setup=DISCOVER_NOVUS_SETUP_HELP_ID
+4 FDMS(CES) Setup=CES_SETUP_HELP_ID
+4 FDMS (FDR) Setup=FDR_SETUP_HELP_ID
+4 FDMS(NaBanco) Setup=NABANCO_SETUP_HELP_ID
+4 GPS(MAPP) Setup=MAPP_SETUP_HELP_ID
+4 GPS(NDC) Setup=NDC_SETUP_HELP_ID
+4 Lynk Setup=LYNK_SETUP
+4 Maverick Setup=MAVERICK_SETUP_HELP_ID
+4 Nova Setup=NOVA_SETUP_HELP_ID
+4 Paymentech (Gensar) Setup=GENSAR_DATA_HELP_ID
+4 Vital (VisaNet) Setup=VISANET_SETUP_HELP_ID
+; next level + 1
+1 Phone Numbers=PHONE_NUM_HELP_ID
+2 Check Processor Setup
+; next level + 1
+2 ArJay=ARJAY_HELP_ID
+3 Checktronic=CHECKTRONIC_HELP_ID
+3 Checkrite=CHECKRITE_SETUP_HELP_ID
+3 Crosscheck=CROSSCHECK
+3 Equifax=EQUIFAX_HELP_ID
+3 FirstCheck=FIRSTCHECK_HELP_ID
+3 National Check Network (NCN)=NCN_SETUP_HELP_ID
+3 NDC Check Services=NDC_CHECK_HELP_ID
+3 SelectCheck=SELECTCHECK_HELP_ID
+3 Telecheck=TELECHECK_SETUP_HELP_ID
+; next level + 1
+1 Payment Types=PAYMENT_TYPES_HELP_ID
+2 Merchant Information=MERCH_SETUP_HELP_ID
+2 Communications Setup
+3 Settings=COMM_SETUP_HELP_ID
+3 Standard Modems=MODEM_STRING_HELP_ID
+3 Wireless Modems=WIRELESS_MODEM_SETUP_HELP_ID
+; next level + 1
+1 Input/Output Devices=IO_DEVICES_SETUP_HELP_ID
+2 Passwords=PASSWORDS_HELP_ID
+2 Network=NETWORK_SETUP_HELP_ID
+2 Advanced Setup
+3 Advanced Settings=ADVANCED_SETINGS_HELP_ID
+3 Clear Batch=CLEAR_BATCH_HELP_ID
+3 Options=ADVANCED_OPTIONS_HELP_ID
+3 Register=REGISTER_HELP_ID
+1 Using Authorizer
+2 Processing Transactions
+3 Supported Transactions=SUPPORTED_TRANSACTIONS_HELP_ID
+2 Reports
+3 General Report Information=REPORTS_HELP_ID
+3 Transaction Information Reports=TRAN_INFO_HELP_ID
+3 Rejected Transaction Reports=DECLINED_TRANSACTION_INFO_HELP_ID
+3 Transaction History Reports=TRAN_HISTORY_HELP_ID
+3 Archived Data Reports=ARCHIVED_DATA_HELP_ID
+2 Administrative Functions
+3 Settlement=SETTLEMENT_HELP_ID
+3 Offline Processing=OFF_LINE_HELP_ID
+2 Error Messages
+3 Error List=ERRORS_HELP_ID
+1 About Authorizer
+; next level + 1
+1 Version Information=ABOUT_HELP_ID

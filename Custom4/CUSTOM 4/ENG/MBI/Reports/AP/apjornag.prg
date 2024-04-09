@@ -1,0 +1,1189 @@
+*:***************************************************************************
+*: Program file  : APJORNAG
+*: Program desc. : Custom AP JOURNAL
+*: System        : ARIA4XP
+*: Module        : Accounts Payable(AP)
+*: Developer     : Mariam Mazhar(MMT)
+*: Date          : 03/17/2015                                                
+*: Entry		 : C201659.exe [T20150306.0001]
+*:***************************************************************************
+*:Modification
+*:************************************************************************
+STORE {} TO ldFrmDate , ldEnddate
+IF loOgScroll.llOGFltCh 
+  =lfCrTemp() &&To create Temp File
+  =lfColData() &&Data Collection
+ENDIF 
+
+*- set the correct order before getting data
+SELECT &lcTempFile
+DO CASE
+  CASE lcRpSort = 'G'
+    lcRpForm = IIF(lcRpFormat='A','APJORN','APJORNB')
+    SET ORDER TO 'ACCTYRPR'  && 'CAPDGLACT+CFISFYEAR+CFSPPRDID'
+  CASE lcRpSort = 'T'
+    lcRpForm = 'APJORNT'
+    SET ORDER TO 'cJourTagT' && capdtrtyp+cApdRef+cInvNo
+  CASE lcRpSort = 'V'
+    lcRpForm = 'APJORNV'
+    SET ORDER TO 'cJourTagV' && CVENDCODE+CINVNO
+    *B610677,1 TMI 02/17/2014 14:42 [Start] sort index be cJourTagT in case of sort option is V or T
+    IF loOgScroll.llOGFltCh 
+      =lfGetOpenAmt()
+      *- adjust report format by showing the invoice # then its DB application 
+      SELECT &lcTempFile
+      SET ORDER TO            && disable the order as the replaced field is included in the key
+      LOCATE
+      SCAN FOR CAPDTRTYP = 'A' AND NEQVAMNT>0
+        lcInv = CINVNO 
+        REPLACE CINVNO WITH CAPDREF ;
+                CAPDREF WITH lcInv
+      ENDSCAN
+      *- replace  CAPDTRTYP with 'X' to show after the type 'I'
+      LOCATE 
+      REPLACE CAPDTRTYP WITH 'X'  FOR CAPDTRTYP = 'A' 
+      SET ORDER TO 'cJourTagV' && CVENDCODE+CINVNO
+    ENDIF    
+   *B610677,1 TMI 02/17/2014 14:42 [End  ] 
+ENDCASE
+LOCATE
+*C201659,1 MMT 03/17/2015 Export to excel file changes[Start]
+IF lcRpSort  = 'V' AND llRpVenDf AND loOGScroll.cTextRepType = "EXCEL"
+  lnTrDatePos = lfGetPos('APDIST.DAPDTRDAT','laOgFxFlt')
+  lcTrDate = loOGScroll.laOGfxFlt[lnTrDatePos,6]
+  lcPTrD = AT('|',lcTrDate)+1
+  lcTrDateFrom = SUBSTR(lcTrDate,1,lcPTrD-2)
+  lcTrDateTo = SUBSTR(lcTrDate,lcPTrD)
+  IF !EMPTY(laOGFxFlt[lnTrDatePos,6])
+	lnPipPos = ATC('|',laOgFxFlt[1,6]) - 1
+	ldFrmDate = CTOD(SUBSTR(laogFxFlt[1,6],1,lnPipPos))
+	ldEnddate = CTOD(SUBSTR(laogFxFlt[1,6],lnPipPos+ 2,LEN(laOGFxFlt[lnTrDatePos,6])))
+  ENDIF  
+  IF !USED('APINVHDR_AG')
+    =gfOpenTable('APINVHDR','INVVEND','SH','APINVHDR_AG')&&INVVEND   && CINVNO+CVENDCODE
+  ENDIF
+  SELECT &lcTempFile
+  SELECT cvendcode,capdglact,cinvno,SUM(neqvamnt) as neqvamnt, 000000000000.00 as Aged_Payables_Amount,000000000000.00 AS 'Difference' ;
+  FROM (lcTempFile) WHERE !EMPTY(capdglact) AND capdglact <>'Opening Balance' GROUP BY cvendcode,capdglact,cinvno ORDER BY cvendcode,cinvno  INTO CURSOR 'TempExcel' READWRITE 
+  SELECT 'TempExcel'
+  LOCATE 
+  SCAN 
+*!*	     if  TempExcel.CINVNO='UK130000233'
+*!*	     set step on 
+*!*	     ENDIF
+    =gfSeek(TempExcel.CINVNO+TempExcel.CVENDCODE,'APINVHDR_AG','INVVEND')
+    SELECT APINVHDR_AG
+    IF APINVHDR_AG.cinvstat = 'V' AND !EMPTY(ldEnddate)
+      ldVoidDate = lfGetVoidDate(TempExcel.CINVNO,TempExcel.CVENDCODE)
+      IF ldVoidDate > ldEnddate
+        lnTotAg =  gfAmntDisp(APINVHDR_AG.ninvamnt-APINVHDR_AG.ninvpaid-APINVHDR_AG.ninvdistk-APINVHDR_AG.ninvadj, 'O', .F. , lcRpTmpNam)
+      ELSE
+        lnTotAg =  0
+      ENDIF
+    ELSE 
+      IF EMPTY(ldEnddate)
+        lnTotAg = IIF(APINVHDR_AG.cinvstat <> 'V',gfAmntDisp(APINVHDR_AG.ninvamnt-APINVHDR_AG.ninvpaid-APINVHDR_AG.ninvdistk-APINVHDR_AG.ninvadj, 'O', .F. , lcRpTmpNam),0)
+      ELSE
+        lnTotAgbegin = gfAmntDisp(APINVHDR_AG.ninvamnt-APINVHDR_AG.ninvpaid-APINVHDR_AG.ninvdistk-APINVHDR_AG.ninvadj, 'O', .F. , lcRpTmpNam)
+        lnTotAg = IIF(gfAmntDisp(APINVHDR_AG.ninvamnt-APINVHDR_AG.ninvpaid-APINVHDR_AG.ninvdistk-APINVHDR_AG.ninvadj, 'O', .F. , lcRpTmpNam)<> gfAmntDisp(APINVHDR_AG.ninvamnt, 'O', .F. , lcRpTmpNam),lnTotAgbegin + lfGetPaidAmnt(TempExcel.CINVNO,TempExcel.CVENDCODE),gfAmntDisp(APINVHDR_AG.ninvamnt, 'O', .F. , lcRpTmpNam))
+      ENDIF
+    ENDIF
+    SELECT 'TempExcel'
+    REPLACE Aged_Payables_Amount WITH lnTotAg,;
+		    Difference WITH ABS(Aged_Payables_Amount)  - ABS(neqvamnt)
+  ENDSCAN 
+  SELECT 'TempExcel'
+  INDEX on cvendcode+cinvno TAG 'TempExcel'
+  SELECT SUM(Difference) as DiffVen,SUM(neqvamnt) as nEqvAmt,SUM(Aged_Payables_Amount) as nAgeAmt ,CVENDCODE  FROM 'TempExcel' GROUP BY CVENDCODE INTO CURSOR 'DiffCursor'
+  SELECT 'DiffCursor'
+  LOCATE 
+  SCAN FOR DiffVen = 0
+    SELECT 'TempExcel'
+    = Seek(DiffCursor.CVENDCODE) 
+    DELETE REST WHILE  cvendcode+cinvno  = DiffCursor.CVENDCODE
+    SELECT 'DiffCursor'
+  ENDSCAN 
+  SELECT 'DiffCursor'
+  LOCATE 
+  SCAN FOR DiffVen <> 0
+    INSERT INTO 'TempExcel' VALUES (DiffCursor.CVENDCODE,'',CHR(215)+CHR(215)+'TOTAL'+CHR(215)+CHR(215),DiffCursor.nEqvAmt,DiffCursor.nAgeAmt,DiffCursor.DiffVen)
+  ENDSCAN
+  SELECT 'TempExcel'
+  LOCATE
+  DELETE FOR Difference = 0
+  LOCATE  
+ENDIF
+*C201659,1 MMT 03/17/2015 Export to excel file changes[End]
+
+DO gfDispRe WITH EVAL('lcRpForm')
+
+*!**************************************************************************
+*! Function      : lfCrTemp
+*! Purpose       : Creating Temp file  
+*! Developer     : AHMED MOUSTAFA (AHS)     
+*! Date          : 09/28/2009
+*!**************************************************************************
+FUNCTION lfCrTemp
+LOCAL lnSlct
+lnSlct = SELECT(0)
+
+IF USED(lcTempFile)
+  SELECT (lcTempFile)
+  ZAP
+  SELECT (lnSlct)
+  RETURN
+ENDIF 
+
+DIMENSION laTempStru[16,18]
+
+LOCAL lnI,lnJ
+lnI = 0
+lnI = lnI + 1
+laTempstru[lnI,1]='CVENDCODE'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 8
+laTempstru[lnI,4]= 0
+   
+lnI = lnI + 1
+laTempstru[lnI,1]='CAPDGLACT'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 24
+laTempstru[lnI,4]= 0
+
+lnI = lnI + 1
+laTempstru[lnI,1]='CINVNO'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 12
+laTempstru[lnI,4]= 0
+
+lnI = lnI + 1
+laTempstru[lnI,1]='CFSPPRDID'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 2
+laTempstru[lnI,4]= 0
+  
+lnI = lnI + 1
+laTempstru[lnI,1]='DAPDTRDAT'
+laTempstru[lnI,2]='D'
+laTempstru[lnI,3]= 10
+laTempstru[lnI,4]= 0
+
+lnI = lnI + 1
+laTempstru[lnI,1]='CAPDTRTYP'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 1
+laTempstru[lnI,4]= 0
+        
+lnI = lnI + 1
+laTempstru[lnI,1]='CAPDTRDSC'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 20
+laTempstru[lnI,4]= 0
+        
+lnI = lnI + 1
+laTempstru[lnI,1]='CAPDREF'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 12
+laTempstru[lnI,4]= 0
+   
+lnI = lnI + 1
+laTempstru[lnI,1]='CAPSESSNO'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 8
+laTempstru[lnI,4]= 0
+   
+lnI = lnI + 1
+laTempstru[lnI,1]='CBATCHNO'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 6
+laTempstru[lnI,4]= 0
+  
+lnI = lnI + 1
+laTempstru[lnI,1]='CTRNSLEDN'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 8
+laTempstru[lnI,4]= 0
+  
+lnI = lnI + 1
+laTempstru[lnI,1]='NEQVAMNT'
+laTempstru[lnI,2]='N'
+laTempstru[lnI,3]= 15
+laTempstru[lnI,4]= 2
+  
+lnI = lnI + 1
+laTempstru[lnI,1]='CVENCOMP'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 25
+laTempstru[lnI,4]= 0
+  
+lnI = lnI + 1
+laTempstru[lnI,1]='CFISFYEAR'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 4
+laTempstru[lnI,4]= 0
+  
+lnI = lnI + 1
+laTempstru[lnI,1]='CDESC'
+laTempstru[lnI,2]='C'
+laTempstru[lnI,3]= 30
+laTempstru[lnI,4]= 0
+
+lnI = lnI + 1
+laTempstru[lnI,1]='nApAgeTot'
+laTempstru[lnI,2]='N'
+laTempstru[lnI,3]= 15
+laTempstru[lnI,4]= 2
+
+
+*- Update other array elements 
+FOR lnI = 1 TO ALEN(laTempstru,1)
+  FOR lnJ = 7 TO 16
+    laTempstru[lnI,lnJ] = ''
+  ENDFOR
+  STORE 0 TO laTempstru[lnI,17],laTempstru[lnI,18]
+ENDFOR
+
+DIMENSION laIndex[3,2]
+laIndex[1,1] = 'CAPDGLACT+CFISFYEAR+CFSPPRDID'
+laIndex[1,2] = 'ACCTYRPR'
+*B610677,3 TMI 02/20/2014 16:24 [Start] add the CAPDTRTYP to the index
+*laIndex[2,1] = 'CVENDCODE+CINVNO'
+laIndex[2,1] = 'CVENDCODE+CINVNO+CAPDTRTYP'
+*B610677,3 TMI 02/20/2014 16:24 [End  ] 
+laIndex[2,2] = 'cJourTagV'
+laIndex[3,1] = 'capdtrtyp+cApdRef+cInvNo'
+laIndex[3,2] = 'cJourTagT'
+=gfCrtTmp(lcTempFile,@laTempStru,@laIndex)
+
+SELECT (lnSlct)
+
+*--End of function
+*!**************************************************************************
+*! Function      : lfColData
+*! Purpose       : Collection of data 
+*! Developer     : AHMED MOUSTAFA (AHS)     
+*! Date          : 08/09/2009
+*!**************************************************************************
+FUNCTION lfColData
+
+lnVendPos = lfGetPos('APDIST.CVENDCODE','laOgVrFlt')
+lnGlAcctPos = lfGetPos('APDIST.CAPDGLACT','laOgVrFlt')
+lnTrTypePos = lfGetPos('APDIST.CAPDTRTYP','laOgVrFlt')
+lnSessNoPos = lfGetPos('APDIST.CAPSESSNO','laOgVrFlt')
+lnTrDatePos = lfGetPos('APDIST.DAPDTRDAT','laOgFxFlt')
+lcVend = loOGScroll.laOGvrFlt[lnVendPos,6]
+lcGlAcct = loOGScroll.laOGvrFlt[lnGlAcctPos,6]
+lcTrType = loOGScroll.laOGvrFlt[lnTrTypePos,6]
+lcTrDate = loOGScroll.laOGfxFlt[lnTrDatePos,6]
+lcSessNo = loOGScroll.laOGvrFlt[lnSessNoPos,6]
+
+lcPTrD = AT('|',lcTrDate)+1
+lcTrDateFrom = SUBSTR(lcTrDate,1,lcPTrD-2)
+lcTrDateTo = SUBSTR(lcTrDate,lcPTrD)
+
+lcP = AT('|',lcSessNo)+1
+lcSessFrom = SUBSTR(lcSessNo,1,lcP-2)
+lcSessTo = SUBSTR(lcSessNo,lcP)
+
+lnVen = 0
+IF !EMPTY(lcVend) AND USED(lcVend)
+  SELECT &lcVend
+  LOCATE
+  COUNT TO lnVen FOR !DELETED()
+ENDIF   
+
+
+IF !EMPTY(laOGFxFlt[lnTrDatePos,6])
+    lnPipPos = ATC('|',laOgFxFlt[1,6]) - 1
+    ldFrmDate = CTOD(SUBSTR(laogFxFlt[1,6],1,lnPipPos))
+    ldEnddate = CTOD(SUBSTR(laogFxFlt[1,6],lnPipPos+ 2,LEN(laOGFxFlt[lnTrDatePos,6])))
+ENDIF
+
+lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' )  + " APDIST.nApdAmnt <> 0  " 
+*E303379,1 TMI 04/15/2013 [Start] 
+*lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' )  + ;
+                    "(APDIST.capdstat <> 'V' .OR. "+;
+                    "(APDIST.capdstat = 'V' .AND. APDIST.cApdTrTyp $ 'MHNP' "+;
+                    IIF(!EMPTY(ldEnddate)," .AND. BETWEEN(DTOS(APDIST.DAPDTRDAT),'"+DTOS(ldFrmDate)+"','"+DTOS(ldEnddate)+"')","")+"))"
+lcIncI = "MHNP" + IIF(llRpIncVdInv,"I","")
+lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' )  + ;
+                    "(APDIST.capdstat <> 'V' .OR. "+;
+                    "(APDIST.capdstat = 'V' .AND. APDIST.cApdTrTyp $ '&lcIncI' "+ ;
+                    IIF(!EMPTY(ldEnddate)," .AND. BETWEEN(DTOS(APDIST.DAPDTRDAT),'"+DTOS(ldFrmDate)+"','"+DTOS(ldEnddate)+"')","")+"))"
+*E303379,1 TMI 04/15/2013 [End  ] 
+lcRpExp = lcRpExp + IIF(!llRpPrven AND lcRpSort = 'V',IIF(EMPT(lcRpExp) , '' , ' AND ' )  + " !EMPTY(APDIST.cvendcode) " ,'')
+lcRpExp = lcRpExp + IIF(lcRpRel = 'B','',;
+                         IIF(EMPTY(lcRpExp),'',' AND ')+IIF(lcRpRel='U','!','')+"APDIST.lApdPost")
+lcRpExp = STRTRAN(lcRpExp,'.AND.',' AND ')
+lcRpExp = STRTRAN(lcRpExp,'  ',' ')
+
+SELECT APDIST
+DO CASE
+*- A certain transaction # is selected
+CASE !EMPTY(lcTrnNo)
+  SET ORDER TO INVVEND   && CINVNO+CVENDCODE+CAPDTRTYP
+   lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' ) + ;
+                      " APDIST.cApdRef= '"+lcTrnNo+"'"
+  lcRpExp = STRTRAN(lcRpExp,"AND APDIST.CAPDTRTYP = '"+lcTrType+"'")
+  =lfPolishExp(@lcRpExp,"APDIST.CVENDCODE")
+  =SEEK(lcInvNo+lcVenNo+lcTrType,'APDIST')
+  lcWhile = "WHILE "+KEY()+" = '"+lcInvNo+lcVenNo+lcTrType+"'"
+  =lfInsLine(lcWhile)
+ *- Vendor or more is selected
+CASE lnVen>0 
+  IF !FILE(gcWorkDir +lcJourTmp+ '.CDX') OR !lfTagFound('cJourTagV','APDIST')
+    WAIT WINDOW NOWAIT 'Please wait .. '
+    INDEX ON cVendCode+capdtrtyp TAG cJourTagV OF (gcWorkDir +  lcJourTmp + '.CDX')          
+    WAIT CLEAR
+  ELSE
+    SET ORDER TO TAG cJourTagV OF (gcWorkDir +  lcJourTmp + '.CDX')      
+  ENDIF
+  =lfPolishExp(@lcRpExp,"APDIST.CVENDCODE")
+  lcKey = KEY()
+  SELECT &lcVend
+  LOCATE
+  SCAN
+    lcWhile = "WHILE "+lcKey+" = '"+&lcVend..CVENDCODE+"'"    
+    IF SEEK(&lcVend..CVENDCODE,'APDIST')
+      =lfInsLine(lcWhile)
+    ENDIF
+  ENDSCAN  
+  
+*- GL Account is selected
+CASE !EMPTY(CHRTRAN(lcGlAcct,'-',''))
+  SET ORDER TO ACCTYRPR
+  lcRpExp = STRTRAN(lcRpExp,"AND APDIST.CAPDGLACT = '"+lcGlAcct+"'")
+  lcWhile = "WHILE "+KEY()+" = '"+lcGlAcct+"'"
+  IF SEEK(lcGlAcct,'APDIST')
+    =lfInsLine(lcWhile)
+  ENDIF
+  
+*- Just a transaction type is selected
+CASE !EMPTY(lcTrType)
+  SET ORDER TO PAYMNTS   && CAPDTRTYP+CBNKCODE+CCHKACCT+CAPDREF+CINVNO+CAPDACTID
+  lcRpExp = STRTRAN(lcRpExp,"AND APDIST.CAPDTRTYP = '"+lcTrType+"'")
+  lcWhile = "WHILE "+KEY()+" = '"+lcTrType+"'"    
+  IF SEEK(lcTrType,'APDIST')
+    =lfInsLine(lcWhile)
+  ENDIF
+  
+CASE !EMPTY(lcTrDateTo)
+  IF !FILE(gcWorkDir +lcJourTmp+ '.CDX') OR !lfTagFound('cJourTagD','APDIST')
+    WAIT WINDOW NOWAIT 'Please wait .. '
+    INDEX ON DTOS(DAPDTRDAT) TAG cJourTagD OF (gcWorkDir +  lcJourTmp + '.CDX')
+    WAIT CLEAR
+  ELSE
+    SET ORDER TO TAG cJourTagD OF (gcWorkDir +  lcJourTmp + '.CDX')      
+  ENDIF
+  IF EMPTY(DTOS(CTOD(lcTrDateFrom)))
+    LOCATE
+  ELSE
+    IF !SEEK(DTOS(CTOD(lcTrDateFrom)),'APDIST')
+      *B609973,1 SAB 06/21/2012 Fix problem that appear when select transaction date or AP session no [Start]
+      *GOTO RECNO(0)
+      IF RECNO(0) > 0
+        GOTO RECNO(0)
+      ENDIF
+      *B609973,1 SAB 06/21/2012 Fix problem that appear when select transaction date or AP session no [End]
+    ENDIF
+  ENDIF
+  lcRpExp = STRTRAN(lcRpExp,"AND BETWEEN(DTOS(APDIST.DAPDTRDAT),'"+DTOS(CTOD(lcTrDateFrom))+"','"+DTOS(CTOD(lcTrDateTo))+"')")
+  lcWhile = "WHILE DTOS(DAPDTRDAT) <= '"+DTOS(CTOD(lcTrDateTo))+"'"
+  =lfInsLine(lcWhile)
+
+*- Session ID is entered
+CASE !EMPTY(lcSessTo)
+
+  IF !FILE(gcWorkDir +lcJourTmp+ '.CDX') OR !lfTagFound('cJourTagS','APDIST')
+    WAIT WINDOW NOWAIT 'Please wait .. '
+    INDEX ON CAPSESSNO TAG cJourTagS OF (gcWorkDir +  lcJourTmp + '.CDX')
+    WAIT CLEAR
+  ELSE
+    SET ORDER TO TAG cJourTagS OF (gcWorkDir +  lcJourTmp + '.CDX')      
+  ENDIF
+  IF EMPTY(lcSessFrom)
+    LOCATE
+  ELSE
+    IF !SEEK(lcSessFrom,'APDIST')
+      *B609973,1 SAB 06/21/2012 Fix problem that appear when select transaction date or AP session no [Start]      
+      *GOTO RECNO(0)
+      IF RECNO(0) > 0
+        GOTO RECNO(0)
+      ENDIF
+      *B609973,1 SAB 06/21/2012 Fix problem that appear when select transaction date or AP session no [End]
+    ENDIF
+  ENDIF
+  lcSessFrom = PADR(lcSessFrom,8)
+  lcSessTo   = PADR(lcSessTo,8)
+  lcRpExp = STRTRAN(lcRpExp,"AND BETWEEN(APDIST.CAPSESSNO,'"+lcSessFrom+"','"+lcSessTo+"')")
+  lcWhile = "WHILE APDIST.CAPSESSNO <= '"+lcSessTo+"'"
+  =lfInsLine(lcWhile)
+ OTHERWISE
+
+  LOCATE
+  =lfInsLine('')
+  
+ENDCASE
+
+*!**************************************************************************
+*! Function      : lfInsLine
+*! Purpose       : Inserting lines in Temp File
+*! Developer     : AHMED MOUSTAFA (AHS)     
+*! Date          : 08/03/2009
+*!**************************************************************************
+FUNCTION lfInsLine
+LPARAMETERS lcWhile
+lcWhile = IIF(EMPTY(lcWhile),'',lcWhile)
+*MT
+IF llApGlLink AND !USED('GLACCHAR') 
+  =gfOpenTABLE('GLACCHAR','ACCTCODE','SH')
+  SELECT GLACCHAR
+  =gfsetorder('ACCTCODE')
+  =gfSeek('')
+ENDIF
+*MT
+SELECT APDIST
+SCAN REST &lcWhile ;
+     FOR &lcRpExp
+
+  SCATTER MEMVAR memo   
+  m.cVenComp = IIF(SEEK(APDIST.cVendCode,'APVENDOR'),APVENDOR.cVenComp,'')
+  m.CDESC    = IIF(llApGlLink,IIF(SEEK(APDIST.capdglact,'GLACCHAR','ACCTCODE'),GLACCHAR.CACCNLDES,''),'')
+  m.CAPDTRDSC = IIF(APDIST.cApdTrTyp = 'A' , 'DM application' ,IIF(APDIST.cApdTrTyp = 'B' , 'Bank adjustment', IIF(APDIST.cApdTrTyp = 'H' , 'Cash payments',IIF(APDIST.cApdTrTyp = 'I' , 'Invoice', IIF(APDIST.cApdTrTyp = 'M' , 'Manual checks',IIF(APDIST.cApdTrTyp = 'N' , 'Non check payment',IIF(APDIST.cApdTrTyp = 'P' , 'Printed checks' ,'')))))))
+
+  SELECT &lcTempFile     
+  INSERT INTO &lcTempFile FROM MEMVAR      
+ENDSCAN 
+*!**************************************************************************
+*! Function      : lfGetPos
+*! Purpose       : Getting the number of element from array 
+*! Developer     : AHMED MOUSTAFA (AHS)     
+*! Date          : 09/29/2009
+*!**************************************************************************
+FUNCTION lfGetPos
+PARAMETERS lcOpt,lcArray
+LOCAL lnPos
+lnPos = ASCAN(loOGScroll.&lcArray,lcOpt)
+lnPos = ASUBSCRIPT(loOGScroll.&lcArray,lnPos,1)
+RETURN lnPos
+*--End of function
+
+*!*************************************************************
+*! Name      : lfvApAcCod
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/15/2011
+*! Purpose   : This function is to validate the accounts from 
+*!             the chart of account of the active company or the
+*!             chart of account of another company.
+*!*************************************************************
+FUNCTION lfvApAcCod
+LOCAL loFld,lnPOS
+loFld = loOgScroll.ActiveControl
+
+lcApsAcMas = ACCOD.cAcsMask
+lcApsAcMas = STRTRAN(lcApsAcMas,'#',IIF(APSETUP.cApsgllink='Y','9','X'))
+lcApsAcMas = ALLTRIM("X"+SUBSTR(lcApsAcMas,2))
+lnApsAcLen = LEN(ALLTRIM(lcApsAcMas))
+
+lcSavAlias  = ALIAS()  && Variable to save the selected alias.
+
+lcFieldCont = _screen.ActiveForm.ActiveControl.value    && Assign the content of the field to the variable.
+
+*** Variable hold an empty account to compair with. ***
+lcEmptyAcs = REPLICATE('0',lnApsAcLen)
+
+lnPOS = ASCAN(loOgScroll.laOGVrFlt,"APDIST.CAPDGLACT") 
+IF lnPos > 0
+  lnPOS    = ASUBSCRIPT(loOgScroll.laOGVrFlt,lnPos,1)
+ENDIF  
+
+*- Prevent executing the browse if the account code is empty.
+IF !EMPTY(STRTRAN(lcFieldCont,"-",""))
+
+  IF llApGlLink .AND. lcFieldCont <> lcEmptyAcs
+
+    IF !USED('GLACCHAR') 
+      =gfOpenTABLE('GLACCHAR','ACCTCODE','SH')
+      SELECT GLACCHAR
+      =gfsetorder('ACCTCODE')
+      =gfSeek('')
+    ENDIF
+    
+    *- be sure you browse from the correct table
+    SELECT GLACCHAR
+    =gfsetorder('ACCTCODE')
+    
+    IF !SEEK(lcFieldCont) .OR. ATC('?',lcFieldCont) > 0
+      DIMENSION laTemp[2]
+      laTemp = ''
+      lcBrfields="CACCTCODE :H= 'Account Code',;
+                  CACCNLDES :H= 'Account Description'"
+
+      lcFile_Ttl="Chart of accounts"
+        
+      =gfbrows(' ','CACCTCODE,CACCNLDES','laTemp')
+
+      IF !EMPTY(laTemp[1])
+        lcFieldCont = ALLTRIM(laTemp[1])
+       ELSE
+        lcFieldCont = REPLICATE('0',lnApsAcLen)  
+      ENDIF
+    ENDIF
+    
+    
+    IF !EMPTY(laTemp[1])  
+      loFld.Value = laTemp[1]
+        loOgScroll.laOGVrFlt[lnPOS,6] = laTemp[1]
+    ELSE
+      loFld.Value = loFld.OldValue
+      *- restore the old value the the laOgvrflt array itself 
+      lnGlAcctPos = lfGetPos('APDIST.CAPDGLACT','laOgVrFlt')
+      loOGScroll.laOGvrFlt[lnGlAcctPos,6] = loFld.OldValue
+    ENDIF  
+ 
+    IF !EMPTY(lcSavAlias)
+      SELECT(lcSavAlias)
+    ENDIF  
+
+  ENDIF
+ELSE
+  loOgScroll.laOGVrFlt[lnPOS,6] = ""
+ENDIF
+
+IF !EMPTY(lcSavAlias)
+  SELECT(lcSavAlias)
+ENDIF  
+****************************************************************
+*! Name      : lfvSess
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 08/11/2011
+*! Purpose   : Valid function to pad session #
+****************************************************************
+FUNCTION lfvSess
+LOCAL loFld
+loFld = _Screen.ActiveForm.ActiveControl
+IF !EMPTY(loFld.Value)
+  loFld.Value = PADL(ALLTRIM(loFld.Value),8,'0')
+ENDIF
+*- end of FUNCTION lfvSess
+
+
+************************************************************
+*! Name      : lfvSort
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/15/2011
+*! Purpose   : This function is used to order the report based on 
+*!             Gl account or transaction type.
+************************************************************
+FUNCTION lfvSort
+SELECT APDIST
+
+DO CASE
+  CASE lcRpSort = 'G'
+    lcRpForm = IIF(lcRpFormat='A','APJORN','APJORNB')    
+    llRpPrven = .T.
+  CASE lcRpSort = 'V'
+    lcRpForm = 'APJORNV'
+  CASE lcRpSort = 'T'
+    lcRpForm = 'APJORNT'
+    llRpPrven = .T.
+ENDCASE
+ClearRead()
+
+=lfToglShowTrnNo()
+
+lcRpFormat = IIF(lcRpSort<>'G','A',lcRpFormat)
+IF ASCAN(laOGObjType,UPPER('lcRpFormat')) # 0
+  lnPos = ASUBSCRIPT(laOGObjType,ASCAN(laOGObjType,UPPER('lcRpFormat')),1)
+  laOGObjCnt[lnPos] = (PADR(lcRpSort,1)='G')
+  =lfOGShowGet(UPPER('lcRpFormat'))
+ENDIF
+
+*!*************************************************************
+*! Name      : lfwApJour
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/15/2011
+*! Purpose   : This function is used as a when function for this report
+*!*************************************************************
+FUNCTION lfwApJour
+
+=lfToglShowTrnNo()
+
+IF !USED('APVENDOR') 
+  =gfOpenTABLE('APVENDOR','VENCODE','SH')
+  SELECT APVENDOR
+  =gfsetorder('VENCODE')
+  =gfseek('')
+ENDIF
+
+IF !USED('ACCOD') 
+  =gfOpenTable("ACCOD",'ACCSEGNO','SH')
+  SELECT ACCOD
+  =gfsetorder('ACCSEGNO')
+  =gfseek('')
+ENDIF
+
+IF !USED('APSETUP') 
+  =gfOpenTABLE('APSETUP','APSETUP','SH')
+  SELECT APSETUP
+  =gfSeek('')
+ENDIF
+
+IF APSETUP.CAPSGLLINK = 'Y'
+  llApGlLink = .T.
+ELSE 
+  llApGlLink = .F.
+ENDIF     
+
+lnTrnTyPos = ASCAN(laOGVrFlt,'APDIST.CAPDTRTYP')
+IF lnTrnTyPos > 0
+  lnTrnTyPos = ASUBSCRIPT(laOGVrFlt,lnTrnTyPos,1)
+ENDIF
+
+*!*************************************************************
+*! Name      : lfvTrnNo
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/15/2011
+*! Purpose   : browse transaction no. from APDIST file
+*!*************************************************************
+FUNCTION lfvTrnNo
+
+PRIVATE lnTrnType
+LOCAL loFld
+loFld = loOgScroll.ActiveControl
+
+PRIVATE  lcPriorDbf , lcPriorCdx  , lcPriorFlt
+lcPriorDbf  = SELECT(0)
+lcPriorCdx  = ORDER()
+lcPriorFlt  = FILTER()
+
+PRIVATE lcFiltExp
+lcFiltExp = ""
+
+SELECT APDIST
+SET ORDER TO Invvend 
+LOCATE
+
+* Assign no space to lcInvNo 
+lcInvNo = ''  
+
+IF !EMPTY(lcTrnNo) 
+  IF !SEEK(lcTrnNo) .OR. ATC("?",lcTrnNo) > 0
+    ** MESSAGE : " This record is not found in the  "
+    **           " data file.                       "
+    **           "      < Browse >   < Reenter>     "
+    lnClosRec  = RECNO(0)
+    DIMENSION laTemp[4]
+    laTemp = ''
+    
+    lcBrFields = "CVENDCODE :H= 'Vendor code'    ,;
+                  CINVNO    :H= 'Invoice number' ,;    
+                  DAPDTRDAT :H= 'Invoice date'   ,;
+                  CAPDREF   :H= 'Reference'"
+                  
+    lcFile_Ttl = "Invoice"
+    IF BETWEEN(lnClosRec,1,RECCOUNT('APDIST'))
+      GO lnClosRec
+    ELSE
+      GO TOP
+    ENDIF
+    
+    * APDIST.cApdTrTyp  
+    * 'A' --- DM Application    
+    * 'B' --- Bank Adj.
+    * 'H' --- Cash Payment
+    * 'I' --- Invoice
+    * 'M' --- Manual Payment
+    * 'N' --- Non Manual Payment
+    * 'P' --- Printed Checks
+    DIMENSION  laTrnType[8]
+    
+    *C101831,1 SSE 03/27/2000 Adjust cases of Transaction Types [Begin]
+    DO CASE
+      CASE EMPTY(laOGVrFlt[lnTrnTyPos,6])
+        lnTrnType = 1
+      CASE laOGVrFlt[lnTrnTyPos,6] = "A"
+        lnTrnType = 2
+      CASE laOGVrFlt[lnTrnTyPos,6] = "B"
+        lnTrnType = 3
+      CASE laOGVrFlt[lnTrnTyPos,6] = "H"
+        lnTrnType = 4
+      CASE laOGVrFlt[lnTrnTyPos,6] = "I"
+        lnTrnType = 5
+      CASE laOGVrFlt[lnTrnTyPos,6] = "M"
+        lnTrnType = 6
+      CASE laOGVrFlt[lnTrnTyPos,6] = "N"
+        lnTrnType = 7
+      CASE laOGVrFlt[lnTrnTyPos,6] = "P"
+        lnTrnType = 8      
+    ENDCASE
+    *C101831,1 SSE 03/27/2000 [End]
+    
+    laTrnType[1]  = [ .T. ]
+    laTrnType[2]  = [ cApdTrTyp = 'A' AND cApdActId = 'A' AND nApdAmnt >  0  AND cApdStat <> 'V' ]
+    laTrnType[3]  = [ cApdTrTyp = 'B' AND cApdActId = 'D' AND nApdAmnt <> 0  AND cApdStat <> 'V' ]
+    laTrnType[4]  = [ cApdTrTyp = 'H' AND cApdActId = 'A' AND nApdAmnt <> 0  AND cApdStat <> 'V' ]
+    laTrnType[5]  = [ cApdTrTyp = 'I' AND cApdActId = 'A' AND nApdAmnt <  0  AND cApdStat <> 'V' ]
+    laTrnType[6]  = [ cApdTrTyp = 'M' AND cApdActId = 'A' AND nApdAmnt <> 0  AND cApdStat <> 'V' ]
+    laTrnType[7]  = [ cApdTrTyp = 'N' AND cApdActId = 'A' AND nApdAmnt <> 0  AND cApdStat <> 'V' ]
+    laTrnType[8]  = [ cApdTrTyp = 'P' AND cApdActId = 'A' AND nApdAmnt <> 0  AND cApdStat <> 'V' ]
+
+    lcFiltExp = laTrnType(lnTrnType)   
+
+    *- Add vendor code to filter if not bank adjustment.
+    IF !EMPTY(laOGVRFLT[1,6]) AND lnTrnType <> 3 
+      lcFiltExp = lcFiltExp  +  " AND  APDIST.CVENDCODE = '"+laOGVRFLT[1,6]+"'  " 
+    ENDIF 
+    
+    =gfBrows( 'FOR' + lcFiltExp  ,'CVENDCODE,CINVNO,DAPDTRDAT,CAPDREF','laTemp')
+    
+    IF !EMPTY(laTemp[1])
+      * Assign selected vendor no. to lcVenNo variable
+      lcVenNo   = laTemp[1]
+      * Assign selected Reference no. to lcTrnNo variable
+      lcTrnNo   = laTemp[4]      
+      * Assign invoice no to lcInvNo variable      
+      lcInvNo   = laTemp[2]
+
+      loFld.Value = laTemp[4]
+    ELSE
+      * Assign no space to lcTrnNo and lcInvNo 
+      lcTrnNo = ''
+      lcInvNo = ''  
+      loFld.Value = loFld.oldValue 
+    ENDIF    
+    
+  ENDIF
+ENDIF
+
+SELECT (lcPriorDbf)  
+SET ORDER TO &lcPriorCdx
+SET FILTER TO  &lcPriorFlt  
+ 
+*!**************************************************************************
+*!
+*!      FUNCTION: lfRepshow
+*!
+*!**************************************************************************
+FUNCTION lfRepshow 
+
+
+*!***************************************************************************
+*! Name      : lfvFormat
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/15/2011
+*! Purpose   : Valid for changing Report Format 
+*!***************************************************************************
+FUNCTION lfvFormat
+lcRpForm = IIF(lcRpFormat='A','APJORN','APJORNB')
+*-- End of lfvFormat.
+
+*!***************************************************************************
+*       FUNCTION lfVTranTyp
+*!***************************************************************************
+FUNCTION lfVTranTyp
+=lfToglShowTrnNo()
+
+*!**************************************************************************
+*!
+*!  FUNCTION lfInputMask
+*!
+*!**************************************************************************
+FUNCTION lfInputMask
+
+IF !USED('APSETUP') 
+  =gfOpenTABLE('APSETUP','APSETUP','SH')
+  SELECT APSETUP
+  =gfsetorder('APSETUP')
+  =gfSeek('')
+ENDIF
+IF !USED('ACCOD') 
+  =gfOpenTable("ACCOD",'ACCSEGNO','SH')
+  SELECT ACCOD
+  =gfsetorder('ACCSEGNO')
+  =gfseek('')
+ENDIF
+LOCAL lcApsAcMas
+lcApsAcMas = ACCOD.cAcsMask
+lcApsAcMas = STRTRAN(lcApsAcMas,'#',IIF(APSETUP.cApsgllink='Y','9','X'))
+lcApsAcMas = ALLTRIM("X"+SUBSTR(lcApsAcMas,2))
+lnApsAcLen = LEN(ALLTRIM(lcApsAcMas))
+
+RETURN lcApsAcMas
+*end of lfInputMask
+
+
+********************************************************************************************
+* Check if a value is selected
+********************************************************************************************
+FUNCTION lfIsSlcted
+PARAMETERS lcCursor
+LOCAL llIsSelected,lnSlct
+lnSlct = SELECT(0)
+llIsSelected = .F.
+IF !EMPTY(lcCursor) AND USED(lcCursor)
+  SELECT &lcCursor
+  LOCATE 
+  llIsSelected = !EOF()
+ENDIF
+SELECT (lnSlct)
+RETURN llIsSelected
+
+******************************************************************************************
+*! Name      : lfToglShowTrnNo
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/10/2011
+*! Purpose   : Toggle "Tran. No" OG variable Enabled/Disabled
+******************************************************************************************
+FUNCTION lfToglShowTrnNo
+LOCAL lnTrTypePos,lcTrType
+lnTrTypePos = lfGetPos('APDIST.CAPDTRTYP','laOgVrFlt')
+lcTrType = loOGScroll.laOGvrFlt[lnTrTypePos,6]
+IF ASCAN(laOGObjType,'LCTRNNO') # 0
+  lnPos = ASUBSCRIPT(laOGObjType,ASCAN(laOGObjType,'LCTRNNO'),1)
+  laOGObjCnt[lnPos] = PADR(lcRpSort,1) <> 'G' AND !EMPTY(lcTrType)
+  LCTRNNO = IIF(!EMPTY(lcTrType),LCTRNNO,'')
+  =lfOGShowGet('LCTRNNO')
+ENDIF
+
+
+******************************************************************************************
+*! Name      : lfToglShowTrnNo
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/10/2011
+*! Purpose   : Check if tag exists
+******************************************************************************************
+FUNCTION lfTagFound
+PARAMETERS lcTag,lcAlias
+LOCAL lnSlct,lnTag,llExists
+lnSlct = SELECT(0)
+llExists = .F.
+lcTag = ALLTRIM(UPPER(lcTag))
+SELECT (lcAlias)
+lnI = 1
+DO WHILE !EMPTY(TAG(lnI))
+  IF lcTag == TAG(lnI)
+    llExists = .T.
+    EXIT
+  ENDIF
+  lnI = lnI + 1
+ENDDO 
+
+SELECT (lnSlct)
+RETURN llExists
+
+************************************************************************************************
+* Name        : lfPolishExp
+* Developer   : Tarek Mohammed Ibrahim - TMI
+* Date        : 10/03/2011
+* Purpose     : to remove a part of the filter from the lcRpExp
+************************************************************************************************
+FUNCTION lfPolishExp
+PARAMETERS lcExp,lcRmv
+LOCAL lnPos,lcRight
+lcRight = ")"
+lnPos = AT(lcRmv,lcExp)
+DO WHILE lnPos>0
+  lnAndPos = RAT(' AND ',SUBSTR(lcExp,1,lnPos))
+  lcLeftStr = LEFT(lcExp,lnAndPos-1)
+  lnPranth = AT(lcRight,SUBSTR(lcExp,lnAndPos))
+  lcRightStr = SUBSTR(lcExp,lnAndPos+lnPranth+LEN(lcRight)-1)
+  lcExp = lcLeftStr+lcRightStr
+  lnPos = AT(lcRmv,lcExp)
+ENDDO
+
+************************************************************
+*! Name      : lfGetOpenAmt
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 02/17/2014
+*! Purpose   : add a line for the open amount balance for the selected vendor
+*! B610677,1
+************************************************************
+FUNCTION lfGetOpenAmt
+LOCAL lnSlct,laVend,lnI,lcRpExp,lcBefore,lnPos
+lnSlct = SELECT(0)
+
+lnVendPos = lfGetPos('APDIST.CVENDCODE','laOgVrFlt')
+lnGlAcctPos = lfGetPos('APDIST.CAPDGLACT','laOgVrFlt')
+lnTrTypePos = lfGetPos('APDIST.CAPDTRTYP','laOgVrFlt')
+lnSessNoPos = lfGetPos('APDIST.CAPSESSNO','laOgVrFlt')
+lnTrDatePos = lfGetPos('APDIST.DAPDTRDAT','laOgFxFlt')
+lcVend = loOGScroll.laOGvrFlt[lnVendPos,6]
+lcGlAcct = loOGScroll.laOGvrFlt[lnGlAcctPos,6]
+lcTrType = loOGScroll.laOGvrFlt[lnTrTypePos,6]
+lcTrDate = loOGScroll.laOGfxFlt[lnTrDatePos,6]
+lcSessNo = loOGScroll.laOGvrFlt[lnSessNoPos,6]
+
+lcPTrD = AT('|',lcTrDate)+1
+lcTrDateFrom = SUBSTR(lcTrDate,1,lcPTrD-2)
+lcTrDateTo = SUBSTR(lcTrDate,lcPTrD)
+
+lcP = AT('|',lcSessNo)+1
+lcSessFrom = SUBSTR(lcSessNo,1,lcP-2)
+lcSessTo = SUBSTR(lcSessNo,lcP)
+
+lnVen = 0
+IF !EMPTY(lcVend) AND USED(lcVend)
+  SELECT &lcVend
+  LOCATE
+  COUNT TO lnVen FOR !DELETED()
+ENDIF
+
+STORE {} TO ldFrmDate , ldEnddate
+IF !EMPTY(laOGFxFlt[lnTrDatePos,6])
+    lnPipPos = ATC('|',laOgFxFlt[1,6]) - 1
+    ldFrmDate = CTOD(SUBSTR(laogFxFlt[1,6],1,lnPipPos))
+    ldEnddate = CTOD(SUBSTR(laogFxFlt[1,6],lnPipPos+ 2,LEN(laOGFxFlt[lnTrDatePos,6])))
+ENDIF
+
+lcRpExp = loOgScroll.lcRpExp
+
+lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' )  + " APDIST.nApdAmnt <> 0  "
+lcIncI = "MHNP" + IIF(llRpIncVdInv,"I","")
+lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' )  + ;
+                    "(APDIST.capdstat <> 'V' .OR. "+;
+                    "(APDIST.capdstat = 'V' .AND. APDIST.cApdTrTyp $ '&lcIncI' ))"
+lcRpExp = lcRpExp + IIF(!llRpPrven AND lcRpSort = 'V',IIF(EMPT(lcRpExp) , '' , ' AND ' )  + " !EMPTY(APDIST.cvendcode) " ,'')
+lcRpExp = lcRpExp + IIF(lcRpRel = 'B','',;
+                         IIF(EMPTY(lcRpExp),'',' AND ')+IIF(lcRpRel='U','!','')+"APDIST.lApdPost")
+lcRpExp = STRTRAN(lcRpExp,'.AND.',' AND ')
+lcRpExp = STRTRAN(lcRpExp,'  ',' ')
+IF !EMPTY(lcTrnNo)
+   lcRpExp = lcRpExp + IIF(EMPT(lcRpExp) , '' , ' AND ' ) + ;
+                      " APDIST.cApdRef= '"+lcTrnNo+"'"
+ENDIF 
+
+*- Remove the BETWEEN ( start date, end date )
+lcBefore = SUBSTR(lcrpexp,1,AT("BETWEEN(",lcrpexp)-1)
+lcrpexp = SUBSTR(lcrpexp,AT("BETWEEN(",lcrpexp))
+lnPos = AT(")",lcrpexp,2)
+lcRpexp = STUFF(lcRpexp ,1,lnPos," .T. ")
+lcRpexp = lcBefore + lcRpexp 
+
+*After collecting data loop through the selected vendor and sum from the apdist the neqvamt for date prior to the FROM date 
+SELECT APDIST
+IF !FILE(gcWorkDir +lcJourTmp+ '.CDX') OR !lfTagFound('cJourTagV','APDIST')
+  INDEX ON cVendCode+capdtrtyp TAG cJourTagV OF (gcWorkDir +  lcJourTmp + '.CDX')
+ELSE
+  SET ORDER TO TAG cJourTagV OF (gcWorkDir +  lcJourTmp + '.CDX')
+ENDIF
+
+*- Add a new record to the temp cursor with the summed open amt such that it is located on top of the collected lines for the vendor 
+*- Make the description of this line ‘Opening amount’
+
+DIMENSION laVend[1]
+lcVendSrc = IIF(lnVen = 0 , 'APVENDOR' , lcVend )
+SELECT DISTINCT CVENDCODE FROM &lcVendSrc INTO ARRAY laVend
+
+SELECT &lcTempFile
+SCATTER MEMVAR blank 
+m.CAPDGLACT = 'Opening Balance'
+FOR lnI = 1 TO ALEN(laVend,1)  
+  m.NEQVAMNT = 0
+  m.CVENDCODE = laVend[lnI]
+  SELECT APDIST
+  =SEEK(laVend[lnI])  
+  llNoStartDate = EMPTY(CHRTRAN(lcTrDateFrom,'\',''))
+  SUM NEQVAMNT TO m.NEQVAMNT REST WHILE cVendCode+capdtrtyp = laVend[lnI] FOR IIF(llNoStartDate,.T.,DAPDTRDAT < CTOD(lcTrDateFrom) ) AND EVALUATE(lcRpExp)
+  IF m.NEQVAMNT <> 0 
+    INSERT INTO &lcTempFile FROM MEMVAR 
+  ENDIF 
+ENDFOR
+
+SELECT (lnSlct)
+*- End of lfGetOpenAmt.
+
+
+FUNCTION lfGetVoidDate
+lPARAMETERS lcInvoice,lcVendor
+ldVoidDate ={}
+lnOldAlias = SELECT()
+IF !USED('APDIST_VOID')
+  =gfOpenTable('APDIST','INVVEND','SH','APDIST_VOID')
+ENDIF
+SELECT 'APDIST_VOID'
+=gfSEEK(lcInvoice+lcVendor)
+SELECT MAX(dapdtrdat) as InvVdate FROM APDIST WHERE CINVNO+CVENDCODE+CAPDTRTYP = lcInvoice+lcVendor AND capdstat ='V' INTO CURSOR 'VdateCur'
+ldVoidDate = VdateCur.InvVdate 
+SELECT(lnOldAlias)
+
+RETURN ldVoidDate 
+
+
+FUNCTION lfGetPaidAmnt
+lPARAMETERS lcInvoice,lcVendor
+lnPaidAmt = 0
+lnOldAlias = SELECT()
+
+IF !USED('APDIST_PAID')
+  =gfOpenTable('APDIST','INVVEND','SH','APDIST_PAID')
+ENDIF
+IF !USED('APINVHDR_PAID')
+  =gfOpenTable('APINVHDR','INVVEND','SH','APINVHDR_PAID')
+ENDIF
+* TYPMETHDOC   && CPAYTYPE+CPAYMETH+CPAYDOCNO+CBNKCODE+CCHKACCT
+IF !USED('APPAYMNT')
+  =gfOpenTable('APPAYMNT','TYPMETHDOC','SH')
+ENDIF
+ldRpCurDat = ldEnddate
+SELECT 'APINVHDR_PAID'
+=gfSEEK(lcInvoice+lcVendor)
+lnAmtToPay = APINVHDR_PAID.nInvAmnt-APINVHDR_PAID.nInvPaid-APINVHDR_PAID.nInvDistk-APINVHDR_PAID.nInvAdj
+SELECT 'APDIST_PAID'
+=gfSEEK(lcInvoice+lcVendor)
+lnTotPaymnt = 0
+*!*	IF APINVHDR_PAID.ninvpaid + APINVHDR_PAID.ninvdistk + APINVHDR_PAID.ninvadj  = 0
+*!*	  lnAmtToPay  = 0
+*!*	ELSE
+lnAmtToPay = lfSumall(APINVHDR_PAID.cVendCode,APINVHDR_PAID.cInvNo)
+*!*	ENDIF
+RETURN lnAmtToPay 
+
+
+FUNCTION lfSumALL
+PARAMETERS lcVend,lcInv
+lnTotPaymnt = 0
+llCanPrint  = .F.
+llGetEq = .F.
+llUseMulCr = gfGetMemVar('LLMULCURR')
+SELECT APDIST_PAID
+IF llUseMulCr
+  gfSEEK(lcInv+lcVend)
+  SCAN REST WHILE CINVNO+CVENDCODE = lcInv+lcVend;
+      FOR ((capdtrtyp $ "MNHP" AND capdactID $ "CSJ") .OR. ( capdtrtyp = "A" AND nApdAmnt < 0));
+      AND dAPDtrdat > ldRpCurDat;
+      AND cApdStat  <> 'V'
+
+    =gfSEEK("P"+APDIST_PAID.CAPDTRTYP+PADR(RTRIM(APDIST_PAID.CAPDREF),8," ")+APDIST_PAID.CBNKCODE+APDIST_PAID.CCHKACCT,'APPAYMNT','TYPMETHDOC')
+    DO CASE
+    CASE APDIST_PAID.CAPDACTID = 'C'
+      lcExSin2 = ' '
+
+      IF APINVHDR_PAID.CCURRCODE = APPAYMNT.CCURRCODE
+        IF APINVHDR_PAID.CCURRCODE = oAriaApplication.BaseCurrency
+          lnTotPaymnt = lnTotPaymnt-ROUND(APDIST_PAID.NAPDAMNT,2)
+        ELSE
+          lcExSin1   = gfGetExSin(@lcExSin2,APDIST_PAID.CCURRCODE,oAriaApplication.BaseCurrency)
+          lnExRate   = APDIST_PAID.NEXRATE
+          lnTotPaymnt = lnTotPaymnt - ROUND(APDIST_PAID.NAPDAMNT &lcExSin1 lnExRate ,2)
+          llGetEq = .T.
+        ENDIF
+      ELSE
+
+        llGetEq = .T.
+        IF (APINVHDR_PAID.CCURRCODE <> oAriaApplication.BaseCurrency) AND (APPAYMNT.CCURRCODE <> oAriaApplication.BaseCurrency)
+          lcExSin1   = gfGetExSin(@lcExSin2,APDIST_PAID.CCURRCODE,oAriaApplication.BaseCurrency)
+          lnExRate   = APDIST_PAID.NEXRATE
+          lnTotPaymnt = lnTotPaymnt - ROUND(APDIST_PAID.NAPDAMNT &lcExSin1 lnExRate ,2)
+        ELSE
+          lcExSin1   = gfGetExSin(@lcExSin2,APINVHDR_PAID.CCURRCODE,APPAYMNT.CCURRCODE)
+
+          lnUnit     = APINVHDR_PAID.NCURRUNIT
+          lcInvCurr  = APINVHDR_PAID.CCURRCODE
+          lcPayCurr  = APPAYMNT.CCURRCODE
+          ldExRateDt = APPAYMNT.DPAYDATE
+
+          lnExRate   = APDIST_PAID.NEXRATE
+          lnExRate = IIF(lnExRate = 0 ,lfGetLstRat(lcInvCurr,lcPayCurr,ldExRateDt),lnExRate)
+
+          lnTotPaymnt = lnTotPaymnt-ROUND(APDIST_PAID.NEQVAMNT,2)
+        ENDIF
+
+      ENDIF
+    CASE APDIST_PAID.CAPDACTID $ 'S'
+
+      IF APINVHDR_PAID.CCURRCODE = oAriaApplication.BaseCurrency
+        lnTotPaymnt = lnTotPaymnt - APDIST_PAID.nApdAmnt
+      ELSE
+        lcExSin1   = gfGetExSin(@lcExSin2,APDIST_PAID.CCURRCODE,oAriaApplication.BaseCurrency)
+        lnExRate   = APDIST_PAID.NEXRATE
+        lnTotPaymnt = lnTotPaymnt - ROUND(APDIST_PAID.NAPDAMNT &lcExSin1 lnExRate ,2)
+        llGetEq = .T.
+      ENDIF
+
+    CASE APDIST_PAID.CAPDACTID $ 'J' AND APDIST_PAID.cApdTrTyp <> "A"
+
+      lcExSin1   = gfGetExSin(@lcExSin2,APINVHDR_PAID.CCURRCODE,APPAYMNT.CCURRCODE)
+      lcExSin1   = IIF(lcExSin1 = '*' , '/' , '*')
+      lcExSin2   = IIF(lcExSin2 = '*' , '/' , '*')
+      lnUnit     = APINVHDR_PAID.NCURRUNIT
+      lcInvCurr  = APINVHDR_PAID.CCURRCODE
+      lcPayCurr  = APPAYMNT.CCURRCODE
+      ldExRateDt = APPAYMNT.DPAYDATE
+
+      lnExRate   = APDIST_PAID.NEXRATE
+
+      lcExSin1   = gfGetExSin(@lcExSin2,APDIST_PAID.CCURRCODE,oAriaApplication.BaseCurrency)
+      lnExRate   = APDIST_PAID.NEXRATE
+      lnTotPaymnt = lnTotPaymnt - ROUND(APDIST_PAID.NAPDAMNT &lcExSin1 lnExRate ,2)
+
+    CASE APDIST_PAID.cApdTrTyp = "A" AND APDIST_PAID.CAPDACTID $ 'A'
+
+      lnTotPaymnt = lnTotPaymnt+APDIST_PAID.NAPDAMNT
+    ENDCASE
+  ENDSCAN
+
+*!*	  IF llGetEq
+*!*	    lcExSin2 = ' '
+*!*	    lcExSin1   = gfGetExSin(@lcExSin2,APINVHDR_PAID.CCURRCODE)
+*!*	    lcExSin1   = IIF(lcExSin1 = '*' , '/' , '*')
+*!*	    lcExSin2   = IIF(lcExSin2 = '*' , '/' , '*')
+*!*	    lnExRate   = APINVHDR_PAID.NEXRATE
+*!*	    lnTotPaymnt= ROUND(lnTotPaymnt &lcExSin1 lnExRate ,2)
+*!*	  ENDIF
+
+ELSE
+  gfSEEK (lcInv+lcVend)
+  SUM REST nAPdAmnt WHILE CINVNO+CVENDCODE+CAPDTRTYP = lcInv+lcVend ;
+    FOR dAPDtrdat > ldRpCurDat AND cApdStat  <> 'V' AND ;
+    ((capdtrtyp $ "MNHP" AND capdactID = "A") .OR. ( capdtrtyp = "A" AND nApdAmnt < 0));
+    TO lnTotPaymnt
+ENDIF
+
+IF APINVHDR_PAID.nInvAmnt > 0 AND lnTotPaymnt <> APINVHDR_PAID.ninvpaid + APINVHDR_PAID.ninvdistk + APINVHDR_PAID.ninvadj ;
+    AND SEEK("A                    "+lcInv,'APDIST_PAID','PAYMNTS')
+
+  SELECT APDIST_PAID
+  lcOldTag = ORDER()
+  SET ORDER TO 'PAYMNTS'
+  lnTotDebit = 0
+  SUM REST nAPdAmnt WHILE CAPDTRTYP+CBNKCODE+CCHKACCT+CAPDREF="A                    "+lcInv ;
+    FOR cVendCode = lcVend ;
+    AND cApdActId = 'A' AND nApdAmnt > 0;
+    AND dAPDtrdat > ldRpCurDat ;
+    AND cApdStat  <> 'V';
+    TO lnTotDebit
+  lnTotPaymnt = lnTotPaymnt + lnTotDebit
+  SET ORDER TO (lcOldTag)
+ENDIF
+
+llCanPrint  = (APINVHDR_PAID.ninvamnt - APINVHDR_PAID.ninvpaid - APINVHDR_PAID.ninvdistk - APINVHDR_PAID.ninvadj+lnTotPaymnt <> 0)
+RETURN IIF(llCanPrint,lnTotPaymnt,0)
+
+*!**************************************************************************
+*! Name      : lfGetLstRat
+*! Developer : Tarek Mohamed Ibrahim
+*! Date      : 08/15/2011
+*! Purpose   : Return the Last exchange rate before the given date if there is no
+*!             Rate in the given date
+*!********************************************************************************
+*! Example   :  =lfGetLstRat()
+*!**************************************************************************
+
+FUNCTION lfGetLstRat
+PARAMETER lcToCurr, lcFromCurr, ldExRate
+lcOldAlias = ALIAS()
+IF !USED('Sycexch')
+  =gfOpenTable(oAriaApplication.DATADIR+'Sycexch',oAriaApplication.DATADIR+'','SH')
+ENDIF
+
+SELECT Sycexch.nexrate, MAX(Sycexch.dratedate);
+  FROM Sycexch;
+  WHERE Sycexch.dratedate <= ldExRate ;
+  AND Sycexch.cbasecurr = lcFromCurr;
+  AND Sycexch.ccurrcode = lcToCurr  ;
+  INTO ARRAY laExRate
+
+SELECT (lcOldAlias)
+RETURN IIF(_TALLY >=1 ,laExRate[1,1],1)
+

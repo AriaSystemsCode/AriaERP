@@ -1,0 +1,66 @@
+LCCTR = ''
+WAIT WINDOW NOWAIT 'Collecting Data ... Please Wait.'
+LNDATEPOS = ASUBSCRIPT(LAOGFXFLT,ASCAN(LAOGFXFLT,'CUTTKTL.DATE'),1)
+LCREPRNGF = LEFT(LAOGFXFLT(LNDATEPOS,6),10)
+LCREPRNGT = RIGHT(LAOGFXFLT(LNDATEPOS,6),10)
+LCDTFLT = '.T.'
+DO CASE
+CASE .NOT.EMPTY(CTOD(LCREPRNGF)) .AND. .NOT.EMPTY(CTOD(LCREPRNGT))
+   LCDTFLT = "BETWEEN(ALLTRIM(DTOS(CUTTKTL.DATE)),'"+ALLTRIM(DTOS(CTOD;
+(LCREPRNGF)))+"','"+ALLTRIM(DTOS(CTOD(LCREPRNGT)))+"')"
+CASE EMPTY(CTOD(LCREPRNGF)) .AND. .NOT.EMPTY(CTOD(LCREPRNGT))
+   LCREPRNGT = ALLTRIM(DTOS(CTOD(LCREPRNGT)))
+   LCREPRNGF = ''
+   LCDTFLT = 'ALLTRIM(DTOS(CUTTKTL.DATE)) < "'+LCREPRNGT+'"'
+CASE EMPTY(CTOD(LCREPRNGF)) .AND. EMPTY(CTOD(LCREPRNGT))
+   LCREPRNGF = ''
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCRTMP                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCRTMP
+DIMENSION LATEMPSTRU(1, 4)
+LATEMPSTRU = ''
+SELECT CUTTKTL
+= AFIELDS(LATEMPSTRU)
+LNARRLEN = ALEN(LATEMPSTRU,1)
+DIMENSION LATEMPSTRU(LNARRLEN+8, 4)
+LATEMPSTRU(LNARRLEN, 1) = 'CONTRACT'
+LATEMPSTRU(LNARRLEN, 2) = 'C'
+LATEMPSTRU(LNARRLEN, 3) = 8
+LATEMPSTRU(LNARRLEN, 4) = 0
+LATEMPSTRU(LNARRLEN+1, 1) = 'TTLLAND'
+LATEMPSTRU(LNARRLEN+1, 2) = 'N'
+LATEMPSTRU(LNARRLEN+1, 3) = 15
+LATEMPSTRU(LNARRLEN+1, 4) = 6
+LATEMPSTRU(LNARRLEN+2, 1) = 'TLTCOST'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+RETURN
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCONT                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCONT
+SELECT APVENDOR
+SET ORDER TO VenCode
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'APVENDOR'))
+   = GFAPVNBROW(LCOBJVAL)
+   LCOBJVAL = IIF(.NOT.EMPTY(LCOBJVAL),LCOBJVAL,LAOLDVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+

@@ -1,0 +1,77 @@
+Account	String	5	
+Order	String	6	
+Start	Date	
+Complete	Date	
+Style	String	19	
+Desc1	String	60	
+Group	String	1	
+Qty1	Number	
+Qty2	Number	
+Qty3	Number	
+Qty4	Number	
+Qty5	Number	
+Qty6	Number	
+Qty7	Number	
+Qty8	Number	
+sz1	String	5	
+sz2	String	5	
+sz3	String	5	
+sz4	String	5	
+sz5	String	5	
+sz6	String	5	
+sz7	String	5	
+sz8	String	5	
+TotQty	Number	
+Gros_price	Currency	
+Disc	Number	
+Comm	Number	
+Price	Currency	
+PikTkt	String	6	
+Status	String	1	
+Priority	String	3	
+custpo	String	15	
+entered	Date	
+stname	String	30	
+Book	Number	
+Ship	Number	
+ContRef	String	30	
+Note1	String	30	
+Note2	String	30	
+Cancel	Number	
+Open	Number	
+Invoices	String	300	
+TotChg	String	50	
+LineNo	Number	
+Alt_ShpTo	Boolean	
+OrdCustStname	String	30	
+Ordcaddress1	String	30	
+Ordcaddress2	String	30	
+Ordcaddress3	String	30	
+Ordcaddress4	String	30	
+Ordcaddress5	String	30	
+CustStname	String	30	
+caddress12	String	30	
+caddress22	String	30	
+caddress32	String	30	
+caddress42	String	30	
+caddress52	String	30	
+caddress1	String	30	
+caddress2	String	30	
+caddress3	String	30	
+caddress4	String	30	
+caddress5	String	30	
+NetAmt	Number	
+freight	Number	
+weight	Number	
+insur	Number	
+tax_rate	Number	
+tax_amt	Number	
+totchg	Number	
+discount	Number	
+COD	Number	
+deposit	Number	
+cartons	Number	
+PriChg	Number	
+Lprichg	Boolean	
+DropChg	Number	
+Ldropchg	Boolean	

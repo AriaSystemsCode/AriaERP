@@ -1,0 +1,38 @@
+
+SET DEFA TO C:\ATOMIC\
+ERASE C:\ATOMIC\AUTH1001.OUT
+
+lcString = '1001,P,5,2,600123T40099988A1456,2500,,,,"00010",,,'
+
+
+
+*--READ TO FILE (AUTH1001.IN).
+lcFile   = "C:\ATOMIC\AUTH1001.IN"
+lnHandle = FCREATE(lcFile,0)
+=FSEEK(lnHandle,0,2)
+=FPUTS(lnHandle,lcString)
+=FCLOSE(lnHandle)
+
+
+RUN /N c:\atomic\atom32.exe
+
+
+DO WHILE INKEY() <> 32
+  WAIT WINDOW 'PROCESSING...' NOWAIT
+  IF FILE('C:\ATOMIC\AUTH1001.OUT')
+    EXIT
+  ENDIF  
+ENDDO
+
+
+IF FILE('C:\ATOMIC\AUTH1001.OUT')
+  WAIT WINDOW '****EXIST****'
+ELSE
+  WAIT WINDOW 'NOT EXIST!!!!'
+ENDIF 
+
+RUN /N c:\atomic\StopAuth.exe
+
+
+*--Need to release the atomic.
+RETURN

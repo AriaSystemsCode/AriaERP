@@ -1,0 +1,44 @@
+CLOSE all
+_SCREEN.Visible = .F. 
+lcSysFilePath = GETDIR('','Select Aria27 SysFiles Folder')
+IF EMPTY(lcSysFilePath) OR !DIRECTORY(lcSysFilePath) OR !FILE(ADDBS(lcSysFilePath)+'SYCCOMP.DBF')
+  MESSAGEBOX("Invalid SYSFILES Folder")
+  RETURN .F.
+ENDIF
+lcA27Sys =ADDBS(lcSysFilePath )
+USE ADDBS(lcA27Sys)+'SYCCOMP.DBF' SHAR ALIAS 'SYCCOMP_A' IN 0 
+SELECT SYCCOMP_A
+SCAN FOR lRunfroma4
+  SELECT SYCCOMP_A
+  IF EMPTY(ALLTRIM(CCONSERVER)) OR EMPTY(ALLTRIM(CCONDBNAME))
+    LOOP
+  ENDIF
+  lcactivecompanyconstr = "Driver={SQL Server};server="+ALLTRIM(CCONSERVER)+";DATABASE="+ALLTRIM(CCONDBNAME)+;
+                ";uid="+ALLTRIM(CCONUSERID)+";pwd="+ALLTRIM(CCONPASWRD)
+
+  lnConH=SQLSTRINGCONNECT(lcactivecompanyconstr)
+  IF lnConH<0
+    LOOP 
+  ENDIF
+  lnEmailForm = SQLEXEC(lnConH,"Select * From POSHDR WHere CBUsDOCU = 'P' and cSTYTYPE ='U' AND (CTONUMBER <> '' or CMILL <>'')   ","POSHDR")  
+  IF lnEmailForm > 0 
+    SELECT POSHDR
+    SCAN 
+      SCATTER MEMO MEMVAR 
+      m.TONUM1 = IIF(!EMPTY(m.CTONUMBER),m.CTONUMBER,m.TONUM1)
+      m.TONUM2 =IIF(!EMPTY(m.CMILL),m.CMILL,m.TONUM2)
+      m.ToNum = IIF(!EMPTY(m.TONUM1),m.TONUM1+CHR(13)+CHR(10),'') +;
+                IIF(!EMPTY(m.TONUM2),m.TONUM2+CHR(13)+CHR(10),'') +;
+                IIF(!EMPTY(m.TONUM3),m.TONUM3+CHR(13)+CHR(10),'') +;
+                IIF(!EMPTY(m.TONUM4),m.TONUM4+CHR(13)+CHR(10),'') +;
+                IIF(!EMPTY(m.TONUM5),m.TONUM5+CHR(13)+CHR(10),'') +;
+                IIF(!EMPTY(m.TONUM6),m.TONUM6+CHR(13)+CHR(10),'') 
+                
+      lcUpdStat = "Update POSHDR Set TONUM1 = ?m.TONUM1,TONUM2=?m.TONUM2,ToNum=?m.ToNum  WHERE cStyType =?m.cStyType AND cBusDocu =?m.cBusDocu AND PO =?m.PO"      
+      lnForm = SQLEXEC(lnConH,lcUpdStat ,"POSHDR_A")         
+    ENDSCAN 
+  ENDIF 
+  SQLDISCONNECT(lnConH)
+ENDSCAN
+CLOSE ALL 
+MESSAGEBOX("Updating DB is Completed Successfully")

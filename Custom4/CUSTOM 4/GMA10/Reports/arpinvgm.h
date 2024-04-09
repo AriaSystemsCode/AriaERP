@@ -1,0 +1,14 @@
+#DEFINE LANG_ARPINVGM_NoRec    "No Records Selected"
+#DEFINE LANG_ARPINVGM_Note1    "PAY ONLY IN U.S FUNDS TO"
+
+*C201034,1 07/29/2008 MMT Change factor address[Start]
+*#DEFINE LANG_ARPINVGM_Note2    "THE CIT GROUP"
+*#DEFINE LANG_ARPINVGM_Note3    "P.O. BOX. 1036"
+*#DEFINE LANG_ARPINVGM_Note4    "CHARLOTTE NC 28201-1036"
+#DEFINE LANG_ARPINVGM_Note2    "Rosenthal & Rosenthal Inc."
+#DEFINE LANG_ARPINVGM_Note3    "P.O Box 88926"
+#DEFINE LANG_ARPINVGM_Note4    "Chicago, IL 60695"
+*C201034,1 07/29/2008 MMT Change factor address[End]
+
+#DEFINE LANG_ARPINVGM_Select   "Selecting Records For The Report ..."
+#DEFINE LANG_ARPINVGM_Tel      "Telephone"

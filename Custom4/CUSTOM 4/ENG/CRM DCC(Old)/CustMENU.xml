@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<MenuStruc>CRM
+	<MenuConfig>
+		<backgroundcolor>#0066cc</backgroundcolor>
+		<backgroundhighlcolor>#0099ff</backgroundhighlcolor>
+		<fontcolor>White</fontcolor>
+		<fontcolorhighlight>White</fontcolorhighlight>
+		<outerbordercolor>#0099ff</outerbordercolor>
+		<innerbordercolor>#0099ff</innerbordercolor>
+		<cellwidth>9.3</cellwidth>
+	</MenuConfig>
+	<MenuConfigStyle2>
+		<backgroundcolorStyle2>#E6542F</backgroundcolorStyle2>
+		<backgroundhighlcolorStyle2>#E8B899</backgroundhighlcolorStyle2>
+		<fontcolorStyle2>White</fontcolorStyle2>
+		<fontcolorhighlightStyle2>White</fontcolorhighlightStyle2>
+		<outerbordercolorStyle2>#E8B888</outerbordercolorStyle2>
+		<innerbordercolorStyle2>#E8B888</innerbordercolorStyle2>
+		<cellwidthStyle2>8.44</cellwidthStyle2>
+	</MenuConfigStyle2>
+	<BILLBLASSCONFIG>
+		<backgroundcolor3>#d2b48c</backgroundcolor3>
+		<backgroundhighlcolor3>#fffff0</backgroundhighlcolor3>
+		<fontcolor3>#877b65</fontcolor3>
+		<fontcolorhighlight3>#877b65</fontcolorhighlight3>
+		<outerbordercolor3>#877B65</outerbordercolor3>
+		<innerbordercolor3>#A0522D</innerbordercolor3>
+		<BILLBLASSMENU>8.44</BILLBLASSMENU>
+	</BILLBLASSCONFIG>
+	<BAR>
+		<TITLE>Customer</TITLE>
+		<BARLINK>custprof.asp</BARLINK>
+		<SHOW>-1</SHOW>
+	</BAR>
+	<BAR>
+		<TITLE>Order</TITLE>
+		<BARLINK></BARLINK>
+		<SHOW>-1</SHOW>
+		<PAD>
+			<CAPTION>Check Status</CAPTION>
+			<LINK>Ordstatus.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+		<PAD>
+			<CAPTION>Remote Order</CAPTION>
+			<LINK>ord1.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+		<PAD>
+			<CAPTION>Order Confirmation</CAPTION>
+			<LINK>ord_conf.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+	</BAR>
+	<BAR>
+		<TITLE>Return Auth.</TITLE>
+		<BARLINK></BARLINK>
+		<SHOW>-1</SHOW>
+		<PAD>
+			<CAPTION>Print/Check RA</CAPTION>
+			<LINK>returnstatus.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+		<PAD>
+			<CAPTION>Request R/A</CAPTION>
+			<LINK>returnaddredirect.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+	</BAR>
+	<BAR>
+		<TITLE>Invoice</TITLE>
+		<BARLINK></BARLINK>
+		<SHOW>-1</SHOW>
+		<PAD>
+			<CAPTION>Check Invoice</CAPTION>
+			<LINK>invoice.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+		<PAD>
+			<CAPTION>View Statement</CAPTION>
+			<LINK>custstat.asp</LINK>
+			<SHOW>-1</SHOW>
+		</PAD>
+	</BAR>
+	<BAR>
+		<TITLE>Check OTS</TITLE>
+		<BARLINK>ots.asp</BARLINK>
+		<SHOW>-1</SHOW>
+	</BAR>
+	<BAR>
+		<TITLE>Catalogue</TITLE>
+		<BARLINK>catalog1.asp</BARLINK>
+		<SHOW>-1</SHOW>
+	</BAR>
+	<BAR>
+		<TITLE>Documents</TITLE>
+		<BARLINK>documents.asp</BARLINK>
+		<SHOW>-1</SHOW>
+	</BAR>
+	<BAR>
+		<TITLE>Helpdesk</TITLE>
+		<BARLINK>helpdesk.asp</BARLINK>
+		<SHOW>-1</SHOW>
+	</BAR>
+	<BAR>
+		<TITLE>Log Off</TITLE>
+		<BARLINK>logoff.asp</BARLINK>
+		<SHOW>-1</SHOW>
+	</BAR>
+</MenuStruc>

@@ -1,0 +1,34 @@
+Reason	String	6	
+Desc	String	60	
+Style	String	19	
+Desc1	string	20	
+Price	Long		
+Qty1	Number		
+Qty2	Number		
+Qty3	Number		
+Qty4	Number		
+Qty5	Number		
+Qty6	Number		
+Qty7	Number		
+Qty8	Number		
+Totqty	Number		
+Amount	Long		
+Nopnqty1	Number		
+Nopnqty2	Number		
+Nopnqty3	Number		
+Nopnqty4	Number		
+Nopnqty5	Number		
+Nopnqty6	Number		
+Nopnqty7	Number		
+Nopnqty8	Number		
+Ntotopnqty	Number	
+opnAmount	Long	
+Sz1	String	5	
+Sz2	String	5	
+Sz3	String	5	
+Sz4	String	5	
+Sz5	String	5	
+Sz6	String	5		
+Sz7	String	5	
+Sz8	String	5	
+Rano	String	6	

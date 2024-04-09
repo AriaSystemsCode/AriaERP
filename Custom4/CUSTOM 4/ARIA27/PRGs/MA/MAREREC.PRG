@@ -1,0 +1,1 @@
+DO (gcAppHome+gcWinAppl+'\MARECI') WITH 'R'

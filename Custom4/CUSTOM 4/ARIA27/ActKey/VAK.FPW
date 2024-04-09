@@ -1,0 +1,13 @@
+TITLE       = VAK
+FILES       = 200
+DOSMEM      = OFF
+MVCOUNT     = 3000
+MEMLIMIT    = 40,1024,4128
+BUCKETS     = 5
+RESOURCE    = OFF
+MOUSE       = 7
+TALK        = OFF
+EXCLUSIVE   = OFF
+DELETE      = ON
+CLOCK       = OFF
+CATMAN      = OFF

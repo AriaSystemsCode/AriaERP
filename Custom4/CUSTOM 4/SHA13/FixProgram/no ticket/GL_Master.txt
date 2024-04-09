@@ -1,0 +1,3 @@
+One can find the GL_MASTER.PDF file in the path 
+\\10.10.10.30\Documentation\MANUALS\aria27\Gl\GL_Mastr.PDF
+in our documentation repository

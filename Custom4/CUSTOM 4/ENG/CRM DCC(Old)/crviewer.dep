@@ -1,0 +1,32 @@
+; ------------------------------------------------------------------------------
+; Dependency file for setup wizards.
+
+
+[Version]
+Version=2.2.4.36
+
+; ------------------------------------------------------------------------------
+; Dependencies for CRVIEWER.DLL
+
+
+[CRVIEWER.DLL]
+Dest=$(WinSysPath)
+Register=$(DLLSelfRegister)
+Version=2.2.4.36
+Uses1=CRAXDRT.DLL
+Uses2=COMCAT.DLL
+Uses3=OLEPRO32.DLL
+Uses4=
+
+
+[COMCAT.DLL]
+Dest=$(WinSysPathSysFile)
+Register=$(DLLSelfRegister)
+Uses1=
+
+
+[OLEPRO32.DLL]
+Dest=$(WinSysPath)
+Uses1=
+
+

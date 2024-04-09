@@ -1,0 +1,327 @@
+LCSTTIME = TIME()
+LCRPEXP = STRTRAN(LCRPEXP,'STYLE.','')
+IF LCRPSORTBY='W' .AND. (EMPTY(LCWARECODE) .OR. .NOT.SEEK(LCWARECODE,'WareHous'))
+   = GFMODALGEN('INM42167B00000','DIALOG')
+   SET DEVICE TO SCREEN
+   RETURN
+ENDIF
+IF LLOGFLTCH
+   IF USED(LCSTYLETMP) .AND. RECCOUNT(LCSTYLETMP)>0
+      = LFCREATFIL()
+   ENDIF
+   SELECT STYLE
+   SET FILTER TO &lcRpExp
+   IF LLRPPRNWHD
+      SELECT STYDYE
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFNORECORD                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFNORECORD
+GOTO TOP
+IF EOF()
+   = GFMODALGEN('TRM00052B00000','DIALOG')
+   SET DEVICE TO SCREEN
+   RETURN .T.
+ELSE
+   RETURN .F.
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+SELECT STYINVJL
+SET ORDER TO StyInvJl DESCENDING
+LNSTATPOS = LFITMPOS('STYLE.STATUS')
+LAOGFXFLT(LNSTATPOS, 6) = 'A'
+= LFCREATFIL()
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFITMPOS                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFITMPOS
+PARAMETERS LCITMINFLT
+PRIVATE LNITMPOS
+LNITMPOS = ASCAN(LAOGFXFLT,LCITMINFLT)
+IF LNITMPOS>0
+   LNITMPOS = ASUBSCRIPT(LAOGFXFLT,LNITMPOS,1)
+ENDIF
+RETURN LNITMPOS
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCREATFIL                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCREATFIL
+IF USED(LCSTYLETMP)
+   USE IN (LCSTYLETMP)
+ENDIF
+LCFILENAME = IIF(LCRPSORTBY='S','STYLE','STYDYE')
+SELECT STYINVJL
+= AFIELDS(LAFILESTRU)
+LNNEWFLD = ALEN(LAFILESTRU,1)+1
+DIMENSION LAFILESTRU(LNNEWFLD, 4)
+LAFILESTRU(LNNEWFLD, 1) = 'PRICEA'
+LAFILESTRU(LNNEWFLD, 2) = 'N'
+LAFILESTRU(LNNEWFLD, 3) = 12
+LAFILESTRU(LNNEWFLD, 4) = 2
+LNNEWFLD = ALEN(LAFILESTRU,1)+1
+DIMENSION LAFILESTRU(LNNEWFLD, 4)
+LAFILESTRU(LNNEWFLD, 1) = 'SCALE'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LPCOLLDAT1                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LPCOLLDAT1
+SELECT (LCFILENAME)
+SCAN
+   WAIT WINDOW NOWAIT 'Collecting Data for '+LCMAJTTL+' '+STYLE
+   SCATTER MEMVAR
+   LCSTYLE = IIF(LCFILENAME='STYDYE',STYLE->STYLE,STYLE)
+   lnOldCost = &lcFileName..Ave_Cost
+   lnAvCost  = &lcFileName..Ave_Cost
+   LNTOTSTK = 0
+   FOR LNI = 1 TO 8
+      LCZ = STR(LNI,1)
+      lnStk&lcZ = &lcFileName..Stk&lcZ
+   ENDFOR
+   SELECT STYINVJL
+   = SEEK(LCSTYLE+LCWARECODE)
+   SCAN REST FOR STYLE+CWARECODE+CSESSION+DTOS(DTRDATE)+CTRCODE=LCSTYLE;
++LCWARECODE
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFNONMAJ                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFNONMAJ
+LNMAJSEG = GFITEMMASK('SM')
+DIMENSION LAMAJSEG(1, 1)
+= GFITEMMASK(LAMAJSEG)
+LLSTOPCONC = .F.
+FOR LNI = LNMAJSEG+1 TO ALEN(LAMAJSEG,1)
+   LNNONMAJPO = IIF(LNNONMAJPO=0,LAMAJSEG(LNI,4),LNNONMAJPO)
+   IF LAMAJSEG(LNI,1)='F' .AND. .NOT.LLSTOPCONC
+      LCFREECLR = IIF(EMPTY(LCFREECLR),LAMAJSEG(LNI,1),LCFREECLR)
+      LCNONMAJPI = IIF(EMPTY(LCNONMAJPI),LAMAJSEG(LNI,3),LCNONMAJPI+LAMAJSEG;
+(LNI-1,6)+LAMAJSEG(LNI,3))
+      LCNONMAJT = IIF(EMPTY(LCNONMAJT),PADR(LAMAJSEG(LNI,2),LEN(LAMAJSEG;
+(LNI,3))),LCNONMAJT+LAMAJSEG(LNI-1,6)+PADR(LAMAJSEG(LNI,2),LEN(LAMAJSEG;
+(LNI,3))))
+   ENDIF
+   IF LAMAJSEG(LNI,1)='C' .OR. (.NOT.EMPTY(LCFREECLR) .AND. LAMAJSEG(LNI;
+,1)<>'F')
+   IF LAMAJSEG(LNI,1)='C'
+      LNCLRPO = LAMAJSEG(LNI,4)
+      LCFREECLR = LAMAJSEG(LNI,1)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSTYLE                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSTYLE
+LCSTYLE = VARREAD()
+LCTAG = ORDER('STYLE')
+SET ORDER TO cStyle IN STYLE
+IF LASTKEY()=13 .AND. .NOT.MDOWN()
+   IF SEEK(&lcStyle.,'Style')
+   &lcStyle = STYLE.cStyMajor
+ELSE
+   &lcStyle = gfStyBrw('M',"","",.F.)
+ENDIF
+ELSE
+   &lcStyle = ''
+ENDIF
+SET ORDER TO lcTag IN STYLE
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVFABRIC                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVFABRIC
+LCFABOBJ = VARREAD()
+lcFab    = &lcFabObj
+LLUSEBYME = .F.
+IF .NOT.USED('FABRIC')
+   LLUSEBYME = .T.
+   USE IN 0 SHARED (GCDATADIR+'FABRIC')
+ENDIF
+LCTAG = ORDER('FABRIC')
+SET ORDER TO FABRIC IN FABRIC
+IF LASTKEY()=13 .AND. .NOT.MDOWN()
+   IF SEEK(LCFAB,'FABRIC')
+      &lcFabObj = FABRIC.Fabric
+   ELSE
+      = FABROW(LCFAB,'*')
+      &lcFabObj = lcFab
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVSTY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVSTY
+PARAMETERS LCPARM
+DO CASE
+CASE LCPARM='S'
+   USE IN 0 (GCDATADIR+'Style') AGAIN ALIAS STYLE_X ORDER Style
+   SELECT STYLE
+   SET ORDER TO Cstyle
+   SET RELATION TO STYLE->STYLE INTO STYLE_X
+   GOTO IN STYLE TOP
+CASE LCPARM='R'
+   USE IN STYLE_X
+   SELECT STYLE
+   SET ORDER TO STYLE
+   LLCLEARSTY = .F.
+ENDCASE
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSTYSUM                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSTYSUM
+PARAMETERS LCSTY, LCCOMP, LNADDTOVAR
+PRIVATE LNSTYREC
+LNTOTCOMP = 0
+IF RECCOUNT('STYLE')<>0
+   LNSTYREC = RECNO('STYLE')
+   SELECT STYLE_X
+   SUM &lcCOMP TO lnTotcomp WHILE ALLTRIM(cStyMajor) == ALLTRIM(lcSty)
+   SELECT STYLE
+   IF BETWEEN(LNSTYREC,1,RECCOUNT())
+      GOTO LNSTYREC
+   ENDIF
+   DO CASE
+   CASE LNADDTOVAR=1
+      LNO_T_S = LNTOTCOMP
+   CASE LNADDTOVAR=2
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFFILLARAY                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFFILLARAY
+DIMENSION LASORTDESC(2, 1), LASORTVAL(2, 1)
+LASORTDESC(1, 1) = PROPER(LCMAJTTL)
+LASORTDESC(2, 1) = 'Location'
+LASORTVAL(1, 1) = 'S'
+LASORTVAL(2, 1) = 'W'
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVWAREHOS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVWAREHOS
+PRIVATE LCWAREHOUS, LCTAG
+LCWAREHOUS = VARREAD()
+LCTAG = ORDER('WAREHOUS')
+SET ORDER TO WAREHOUS IN WAREHOUS
+IF LASTKEY()=13 .AND. .NOT.MDOWN()
+   IF SEEK(&lcWareHous.,'WAREHOUS')
+   &lcWareHous = WAREHOUS.cWareCode
+ELSE
+   &lcWareHous = gfBroWWare(.T.)
+ENDIF
+ELSE
+   &lcWareHous = lcOldWare
+ENDIF
+SET ORDER TO &lcTag IN WAREHOUS
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOLDWARE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOLDWARE
+LCOLDWARE = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSORTBY                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSORTBY
+LLRPPRNWHD = IIF(LCRPSORTBY='W',.T.,LLOLDPRWHD)
+CLEAR READERROR
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVPRNWHD                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVPRNWHD
+LLOLDPRWHD = LLRPPRNWHD
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFGETSCALE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFGETSCALE
+PARAMETERS LCSCALE
+PRIVATE LCOLDALIAS, LNX, LCSTRING, LCSCALE, LCZ
+LCOLDALIAS = ALIAS()
+SELECT SCALE
+SEEK 'S'+LCSCALE
+LNX = 1
+LCSTRING = ''
+IF FOUND()
+   DO WHILE LNX<=CNT
+      LCZ = STR(LNX,1)
+      lcString = lcString + PADL(ALLTRIM(SZ&lcZ),5,' ') + IIF(lnX=CNT,'';
+,'  ')
+      LNX = LNX+1
+   ENDDO
+ELSE
+   LCSTRING = '* * * E R R O R * * *'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LPCOLLDATA                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LPCOLLDATA
+LCWARECODE = IIF(LCRPSORTBY='W',LCWARECODE,'')
+SELECT STYINVJL
+LCOLDTAG = SET('ORDER')
+SET ORDER TO Stydate
+SELECT (LCFILENAME)
+SCAN
+   WAIT WINDOW NOWAIT 'Collecting Data for '+LCMAJTTL+' '+STYLE
+   LCSTYLE = IIF(LCFILENAME='STYDYE',STYLE->STYLE,STYLE)
+   LCDYELOT = IIF(LCFILENAME='STYDYE',STYDYE->DYELOT,SPACE(10))
+   SELECT STYINVJL
+   IF SEEK(LCSTYLE+LCWARECODE)
+      SCAN REST FOR DTRDATE<=LDRPDATE .AND. IIF(.NOT.EMPTY(LCWARECODE);
+,CWARECODE=LCWARECODE,.T.) .AND. IIF(LCFILENAME='STYDYE',CDYELOT=LCDYELOT;
+,.T.) WHILE STYLE+CWARECODE+DTOS(DTRDATE)+CSESSION+CIRTYPE=LCSTYLE
+      WAIT WINDOW NOWAIT 'Collecting Data for '+LCMAJTTL+' '+STYLE
+      SCATTER MEMVAR
+      = SEEK(LCSTYLE,'Style')
+*****                        Rest is skipped                            *****
+
+

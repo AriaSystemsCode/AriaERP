@@ -1,0 +1,30 @@
+SCREEN = OFF
+TITLE = n
+_STARTUP = ""
+
+* to eliminate load time:
+_BROWSER = ""
+_SPELLCHK = ""
+_GENMENU = ""
+_GENGRAPH = ""
+_GENXTAB = ""
+_COVERAGE = ""
+_SCCTEXT = ""
+_CONVERTER = ""
+_TRANSPORTER = ""
+_BUILDER = ""
+_WIZARD = ""
+
+* other special CONFIG.FPW settings you may wish to change:
+* (these are the defaults)
+MVCOUNT = 1025 
+OUTSHOW = ON   
+* Set other global settings here if you like, for example:
+RESOURCE = OFF
+_THROTTLE = 0
+
+* Load of private-session forms and formsets):
+TALK = OFF
+MULTILOCKS = ON
+EXCLUSIVE = OFF
+SAFETY = OFF

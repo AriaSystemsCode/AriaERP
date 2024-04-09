@@ -1,0 +1,44 @@
+PARAMETERS lpPath,lpMod,lpOutput
+CREATE TABLE splitFiles (MOD c(2),Folder c(120),filenm c(50))
+orgpth = lpPath
+CD &lpPath
+
+ArrNam = lpMod+'_Main'
+=ADIR(&ArrNam,'*.*',"D")
+FOR i = 1 TO ALEN(&ArrNam,1)
+  IF 'D'$&ArrNam[i,5]
+    IF NOT ('.'$&ArrNam[i,1] OR 'NONE'$&ArrNam[i,1] )
+      lcsubDir = &ArrNam[i,1]
+      SubArrNam = lpMod+'_sub'
+      lpPath = IIF(RIGHT(orgpth,1)='"' OR RIGHT(orgpth,1)="'",SUBSTR(orgpth,1,LEN(orgpth)-1),ALLTRIM(orgpth))+;
+        '\'+ALLTRIM(lcsubDir)+;
+        IIF(RIGHT(orgpth,1)='"' OR RIGHT(orgpth,1)="'",RIGHT(orgpth,1),'')
+      CD &lpPath
+      IF ADIR(&SubArrNam,'*.*','D') > 0
+        FOR j = 1 TO ALEN(&SubArrNam,1)
+          IF !('D'$&SubArrNam[j,5])
+            INSERT INTO splitFiles VALUES (lpMod,lpPath,&SubArrNam[j,1])
+          ELSE
+
+            IF NOT ('.'$&SubArrNam[J,1] OR 'NONE'$ &SubArrNam[J,1])
+              lcsubDir = &SubArrNam[j,1]
+              SubArrNam2 = lpMod+'_sub2'
+              lpPath2 = IIF(RIGHT(lpPath,1)='"' OR RIGHT(lpPath,1)="'",SUBSTR(lpPath,1,LEN(lpPath)-1),ALLTRIM(lpPath))+'\'+ALLTRIM(lcsubDir)+IIF(RIGHT(lpPath,1)='"' OR RIGHT(lpPath,1)="'",RIGHT(lpPath,1),'')
+              CD &lpPath2
+              IF ADIR(&SubArrNam2,'*.*') > 0
+                FOR x = 1 TO ALEN(&SubArrNam2,1)
+                  IF !('D'$&SubArrNam2[x,5])
+                    INSERT INTO splitFiles VALUES (lpMod,lpPath2,&SubArrNam2[x,1])
+                  ENDIF
+                ENDFOR
+              ENDIF
+            ENDIF
+          ENDIF
+        ENDFOR
+      ENDIF
+    ENDIF
+  ELSE
+    INSERT INTO splitFiles VALUES (lpMod,lpPath,&ArrNam[i,1])
+  ENDIF
+ENDFOR
+COPY TO (lpOutput)

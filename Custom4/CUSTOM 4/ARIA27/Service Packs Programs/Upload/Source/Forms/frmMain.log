@@ -1,0 +1,4 @@
+Line 27: Class XFTPPROLib.XFTPPro of control ftpConnector was not a loaded control class.
+Line 276: Class MSComctlLib.ProgressBar of control cntTherm was not a loaded control class.
+Line 425: Class MSComDlg.CommonDialog of control cntDialog was not a loaded control class.
+Line 432: Class MSComctlLib.ImageList of control imlStatus was not a loaded control class.

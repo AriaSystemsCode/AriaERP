@@ -1,0 +1,269 @@
+
+  New 'Download Service Packs' Session...
+  Started on: 5/4/2003 1:17:12 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		
+  2	VERIFY		Successfully found the IP address of the specified host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Disconnecting from the host computer.
+  2	VERIFY		Successfully disconnected from the host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  1	RECEIVE		1.43 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		4.28 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		5.70 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		8.55 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		12.55 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		12.83 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		16.83 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		17.11 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		18.54 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		21.39 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		25.39 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		25.66 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		27.09 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		29.94 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		32.79 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		34.22 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		35.64 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		38.50 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		39.92 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		42.77 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		44.20 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		47.05 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		51.05 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		51.33 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		52.75 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		55.61 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		59.61 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		59.88 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		61.31 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		64.16 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		68.16 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		68.44 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		69.86 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		72.71 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		74.14 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		76.99 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		80.99 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		81.27 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		85.27 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		85.55 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		86.97 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		89.82 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		93.82 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		94.10 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		98.10 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		98.38 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		99.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		102.66 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		104.08 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		106.93 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		108.36 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		111.21 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		112.64 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		114.06 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		115.49 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		119.49 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		122.62 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		124.04 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		126.89 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		128.32 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		131.17 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		132.60 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		136.35 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		137.78 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		140.43 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		143.29 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		144.49 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		145.92 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		148.77 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		150.19 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		153.12 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		154.54 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		157.95 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		160.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		162.56 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		166.56 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		167.93 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		171.93 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		172.54 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		176.54 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		176.82 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		178.25 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		181.10 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		185.10 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		185.37 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		186.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		189.65 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		193.65 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		193.93 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		195.00 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		SMSP0002.exe is successfully transferred.
+  ----------------------------------------------------------------------------
+  End of Session.
+  Finished on: 5/4/2003 2:01:14 PM
+
+
+
+
+  New 'Download Service Packs' Session...
+  Started on: 5/7/2003 12:51:30 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		
+  2	VERIFY		Successfully found the IP address of the specified host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Disconnecting from the host computer.
+  2	VERIFY		Successfully disconnected from the host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  1	RECEIVE		2.85 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		4.28 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		5.70 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		7.13 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		8.55 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		9.98 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		13.98 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		14.26 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		18.26 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		18.54 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		22.54 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		22.81 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		24.24 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		27.09 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		28.52 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		31.37 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		32.79 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		35.64 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		37.07 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		39.92 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		41.35 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		44.20 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		45.63 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		48.20 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		48.48 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		52.48 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		52.75 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		56.75 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		57.03 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		58.46 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		61.31 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		65.31 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		65.59 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		67.01 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		69.86 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		73.86 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		74.14 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		75.57 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		78.42 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		79.84 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		82.70 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		86.70 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		86.97 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		88.40 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		91.25 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		92.68 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		95.53 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		96.95 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		99.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		103.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		104.08 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		108.08 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		108.36 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		112.36 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		112.64 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		116.64 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		116.91 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		120.91 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		121.19 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		122.62 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		125.47 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		126.89 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		129.75 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		131.17 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		134.02 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		138.02 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		138.30 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		141.15 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		142.58 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		146.58 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		146.86 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		148.28 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		151.13 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		152.56 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		155.41 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		159.41 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		159.69 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		163.69 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		163.96 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		167.96 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		168.24 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		172.24 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		172.52 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		173.95 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		176.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		180.80 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		181.07 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		185.07 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		185.35 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		186.78 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		189.63 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		193.63 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		195.00 KB out of 195.00 KB have been successfully transferred so far.
+  1	RECEIVE		SMSP0002.exe is successfully transferred.
+  ----------------------------------------------------------------------------
+  End of Session.
+  Finished on: 5/7/2003 12:53:33 PM
+
+
+
+
+  New 'Download Service Packs' Session...
+  Started on: 7/20/2003 6:32:04 PM
+  ----------------------------------------------------------------------------
+  Code	Command		Response
+  ----------------------------------------------------------------------------
+  2	VERIFY		
+  2	VERIFY		Successfully found the IP address of the specified host computer.
+  2	VERIFY		Connecting to the host computer.
+  2	VERIFY		Successfully connected to the host computer.
+  2	VERIFY		Sending a request to the host computer.
+  2	VERIFY		Successfully sent the request.
+  2	VERIFY		Receiving a response from the host computer.
+  2	VERIFY		Successfully received a response from the host computer.
+  ----------------------------------------------------------------------------
+  End of Session.
+  Finished on: 7/20/2003 6:32:55 PM
+
+
+

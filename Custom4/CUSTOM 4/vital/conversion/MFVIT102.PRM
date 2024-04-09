@@ -1,0 +1,262 @@
+IF LCRPNO='B' .AND. EMPTY(XMFG)
+   = GFMODALGEN('TRM00250B00000','DIALOG','MFG code')
+   RETURN
+ENDIF
+R_TITLE = 'OPEN WORK IN PROCESS REPORT'
+XREPORT = 'MFOPENWP'
+STORE 0 TO XTOT1, XTOT2, XTOT3, XTOT31, XTOT4, XTOT5, XTOT6, XTOTA1, XTOTA2;
+, XTOTA3, XTOTA31, XTOTA4, XTOTA5, XTOTA6
+STORE 0 TO XGTOT1, XGTOT2, XGTOT3, XGTOT31, XGTOT4, XGTOT5, XGTOT6
+PAGENO = 0
+ROW = 99
+XTIME = TIME()
+LLVEND = .F.
+STORE ' ' TO LCFABTYPE, LCTRMTYPE
+IF LCRPNO='A'
+   R_WIDTH = 'W'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  MFG950A                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE MFG950A
+SET DECIMALS TO 3
+DO WHILE INKEY()<>32
+   IF ROW>=51
+      PAGENO = PAGENO+1
+      IF BREAK<>' '
+         XREPORT = 'TOTAL :'+TOTALD
+      ELSE
+         XREPORT = 'MFG950A'
+      ENDIF
+      DO RPT_HDR WITH XREPORT, XTITLE, R_WIDTH
+      @ 5, 0 SAY 'ISS DATE CTKT # STYLE    EST QTY ACT DATE CONTR1 CONTR2;
+ COMPDATE S.    QTY    REC. DAM. CAN.     WIP U.COST TOTAL COST'
+      @ 6, 0 SAY REPLICATE('=',120)
+      ROW = 7
+   ENDIF
+   DOCUST = IIF(LNRPSRTCD=1 .AND. (ACCOUNT+DTOC(DEL_DATE)<>XCTLCUST),.T.;
+,.F.)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  MFG950B                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE MFG950B
+SET DECIMALS TO 3
+DO WHILE INKEY()<>32
+   IF ROW>=51
+      PAGENO = PAGENO+1
+      IF BREAK<>' '
+         XREPORT = 'MFG950B'+'  '+'TOTAL :'+TOTALD
+      ELSE
+         XREPORT = 'MFG950B'
+      ENDIF
+      DO RPT_HDR WITH XREPORT, XTITLE, R_WIDTH
+      @ 5, 0 SAY 'ISS DATE CUSTOMER CTKT # CUST. PO#  DEL DATE DIV.   STYLE;
+              DESC.        EST Q. PATTERN #  ACT DATE CON.2    COMPDATE;
+ S.    QTY QTY REC QTY DAM CAN QTY OPN WIP  MA.COST  TOT.MA.COST LABOR;
+ COST TOT.LAB.COST'
+      @ 6, 0 SAY REPLICATE('=',225)
+      ROW = 7
+   ENDIF
+   DOCUST = IIF(LNRPSRTCD=1 .AND. (ACCOUNT+DTOC(DEL_DATE)<>XCTLCUST),.T.;
+,.F.)
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVFORMAB                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVFORMAB
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'XMFG'),1)
+LAOGOBJCNT(LNPOS) = LCRPNO='B'
+XMFG = IIF(LCRPNO='A','',XMFG)
+= LFOGSHOWGE('XMFG')
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVOSTATUS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVOSTATUS
+= GFMOVER(LARPSOURCE,LARPTARGET,'Select Order Status',.T.,'')
+LCRPSTATUS = ''
+FOR LNI = 1 TO ALEN(LARPTARGET,1)
+   LCRPSTATUS = LCRPSTATUS+IIF(LARPTARGET(LNI)='Open','O',IIF(LARPTARGET;
+(LNI)='Hold','H',IIF(LARPTARGET(LNI)='Closed','S',IIF(LARPTARGET(LNI)='Actual';
+,'A',''))))
+ENDFOR
+LCRPSTATUS = IIF(EMPTY(LCRPSTATUS),LCRPSTATUS,ALLTRIM(LCRPSTATUS))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOGWHEN                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOGWHEN
+DIMENSION LARPSOURCE(4), LARPTARGET(1)
+LNSTATUS = LCRPSTATUS
+STORE 'Open' TO LARPSOURCE(1)
+STORE 'Hold' TO LARPSOURCE(2)
+STORE 'Closed' TO LARPSOURCE(3)
+STORE 'Actual' TO LARPSOURCE(4)
+STORE SPACE(0) TO LCRPSTATUS, LARPTARGET
+SET ORDER TO CSTYLE IN STYLE
+SET ORDER TO SEGVAL IN ICSEGVAL
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'XMFG'),1)
+LAOGOBJCNT(LNPOS) = LCRPNO='B'
+= LFOGSHOWGE('XMFG')
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llrpPBrk'),1)
+LAOGOBJCNT(LNPOS) = LNRPSRTCD=5
+= LFOGSHOWGE('llrpPBrk')
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFGETTIT                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFGETTIT
+PRIVATE LCTIT
+LCTIT = ALLTRIM(GFGETMEMVA('M_PRDLNLBL',GCACT_COMP))
+LCTIT = IIF(RIGHT(LCTIT,1)='#',LCTIT,LCTIT+'#')
+RETURN LCTIT
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFADJSEG                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFADJSEG
+STORE 0 TO LNFPOS, LNDPOS, LNZPOS, LNGPOS, LNCPOS, LNOPOS, LNTPOS, LNQPOS;
+, LNSPOS
+DIMENSION LAMAJSEG(1, 1)
+= GFITEMMASK(LAMAJSEG)
+LNMAJSEG = GFITEMMASK('SM')
+FOR LNC = 1 TO LNMAJSEG
+   IF LNC=1 .AND. LNMAJSEG=1
+      EXIT
+   ENDIF
+   DO CASE
+   CASE LAMAJSEG(LNC,1)='F'
+      LNFPOS = IIF(LNFPOS=0,LNC,LNFPOS)
+      IF EMPTY(LAMAJSEG(LNC,5))
+         LAMAJSEG(LNC, 5) = 'Style'
+      ENDIF
+   CASE LAMAJSEG(LNC,1)='C'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVSRTBY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVSRTBY
+LNPOS = ASUBSCRIPT(LAOGOBJTYP,ASCAN(LAOGOBJTYP,'llrpPBrk'),1)
+LAOGOBJCNT(LNPOS) = LNRPSRTCD=5
+= LFOGSHOWGE('llrpPBrk')
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVVEND                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVVEND
+SELECT APVENDOR
+SET ORDER TO VenCode
+IF .NOT.EMPTY(LCRPVEND) .AND. ('?'$LCRPVEND .OR. .NOT.SEEK(LCRPVEND,'APVENDOR'))
+   = GFAPVNBROW(LCRPVEND)
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVFAB                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVFAB
+PARAMETERS LCPARM
+PRIVATE LCALIAS, LLHAVESTY
+DO CASE
+CASE LCPARM='S'
+   USE IN 0 (GCDATADIR+'Fabric') AGAIN ALIAS FABRIC_X ORDER FABRIC
+   SELECT FABRIC
+   SET ORDER TO cFabric
+   SET RELATION TO FABRIC->FABRIC INTO FABRIC_X
+   GOTO IN FABRIC TOP
+   LLCHFABRIC = .T.
+CASE LCPARM='R'
+   USE IN FABRIC_X
+   SELECT FABRIC
+   SET ORDER TO FABRIC
+   LLCLEARFAB = .F.
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFFABSUM                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFFABSUM
+PARAMETERS LCFAB, LCCOMP
+PRIVATE LNFABREC
+LNTOTCOMP = 0
+LNFABREC = IIF(RECNO('FABRIC')<=RECCOUNT('FABRIC'),RECNO('FABRIC'),1)
+SELECT FABRIC_X
+SUM &lcCOMP TO lnTotcomp WHILE Fabric=lcFab
+SELECT FABRIC
+GOTO LNFABREC
+RETURN INT(LNTOTCOMP)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  RPT_HDR                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE RPT_HDR
+PARAMETERS XPROG, XRPTNAME, XTYPE
+PRIVATE ALL LIKE X*
+XRPTNAME = TRIM(XRPTNAME)
+R_TITLE = TRIM(R_TITLE)
+IF LCRPNO='A'
+   X1 = ((118-(LEN(TRIM(QCOMPANY))))/2)
+   X2 = ((118-(LEN(R_TITLE)))/2)
+   X3 = ((118-(LEN(XRPTNAME)))/2)
+   @ 1, 0 SAY XPROG
+   @ 1, X1 SAY QCOMPANY
+   @ 1, 105 SAY DATE()
+   @ 1, 114 SAY '~'
+   @ 2, 0 SAY TIME()
+   @ 2, X2 SAY R_TITLE
+   @ 2, 105 SAY 'PAGE#'
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFADCUSTDT                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFADCUSTDT
+PRIVATE LNALIAS, LLMULTIACT
+LNALIAS = SELECT(0)
+STORE .F. TO LLMULTIACT
+IF SEEK('1'+CUTTKT,'CUTPICK')
+   SELECT CUTPICK
+   SCAN REST WHILE TRANCD+CTKTNO+STYLE='1'+CUTTKTH->CUTTKT
+      IF SEEK('O'+ORDER,'ORDHDR')
+         IF .NOT.(M->ACCOUNT==ORDHDR->ACCOUNT)
+            IF EMPTY(M->ACCOUNT)
+               M->ACCOUNT = ORDHDR->ACCOUNT
+               M->CUSTPO = ORDHDR->CUSTPO
+               M->DEL_DATE = ORDHDR->COMPLETE
+            ELSE
+               LLMULTIACT = .T.
+            ENDIF
+*****                        Rest is skipped                            *****
+
+

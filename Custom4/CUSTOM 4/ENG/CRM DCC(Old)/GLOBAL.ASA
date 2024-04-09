@@ -1,0 +1,260 @@
+<!--==Visual InterDev Generated - startspan==-->
+
+<!--==Visual InterDev Generated - endspan==-->
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+
+'You can add special event handlers in this file that will get run automatically when
+'special Active Server Pages events occur. To create these handlers, just create a
+'subroutine with a name from the list below that corresponds to the event you want to
+'use. For example, to create an event handler for Session_OnStart, you would put the
+'following code into this file (without the comments):
+Session.Timeout = 1440
+Sub Session_OnStart
+	'set the date format to England format
+	SESSION.LCID = 2057
+	session("ID") = ""
+	session("line_Count")=0
+	Session("OrderFlag") = ""
+	Session("Cust_Name")= ""
+	Session("Season")=""
+	Session("Division")=""
+	Session("Start")=""
+	Session("Completed")=""
+	Session("Store")=""
+	Session("Has_Store")=""
+	Session("PO")=""
+	Session("Style")=""
+	Session("ordQty") = 0
+	Session("ordAmount") = 0
+	Session("UserTokens") = ""
+	If Session("Theme") = "" Then	
+		Session("Theme") = "STANDARD"
+	End If
+
+	Dim objFile
+	Set objFile = Server.CreateObject("Scripting.FileSystemObject")
+
+	Dim strAppPath
+	Dim strFilePath
+
+	strAppPath = Trim(Request.ServerVariables("APPL_PHYSICAL_PATH"))
+
+	If Right(strAppPath,1) = "\" Then
+		strFilePath = "admin\crmsetup\setup\setup.txt"
+	Else
+		strFilePath = "\admin\crmsetup\setup\setup.txt"
+	End If
+	
+	on error resume next
+	Set objTxtFile = objFile.OpenTextFile(strAppPath & strFilePath,1)
+	
+	If err.number<>0 then
+			response.write "You must setup CRM first."
+			'wma avoid admin\admin
+			if ucase(Right(Request.ServerVariables("SCRIPT_NAME"),17)) = "ADMIN/DEFAULT.ASP" then
+				response.write "<br><a href=""CrmSetup\crmSetup.asp"">Setup CRM</a>"			
+			else
+				response.write "<br><a href=""Admin\CrmSetup\crmSetup.asp"">Setup CRM</a>"
+			end if
+			Response.End
+	End If
+	On Error GoTo 0
+	Dim strLine
+	Dim strFile
+	strFile = ""
+	
+	on error resume next
+	strFile = objTxtFile.Readall
+	if err.number <> 0 then
+		Response.Redirect ("Admin/")
+	end if
+	On Error GoTo 0
+
+	Dim strArSetups
+	strArSetups = Split(strFile," AND ", -1 , 1)
+
+	'Declare Vartiables To Hold the temporary key and values
+	Dim strKey
+	Dim strValue
+
+	For intLoop = 0 To UBound(strArSetups)
+		strArKeyValue = Split(strArSetups(intLoop) , "=" , -1 , 1)
+		'ARD - [Start]
+		'Application(strArKeyValue(0)) = UCase(strArKeyValue(1))
+		'Session(strArKeyValue(0)) = UCase(strArKeyValue(1))
+		Application(strArKeyValue(0)) = strArKeyValue(1)
+		Session(strArKeyValue(0)) = strArKeyValue(1)
+		'Response.Write strArKeyValue(0)&"AND"&Session(strArKeyValue(0))&"<br>"
+		'ARD - [End]
+	Next
+	'WAL_E302083,1 add default value for new Customer and Store Field sessions[start]
+	'Response.Write Session("CustField")
+	if Session("CustField") = "" then
+		Session("CustField") = "Customer"
+	end if
+	if Session("StoreField") = "" then
+		Session("StoreField") = "Store"
+	end if
+	If Session("StyleColor") = "NONE" or Session("StyleColor") = "" Then
+		Session("Season") = "*"
+	Else
+		Session("Season") = Session("StyleColor")
+	End If
+	If Session("CatDivision") = "NONE" or Session("CatDivision") = "" Then
+		Session("CatDivision") = "NONE"
+	End If
+	if trim(Session("ContractField")) = "" then
+		Session("ContractField")  = "Contract Number"
+	end if
+	'WAL_E302083,1 add default value for new Customer and Store Field sessions[end]
+	'
+'Response.End 
+	'Here we should re-build the connection string
+	Application("DataConnectionString") = "provider=MSDATASHAPE;Driver={Microsoft Visual FoxPro Driver};UID=;PWD=;SourceDB= "& Application("DataPath") &";SourceType=DBF;Exclusive=No;BackgroundFetch=NO;Collate=Machine;Null=No;Deleted=Yes"
+	Application("SystemConnectionString") = "provider=MSDATASHAPE;Driver={Microsoft Visual FoxPro Driver};UID=;PWD=;SourceDB= "& Application("SystemPath") &";SourceType=DBF;Exclusive=No;BackgroundFetch=NO;Collate=Machine;Null=No;Deleted=Yes"
+	'Response.Write Application("DataConnectionString") & "<hr>"
+	'Response.Write Application("SystemConnectionString")& "<hr>"
+	'Response.End
+	'ARD - Oracle modification
+	'Application("SqlServer") = "Provider=MSDATASHAPE;Data Provider=SQLOLEDB;Initial Catalog=CRM;Data Source="&session("SQLServer")&";uid=" & Session("SqlUserName") & ";pwd=" & Session("SqlPassWord") & ""
+	'ARD - Oracle modification
+
+	
+	If Session("DBType") = "ORACLE" then
+		Application("SqlServer") = "Provider=MSDATASHAPE;Data Provider=OraOLEDB.Oracle;Data Source="&Trim(session("SQLServer"))&";user id=" & Trim(Session("SqlUserName")) & ";password=" & Trim(Session("SqlPassWord")) & ""	
+	Else
+		Application("SqlServer") = "Provider=MSDATASHAPE;Data Provider=SQLOLEDB;Initial Catalog="&Trim(session("DBName"))&";Data Source="&Trim(session("SQLServer"))&";uid=" & Trim(Session("SqlUserName")) & ";pwd=" & Trim(Session("SqlPassWord")) & ""
+	End If
+	
+'	if Session("DBType") = "SQL" then
+'		Application("SqlServer") = "Provider=MSDATASHAPE;Data Provider=SQLOLEDB;Initial Catalog=CRM;Data Source="&Trim(session("SQLServer"))&";uid=" & Trim(Session("SqlUserName")) & ";pwd=" & Trim(Session("SqlPassWord")) & ""
+'	else
+'		Application("SqlServer") = "Provider=MSDATASHAPE;Data Provider=OraOLEDB.Oracle;Data Source="&Trim(session("SQLServer"))&";user id=" & Trim(Session("SqlUserName")) & ";password=" & Trim(Session("SqlPassWord")) & ""
+'	end if
+	
+	Dim SetupConn
+	Set SetupConn = server.CreateObject("ADODB.Connection")
+	SetupConn.Open Application("DataConnectionString")
+	'get defualt style and color size
+	Set rsStyStr = server.CreateObject("ADODB.RECORDSET")
+	strsql = "select * from icistru where citemrecty='U'"
+	rsStyStr.Open strsql,SetupConn,2,4
+	if not rsStyStr.EOF then
+	    rsStyStr.MoveFirst
+	    'get color code size
+		rsstystr.Filter  = "cisegtype='C'"
+		if not rsStyStr.EOF then
+			session("colorSize") = cdbl(RSStyStr("nisegsize"))
+		end if
+		rsstystr.Filter = ""
+		rsStyStr.MoveFirst
+		'get style(major field) code size
+		rsstystr.Filter = "lsegendmaj=1"
+		if not rsStyStr.EOF then
+			Dim intCount
+			intCount = 0
+				
+			Do while Not rsStyStr.Eof
+				intCount = intCount + cdbl(RSStyStr("nisegsize"))
+				rsStyStr.MoveNext 
+			Loop
+			session("styleSize") = cdbl(intCount)
+		end if
+		rsstystr.Filter = ""
+	end if
+	rsStyStr.Close ()
+	'Dim Application("RSSetup")
+	if isobject(Session("RSSetup")) Then
+		Set Session("RSSetup") = Nothing
+		Set Session("RSSetup") = server.CreateObject("ADODB.Recordset")
+	Else
+		Set Session("RSSetup") = server.CreateObject("ADODB.Recordset")
+	End IF		
+
+	'NEK [Start]1/5/03 Get the Currency of this Company
+	CompanyID = Session("CompanyID")
+	'Response.Write "<font size=3>CompanyID=" & CompanyID & "</font>"
+	strgetCompanyCode = "select CcurrCode  from Syccomp where Ccomp_id = '" & Trim(CompanyID) & "'"
+	
+	set rsgetCompanyCode = server.CreateObject("adodb.recordset")
+	set rsgetCurrency = server.CreateObject("adodb.recordset")
+	set rsgetCurrencyAlign = server.CreateObject("adodb.recordset")
+	set SysConn = server.CreateObject("adodb.connection")
+	SysConn.Open Application("SystemConnectionString")
+
+	rsgetCompanyCode.Open strgetCompanyCode , SysConn ,2 ,4 
+
+	strgetCurrency  = "select Ccurrsmbl from Syccurr where CcurrCode='" & Trim(rsgetCompanyCode.Fields("CcurrCode").Value) & "'"
+	rsgetCurrency.Open strgetCurrency , SysConn ,2 ,4 
+	CurrencySymbol = Trim(rsgetCurrency.Fields("Ccurrsmbl").Value)
+	session("CcurrCode") = Trim(rsgetCompanyCode.Fields("CcurrCode").Value)
+	Session("Currency") = CurrencySymbol
+	'Session("Currency") = "LE"
+
+	strgetCurrencyAlign  = "select Ccurrency from Sycint where Ccont_code='" & Trim(rsgetCompanyCode.Fields("CcurrCode").Value) & "'"
+	rsgetCurrencyAlign.Open strgetCurrencyAlign , SysConn ,2 ,4 
+	
+	if rsgetCurrencyAlign.RecordCount = 0 then
+		CurrencyAlign = "LEFT"
+		'CurrencyAlign = "RIGHT"
+	else
+		CurrencyAlign = rsgetCurrencyAlign.Fields("Ccurrency").Value
+	end if 
+	Session("CurrencyAlign") = Trim(CurrencyAlign)
+	'NEK [End]1/5/03
+
+	strsql = "SELECT CAPP_ID, CFLD_NAME, MDATA_DEF FROM SETUPS WHERE CAPP_ID='CR'"
+
+
+	on Error Resume next
+	Session("RSSetup").Open strsql,SetupConn
+	
+	
+
+	IF err.number <> 0 Then
+	Else
+		Do While Not Session("RSSetup").EOF
+			session(Trim(Session("RSSetup").fields("CFLD_NAME").value)) = Session("RSSetup").fields("MDATA_DEF").value
+			Session("RSSetup").movenext
+		Loop
+		Session("RSSetup").close
+		Set Session("RSSetup") = Nothing
+	End IF
+	Session("RSSetup").activeconnection = ""
+	
+	If Session("Theme") = "" Then	
+		Session("Theme") = "STANDARD"
+	End If
+	'WAL_5/25/2004 defualt style view to be by group only [start]
+	Session("M_STYVIEW") = "G"
+	'WAL_5/25/2004 defualt style view to be by group only [end]
+
+'	'WMA_11/10/2004 Extend Size Scale [Start]
+'	Session("M_COLINFO") = "C"
+'	'WMA_11/10/2004 Extend Size Scale [End]
+End Sub
+
+Sub Application_OnStart
+	Session.Timeout = 1440
+End Sub
+
+'EventName              Description
+'Session_OnStart        Runs the first time a user runs any page in your application
+'Session_OnEnd          Runs when a user's session times out or quits your application
+'Application_OnStart    Runs once when the first page of your application is run for the first time by any user
+'Application_OnEnd      Runs once when the web server shuts down
+
+Sub Session_OnEnd
+	set Session("RSLine") = Nothing
+	Set Session("RSCust") = Nothing
+'	connt = Nothing
+End Sub
+
+
+Sub Application_OnEnd
+	Session.Abandon 
+End Sub
+
+
+
+</SCRIPT>

@@ -1,0 +1,56 @@
+BODY
+{
+    FONT-SIZE: 2pt;
+    MARGIN: 0px;
+    COLOR: navy;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #aecae6
+}
+TD
+{
+    FONT-SIZE: 10pt;
+    COLOR: navy;
+    FONT-FAMILY: Arial
+}
+TD.Dark_Cell
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 10pt;
+    COLOR: #fffff0;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #4166b7
+}
+TD.Light_cell
+{
+    FONT-WEIGHT: lighter;
+    FONT-SIZE: 10pt;
+    COLOR: navy;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ffffff
+}
+TD.Title
+{
+    FONT-SIZE: 19pt;
+    COLOR: lightskyblue;
+    FONT-FAMILY: Impact, Arial;
+    BACKGROUND-COLOR: #4166b7;
+    TEXT-ALIGN: center
+}
+TABLE
+{
+}
+TABLE.BTable
+{
+    BORDER-RIGHT: #111111 1pt solid;
+    BORDER-TOP: #111111 1pt solid;
+    MARGIN: 1pt;
+    BORDER-LEFT: #111111 1pt solid;
+    BORDER-BOTTOM: #111111 1pt solid
+}
+INPUT
+{
+    BORDER-RIGHT: #4166b7 1px solid;
+    BORDER-TOP: #4166b7 1px solid;
+    BORDER-LEFT: #4166b7 1px solid;
+    BORDER-BOTTOM: #4166b7 1px solid
+}

@@ -1,0 +1,1 @@
+driver={SQL Server};server=ariasrv1;DATABASE=db01;uid=web;pwd=ariaweb

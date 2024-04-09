@@ -1,0 +1,265 @@
+LCSTTIME = TIME()
+LLCALRETRN = .F.
+LCMAKEOP = IIF(LCRPMAKE='M','','!')
+LCREPEXPR = IIF(LCRPMAKE='B','',' .AND. '+LCMAKEOP+'Style.Make')+IIF(LCRPSTATUS='B';
+,'',' .AND. (Style.Status="'+LCRPSTATUS+'")')
+LCRPEXP = LCRPEXP+LCREPEXPR
+LCCOND = "INVHDR.STATUS <> 'V'"
+DO CASE
+CASE .NOT.EMPTY(LDRPBEGIN) .AND. .NOT.EMPTY(LDRPEND)
+   LCCOND = LCCOND+'.AND. BETWEEN(INVHDR.INVDATE,ldrpbegin,ldrpEnd)'
+CASE EMPTY(LDRPBEGIN) .AND. .NOT.EMPTY(LDRPEND)
+   LCCOND = LCCOND+' .AND. INVHDR.INVDATE <= ldrpEnd '
+CASE .NOT.EMPTY(LDRPBEGIN) .AND. EMPTY(LDRPEND)
+   LCCOND = LCCOND+' .AND. INVHDR.INVDATE >= ldrpbegin'
+ENDCASE
+LCRCOND = STRTRAN(LCCOND,'INVHDR.INVDATE','RETHDR.CRDATE')
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWREPWHEN                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWREPWHEN
+IF TYPEAHEAD('lcLastExpr')$'UL' .OR. EMPTY(LCLASTEXPR)
+   SET ORDER TO FABRIC IN FABRIC
+   SET ORDER TO STYLE IN STYLE
+   SET ORDER TO WAREHOUS IN WAREHOUS
+   SET ORDER TO INVLINES IN INVLINE
+   SET ORDER TO RETLINES IN RETLINE
+   SET ORDER TO RETHDR IN RETHDR
+   = LFRANKFILE()
+   XAVG_COST = (GFGETMEMVA('M_COST_MET')='A')
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFWOLDVAL                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFWOLDVAL
+LAOLDVAL = EVALUATE(SYS(18))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFEVALSEGS                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFEVALSEGS
+LNMAJSEG = GFITEMMASK('SM')
+DIMENSION LAMAJSEGS(1, 1)
+= GFITEMMASK(LAMAJSEGS)
+FOR LNI = LNMAJSEG+1 TO ALEN(LAMAJSEGS,1)
+   IF LAMAJSEGS(LNI,1)$'CF'
+      LCFREE_CLR = LAMAJSEGS(LNI,1)
+      LNNONMAJST = IIF(LNNONMAJST=0 .OR. LAMAJSEGS(LNI,1)='C',LAMAJSEGS;
+(LNI,4),LNNONMAJST)
+      LCNONMAJPI = IIF(EMPTY(LCNONMAJPI) .OR. LAMAJSEGS(LNI,1)='C',LAMAJSEGS;
+(LNI,3),LCNONMAJPI+LAMAJSEGS(LNI-1,6)+LAMAJSEGS(LNI,3))
+      LCNONMAJTL = IIF(EMPTY(LCNONMAJTL) .OR. LAMAJSEGS(LNI,1)='C',PADR;
+(LAMAJSEGS(LNI,2),LEN(LAMAJSEGS(LNI,3))),LCNONMAJTL+LAMAJSEGS(LNI-1,6);
++PADR(LAMAJSEGS(LNI,2),LEN(LAMAJSEGS(LNI,3))))
+   ENDIF
+   IF LAMAJSEGS(LNI,1)='C' .OR. (.NOT.EMPTY(LCFREE_CLR) .AND. LAMAJSEGS;
+(LNI,1)<>'F')
+   EXIT
+ENDIF
+ENDFOR
+STORE LEN(LCNONMAJPI) TO LNFREELEN, LNCOLORLEN
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVRANKBY                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVRANKBY
+LCOLDRANK = IIF(LAOLDVAL=1,'S',IIF(LAOLDVAL=2,'P','G'))
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSRVSTY                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSRVSTY
+PARAMETERS LCPARM
+DO CASE
+CASE LCPARM='S'
+   USE IN 0 (GCDATADIR+'Style') AGAIN ALIAS STYLE_X ORDER Style
+   SELECT STYLE
+   SET ORDER TO Cstyle
+   SET RELATION TO STYLE->STYLE INTO STYLE_X
+   GOTO IN STYLE TOP
+   LLCHSTYLE = .T.
+CASE LCPARM='R'
+   USE IN STYLE_X
+   SELECT STYLE
+   SET ORDER TO STYLE
+   LLCLEARSTY = .F.
+ENDCASE
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFSTYSUM                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFSTYSUM
+PARAMETERS LCSTY, LCCOMP, LNADDTOVAR
+PRIVATE LNSTYREC
+LNSTYREC = IIF(BETWEEN(RECNO('STYLE'),1,RECCOUNT('STYLE')),RECNO('STYLE');
+,1)
+LNTOTCOMP = 0
+SELECT STYLE_X
+SUM &lcCOMP TO lnTotcomp WHILE Style = ALLTRIM(lcSty)
+SELECT STYLE
+GOTO LNSTYREC
+DO CASE
+CASE LNADDTOVAR=1
+   LNO_T_S = LNTOTCOMP
+CASE LNADDTOVAR=2
+   LNO_T_S = LNO_T_S+LNTOTCOMP
+CASE LNADDTOVAR=3
+   LNO_T_S = LNO_T_S-LNTOTCOMP
+*****                        Rest is skipped                            *****
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVFABRIC                           *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVFABRIC
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'FABRIC'))
+   LLOBJRET = FABROW(LCOBJVAL,'*')
+   LCOBJVAL = IIF(LLOBJRET,LCOBJVAL,LAOLDVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVINVWARE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVINVWARE
+LCOBJNAME = SYS(18)
+LCOBJVAL = EVALUATE(SYS(18))
+IF '?'$LCOBJVAL .OR. (.NOT.EMPTY(LCOBJVAL) .AND. .NOT.SEEK(LCOBJVAL,'WAREHOUS'))
+   LCOBJVAL = GFBROWWARE(.T.)
+   LCOBJVAL = IIF(EMPTY(LCOBJVAL),LAOLDVAL,LCOBJVAL)
+   &lcObjName = lcObjVal
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFRANKFILE                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFRANKFILE
+CREATE CURSOR (RANK_FILE)(STYLE C(19), DESC C(20), AVG_PRICE N(7, 2), COST;
+ N(7, 2), TOT_PCS N(7, 0), TOT_AMT N(10, 2), RET_PCS N(7, 0), RET_AMT N;
+(10, 2), NET_PCSP N(7, 0), NET_AMTP N(10, 2), NET_PCS N(7, 0), NET_AMT;
+ N(10, 2), CGS N(10, 2), GROS_PRO N(10, 2))
+INDEX ON STYLE TAG (RANK_FILE)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCLEARREP                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCLEARREP
+LLCLEARFN = .T.
+IF USED(RANK_FILE)
+   USE IN (RANK_FILE)
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFGETMEM                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFGETMEM
+M->STYLE = IIF(LLRPCOLOR,STYLE,ALLTRIM(STYLE->CSTYMAJOR))
+M->DESC = STYLE->DESC
+M->COST = IIF(XAVG_COST,STYLE->AVE_COST,STYLE->TOTCOST)
+STORE TOTQTY TO M -> TOT_PCS, M -> NET_PCS, M -> NET_PCSP
+STORE ((TOTQTY*PRICE)*(1-INVHDR->DISCPCNT/100))*(1-INVHDR->TRDE_DISC/100);
+ TO M -> NET_AMT, M -> NET_AMTP, M -> TOT_AMT
+M->CGS = M->COST*M->TOT_PCS
+M->GROS_PRO = M->NET_AMT-M->CGS
+M->AVG_PRICE = M->TOT_AMT/M->TOT_PCS
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVCOLOR                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVCOLOR
+LLCHCLR = .T.
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFCOLLTIME                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFCOLLTIME
+PARAMETERS LCSTART, LCEND
+LNSTHOUR = IIF(VAL(LEFT(LCSTART,2))=0,VAL(LEFT(LCSTART,2))+24,VAL(LEFT;
+(LCSTART,2)))
+LNENDHOUR = IIF(VAL(LEFT(LCEND,2))=0,VAL(LEFT(LCEND,2))+24,VAL(LEFT(LCEND;
+,2)))
+LNSTART = 3600*LNSTHOUR+60*VAL(SUBSTR(LCSTART,4,2))+VAL(RIGHT(LCSTART,2))
+LNEND = 3600*LNENDHOUR+60*VAL(SUBSTR(LCEND,4,2))+VAL(RIGHT(LCEND,2))
+RETURN (LNEND-LNSTART)
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFPREGRD                            *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFPREGRD
+PRIVATE LCUSERMAKE
+LCUSERMAKE = ''
+IF .NOT.('AR'$GCCOMP_MDL)
+   LCUSERMAKE = 'setup'
+ENDIF
+IF EMPTY(LCUSERMAKE) .AND. .NOT.('AR'$GCCMPMODUL)
+   LCUSERMAKE = 'install'
+ENDIF
+IF .NOT.EMPTY(LCUSERMAKE)
+   = GFMODALGEN('TRM00336B00000','DIALOG',LCUSERMAKE+'|'+'Accounts Receivable';
++'|'+GCCOM_NAME+'|'+LCUSERMAKE)
+   LLDOOPGRID = .F.
+ENDIF
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVDATERNG                          *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVDATERNG
+PRIVATE LDFROM, LDTO
+LDFROM = LDRPBEGIN
+LDTO = LDRPEND
+LCTITLE = 'Date range'
+DO DateRng.Spx
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVPBOK                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVPBOK
+IF LDFROM>LDTO
+   WAIT WINDOW NOWAIT '"From" value must be less than or equal to "To";
+ value'
+   _CUROBJ = OBJNUM(LDFROM)
+ELSE
+   LDRPBEGIN = LDFROM
+   LDRPEND = LDTO
+   CLEAR READERROR
+ENDIF
+
+

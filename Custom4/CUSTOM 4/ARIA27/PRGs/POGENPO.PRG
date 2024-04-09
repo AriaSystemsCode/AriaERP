@@ -1,0 +1,1 @@
+DO (gcAppHome+'\MFGENCT') WITH 'P'

@@ -1,0 +1,144 @@
+*:************************************************************************
+*: Program file  : SETSETS.PRG
+*: Program desc. : 
+*: For screen    :
+*:         System: Aria advantage series
+*:         Module: Main system 
+*:      Developer: 
+*:************************************************************************
+*: Calls : 
+*:         Procedures :
+*:         Functions  : 
+*:************************************************************************
+*: Passed Parameters  : 
+*:************************************************************************
+*B601286,1 MAN 10/10/96 Solve insufficient memory on Win95
+*E301316,1 Walid Abou El-Magd 10/1/99 Make the block size 64.
+*B603481,1 Hesham 02/28/2000
+*B603481,1 Start the reprocess seting with 10 times until its changed to gnLockTry 
+*B603481,1 in the Aria27.prg before starting the read event
+
+SET ALTERNATE OFF
+SET ALTERNATE TO
+SET ANSI OFF
+SET AUTOSAVE OFF
+SET BELL OFF
+SET BLINK OFF
+*E301316,1 Make the block size 64 [Start]
+*SET BLOCKSIZE TO 33
+SET BLOCKSIZE TO 64
+*E301316,1 Make the block size 64 [End..]
+SET BORDER TO SINGLE
+SET BRSTATUS OFF
+SET CARRY OFF
+SET CLEAR ON
+SET COMPATIBLE FOXPLUS
+SET CONFIRM ON
+SET CLOCK STATUS
+SET STATUS BAR On
+
+IF SET ('CONSOLE')='OFF'
+   SET CONSOLE ON
+ENDIF
+
+SET CURSOR ON
+SET DECIMALS TO 2
+SET DELETED ON
+SET DELIMITERS OFF
+SET DEVELOPMENT OFF
+*IF GETENV("USER")="FLASH"
+        SET DEBUG ON
+        SET DEVELOPMENT Off
+        SET LOGERRORS ON
+*ELSE
+*        SET DEBUG OFF
+*        SET DEVELOPMENT OFF
+*        SET LOGERRORS OFF
+*ENDIF (GETENV("USER") - "FLASH"
+
+SET DEVICE TO SCREEN
+SET DOHISTORY OFF
+SET ECHO OFF
+SET ESCAPE OFF
+SET EXACT OFF
+SET EXCLUSIVE OFF
+SET FIELDS OFF
+SET FIXED OFF
+SET FORMAT TO
+SET FULLPATH OFF
+SET HEADING ON
+SET HELP ON
+SET HISTORY OFF
+SET INTENSITY ON
+SET LIBRARY TO
+SET LOCK OFF
+SET MARGIN TO 0
+SET MARK TO "/"
+SET MEMOWIDTH TO 65
+SET MENU ON
+SET MESSAGE TO SROWS()-1 LEFT
+SET MESSAG TO "Aria Advantage Series"
+lcMsgClr = scheme(1,5)
+SET COLOR OF SCHEME 4 TO , , , ,&lcMsgClr
+*SET MOUSE ON
+SET MULTILOCKS ON
+SET NEAR OFF
+SET ODOMETER TO 100
+SET OPTIMIZE ON
+SET PATH TO
+*B601286,1 MAN 10/10/96 Solve insufficient memory on Win95
+SET PALETT ON
+SET POINT TO "."
+SET PRECISION TO 3
+SET PRINT OFF
+SET PRINTER TO Lpt1
+SET PROCEDURE TO 
+SET REFRESH TO 0,5
+*B603481,1 Hesham (Start)
+*SET REPROCESS TO gnLockTry
+SET REPROCESS TO 10
+*B603481,1 Hesham (End)
+*Automatic
+SET SAFETY OFF
+IF SET('SCOREBOARD')='ON'
+        SET SCOREBOARD OFF
+ENDIF
+SET SHADOWS ON 
+SET SPACE OFF
+*SET STATUS ON
+SET STEP OFF
+SET STICKY ON
+SET SYSMENU AUTOMATIC
+SET TALK OFF
+SET TEXTMERGE OFF
+SET TYPEaHEAD TO 0
+SET TYPEaHEAD TO 25
+SET UNIQUE OFF
+
+*ON KEY LABEL F2 SET SYSMENU TO DEFAULT
+
+=INSMODE(.T.)
+*MAN
+*=CAPSLOCK(.F.)
+*=NUMLOCK(.T.)
+_ALIGNMENT="LEFT"
+_BOX= .T.
+_INDENT=0
+_LMARGIN=0
+_PADVANCE="FORMFEED"
+_PAGENO=1
+_PBPAGE=1
+_PCOPIES=1
+_PEJECT="AFTER"
+_PEPAGE=32767
+_PFORM=""
+_PLENGTH=66
+_PLOFFSET=0
+_PPITCH="PICA"
+_PQUALITY=.T.
+_PSCODE=""
+_PSPACING=1
+_PWAIT=.F.
+_RMARGIN=80
+_TABS="10, 20, 30, 40, 50, 60, 70"
+_WRAP=.T.

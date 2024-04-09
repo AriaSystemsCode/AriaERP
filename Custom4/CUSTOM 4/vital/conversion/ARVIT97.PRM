@@ -1,0 +1,23 @@
+SELECT INVHDR
+SET FILTER TO &lcrpExp
+DO GFDISPRE WITH EVALUATE('lcFormName')
+SELECT INVHDR
+SET FILTER TO
+
+*****************************************************************************
+*                                                                           *
+*                            Procedure  LFVACCT                             *
+*                                                                           *
+*****************************************************************************
+PROCEDURE LFVACCT
+PRIVATE LCITSNAME, LCITSVAL, LLOBJRET
+LCITSNAME = SYS(18)
+LCITSVAL = EVALUATE(SYS(18))
+IF '?'$LCITSVAL .OR. (.NOT.EMPTY(LCITSVAL) .AND. .NOT.SEEK('M'+LCITSVAL;
+,'CUSTOMER'))
+LLOBJRET = CUSBROWM(LCITSVAL,'','M')
+LCITSVAL = IIF(LLOBJRET,LCITSVAL,LAOLDVAL)
+&lcItsName = lcItsVal
+ENDIF
+
+

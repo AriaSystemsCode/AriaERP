@@ -1,0 +1,46 @@
+Account	String	5	
+Shipamt	Number	
+ShipVia	String	30
+Invoice	String	6	
+Store	String	8	
+Custpo	String	15	
+Rep1	String	3	
+Rep2	String	3	
+Cartons	Number	
+Weight	Number	
+Dept	String	5	
+CustVATNo	String	20	
+TermsDisc	String	30	
+Order	String	6	
+Invdate	Date	
+Duedate	Date	
+Pack_id	String	6	
+Btname	String	30	
+Caddress1	String	30	
+Caddress3	String	30	
+Caddress4	String	30	
+Caddress5	String	30	
+Caddress6	String	20	
+ShiptoStname	String	30	
+ShiptoAddress1	String	30	
+ShiptoAddress3	String	30	
+ShiptoAddress4	String	30	
+ShiptoAddress5	String	30	
+ShiptoAddress6	String	30	
+Ccom_name	String	30	
+Ccom_phon	String	20	
+Comp_address1	String	30	
+Comp_address2	String	30	
+Comp_address3	String	30	
+Comp_address5	String	30	
+Comp_address6	String	20	
+Note1	String	30	
+Tax_Amt	Number	
+Tax_Rate	Number	
+Totalchg	Number	
+Ccurrdesc	String	30	
+Freight	Number	
+Insur	Number	
+COD	Number	
+VAT	String	30	
+Discount	Number	

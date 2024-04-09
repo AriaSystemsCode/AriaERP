@@ -1,0 +1,21 @@
+Account	String	5	
+Order	String	6	
+Start	Date		
+Complete	Date		
+Style	String	19	
+Qty1	Number		
+Qty2	Number		
+Qty3	Number		
+Qty4	Number		
+Qty5	Number		
+Qty6	Number		
+Qty7	Number		
+Qty8	Number		
+TotQty	Number		
+Price	Currency		
+PikTkt	String	6	
+Status	String	1	
+Priority	String	3	
+custpo	String	15	
+entered	Date	
+stname	String	30	

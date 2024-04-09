@@ -1,0 +1,60 @@
+*-- Program to fix cutting tickets that have *** in the actual cost fields
+
+lcDataDir = GETDIR('','Select A27 Data Directory')
+
+IF !FILE(lcDataDir+"CUTTKTH.DBF")
+  WAIT WINDOW "Wrong data directory. Cannot proceed."
+  RETURN 
+ENDIF
+
+IF !FILE(lcDataDir+"APVENDOR.DBF")
+  WAIT WINDOW "Wrong data directory. Cannot proceed."
+  RETURN 
+ENDIF
+
+*-- Select vendor file to make all vendors supply material
+USE lcDataDir + "APVENDOR.DBF" IN 0 ORDER 1 SHARED
+
+USE lcDataDir + "CUTTKTH.DBF" IN 0 ORDER 1 SHARED
+lnNoOfRec = 0
+
+SCAN
+  WAIT WINDOW "Cutting Ticket #: " + CutTkt NOWAIT
+  IF "*" $ ALLTRIM(STR(nAct_Cost1)) OR "*" $ ALLTRIM(STR(nAct_Cost2)) ;
+     OR "*" $ ALLTRIM(STR(nAct_Cost3)) OR "*" $ ALLTRIM(STR(nAct_Cost4)) ;
+     OR "*" $ ALLTRIM(STR(nAct_Cost5))
+  
+    lnNoOfRec = lnNoOfRec + 1
+    
+    IF "*" $ ALLTRIM(STR(nAct_Cost1))
+      REPLACE nAct_Cost1 WITH 0
+    ENDIF
+
+    IF "*" $ ALLTRIM(STR(nAct_Cost2))
+      REPLACE nAct_Cost2 WITH 0
+    ENDIF
+    
+    IF "*" $ ALLTRIM(STR(nAct_Cost3))
+      REPLACE nAct_Cost3 WITH 0
+    ENDIF
+
+    IF "*" $ ALLTRIM(STR(nAct_Cost4))
+      REPLACE nAct_Cost4 WITH 0
+    ENDIF
+    
+    IF "*" $ ALLTRIM(STR(nAct_Cost5))
+      REPLACE nAct_Cost5 WITH 0
+    ENDIF
+
+  ENDIF   
+
+ENDSCAN
+IF SEEK ('912781')
+  REPLACE Ini_Comp WITH Complete
+ENDIF
+
+SELECT APVENDOR
+REPLACE ALL cVenSupTyp WITN ALLTRIM(cVenSupTyp) + 'M'
+
+CLOSE ALL
+WAIT WINDOW "No. of Cutting Ticket = " + ALLTRIM(STR(lnNoOfRec))

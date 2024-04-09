@@ -1,0 +1,1 @@
+DO (gcAppHome+'\POSHP') WITH .F.,'M'

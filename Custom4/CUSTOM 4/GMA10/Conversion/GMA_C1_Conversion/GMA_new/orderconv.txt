@@ -1,0 +1,28 @@
+SO log
+Order:2019 cust_num column is empty.
+Order:5001604 order_item_num:ZWMH0245TJ Color:001 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0245TJ Color:020 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0241TJ Color:020 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0241TJ Color:650 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0241TJ Color:001 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0245TJ Color:400 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0245TJ Color:650 is not found in Style table.
+Order:5001604 order_item_num:ZWMH0241TJ Color:400 is not found in Style table.
+Order:5001605 order_item_num:ASHMH0048KO Color:999 is not found in Style table.
+Order:5001606 order_item_num:ASHMH0048KO Color:999 is not found in Style table.
+Order:5001607 order_item_num:ASHMH0049KO Color:999 is not found in Style table.
+Order:5001608 order_item_num:OFMC0002KOF Color:430 is not found in Style table.
+Order:5001608 order_item_num:RMMC0003KOF Color:400 is not found in Style table.
+Order:5001608 order_item_num:SVMC0004KOF Color:001 is not found in Style table.
+Order:5001609 order_item_num:MAMC0012KOF Color:001 is not found in Style table.
+Order:5001609 order_item_num:OFMC0002KOF Color:430 is not found in Style table.
+Order:5001609 order_item_num:SVMC0004KOF Color:001 is not found in Style table.
+Order:5001609 order_item_num:RMMC0003KOF Color:400 is not found in Style table.
+Order:5001610 order_item_num:SVMC0004KOF Color:001 is not found in Style table.
+Order:5001610 order_item_num:MAMC0012KOF Color:001 is not found in Style table.
+Order:5001610 order_item_num:OFMC0002KOF Color:430 is not found in Style table.
+Order:5001610 order_item_num:RMMC0003KOF Color:400 is not found in Style table.
+Order:5001611 order_item_num:RMMC0003KOF Color:400 is not found in Style table.
+Order:5001611 order_item_num:OFMC0002KOF Color:430 is not found in Style table.
+Order:5001611 order_item_num:MAMC0012KOF Color:001 is not found in Style table.
+Order:5001611 order_item_num:SVMC0004KOF Color:001 is not found in Style table.

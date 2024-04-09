@@ -1,0 +1,31 @@
+RaNo	String	6	
+Radate	Date		
+Void	Date		
+Order	String	6	
+Invoice	String	6	
+Auth	Number	
+Account	String	5	
+Store	String	8	
+Custpo	String	15	
+cartons	Number	5	
+Stname	String	30	
+Caddress1	String	30	
+Caddress2	String	30	
+Caddress3	String	30	
+Caddress4	String	30	
+Caddress5	String	30	
+Caddress6	String	30	
+phone1	String	16	
+Cwarecode	String	6	
+Cdesc	String	35	
+Cwaddress1	String	30	
+Cwaddress2	String	30	
+Cwaddress3	String	30	
+Cwaddress4	String	30	
+Cwaddress5	String	30	
+Cwaddress6	String	30	
+Cwphone	String	16	
+cretnote1	String	75	
+cretnote2	String	75	
+cretnote3	String	75	
+cretnote4	String	75	

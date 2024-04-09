@@ -1,0 +1,14 @@
+Order	String	6	
+Account	String	5	
+Amount	Number		
+Trandate	Date		
+PNPdate	Date		
+Trantype	String	15	
+cTransid	String	30	
+btname	String	30	
+Rep1	String	3	
+Rep1name	String	24	
+OrderDate	Date		
+totOrder	Number		
+BeginDate	String	10	
+EndDate	String	10	

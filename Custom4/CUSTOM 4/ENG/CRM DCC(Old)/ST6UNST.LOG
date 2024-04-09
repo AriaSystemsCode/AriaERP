@@ -1,0 +1,154 @@
+ %% PLEASE DO NOT MODIFY OR DELETE THIS FILE! %% 
+ %% This file contains information about the installation of an application. %% 
+ %% It will be used to automatically remove all application components from your computer if you choose to do so. %% 
+
+
+NOTE: Beginning of the bootstrapper section
+
+CONFIG: Title: "CRM object sregistration"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "SharedDLLs"
+
+ACTION: SystemFile: "C:\WINDOWS\system32\VB6STKIT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\system32\COMCAT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\system32\STDOLE2.TLB"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\system32\ASYCFILT.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\system32\OLEPRO32.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\system32\OLEAUT32.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\system32\msvbvm60.dll"
+(File currently on disk was already up to date)
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM32\COMCAT.DLL"
+
+ACTION: TLBRegister: "C:\WINDOWS\SYSTEM32\STDOLE2.TLB"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM32\OLEPRO32.DLL"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM32\OLEAUT32.DLL"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM32\msvbvm60.dll"
+
+NOTE: End of the bootstrapper section
+
+NOTE: Now spawning the main Setup program 'Setup1.exe'....
+
+ACTION: CreateDir: "C:\Documents and Settings\HDM.ARIA_GROUP\Start Menu\Programs\CRM object sregistration"
+
+ACTION: CreateDir: "c:\Inetpub\wwwroot\CRM\cmpt"
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\fpcmd.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\fpcmd.tlb"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\DBReadMem.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\DBOpnIss.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\UIReturn.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\UIOpnIss.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\DBReturn.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\DBGenSeq.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\UIOrder.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\TransLogUI.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\TransLogDB.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\msxml3.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\DBOrder.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\CustomerUI.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "c:\Inetpub\wwwroot\CRM\cmpt\CustomerDB.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "c:\Inetpub\wwwroot\CRM\CRMObjReg.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: TLBRegister: "c:\Inetpub\wwwroot\CRM\cmpt\fpcmd.tlb"
+
+*** ERROR: No entrypoint for DllRegisterServer() was found in 'c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb'
+*** DURING THIS ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb"
+
+*** ERROR: An error occurred while registering the file 'c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb'
+*** ERROR: (User Responded with 'Retry')
+*** DURING THIS ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb"
+
+*** ERROR: No entrypoint for DllRegisterServer() was found in 'c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb'
+*** DURING THIS ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb"
+
+*** ERROR: An error occurred while registering the file 'c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb'
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\msado25.tlb"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\DBReadMem.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\DBOpnIss.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\UIReturn.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\UIOpnIss.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\DBReturn.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\DBGenSeq.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\UIOrder.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\TransLogUI.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\TransLogDB.dll"
+
+*** ERROR: LoadLibrary() failed while registering file 'c:\Inetpub\wwwroot\CRM\cmpt\msxml3.dll'
+*** DURING THIS ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\msxml3.dll"
+
+*** ERROR: An error occurred while registering the file 'c:\Inetpub\wwwroot\CRM\cmpt\msxml3.dll'
+*** ERROR: (User Responded with 'Ignore')
+*** DURING THIS ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\msxml3.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\DBOrder.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\CustomerUI.dll"
+
+ACTION: DllSelfRegister: "c:\Inetpub\wwwroot\CRM\cmpt\CustomerDB.dll"
+
+ACTION: ShellLink: "CRM object sregistration", "CRM object sregistration"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "App Paths\CRMObjReg.exe"
+
+ACTION: RegValue: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\CRMObjReg.exe", ""
+

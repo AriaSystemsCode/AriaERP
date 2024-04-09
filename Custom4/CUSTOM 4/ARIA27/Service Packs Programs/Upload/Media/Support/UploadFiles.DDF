@@ -1,0 +1,33 @@
+.OPTION EXPLICIT
+.Set Cabinet=off
+.Set Compress=off
+.Set MaxDiskSize=CDROM
+.Set ReservePerCabinetSize=6144
+.Set DiskDirectoryTemplate=".."
+.Set CompressionType=MSZIP
+.Set CompressionLevel=7
+.Set CompressionMemory=21
+.Set CabinetNameTemplate="UploadFiles.CAB"
+"Setup.Lst"
+"setup.exe"
+.Set Cabinet=on
+.Set Compress=on
+"UploadFiles.exe"
+"msvbvm60.dll"
+"OLEAUT32.DLL"
+"OLEPRO32.DLL"
+"ASYCFILT.DLL"
+"STDOLE2.TLB"
+"COMCAT.DLL"
+"MSRDO20.DLL"
+"RDOCURS.DLL"
+"scrrun.dll"
+"TABCTL32.OCX"
+"COMDLG32.OCX"
+"MSINET.OCX"
+"xFTPPro.ocx"
+"Mscomctl.ocx"
+"MDAC_TYP.EXE"
+"SETUP1.EXE"
+"VB6STKIT.DLL"
+"ST6UNST.EXE"
