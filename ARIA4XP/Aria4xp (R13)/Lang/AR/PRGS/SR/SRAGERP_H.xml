@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<sragerp_h_ar row_key="LANG_POGRSSCAPTION" cproperty="Caption" orgtext="Aging Rep#...                                                                                                                                                                                           " orgcol="LANG_POGRSSCAPTION" langtext="رقم ممثل التقادم"/>
+	<sragerp_h_ar row_key="LANG_REP" cproperty="Caption" orgtext="Rep#                                                                                                                                                                                                    " orgcol="LANG_REP" langtext="رقم المندوب"/>
+	<sragerp_h_ar row_key="LANG_NAME" cproperty="Caption" orgtext="Name                                                                                                                                                                                                    " orgcol="LANG_NAME" langtext="الاسم"/>
+	<sragerp_h_ar row_key="LANG_PHONE" cproperty="Caption" orgtext="Phone                                                                                                                                                                                                   " orgcol="LANG_PHONE" langtext="الهاتف"/>
+	<sragerp_h_ar row_key="LANG_COUNTRY" cproperty="Caption" orgtext="Country                                                                                                                                                                                                 " orgcol="LANG_COUNTRY" langtext="الدولة"/>
+	<sragerp_h_ar row_key="LANG_BALANCE" cproperty="Caption" orgtext="Balance                                                                                                                                                                                                 " orgcol="LANG_BALANCE" langtext="الرصيد"/>
+</VFPData>

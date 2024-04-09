@@ -1,0 +1,1 @@
+=oAriaApplication.DoProgram("AWRTASKLIST","","","SM")

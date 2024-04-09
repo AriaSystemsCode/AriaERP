@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<reqmail_scx_ar row_key="_25V19K7E3" cproperty="Caption" orgtext="Select Contact" orgcol="frmRequestEmail" langtext="حدد جهة الاتصال"/>
+	<reqmail_scx_ar row_key="_25V19K7E4" cproperty="Caption" orgtext="Address Book:" orgcol="frmRequestEmail.lblAddressBook" langtext="دفتر العناوين:"/>
+	<reqmail_scx_ar row_key="_25V19K7E7" cproperty="Caption" orgtext="To -&gt;" orgcol="frmRequestEmail.cmdTo" langtext="إلى-&gt;"/>
+	<reqmail_scx_ar row_key="_25V19K7E9" cproperty="Caption" orgtext="Cc -&gt;" orgcol="frmRequestEmail.cmdCc" langtext="Cc-&gt;"/>
+	<reqmail_scx_ar row_key="_25V19K7EB" cproperty="Caption" orgtext="Bc -&gt;" orgcol="frmRequestEmail.cmdBCc" langtext="قبل الميلاد-&gt;"/>
+	<reqmail_scx_ar row_key="_25V19K7ED" cproperty="Caption" orgtext="OK" orgcol="frmRequestEmail.cmdOK" langtext="موافق"/>
+	<reqmail_scx_ar row_key="_25V19K7EE" cproperty="Caption" orgtext="Cancel" orgcol="frmRequestEmail.cmdCancel" langtext="إلغاء الأمر"/>
+</VFPData>

@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<schedul_h_ar row_key="LANG_Type1" cproperty="Caption" orgtext="Call                                                                                                                                                                                                    " orgcol="LANG_Type1" langtext="استدعاء"/>
+	<schedul_h_ar row_key="LANG_Type2" cproperty="Caption" orgtext="Appointment                                                                                                                                                                                             " orgcol="LANG_Type2" langtext="تعيين"/>
+	<schedul_h_ar row_key="LANG_Type3" cproperty="Caption" orgtext="Todo                                                                                                                                                                                                    " orgcol="LANG_Type3" langtext="تودو"/>
+	<schedul_h_ar row_key="LANG_Type4" cproperty="Caption" orgtext="Email                                                                                                                                                                                                   " orgcol="LANG_Type4" langtext="البريد الإلكتروني"/>
+</VFPData>

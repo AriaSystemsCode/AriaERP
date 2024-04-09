@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<orgfav_scx_ar row_key="_1EB0BU8JI" cproperty="Caption" orgtext="Organize Favorites" orgcol="frmOrgFav" langtext="تنظيم المفضلة"/>
+	<orgfav_scx_ar row_key="_1EB0BU8JH" cproperty="Caption" orgtext="To Create a new folder, click on th" orgcol="frmOrgFav.lblTitle" langtext="لإنشاء مجلد جديد، انقر فوق على إنشاء مجلد "/>
+	<orgfav_scx_ar row_key="_1EB0BU8JH" cproperty="Caption" orgtext="Create Folder" orgcol="frmOrgFav.cmdCreateFolder" langtext="إنشاء مجلد"/>
+	<orgfav_scx_ar row_key="_1F30N1AZQ" cproperty="Caption" orgtext="Move to Folder ..." orgcol="frmOrgFav.cmdMoveFolder" langtext="نقل إلى مجلد..."/>
+	<orgfav_scx_ar row_key="_1EB0BU8JH" cproperty="Caption" orgtext="Rename" orgcol="frmOrgFav.cmdRename" langtext="إعادة تسمية"/>
+	<orgfav_scx_ar row_key="_1EB0BU8JH" cproperty="Caption" orgtext="Delete" orgcol="frmOrgFav.cmdDelete" langtext="حذف"/>
+	<orgfav_scx_ar row_key="_1F30N1AZR" cproperty="Caption" orgtext="Close" orgcol="frmOrgFav.cmdClose" langtext="قم بإغلاق"/>
+</VFPData>

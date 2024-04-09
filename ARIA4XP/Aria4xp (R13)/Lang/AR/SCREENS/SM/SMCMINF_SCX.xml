@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<smcminf_scx_ar row_key="_1GF12LEBV" cproperty="Caption" orgtext="Company ID:" orgcol="ariaformset.AriaForm1.lblCompID" langtext="معرف الشركة:"/>
+	<smcminf_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Company Name:" orgcol="ariaformset.AriaForm1.lblCompName" langtext="اسم الشركة:"/>
+	<smcminf_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="Information" orgcol="ariaformset.AriaForm1.PageFrame.information" langtext="معلومات"/>
+	<smcminf_scx_ar row_key="_0TR12LILQ" cproperty="Caption" orgtext="Modules Installation and Setup" orgcol="ariaformset.AriaForm1.PageFrame.Modules" langtext="الوحدات النمطية للتثبيت والإعداد"/>
+	<smcminf_scx_ar row_key="_0UA0R2IN2" cproperty="Caption" orgtext="Address &amp; Currency" orgcol="ariaformset.AriaForm1.PageFrame.information.Ariatitleshape1.Ariatitlelabel1" langtext="عنوان آند العملة"/>
+	<smcminf_scx_ar row_key="_0UA0RJYFB" cproperty="Caption" orgtext="Data Location" orgcol="ariaformset.AriaForm1.PageFrame.information.Ariatitleshape3.Ariatitlelabel1" langtext="موقع البيانات"/>
+	<smcminf_scx_ar row_key="_0UA0RJYFL" cproperty="Caption" orgtext="Fiscal Year" orgcol="ariaformset.AriaForm1.PageFrame.information.Ariatitleshape2.Ariatitlelabel1" langtext="السنة المالية"/>
+	<smcminf_scx_ar row_key="_1OS105Y3T" cproperty="Caption" orgtext="Current Period:" orgcol="ariaformset.AriaForm1.PageFrame.information.lblCurrentPeriod" langtext="الفترة الحالية:"/>
+	<smcminf_scx_ar row_key="_0UA0RJYFT" cproperty="Caption" orgtext="Data Directory:" orgcol="ariaformset.AriaForm1.PageFrame.information.lblDataDir" langtext="دليل البيانات:"/>
+	<smcminf_scx_ar row_key="_0TC00CTU8" cproperty="Caption" orgtext="Current Year:" orgcol="ariaformset.AriaForm1.PageFrame.information.lblCurrentYear" langtext="السنة الحالية:"/>
+	<smcminf_scx_ar row_key="_1OS10DP95" cproperty="Caption" orgtext="Currency" orgcol="ariaformset.AriaForm1.PageFrame.information.lblCurrency" langtext="تحويل العملات"/>
+	<smcminf_scx_ar row_key="_1OS10DP99" cproperty="Caption" orgtext="Company Setup ..." orgcol="ariaformset.AriaForm1.PageFrame.information.cmdCompSetup" langtext="إعداد الشركة..."/>
+	<smcminf_scx_ar row_key="_0TC00CTU7" cproperty="Caption" orgtext="Install" orgcol="ariaformset.AriaForm1.PageFrame.Modules.cmdInstall" langtext="تثبيت"/>
+	<smcminf_scx_ar row_key="_1OS128D7L" cproperty="Caption" orgtext="UnInstall" orgcol="ariaformset.AriaForm1.PageFrame.Modules.cmdUnInstall" langtext="إلغاء تثبيت"/>
+	<smcminf_scx_ar row_key="_1OS128D7M" cproperty="Caption" orgtext="Setup ..." orgcol="ariaformset.AriaForm1.PageFrame.Modules.cmdSetup" langtext="الإعداد..."/>
+	<smcminf_scx_ar row_key="_1OS0X6EH7" cproperty="Caption" orgtext="Parent Comp." orgcol="ariaformset.AriaForm1.lblPrntCompID" langtext="شركات الوالد."/>
+	<smcminf_scx_ar row_key="_1OS0XCVK8" cproperty="Caption" orgtext="Parent Company Name:" orgcol="ariaformset.AriaForm1.lblPrntCompName" langtext="اسم الشركة الأم:"/>
+	<smcminf_scx_ar row_key="_3HJ0H65KH" cproperty="Caption" orgtext="GL Link Code" orgcol="ariaformset.Ariaform1" langtext="رمز ارتباط GL"/>
+	<smcminf_scx_ar row_key="_3HJ0H229V" cproperty="Caption" orgtext="Company ID       :" orgcol="ariaformset.Ariaform1.Arialabel2" langtext="معرف الشركة:"/>
+	<smcminf_scx_ar row_key="_3OK0ZVZXO" cproperty="Caption" orgtext="Current period  :" orgcol="ariaformset.Ariaform1.Arialabel7" langtext="الفترة الحالية:"/>
+	<smcminf_scx_ar row_key="_3OK102B7T" cproperty="Caption" orgtext="Data directory :" orgcol="ariaformset.Ariaform1.Arialabel3" langtext="دليل البيانات:"/>
+	<smcminf_scx_ar row_key="_3OK0Z4DEM" cproperty="Caption" orgtext="Company name :" orgcol="ariaformset.Ariaform1.Arialabel4" langtext="اسم الشركة:"/>
+	<smcminf_scx_ar row_key="_3HJ0H229V" cproperty="Caption" orgtext="Parent company :" orgcol="ariaformset.Ariaform1.Arialabel6" langtext="الشركة الأم:"/>
+	<smcminf_scx_ar row_key="_3HJ0H229V" cproperty="Caption" orgtext="Setup..." orgcol="ariaformset.Ariaform1.pbSetup" langtext="الإعداد..."/>
+	<smcminf_scx_ar row_key="_3OH0Y8P7I" cproperty="Caption" orgtext="Installation and Setup..." orgcol="ariaformset.Ariaform1.pbInsSet" langtext="التثبيت والإعداد..."/>
+	<smcminf_scx_ar row_key="_3HJ0H229V" cproperty="Caption" orgtext="Currency :" orgcol="ariaformset.Ariaform1.Arialabel18" langtext="العملة:"/>
+	<smcminf_scx_ar row_key="_3HJ0H229V" cproperty="Caption" orgtext="Current year :" orgcol="ariaformset.Ariaform1.Arialabel1" langtext="السنة الحالية:"/>
+	<smcminf_scx_ar row_key="_3HJ0H229V" cproperty="Caption" orgtext="Phone :" orgcol="ariaformset.Ariaform1.lblData9" langtext="الهاتف:"/>
+	<smcminf_scx_ar row_key="_3OK139EDU" cproperty="Caption" orgtext="Fax :" orgcol="ariaformset.Ariaform1.Arialabel5" langtext="فاكس:"/>
+	<smcminf_scx_ar row_key="XX_HEADER_XX" cproperty="SMCMINF.H" orgtext="SCREENS\SM\" orgcol="" langtext=""/>
+</VFPData>

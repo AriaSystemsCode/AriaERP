@@ -1,0 +1,28 @@
+PRGS Log File create on:02/18/13    15:41:08
+R:\ARIA4XP\REPORTS\AL\ALAUTPLS.PRG
+ALAUTPLS.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALENDCIA.PRG
+ALENDCIA.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALPAKLG.PRG
+ALPAKLG.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALPBOL.PRG
+R:\ARIA4XP\REPORTS\AL\ALPIKTKT.PRG
+R:\ARIA4XP\REPORTS\AL\ALPKTK.PRG
+ALPKTK.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AL\ALPKTKB.PRG
+ALPKTKB.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALPKTKDR.PRG
+ALPKTKDR.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALPKTKE.PRG
+ALPKTKE.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALPKTKT.PRG
+ALPKTKT.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AL\ALPLUSPS.PRG
+R:\ARIA4XP\REPORTS\AL\ALSTLS1.PRG
+R:\ARIA4XP\REPORTS\AL\ALSTYF2.PRG
+ALSTYF2.PRG  lcRpStatus = lcRpStatus + IIF(laRpTarget[lnI] = LANG_OPEN,'O',;  Needs comment lcRpStatus = lcRpStatus + IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_OPEN,oAriaApplication.GetHeaderText("LANG_OPEN",AHEADERFILE)),'O',;
+ALSTYF2.PRG  IIF(laRpTarget[lnI] = LANG_RELEASED,'X',;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_RELEASED,oAriaApplication.GetHeaderText("LANG_RELEASED",AHEADERFILE)),'X',;
+ALSTYF2.PRG  IIF(laRpTarget[lnI] = LANG_PULLED,'P' , ;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PULLED,oAriaApplication.GetHeaderText("LANG_PULLED",AHEADERFILE)),'P' , ;
+ALSTYF2.PRG  IIF(laRpTarget[lnI] = LANG_HOLD,'H' , ;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_HOLD,oAriaApplication.GetHeaderText("LANG_HOLD",AHEADERFILE)),'H' , ;
+ALSTYF2.PRG  has compilation errors
+End on:02/18/13    15:44:55

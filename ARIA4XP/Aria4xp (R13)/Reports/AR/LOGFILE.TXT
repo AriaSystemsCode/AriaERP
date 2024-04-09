@@ -1,0 +1,91 @@
+PRGS Log File create on:02/18/13    15:24:46
+R:\ARIA4XP\REPORTS\AR\ARACTSUM.PRG
+R:\ARIA4XP\REPORTS\AR\ARAGING.PRG
+ARAGING.PRG  lcBrFields  = [cFacCode:H=']+LANG_Araging_Fctr+;  Needs comment lcBrFields  = [cFacCode:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_Fctr,oAriaApplication.GetHeaderText("LANG_Araging_Fctr",AHEADERFILE))+;
+ARAGING.PRG  [' ,cFacComp:H=']+LANG_Araging_FacCom+;  Needs comment [' ,cFacComp:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_FacCom,oAriaApplication.GetHeaderText("LANG_Araging_FacCom",AHEADERFILE))+;
+ARAGING.PRG  [' ,cFacCont:H=']+LANG_Araging_Contact+;  Needs comment [' ,cFacCont:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_Contact,oAriaApplication.GetHeaderText("LANG_Araging_Contact",AHEADERFILE))+;
+ARAGING.PRG  [' ,cPhoneNo :P= gfPhoneTem() :H=']+LANG_Araging_Phone+;  Needs comment [' ,cPhoneNo :P= gfPhoneTem() :H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_Phone,oAriaApplication.GetHeaderText("LANG_Araging_Phone",AHEADERFILE))+;
+ARAGING.PRG  M.STATUS = ALLTRIM(IIF(Customer.Status='A',LANG_Araging_Actv ,;  Needs comment M.STATUS = ALLTRIM(IIF(Customer.Status='A',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_Actv,oAriaApplication.GetHeaderText("LANG_Araging_Actv",AHEADERFILE)) ,;
+ARAGING.PRG  IIF(Customer.Status='P',LANG_Araging_Potential ,;  Needs comment IIF(Customer.Status='P',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_Potential,oAriaApplication.GetHeaderText("LANG_Araging_Potential",AHEADERFILE)) ,;
+ARAGING.PRG  IIF(Customer.Status='H',LANG_Araging_Hold ,;  Needs comment IIF(Customer.Status='H',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Araging_Hold,oAriaApplication.GetHeaderText("LANG_Araging_Hold",AHEADERFILE)) ,;
+ARAGING.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARASSHT.PRG
+ARASSHT.PRG  lcBrFields  = [cFacCode:H=']+LANG_FACTOR+;  Needs comment lcBrFields  = [cFacCode:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FACTOR,oAriaApplication.GetHeaderText("LANG_FACTOR",AHEADERFILE))+;
+ARASSHT.PRG  [',cFacComp:H=']+LANG_FACTOR_COMPANY_NAME+;  Needs comment [',cFacComp:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FACTOR_COMPANY_NAME,oAriaApplication.GetHeaderText("LANG_FACTOR_COMPANY_NAME",AHEADERFILE))+;
+ARASSHT.PRG  [',cFacCont:H=']+LANG_CONTACT+;  Needs comment [',cFacCont:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CONTACT,oAriaApplication.GetHeaderText("LANG_CONTACT",AHEADERFILE))+;
+ARASSHT.PRG  [',cPhoneNo :P= gfPhoneTem() :H=']+LANG_PHONE+;  Needs comment [',cPhoneNo :P= gfPhoneTem() :H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PHONE,oAriaApplication.GetHeaderText("LANG_PHONE",AHEADERFILE))+;
+ARASSHT.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARCHADJ.PRG
+R:\ARIA4XP\REPORTS\AR\ARCHBCR.PRG
+R:\ARIA4XP\REPORTS\AR\ARCODOS.PRG
+R:\ARIA4XP\REPORTS\AR\ARCODTG.PRG
+ARCODTG.PRG  lcBrFields = "Invoice :R :H= '"+LANG_ArCodTG_Inv+"'  , " +;  Needs comment lcBrFields = "Invoice :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_Inv,oAriaApplication.GetHeaderText("LANG_ArCodTG_Inv",AHEADERFILE))+"'  , " +;
+ARCODTG.PRG  "Printed = IIF(PrtFlag = 'P','"+LANG_YES+;  Needs comment "Printed = IIF(PrtFlag = 'P','"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YES,oAriaApplication.GetHeaderText("LANG_YES",AHEADERFILE))+;
+ARCODTG.PRG  "' , '"+LANG_NO+;  Needs comment "' , '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_NO,oAriaApplication.GetHeaderText("LANG_NO",AHEADERFILE))+;
+ARCODTG.PRG  "') :R :H='"+ LANG_ArCodTG_Prntd+"'  , " +;  Needs comment "') :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_Prntd,oAriaApplication.GetHeaderText("LANG_ArCodTG_Prntd",AHEADERFILE))+"'  , " +;
+ARCODTG.PRG  "InvDate :R :H= '"+LANG_ArCodTG_Date+"' , " +;  Needs comment "InvDate :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_Date,oAriaApplication.GetHeaderText("LANG_ArCodTG_Date",AHEADERFILE))+"' , " +;
+ARCODTG.PRG  "Account :R :H= '"+LANG_ArCodTG_Acct+"' , " +;  Needs comment "Account :R :H= '"+LANG_ArCodTG_Acct+"' , " +;
+ARCODTG.PRG  "Order   :R :H= '"+LANG_ArCodTG_Ord+"' , " +;  Needs comment "Order   :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_Ord,oAriaApplication.GetHeaderText("LANG_ArCodTG_Ord",AHEADERFILE))+"' , " +;
+ARCODTG.PRG  "CustPO  :R :H= '"+LANG_ArCodTG_Ref+"'  , " +;  Needs comment "CustPO  :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_Ref,oAriaApplication.GetHeaderText("LANG_ArCodTG_Ref",AHEADERFILE))+"'  , " +;
+ARCODTG.PRG  "CUSTOMER.BTName :R :H= '"+LANG_ArCodTG_BillTo+"'  , " +;  Needs comment "CUSTOMER.BTName :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_BillTo,oAriaApplication.GetHeaderText("LANG_ArCodTG_BillTo",AHEADERFILE))+"'  , " +;
+ARCODTG.PRG  "Rep1    :R :H= '"+LANG_ArCodTG_SRep+"' , " +;  Needs comment "Rep1    :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_SRep,oAriaApplication.GetHeaderText("LANG_ArCodTG_SRep",AHEADERFILE))+"' , " +;
+ARCODTG.PRG  "Ship    :R :H= '"+LANG_ArCodTG_Pieces+"'  , " +;  Needs comment "Ship    :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ArCodTG_Pieces,oAriaApplication.GetHeaderText("LANG_ArCodTG_Pieces",AHEADERFILE))+"'  , " +;
+ARCODTG.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARCSTM.PRG
+ARCSTM.PRG  lcBrFields  = [cFacCode:H=']+LANG_Arcstm_Factr+;  Needs comment lcBrFields  = [cFacCode:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Factr,oAriaApplication.GetHeaderText("LANG_Arcstm_Factr",AHEADERFILE))+;
+ARCSTM.PRG  [',cFacComp:H=']+LANG_Arcstm_Name+;  Needs comment [',cFacComp:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Name,oAriaApplication.GetHeaderText("LANG_Arcstm_Name",AHEADERFILE))+;
+ARCSTM.PRG  [',cFacCont:H=']+LANG_Arcstm_Cntct+;  Needs comment [',cFacCont:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Cntct,oAriaApplication.GetHeaderText("LANG_Arcstm_Cntct",AHEADERFILE))+;
+ARCSTM.PRG  lcRpFactor = IIF(ARIABROW('',LANG_Arcst_FACTORS,gnBrFSRow1, gnBrFSCol1,;  Needs comment lcRpFactor = IIF(ARIABROW('',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcst_FACTORS,oAriaApplication.GetHeaderText("LANG_Arcst_FACTORS",AHEADERFILE)),gnBrFSRow1, gnBrFSCol1,;
+ARCSTM.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARCUSCR.PRG
+R:\ARIA4XP\REPORTS\AR\ARDCMEM.PRG
+R:\ARIA4XP\REPORTS\AR\ARGROSSP.PRG
+ARGROSSP.PRG  WAIT WINDOW LANG_SELECTED+' ' + ALLTRIM(STR(RECCOUNT())) +;  Needs comment WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SELECTED,oAriaApplication.GetHeaderText("LANG_SELECTED",AHEADERFILE))+' ' + ALLTRIM(STR(RECCOUNT())) +;
+ARGROSSP.PRG  ' '+LANG_RECORDSIN+' ' + ALLTRIM(STR(lnInterval,6,2)) +;  Needs comment ' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_RECORDSIN,oAriaApplication.GetHeaderText("LANG_RECORDSIN",AHEADERFILE))+' ' + ALLTRIM(STR(lnInterval,6,2)) +;
+ARGROSSP.PRG  lcBrFields = "CCURRCODE :R :H='"+ LANG_CURRENCY_CODE+"' ," +;  Needs comment lcBrFields = "CCURRCODE :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CURRENCY_CODE,oAriaApplication.GetHeaderText("LANG_CURRENCY_CODE",AHEADERFILE))+"' ," +;
+ARGROSSP.PRG  "CCURRDESC :R :H='"+ LANG_DESCRIPTION+"' ,  " +;  Needs comment "CCURRDESC :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESCRIPTION,oAriaApplication.GetHeaderText("LANG_DESCRIPTION",AHEADERFILE))+"' ,  " +;
+ARGROSSP.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARHIST.PRG
+R:\ARIA4XP\REPORTS\AR\ARJCPMN.PRG
+R:\ARIA4XP\REPORTS\AR\ARPOSTCH.PRG
+R:\ARIA4XP\REPORTS\AR\ARPRDLV.PRG
+ARPRDLV.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AR\ARSHLOG.PRG
+ARSHLOG.PRG  lcRpGrpHd1   = [LANG_Arshlog_Group+'            ' + ' : ' + PADR(LEFT(cTempKey,6),19) +;  Needs comment lcRpGrpHd1   = [IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arshlog_Group,oAriaApplication.GetHeaderText("LANG_Arshlog_Group",AHEADERFILE))+'            ' + ' : ' + PADR(LEFT(cTempKey,6),19) +;
+ARSHLOG.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARSHMNSE.PRG
+R:\ARIA4XP\REPORTS\AR\ARSHPMN.PRG
+ARSHPMN.PRG  lcBrFields = "Invoice :R :H='"+LANG_INVOICE+"'  , " +;  Needs comment lcBrFields = "Invoice :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_INVOICE,oAriaApplication.GetHeaderText("LANG_INVOICE",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  "Printed = IIF(PrtFlag = 'P' , '"+LANG_YES+"' , '"+;  Needs comment "Printed = IIF(PrtFlag = 'P' , '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_YES,oAriaApplication.GetHeaderText("LANG_YES",AHEADERFILE))+"' , '"+;
+ARSHPMN.PRG  LANG_NO+"' ) :R :H='"+;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_NO,oAriaApplication.GetHeaderText("LANG_NO",AHEADERFILE))+"' ) :R :H='"+;
+ARSHPMN.PRG  LANG_PRINTED+"'  , " +;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PRINTED,oAriaApplication.GetHeaderText("LANG_PRINTED",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  "InvDate :R :H='"+ LANG_DATE+"', " +;  Needs comment "InvDate :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DATE,oAriaApplication.GetHeaderText("LANG_DATE",AHEADERFILE))+"', " +;
+ARSHPMN.PRG  "Account :R :H='"+ LANG_ACCOUNT+"'  , " +;  Needs comment "Account :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ACCOUNT,oAriaApplication.GetHeaderText("LANG_ACCOUNT",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  "Order   :R :H='"+ LANG_ORDER+"'  , " +;  Needs comment "Order   :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ORDER,oAriaApplication.GetHeaderText("LANG_ORDER",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  "CustPO  :R :H='"+ LANG_REFERENCE+"' , " +;  Needs comment "CustPO  :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_REFERENCE,oAriaApplication.GetHeaderText("LANG_REFERENCE",AHEADERFILE))+"' , " +;
+ARSHPMN.PRG  "CUSTOMER.BTName :R :H='"+ LANG_BILL_TO+"'  , " +;  Needs comment "CUSTOMER.BTName :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BILL_TO,oAriaApplication.GetHeaderText("LANG_BILL_TO",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  "Rep1    :R :H='"+ LANG_SALES_REP+"'  , " +;  Needs comment "Rep1    :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SALES_REP,oAriaApplication.GetHeaderText("LANG_SALES_REP",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  "Ship    :R :H='"+ LANG_PIECES+"'  , " +;  Needs comment "Ship    :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PIECES,oAriaApplication.GetHeaderText("LANG_PIECES",AHEADERFILE))+"'  , " +;
+ARSHPMN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARSJOUR.PRG
+ARSJOUR.PRG  LANG_Arsjour_Invoice+LANG_Arsjour_Currency+' : ' + cCurrCode + " , ",'')] +;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Invoice,oAriaApplication.GetHeaderText("LANG_Arsjour_Invoice",AHEADERFILE))+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Currency,oAriaApplication.GetHeaderText("LANG_Arsjour_Currency",AHEADERFILE))+' : ' + cCurrCode + " , ",'')] +;
+ARSJOUR.PRG  [+ IIF(llRpRepPrn,LANG_Arsjour_SalesRep+' ' + Rep1 +  " " +LANG_Arsjour_CommPayable+" =  "  +;  Needs comment [+ IIF(llRpRepPrn,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_SalesRep,oAriaApplication.GetHeaderText("LANG_Arsjour_SalesRep",AHEADERFILE))+' ' + Rep1 +  " " +IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_CommPayable,oAriaApplication.GetHeaderText("LANG_Arsjour_CommPayable",AHEADERFILE))+" =  "  +;
+ARSJOUR.PRG  [+IIF(llCanada, SPACE(10) + LANG_Arsjour_PstAmount +;  Needs comment [+IIF(llCanada, SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_PstAmount,oAriaApplication.GetHeaderText("LANG_Arsjour_PstAmount",AHEADERFILE)) +;
+ARSJOUR.PRG  SPACE(10) + LANG_Arsjour_HstAmount + ;  Needs comment SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_HstAmount,oAriaApplication.GetHeaderText("LANG_Arsjour_HstAmount",AHEADERFILE)) + ;
+ARSJOUR.PRG  lcCurrExp  = [IIF(llRpRepPrn, SPACE(10) +LANG_Arsjour_SalesRep+' '+LANG_Arsjour_CommPayable+' '+LANG_Arsjour_Total +;  Needs comment lcCurrExp  = [IIF(llRpRepPrn, SPACE(10) +IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_SalesRep,oAriaApplication.GetHeaderText("LANG_Arsjour_SalesRep",AHEADERFILE))+' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_CommPayable,oAriaApplication.GetHeaderText("LANG_Arsjour_CommPayable",AHEADERFILE))+' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Total,oAriaApplication.GetHeaderText("LANG_Arsjour_Total",AHEADERFILE)) +;
+ARSJOUR.PRG  [+IIF(llCanada, SPACE(10) + LANG_Arsjour_PstTotal +;  Needs comment [+IIF(llCanada, SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_PstTotal,oAriaApplication.GetHeaderText("LANG_Arsjour_PstTotal",AHEADERFILE)) +;
+ARSJOUR.PRG  SPACE(10) + LANG_Arsjour_HstTotal + ;  Needs comment SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_HstTotal,oAriaApplication.GetHeaderText("LANG_Arsjour_HstTotal",AHEADERFILE)) + ;
+ARSJOUR.PRG  lcGrpExp = [IIF(llRpRepPrn, SPACE(10) + LANG_Arsjour_SalesRep+' '+LANG_Arsjour_CommPayable+' '+LANG_Arsjour_Total  +;  Needs comment lcGrpExp = [IIF(llRpRepPrn, SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_SalesRep,oAriaApplication.GetHeaderText("LANG_Arsjour_SalesRep",AHEADERFILE))+' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_CommPayable,oAriaApplication.GetHeaderText("LANG_Arsjour_CommPayable",AHEADERFILE))+' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Total,oAriaApplication.GetHeaderText("LANG_Arsjour_Total",AHEADERFILE))  +;
+ARSJOUR.PRG  [+IIF(llCanada, SPACE(10) + LANG_Arsjour_PstTotal +;  Needs comment [+IIF(llCanada, SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_PstTotal,oAriaApplication.GetHeaderText("LANG_Arsjour_PstTotal",AHEADERFILE)) +;
+ARSJOUR.PRG  SPACE(10) + LANG_Arsjour_HstTotal + ;  Needs comment SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_HstTotal,oAriaApplication.GetHeaderText("LANG_Arsjour_HstTotal",AHEADERFILE)) + ;
+ARSJOUR.PRG  lcGrandExp = [IIF(llRpRepPrn, SPACE(10) + LANG_Arsjour_SalesRep+' '+LANG_Arsjour_CommPayable+' '+LANG_Arsjour_Grand +;  Needs comment lcGrandExp = [IIF(llRpRepPrn, SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_SalesRep,oAriaApplication.GetHeaderText("LANG_Arsjour_SalesRep",AHEADERFILE))+' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_CommPayable,oAriaApplication.GetHeaderText("LANG_Arsjour_CommPayable",AHEADERFILE))+' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Grand,oAriaApplication.GetHeaderText("LANG_Arsjour_Grand",AHEADERFILE)) +;
+ARSJOUR.PRG  [+IIF(llCanada, SPACE(10) + LANG_Arsjour_PstGrand +;  Needs comment [+IIF(llCanada, SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_PstGrand,oAriaApplication.GetHeaderText("LANG_Arsjour_PstGrand",AHEADERFILE)) +;
+ARSJOUR.PRG  SPACE(10) + LANG_Arsjour_HstGrand + ;  Needs comment SPACE(10) + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_HstGrand,oAriaApplication.GetHeaderText("LANG_Arsjour_HstGrand",AHEADERFILE)) + ;
+ARSJOUR.PRG  lcGrpFoot= [LANG_Arsjour_Country+': ' + LEFT(cTempKey,20) + '  ' +;  Needs comment lcGrpFoot= [IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Country,oAriaApplication.GetHeaderText("LANG_Arsjour_Country",AHEADERFILE))+': ' + LEFT(cTempKey,20) + '  ' +;
+ARSJOUR.PRG  lcBrFields = [CCURRCODE:H=']+ LANG_Arsjour_Currency+[' ,    ;  Needs comment lcBrFields = [CCURRCODE:H=']+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Currency,oAriaApplication.GetHeaderText("LANG_Arsjour_Currency",AHEADERFILE))+[' ,    ;
+ARSJOUR.PRG  CCURRSMBL:H=']+ LANG_Arsjour_Symbol+[' ,      ;  Needs comment CCURRSMBL:H=']+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Symbol,oAriaApplication.GetHeaderText("LANG_Arsjour_Symbol",AHEADERFILE))+[' ,      ;
+ARSJOUR.PRG  CCURRDESC:H=']+ LANG_Arsjour_Description+[' , ;  Needs comment CCURRDESC:H=']+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arsjour_Description,oAriaApplication.GetHeaderText("LANG_Arsjour_Description",AHEADERFILE))+[' , ;
+ARSJOUR.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AR\ARSUMAG.PRG
+R:\ARIA4XP\REPORTS\AR\ARSUMSL.PRG
+End on:02/18/13    15:27:48

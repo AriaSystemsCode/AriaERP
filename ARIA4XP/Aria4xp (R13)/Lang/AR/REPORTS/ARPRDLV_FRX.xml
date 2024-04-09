@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<arprdlv_frx_ar row_key="_39E12X4XS" cproperty="Caption" orgtext="Proof Of Delivery Report" orgcol="Label" langtext="دليل على تقرير التسليم"/>
+	<arprdlv_frx_ar row_key="_39E12X4XP" cproperty="Caption" orgtext="Page :" orgcol="Label" langtext="الصفحة:"/>
+	<arprdlv_frx_ar row_key="_39E12X4XO" cproperty="Caption" orgtext="Date :" orgcol="Label" langtext="التاريخ:"/>
+	<arprdlv_frx_ar row_key="_39E12X4XN" cproperty="Caption" orgtext="By    :" orgcol="Label" langtext="بواسطة:"/>
+	<arprdlv_frx_ar row_key="_39E12X4XM" cproperty="Caption" orgtext="Time :" orgcol="Label" langtext="الوقت:"/>
+	<arprdlv_frx_ar row_key="_39E12WQUW" cproperty="Caption" orgtext="Carrier tracking #" orgcol="Label" langtext="الناقل تتبع #"/>
+	<arprdlv_frx_ar row_key="_39E12WQUV" cproperty="Caption" orgtext="Carrier Service type" orgcol="Label" langtext="نوع الخدمة الناقل"/>
+	<arprdlv_frx_ar row_key="_39E12WQUU" cproperty="Caption" orgtext="Customer order#" orgcol="Label" langtext="ترتيب العملاء #"/>
+	<arprdlv_frx_ar row_key="_39E12WQUT" cproperty="Caption" orgtext="Aria order#" orgcol="Label" langtext="ترتيب الأغنية #"/>
+	<arprdlv_frx_ar row_key="_39E12WQUS" cproperty="Caption" orgtext="Invoice Date" orgcol="Label" langtext="تاريخ الفاتورة"/>
+	<arprdlv_frx_ar row_key="_39E12WQUR" cproperty="Caption" orgtext="Invoice#" orgcol="Label" langtext="فاتورة #"/>
+</VFPData>

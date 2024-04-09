@@ -1,0 +1,1460 @@
+*:************************************************************************
+*:  Program File: ARIA4XP\PRGS\GL\GLTMPTR.PRG
+*:  Module      : General Ledger
+*:  Desc.       : Template Entry screen
+*:  System      : Aria 4XP
+*:  Developer   : TMI - Tarek Mohamed Ibrahim
+*:  Date        : 07/24/2012
+*:  Reference   : E303204,1
+*:************************************************************************
+*: Modification
+*:************************************************************************
+*B610082,1 TMI 09/16/2012 [T20120902.0021] do not allow empty account to be selected
+*:************************************************************************
+*N000682,1 MMT 11/22/2012 Globalization changes[Start]
+#INCLUDE R:\ARIA4XP\PRGS\gl\GLTMPTR.H
+*N000682,1 MMT 11/22/2012 Globalization changes[END]
+*- Call the screen
+lcRunScx = lfGetScx("GL\GLTMPTR.scx")
+DO FORM (lcRunScx)
+
+************************************************************
+*! Name      : lfGetScx
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/05/2012
+*! Purpose   : Get the scx path to run in SaaS environemt
+************************************************************
+FUNCTION lfGetScx
+PARAMETERS lcScx
+LOCAL lcRunScx
+IF oAriaApplication.Multiinst AND FILE(oAriaApplication.clientscreenhome+lcScx)
+  lcRunScx = oAriaApplication.clientscreenhome+lcScx
+ELSE
+  lcRunScx = oAriaApplication.screenhome+lcScx
+ENDIF
+RETURN lcRunScx
+ *- End of lfGetScx.
+
+*!*************************************************************
+*! Name      : lfFormInit
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/24/2012
+*! Purpose   : called from the Screen init Method
+*!*************************************************************
+FUNCTION lfFormInit
+PARAMETERS loFormSet
+
+loFormSet.AddProperty('lcProgName','GLTMPTR')
+
+*- Set functions to the APMAIN.FXP
+lcPath = oAriaapplication.ApplicationHome
+SET PROCEDURE TO (lcPath+'AP\APMAIN.FXP') ADDITIVE
+SET PROCEDURE TO (lcPath+'GL\GL.FXP') ADDITIVE
+
+IF !lfGL(loFormset)
+  RETURN .F.
+ENDIF
+
+*- Open tables
+=lfOpenPRGFILES(loFormSet.lcProgName)
+
+SELECT GLTYPES
+GO TOP
+IF EOF()
+  =gfModalGen("TRM02038B00000","DIALOG")
+  glQuitting  = .T.
+  RETURN
+ENDIF
+
+
+
+*** Load program base file
+=lfAddProp(loFormSet,'lcBaseFile',ALLTRIM(sydObjct.cBaseFile))
+loFormSet.AddProperty('lcFile_Ttl',' ')
+loFormSet.lcFile_Ttl = LOOKUP(SYDFILES.CFILE_TTL,loFormset.lcBaseFile,SYDFILES.CFILE_NAM)
+
+*- initializations
+WITH loFormSet
+  .cbrowsetabledbengine   = "NATIVE"
+  .nWorkArea                            = .lcBaseFile
+  .otoolbar.nWorkArea                   = .lcBaseFile
+  .DataEnvironment.InitialSelectedAlias = .lcBaseFile
+  .cBrowseFileName        = .lcBaseFile
+  .cBrowseIndexExpression = "CAUTTYPE+CAUTCODE"
+  .cBrowseIndexFields     = "CAUTTYPE,CAUTCODE"
+  .cBrowseIndexName       = "TYPECODE"
+  .cBrowseAliasName       = .lcBaseFile
+  .cBrowseTableName       = .lcBaseFile
+  .cBrowseFilter          = "CAUTTYPE='T'"
+  .BrowseTitle 		  	    = loFormSet.lcFile_Ttl
+  .ariaBrFields.edtBrowseFields.Value = gfDbfField(.nWorkArea)
+  .Ariaform1.lcAcSegDes.Caption = .lcAcSegDes
+ENDWITH
+
+*- Define needed variables.
+=lfDefineVars(loFormSet)
+
+
+*- Define input mask for fields
+WITH loFormSet.Ariaform1
+  .laData2.KeyTextbox.InputMask = REPLICATE('!',FSIZE('CAUTCODE',loFormSet.lcBaseFile))
+  .laData3.InputMask = REPLICATE('X',FSIZE('CAUTREF',loFormSet.lcBaseFile))
+  .laData4.InputMask = REPLICATE('X',FSIZE('CAUTDES',loFormSet.lcBaseFile))
+  .lnDebit.InputMask = REPLICATE('9',FSIZE('NAMOUNT','GLAUTDT')-3)+'.99'
+  .lnCredit.InputMask = REPLICATE('9',FSIZE('NAMOUNT','GLAUTDT')-3)+'.99'
+ENDWITH
+
+loFormSet.ChangeMode('S')
+
+*- End of lfFormInit.
+************************************************************
+*! Name      : lfDefineVars
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/24/2012
+*! Purpose   : Define needed variables
+************************************************************
+FUNCTION lfDefineVars
+PARAMETERS loFormSet
+
+lcScFields = 'CAUTTYPE,CAUTCODE,CAUTREF,CAUTDES,CAUTBASE'
+loFormSet.AddProperty('lcScFields',lcScFields)
+lcFldCnt = ALLTRIM(STR(OCCURS(',',lcScfields)+1))
+loFormSet.AddProperty('laData[&lcFldCnt]','')
+
+loFormSet.AddProperty('rbType'     , 1  )       && radio button
+loFormSet.AddProperty('lcAcctcode' , REPLICATE("0",loFormSet.lnAcsSegSz) )
+loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value = REPLICATE("0",loFormSet.lnAcsSegSz)
+loFormSet.AddProperty('lcOldAcct'  , "" )       && old account code
+loFormSet.AddProperty('lcAccDesc'  , "" )       && corresponds to field GLAUTDT.cAccnlDes
+loFormSet.AddProperty('lc_TmpTrDt' , "" )       && temporary file name
+
+loFormSet.AddProperty('lcCodeType' , "" )       && account code type
+loFormSet.AddProperty('lcFieldStr' , "" )       && field string for the list
+loFormSet.AddProperty('lcTStamp'   , '' )       && Audit information of current record
+
+loFormSet.AddProperty('lcAutDtTg'  , '' )       && Tag name of GLAUTDT upon entry.
+loFormSet.AddProperty('lcAutDtEx'  , '' )       && Tag expression of GLAUTDT current tag
+
+loFormSet.AddProperty('lnTmpRcCnt' , 0  )       && number of records in th list
+loFormSet.AddProperty('lnOldTmRec' , 0  )       && previously selected record (position)
+
+loFormSet.AddProperty('lnDebit'    , 0  )       && variable to accept debit  value
+loFormSet.AddProperty('lnCredit'   , 0  )       && variable to accept credit value
+loFormSet.AddProperty('lnTotDr'    , 0  )       && total debits
+loFormSet.AddProperty('lnTotCr'    , 0  )       && total credits
+loFormSet.AddProperty('lnAutDtFld' , 0  )       && number of fields of 'GLAUTDT' file
+loFormSet.AddProperty('lnThermRec' , 0  )       && Thermometer counter
+
+loFormSet.AddProperty('llFromBton' , .F.)
+loFormSet.AddProperty('llBrowse'   , .F.)
+
+loFormSet.AddProperty('llNewDet'   , .F.)
+
+*** Text variables defined in Screen Objects file.
+*N000682,1 MMT 11/22/2012 Globalization changes[Start]
+*!*	loFormSet.AddProperty('lcTDrPrc'   , "debit percentages " )       && 'debits percentages'
+*!*	loFormSet.AddProperty('lcTCrPrc'   , "credit percentages" )       && 'credits percentages'
+*!*	loFormSet.AddProperty('lcTTmpTr'   , "template transaction|template transaction" )       && 'template transaction|template transaction'
+*!*	loFormSet.AddProperty('lcTTmplt'   , "Template" )       && 'Template'
+*!*	loFormSet.AddProperty('lcTDrCrPrc' , "Both total debit and total credit percentages " )       && 'Both total debit and credit percentages'
+*!*	loFormSet.AddProperty('lcTDfRef'   , "On" )       && 'On'
+*!*	loFormSet.AddProperty('lcTDfDesc'  , "Created by" )       && 'Created by'
+
+*!*	*** Screen display variables :
+*!*	loFormSet.AddProperty('lcTTotal'   , "Totals :" )       && 'Totals :'
+*!*	loFormSet.AddProperty('lcTDebit'   , "Debit" )       && 'Debit'
+*!*	loFormSet.AddProperty('lcTCredit'  , "Credit" )       && 'Credit'
+
+*!*	loFormSet.AddProperty('LCTTMPSAV',   "Saving template ")
+*!*	loFormSet.AddProperty('LCTTMPDEL',   "Deleting template ")
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTDrPrc'   , LANG_GLTMPTR_DEBITPER )       && 'debits percentages'
+loFormSet.AddProperty('lcTDrPrc'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_DEBITPER,loFormSet.GetHeaderText("LANG_GLTMPTR_DEBITPER",loFormSet.HeaderAlias)) )       && 'debits percentages'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTCrPrc'   , LANG_GLTMPTR_CREDITPER)       && 'credits percentages'
+loFormSet.AddProperty('lcTCrPrc'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_CREDITPER,loFormSet.GetHeaderText("LANG_GLTMPTR_CREDITPER",loFormSet.HeaderAlias)))       && 'credits percentages'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTTmpTr'   , LANG_GLTMPTR_TEMPLATETRANS )       && 'template transaction|template transaction'
+loFormSet.AddProperty('lcTTmpTr'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_TEMPLATETRANS,loFormSet.GetHeaderText("LANG_GLTMPTR_TEMPLATETRANS",loFormSet.HeaderAlias)) )       && 'template transaction|template transaction'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTTmplt'   , LANG_GLTMPTR_TEMPLATE )       && 'Template'
+loFormSet.AddProperty('lcTTmplt'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_TEMPLATE,loFormSet.GetHeaderText("LANG_GLTMPTR_TEMPLATE",loFormSet.HeaderAlias)) )       && 'Template'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTDrCrPrc' , LANG_GLTMPTR_BOTH )       && 'Both total debit and credit percentages'
+loFormSet.AddProperty('lcTDrCrPrc' , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_BOTH,loFormSet.GetHeaderText("LANG_GLTMPTR_BOTH",loFormSet.HeaderAlias)) )       && 'Both total debit and credit percentages'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTDfRef'   , LANG_GLTMPTR_ON)       && 'On'
+loFormSet.AddProperty('lcTDfRef'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_ON,loFormSet.GetHeaderText("LANG_GLTMPTR_ON",loFormSet.HeaderAlias)))       && 'On'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTDfDesc'  , LANG_GLTMPTR_CREATEDBY)       && 'Created by'
+loFormSet.AddProperty('lcTDfDesc'  , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_CREATEDBY,loFormSet.GetHeaderText("LANG_GLTMPTR_CREATEDBY",loFormSet.HeaderAlias)))       && 'Created by'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+*** Screen display variables :
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTTotal'   , LANG_GLTMPTR_TOTALS)       && 'Totals :'
+loFormSet.AddProperty('lcTTotal'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_TOTALS,loFormSet.GetHeaderText("LANG_GLTMPTR_TOTALS",loFormSet.HeaderAlias)))       && 'Totals :'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTDebit'   , LANG_GLTMPTR_DEBIT )       && 'Debit'
+loFormSet.AddProperty('lcTDebit'   , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_DEBIT,loFormSet.GetHeaderText("LANG_GLTMPTR_DEBIT",loFormSet.HeaderAlias)) )       && 'Debit'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('lcTCredit'  , LANG_GLTMPTR_CREDIT)       && 'Credit'
+loFormSet.AddProperty('lcTCredit'  , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_CREDIT,loFormSet.GetHeaderText("LANG_GLTMPTR_CREDIT",loFormSet.HeaderAlias)))       && 'Credit'
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('LCTTMPSAV',   LANG_GLTMPTR_SAVINGTEMP )
+loFormSet.AddProperty('LCTTMPSAV',   IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_SAVINGTEMP,loFormSet.GetHeaderText("LANG_GLTMPTR_SAVINGTEMP",loFormSet.HeaderAlias)) )
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loFormSet.AddProperty('LCTTMPDEL',   LANG_GLTMPTR_DELETEINGTEMP)
+loFormSet.AddProperty('LCTTMPDEL',   IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_DELETEINGTEMP,loFormSet.GetHeaderText("LANG_GLTMPTR_DELETEINGTEMP",loFormSet.HeaderAlias)))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*N000682,1 MMT 11/22/2012 Globalization changes[END]
+loFormSet.AddProperty('llFirstRec',.F.)
+
+*** Variables hold the stause of each button. ***
+lcVars =   "lcAct_Stat , lcDeb_Stat , lcCrd_Stat , lcNew_Stat ,"+;
+           "lcRem_Stat , lcAdj_Stat , lcTyp_Stat"
+=lfAddProp(loFormSet,lcVars,'')
+
+*E303204,1 TMI 08/21/2012 [Start] get the base currncy sign for the company
+*loFormSet.AddProperty('lcCurrSign' , '$')        && currency sign
+loFormSet.AddProperty('lcCurrSign' , gfGetCurSmbl(oAriaApplication.BaseCurrency))        && currency sign
+*E303204,1 TMI 08/21/2012 [End  ]
+
+*loFormSet.AddProperty('lcUserName' , LOOKUP(SYUUSER.cUsr_Name,oAriaApplication.User_ID,SYUUSER.cUser_ID,'cUser_ID') )
+lcCurDate  = IIF(SET('CENTURY')='ON',DTOC(oAriaApplication.SystemDate),;
+                 LEFT(DTOC(oAriaApplication.SystemDate),6)+STR(YEAR(oAriaApplication.SystemDate),4))
+loFormSet.AddProperty('lcCurDate',lcCurDate)
+
+SELECT (loFormSet.lcBasefile)
+lcScFields = loFormSet.lcScFields
+SCATTER FIELDS &lcScFields TO loFormSet.laData BLANK
+loFormSet.laData[1]          = 'T'
+*Giving the Template type an intial value
+loFormSet.laData[5]  = "A"
+*** Create a name for the temporary file
+loFormSet.lc_TmpTrDt       = gfTempName()
+
+*** Create the temporary file with the appropriate fields ,
+***(in this case all fields of file "GLAUTDT" + 2 more fields
+*** for the record number and status('M'odify,'D'elete,'A'dd,'S'ame)
+SELECT GLAUTDT
+
+loFormSet.lcAutDtTg       = SYS(22)
+
+SET ORDER TO TAG TYPCODACC
+
+*** Current tag expression is cAutType + cAutCode + cAcctCode
+loFormSet.lcAutDtEx       = SYS(14,VAL(SYS(21)))
+
+=AFIELDS(laAutDtFld)
+lnAutDtFld = ALEN(laAutDtFld,1)
+DIMENSION laAutDtFld[lnAutDtFld+2,18]
+
+laAutDtFld[lnAutDtFld+1,1] = 'nRecNo'
+laAutDtFld[lnAutDtFld+1,2] = 'N'
+laAutDtFld[lnAutDtFld+1,3] = 10
+laAutDtFld[lnAutDtFld+1,4] = 0
+
+laAutDtFld[lnAutDtFld+2,1] = 'cStatus'
+laAutDtFld[lnAutDtFld+2,2] = 'C'
+laAutDtFld[lnAutDtFld+2,3] = 1
+laAutDtFld[lnAutDtFld+2,4] = 0
+
+FOR lnI = lnAutDtFld+1 TO ALEN(laAutDtFld,1)
+  STORE .F. TO laAutDtFld[lnI,5],laAutDtFld[lnI,6]
+  FOR lnJ = 7 TO 16
+    laAutDtFld[lnI,lnJ] = ""
+  ENDFOR
+  STORE 0 TO laAutDtFld[lnI,17],laAutDtFld[lnI,18]
+ENDFOR
+
+gcWorkDir = oAriaApplication.WorkDir
+lc_TmpTrDt = loFormSet.lc_TmpTrDt
+CREATE TABLE &gcWorkDir.&lc_TmpTrDt;
+      FROM ARRAY laAutDtFld
+
+SELECT (lc_TmpTrDt)
+
+=lfSetGridColumnHeader(loFormSet,loFormset.Ariaform1.rbType)
+
+=lfSetGridColumnsource(loFormSet)
+
+loFormSet.Ariaform1.lnDebit.controlSource = 'ThisFormset.lnDebit'
+loFormSet.Ariaform1.lnCredit.controlSource = 'ThisFormset.lnCredit'
+
+
+SELECT GLAUTHD
+SET FILTER TO
+
+*** Filter on template entries records only
+SET FILTER TO CAUTTYPE = "T"
+LOCATE FOR CAUTCODE = loFormSet.laData[2]
+
+*B600378,1 Reham On 06/03/95 Restore the right value of type radio button.
+loFormSet.rbType  = IIF(loFormSet.laData[5]="A",1,2)
+
+IF loFormSet.ActiveMode = 'S' .OR. loFormSet.ActiveMode = 'V'
+  lcVars =   "lcAct_Stat,lcDeb_Stat,lcCrd_Stat,lcNew_Stat,"+;
+             "lcRem_Stat,lcAdj_Stat,lcTyp_Stat"
+  =lfAddProp(loFormSet,lcVars,"DISABLE")
+ELSE
+  loFormSet.lcAct_Stat = IIF(loFormSet.lnTmpRcCnt = 0,"DISABLE","ENABLE")
+  loFormSet.lcDeb_Stat = IIF(loFormSet.lnTmpRcCnt = 0,"DISABLE","ENABLE")
+  loFormSet.lcCrd_Stat = IIF(loFormSet.lnTmpRcCnt = 0,"DISABLE","ENABLE")
+
+  IF loFormSet.lnTmpRcCnt > 0
+    loFormSet.lcNew_Stat = IIF((loFormSet.rbType = 2 .AND. loFormSet.lnTotDr = 100 .AND. loFormSet.lnTotCr = 100) .OR. loFormSet.llNewDet , "DISABLE" , "ENABLE")
+  ELSE
+    loFormSet.lcNew_Stat = "ENABLE"
+  ENDIF
+
+  loFormSet.lcRem_Stat = IIF(loFormSet.lnTmpRcCnt = 0,"DISABLE","ENABLE")
+
+  loFormSet.lcTyp_Stat = IIF(loFormSet.lnTmpRcCnt = 0,"ENABLE","DISABLE")
+
+  IF loFormSet.rbType = 1 .AND. loFormSet.lnTotDr <> loFormSet.lnTotCr
+    loFormSet.lcAdj_Stat = IIF(loFormSet.lnTmpRcCnt > 1 , "ENABLE","DISABLE")
+  ELSE
+    loFormSet.lcAdj_Stat = "DISABLE"
+  ENDIF
+ENDIF
+
+*- Set Control Source
+WITH loFormSet.Ariaform1
+  .laData2.Keytextbox.ControlSource = 'Thisformset.laData[2]'
+  .laData3.ControlSource = 'Thisformset.laData[3]'
+  .laData4.ControlSource = 'Thisformset.laData[4]'
+  .rbType.ControlSource = 'ThisFormSet.rbType'
+ENDWITH
+
+*- End of lfDefineVars.
+************************************************************
+*! Name      : lfSetGridColumnHeader
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/27/2012
+*! Purpose   : Set Grid Columns Header
+************************************************************
+FUNCTION lfSetGridColumnHeader
+PARAMETERS loFormSet,loFld
+WITH loFormSet.Ariaform1.grdGLAUTHD
+  loFormSet.laData[5] = SUBSTR('AP',loFld.Value,1)
+  .Column1.Header1.Caption = ALLTRIM(loFormSet.lcAcSegDes)
+  *N000682,1 MMT 11/20/2012 Globalization Changes[Start]
+  *  .Column2.Header1.Caption = 'Description'
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*.Column2.Header1.Caption =LANG_GLTMPTR_DESCRIPTION
+.Column2.Header1.Caption =IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_GLTMPTR_DESCRIPTION,loFormSet.GetHeaderText("LANG_GLTMPTR_DESCRIPTION",loFormSet.HeaderAlias))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+  *N000682,1 MMT 11/20/2012 Globalization Changes[End]
+
+  .Column3.Header1.Caption = IIF(loFormSet.laData[5]="A",PADL(loFormSet.lcTDebit + ' '+loFormSet.lcCurrSign,15),PADL(loFormSet.lcTDebit + ' %',15))
+  .Column4.Header1.Caption = IIF(loFormSet.laData[5]="A",PADL(loFormSet.lcTCredit+ ' '+loFormSet.lcCurrSign,15),PADL(loFormSet.lcTCredit+ ' %',15))
+  .Refresh()
+ENDWITH
+*- End of lfSetGridColumnHeader.
+
+************************************************************
+*! Name      : lfSetGridColumnsource
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/27/2012
+*! Purpose   : Set Grid Columns Source
+************************************************************
+FUNCTION lfSetGridColumnsource
+PARAMETERS loFormSet
+WITH loFormSet.Ariaform1.grdGLAUTHD
+  .RecordSource = loFormSet.lc_TmpTrDt
+  .Column1.ControlSource = "&lc_TmpTrDt..cAcctcode"
+  .Column2.ControlSource = "LOOKUP(GLACCHAR.cAccnldes,&lc_TmpTrDt..cAcctcode,GLACCHAR.cAcctcode,'ACCTCODE')"
+  .Column3.ControlSource = "IIF(&lc_TmpTrDt..cDrOrCr='D',&lc_TmpTrDt..nAmount,0.00)"
+  .Column4.ControlSource = "IIF(&lc_TmpTrDt..cDrOrCr='D',0.00,&lc_TmpTrDt..nAmount)"
+ENDWITH
+*- End of lfSetGridColumnsource.
+************************************************************
+*! Name      : lfFormdestroy
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/24/2012
+*! Purpose   : When unloading the screen
+************************************************************
+FUNCTION lfFormdestroy
+PARAMETERS loFormSet
+
+  *** reset tag of GLAUTDT
+  SELECT GLAUTDT
+  IF !EMPTY(loFormSet.lcAutDtTg)
+    SET ORDER TO TAG (loFormSet.lcAutDtTg)
+  ELSE
+    SET ORDER TO
+  ENDIF
+
+  *** Close open temporary files.
+  IF USED(loFormSet.lc_TmpTrDt)
+    USE IN ALIAS(loFormSet.lc_TmpTrDt)
+  ENDIF
+
+  gcWorkDir = oAriaApplication.WorkDir
+  lc_TmpTrDt = loFormSet.lc_TmpTrDt
+  ERASE &gcWorkDir.&lc_TmpTrDt..dbf
+*- End of lfFormdestroy.
+
+************************************************************
+*! Name      : lfFormActivate
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/14/2012
+*! Purpose   : Form Activate
+************************************************************
+FUNCTION lfFormActivate
+PARAMETERS loFormSet
+
+
+*- End of lfFormActivate.
+
+
+*************************************************************
+*! Name      : lfChangeMode
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/24/2012
+*! Purpose   : actions when mode changes
+*************************************************************
+*PROCEDURE lpShow
+FUNCTION lfChangeMode
+PARAMETERS loFormSet
+
+IF TYPE('loFormSet.lcProgName')='U'
+  RETURN
+ENDIF
+
+gcWorkDir = oAriaApplication.WorkDir
+lc_TmpTrDt = loFormSet.lc_TmpTrDt
+
+=lfEnableDisable(loFormSet,.F.)
+
+loFormSet.laData[1]          = 'T'
+
+DO CASE
+  *** "Select" mode (loFormSet.ActiveMode = 'S'=.T.)
+  CASE loFormSet.ActiveMode = 'S'
+
+    SELECT (loFormSet.lc_TmpTrDt)
+    *** Delete old data ( if any )
+    ZAP
+    *** Initialize variables for display
+    *** Reset defaults
+    loFormSet.laData[5]      = 'A'
+    loFormSet.rbType         =  1
+    *loFormSet.lcAcctcode     = REPLICATE("0",loFormSet.lnAcsSegSz)
+    loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value = REPLICATE("0",loFormSet.lnAcsSegSz)
+    loFormSet.lcAccDesc      = SPACE(60)
+    loFormSet.lcOldAcct      = ''
+    loFormSet.lnOldTmRec     = 1
+
+    WITH loFormSet
+    STORE 0 TO .lnTmpRcCnt,.lnDebit,.lnCredit,.lnTotdr,.lnTotcr
+    ENDWITH
+
+
+    loFormSet.Ariaform1.laData2.Enabled = .T.
+    loFormSet.Ariaform1.laData2.Keytextbox.Setfocus()
+
+
+  *** "View" mode (loFormSet.ActiveMode = 'V'=.T.), or "Edit" mode (loFormSet.ActiveMode = 'E'=.T.)
+  CASE loFormSet.ActiveMode = 'V'.OR.loFormSet.ActiveMode = 'E'
+
+    IF loFormSet.ActiveMode = 'V'
+      *loFormSet.laData[2] = GLAUTHD.CAUTCODE
+      lcScFields = loFormSet.lcScFields
+      SCATTER FIELDS &lcScFields TO loFormSet.laData
+      loFormset.Ariaform1.rbType.Value = IIF(loFormSet.laData[5]='A',1,2)
+    ENDIF
+    *** Header file object
+    loFormSet.rbType         = IIF(loFormSet.laData[5]="A",1,2)
+    loFormset.lnDebit        = 0
+    loFormset.lnCredit       = 0
+    loFormset.llFirstRec     = .T.
+
+    *** The file is selected for lfTotals()
+    loFormSet.lcTStamp       = IIF(loFormSet.ActiveMode = 'V', GLAUTHD.cAdd_User+;
+                         DTOC(GLAUTHD.dAdd_Date)+;
+                         GLAUTHD.cAdd_Time,loFormSet.lcTStamp)
+
+    gcDataDir = oAriaApplication.DataDir
+    lcAutDtEx = loFormSet.lcAutDtEx
+    IF loFormSet.ActiveMode = 'V' .OR. loFormSet.lcTStamp <> ;
+           GLAUTHD.cAdd_User+DTOC(GLAUTHD.dAdd_Date)+GLAUTHD.cAdd_Time
+
+      loFormSet.Ariaform1.grdGLAUTHD.RecordSource = ''
+      SELECT GLAUTDT
+      loFormSet.lnTotDr      = 0
+      loFormSet.lnTotCr      = 0
+      SELECT *,RECNO() AS 'nRecNo' , "S" AS 'cStatus';
+              FROM &gcDataDir.GLAUTDT ;
+              INTO DBF &gcWorkDir.&lc_TmpTrDt;
+              WHERE &lcAutDtEx. = 'T'+loFormSet.laData[2];
+              .AND. lfTotals(loFormSet)
+
+      =lfSetGridColumnHeader(loFormSet,loFormset.Ariaform1.rbType)
+      =lfSetGridColumnsource(loFormSet)
+    ENDIF
+
+
+    SELECT  (lc_TmpTrDt)
+
+    *** Get the type of accounts
+    IF loFormSet.ActiveMode = 'E'
+      loFormSet.lcCodeType   = IIF(LEFT(LOOKUP(GLACCHAR.cTypeCode,&lc_TmpTrDt..cAcctcode,;
+                     GLACCHAR.cAcctCode,'ACCTCODE'),1)="Y","S","T")
+    ENDIF
+
+    *** Get the number of records currently in the temporary file
+    loFormSet.lnTmpRcCnt     = RECCOUNT(lc_TmpTrDt)
+
+
+    *** Considering the fact that there has to be at least one record
+    *** in the temporary file,( due to the fact that we cannot "Save"
+    *** an empty recurring trasnsaction,there
+    *** seems to be no reason for checking for the number of
+    *** records in the file,or to initialize variables to spaces,hence,
+
+    loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value = cAcctcode
+    loFormSet.lcAccDesc  = LOOKUP(GLACCHAR.cAccnldes,&lc_TmpTrDt..cAcctcode,;
+                        GLACCHAR.cAcctcode,'ACCTCODE')
+    IF cDrOrCr ="D"
+      loFormset.lnDebit  = nAmount
+    ELSE
+      loFormset.lnCredit = nAmount
+    ENDIF
+
+    *** Prepare screen objects
+    lcObjState = IIF(loFormSet.ActiveMode = 'E',"ENABLE","DISABLE")
+
+    WITH loFormset.Ariaform1
+      .pbRem.Enabled = lcObjState = 'ENABLE'
+      .lcAcctCode.Enabled = lcObjState = 'ENABLE'
+      .lnDebit.Enabled = lcObjState = 'ENABLE'
+      .lnCredit.Enabled = lcObjState = 'ENABLE'
+      .laData3.Enabled = lcObjState = 'ENABLE'
+      .laData4.Enabled = lcObjState = 'ENABLE'
+    ENDWITH
+
+
+    *** If returning to 'View' mode from 'Edit' mode with the Adjust
+    *** button enabled,we'd like to disable it.
+    IF loFormSet.ActiveMode = 'V'
+      loFormSet.Ariaform1.pbAdj.Enabled = .f.
+      loFormSet.Ariaform1.rbType.Enabled = .F.
+
+      loFormSet.Ariaform1.pbNew.Enabled = .F.
+    ELSE
+      IF loFormSet.lnTmpRcCnt = 0
+        loFormSet.Ariaform1.rbType.Enabled = .T.
+
+        loFormSet.Ariaform1.pbNew.Enabled = .T.
+      ELSE
+        loFormSet.Ariaform1.rbType.Enabled = .F.
+
+        IF (loFormSet.rbType = 2 .AND. loFormSet.lnTotDr = 100 .AND. loFormSet.lnTotCr = 100) .OR. loFormSet.llNewDet
+          loFormSet.Ariaform1.pbNew.Enabled = .F.
+        ELSE
+          loFormSet.Ariaform1.pbNew.Enabled = .T.
+          loFormSet.lcNew_Stat = 'ENABLE'
+        ENDIF
+      ENDIF
+    ENDIF
+
+  *** "Add" mode (loFormSet.ActiveMode = 'A'=.T.)
+  CASE loFormSet.ActiveMode = 'A'
+    *** Prepare defaults :
+    *** Remember that lcCurDate's length depends upon the century setting.
+    lcDfRef        = loFormSet.lcTDfRef+' '+loFormSet.lcCurDate
+    loFormSet.laData[3]      = lcDfRef+SPACE(FSIZE('cAutRef','GLAUTHD')-LEN(lcDfRef))
+    lcUserName = LOOKUP(SYUUSER.cUsr_Name,oAriaApplication.User_ID,SYUUSER.cUser_ID,'cUser_ID')
+    loFormSet.laData[4]      = SUBSTR(loFormSet.lcTDfDesc+' '+lcUsername,1,;
+                     FSIZE('cAutDes','GLAUTHD'))
+    loFormSet.Ariaform1.pbNew.Enabled = .T.
+    loFormSet.Ariaform1.laData3.Enabled = .T.
+    loFormSet.Ariaform1.laData4.Enabled = .T.
+
+    loFormSet.Ariaform1.rbType.Enabled = .T.
+ENDCASE
+
+loFormSet.Ariaform1.Refresh()
+=lfFormAfterRowColumnChange(loFormSet)
+
+*- Update the totals field
+loFormSet.Ariaform1.txtSummary.Value = IIF(loFormSet.lnTmpRcCnt>0,loFormSet.lcTTotal+' '+STR(loFormSet.lnTotDr,15,2)+' '+STR(loFormSet.lnTotCr,15,2),'')
+
+
+SELECT GLAUTHD
+*- End of lfChangeMode.
+
+************************************************************
+*! Name      : lfEnableDisable
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/25/2012
+*! Purpose   : Enable / Disable controls
+************************************************************
+FUNCTION lfEnableDisable
+PARAMETERS loFormSet,llEn
+WITH loFormSet.Ariaform1
+  .laData2.Enabled = llEn
+  .laData3.Enabled = llEn
+  .laData4.Enabled = llEn
+
+  .lnDebit.Enabled = llEn
+  .lnCredit.Enabled = llEn
+
+  .lcAcctCode.Enabled = llEn
+  .lcAcctDesc.Enabled = llEn
+
+  .pbNew.Enabled = llEn
+  .pbRem.Enabled = llEn
+  .pbAdj.Enabled = llEn
+ENDWITH
+*- End of lfEnableDisable.
+
+************************************************************
+*! Name      : lfFormAfterRowColumnChange
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/25/2012
+*! Purpose   : adjust data value when line changes in the Grid
+************************************************************
+FUNCTION lfFormAfterRowColumnChange
+PARAMETERS loFormSet
+lc_TmpTrDt = loFormSet.lc_TmpTrDt
+WITH loFormSet.Ariaform1
+  .lnDebit.Value  = IIF(&lc_TmpTrDt..cDrOrCr='D',&lc_TmpTrDt..nAmount,0.00)
+  .lnCredit.Value = IIF(&lc_TmpTrDt..cDrOrCr='D',0.00,&lc_TmpTrDt..nAmount)
+
+  .lcAcctcode.KEYTEXTBOX.Value = &lc_TmpTrDt..CACCTCODE
+  .lcAcctDesc.Value = LOOKUP(GLACCHAR.cAccnldes,&lc_TmpTrDt..cAcctcode,GLACCHAR.cAcctcode,'ACCTCODE')
+ENDWITH
+
+*- End of lfFormAfterRowColumnChange.
+
+*!**************************************************************************
+*!
+*!      Function : lfTotals
+*!
+*!**************************************************************************
+*
+FUNCTION lfTotals
+PARAMETERS loFormSet
+
+*** Skip first record (SELECT SQL counts it twice),first time
+IF loFormSet.llFirstRec
+  loFormSet.llFirstRec       = .F.
+ELSE
+  IF cDrOrCr ="D"
+    loFormSet.lnTotdr        = loFormSet.lnTotdr  + nAmount
+  ELSE
+    loFormSet.lnTotcr        = loFormSet.lnTotcr  + nAmount
+  ENDIF
+ENDIF
+
+************************************************************
+*! Name      : lfvData_2
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 05/01/2012
+*! Purpose   : Valid fn for Tmpelate entry ID
+************************************************************
+FUNCTION lfvData_2
+PARAMETERS loFormSet,loFld
+LOCAL lnSlct
+
+lnSlct = SELECT(0)
+
+WITH loFld.Keytextbox
+.Value     = ALLTRIM(.Value)
+.Value     = IIF(ISDIGIT(LEFT(.Value,1)),;
+                    PADL(.Value, FSIZE('cAutCode','GLAUTHD'),'0'),;
+                    PADR(.Value, FSIZE('cAutCode','GLAUTHD'),SPACE(1)))
+ENDWITH
+loFormSet.laData[2] = loFld.KeyTextBox.VALUE
+
+lcFile_Ttl = loFormSet.BrowseTitle
+lcBrFields = loFormSet.ariaBrFields.edtBrowseFields.Value
+llView = .F.
+lcBaseFile = loFormSet.lcBaseFile
+llBrowse = loFld.Selectedfrombrowse
+
+SELECT (lcBaseFile)
+IF llBrowse .OR. !SEEK(loFormSet.laData[1]+loFld.KeyTextBox.VALUE) .OR. ATC("?",loFld.KeyTextBox.VALUE) > 0
+  IF llBrowse .OR. ATC("?",loFld.KeyTextBox.VALUE) > 0
+    IF loFormSet.oToolBar.cmdFind.Click()
+      llView = .T.
+    ELSE
+      loFld.KeyTextBox.VALUE = loFld.KeyTextBox.OldValue
+    ENDIF
+  ELSE
+    lnOption  = gfModalGen('QRM00001B00001','Dialog',;
+                   +ALLTRIM(loFld.KeyTextBox.VALUE))
+    DO CASE
+      CASE lnOption = 1
+        IF loFormSet.oToolBar.cmdFind.Click()
+          llView = .T.
+        ELSE
+          loFld.KeyTextBox.VALUE = loFld.KeyTextBox.OldValue
+        ENDIF
+      CASE lnOption = 2
+        loFormSet.CHangeMode('A')
+        RETURN
+
+      CASE lnOption = 3
+        loFld.KeyTextBox.VALUE = loFld.KeyTextBox.OldValue
+        RETURN .F.
+    ENDCASE
+  ENDIF
+ELSE
+  loFld.KeyTextBox.VALUE = &lcBaseFile..CAUTCODE
+  llView = .T.
+ENDIF
+
+IF llView = .T.
+  loFormSet.CHangeMode('V')
+ENDIF
+
+SELECT (lnSlct)
+
+*- End of lfvData_2
+
+*!**************************************************************************
+*!
+*!      Function: lfvType
+*!
+*!**************************************************************************
+*    VALID function for the radio button "rbType"
+*
+FUNCTION lfvType
+PARAMETERS loFormSet
+
+loFormSet.laData[5] = SUBSTR("AP",loFormSet.rbType,1)
+loFormSet.Ariaform1.pbNew.Enabled = .T.
+
+
+*!**************************************************************************
+*!
+*!      Function: lfvAccCode
+*!
+*!**************************************************************************
+*  Valid function for the field lcAcctcode
+*
+FUNCTION lfvAccCode
+PARAMETERS loFormSet,loFld
+
+PRIVATE lcCodeT
+
+IF LEFT(LTRIM(loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value),1)<>'?'.AND. !ISDIGIT(LTRIM(loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value))
+  =gfModalGen("TRM02061B00000","Dialog")
+  loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value = loFld.Keytextbox.OldValue
+  RETURN .F.
+ENDIF
+
+*E303204,1 TMI 08/21/2012 [Start] if from browse , replace key value with '?'
+IF loFld.Selectedfrombrowse = .T.
+  loFld.KeyTextbox.Value = STUFF(loFld.KeyTextbox.Value,1,1,'?')
+ENDIF
+*E303204,1 TMI 08/21/2012 [End  ]
+
+*IF lcAcctCode = lcOldAcct
+*E303204,1 TMI 08/21/2012 [Start] no need for this line of code as it was applied in the valid control
+*IF loFld.KeyTextbox.Value = loFld.KeyTextbox.OldValue
+*  *** No need for validation
+*  RETURN
+*ELSE
+  *** This condition is true only if the account code had an old entry
+  *** and now it is emptied,just ignore the entry.
+  IF LEFT(LTRIM(loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value),1)<>'?'.AND.VAL(STRTRAN(loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value,'-','')) = 0
+    loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value = loFld.KeyTextbox.OldValue
+    *SHOW GET lcAcctCode
+  ELSE
+    lcCodeT    = ''
+    *** If there is only one record in the temporary file,
+    *** The Account Type may be changed.
+    *** This condition applies for the following cases :
+    *** a. A NEW entry ( Add mode, or Edit mode) in an empty list.
+    *** b. Removing all records except one.
+    *** c. Removing all records ( handled from NEW )
+    IF loFormSet.lnTmpRcCnt = 1
+      loFormSet.lcCodeType  = "A"
+    ENDIF
+	
+    lcAccDesc = loFormSet.lcAccDesc
+    loFormSet.lcAcctCode = loFld.Keytextbox.Value
+    *B610082,1 TMI 09/16/2012 [Start] if user pressed ESC key then do not go into if statement
+    *IF lfVldAccnt(loFormSet,loFld,loFormSet.lcCodeType,"C","L",.T.,@lcAccDesc,@lcCodeT,"")
+    IF lfVldAccnt(loFormSet,loFld,loFormSet.lcCodeType,"C","L",.T.,@lcAccDesc,@lcCodeT,"") AND !EMPTY(CHRTRAN(loFld.Keytextbox.Value,'0-',''))
+      *B610082,1 TMI 09/16/2012 [End  ]
+      loFormSet.lcAccDesc = lcAccDesc
+      IF loFormSet.lcCodeType = "A"
+        loFormSet.lcCodeType  = IIF(LEFT(lcCodeT,1)="Y","S","T")
+      ENDIF
+
+      SELECT (loFormSet.lc_TmpTrDt)
+
+      *** If previously modified,"M---->M"
+      *** If a new entry,        "A---->A"
+      *** else                   "S---->M"
+
+      lcStatus = SUBSTR("MAM",AT(cStatus,"MAS"),1)
+
+      *** Since both debit and credit fields may be left with
+      *** zero values, use 'D'ebit as a default for a new
+      *** entry
+      REPLACE cAcctcode WITH loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value ,;
+              cDrOrCr   WITH IIF(loFormset.lnDebit = 0 .AND. loFormset.lnCredit = 0,;
+                                  'D',cDrOrCr),;
+              cStatus   WITH lcStatus
+
+      SELECT GLAUTHD
+
+      *** In this screen, both debit and credit fields may have
+      *** zeroes in the same record,hence,pbNew may be enabled now..
+      *** provided that, if in percent mode,totals do not exceed 100%
+      lcObjState = IIF(loFormSet.rbType=2.AND.loFormSet.lnTotCr=100.AND.loFormSet.lnTotDr=100,;
+                       "DISABLE","ENABLE")
+      loFormSet.llNewDet   = IIF(loFormSet.rbType=2.AND.loFormSet.lnTotCr=100.AND.loFormSet.lnTotDr=100,.T.,.F.)
+
+      loFormSet.Ariaform1.pbNew.Enabled = lcObjState = 'ENABLE'
+      IF loFormset.lnDebit > 0 .OR. loFormset.lnCredit > 0
+        lcNextObj  = IIF(loFormSet.lnTotCr=loFormSet.lnTotDr.AND.((loFormSet.rbType=1.AND.loFormSet.lnTotCr<>0);
+                      .OR.(loFormSet.rbType=2.AND.loFormSet.lnTotCr=100)),"pbSav","pbNew")
+      ENDIF
+
+      loFormSet.Ariaform1.lnDebit.Enabled = .T.
+      loFormSet.Ariaform1.lnCredit.Enabled = .T.
+
+      IF loFormSet.rbType = 1 .AND. loFormSet.lnTotDr <> loFormSet.lnTotCr
+        IF loFormSet.lnTmpRcCnt > 1
+          lcObjState = "ENABLE"
+        ELSE
+          lcObjState = "DISABLE"
+        ENDIF
+      ELSE
+        lcObjState = "DISABLE"
+      ENDIF
+
+      loFormSet.Ariaform1.pbAdj.Enabled = lcObjState = 'ENABLE'
+      loFld.Keytextbox.Value = loFormSet.lcAcctCode
+    ELSE
+
+      loFld.Keytextbox.Value = loFld.Keytextbox.OldValue
+      RETURN .F.
+    ENDIF
+    lc_TmpTrDt = loFormSet.lc_TmpTrDt
+    loFormset.Ariaform1.lcAcctDesc.Value = ;
+       LOOKUP(GLACCHAR.cAccnldes,&lc_TmpTrDt..cAcctcode,GLACCHAR.cAcctcode,'ACCTCODE')
+  ENDIF
+*E303204,1 TMI 08/21/2012 [Start] comment this line
+*ENDIF
+*E303204,1 TMI 08/21/2012 [End  ]
+
+*E303204,1 TMI 08/21/2012 [Start] refresh the browse
+=lfFormAfterRowColumnChange(loFormSet)
+*E303204,1 TMI 08/21/2012 [End  ]
+
+*!**************************************************************************
+*!
+*!      Function: lfvDebit
+*!
+*!**************************************************************************
+*    VALID function for get field "lnDebit".
+*    lnTotDr field is used for totals
+*
+FUNCTION lfvDebit
+PARAMETERS loFormSet,loFld
+IF TYPE('loFld.Value')<>'N'   && add this check as when press ESC I found that the value of the field turned to character type
+  RETURN
+ENDIF
+
+loFormset.lnDebit = loFld.Value
+IF loFormset.lnDebit <> loFld.OldValue
+
+  *** Reject negative entries
+  IF loFormset.lnDebit< 0
+    =gfModalGen("TRM02036B00000","DIALOG")
+    loFld.Value   = loFld.OldValue
+    RETURN .F.
+  ELSE
+
+    SELECT (loFormSet.lc_TmpTrDt)
+
+    *** In the case of percents ( laData[5]<>"A"
+    *** If this entry causes the total total debit to exceed 100 %
+    *** The user is presented with an appropriate message,and the
+    *** entry is rejected,returning the old value.
+    IF loFormSet.laData[5]<>"A" .AND. (loFormset.lnTotDr - loFld.OldValue + loFormset.lnDebit > 100)
+      =gfModalGen("TRM02017B00000","DIALOG",loFormSet.lcTDrPrc)
+      loFld.Value  = loFld.OldValue
+      SELECT GLAUTHD
+      RETURN .F.
+    ENDIF
+
+    *** If the record has been previously saved as a credit,
+    *** and now there is a debit entry,ignore the previuos
+    *** credit entry.
+    IF cDrOrCr = "D"
+      loFormset.lnTotDr  = loFormset.lnTotDr - nAmount + loFormset.lnDebit
+    ELSE
+      loFormSet.lnTotCr  = loFormSet.lnTotCr - nAmount
+      loFormset.lnCredit = 0
+      loFormSet.lnTotDr  = loFormSet.lnTotDr + loFormset.lnDebit
+    ENDIF
+
+    *** Assume a default of 'D'ebit if both lnDebit and lnCredit fields
+    *** are equal to 0. Since at this point, lnCredit = 0, record
+    *** the entry as 'D'ebit if it is greater or equal to 0.
+    REPLACE nAmount WITH loFormset.lnDebit,;
+            cDrOrCr WITH "D",;
+            cStatus WITH SUBSTR('MMA',AT(cStatus,'SMA'),1)
+
+    SELECT GLAUTHD
+
+    *** Adjust controls
+    IF loFormSet.rbType = 1 .AND. loFormSet.lnTotDr <> loFormSet.lnTotCr
+      IF loFormSet.lnTmpRcCnt > 1
+        lcObjState = "ENABLE"
+      ELSE
+        lcObjState = "DISABLE"
+      ENDIF
+    ELSE
+      lcObjState = "DISABLE"
+    ENDIF
+
+    loFormSet.Ariaform1.pbAdj.Enabled = lcObjState = 'ENABLE'
+    IF loFormset.lnDebit>0
+      lcNextObj    = IIF(loFormSet.lnTotCr=loFormSet.lnTotDr.AND.;
+           ((loFormSet.rbType=1.AND.loFormSet.lnTotCr<>0).OR.(loFormSet.rbType=2.AND.loFormSet.lnTotCr=100)),"pbSav","pbNew")
+    ENDIF
+  ENDIF
+ENDIF
+
+*** If there is a valid account entry,
+*** In case of %s,pbNew is disabled if total debits and credits =100%
+*** otherwise it is enabled.
+lcAcctcode = loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value
+lcObjState = IIF( VAL(STRTRAN(lcAcctCode,'-',''))=0 .OR.;
+                 (loFormSet.laData[5]<>"A".AND.loFormSet.lnTotdr=100.AND.loFormSet.lnTotcr=100),;
+                 "DISABLE","ENABLE")
+loFormSet.llNewDet   = IIF( VAL(STRTRAN(lcAcctCode,'-',''))=0 .OR.;
+                 (loFormSet.laData[5]<>"A".AND.loFormSet.lnTotdr=100.AND.loFormSet.lnTotcr=100),;
+                 .T.,.F.)
+loFormSet.Ariaform1.pbNew.Enabled = lcObjState = 'ENABLE'
+
+*- Debit/Credit Refresh
+=lfDbCrRefresh(loFormSet)
+
+*!**************************************************************************
+*!
+*!      Function: lfvCredit
+*!
+*!**************************************************************************
+* VALID function for get field "lnCredit".
+* lnTotCr field is used for totals
+*
+FUNCTION lfvCredit
+PARAMETERS loFormSet,loFld
+IF TYPE('loFld.Value')<>'N'   && add this check as when press ESC I found that the value of the field turned to character type
+  RETURN
+ENDIF
+
+loFormSet.lnCredit = loFld.Value
+IF loFormSet.lnCredit <> loFld.OldValue
+
+  *** Reject negative entries
+  IF loFormSet.lnCredit < 0
+    =gfModalGen("TRM02036B00000","DIALOG")
+    loFld.Value   = loFld.OldValue
+    RETURN .F.
+  ELSE
+
+    SELECT (loFormSet.lc_TmpTrDt)
+
+    *** In the case of percents ( laData[5]<>"A"
+    *** If this entry causes the total total debit to exceed 100 %
+    *** The user is presented with an appropriate message,and the
+    *** entry is rejected,returning the old value.
+    IF loFormSet.laData[5] <> "A" .AND. (loFormSet.lnTotCr - loFld.OldValue + loFormSet.lnCredit > 100)
+      =gfModalGen("TRM02017B00000","DIALOG",loFormSet.lcTCrPrc)
+      loFormSet.lnCredit  = loFld.OldValue
+      SELECT GLAUTHD
+      loFld.Value = loFld.OldValue
+      RETURN .F.
+    ENDIF
+
+    *** If the record has been previously saved as a debit,
+    *** and now there is a credit entry,ignore the previuos
+    *** debit entry.
+    IF cDrOrCr = "C"
+      loFormSet.lnTotCr  = loFormSet.lnTotCr - nAmount + loFormSet.lnCredit
+    ELSE
+      loFormSet.lnTotDr  = loFormSet.lnTotDr - nAmount
+      loFormset.lnDebit  = 0
+      loFormSet.lnTotCr  = loFormSet.lnTotCr + loFormSet.lnCredit
+    ENDIF
+
+    *** Assume a default of 'D'ebit if both lnDebit and lnCredit fields
+    *** are equal to 0
+    REPLACE nAmount WITH loFormSet.lnCredit,;
+            cDrOrCr WITH IIF(loFormset.lnDebit=0.AND.loFormset.lnCredit=0,"D","C");
+            cStatus WITH  SUBSTR('MMA',AT(cStatus,'SMA'),1)
+
+    *** Adjust controls
+    IF loFormSet.rbType = 1 .AND. loFormSet.lnTotDr <> loFormSet.lnTotCr
+      IF loFormSet.lnTmpRcCnt > 1
+        lcObjState = "ENABLE"
+      ELSE
+        lcObjState = "DISABLE"
+      ENDIF
+    ELSE
+      lcObjState = "DISABLE"
+    ENDIF
+
+    loFormSet.Ariaform1.pbAdj.Enabled = lcObjState = 'ENABLE'
+
+    SELECT GLAUTHD
+  ENDIF
+ENDIF
+
+*** If there is a valid account entry,
+*** In case of %s,pbNew is disabled if total debits and credits =100%
+*** otherwise it is enabled.
+lcAcctCode = loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value
+lcObjState  = IIF( VAL(STRTRAN(lcAcctCode,'-',''))=0 .OR.;
+                  (loFormSet.laData[5]<>"A".AND.loFormSet.lnTotdr=100.AND.loFormSet.lnTotcr=100),;
+                  "DISABLE","ENABLE")
+loFormSet.llNewDet    = IIF( VAL(STRTRAN(lcAcctCode,'-',''))=0 .OR.;
+                  (loFormSet.laData[5]<>"A".AND.loFormSet.lnTotdr=100.AND.loFormSet.lnTotcr=100),;
+                  .T.,.F.)
+loFormSet.Ariaform1.pbNew.Enabled = lcObjState = 'ENABLE'
+
+*- Debit/Credit Refresh
+=lfDbCrRefresh(loFormSet)
+
+*!**************************************************************************
+*!
+*!      Function: lfvNew
+*!
+*!**************************************************************************
+* VALID function for push button "New" (pbNew).
+*
+FUNCTION lfvNew
+PARAMETERS loFormSet
+
+
+*** Are there any empty records in the file?
+*** If there are,find them and replace them with the new values
+*** else Insert a new record and prepare it to be filled by the user ,
+*** initializing it with type ("D"),distribution code and status="A"
+*** ( for addition )
+
+gcWorkDir = oAriaApplication.WorkDir
+lc_TmpTrDt = loFormSet.lc_TmpTrDt
+
+
+SELECT  (lc_TmpTrDt)
+
+LOCATE FOR EMPTY(cAutType)
+IF FOUND()
+  REPLACE cAutType WITH loFormSet.laData[1];
+          cAutcode WITH loFormSet.laData[2];
+          cStatus  WITH 'A'
+ELSE
+  INSERT INTO &gcWorkDir.&lc_TmpTrDt ;
+             (cAutType,cAutcode,cStatus);
+             VALUES (loFormSet.laData[1],loFormSet.laData[2],'A')
+ENDIF
+
+*** Add Audit Information to the newly created record
+=gfAdd_Info(lc_TmpTrDt)
+
+*** The following fields are blanked,waiting for an entry
+*** When they are entered,their valid functions take care of their saving
+loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value  = REPLICATE("0",loFormSet.lnAcsSegSz)
+lcAccDesc   = SPACE(60)
+loFormset.lnDebit     = 0
+loFormset.lnCredit    = 0
+
+*** Increase number of records in temporary file
+loFormSet.lnTmpRcCnt  = loFormSet.lnTmpRcCnt + 1
+
+
+*** Refresh objects
+loFormSet.Ariaform1.lcAcctCode.Enabled = .T.
+
+*** Disable numeric fields until an account is entered.
+loFormSet.Ariaform1.lnDebit.Enabled = .F.
+loFormSet.Ariaform1.lnCredit.Enabled = .F.
+loFormSet.Ariaform1.pbAdj.Enabled = .F.
+
+IF loFormSet.lnTmpRcCnt = 1
+  loFormSet.Ariaform1.rbType.Enabled = .F.&&   DISABLE
+  loFormSet.Ariaform1.pbRem.ENABLED = .T. &&    ENABLE
+ENDIF
+
+*** Disable New button until a valid account is ebtered
+loFormSet.Ariaform1.pbNew.Enabled = .F.&&      DISABLE
+loFormSet.llNewDet  = .T.
+
+*** Prepare the user for entry by moving the cursor
+*** (activating object) to the cAcctCode field (lcAcctCode object)
+loFormSet.Ariaform1.lcAcctcode.Keytextbox.SetFocus()
+
+
+*- Debit/Credit Refresh
+=lfDbCrRefresh(loFormSet)
+
+*- When selecting new line , set the tabstop of laData3 and laData4 fields to .F., at save , reverse them to .T.
+loFormSet.Ariaform1.laData3.TabStop = .F.
+loFormSet.Ariaform1.laData4.TabStop = .F.
+
+*** Always return to the original work aria
+SELECT  GLAUTHD
+
+*!**************************************************************************
+*!
+*!      Function: lfvRem
+*!
+*!**************************************************************************
+*    VALID function for push button "Remove" (pbRem).
+*
+FUNCTION lfvRem
+PARAMETERS loFormSet
+
+gcWorkDir = oAriaApplication.WorkDir
+lc_TmpTrDt = loFormSet.lc_TmpTrDt
+
+*** Confirm Removing of the record
+IF gfModalGen("QRM00007B00007","ALERT") = 1
+
+  SELECT  (lc_TmpTrDt)
+
+  *** If the record is previously modified,"M---->D"
+  ***   delete it.
+  *** If it is a new entry                 "A---->S"
+  ***   skip it when saving
+  *** else (a "Same" record )              "S---->D"
+  ***   delete it
+  lcStatus   = SUBSTR('DDS',AT(cStatus,'SMA'),1)
+  REPLACE cStatus WITH lcStatus
+
+  *** Decrement number of records in list
+  loFormSet.lnTmpRcCnt = loFormSet.lnTmpRcCnt - 1
+
+  *** Adjust totals
+  IF cDrOrCr = "D"
+    loFormSet.lnTotDr  = loFormSet.lnTotDr - nAmount
+  ELSE
+    loFormSet.lnTotCr  = loFormSet.lnTotCr - nAmount
+  ENDIF
+
+  *** Delete the current record (to be removed )
+  *** If the removed record is the last one,go top
+  DELETE
+  *** Check if you have to go to next record or the top one
+  SKIP
+  IF EOF(lc_TmpTrDt)
+    GO TOP
+  ENDIF
+
+  *** Refresh objects with contents of the current record,or spaces
+  *** if the list is empty
+  loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value  = IIF(loFormSet.lnTmpRcCnt=0,REPLICATE ("0",loFormSet.lnAcsSegSz),cAcctCode)
+  lcAccDesc  = IIF(loFormSet.lnTmpRcCnt=0,SPACE(60),LOOKUP(GLACCHAR.cAccnlDes,;
+                   &lc_TmpTrDt..cAcctCode,GLACCHAR.cAcctCode,'ACCTCODE'))
+
+  loFormset.lnDebit    = IIF(loFormSet.lnTmpRcCnt=0 .OR. cDrOrCr="C",0,nAmount)
+  loFormset.lnCredit   = IIF(loFormSet.lnTmpRcCnt=0 .OR. cDrOrCr="D",0,nAmount)
+
+  lcObjStat  = IIF(loFormSet.lnTmpRcCnt = 0,"DISABLE","ENABLE")
+  WITH loFormSet.Ariaform1
+  .lcAcctCode.Enabled = lcObjStat = 'ENABLE'
+  .lnDebit.Enabled = lcObjStat = 'ENABLE'
+  .lnCredit.Enabled = lcObjStat = 'ENABLE'
+  .pbRem.Enabled = lcObjStat = 'ENABLE'
+  .pbNew.Enabled = .T.
+  ENDWITH
+
+  loFormSet.llNewDet  = .F.
+
+  IF loFormSet.rbType = 1 .AND. loFormSet.lnTotDr <> loFormSet.lnTotCr
+    lcObjStat = IIF(loFormSet.lnTmpRcCnt > 1 , "ENABLE","DISABLE")
+  ELSE
+    lcObjStat = "DISABLE"
+  ENDIF
+  loFormSet.Ariaform1.pbAdj.Enabled = lcObjStat = 'ENABLE'
+
+  IF loFormSet.lnTmpRcCnt = 0
+    loformset.ariaform1.rbType.Enabled = .T.
+  ENDIF
+
+  SELECT  GLAUTHD
+
+ENDIF
+
+*- Debit/Credit Refresh
+=lfDbCrRefresh(loFormSet)
+
+*!**************************************************************************
+*!
+*!      Function: lfvAdj
+*!
+*!**************************************************************************
+* VALID function for push button "Adjust" (pbAdj).
+*
+FUNCTION lfvAdj
+PARAMETERS loFormSet
+
+gcWorkDir = oAriaApplication.WorkDir
+lc_TmpTrDt = loFormSet.lc_TmpTrDt
+
+SELECT (lc_TmpTrDt)
+
+loFormSet.lnTotDr  = loFormSet.lnTotDr - loFormSet.lnDebit
+loFormSet.lnTotCr  = loFormSet.lnTotCr - loFormSet.lnCredit
+
+lnDiff   = loFormSet.lnTotdr - loFormSet.lnTotcr
+lnSign   = SIGN(lnDiff)
+lnDiff   = ABS (lnDiff)
+*** If the difference is positive,i.e. Debit is greater,
+IF lnSign = 1
+  *** Add difference to Credit field
+  loFormSet.lnTotcr   = loFormSet.lnTotCr + lnDiff
+  loFormSet.lnCredit  = lnDiff
+  loFormSet.lnDebit   = 0
+ELSE
+  *** If the difference is negative,i.e.Credit is greater,
+  IF lnSign  = -1
+    loFormSet.lnTotdr  = loFormSet.lnTotdr + lnDiff
+    loFormSet.lnDebit  = lnDiff
+    loFormSet.lnCredit = 0
+  *** If the difference is zero,
+  ELSE
+    loFormSet.lnDebit  = 0
+    loFormSet.lnCredit = 0
+  ENDIF
+ENDIF
+
+*** If both debit and credit fields are equal to 0, record the entry
+*** 'D'ebit (default)
+REPLACE  cDrOrCr WITH IIF(loFormSet.lnCredit>0,"C","D"),;
+         nAmount WITH lnDiff, ;
+         cStatus WITH SUBSTR('MMA',AT(cStatus,'SMA'),1)
+
+loFormSet.Ariaform1.pbAdj.Enabled = .F.
+
+SELECT GLAUTHD
+
+IF VAL(STRTRAN(loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value ,'-','')) > 0
+  loformset.ariaform1.pbNew.Enabled = .T.
+  loFormSet.llNewDet  = .F.
+ENDIF
+
+*- Debit/Credit Refresh
+=lfDbCrRefresh(loFormSet)
+
+************************************************************
+*! Name      : lfDbCrRefresh
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/27/2012
+*! Purpose   : Debit/Credit Refresh
+************************************************************
+FUNCTION lfDbCrRefresh
+PARAMETERS loFormSet
+loFormSet.Ariaform1.lnDebit.Value = loFormSet.lnDebit
+loFormSet.Ariaform1.lnCredit.Value = loFormSet.lnCredit
+loFormSet.Ariaform1.grdGLAUTHD.Refresh()
+loFormSet.Ariaform1.txtSummary.Value = IIF(loFormSet.lnTmpRcCnt>0,loFormSet.lcTTotal+' '+STR(loFormSet.lnTotDr,15,2)+' '+STR(loFormSet.lnTotCr,15,2),'')
+
+*- End of lfDbCrRefresh.
+
+
+************************************************************
+*! Name      : lfFormBeforeSave
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/26/2012
+*! Purpose   : checks before the save process
+*************************************************************
+FUNCTION lfFormBeforeSave
+PARAMETERS loFormSet
+lcAcctcode = loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value
+
+DO CASE
+  *** If the file is empty,i.e. there are no template transactions,
+  *** "Cannot save an empty template"
+  CASE (loFormSet.lnTmpRcCnt = 0 )
+    =gfModalGen("TRM02035B00000","DIALOG",loFormSet.lcTTmpTr)
+
+    llCSave  = .F.
+    loFormSet.Ariaform1.pbNew.SetFocus()
+    RETURN llCSave
+
+  CASE VAL(STRTRAN(lcAcctCode,'-',''))=0
+    =gfModalGen("TRM02022B00000","DIALOG")
+    llCSave  = .F.
+    loFormSet.Ariaform1.lcAcctCode.Setfocus()
+    RETURN llCSave
+
+  *** If Total debits and credits are not equal,(in Amount mode)
+  *** "Template entries must balance"
+  CASE loFormSet.rbType = 1 .AND. loFormSet.lnTotDr <> loFormSet.lnTotCr
+    =gfModalGen("TRM02019B00000","Dialog",loFormSet.lcTTmplt)
+    llCSave  = .F.
+    RETURN llCSave
+
+  *** If Total debits and credits are not equal to 100,(in Percent mode)
+  *** "Both must equal 100 % "
+  CASE loFormSet.rbType = 2 .AND. (loFormSet.lnTotDr <> 100.00 .OR. loFormSet.lnTotCr <> 100.00)
+    =gfModalGen("TRM02018B00000","Dialog",loFormSet.lcTDrCrPrc)
+     llCSave  = .F.
+    RETURN llCSave
+ENDCASE
+*- End of lfFormBeforeSave.
+
+
+*!**************************************************************************
+*!
+*!      Procedure: lpSavScr
+*!
+*!**************************************************************************
+*    This procedure handles saving,instead of the global procedure.
+*    "Save" option corresponds to the ninth position in laDefProc array,
+*    hence it should have previously been assigned the value .F.
+*    to disable the global saving procedure.
+*      The flag llCSave is a global flag that is to have the value
+*    of "FALSE" (.F.) if the record(s) is/are not to be saved.
+FUNCTION lpSavScr
+PARAMETERS loFormSet
+LOCAL lnSlct
+lnSlct = SELECT(0)
+
+lcAcctcode = loFormSet.Ariaform1.lcAcctcode.KeyTextbox.Value
+
+    *** Attempt to lock files
+    *** If 'A'dding a new header, attempt to lock 'GLAUTHD', 'GLAUTDT'
+    *** files.
+    *** If 'E'diting a record, attempt to lock the current record in
+    *** GLAUTHD file (the edited record), and  'GLAUTDT' file.
+    *** If adding a new record,append a blank one
+    SELECT (loFormset.lcBaseFile)
+    IF loFormSet.ActiveMode = 'A'
+      APPEND BLANK
+      replace CAUTTYPE WITH 'T'
+    ENDIF
+
+    loFormSet.Ariaform1.Refresh()
+
+    *** Store laData values in the current record
+    lcScFields = loFormSet.lcScFields
+    GATHER FROM loFormSet.laData FIELDS &lcScFields
+    gfTableUpdate()
+
+    *** Now save the data in the temporary file using the following global
+    *** function which performs correct translation from the temporary
+    *** file lc_TmpTrDt,and the main file GLAUTDT
+    =gfTmp2Mast('GLAUTDT',loFormSet.lc_TmpTrDt,'Saving template '+loFormSet.laData[2]+' ...')
+    SELECT GLAUTDT
+    gfTableUpdate()
+
+    SELECT GLAUTHD
+
+SELECT(lnSlct)
+*!**************************************************************************
+*!
+*!      Procedure: lpDelScr
+*!
+*!**************************************************************************
+*    This procedure handles deletion,instead of the global procedure.
+*    "Delete" option corresponds to the seventh position in laDefProc array,
+*    hence it should have previously been assigned the value .F.
+*    to disable the global delete procedure.
+*
+FUNCTION lpDelScr
+PARAMETERS loFormSet
+
+*** Check if this record is already deleted by another user from
+*** a different station. If it is, the record pointer is no longer
+*** on the viewed record which is now actually out of scope if
+*** SET('DELETED')='ON'
+IF GLAUTHD.cAutType + GLAUTHD.cAutCode <> loFormSet.laData[1]+loFormSet.laData[2]
+  *** If the record is already deleted, present the following message,
+  *** and go to 'Select' mode
+  *** Message : "
+
+  =gfModalGen("TRM00095B00000","ALERT")
+
+  *** Go back to 'Select' mode
+  loFormSet.ChangeMode('S')
+  RETURN
+ENDIF
+
+lnTotRec       = RECCOUNT(loFormSet.lc_TmpTrDt)+1
+lnThermRec     = 0
+
+*** Delete records belonging to the current header from the master
+*** file (GLAUTDT)
+*** The temporary file lc_TmpTrDt is zapped in 'Select' mode
+SELECT GLAUTDT
+SCATTER MEMVAR MEMO BLANK
+lcAutDtEx = loFormSet.lcAutDtEx
+REPLACE cAutType  WITH m.cAutType,;
+        cAutCode  WITH m.cAutCode,;
+        cAcctCode WITH m.cAcctCode ;
+       FOR &lcAutDtEx. = loFormSet.laData[1]+loFormSet.laData[2];
+         .AND. lfThermo(;
+            'Deleting template '+loFormSet.laData[2]+' ...')
+DELETE FOR &lcAutDtEx. = m.cAutType + m.cAutCode
+
+SELECT GLAUTHD
+
+*** Then delete the header record
+SCATTER MEMVAR MEMO BLANK
+GATHER MEMVAR MEMO
+DELETE
+gfTableUpdate()
+
+WAIT WINDOW NOWAIT 'Deleting template '+loFormSet.laData[2]
+
+*** Return to "SELECT" mode
+loFormSet.ChangeMode('S')
+WAIT CLEAR
+SELECT GLAUTHD
+
+*!**************************************************************************
+*!
+*!      Function : lfThermo
+*!
+*!*******************************************************************************
+*  This function calls global function gfThermo (thermometer)
+*  It takes as a parameter a counter to be incremented and tested
+*  at every call. The thermometer is called at increments of 13
+*  instead of 1 for faster processing.
+*
+FUNCTION lfThermo
+PARAMETERS lcThermStr
+
+lnThermRec = lnThermRec + 1
+
+*- End of lfThermo

@@ -1,0 +1,415 @@
+*:----------------------------------------------------------------
+*: Program file        : ARCSHRSV
+*: Program description : Saving the Cash Receipt transaction
+*: For screen          :
+*: For System          : Aria Advantage Series - Version 4.0
+*: For Module          : Account Receivable - (AR)
+*: Developer Name      : WAB - Walid A. Wahab
+*: Tracking Job Number : N000469
+*:----------------------------------------------------------------
+*: Calls               :
+*:----------------------------------------------------------------
+*: Passed Parameters   : None.
+*:----------------------------------------------------------------
+*: Example             : DO lfSavCashR IN ARCSHRSV.PRG
+*:----------------------------------------------------------------
+*:Modifications:
+*:E302350,1 MMT 01/11/2007 Enhancement to add Deposit Screen
+*:B608330,1 MMT 10/25/2007 fix bug of locking records in Appaymnt without release[T20070829.0007]
+*:----------------------------------------------------------------
+FUNCTION lfSavCashR
+PARAMETERS llFromEDI
+#INCLUDE R:\ARIA4XP\PRGS\arcshrsv.H
+PRIVATE lnCurAls
+lnCurAls = SELECT()
+llReturn = .T.
+
+*-- Validate if there are no transactions...
+SELECT (lcTmpCredt)
+COUNT ALL FOR Amount <> 0 TO lnTotTrans
+IF lnTotTrans = 0
+  *-- No transactions entered, cannot proceed.
+  *-- < ok >
+  = gfModalGen("TRM40070B00000")
+  llReturn = .F.
+  RETURN
+ENDIF
+
+llEdiAccount = .F.
+lcActivCompany = oAriaApplication.ActiveCompanyId
+lcInstalledMod = oAriaApplication.CompanyInstalledModules
+lcSysType = gfGetMemVar('M_SYSTYPE',lcActivCompany)
+*Open the needed tables for NC module use
+IF !llFromEDI AND 'NC' $ lcInstalledMod AND lcSysType = 'P'
+  *B040242,1 KHM 05/21/2006 [Begin]
+  *=gfOpenFile(oAriaApplication.DataDir+'EDIACPRT','ACCFACT','SH')
+  *=gfOpenFile(oAriaApplication.DataDir+'EDIPD','PARTTRANS','SH')
+  *=gfOpenFile(oAriaApplication.DataDir+'EDITRANS',+'TYPEKEY','SH')
+
+  =gfOpenTable(oAriaApplication.DataDir+'EDIACPRT','ACCFACT','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'EDIPD','PARTTRANS','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'EDITRANS',+'TYPEKEY','SH')
+  *B040242,1 KHM 05/21/2006 [End]
+
+  SELECT CODES
+  SET ORDER TO TAG Idrltfname
+  =SEEK('NYCSITEID')
+  LOCATE REST WHILE cdefcode+crltfield+cfld_name = 'NYCSITEID' ;
+    FOR   cRltd_Nam = 'CCMSITETYP' AND cRltd_Vlu= 'B'
+  IF FOUND()
+    lcSiteId = CODES.cCode_No
+    SELECT EDiAcPrt
+    LOCATE FOR cSiteId = lcSiteId
+    IF FOUND('EDIACPRT') AND SEEK(EDiAcPrt.cPartCode+'812','EDIPD')
+      llEdiAccount = .T.
+      *change the Table Buffring mode to be optimistic
+      llSuccess = CURSORSETPROP("Buffering", 5, "EDITRANS")
+    ENDIF
+  ENDIF
+ENDIF
+*-- Start updating the master files.
+lnCurAlias = SELECT(0)
+*B040242,1 KHM 05/21/2006 [Begin]
+*llOpSeqn   = gfOpenFile(oAriaApplication.DataDir+"Sequence", "cSeq_Type","SH")
+*llOpnHis   = gfOpenFile(oAriaApplication.DataDir+"ARCUSHST", "Acthst"   ,"SH")
+
+*B607817,1 11/02/2006 MMT bug when save 2 batches in same session[Start]
+*llOpSeqn   = gfOpenTable(oAriaApplication.DataDir+"Sequence", "cSeq_Type","SH")
+*B607817,1 11/02/2006 MMT bug when save 2 batches in same session[End]
+
+llOpnHis   = gfOpenTable(oAriaApplication.DataDir+"ARCUSHST", "Acthst"   ,"SH")
+*B040242,1 KHM 05/21/2006 [End]
+
+lcBatSeqNo = IIF(EMPTY(lcBatSeqNo), gfSequence("BATCH", lcActivCompany), lcBatSeqNo)
+*llNoThing  = lfUpdVars()
+
+SELECT (lcTmpCredt)
+*-- Get the total of the selected Records.
+IF !llFromEDI
+  loToolBarWindow = oAriaApplication.oToolBar.oWindParent
+ENDIF
+lnTotRec  = 0
+COUNT FOR Amount <> 0 TO lnTotRec
+*--LANG_ProgCap   = "Updating master credit file"
+*-- Initialize the progress bar needed variables.
+oProgress = NEWOBJECT('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
+oProgress.TotalProgress = lnTotRec
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*oProgress.lblFirstLabel.Caption = LANG_ProgCap
+oProgress.lblFirstLabel.Caption = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ProgCap,loFormSet.GetHeaderText("LANG_ProgCap",loFormSet.HeaderAlias))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+oProgress.Show()
+*-- Make this incermental variable private to be shown
+lnCurRec  = 1
+SELECT (lcTmpCredt)
+SCAN FOR Amount <> 0
+  *-- Call the progress bar.
+  oProgress.CurrentProgress(lnCurRec)
+  lnCurRec   = lnCurRec + 1
+  SELECT (lcTmpCredt)
+  lcTrnSeqNo = gfSequence("TRAN", lcActivCompany)
+  lcMsg2     = "Transaction Number : " + lcTrnSeqNo
+  lcPayComp  = &lcTmpCredt..REFERENCE
+  llNoThing  = IIF(&lcTmpCredt..lNonAr, .T., lfUpdCust())
+  llNoThing  = IIF(&lcTmpCredt..lNonAr, .T., lfUpdCusHs())
+  llNoThing  = IIF(llApLink, lfUpdApPay(), .T.)
+  llNoThing  = lfUpdTmp()
+
+  *Add new record in the EDITrans table for NC module using
+  IF llEdiAccount
+    INSERT INTO 'EDITRANS' (cEdiTrnTyp,KEY,TYPE,cPartner,cStatus,lInterComp) VALUES ;
+      ('812',&lcTmpCredt..TranType+&lcTmpCredt..TRAN,'A',EDiAcPrt.cPartner,'N',EDiAcPrt.lInterComp)
+    =gfAdd_Info('EDITRANS',lcThisFormset)
+  ENDIF
+
+ENDSCAN
+
+*.
+IF oAriaApplication.ActiveModuleId='PS' AND ;
+    ( EMPTY(gfGetMemVar("M_PRTRCET")) OR gfGetMemVar("M_PRTRCET") $ 'AI' )
+  *--Do you wish to print the case receipt? Y/N
+  =lfPrtRectpt()
+ENDIF
+*.
+
+llNoThing = IIF(llGlLink, lfUpdGL(), .T.)
+
+SELECT Credit
+APPEND FROM (oAriaApplication.WorkDir+lcTmpCredt) FOR Amount <> 0
+
+oProgress=NULL
+IF !llFromEDI
+  oAriaApplication.oToolBar.oWindParent = loToolBarWindow
+ENDIF
+
+*E302350,1 MMT 01/11/2007 Enhancement to add Deposit Screen[Start]
+=lfUpdDeposits()
+*E302350,1 MMT 01/11/2007 Enhancement to add Deposit Screen[End]
+
+*-- Generated batch number is : XXXXXXXX
+*-- < ok >
+lnNoThing = gfModalGen("INM40064B00000", "DIALOG", lcBatSeqNo)
+
+*B040242,1 KHM 05/21/2006 [Begin]
+*USE IN IIF(llOpSeqn, "Sequence" , 0)
+*USE IN IIF(llOpnHis, "ARCUSHST" , 0)
+
+*B607817,1 11/02/2006 MMT bug when save 2 batches in same session[Start]
+*!*	IF llOpSeqn
+*!*	  gfCloseTable([IN Sequence])
+*!*	ENDIF
+*B607817,1 11/02/2006 MMT bug when save 2 batches in same session[End]
+
+IF llOpnHis
+  gfCloseTable([IN ARCUSHST])
+ENDIF
+*B040242,1 KHM 05/21/2006 [End]
+
+
+SELECT(lnCurAls)
+
+RETURN
+* ----------------------------------------------------------------
+
+FUNCTION lfUpdCust
+
+IF SEEK("M" + &lcTmpCredt..Account, "Customer")
+  lcPayComp = Customer.BTName
+  lnEqvAmnt = ROUND(&lcTmpCredt..Amount &lcExRSin lnExRate &lcUntSin lnCurrUnit,2)
+  SELECT Customer
+  llNoThing = RLOCK()
+  REPLACE OpenCr WITH OpenCr + lnEqvAmnt ,;
+    NetBal WITH NetBal + lnEqvAmnt ,;
+    nHgWtrMark WITH IIF(NetBal>nHgWtrMark,NetBal,nHgWtrMark)
+  UNLOCK
+ENDIF
+
+* ----------------------------------------------------------------
+
+FUNCTION lfUpdCusHs
+
+IF BETWEEN(VAL(lcGLPeriod), 1, 13)
+  lcPeriod  = PADL(ALLTRIM(lcGLPeriod), 2, "0" )
+  lnEqvAmnt = ROUND(&lcTmpCredt..Amount &lcExRSin lnExRate &lcUntSin lnCurrUnit, 2)
+  lnEqvAmnt = ABS(lnEqvAmnt)
+  IF SEEK(&lcTmpCredt..Account+lcGLFYear, "ARCusHst")
+    SELECT ARCusHst
+    llNoThing = RLOCK()
+    REPLACE nPayment&lcPeriod WITH nPayment&lcPeriod + lnEqvAmnt ,;
+      nPayment          WITH nPayment          + lnEqvAmnt
+    UNLOCK
+  ENDIF
+ENDIF
+
+* ----------------------------------------------------------------
+
+FUNCTION lfUpdApPay
+
+*- Open the ApPaymnt file.
+*B040242,1 KHM 05/21/2006 [Begin]
+*=gfOpenFile(oAriaApplication.DataDir+'ApPayMnt','','SH')
+=gfOpenTable(oAriaApplication.DataDir+'ApPayMnt','','SH')
+*B040242,1 KHM 05/21/2006 [End]
+*change the Table Buffring mode to be optimistic
+IF !llFromEDI
+  llSuccess = CURSORSETPROP("Buffering", 5, "ApPayMnt")
+ENDIF
+
+*.
+
+SELECT ApPaymnt
+
+APPEND BLANK
+llNoThing = RLOCK()
+llNoThing = gfAdd_Info('ApPaymnt',lcThisFormset)
+
+REPLACE cPayType  WITH "A"                              ,;
+  cPayMeth  WITH IIF(&lcTmpCredt..lNonAr,'N','A') ,;
+  cBnkCode  WITH lcBankCode                       ,;
+  cChkAcct  WITH lcChkAcnt                        ,;
+  dPayDate  WITH ldBatDate                        ,;
+  cFisFYear WITH lcGLFYear                        ,;
+  cFspprdid WITH lcGLPeriod                       ,;
+  cPayDocNo WITH &lcTmpCredt..STORE               ,;
+  cPayClNo  WITH &lcTmpCredt..Account             ,;
+  cPayComp  WITH lcPayComp                        ,;
+  nPayAmnt  WITH &lcTmpCredt..Amount              ,;
+  cCurrCode WITH lcCurCode                        ,;
+  nExRate   WITH lnExRate                         ,;
+  nCurrUnit WITH lnCurrUnit                       ,;
+  cPayRecSt WITH "O"                              ,;
+  BATCH     WITH lcBatSeqNo
+
+  *B608330,1 MMT 10/25/2007 fix bug of locking records in Appaymnt without release[Start]
+  UNLOCK
+  *B608330,1 MMT 10/25/2007 fix bug of locking records in Appaymnt without release[End]
+
+* ----------------------------------------------------------------
+
+FUNCTION lfUpdTmp
+
+SELECT (lcTmpCredt)
+llNoThing = RLOCK()
+
+llNoThing = gfAdd_Info(lcTmpCredt,lcThisFormset)
+
+REPLACE cAdjAcct   WITH lcGLAcct2                       ,;
+  cBnkCode   WITH lcBankCode                      ,;
+  cChkAcct   WITH lcChkAcnt                       ,;
+  TranDate   WITH ldBatDate                       ,;
+  TranType   WITH "4"                             ,;
+  TRAN       WITH lcTrnSeqNo                      ,;
+  DESC       WITH gfCodDes(cArPType,'CARPTYPE')   ,;
+  BATCH      WITH lcBatSeqNo                      ,;
+  cCurrCode  WITH lcCurCode                       ,;
+  nCurrUnit  WITH lnCurrUnit                      ,;
+  nExRate    WITH lnExRate
+
+  *B608330,1 MMT 10/25/2007 fix bug of locking records in Appaymnt without release[Start]
+  UNLOCK
+  *B608330,1 MMT 10/25/2007 fix bug of locking records in Appaymnt without release[End]
+
+*.
+
+* ----------------------------------------------------------------
+
+FUNCTION lfUpdGL
+
+GOTO BOTTOM IN (lcTmpCredt)
+lcTmpGLD   = gfTempName()
+TmpCrdtGL  = gfTempName()
+
+*B040242,1 KHM 05/21/2006 [Begin]
+*llOpGlDist = gfOpenFile(oAriaApplication.DataDir+"GLDIST" ,"GLDISTAC","SH")
+llOpGlDist = gfOpenTable(oAriaApplication.DataDir+"GLDIST" ,"GLDISTAC","SH")
+*B040242,1 KHM 05/21/2006 [End]
+
+*change the Table Buffrein mode to be optimistic
+IF !llFromEDI
+  llSuccess = CURSORSETPROP("Buffering", 5, "GLDIST")
+ENDIF
+SELECT GLDIST
+COPY STRUCTURE TO (oAriaApplication.WorkDir+lcTmpGLD)
+= gfOpenFile(oAriaApplication.WorkDir+lcTmpGLD ,"","EX")
+
+SELECT (lcTmpCredt)
+SCAN
+  DO GLDIST WITH &lcTmpCredt..Link_Code,'002',ABS(&lcTmpCredt..Amount)      ,;
+    'CR',&lcTmpCredt..TRAN,ldBatDate,lcGLFYear,lcGLPeriod,'&lcTmpGLD',;
+    &lcTmpCredt..cAdjAcct,lcCurCode,lnCurrUnit,lnExRate
+  DO GLDIST WITH &lcTmpCredt..Link_Code,'001',-ABS(&lcTmpCredt..Amount)     ,;
+    'CR',&lcTmpCredt..TRAN,ldBatDate,lcGLFYear,lcGLPeriod,'&lcTmpGLD',;
+    &lcTmpCredt..cARGlAcc,lcCurCode,lnCurrUnit,lnExRate
+ENDSCAN
+*-- MAN End
+
+lcGLSeqNo = gfSequence("GLSESSION", lcActivCompany)
+SELECT (lcTmpGLD)
+REPLACE ALL GLSESSION WITH lcGLSeqNo
+USE IN (lcTmpGLD)
+
+SELECT GLDIST
+APPEND FROM (oAriaApplication.WorkDir+lcTmpGLD)
+USE IN IIF(llOpGlDist AND llFromEDI, "GLDIST" , 0)
+
+
+
+*!***************************************************************
+*! Name      : lfPrtRectpt
+*! Purpose   : Print cash receipt.
+*!***************************************************************
+FUNCTION lfPrtRectpt
+
+*--Get the current site warehouse code.
+lcCompanyModules = oAriaApplication.companysetupmodules
+
+=gfOpenFile(oAriaApplication.DataDir+"WAREHOUS", "WAREHOUS", "SH")
+
+GO TOP
+IF gfGetMemVar('M_SYSTYPE') = 'P' AND (OCCURS('NC',lcCompanyModules)<>0)
+  LOCATE FOR cSiteId = oAriaApplication.currentsite
+ENDIF
+SELECT (lcTmpCredt)
+lcFlTag=TAG()
+SET ORDER TO TAG Account
+GO TOP
+
+*--Start to print.
+lcPhonPict = gfPhoneTem()
+lcRpName = 'PSCRCPT'
+lcConsSet = SET('CONSOLE')
+SET CONSOLE OFF
+
+lcDevice = oAriaApplication.gcDevice
+oAriaApplication.gcDevice = 'PRINTER'
+lcOGPlatForm = 'DOS'
+lcOutFile = oAriaApplication.gcOutFile
+lcRepHome = oAriaApplication.reporthome
+lcWinApll = oAriaApplication.ActiveModuleId
+_PEJECT   = "NONE"
+
+DO gfDispRe WITH lcRepHome+lcWinApll+"\"+lcRpName
+
+oAriaApplication.gcDevice = lcDevice
+oAriaApplication.gcOutFile = lcOutFile
+SET CONSOLE &lcConsSet
+SET PRINT TO
+SET DEVICE TO SCREEN
+SELECT (lcTmpCredt)
+SET ORDER TO TAG &lcFlTag
+RETURN
+*E302350,1 MMT 01/11/2007 Enhancement to add Deposit Screen[Start]
+*!***************************************************************
+*! Name      : lfUpdDeposits
+*! Purpose   : Update Deposits file
+*!***************************************************************
+FUNCTION lfUpdDeposits
+
+IF USED(lcdeposittemp)
+  lcDeleSt = SET("Deleted")
+  SET DELETED OFF
+  SELECT (lcdeposittemp)
+  SET FILTER TO
+  SCAN
+    LOCATE
+    IF !EOF()
+      SCAN FOR !DELETED()
+        SELECT (lcdeposittemp)
+        SCATTER MEMO MEMVAR
+        SELECT(lcTmpCredt) 		
+        SET ORDER TO Account
+        IF SEEK(m.account,lcTmpCredt)
+          SELECT (lcTmpCredt)
+          SCAN REST WHILE Account = m.Account FOR nLineNO = m.nLinNo
+            m.tran = EVALUATE(lcTmpCredt+'.Tran')
+            m.Store = EVALUATE(lcTmpCredt+'.Store')
+            EXIT
+          ENDSCAN
+        ELSE
+          LOOP
+        ENDIF  		
+
+        IF EMPTY(m.tran)
+          LOOP
+        ENDIF
+
+        SELECT DEPOSITS
+        APPEND BLANK
+        REPLACE Account    WITH m.Account,;
+    	  	    ORDER      WITH m.ORDER,;
+	   		    amount     WITH m.Dep_Amt,;
+	     	    batch      WITH lcBatSeqNo ,;
+			    tran 	   WITH m.tran,;
+	     	    cchkno     WITH m.Store,;
+ 	        	lpaidflag  WITH .F.
+	
+	    =gfAdd_Info('DEPOSITS')   		
+  	    =gfreplace()
+      ENDSCAN
+    ENDIF
+  ENDSCAN
+  =gfTableUpdate(.T.,'DEPOSITS')
+  SET DELETED &lcDeleSt
+ENDIF
+*E302350,1 MMT 01/11/2007 Enhancement to add Deposit Screen[End]

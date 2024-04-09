@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<hrdept_scx_ar row_key="_3HJ0H65KH" cproperty="Caption" orgtext="Department                                                                                                                                                                                              " orgcol="ariaformset.Ariaform1" langtext="إدارة"/>
+	<hrdept_scx_ar row_key="_3HV17LISC" cproperty="Caption" orgtext="Department ID                                                                                                                                                                                           " orgcol="ariaformset.Ariaform1.Arialabel1" langtext="معرف الإدارة"/>
+	<hrdept_scx_ar row_key="_3HV17LISI" cproperty="Caption" orgtext="Description                                                                                                                                                                                             " orgcol="ariaformset.Ariaform1.Arialabel2" langtext="وصف"/>
+	<hrdept_scx_ar row_key="XX_HEADER_XX" cproperty="HRDEPT.H" orgtext="SCREENS\HR\" orgcol="" langtext=""/>
+</VFPData>

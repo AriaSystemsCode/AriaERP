@@ -1,0 +1,49 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<soorcngo_frx_ar row_key="_RP60RHK61" cproperty="Caption" orgtext="Start Date  :                                                                                                                                                                                           " orgcol="Label" langtext="تاريخ البدء:"/>
+	<soorcngo_frx_ar row_key="_RTD0XVIFE" cproperty="Caption" orgtext="Complete Date :                                                                                                                                                                                         " orgcol="Label" langtext="التاريخ بالكامل:"/>
+	<soorcngo_frx_ar row_key="_31H1192C9" cproperty="Expr" orgtext="'*****'" orgcol="Text" langtext="'*****'"/>
+	<soorcngo_frx_ar row_key="_RT711RI5F" cproperty="Expr" orgtext="IIF(OrdHdr.cOrdType='O','ORDER CONFIRMATION',IIF(OrdHdr.cOrdType='T','EDI Temporary Order','            C o n t r a c t        '))" orgcol="Text" langtext="IIF(OrdHdr.cOrdType='O','ORDER CONFIRMATION',IIF(OrdHdr.cOrdType='T','EDI Temporary Order','            C o n t r a c t        '))"/>
+	<soorcngo_frx_ar row_key="_RP80PDJDD" cproperty="Expr" orgtext="'Style'" orgcol="Text" langtext="'النمط'"/>
+	<soorcngo_frx_ar row_key="_04G0SAS7T" cproperty="Expr" orgtext="IIF(lcRpOrdTyp = 'T','Wholesal. Price','Gross Amt')" orgcol="Text" langtext="IIF(lcRpOrdTyp = 'T','Wholesal. Price','Gross Amt')"/>
+	<soorcngo_frx_ar row_key="_0810LK1C9" cproperty="Expr" orgtext="IIF(lcRpOrdTyp = 'T','Trans. Price','Gross Price')" orgcol="Text" langtext="IIF(lcRpOrdTyp = 'T','Trans. Price','Gross Price')"/>
+	<soorcngo_frx_ar row_key="_0RE0X8VGN" cproperty="Expr" orgtext="IIF(lcRpBook='Y','Total Qty.','Tot Open Qty')" orgcol="Text" langtext="IIF(lcRpBook='Y','Total Qty.','Tot Open Qty')"/>
+	<soorcngo_frx_ar row_key="_30V0UOQTK" cproperty="Expr" orgtext="'siz1'" orgcol="Text" langtext="'حجم1'"/>
+	<soorcngo_frx_ar row_key="_30V0UPNNQ" cproperty="Expr" orgtext="'siz2'" orgcol="Text" langtext="'حجم2'"/>
+	<soorcngo_frx_ar row_key="_30V0UPTDP" cproperty="Expr" orgtext="'siz3'" orgcol="Text" langtext="'حجم3'"/>
+	<soorcngo_frx_ar row_key="_30V0UQ4MB" cproperty="Expr" orgtext="'siz4'" orgcol="Text" langtext="'حجم4'"/>
+	<soorcngo_frx_ar row_key="_30V0UQ9Y3" cproperty="Expr" orgtext="'siz5'" orgcol="Text" langtext="'حجم5'"/>
+	<soorcngo_frx_ar row_key="_30V0UQEFV" cproperty="Expr" orgtext="'siz6'" orgcol="Text" langtext="'حجم6'"/>
+	<soorcngo_frx_ar row_key="_30V0UQOGZ" cproperty="Expr" orgtext="'siz7'" orgcol="Text" langtext="'حجم7'"/>
+	<soorcngo_frx_ar row_key="_30V0UQS8E" cproperty="Expr" orgtext="'siz8'" orgcol="Text" langtext="'حجم8'"/>
+	<soorcngo_frx_ar row_key="_30V0US0QK" cproperty="Expr" orgtext="'Sc'" orgcol="Text" langtext="'Sc'"/>
+	<soorcngo_frx_ar row_key="_30V0V0HL2" cproperty="Expr" orgtext="'Disc%'" orgcol="Text" langtext="'%خصم'"/>
+	<soorcngo_frx_ar row_key="_30V0V1HSA" cproperty="Expr" orgtext="'Net Price'" orgcol="Text" langtext="'Net Price'"/>
+	<soorcngo_frx_ar row_key="_30V0V61MJ" cproperty="Expr" orgtext="'Description'" orgcol="Text" langtext="'الوصف'"/>
+	<soorcngo_frx_ar row_key="_30W0SOX4C" cproperty="Expr" orgtext="'Color'" orgcol="Text" langtext="'لون'"/>
+	<soorcngo_frx_ar row_key="_3190TDCHZ" cproperty="Expr" orgtext="'SUBTOTAL:'" orgcol="Text" langtext="':حاصل الجمع'"/>
+	<soorcngo_frx_ar row_key="_3190WBZFM" cproperty="Expr" orgtext="'SOLD TO:'" orgcol="Text" langtext="'SOLD TO:'"/>
+	<soorcngo_frx_ar row_key="_3190WEYIH" cproperty="Expr" orgtext="'SHIP TO:'" orgcol="Text" langtext="'SHIP TO:'"/>
+	<soorcngo_frx_ar row_key="_30W0MP3A6" cproperty="Expr" orgtext="'&gt;TOT. QTY'" orgcol="Text" langtext="'اجمالى الكمية&lt;'"/>
+	<soorcngo_frx_ar row_key="_31H11AG3M" cproperty="Expr" orgtext="'*************'" orgcol="Text" langtext="'*************'"/>
+	<soorcngo_frx_ar row_key="_39O0SUY6B" cproperty="Expr" orgtext="ORDHDR.Note1  + '    '  +ORDHDR.Note2" orgcol="Text" langtext="ORDHDR.Note1  + '    '  +ORDHDR.Note2"/>
+	<soorcngo_frx_ar row_key="_3LA0T176Y" cproperty="Caption" orgtext="THIS IS NOT AN INVOICE                                                                                                                                                                                  " orgcol="Label" langtext="هذه ليست فاتورة"/>
+	<soorcngo_frx_ar row_key="_30W0MMEPE" cproperty="Caption" orgtext="TOTAL:                                                                                                                                                                                                  " orgcol="Label" langtext="الإجمالي:"/>
+	<soorcngo_frx_ar row_key="_31G0ONCNN" cproperty="Caption" orgtext="Fax # :                                                                                                                                                                                                 " orgcol="Label" langtext="الفاكس:"/>
+	<soorcngo_frx_ar row_key="_31G0ONCNK" cproperty="Caption" orgtext="Phone # :                                                                                                                                                                                               " orgcol="Label" langtext="رقم الهاتف:"/>
+	<soorcngo_frx_ar row_key="_31C0LH7F3" cproperty="Caption" orgtext="[  CONTINUED NEXT PAGE  ]                                                                                                                                                                               " orgcol="Label" langtext="[تابع الصفحة التالية]"/>
+	<soorcngo_frx_ar row_key="_30W0OZB55" cproperty="Caption" orgtext="$                                                                                                                                                                                                       " orgcol="Label" langtext="$"/>
+	<soorcngo_frx_ar row_key="_30W0MNEQ3" cproperty="Caption" orgtext="ORDER NO.                                                                                                                                                                                               " orgcol="Label" langtext="الأمر رقم"/>
+	<soorcngo_frx_ar row_key="_30W0M8M31" cproperty="Caption" orgtext="NO                                                                                                                                                                                                      " orgcol="Label" langtext="لا"/>
+	<soorcngo_frx_ar row_key="_30W0LNRXD" cproperty="Caption" orgtext="Division :                                                                                                                                                                                              " orgcol="Label" langtext="الشعبة:"/>
+	<soorcngo_frx_ar row_key="_30W0LIKBT" cproperty="Caption" orgtext="Sales Order# :                                                                                                                                                                                          " orgcol="Label" langtext="رقم أمر البيع:"/>
+	<soorcngo_frx_ar row_key="_RSS0RU6PA" cproperty="Caption" orgtext="Customer#  :                                                                                                                                                                                            " orgcol="Label" langtext="# العملاء:"/>
+	<soorcngo_frx_ar row_key="_RSS0RWBNU" cproperty="Caption" orgtext="Customer PO# :                                                                                                                                                                                          " orgcol="Label" langtext="العملاء: ص. ب #"/>
+	<soorcngo_frx_ar row_key="_RSS0RM837" cproperty="Caption" orgtext="Payments Terms:                                                                                                                                                                                         " orgcol="Label" langtext="شروط الدفع:"/>
+	<soorcngo_frx_ar row_key="_RSN0RTNM7" cproperty="Caption" orgtext="Sales Rep.1 :                                                                                                                                                                                           " orgcol="Label" langtext="مندوب المبيعات 1"/>
+	<soorcngo_frx_ar row_key="_RP70N6H8S" cproperty="Caption" orgtext="Cust Dept :                                                                                                                                                                                             " orgcol="Label" langtext="قسم Cust:"/>
+	<soorcngo_frx_ar row_key="_RP70N40QE" cproperty="Caption" orgtext="Store # :                                                                                                                                                                                               " orgcol="Label" langtext="رقم المخزن"/>
+	<soorcngo_frx_ar row_key="_RP70MJXV5" cproperty="Caption" orgtext="Ship Via :                                                                                                                                                                                              " orgcol="Label" langtext="الشحن عن طريق"/>
+	<soorcngo_frx_ar row_key="_RP60ZBVQ7" cproperty="Caption" orgtext="Store #                                                                                                                                                                                                 " orgcol="Label" langtext="رقم المخزن"/>
+	<soorcngo_frx_ar row_key="_RSZ17H0KT" cproperty="Caption" orgtext="Entered Date :                                                                                                                                                                                          " orgcol="Label" langtext="التاريخ المدخل:"/>
+</VFPData>

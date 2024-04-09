@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<soshave_scx_ar row_key="_1X20VC157" cproperty="Caption" orgtext="Shaved Quantities                                                                                                                                                                                       " orgcol="ariabranchformset.ARIAFORM1" langtext="كميات أُلغي حجزها"/>
+	<soshave_scx_ar row_key="_1X20W2Y13" cproperty="Caption" orgtext="Shaved:                                                                                                                                                                                                 " orgcol="ariabranchformset.ARIAFORM1.lblShave" langtext="تم إلغاء الحجز:"/>
+	<soshave_scx_ar row_key="_1X20W3FQ6" cproperty="Caption" orgtext="Accept                                                                                                                                                                                                  " orgcol="ariabranchformset.ARIAFORM1.cmdAccept" langtext="قبول"/>
+	<soshave_scx_ar row_key="_1X20W3FQ7" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.ARIAFORM1.cmdCancel" langtext="إلغاء"/>
+</VFPData>

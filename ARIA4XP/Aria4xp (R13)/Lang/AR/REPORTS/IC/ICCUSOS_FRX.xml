@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<iccusos_frx_ar row_key="_RX00R9DAT" cproperty="Caption" orgtext="Sorted By :                                                                                                                                                                                             " orgcol="Label" langtext="فرز حسب:"/>
+	<iccusos_frx_ar row_key="_RX00R9DAV" cproperty="Caption" orgtext="Time          :                                                                                                                                                                                         " orgcol="Label" langtext="الوقت:"/>
+	<iccusos_frx_ar row_key="_RX00R9DAZ" cproperty="Caption" orgtext="Date  :                                                                                                                                                                                                 " orgcol="Label" langtext="التاريخ:"/>
+	<iccusos_frx_ar row_key="_RX00R9DB0" cproperty="Caption" orgtext="Page :                                                                                                                                                                                                  " orgcol="Label" langtext="الصفحة:"/>
+	<iccusos_frx_ar row_key="_RX00SMRRL" cproperty="Caption" orgtext="Style Cut &amp; Sold                                                                                                                                                                                        " orgcol="Label" langtext="نمط قطع آند تباع"/>
+	<iccusos_frx_ar row_key="_RX30Z0013" cproperty="Caption" orgtext="Recap. Grand Total                                                                                                                                                                                      " orgcol="Label" langtext="باختصار. المجموع الكلي"/>
+	<iccusos_frx_ar row_key="_RX30YXINE" cproperty="Caption" orgtext="Sub. Total                                                                                                                                                                                              " orgcol="Label" langtext="المجموع الفرعي"/>
+	<iccusos_frx_ar row_key="_RX00R9DAT" cproperty="Caption" orgtext="Sorted By :                                                                                                                                                                                             " orgcol="Label" langtext="فرز حسب:"/>
+	<iccusos_frx_ar row_key="_RX00R9DAV" cproperty="Caption" orgtext="Time      :                                                                                                                                                                                             " orgcol="Label" langtext="الوقت:"/>
+	<iccusos_frx_ar row_key="_RX00R9DAZ" cproperty="Caption" orgtext="Date :                                                                                                                                                                                                  " orgcol="Label" langtext="التاريخ:"/>
+	<iccusos_frx_ar row_key="_RX00R9DB0" cproperty="Caption" orgtext="Page :                                                                                                                                                                                                  " orgcol="Label" langtext="الصفحة:"/>
+	<iccusos_frx_ar row_key="_RX00SMRRL" cproperty="Caption" orgtext="Style Cut &amp; Sold                                                                                                                                                                                        " orgcol="Label" langtext="نمط قطع آند تباع"/>
+	<iccusos_frx_ar row_key="_RX30Z0013" cproperty="Caption" orgtext="Recap. Grand Total                                                                                                                                                                                      " orgcol="Label" langtext="باختصار. المجموع الكلي"/>
+	<iccusos_frx_ar row_key="_RX30YXINE" cproperty="Caption" orgtext="Sub. Total                                                                                                                                                                                              " orgcol="Label" langtext="المجموع الفرعي"/>
+	<iccusos_frx_ar row_key="_RX00R9SZA" cproperty="Expr" orgtext="'Style'" orgcol="Text" langtext="'النمط'"/>
+	<iccusos_frx_ar row_key="_RX30KT35A" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')='Y','',IIF(lcRPBased='W','WIP','Plan'))" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')='Y','',IIF(lcRPBased='W','WIP','Plan'))"/>
+	<iccusos_frx_ar row_key="_RX30OHSOU" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')='Y','','Hanging stock')" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')='Y','','Hanging stock')"/>
+	<iccusos_frx_ar row_key="_RX30OJ2I5" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')=&quot;Y&quot;,'',&quot;Tot available&quot;)" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')=&quot;Y&quot;,'',&quot;Tot available&quot;)"/>
+	<iccusos_frx_ar row_key="_RX30OJ2I6" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')='Y','','Open orders')" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')='Y','','Open orders')"/>
+	<iccusos_frx_ar row_key="_RX30OJ2I7" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')='Y','','Open to sell')" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')='Y','','Open to sell')"/>
+	<iccusos_frx_ar row_key="_RX30OJ2I8" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')='Y','','Shipped')" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')='Y','','Shipped')"/>
+	<iccusos_frx_ar row_key="_RX30OJ2I9" cproperty="Expr" orgtext="IIF(EVAL(lcTrns+'.Last')='Y','','Booked')" orgcol="Text" langtext="IIF(EVAL(lcTrns+'.Last')='Y','','Booked')"/>
+	<iccusos_frx_ar row_key="_1Z4102ZYI" cproperty="Expr" orgtext="'Total'" orgcol="Text" langtext="'اجمالىl'"/>
+	<iccusos_frx_ar row_key="_1Z41034DX" cproperty="Expr" orgtext="'Neg-OTS'" orgcol="Text" langtext="'Neg-OTS'"/>
+	<iccusos_frx_ar row_key="_1Z41038TD" cproperty="Expr" orgtext="'Pos-OTS'" orgcol="Text" langtext="'Pos-OTS'"/>
+	<iccusos_frx_ar row_key="_1Z4103D1J" cproperty="Expr" orgtext="'Net-OTS'" orgcol="Text" langtext="'Net-OTS'"/>
+	<iccusos_frx_ar row_key="_1Z410A14W" cproperty="Expr" orgtext="'Description'" orgcol="Text" langtext="'الوصف'"/>
+	<iccusos_frx_ar row_key="_1Z410A14X" cproperty="Expr" orgtext="'Div.'" orgcol="Text" langtext="'قسم'"/>
+	<iccusos_frx_ar row_key="_1Z410A14Y" cproperty="Expr" orgtext="'Pattern'" orgcol="Text" langtext="'Pattern'"/>
+	<iccusos_frx_ar row_key="_1Z410A14Z" cproperty="Expr" orgtext="'Sea.'" orgcol="Text" langtext="'Sea.'"/>
+	<iccusos_frx_ar row_key="_1Z410A150" cproperty="Expr" orgtext="'O-T-S'" orgcol="Text" langtext="'O-T-S'"/>
+	<iccusos_frx_ar row_key="_1Z410A151" cproperty="Expr" orgtext="'WIP'" orgcol="Text" langtext="'WIP'"/>
+	<iccusos_frx_ar row_key="_1Z410A152" cproperty="Expr" orgtext="'Stock'" orgcol="Text" langtext="'Stock'"/>
+	<iccusos_frx_ar row_key="_1Z410A153" cproperty="Expr" orgtext="'Avail.'" orgcol="Text" langtext="' المتاح '"/>
+	<iccusos_frx_ar row_key="_1Z410A154" cproperty="Expr" orgtext="'Orders'" orgcol="Text" langtext="'Orders'"/>
+	<iccusos_frx_ar row_key="_1Z410A155" cproperty="Expr" orgtext="'Shipped'" orgcol="Text" langtext="'Shipped'"/>
+	<iccusos_frx_ar row_key="_1Z410A156" cproperty="Expr" orgtext="'Booked'" orgcol="Text" langtext="' محجوز '"/>
+	<iccusos_frx_ar row_key="_RX00R9SZA" cproperty="Expr" orgtext="'Style'" orgcol="Text" langtext="'النمط'"/>
+</VFPData>

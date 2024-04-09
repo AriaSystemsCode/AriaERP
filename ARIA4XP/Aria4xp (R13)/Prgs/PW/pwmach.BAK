@@ -1,0 +1,709 @@
+*:************************************************************************
+*:  Program File: ARIA4XP\PRGS\PW\PWMACH.FXP
+*:  Module      : PIECE WORK
+*:  Desc.       : Machine Screen
+*:  System      : Aria 4XP
+*:  Developer   : HES - Hesham Elmasry
+*:  Date        : 05/03/2012
+*:  Reference   :
+*:************************************************************************
+*N000682,1 HES 12/25/2012 Globalization changes[Start]
+#INCLUDE R:\ARIA4XP\SCREENS\PW\PWMACH.h
+*N000682,1 HES 12/25/2012 Globalization changes[Start]
+lcProg = JUSTSTEM(SYS(16))
+
+ON ERROR
+*- Call the screen
+lcRunScx = lfGetScx("PW\&lcProg..scx")
+DO FORM (lcRunScx)
+
+************************************************************
+*! Name      : lfGetScx
+*! Developer : HES - Hesham Elmasry
+*! Date      : 05/03/2012
+*! Purpose   : Get the scx path to run in SaaS environemt
+************************************************************
+FUNCTION lfGetScx
+  PARAMETERS lcScx
+
+  LOCAL lcRunScx
+  IF oAriaApplication.Multiinst AND FILE(oAriaApplication.clientscreenhome+lcScx)
+    lcRunScx = oAriaApplication.clientscreenhome+lcScx
+  ELSE
+    lcRunScx = oAriaApplication.screenhome+lcScx
+  ENDIF
+  RETURN lcRunScx
+  *- End of lfGetScx.
+
+  *!*************************************************************
+  *! Name      : lfFormInit
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : called from the Screen init Method
+  *!*************************************************************
+FUNCTION lfFormInit
+  PARAMETERS loFormSet
+
+  lcProg = JUSTSTEM(SYS(16))
+  loFormSet.ADDPROPERTY('lcProgName',lcProg)
+  loFormSet.ADDPROPERTY('CalendID',0)
+  loFormSet.ADDPROPERTY('BrowWkCntr',gfTempName())
+
+
+  lcPath = oAriaApplication.ApplicationHome
+  SET PROCEDURE TO (lcPath+'PW\PWGLB.FXP') ADDITIVE &&  all these functions will be copied to the ARIAGLB later
+
+  *- Open tables
+  =lfOpenPRGFILES(loFormSet.lcProgName)
+
+  SELECT pewcntr
+  =gfSeek('')
+
+  WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage1.cboWorkCenter
+    .ROWSOURCE = "select CDESC, CWORKCENT from PEWCNTR INTO DBF (oAriaApplication.WorkDir+loFormSet.BrowWkCntr)"
+    .CONTROLSOURCE = loFormSet.BrowWkCntr
+  ENDWITH
+
+  * HES
+  select(loFormSet.BrowWkCntr)
+  if reccount() == 0
+    *N000682,1 HES Globalization work [Start]
+*!*	    MESSAGEBOX('No Work Centers found in the system, please create Work Centers first.',16+512,'No Work Centers found!')
+    MESSAGEBOX(IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_WCNt_missed,loformset.GetHeaderText("LANG_PWMACH_WCNt_missed",loformset.HeaderAlias)),16+512,IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_WCNT_MisTitl,loformset.GetHeaderText("LANG_PWMACH_WCNT_MisTitl",loformset.HeaderAlias)))
+    *N000682,1 HES Globalization work [END  ]
+    return .F.
+  endif
+  * HES
+
+  *E303136,1 TMI 10/05/2012 [Start] MOVE UP
+  lcPath = oAriaApplication.ApplicationHome
+  SET PROCEDURE TO (lcPath+'PW\PWGLB.FXP') ADDITIVE &&  all these functions will be copied to the ARIAGLB later
+  *E303136,1 TMI 10/05/2012 [End  ]
+
+  *** Load program base file
+  loFormSet.ADDPROPERTY('lcBaseFile',ALLTRIM(sydObjct.cBaseFile))
+
+  *- initializations
+  WITH loFormSet
+    .cbrowsetabledbengine   = "SQL"
+    .nWorkArea                            = .lcBaseFile
+    .otoolbar.nWorkArea                   = .lcBaseFile
+    .DATAENVIRONMENT.INITIALSELECTEDALIAS = .lcBaseFile
+    .cBrowseFileName        = .lcBaseFile
+    .cBrowseIndexExpression = "CMACHINEID"
+    .cBrowseIndexFields     = "CMACHINEID"
+    .cBrowseIndexName       = "PWMACHIN"
+    .cBrowseAliasName       = .lcBaseFile
+    .cBrowseTableName       = .lcBaseFile
+    .cBrowseFilter          = ""
+    .BrowseTitle 		  	  = ALLTRIM(sydObjct.CPRGLNAME)
+    .AriaBrFields.edtBrowseFields.VALUE = "CMACHINEID :H='"+IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_ID,loformset.GetHeaderText("LANG_PWMACH_ID",loformset.HeaderAlias))+"',"+;
+                                          "CDESC :H='"+IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_Desc,loformset.GetHeaderText("LANG_PWMACH_Desc",loformset.HeaderAlias))+"'"
+  ENDWITH
+
+  *- set the input mask of the keyfield
+  WITH loFormSet
+    .Ariaform1.AriaKeyField1.KeyTextbox.INPUTMASK = REPLICATE('!',FSIZE(.cBrowseIndexFields,.lcBaseFile))
+    .Ariaform1.TXTDesc.INPUTMASK = REPLICATE('X',FSIZE('CDESC',.lcBaseFile))
+  ENDWITH
+
+  WITH loFormSet
+    DIMENSION .laPanelObj[1,6]
+    *--Object link & Machine picture.
+    .laPanelObj[1,1]= "cmdPicture"
+    .laPanelObj[1,2]= oAriaApplication.BitmapHome+"RELATE.BMP"
+    .laPanelObj[1,3]= "mvObjLink"
+    .laPanelObj[1,4]= "Object Links"
+    .laPanelObj[1,5]= "Object Links"
+    .laPanelObj[1,6]= "VAE"
+    .ADDPROPERTY('lcObjType',"J")
+  ENDWITH
+  *!*	"B" Plant
+  *!*	"H" work center
+  *!*	"E" Employee
+  *!*   "H" Machine
+
+  loFormSet.HasMemo = .F.
+
+  *WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage1.Thumbnail1
+  WITH loFormset.Ariaform1.cntThumbnail
+    .cType = loFormSet.lcObjType
+    .cObjectKey = ""  &&*gfGetStyleImageInfo("K", ThisFormSet.lcStyleKey)
+  ENDWITH
+
+  =lfCalender(loFormSet)
+
+  loFormSet.ChangeMode('S')
+  *- End of lfFormInit.
+
+
+  ************************************************************
+  *! Name      : lfFormActivate
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : Form Activate
+  ************************************************************
+FUNCTION lfFormActivate
+  PARAMETERS loFormSet
+
+  *- End of lfFormActivate.
+
+  ************************************************************
+  *! Name      : lfChangeMode
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 04/24/2012
+  *! Purpose   : Change Mode
+  ************************************************************
+FUNCTION lfChangeMode
+  PARAMETERS loFormSet
+  LOCAL lnSlct
+  lnSlct = SELECT(0)
+
+  IF TYPE('loFormSet.lcBaseFile')='U'
+    RETURN
+  ENDIF
+
+  loFormSet.Ariaform1.AriaKeyField1.ENABLED = .F.
+
+  loFormSet.Ariaform1.Ariapageframe1.Ariapage2.Calendar1.fORMmODE = IIF(INLIST(UPPER(ALLTRIM(loFormSet.ActiveMode)),'V','S'),'V','E')
+  loFormSet.Ariaform1.Ariapageframe1.Ariapage2.Calendar1.grdCalendar.RecordSource = loFormSet.DataFile
+
+  DO CASE
+    CASE loFormSet.ActiveMode = 'S'
+      loFormSet.Ariaform1.AriaKeyField1.ENABLED = .T.
+      loFormSet.Ariaform1.AriaKeyField1.KeyTextbox.SETFOCUS()
+
+      WITH loFormset.Ariaform1.cntThumbnail
+        .cType = loFormSet.lcObjType
+        .cObjectKey = ""
+      ENDWITH
+
+    SELECT (loFormSet.DataFile)
+    ZAP
+
+    CASE INLIST(loFormSet.ActiveMode,'V')
+
+      WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage1
+        SELECT pewcntr
+        =gfSeek(pwmachin.CWORKCENT,'PEWCNTR')
+        SELECT pwmachin
+        lcID = pwmachin.CMACHINEID
+        loFormSet.Ariaform1.AriaKeyField1.KeyTextbox.VALUE = CMACHINEID
+        loFormSet.Ariaform1.TXTDesc.VALUE = cDesc
+        .txtMachEff.VALUE = NMCH_EFF
+        .txtTotalUsg.VALUE = NTOTUSG
+        .txtCstofwork.VALUE = NRUNCST
+        .txtCstofSetup.VALUE = NSETUPCST
+        loFormSet.Ariaform1.cboType.VALUE = ALLTRIM(CMCH_TYP)
+        .cboWorkCenter.VALUE = CWORKCENT
+        .dtpLstMnt.VALUE = DLSTMNT
+        .dtpDateofpur.VALUE = DDATEPUR
+        .spPriority.VALUE = NPRIORITY
+      ENDWITH
+
+      WITH loFormset.Ariaform1.cntThumbnail
+        .cType = loFormSet.lcObjType
+        .cObjectKey = pwmachin.CMACHINEID
+      ENDWITH
+
+     =gfSeek(PWMACHIN.CWORKCENT ,'PEWCNTR')
+     =gfSeek(PEWCNTR.CPLANT_ID ,'PEPLANT')
+     =gfSeek(STR(PEPLANT.NCALID,10),'SCCALDTL')
+
+     SELECT (loFormSet.DataFile)
+     ZAP
+
+     SELECT SCCALDTL
+     SCAN
+       SCATTER MEMVAR MEMO
+       m.LLOCK = .T.
+       SELECT (loFormSet.DataFile)
+       APPEND BLANK
+       GATHER MEMVAR MEMO
+     ENDSCAN
+
+      =gfSeek(STR(pwmachin.NCALID,10),'SCCALHDR')
+      =gfSeek(STR(pwmachin.NCALID,10),'SCCALDTL')
+      SELECT SCCALDTL
+      SCAN
+        m.LLOCK = .F.
+        SCATTER MEMVAR MEMO
+        SELECT (loFormSet.DataFile)
+        APPEND BLANK
+        GATHER MEMVAR MEMO
+      ENDSCAN
+
+      loFormSet.Ariaform1.Ariapageframe1.Ariapage2.Calendar1.CREATE()
+      loFormSet.CheckNavigation()
+      loFormSet.otoolbar.Navrefresh()
+
+    CASE loFormSet.ActiveMode = 'A'
+      WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage1
+        .txtMachEff.VALUE = 100
+        .txtTotalUsg.VALUE = 0.00
+        .txtCstofwork.VALUE = 0.00
+        .txtCstofSetup.VALUE = 0.00
+        .dtpLstMnt.VALUE = date()
+        .dtpDateofpur.VALUE = date()
+        .spPriority.VALUE = 1
+      ENDWITH
+      SELECT pewcntr
+      =gfSeek('')
+      loFormSet.Ariaform1.Ariapageframe1.Ariapage2.Calendar1.CREATE()
+    CASE loFormSet.ActiveMode = 'E'
+      loFormSet.Ariaform1.Ariapageframe1.Ariapage2.Calendar1.CREATE()
+  ENDCASE
+  SELECT (lnSlct)
+
+  *- End of lfChangeMode.
+
+************************************************************
+*! Name      : lfvWorkCenter
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 11/05/2012
+*! Purpose   : WorkCenter
+************************************************************
+FUNCTION lfvWorkCenter
+PARAMETERS loFormSet,loFld
+LOCAL lnSlct,lcWC
+lnSlct = SELECT(0)
+
+lcOldWC = loFld.OldValue
+gfSeek(loFld.OldValue ,'PEWCNTR')
+SELECT (loFormSet.DataFile)
+DELETE FOR NCALID  = PEWCNTR.NCALID
+
+gfSeek(loFld.Value ,'PEWCNTR')
+=gfSeek(STR(PEWCNTR.NCALID,10),'SCCALDTL')
+SELECT SCCALDTL
+SCAN
+  SCATTER MEMVAR MEMO
+  m.LLOCK = .T.
+  SELECT (loFormSet.DataFile)
+  APPEND BLANK
+  GATHER MEMVAR MEMO
+ENDSCAN
+
+SELECT(lnSlct)
+*- End of lfvWorkCenter.
+
+  ************************************************************
+  *! Name      : lfFormSavefiles
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : Save process
+  ************************************************************
+FUNCTION lfFormSavefiles
+  PARAMETERS loFormSet
+  LOCAL lnSlct
+  lnSlct = SELECT(0)
+
+  SELECT (loFormSet.lcBaseFile)
+  IF loFormSet.ActiveMode = 'A'
+    APPEND BLANK
+  ENDIF
+
+
+
+  gfAdd_Info(loFormSet.lcBaseFile)
+  WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage1
+    REPLACE CMACHINEID  WITH  loFormSet.Ariaform1.AriaKeyField1.KeyTextbox.VALUE ;
+      cDesc  WITH  loFormSet.Ariaform1.TXTDesc.VALUE ;
+      NMCH_EFF  WITH  IIF(TYPE('.txtMachEff.VALUE') = 'C',VAL(.txtMachEff.VALUE),.txtMachEff.VALUE) ;
+      NTOTUSG  WITH  IIF(TYPE('.txtTotalUsg.VALUE') = 'C',VAL(.txtTotalUsg.VALUE),.txtTotalUsg.VALUE) ;
+      NRUNCST  WITH  IIF(TYPE('.txtCstofwork.VALUE') = 'C',VAL(.txtCstofwork.VALUE),.txtCstofwork.VALUE) ;
+      NSETUPCST  WITH  IIF(TYPE('.txtCstofSetup.VALUE') = 'C',VAL(.txtCstofSetup.VALUE),.txtCstofSetup.VALUE) ;
+      CMCH_TYP  WITH  loFormSet.Ariaform1.cboType.VALUE ;
+      CWORKCENT  WITH  .cboWorkCenter.VALUE ;
+      DLSTMNT  WITH  .dtpLstMnt.VALUE ;
+      DDATEPUR  WITH  .dtpDateofpur.VALUE ;
+      NPRIORITY WITH  IIF(TYPE('.spPriority.VALUE') = 'C',VAL(.spPriority.VALUE),.spPriority.VALUE)
+  ENDWITH
+
+  *- save the calender data
+  SELECT (loFormSet.DataFile)
+  lnSeq = pwmachin.NCALID
+
+  LOCATE FOR !LLOCK
+  IF FOUND()
+
+    IF lnSeq = 0
+
+      SELECT SCCALHDR
+      APPEND BLANK
+      lnSeq = VAL(gfSequence('NCALID'))
+      REPLACE NCALID WITH lnSeq
+      gfAdd_Info('SCCALHDR')
+      =gfReplace('')
+
+      SELECT SCCALHDR
+      =gfTableUpdate()
+
+      SELECT (loFormSet.lcBaseFile)
+      REPLACE NCALID WITH lnSeq
+
+    ENDIF
+
+
+
+    SELECT (loFormSet.DataFile)
+    SCAN
+      SCATTER MEMVAR MEMO
+      m.ctimfrm = IIF(EMPTY(ALLTRIM(m.ctimfrm)),'12:00:00 AM',m.ctimfrm)
+      SELECT SCCALDTL
+      APPEND BLANK
+      m.ncalid = lnSeq
+      GATHER MEMVAR MEMO
+      gfAdd_Info('SCCALDTL')
+    ENDSCAN
+
+    SELECT SCCALDTL
+    SCAN
+      =gfReplace('')
+    ENDSCAN
+
+    SELECT SCCALDTL
+    =gfTableUpdate()
+
+  ENDIF
+
+  SELECT (loFormSet.DataFile)
+  =gfReplace('')
+  =gfTableUpdate()
+
+  SELECT (loFormSet.lcBaseFile)
+  =gfReplace('')
+  =gfTableUpdate()
+
+  SELECT (lnSlct)
+  *- End of lfFormSavefiles.
+
+  ************************************************************
+  *! Name      : lfFormDelete
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : lfFormDelete
+  ************************************************************
+  ************************************************************
+  *! Name      : lfFormDelete
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : lfFormDelete
+  ************************************************************
+FUNCTION lfFormDelete
+  PARAMETERS loFormSet
+  LOCAL lnSlct
+  lnSlct = SELECT(0)
+
+
+
+  dimension laDBFFiles[1]
+  dimension laERPFiles[1]
+  if !used('SYDFLFLD')
+    use oAriaApplication.SysPath+'SYDFLFLD' in 0 shared
+  endif
+
+  select cfile_nam from SYDFLFLD where cfld_Name = loFormSet.cBrowseIndexExpression into array laDBFFiles
+  use in sydflfld
+
+  =gfOpenTable(oAriaApplication.SysPath+'SYCINST','','SH')
+  lcA4SysDir = ADDBS(SYCINST.cA4SysDir)
+  use lcA4SysDir +'SYDFLFLD' in 0 shared
+  select cfile_nam from SYDFLFLD where cfld_Name = loFormSet.cBrowseIndexExpression into array laSQLFiles
+  use in sydflfld
+
+  lnDBFCnt = iif(type('laDBFFiles') <> 'L',ALEN(laDBFFiles,1),0)
+  lnSQLCnt = iif(type('laSQLFiles') <> 'L',ALEN(laSQLFiles,1),0)
+
+  lcKey = loFormSet.cBrowseIndexExpression
+  lcBaseFile = loFormSet.lcBaseFile
+  llFound = .F.
+  lcTable = ''
+  FOR lnX = 1 to lnDBFCnt
+    if !used('alltrim(laSQLFiles[1,lnX])')
+      =gfOpenTable(alltrim(laSQLFiles[1,lnX]),alltrim(laSQLFiles[1,lnX]),'SH')
+    endif
+    if !(alltrim(laDBFFiles[1,lnX]) == alltrim(lcBaseFile))
+      select alltrim(laDBFFiles[1,lnX])
+      gfSeek('')
+      locate for &lcKey = eval(lcbasefile+'.&lcKey')
+      if found()
+        llFound = .T.
+        lcTable = alltrim(laDBFFiles[1,lnX])
+        exit
+      endif
+    endif
+  ENDFOR
+
+  FOR lnX = 1 to lnSQLCnt
+    if !(alltrim(laSQLFiles[1,lnX]) == alltrim(lcBaseFile))
+      if !used('alltrim(laSQLFiles[1,lnX])')
+        =gfOpenTable(alltrim(laSQLFiles[1,lnX]),alltrim(laSQLFiles[1,lnX]),'SH')
+      endif
+      select alltrim(laSQLFiles[1,lnX])
+      gfSeek('')
+      locate for &lcKey = eval(lcbasefile+'.&lcKey')
+      if found()
+        llFound = .T.
+        lcTable = alltrim(laSQLFiles[1,lnX])
+        exit
+      endif
+    endif
+  ENDFOR
+
+  if !llFound
+    SELECT (loFormSet.lcBaseFile)
+    gfDelete()
+    gfTableUpdate()
+  ELSE
+    *N000682,1 HES Globalization work [Start]
+*!*	    wait windows "This entity has a reference in "+alltrim(lcTable )+ " table, can't delete it."
+    lcLang1 = IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_Entry,loFormSet.GetHeaderText("LANG_PWMACH_Entry",loFormSet.HeaderAlias))
+    lcLang2 = IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_Table_Delete,loFormSet.GetHeaderText("LANG_PWMACH_Table_Delete",loFormSet.HeaderAlias))
+    WAIT window lcLang1  +alltrim(lcTable)+ lcLang2 
+    *N000682,1 HES Globalization work [END  ]
+    return .F.
+  endif
+
+  SELECT(lnSlct)
+  *- End of lfFormDelete.
+
+  ************************************************************
+  *! Name      : lfFormBeforeSave
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : Before Save
+  ************************************************************
+FUNCTION lfFormBeforeSave
+PARAMETERS loFormSet
+LOCAL lnSlct,llRet
+lnSlct = SELECT(0)
+
+IF EMPTY(ALLTRIM(loFormSet.Ariaform1.txtDesc.VALUE))
+  *N000682,1 HES Globalization work [Start]
+*!*	  WAIT WINDOW "Please enter a machine description before save."
+  WAIT WINDOW IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_Desc_Validate,loFormSet.GetHeaderText("LANG_PWMACH_Desc_Validate",loFormSet.HeaderAlias))
+  *N000682,1 HES Globalization work [END  ]
+  loFormSet.Ariaform1.txtDesc.setfocus()
+  return .F.
+ENDIF
+
+IF EMPTY(ALLTRIM(loFormSet.Ariaform1.cboType.VALUE))
+  *N000682,1 HES Globalization work [Start]
+*!*	  WAIT WINDOW "Please enter a machine type before save."
+  WAIT WINDOW IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_Type_Validate,loFormSet.GetHeaderText("LANG_PWMACH_Type_Validate",loFormSet.HeaderAlias))
+  *N000682,1 HES Globalization work [END  ]
+  loFormSet.Ariaform1.cboType.setfocus()
+  return .F.
+ENDIF
+
+IF EMPTY(ALLTRIM(loFormSet.Ariaform1.Ariapageframe1.Ariapage1.cboWorkCenter.value))
+  *N000682,1 HES Globalization work [Start]
+*!*	  WAIT WINDOW "Please enter a Work Center before save."
+  WAIT WINDOW IIF(oAriaApplication.oactiveLang.clang_id = "EN",LANG_PWMACH_WCNT_Validate,loFormSet.GetHeaderText("LANG_PWMACH_WCNT_Validate",loFormSet.HeaderAlias))
+  *N000682,1 HES Globalization work [END  ]
+  loFormSet.Ariaform1.cboType.setfocus()
+  return .F.
+ENDIF
+
+LOgRD = loFormSet.Ariaform1.Ariapageframe1.Ariapage2
+llRet = lfCalChk(loFormSet,.T.,LOgRD) &&check upon editing calender , not in the saving process
+
+SELECT (lnSlct)
+RETURN llRet
+
+  *- End of lfFormBeforeSave.
+  ************************************************************
+  *! Name      : lfvKeyField
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : Valid function for Machine_ID
+  ************************************************************
+FUNCTION lfvKeyField
+  PARAMETERS loFormSet,loFld
+  LOCAL lnSlct
+  lnSlct = SELECT(0)
+
+  WITH loFld.KeyTextbox
+    .VALUE     = ALLTRIM(.VALUE)
+    .VALUE     = PADR(.VALUE,LEN(.INPUTMASK))
+  ENDWITH
+  lcFile_Ttl = loFormSet.BrowseTitle
+  lcBrFields = loFormSet.AriaBrFields.edtBrowseFields.VALUE
+  llView = .F.
+  lcBaseFile = loFormSet.lcBaseFile
+  llBrowse = loFld.Selectedfrombrowse
+
+  SELECT (lcBaseFile)
+  IF llBrowse .OR. !gfSeek(loFld.KeyTextbox.VALUE) .OR. ATC("?",loFld.KeyTextbox.VALUE) > 0
+    IF llBrowse .OR. ATC("?",loFld.KeyTextbox.VALUE) > 0
+      IF loFormSet.otoolbar.cmdFind.CLICK()
+        llView = .T.
+      ELSE
+        loFld.KeyTextbox.VALUE = loFld.KeyTextbox.OldValue
+      ENDIF
+    ELSE
+      lnOption  = gfModalGen('QRM00001B00001','Dialog',;
+        +ALLTRIM(loFld.KeyTextbox.VALUE))
+
+      DO CASE
+        CASE lnOption = 1
+          IF loFormSet.otoolbar.cmdFind.CLICK()
+            llView = .T.
+          ELSE
+            loFld.KeyTextbox.VALUE = loFld.KeyTextbox.OldValue
+          ENDIF
+        CASE lnOption = 2
+          loFormSet.ChangeMode('A')
+          RETURN
+
+        CASE lnOption = 3
+          loFld.KeyTextbox.VALUE = loFld.KeyTextbox.OldValue
+          RETURN .F.
+      ENDCASE
+    ENDIF
+  ELSE
+    loFld.KeyTextbox.VALUE = &lcBaseFile..CMACHINEID
+    llView = .T.
+  ENDIF
+
+  IF llView = .T.
+    loFormSet.ChangeMode('V')
+    =lfChkNav()
+  ENDIF
+
+  SELECT (lnSlct)
+  *- End of lfvPlant.
+
+
+  ************************************************************
+  *! Name      : lfObjLink
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : View/Add Object link picture.
+  *!*************************************************************
+  *! Calls     :
+  *!             Procedures : gfGetObj
+  *************************************************************!*************************************************************
+*E303136,1 TMI 10/05/2012 [Start] use the function in PWGLB
+*FUNCTION lfObjLink
+FUNCTION x_lfObjLink
+*E303136,1 TMI 10/05/2012 [End  ]
+  PARAMETERS loFormSet
+  LOCAL lnAlias,lcID
+  lcID = loFormSet.Ariaform1.AriaKeyField1.KeyTextbox.VALUE
+
+  lnAlias = SELECT()
+  DO gfGetObj WITH loFormSet.lcObjType,lcID
+  SELECT(lnAlias)
+
+  *WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage1.Thumbnail1
+  WITH loFormset.Ariaform1.cntThumbnail
+    .cType = loFormSet.lcObjType
+    .cObjectKey = lcID
+  ENDWITH
+
+
+  ************************************************************
+  *! Name      : msg
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : used in debugging purpose
+  ************************************************************
+FUNCTION msg
+  PARAMETERS lcMsg
+  IF SYS(0) = 'DEV4 # Tarek'
+
+    ON ERROR
+    _SCREEN.VISIBLE=.T.
+
+    lcMsg  = IIF(EMPTY(lcMsg),'Error suspected here ...',lcMsg)
+
+    IF .T.
+
+    ELSE
+      SET ASSERTS ON
+      ASSERT .F. MESSAGE lcMsg
+    ENDIF
+
+  ENDIF
+
+  *- End of msg.
+
+
+  ************************************************************
+  *! Name      : lfChkNav
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : lfChkNav
+  ************************************************************
+FUNCTION lfChkNav
+
+  LOCAL cNativeDBID
+  cNativeDBID = oAriaApplication.cNativeDBID
+  oAriaApplication.cNativeDBID = 'SQL'
+  =gfSeek('',loFormSet.lcBaseFile)
+  SELECT (loFormSet.lcBaseFile)
+  =SEEK(loFld.KeyTextbox.VALUE)
+  loFormSet.CheckNavigation()
+  loFormSet.otoolbar.Navrefresh()
+  oAriaApplication.cNativeDBID = cNativeDBID
+
+  *- End of lfChkNav.
+
+  ************************************************************
+  *! Name      : lfCalender
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : lfCalender
+  ************************************************************
+FUNCTION lfCalender
+  PARAMETERS loFormSet
+
+  LOCAL lnSlct
+  lnSlct = SELECT(0)
+
+  WITH loFormSet.Ariaform1.Ariapageframe1.Ariapage2.Calendar1
+    .EntityType = 'M'
+    .DataFile = gfTempName()
+    loFormSet.ADDPROPERTY('DataFile',.DataFile)
+    loFormSet.ADDPROPERTY('EntityType','')
+    loFormSet.EntityType = .EntityType
+  ENDWITH
+
+  DIMENSION laStru[1,18]
+  SELECT SCCALDTL
+  =AFIELDS(laStru)
+  lnLen = ALEN(laStru,1)+1
+  DIMENSION laStru[lnLen,18]
+  laStru[lnLen ,1] = 'LLOCK'
+  laStru[lnLen ,2] = 'L'
+  laStru[lnLen ,3] = 1
+  laStru[lnLen ,4] = 0
+  STORE .F. TO laStru[lnLen ,5], laStru[lnLen ,6]
+  FOR i=7 TO 16
+    laStru[lnLen ,i] = ''
+  ENDFOR
+  STORE 0 TO laStru[lnLen ,17], laStru[lnLen ,18]
+  CREATE CURSOR (loFormSet.DataFile) FROM ARRAY laStru
+
+  SELECT (lnSlct)
+  *- End of lfCalender.
+
+  ************************************************************
+  *! Name      : lfCalender
+  *! Developer : HES - Hesham Elmasry
+  *! Date      : 05/03/2012
+  *! Purpose   : lfCalCalendar
+  ************************************************************
+FUNCTION lfCalCalendar
+  PARAMETERS loFormSet
+
+  *- Call the Calendar screen
+  lcRunScx = lfGetScx("PW\PWCALND.scx")
+  WITH loFormSet
+    DO FORM (lcRunScx) WITH .DataFile,.ActiveMode,.EntityType,.CalendID
+  ENDWITH
+
+  *- End of lfCalCalendar.
+

@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icsclrt_h_ar row_key="LANG_ONEDIME" cproperty="Caption" orgtext="One Dimension                                                                                                                                                                                           " orgcol="LANG_ONEDIME" langtext="البعد واحد"/>
+	<icsclrt_h_ar row_key="LANG_TWO" cproperty="Caption" orgtext="Two                                                                                                                                                                                                     " orgcol="LANG_TWO" langtext="اثنان"/>
+	<icsclrt_h_ar row_key="LANG_THREE" cproperty="Caption" orgtext="Three                                                                                                                                                                                                   " orgcol="LANG_THREE" langtext="ثلاثة"/>
+	<icsclrt_h_ar row_key="LANG_DIMES" cproperty="Caption" orgtext="Dimensions                                                                                                                                                                                              " orgcol="LANG_DIMES" langtext="أبعاد"/>
+</VFPData>

@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<poprfcst_scx_ar row_key="_2SU0PFCHW" cproperty="Caption" orgtext="Default Customer                                                                                                                                                                                        " orgcol="ariabranchformset.AriaForm1" langtext="العميل الافتراضي"/>
+	<poprfcst_scx_ar row_key="_2SU0PFCIC" cproperty="Caption" orgtext="Account                                                                                                                                                                                                 " orgcol="ariabranchformset.AriaForm1.Arialabel8" langtext="حساب"/>
+	<poprfcst_scx_ar row_key="_2SU0PFCHV" cproperty="Caption" orgtext="OK                                                                                                                                                                                                      " orgcol="ariabranchformset.AriaForm1.cmdOK" langtext="موافق"/>
+	<poprfcst_scx_ar row_key="_2SU0PGW37" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariabranchformset.AriaForm1.cmdCnc" langtext="إلغاء"/>
+</VFPData>

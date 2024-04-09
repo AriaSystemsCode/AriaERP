@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<glddate_scx_ar row_key="_1BR11GLCN" cproperty="Caption" orgtext="Transaction Date                                                                                                                                                                                        " orgcol="ariaformset.AriaForm1" langtext="تاريخ المعاملة"/>
+	<glddate_scx_ar row_key="_1BR11GLCQ" cproperty="Caption" orgtext="OK                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
+	<glddate_scx_ar row_key="_1BR11GLCR" cproperty="Caption" orgtext="Enter Transaction Date :                                                                                                                                                                                " orgcol="ariaformset.AriaForm1.Arialabel1" langtext="أدخل تاريخ المعاملة:"/>
+</VFPData>

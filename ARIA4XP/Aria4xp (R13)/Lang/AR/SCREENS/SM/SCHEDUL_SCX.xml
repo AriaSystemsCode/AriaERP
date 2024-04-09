@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<schedul_scx_ar row_key="_1GF12KZOY" cproperty="Caption" orgtext="Schedule" orgcol="ariaformset.AriaForm1" langtext="الجدول الزمني"/>
+	<schedul_scx_ar row_key="_0R00POW75" cproperty="Caption" orgtext="Ariapage1" orgcol="ariaformset.AriaForm1.Ariapageframe1.Page1" langtext="Ariapage1"/>
+	<schedul_scx_ar row_key="_0R00POW75" cproperty="Caption" orgtext="Ariapage2" orgcol="ariaformset.AriaForm1.Ariapageframe1.Page2" langtext="Ariapage2"/>
+	<schedul_scx_ar row_key="_0QV0M2MJ1" cproperty="Caption" orgtext="Daily" orgcol="ariaformset.AriaForm1.ctBDaily" langtext="اليومية"/>
+	<schedul_scx_ar row_key="_0R00P0LVZ" cproperty="Caption" orgtext="User:" orgcol="ariaformset.AriaForm1.Arialabel1" langtext="المستخدم:"/>
+	<schedul_scx_ar row_key="_0R00RACCB" cproperty="Caption" orgtext="Weekly" orgcol="ariaformset.AriaForm1.ctBWeekly" langtext="التنزيلات"/>
+	<schedul_scx_ar row_key="_0QZ0PS98S" cproperty="Caption" orgtext="Call" orgcol="ariaformset.AriaForm1.cmdCall" langtext="المكالمة"/>
+	<schedul_scx_ar row_key="_0QZ0PS98T" cproperty="Caption" orgtext="Appointment" orgcol="ariaformset.AriaForm1.cmdAppoint" langtext="تعيين"/>
+	<schedul_scx_ar row_key="_0QV0M2MJ1" cproperty="Caption" orgtext="ToDo" orgcol="ariaformset.AriaForm1.cmdToDo" langtext="تودو"/>
+	<schedul_scx_ar row_key="_0QZ0PS98U" cproperty="Caption" orgtext="Email" orgcol="ariaformset.AriaForm1.cmdEmail" langtext="البريد الإلكتروني"/>
+</VFPData>

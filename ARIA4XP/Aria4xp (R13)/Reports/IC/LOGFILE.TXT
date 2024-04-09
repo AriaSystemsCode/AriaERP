@@ -1,0 +1,38 @@
+PRGS Log File create on:02/18/13    15:48:56
+R:\ARIA4XP\REPORTS\IC\ICCOST.PRG
+ICCOST.PRG  WAIT WINDOW Lang_Select  + ALLTRIM(STR(RECCOUNT(lcCostTmp))) +;  Needs comment WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Select,oAriaApplication.GetHeaderText("Lang_Select",AHEADERFILE))  + ALLTRIM(STR(RECCOUNT(lcCostTmp))) +;
+ICCOST.PRG  Lang_Records_in+ ALLTRIM(STR(lnInterval,6,2)) +;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Records_in,oAriaApplication.GetHeaderText("Lang_Records_in",AHEADERFILE))+ ALLTRIM(STR(lnInterval,6,2)) +;
+ICCOST.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\IC\ICCUTSOL.PRG
+R:\ARIA4XP\REPORTS\IC\ICDATSEN.PRG
+ICDATSEN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\IC\ICINVAG.PRG
+ICINVAG.PRG  WAIT WINDOW Lang_Select + ALLTRIM(STR(RECCOUNT(lcWrkTmp))) +;  Needs comment WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Select,oAriaApplication.GetHeaderText("Lang_Select",AHEADERFILE)) + ALLTRIM(STR(RECCOUNT(lcWrkTmp))) +;
+ICINVAG.PRG  Lang_Records_in + ALLTRIM(STR(lnInterval,6,2)) +;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Records_in,oAriaApplication.GetHeaderText("Lang_Records_in",AHEADERFILE)) + ALLTRIM(STR(lnInterval,6,2)) +;
+ICINVAG.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\IC\ICPAKSKU.PRG
+R:\ARIA4XP\REPORTS\IC\ICPHINV.PRG
+ICPHINV.PRG  has no .h file
+R:\ARIA4XP\REPORTS\IC\ICROYLTY.PRG
+R:\ARIA4XP\REPORTS\IC\ICSCLRT.PRG
+R:\ARIA4XP\REPORTS\IC\ICSCUTSO.PRG
+R:\ARIA4XP\REPORTS\IC\ICSTKJL.PRG
+R:\ARIA4XP\REPORTS\IC\ICSTLB.PRG
+ICSTLB.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\IC\ICSTYASS.PRG
+ICSTYASS.PRG  has no .h file
+R:\ARIA4XP\REPORTS\IC\ICSTYLCK.PRG
+ICSTYLCK.PRG  lcBrFields  = "cLkBatch    :12   :H = '"+LANG_BR_BATCHNO+"',"+;  Needs comment lcBrFields  = "cLkBatch    :12   :H = '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_BATCHNO,oAriaApplication.GetHeaderText("LANG_BR_BATCHNO",AHEADERFILE))+"',"+;
+ICSTYLCK.PRG  "lctmp = SUBSTR(Content,1,60) :60 :H = '"+LANG_BR_DESC+"',"+;  Needs comment "lctmp = SUBSTR(Content,1,60) :60 :H = '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_DESC,oAriaApplication.GetHeaderText("LANG_BR_DESC",AHEADERFILE))+"',"+;
+ICSTYLCK.PRG  "Date      :12   :H = '"+LANG_BR_LOCKDATE+"',"+;  Needs comment "Date      :12   :H = '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_LOCKDATE,oAriaApplication.GetHeaderText("LANG_BR_LOCKDATE",AHEADERFILE))+"',"+;
+ICSTYLCK.PRG  "DPOSTDATE :12   :H = '"+LANG_BR_POSTDATE+"',"+;  Needs comment "DPOSTDATE :12   :H = '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_POSTDATE,oAriaApplication.GetHeaderText("LANG_BR_POSTDATE",AHEADERFILE))+"',"+;
+ICSTYLCK.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\IC\ICSTYLST.PRG
+ICSTYLST.PRG  WAIT WINDOW LANG_SELECTED +' ' + ALLTRIM(STR(RECCOUNT())) +;  Needs comment WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SELECTED,oAriaApplication.GetHeaderText("LANG_SELECTED",AHEADERFILE)) +' ' + ALLTRIM(STR(RECCOUNT())) +;
+ICSTYLST.PRG  ' '+LANG_RECIN+' ' + ALLTRIM(STR(lnInterval,6,2)) + ' '+;  Needs comment ' '+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_RECIN,oAriaApplication.GetHeaderText("LANG_RECIN",AHEADERFILE))+' ' + ALLTRIM(STR(lnInterval,6,2)) + ' '+;
+ICSTYLST.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\IC\ICUPCRPT.PRG
+ICUPCRPT.PRG  loOgScroll.laCRParams[3,2] = IIF(lcRpSrtBy&lcRpPrtFor ='U',LANG_UPCNO,;  Needs comment loOgScroll.laCRParams[3,2] = IIF(lcRpSrtBy&lcRpPrtFor ='U',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_UPCNO,oAriaApplication.GetHeaderText("LANG_UPCNO",AHEADERFILE)),;
+ICUPCRPT.PRG  IIF(lcRpPrtFor='S',LANG_STYLENO,;  Needs comment IIF(lcRpPrtFor='S',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_STYLENO,oAriaApplication.GetHeaderText("LANG_STYLENO",AHEADERFILE)),;
+ICUPCRPT.PRG  has compilation errors
+End on:02/18/13    15:55:01

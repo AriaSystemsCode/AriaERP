@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<rmcmem_h_ar row_key="LANG_COLLECTING_DATA" cproperty="Caption" orgtext="Collecting data for report...                                                                                                                                                                           " orgcol="LANG_COLLECTING_DATA" langtext="...جمع البيانات للتقرير"/>
+	<rmcmem_h_ar row_key="LANG_COLLECTING_DATA_FOR" cproperty="Caption" orgtext="Collecting data for Credit Memo:                                                                                                                                                                        " orgcol="LANG_COLLECTING_DATA_FOR" langtext="جمع البيانات &quot;المذكرة الائتمان&quot;:"/>
+	<rmcmem_h_ar row_key="LANG_RANO" cproperty="Caption" orgtext="R/A #                                                                                                                                                                                                   " orgcol="LANG_RANO" langtext="رقم حساب المقبوضات"/>
+	<rmcmem_h_ar row_key="LANG_ORDERNO" cproperty="Caption" orgtext="Order #                                                                                                                                                                                                 " orgcol="LANG_ORDERNO" langtext="تأمر #"/>
+	<rmcmem_h_ar row_key="LANG_INVOICENO" cproperty="Caption" orgtext="Invoice #                                                                                                                                                                                               " orgcol="LANG_INVOICENO" langtext="رقم الفاتورة"/>
+</VFPData>

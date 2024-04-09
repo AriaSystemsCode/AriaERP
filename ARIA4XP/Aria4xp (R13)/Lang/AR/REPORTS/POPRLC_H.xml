@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<poprlc_h_ar row_key="LANG_EXPIRE" cproperty="Caption" orgtext="EXPIRE :                                                                                                                                                                                                " orgcol="LANG_EXPIRE" langtext="انتهاء صلاحية:"/>
+	<poprlc_h_ar row_key="LANG_LCNO" cproperty="Caption" orgtext="LC #                                                                                                                                                                                                    " orgcol="LANG_LCNO" langtext="رقم خطاب الاعتماد"/>
+	<poprlc_h_ar row_key="LANG_DATE" cproperty="Caption" orgtext="Date :                                                                                                                                                                                                  " orgcol="LANG_DATE" langtext="التاريخ:"/>
+	<poprlc_h_ar row_key="LANG_NOTEPAD" cproperty="Caption" orgtext="*--- N o t e  P a d ---*                                                                                                                                                                                " orgcol="LANG_NOTEPAD" langtext="*---N o t e P د--*"/>
+</VFPData>

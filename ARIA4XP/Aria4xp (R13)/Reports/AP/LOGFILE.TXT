@@ -1,0 +1,85 @@
+PRGS Log File create on:02/18/13    15:29:20
+R:\ARIA4XP\REPORTS\AP\AP1099F.PRG
+R:\ARIA4XP\REPORTS\AP\APAGEINV.PRG
+APAGEINV.PRG  lcBrFields = "CCURRCODE :R :H= '"+LANG_CURRCODE+"'," +;  Needs comment lcBrFields = "CCURRCODE :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CURRCODE,oAriaApplication.GetHeaderText("LANG_CURRCODE",AHEADERFILE))+"'," +;
+APAGEINV.PRG  "CCURRDESC :R :H= '"+LANG_DESC+"',  " +;  Needs comment "CCURRDESC :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESC,oAriaApplication.GetHeaderText("LANG_DESC",AHEADERFILE))+"',  " +;
+APAGEINV.PRG  lcBrfields="CACCTCODE :H= '"+LANG_ACCCODE+"',"+;  Needs comment lcBrfields="CACCTCODE :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ACCCODE,oAriaApplication.GetHeaderText("LANG_ACCCODE",AHEADERFILE))+"',"+;
+APAGEINV.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APAPROVE.PRG
+APAPROVE.PRG  lcBrFields = "CCURRCODE :R :H= LANG_Currency_Code," +;  Needs comment lcBrFields = "CCURRCODE :R :H= IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Currency_Code,oAriaApplication.GetHeaderText("LANG_Currency_Code",AHEADERFILE))," +;
+APAPROVE.PRG  "CCURRDESC :R :H= LANG_Description,  " +;  Needs comment "CCURRDESC :R :H= IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Description,oAriaApplication.GetHeaderText("LANG_Description",AHEADERFILE)),  " +;
+APAPROVE.PRG  lcBrFields = "CCURRCODE :R :H='"+ LANG_Currency_Code+"'," +;  Needs comment lcBrFields = "CCURRCODE :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Currency_Code,oAriaApplication.GetHeaderText("LANG_Currency_Code",AHEADERFILE))+"'," +;
+APAPROVE.PRG  "CCURRDESC :R :H='"+ LANG_Description+"',  " +;  Needs comment "CCURRDESC :R :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Description,oAriaApplication.GetHeaderText("LANG_Description",AHEADERFILE))+"',  " +;
+APAPROVE.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APCASHR.PRG
+APCASHR.PRG  lcBrFields = "CCURRCODE :R :H= '"+LANG_CURRENCY_CODE+"'," +;  Needs comment lcBrFields = "CCURRCODE :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CURRENCY_CODE,oAriaApplication.GetHeaderText("LANG_CURRENCY_CODE",AHEADERFILE))+"'," +;
+APCASHR.PRG  "CCURRDESC :R :H= '"+LANG_DESCRIPTION+"',  " +;  Needs comment "CCURRDESC :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESCRIPTION,oAriaApplication.GetHeaderText("LANG_DESCRIPTION",AHEADERFILE))+"',  " +;
+APCASHR.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APCHKPNT.PRG
+APCHKPNT.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AP\APCHKPRV.PRG
+APCHKPRV.PRG  lcBrfields="CACCTCODE :H= '"+LANG_ACTCODE+"',"+;  Needs comment lcBrfields="CACCTCODE :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ACTCODE,oAriaApplication.GetHeaderText("LANG_ACTCODE",AHEADERFILE))+"',"+;
+APCHKPRV.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APCKREG.PRG
+APCKREG.PRG  lcRpVenPay= lcRpVenPay+ IIF(laRpTarget[lnI] = LANG_apckreg_PRINTEDCHKS,"'P'",;  Needs comment lcRpVenPay= lcRpVenPay+ IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_apckreg_PRINTEDCHKS,oAriaApplication.GetHeaderText("LANG_apckreg_PRINTEDCHKS",AHEADERFILE)),"'P'",;
+APCKREG.PRG  IIF(laRpTarget[lnI] = LANG_apckreg_MANUALCHKS,",'M'",;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_apckreg_MANUALCHKS,oAriaApplication.GetHeaderText("LANG_apckreg_MANUALCHKS",AHEADERFILE)),",'M'",;
+APCKREG.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APDISC.PRG
+R:\ARIA4XP\REPORTS\AP\APDIVIS.PRG
+APDIVIS.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AP\APDSTTMP.PRG
+APDSTTMP.PRG  lcBrFields="CAUTMTYPE :H='"+ LANG_TEMPLATE_TYPE+"',"+;  Needs comment lcBrFields="CAUTMTYPE :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TEMPLATE_TYPE,oAriaApplication.GetHeaderText("LANG_TEMPLATE_TYPE",AHEADERFILE))+"',"+;
+APDSTTMP.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APGNRCR.PRG
+APGNRCR.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AP\APINSTM.PRG
+APINSTM.PRG  lcBrFields="CBNKCODE :H='"+ LANG_BANK_CODE+"',"+;  Needs comment lcBrFields="CBNKCODE :H='"+ IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BANK_CODE,oAriaApplication.GetHeaderText("LANG_BANK_CODE",AHEADERFILE))+"',"+;
+APINSTM.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APINVLIN.PRG
+APINVLIN.PRG  lcBrFields = "CCURRCODE :R :H= '"+LANG_CURRENCY_CODE+"'," +;  Needs comment lcBrFields = "CCURRCODE :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CURRENCY_CODE,oAriaApplication.GetHeaderText("LANG_CURRENCY_CODE",AHEADERFILE))+"'," +;
+APINVLIN.PRG  "CCURRDESC :R :H= '"+LANG_DESCRIPTION+"',  " +;  Needs comment "CCURRDESC :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESCRIPTION,oAriaApplication.GetHeaderText("LANG_DESCRIPTION",AHEADERFILE))+"',  " +;
+APINVLIN.PRG  lcBrowFlds = "PO :R :H="+IIF(lcRpDocTyp='R',"'"+LANG_BR_RETPO+"'","'"+LANG_BR_PO+"'")+":12,"+;  Needs comment lcBrowFlds = "PO :R :H="+IIF(lcRpDocTyp='R',"'"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_RETPO,oAriaApplication.GetHeaderText("LANG_BR_RETPO",AHEADERFILE))+"'","'"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_PO,oAriaApplication.GetHeaderText("LANG_BR_PO",AHEADERFILE))+"'")+":12,"+;
+APINVLIN.PRG  "Status    :R :H='"+LANG_BR_S+"':4,Vendor    :R :H='"+LANG_BR_VENDOR+"' :15,"+;  Needs comment "Status    :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_S,oAriaApplication.GetHeaderText("LANG_BR_S",AHEADERFILE))+"':4,Vendor    :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_VENDOR,oAriaApplication.GetHeaderText("LANG_BR_VENDOR",AHEADERFILE))+"' :15,"+;
+APINVLIN.PRG  "ApVendor.cVenComp :R :H='"+LANG_BR_NAME+"':22,Entered   :R :H='"+LANG_BR_ENTERED+"':15,"+;  Needs comment "ApVendor.cVenComp :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_NAME,oAriaApplication.GetHeaderText("LANG_BR_NAME",AHEADERFILE))+"':22,Entered   :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_ENTERED,oAriaApplication.GetHeaderText("LANG_BR_ENTERED",AHEADERFILE))+"':15,"+;
+APINVLIN.PRG  "Complete  :R :H='"+LANG_BR_COMPLETE+"':15,nStyOrder :R :H='"+LANG_BR_TOTQTY+"':10,"+;  Needs comment "Complete  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_COMPLETE,oAriaApplication.GetHeaderText("LANG_BR_COMPLETE",AHEADERFILE))+"':15,nStyOrder :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_TOTQTY,oAriaApplication.GetHeaderText("LANG_BR_TOTQTY",AHEADERFILE))+"':10,"+;
+APINVLIN.PRG  lcBrowFlds = "PO  :H='"+LANG_BR_CUTTKT+"'   ,Style   :H='"+LANG_BR_STYLE+"'   ,Status  :H='"+LANG_BR_S+"'       ,"+;  Needs comment lcBrowFlds = "PO  :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_CUTTKT,oAriaApplication.GetHeaderText("LANG_BR_CUTTKT",AHEADERFILE))+"'   ,Style   :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_STYLE,oAriaApplication.GetHeaderText("LANG_BR_STYLE",AHEADERFILE))+"'   ,Status  :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_S,oAriaApplication.GetHeaderText("LANG_BR_S",AHEADERFILE))+"'       ,"+;
+APINVLIN.PRG  "Entered :H='"+LANG_BR_ISSUE+"'   ,Complete:H='"+LANG_BR_COMPLETE+"',Season  :H='"+LANG_BR_SE+"'      ,"+;  Needs comment "Entered :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_ISSUE,oAriaApplication.GetHeaderText("LANG_BR_ISSUE",AHEADERFILE))+"'   ,Complete:H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_COMPLETE,oAriaApplication.GetHeaderText("LANG_BR_COMPLETE",AHEADERFILE))+"',Season  :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_SE,oAriaApplication.GetHeaderText("LANG_BR_SE",AHEADERFILE))+"'      ,"+;
+APINVLIN.PRG  "cDivision:H='"+LANG_BR_DI+"'     ,        NSTYORDER :H='"+LANG_BR_BUGDGET+"':P='999999',"+;  Needs comment "cDivision:H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_DI,oAriaApplication.GetHeaderText("LANG_BR_DI",AHEADERFILE))+"'     ,        NSTYORDER :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_BUGDGET,oAriaApplication.GetHeaderText("LANG_BR_BUGDGET",AHEADERFILE))+"':P='999999',"+;
+APINVLIN.PRG  "RECEIVE :H='"+LANG_BR_RCVD+"' :P='999999',DAMAGE :H='"+LANG_BR_DAMAGE+"':P='999999',"+;  Needs comment "RECEIVE :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_RCVD,oAriaApplication.GetHeaderText("LANG_BR_RCVD",AHEADERFILE))+"' :P='999999',DAMAGE :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_DAMAGE,oAriaApplication.GetHeaderText("LANG_BR_DAMAGE",AHEADERFILE))+"':P='999999',"+;
+APINVLIN.PRG  lcBrowFlds ="PO  :R :H='"+LANG_BR_PO+"':12,Status  :R :H='"+LANG_BR_S+"':4,"+;  Needs comment lcBrowFlds ="PO  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_PO,oAriaApplication.GetHeaderText("LANG_BR_PO",AHEADERFILE))+"':12,Status  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_S,oAriaApplication.GetHeaderText("LANG_BR_S",AHEADERFILE))+"':4,"+;
+APINVLIN.PRG  "Vendor  :R :H='"+LANG_BR_VENDOR+"':15,ApVendor.cVenComp :R :H='"+LANG_BR_NAME+"':22,"+;  Needs comment "Vendor  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_VENDOR,oAriaApplication.GetHeaderText("LANG_BR_VENDOR",AHEADERFILE))+"':15,ApVendor.cVenComp :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_NAME,oAriaApplication.GetHeaderText("LANG_BR_NAME",AHEADERFILE))+"':22,"+;
+APINVLIN.PRG  "Complete:R :H='"+LANG_BR_COMPLETE+"':10,NSTYORDER  :R :H='"+LANG_BR_TOTQTY+"':10,"+;  Needs comment "Complete:R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_COMPLETE,oAriaApplication.GetHeaderText("LANG_BR_COMPLETE",AHEADERFILE))+"':10,NSTYORDER  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_TOTQTY,oAriaApplication.GetHeaderText("LANG_BR_TOTQTY",AHEADERFILE))+"':10,"+;
+APINVLIN.PRG  lcBrowFlds ="PO:H='"+LANG_BR_ORDER+"',STYLE  :H='"+LANG_BR_FABRIC+"',"+IIF((gfGetMemVar('M_WareHouse')= 'Y'),"cWareCode:H='"+LANG_BR_WAREHOUSE+"',","")+;  Needs comment lcBrowFlds ="PO:H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_ORDER,oAriaApplication.GetHeaderText("LANG_BR_ORDER",AHEADERFILE))+"',STYLE  :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_FABRIC,oAriaApplication.GetHeaderText("LANG_BR_FABRIC",AHEADERFILE))+"',"+IIF((gfGetMemVar('M_WareHouse')= 'Y'),"cWareCode:H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_WAREHOUSE,oAriaApplication.GetHeaderText("LANG_BR_WAREHOUSE",AHEADERFILE))+"',","")+;
+APINVLIN.PRG  lcBrowFlds = "PO :R :H="+"'"+LANG_BR_PO+"'"+":12,"+;  Needs comment lcBrowFlds = "PO :R :H="+"'"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_PO,oAriaApplication.GetHeaderText("LANG_BR_PO",AHEADERFILE))+"'"+":12,"+;
+APINVLIN.PRG  "Status    :R :H='"+LANG_BR_S+"':4,Vendor    :R :H='"+LANG_BR_VENDOR+"' :15,"+;  Needs comment "Status    :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_S,oAriaApplication.GetHeaderText("LANG_BR_S",AHEADERFILE))+"':4,Vendor    :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_VENDOR,oAriaApplication.GetHeaderText("LANG_BR_VENDOR",AHEADERFILE))+"' :15,"+;
+APINVLIN.PRG  "ApVendor.cVenComp :R :H='"+LANG_BR_NAME+"':22,Entered   :R :H='"+LANG_BR_ENTERED+"':15,"+;  Needs comment "ApVendor.cVenComp :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_NAME,oAriaApplication.GetHeaderText("LANG_BR_NAME",AHEADERFILE))+"':22,Entered   :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_ENTERED,oAriaApplication.GetHeaderText("LANG_BR_ENTERED",AHEADERFILE))+"':15,"+;
+APINVLIN.PRG  "Complete  :R :H='"+LANG_BR_COMPLETE+"':15,nStyOrder :R :H='"+LANG_BR_TOTQTY+"':10,"+;  Needs comment "Complete  :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_COMPLETE,oAriaApplication.GetHeaderText("LANG_BR_COMPLETE",AHEADERFILE))+"':15,nStyOrder :R :H='"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BR_TOTQTY,oAriaApplication.GetHeaderText("LANG_BR_TOTQTY",AHEADERFILE))+"':10,"+;
+APINVLIN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APINVLNE.PRG
+APINVLNE.PRG  has no .h file
+R:\ARIA4XP\REPORTS\AP\APJORN.PRG
+APJORN.PRG  m.CAPDTRDSC = IIF(APDIST.cApdTrTyp = 'A' , LANG_DMAPPL ,IIF(APDIST.cApdTrTyp = 'B' ,;  Needs comment m.CAPDTRDSC = IIF(APDIST.cApdTrTyp = 'A' , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DMAPPL,oAriaApplication.GetHeaderText("LANG_DMAPPL",AHEADERFILE)) ,IIF(APDIST.cApdTrTyp = 'B' ,;
+APJORN.PRG  LANG_BANLADJ, IIF(APDIST.cApdTrTyp = 'H' , LANG_CASHPAY,IIF(APDIST.cApdTrTyp = 'I' ,;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BANLADJ,oAriaApplication.GetHeaderText("LANG_BANLADJ",AHEADERFILE)), IIF(APDIST.cApdTrTyp = 'H' , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CASHPAY,oAriaApplication.GetHeaderText("LANG_CASHPAY",AHEADERFILE)),IIF(APDIST.cApdTrTyp = 'I' ,;
+APJORN.PRG  LANG_INVOICE, IIF(APDIST.cApdTrTyp = 'M' , LANG_MANUALCHECK,IIF(APDIST.cApdTrTyp = 'N' ,;  Needs comment IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_INVOICE,oAriaApplication.GetHeaderText("LANG_INVOICE",AHEADERFILE)), IIF(APDIST.cApdTrTyp = 'M' , IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MANUALCHECK,oAriaApplication.GetHeaderText("LANG_MANUALCHECK",AHEADERFILE)),IIF(APDIST.cApdTrTyp = 'N' ,;
+APJORN.PRG  lcBrfields="CACCTCODE :H= '"+LANG_ACCOUNT_CODE+"',"+;  Needs comment lcBrfields="CACCTCODE :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ACCOUNT_CODE,oAriaApplication.GetHeaderText("LANG_ACCOUNT_CODE",AHEADERFILE))+"',"+;
+APJORN.PRG  lcBrFields = "CVENDCODE :H= '"+LANG_VENDOR_CODE+"',"+;  Needs comment lcBrFields = "CVENDCODE :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_VENDOR_CODE,oAriaApplication.GetHeaderText("LANG_VENDOR_CODE",AHEADERFILE))+"',"+;
+APJORN.PRG  "CINVNO    :H= '"+LANG_INVOICE_NUMBER+"',"+;  Needs comment "CINVNO    :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_INVOICE_NUMBER,oAriaApplication.GetHeaderText("LANG_INVOICE_NUMBER",AHEADERFILE))+"',"+;
+APJORN.PRG  "DAPDTRDAT :H= '"+LANG_INVOICE_DATE+"',"+;  Needs comment "DAPDTRDAT :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_INVOICE_DATE,oAriaApplication.GetHeaderText("LANG_INVOICE_DATE",AHEADERFILE))+"',"+;
+APJORN.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APPYINVD.PRG
+APPYINVD.PRG  lcBrFields = "CCURRCODE :R :H= '"+LANG_CURRENCY_CODE+"'," +;  Needs comment lcBrFields = "CCURRCODE :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CURRENCY_CODE,oAriaApplication.GetHeaderText("LANG_CURRENCY_CODE",AHEADERFILE))+"'," +;
+APPYINVD.PRG  "CCURRDESC :R :H= '"+LANG_DESCRIPTION+"',  " +;  Needs comment "CCURRDESC :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESCRIPTION,oAriaApplication.GetHeaderText("LANG_DESCRIPTION",AHEADERFILE))+"',  " +;
+APPYINVD.PRG  lcRpVenPay= lcRpVenPay+ IIF(laRpTarget[lnI] = LANG_PRINTEDCHECK,"'P'",;  Needs comment lcRpVenPay= lcRpVenPay+ IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PRINTEDCHECK,oAriaApplication.GetHeaderText("LANG_PRINTEDCHECK",AHEADERFILE)),"'P'",;
+APPYINVD.PRG  IIF(laRpTarget[lnI] = LANG_MANUALCHECK,",'M'",;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MANUALCHECK,oAriaApplication.GetHeaderText("LANG_MANUALCHECK",AHEADERFILE)),",'M'",;
+APPYINVD.PRG  IIF(laRpTarget[lnI] = LANG_NONCHECK,",'N'",;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_NONCHECK,oAriaApplication.GetHeaderText("LANG_NONCHECK",AHEADERFILE)),",'N'",;
+APPYINVD.PRG  IIF(laRpTarget[lnI] = LANG_CREDITCARD,",'C'",;  Needs comment IIF(laRpTarget[lnI] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CREDITCARD,oAriaApplication.GetHeaderText("LANG_CREDITCARD",AHEADERFILE)),",'C'",;
+APPYINVD.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APPYINVS.PRG
+APPYINVS.PRG  lcBrFields = "CCURRCODE :R :H= '"+LANG_CURRENCY_CODE +"'," +;  Needs comment lcBrFields = "CCURRCODE :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CURRENCY_CODE,oAriaApplication.GetHeaderText("LANG_CURRENCY_CODE",AHEADERFILE)) +"'," +;
+APPYINVS.PRG  "CCURRDESC :R :H= '"+LANG_DESCRIPTION +"',  " +;  Needs comment "CCURRDESC :R :H= '"+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DESCRIPTION,oAriaApplication.GetHeaderText("LANG_DESCRIPTION",AHEADERFILE)) +"',  " +;
+APPYINVS.PRG  has compilation errors
+R:\ARIA4XP\REPORTS\AP\APRECIN.PRG
+APRECIN.PRG  m.cVenPMeth  = IIF(APINVAHD.CVENPMETH="M",LANG_MANUALCHK,;  Needs comment m.cVenPMeth  = IIF(APINVAHD.CVENPMETH="M",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MANUALCHK,oAriaApplication.GetHeaderText("LANG_MANUALCHK",AHEADERFILE)),;
+APRECIN.PRG  IIF(APINVAHD.CVENPMETH="P",LANG_PNTDCHK,;  Needs comment IIF(APINVAHD.CVENPMETH="P",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PNTDCHK,oAriaApplication.GetHeaderText("LANG_PNTDCHK",AHEADERFILE)),;
+APRECIN.PRG  has compilation errors
+End on:02/18/13    15:35:55

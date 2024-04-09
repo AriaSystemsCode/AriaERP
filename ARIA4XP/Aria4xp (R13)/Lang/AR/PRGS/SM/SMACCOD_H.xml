@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<smaccod_h_ar row_key="LANG_ACC_CODE_STR" cproperty="Caption" orgtext="Account Code Structure                                                                                                                                                                                  " orgcol="LANG_ACC_CODE_STR" langtext="بنية التعليمات البرمجية الحساب"/>
+	<smaccod_h_ar row_key="LANG_ACC_CODE_DESC" cproperty="Caption" orgtext="Account code description                                                                                                                                                                                " orgcol="LANG_ACC_CODE_DESC" langtext="وصف التعليمات البرمجية الحساب"/>
+	<smaccod_h_ar row_key="LANG_SMACCOD_COMPANIES_ACCOUNT_CODE_STRUCTURE" cproperty="Caption" orgtext="Companies Account Code Structure                                                                                                                                                                        " orgcol="LANG_SMACCOD_COMPANIES_ACCOUNT_CODE_STRUCTURE" langtext="وتمثل الشركات بنية التعليمات البرمجية"/>
+</VFPData>

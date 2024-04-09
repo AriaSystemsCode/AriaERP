@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<notesrep_frx_ar row_key="_1IU13X5MF" cproperty="Caption" orgtext="Date                                                                                                                                                                                                    " orgcol="Label" langtext="تاريخ"/>
+	<notesrep_frx_ar row_key="_1IU13X5ML" cproperty="Caption" orgtext="User                                                                                                                                                                                                    " orgcol="Label" langtext="المستخدم"/>
+	<notesrep_frx_ar row_key="_1IU15C8N6" cproperty="Caption" orgtext="Notes   :                                                                                                                                                                                               " orgcol="Label" langtext="ملاحظات:"/>
+	<notesrep_frx_ar row_key="_1IU1B10KH" cproperty="Expr" orgtext="&quot;Page Number  :&quot;  + str( _PageNo)" orgcol="Text" langtext="str( _PageNo) + &quot;: صفحة رقم&quot;"/>
+	<notesrep_frx_ar row_key="_1IX0Z2LTK" cproperty="Caption" orgtext="Time                                                                                                                                                                                                    " orgcol="Label" langtext="الوقت"/>
+</VFPData>

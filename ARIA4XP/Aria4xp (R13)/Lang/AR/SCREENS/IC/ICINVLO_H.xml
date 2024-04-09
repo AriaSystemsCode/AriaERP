@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icinvlo_h_ar row_key="LANG_Item_Struct" cproperty="Caption" orgtext="Item structure not found                                                                                                                                                                                " orgcol="LANG_Item_Struct" langtext="لم يتم العثور على بنية الصنف"/>
+	<icinvlo_h_ar row_key="LANG_Assign_Locations" cproperty="Caption" orgtext="Assign Locations                                                                                                                                                                                        " orgcol="LANG_Assign_Locations" langtext="تعيين مواقع"/>
+	<icinvlo_h_ar row_key="LANG_Assign_Bins" cproperty="Caption" orgtext="Assign Bins                                                                                                                                                                                             " orgcol="LANG_Assign_Bins" langtext="تعيين أرفف"/>
+</VFPData>

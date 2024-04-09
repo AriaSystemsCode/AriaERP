@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<arscdact_frx_ar row_key="_RB90M12WA" cproperty="Caption" orgtext="Scheduled Activities" orgcol="Label" langtext="الأنشطة المقررة"/>
+	<arscdact_frx_ar row_key="_RB90M1VVW" cproperty="Caption" orgtext="Date From :" orgcol="Label" langtext="من تاريخ :"/>
+	<arscdact_frx_ar row_key="_RBC0KHDAK" cproperty="Caption" orgtext="Page:" orgcol="Label" langtext="الصفحة:"/>
+	<arscdact_frx_ar row_key="_06D0XYOJW" cproperty="Caption" orgtext="Task Type :" orgcol="Label" langtext="نوع المهمة:"/>
+	<arscdact_frx_ar row_key="_RB90M4EJF" cproperty="Caption" orgtext="User ID  :" orgcol="Label" langtext="رقم المستخدم:"/>
+	<arscdact_frx_ar row_key="_RB90M1XND" cproperty="Caption" orgtext="Date To :" orgcol="Label" langtext="الى تاريخ:"/>
+	<arscdact_frx_ar row_key="_06I0ONSWZ" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_06I0OG618" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_06I0OG32G" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_06I0O7BML" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_06D0LLSRT" cproperty="Caption" orgtext="Add Date" orgcol="Label" langtext="إضافة التاريخ"/>
+	<arscdact_frx_ar row_key="_06D0LMR54" cproperty="Caption" orgtext="Schedule Date" orgcol="Label" langtext="تاريخ الجدول الزمني"/>
+	<arscdact_frx_ar row_key="_06D0LO6SY" cproperty="Caption" orgtext="Complete Date" orgcol="Label" langtext="التاريخ بالكامل"/>
+	<arscdact_frx_ar row_key="_06D0NIJW6" cproperty="Caption" orgtext="Time" orgcol="Label" langtext="الوقت"/>
+	<arscdact_frx_ar row_key="_06I0O52W6" cproperty="Caption" orgtext="Contact" orgcol="Label" langtext="جهة الاتصال"/>
+	<arscdact_frx_ar row_key="_06H0XXZJT" cproperty="Caption" orgtext="Name" orgcol="Label" langtext="الاسم"/>
+	<arscdact_frx_ar row_key="_06D0LCAMR" cproperty="Caption" orgtext="Account" orgcol="Label" langtext="حساب"/>
+	<arscdact_frx_ar row_key="_06I0O2M9X" cproperty="Caption" orgtext="Phone" orgcol="Label" langtext="الهاتف"/>
+	<arscdact_frx_ar row_key="_06I0O273P" cproperty="Caption" orgtext="Reason" orgcol="Label" langtext="السبب"/>
+	<arscdact_frx_ar row_key="_06I0O21XK" cproperty="Caption" orgtext="Result" orgcol="Label" langtext="النتيجة"/>
+	<arscdact_frx_ar row_key="_06I0O1TR4" cproperty="Caption" orgtext="Subject" orgcol="Label" langtext="موضوع"/>
+	<arscdact_frx_ar row_key="_06I0O1CL7" cproperty="Caption" orgtext="Status" orgcol="Label" langtext="الحالة"/>
+	<arscdact_frx_ar row_key="_RB90M4EJF" cproperty="Caption" orgtext="User ID :" orgcol="Label" langtext="رقم المستخدم:"/>
+	<arscdact_frx_ar row_key="_RBC0KHDAK" cproperty="Caption" orgtext="Page :" orgcol="Label" langtext="الصفحة:"/>
+	<arscdact_frx_ar row_key="_06H0PVTQU" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_06H0PVQOZ" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_RBC0WGQI3" cproperty="Caption" orgtext="------------------------------------------------------------------------------------------------------------------------------------" orgcol="Label" langtext="------------------------------------------------------------------------------------------------------------------------------------"/>
+	<arscdact_frx_ar row_key="_06D1098JT" cproperty="Caption" orgtext="User :" orgcol="Label" langtext="المستخدم:"/>
+	<arscdact_frx_ar row_key="_05B0UZCQQ" cproperty="Caption" orgtext="Time     :" orgcol="Label" langtext="الوقت:"/>
+	<arscdact_frx_ar row_key="_S6L12MK81" cproperty="Caption" orgtext="Login By :" orgcol="Label" langtext="تسجيل الدخول من:"/>
+	<arscdact_frx_ar row_key="_05B0UXQW3" cproperty="Caption" orgtext="Date :" orgcol="Label" langtext="التاريخ:"/>
+	<arscdact_frx_ar row_key="_06D107OFR" cproperty="Caption" orgtext="Task Type :" orgcol="Label" langtext="نوع المهمة:"/>
+	<arscdact_frx_ar row_key="_RB90M1XND" cproperty="Caption" orgtext="Date To   :" orgcol="Label" langtext="الى تاريخ:"/>
+	<arscdact_frx_ar row_key="_RB90M1VVW" cproperty="Caption" orgtext="Date From :" orgcol="Label" langtext="من تاريخ :"/>
+	<arscdact_frx_ar row_key="_RB90M12WA" cproperty="Caption" orgtext="Scheduled Activities" orgcol="Label" langtext="الأنشطة المقررة"/>
+	<arscdact_frx_ar row_key="_06D0YA63E" cproperty="Caption" orgtext="User :" orgcol="Label" langtext="المستخدم:"/>
+	<arscdact_frx_ar row_key="_05D11EGD2" cproperty="Caption" orgtext="Login By :" orgcol="Label" langtext="تسجيل الدخول من:"/>
+	<arscdact_frx_ar row_key="_05D0Y26PX" cproperty="Caption" orgtext="[  Continued Next Page  ]" orgcol="Label" langtext="[تابع الصفحة التالية]"/>
+	<arscdact_frx_ar row_key="_05B0V1RK7" cproperty="Caption" orgtext="Date  :" orgcol="Label" langtext="التاريخ:"/>
+	<arscdact_frx_ar row_key="_05B0V1094" cproperty="Caption" orgtext="Time        :" orgcol="Label" langtext="الوقت:"/>
+</VFPData>

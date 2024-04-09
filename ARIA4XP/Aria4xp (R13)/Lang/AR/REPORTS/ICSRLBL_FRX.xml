@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icsrlbl_frx_ar row_key="_1TJ0USA2E" cproperty="Caption" orgtext="Style                                                                                                                                                                                                   " orgcol="Label" langtext="النمط"/>
+	<icsrlbl_frx_ar row_key="_1TJ0USA2F" cproperty="Caption" orgtext="Color                                                                                                                                                                                                   " orgcol="Label" langtext="لون"/>
+	<icsrlbl_frx_ar row_key="_1TJ0USA2G" cproperty="Caption" orgtext="Size                                                                                                                                                                                                    " orgcol="Label" langtext="الحجم"/>
+	<icsrlbl_frx_ar row_key="_1TJ0USRRO" cproperty="Caption" orgtext="UPC                                                                                                                                                                                                     " orgcol="Label" langtext="كود المنتج العالمي"/>
+	<icsrlbl_frx_ar row_key="_1TW14KSLE" cproperty="Caption" orgtext="Fur Origin                                                                                                                                                                                              " orgcol="Label" langtext="الأصل الفراء"/>
+</VFPData>

@@ -1,0 +1,729 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<sywhelp_dbf_ar row_key="01 LADATA(1)" cproperty="mHelp" orgtext="Company ID: A code for the company.
+                                                                                                                                                                   " orgcol="Field Text" langtext="معرف الشركة: رمز للشركة."/>
+	<sywhelp_dbf_ar row_key="01 LADATA(10)" cproperty="mHelp" orgtext="Fax: The fax number: The fax number format depends on the phone template defined in the Internationals screen.                                                                                          " orgcol="Field Text" langtext="الفاكس: رقم الفاكس: تنسيق رقم الفاكس يعتمد على القالب الهاتف المحدد في الشاشة المباريات."/>
+	<sywhelp_dbf_ar row_key="01 LADATA(14)" cproperty="mHelp" orgtext="PARENT COMPANY: The name of a previously defined company as the parent of the company being created if it is a child company. If this field is left blank, the company you are defining is considered a " orgcol="Field Text" langtext="الشركة الأم: اسم شركة المعرفة مسبقاً كأصل للشركة يتم إنشاؤه إذا شركة طفل. إذا كان هذا الحقل فارغاً، وتعتبر الشركة التي تقوم بتعريف"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(17)" cproperty="mHelp" orgtext="Currency: The default currency for this company.                                                                                                                                                        " orgcol="Field Text" langtext="العملة: العملة الافتراضية لهذه الشركة."/>
+	<sywhelp_dbf_ar row_key="01 LADATA(2)" cproperty="mHelp" orgtext="Company Name: The name of the company. Both the company ID and name are used to identify companies in menus and screens.                                                                                " orgcol="Field Text" langtext="اسم الشركة: اسم الشركة. وتستخدم كلا من معرف الشركة والاسم لتعريف الشركات في القوائم والشاشات."/>
+	<sywhelp_dbf_ar row_key="01 LADATA(3)" cproperty="mHelp" orgtext="Address Fields: The address of the company. The titles and lengths of the 5 fields which constitute the address vary according to the setup of parts 1-5 in the Internationals screen. For further detai" orgcol="Field Text" langtext="حقول العنوان: عنوان الشركة. الألقاب وأطوال الحقول 5 التي تشكل العنوان تختلف وفقا لإعداد الأجزاء 1-5 في المباريات الشاشة. لمزيد من detai"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(4)" cproperty="mHelp" orgtext="Address Fields: The address of the company. The titles and lengths of the 5 fields which constitute the address vary according to the setup of parts 1-5 in the Internationals screen. For further detai" orgcol="Field Text" langtext="حقول العنوان: عنوان الشركة. الألقاب وأطوال الحقول 5 التي تشكل العنوان تختلف وفقا لإعداد الأجزاء 1-5 في المباريات الشاشة. لمزيد من detai"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(5)" cproperty="mHelp" orgtext="Address Fields: The address of the company. The titles and lengths of the 5 fields which constitute the address vary according to the setup of parts 1-5 in the Internationals screen. For further detai" orgcol="Field Text" langtext="حقول العنوان: عنوان الشركة. الألقاب وأطوال الحقول 5 التي تشكل العنوان تختلف وفقا لإعداد الأجزاء 1-5 في المباريات الشاشة. لمزيد من detai"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(6)" cproperty="mHelp" orgtext="Address Fields: The address of the company. The titles and lengths of the 5 fields which constitute the address vary according to the setup of parts 1-5 in the Internationals screen. For further detai" orgcol="Field Text" langtext="حقول العنوان: عنوان الشركة. الألقاب وأطوال الحقول 5 التي تشكل العنوان تختلف وفقا لإعداد الأجزاء 1-5 في المباريات الشاشة. لمزيد من detai"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(7)" cproperty="mHelp" orgtext="Address Fields: The address of the company. The titles and lengths of the 5 fields which constitute the address vary according to the setup of parts 1-5 in the Internationals screen. For further detai" orgcol="Field Text" langtext="حقول العنوان: عنوان الشركة. الألقاب وأطوال الحقول 5 التي تشكل العنوان تختلف وفقا لإعداد الأجزاء 1-5 في المباريات الشاشة. لمزيد من detai"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(8)" cproperty="mHelp" orgtext="Address Fields: The address of the company. The titles and lengths of the 5 fields which constitute the address vary according to the setup of parts 1-5 in the Internationals screen. For further detai" orgcol="Field Text" langtext="حقول العنوان: عنوان الشركة. الألقاب وأطوال الحقول 5 التي تشكل العنوان تختلف وفقا لإعداد الأجزاء 1-5 في المباريات الشاشة. لمزيد من detai"/>
+	<sywhelp_dbf_ar row_key="01 LADATA(9)" cproperty="mHelp" orgtext="Phone No.: The telephone number. The phone number format (i.e. the number of digits and separators) depends on the phone template defined in the Internationals screen.                                 " orgcol="Field Text" langtext="هاتف رقم: رقم الهاتف. تنسيق رقم الهاتف (أي عدد من الأرقام والفواصل) يعتمد على القالب الهاتف المحدد في الشاشة المباريات."/>
+	<sywhelp_dbf_ar row_key="01 PBCANCEL" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="01 PBNEXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="01 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_1" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_2" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_3" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_4" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_5" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_6" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 CBDAY_7" cproperty="mHelp" orgtext="Days Off: Select the weekends. This is flexible for international variations. A check mark appears next to the selected days.                                                                           " orgcol="Field Text" langtext="أيام العطلة: حدد عطلات نهاية الأسبوع. هذا مرنة للتغيرات الدولية. تظهر علامة اختيار بجوار الأيام المحددة."/>
+	<sywhelp_dbf_ar row_key="02 LADATA(5)" cproperty="mHelp" orgtext="Current Period: The number of the period to be taken as the current period. The limit is the total no. of periods selected.                                                                             " orgcol="Field Text" langtext="الفترة الحالية: عدد الفترة الواجب اتخاذها كالفترة الحالية. أن الحد الأقصى هو العدد الإجمالي. لفترات محددة."/>
+	<sywhelp_dbf_ar row_key="02 LADATA(8)" cproperty="mHelp" orgtext="Short: A short heading to appear in summary reports.                                                                                                                                                    " orgcol="Field Text" langtext="قصيرة: عنوان قصير لتظهر في تقارير موجزة."/>
+	<sywhelp_dbf_ar row_key="02 LADATA(9)" cproperty="mHelp" orgtext="Long: A long heading to appear in detailed reports.                                                                                                                                                     " orgcol="Field Text" langtext="طويلة: عنوان طويل لتظهر في تقارير مفصلة."/>
+	<sywhelp_dbf_ar row_key="02 LCYEAR" cproperty="mHelp" orgtext="Fiscal Year: Displays a list of fiscal years.                                                                                                                                                           " orgcol="Field Text" langtext="السنة المالية: يعرض قائمة بالسنوات المالية."/>
+	<sywhelp_dbf_ar row_key="02 PBCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="02 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="02 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="02 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="05 LSMODULES" cproperty="mHelp" orgtext="Select Modules: A list of the system modules from which you will select the modules you want to install.                                                                                                " orgcol="Field Text" langtext="تحديد الوحدات النمطية: قائمة من وحدات النظام الذي ستقوم باختيار الوحدات النمطية الذي تريد تثبيته."/>
+	<sywhelp_dbf_ar row_key="05 PBALL" cproperty="mHelp" orgtext="Click the Select All button to select all the modules on the list.
+                                                                                                                                    " orgcol="Field Text" langtext="انقر فوق الزر &quot;تحديد الكل&quot; لتحديد كافة الوحدات النمطية في القائمة."/>
+	<sywhelp_dbf_ar row_key="05 PBCLOSE" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="05 PBINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="05 PBNON" cproperty="mHelp" orgtext="Select none of the modules.                                                                                                                                                                             " orgcol="Field Text" langtext="حدد أيا من الوحدات النمطية."/>
+	<sywhelp_dbf_ar row_key="05 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="05 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="05 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="05 PBSEL" cproperty="mHelp" orgtext="Click the Select button to select the highlighted module. A mark to the left of the module name appears to denote selection, the button alternates between the Select and Unselect modes.               " orgcol="Field Text" langtext="انقر على الزر Select لتحديد الوحدة النمطية المميزة. تظهر علامة على يسار اسم الوحدة النمطية للدلالة على التحديد، المناوبين زر بين أساليب تحديد وأونسيليكت."/>
+	<sywhelp_dbf_ar row_key="07 IBSEGNO1" cproperty="mHelp" orgtext="Cost Center: Select the segment level upon which you want to distribute your retained earnings. The system gives you the flexibility to choose any segment for a cost center. You must have the account " orgcol="Field Text" langtext="مركز التكلفة: حدد مستوى الجزء الذي تريد توزيع الأرباح الخاصة بك. النظام يوفر لك المرونة في اختيار أي مقطع لمركز تكلفة. يجب أن يكون لديك حساب"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(1)" cproperty="mHelp" orgtext="Retained Earnings:
+Enter the account major number that the system will use for retained earnings, i.e., for the accounts to use for the cumulative net income at year close.                           " orgcol="Field Text" langtext="أرباح محتجزة: أدخل الحساب أغلق عدد الرئيسية التي سوف يستخدم النظام للأرباح المحتجزة، أي، للحسابات لاستخدام للدخل الصافي التراكمي في السنة."/>
+	<sywhelp_dbf_ar row_key="07 LADATA(10)" cproperty="mHelp" orgtext="Consolidation Company Only:
+Check this box when the company you are working with is for consolidation purposes only. Once you enter data for a company, you cannot change this option. It is disabled i" orgcol="Field Text" langtext="شركة التوحيد فقط: هذا خانة الاختيار عندما كنت تعمل مع الشركة لأغراض التوحيد فقط. بمجرد إدخال البيانات لشركة، لا يمكنك تغيير هذا الخيار. أنه معطل أنا"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(11)" cproperty="mHelp" orgtext="Force Printing Edit List:
+If you check this option, the system enforces printing of the transaction details when approving it for posting. If unchecked, printing at this stage is optional.           " orgcol="Field Text" langtext="قوة طباعة قائمة تحرير: إذا حددت هذا الخيار، النظام يفرض طباعة تفاصيل الحركة عند الموافقة عليه للترحيل. إذا لم يتم التحقق منه، والطباعة في هذه المرحلة اختياري."/>
+	<sywhelp_dbf_ar row_key="07 LADATA(12)" cproperty="mHelp" orgtext="Force Printing Audit Trail:
+If you check this option, the system enforces printing of the transaction details after posting. If unchecked, printing at this stage is optional.                         " orgcol="Field Text" langtext="قوة الطباعة لمراجعة الحسابات: إذا حددت هذا الخيار، يفرض النظام طباعة تفاصيل الحركة بعد الترحيل. إذا لم يتم التحقق منه، والطباعة في هذه المرحلة اختياري."/>
+	<sywhelp_dbf_ar row_key="07 LADATA(13)" cproperty="mHelp" orgtext="Allow Adding Accounts on The Fly:
+This option controls when you may add new accounts. If checked, this option enables you to add accounts while entering transaction details// if you enter an account " orgcol="Field Text" langtext="تسمح &quot;إضافة الحسابات&quot; على &quot;يطير&quot;: يتحكم هذا الخيار عندما يمكنك إضافة حسابات جديدة. في حالة تحديد هذا الخيار تمكنك من إضافة حسابات أثناء إدخال تفاصيل الصفقة//إذا قمت بإدخال حساب"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(14)" cproperty="mHelp" orgtext="Posting Window:
+To enter the time-frame, or window, for the maximum number of periods that a batch can span. You can enter here up to one fiscal year.                                                 " orgcol="Field Text" langtext="ترحيل الإطار: لإدخال الإطار الزمني، أو نافذة، للحد الأقصى لعدد من الفترات التي يمكن أن تمتد لدفعة. يمكنك إدخال هنا إلى سنة مالية واحدة."/>
+	<sywhelp_dbf_ar row_key="07 LADATA(16)" cproperty="mHelp" orgtext="Allow Single Transaction:
+To customize the General Ledger to follow your normal work routine. If you deal with all your transactions in batches, uncheck this option: this will disable the Single Tran" orgcol="Field Text" langtext="السماح بمعاملة واحدة: لتخصيص دفتر الأستاذ العام متابعة روتينية العمل العادي الخاص بك. إذا كنت تتعامل مع جميع المعاملات الخاصة بك على دفعات، قم بإلغاء تحديد هذا الخيار: سيؤدي ذلك إلى تعطيل &quot;تران واحد&quot;"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(19)" cproperty="mHelp" orgtext="Exchange Rate Differences:
+Select the account code for the amounts coming as differences in currency exchange rates.                                                                                   " orgcol="Field Text" langtext="فروق أسعار الصرف: حدد كود الحساب للمبالغ التي تأتي كالاختلافات في أسعار صرف العملات."/>
+	<sywhelp_dbf_ar row_key="07 LADATA(2)" cproperty="mHelp" orgtext="Suspense Account:
+Specify the account major number that the system will use as a default when linking with other modules if posting to accounts that do not exist. The account major you enter must exi" orgcol="Field Text" langtext="الحساب المعلق: تحديد رقم الحساب الرئيسية التي سيستخدمها النظام كقيمة افتراضية عند الربط مع الوحدات النمطية الأخرى في حالة الترحيل إلى الحسابات التي لم تكن موجودة. يجب حساب الرئيسية يمكنك إدخال exi"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(3)" cproperty="mHelp" orgtext="Default Budget Code:
+Assign a budget to use as a default with reports requiring budgets. Enter its code in the field. The code must be an existing budget code, so you must define a budget from the Bu" orgcol="Field Text" langtext="الرمز الافتراضي للميزانية: تعيين ميزانية لاستخدامها كقيمة افتراضية مع التقارير التي تتطلب ميزانيات. قم بإدخال التعليمات البرمجية الخاصة به في الحقل. يجب أن تكون التعليمات البرمجية كود موجود في ميزانية، حيث يجب عليك تحديد ميزانية بو"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(4)" cproperty="mHelp" orgtext="Allow Posting Defore This Date:
+Check this option to post journal transactions prior to the date assigned in the Beginning Balance Date field. Otherwise, if this option is unchecked, you are not perm" orgcol="Field Text" langtext="السماح بنشر دفور هذا التاريخ: حدد هذا الخيار لترحيل الحركات اليومية قبل التاريخ المعين في الحقل &quot;تاريخ الرصيد بداية&quot;. وبخلاف ذلك، إذا لم يكن هذا الخيار محدداً، أنت لست بيرم"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(5)" cproperty="mHelp" orgtext="Require Batch Audit Total:
+To control entry of batches. If you check this option, you cannot omit the Audit Total field in the batch entry window (i.e., you cannot leave it empty). You thus enforce a" orgcol="Field Text" langtext="تتطلب مجموعة المراجعة دفعة: لعنصر تحكم الإدخال من دفعات. إذا حددت هذا الخيار، لا يمكن حذف الحقل &quot;مجموع الحسابات&quot; في إطار إدخال دفعة (أي، يمكنك لا يمكن تركه فارغاً). يمكنك فرض هكذا"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(6)" cproperty="mHelp" orgtext="Lock Period at Period Close:
+To control whether or not to allow transactions for closed periods. If you select it, you lock a period automatically when it is closed, and thus can neither edit nor pos" orgcol="Field Text" langtext="قفل الفترة في &quot;فترة قريبة&quot;: للتحكم في السماح بالمعاملات لفترات مغلقة أو عدمه. إذا قمت بتحديد ذلك، يمكنك تأمين فترة تلقائياً عندما يتم إغلاقه، وهكذا لا يمكن تحرير أو نقاط البيع"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(7)" cproperty="mHelp" orgtext="Account Attributes Editable:
+To control where the following account attributes can be edited: term, type, ratio group, cash flow code. If you do not select this option, you can assign attributes of a" orgcol="Field Text" langtext="حساب سمات قابلة للتحرير: يمكن تحرير للتحكم حيث تمثل التالية السمات: الأجل، نوع، نسبة المجموعة، رمز التدفق النقدي. إذا لم تختر هذا الخيار، يمكنك تعيين سمات من"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(8)" cproperty="mHelp" orgtext="Allow Beginning Balances Batches:
+To control the use of beginning balance batches. Since this feature serves a temporary purpose (that of initializing account balances), you may want to enable it at " orgcol="Field Text" langtext="السماح لدفعات أرصدة بداية: للتحكم في استخدام بداية توازن دفعات. نظراً لأن هذا ميزة تخدم غرضاً مؤقتاً (أن تهيئة حساب أرصدة)، قد ترغب في تمكينها في"/>
+	<sywhelp_dbf_ar row_key="07 LADATA(9)" cproperty="mHelp" orgtext="Beginning Balance Date:
+To specify the date for beginning balance batches. All batches of this type are posted to that date. You cannot change this date after entering beginning balance batches.     " orgcol="Field Text" langtext="تاريخ بداية التوازن: لتحديد تاريخ لبداية توازن دفعات. يتم ترحيل كافة مجموعات من هذا النوع لذلك التاريخ. لا يمكنك تغيير هذا التاريخ بعد دخول بداية توازن دفعات."/>
+	<sywhelp_dbf_ar row_key="07 PBCLOSE" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="07 PBNEXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="07 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="07 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="07 PUDATEPER" cproperty="mHelp" orgtext="Posting Control:
+To control how the start and end of the batch posting window are specified. You can select either &quot;Periods&quot; or &quot;Dates&quot;.                                                               " orgcol="Field Text" langtext="التحكم الترحيل: للتحكم في كيفية البدء والانتهاء من الإطار ترحيل الدفعة المحددة. يمكنك تحديد أما &quot;فترات&quot; أو &quot;التواريخ&quot;."/>
+	<sywhelp_dbf_ar row_key="12 CB1099" cproperty="mHelp" orgtext="Suppress 1099 Processing:
+
+Leave this checkbox cleared to issue 1099 tax deducted from the sum payable to your vendor(s)/supplier(s). You can enter various 1099 types for this tax under VENDOR 1099 " orgcol="Field Text" langtext="قمع تجهيز 1099: ترك هذا خانة الاختيار مسح لمسألة 1099 ضريبة خصم من المبلغ المستحقة لموردي الخاص بك/طلبيات. يمكنك إدخال مختلف أنواع 1099 لهذه الضريبة تحت 1099 المورد"/>
+	<sywhelp_dbf_ar row_key="12 CBGLLINK" cproperty="mHelp" orgtext="G/L Company:
+Check the G/L COMPANY check box if your company will be using the G/L module. This means that it is either a parent company, or a child company of some parent company, where that latter " orgcol="Field Text" langtext="شركة G/L: تحقق من خانة الاختيار شركة G/L إذا كانت الشركة الخاصة بك وسوف يكون استخدام الوحدة النمطية لغرام/لتر. وهذا يعني أن من شركة الأم، أو شركة طفل لبعض من الشركة الأم، حيث أن هذا الأخير"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(1)" cproperty="mHelp" orgtext="Account Payable                                                                                                                                                                                         " orgcol="Field Text" langtext="حساب مستحق الدفع"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(10)" cproperty="mHelp" orgtext="Vendor Groups:
+
+The three fields in this screen region are just meant to help you categorize your vendors.
+
+a) Group 1: &quot;Class&quot;
+b) Group 2: &quot;Buyer&quot;
+c) Group 3: &quot;Group&quot;
+
+You may decide not to u" orgcol="Field Text" langtext="مجموعات الموردين: تهدف الحقول الثلاثة في هذه المنطقة الشاشة فقط لتساعدك على تصنيف البائعين الخاصة بك.
+
+أ) المجموعة 1: &quot;الطبقة&quot; ب) المجموعة 2: &quot;المشتري&quot; ج) المجموعة 3: &quot;المجموعة&quot; قد قررت عدم لك"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(11)" cproperty="mHelp" orgtext="Vendor Groups:
+
+The three fields in this screen region are just meant to help you categorize your vendors.
+
+a) Group 1: &quot;Class&quot;
+b) Group 2: &quot;Buyer&quot;
+c) Group 3: &quot;Group&quot;
+
+You may decide not to u" orgcol="Field Text" langtext="مجموعات الموردين: تهدف الحقول الثلاثة في هذه المنطقة الشاشة فقط لتساعدك على تصنيف البائعين الخاصة بك.
+
+أ) المجموعة 1: &quot;الطبقة&quot; ب) المجموعة 2: &quot;المشتري&quot; ج) المجموعة 3: &quot;المجموعة&quot; قد قررت عدم لك"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(12)" cproperty="mHelp" orgtext="Vendor Groups:
+
+The three fields in this screen region are just meant to help you categorize your vendors.
+
+a) Group 1: &quot;Class&quot;
+b) Group 2: &quot;Buyer&quot;
+c) Group 3: &quot;Group&quot;
+
+You may decide not to u" orgcol="Field Text" langtext="مجموعات الموردين: تهدف الحقول الثلاثة في هذه المنطقة الشاشة فقط لتساعدك على تصنيف البائعين الخاصة بك.
+
+أ) المجموعة 1: &quot;الطبقة&quot; ب) المجموعة 2: &quot;المشتري&quot; ج) المجموعة 3: &quot;المجموعة&quot; قد قررت عدم لك"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(14)" cproperty="mHelp" orgtext="Bank Code                                                                                                                                                                                               " orgcol="Field Text" langtext="كود البنك"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(2)" cproperty="mHelp" orgtext="Expense                                                                                                                                                                                                 " orgcol="Field Text" langtext="المصروفات"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(3)" cproperty="mHelp" orgtext="Adjustment                                                                                                                                                                                              " orgcol="Field Text" langtext="التكيف"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(4)" cproperty="mHelp" orgtext="Cash Payment                                                                                                                                                                                            " orgcol="Field Text" langtext="الدفع نقدا"/>
+	<sywhelp_dbf_ar row_key="12 LADATA(6)" cproperty="mHelp" orgtext="Discount                                                                                                                                                                                                " orgcol="Field Text" langtext="الخصم"/>
+	<sywhelp_dbf_ar row_key="12 LC1099SPNU" cproperty="mHelp" orgtext="State/Payer's state number:
+
+This parameter is used to enter the code number of the 1099 form. This number can then be available for printing in the 1099 Form under the Output menu.                 " orgcol="Field Text" langtext="الدولة رقم الدولة/دافع: يتم استخدام هذه المعلمة لإدخال عدد التعليمات البرمجية في النموذج 1099. ثم يمكن أن يكون هذا الرقم متاح للطباعة في نموذج 1099 ضمن القائمة إخراج."/>
+	<sywhelp_dbf_ar row_key="12 PBFORMAT" cproperty="mHelp" orgtext="Release Format                                                                                                                                                                                          " orgcol="Field Text" langtext="تنسيق الإصدار"/>
+	<sywhelp_dbf_ar row_key="12 PBSRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="12 PBSCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="12 PBSNEXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="12 PBSPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="12 RBTAXTYPE" cproperty="mHelp" orgtext="Tax Type:
+Check this radio button to set a default tax calculation mode for your A/P. You can choose for the taxes of every invoice to be calculated separately for each line or as a percentage of the" orgcol="Field Text" langtext="نوع الضريبة: التحقق من هذا الزر الراديو لتعيين وضع حساب ضريبة افتراضية لجهاز A/ص يمكنك اختيار للضرائب من كل فاتورة يتم حسابها بشكل منفصل لكل خط أو كنسبة مئوية من"/>
+	<sywhelp_dbf_ar row_key="14 LNSTYCOD" cproperty="mHelp" orgtext="Select a Style Code Structure.                                                                                                                                                                          " orgcol="Field Text" langtext="حدد نمط بنية التعليمات برمجية."/>
+	<sywhelp_dbf_ar row_key="14 PBCLOSE" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="14 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="14 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="14 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.
+                                                                                                                                                                                " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="23 CUSTSCR" cproperty="mHelp" orgtext="A list of system-defined customers// J.C. Penney Corporate HQ, and Macy's North East Corporate. You can select one or both of them to add to your CUSTOMERS file.                                       " orgcol="Field Text" langtext="قائمة بالعملاء المعرفة من قبل النظام//كيركراده بيني HQ الشركات، والشركات ميسي شمال شرق. يمكنك تحديد أحد أو كل منهما إضافة إلى ملف العملاء الخاصة بك."/>
+	<sywhelp_dbf_ar row_key="23 PBALL" cproperty="mHelp" orgtext="Select all the customers.                                                                                                                                                                               " orgcol="Field Text" langtext="حدد كافة العملاء."/>
+	<sywhelp_dbf_ar row_key="23 PBCLOSE" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="23 PBINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="23 PBNEXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="23 PBNON" cproperty="mHelp" orgtext="Select non of the customers.                                                                                                                                                                            " orgcol="Field Text" langtext="حدد غير العملاء."/>
+	<sywhelp_dbf_ar row_key="23 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.
+                                                                                                                                                                          " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="23 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="23 PBSALL" cproperty="mHelp" orgtext="Select all the stores.                                                                                                                                                                                  " orgcol="Field Text" langtext="حدد كافة مخازن."/>
+	<sywhelp_dbf_ar row_key="23 PBSEL" cproperty="mHelp" orgtext="Select the customer that you want to add to your CUSTOMERS file. The button alternates between the Select and Unselect modes.                                                                           " orgcol="Field Text" langtext="حدد العميل الذي تريد إضافته إلى ملف العملاء الخاصة بك. الزر التبديل بين وضعي حدد Unselect."/>
+	<sywhelp_dbf_ar row_key="23 PBSINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="23 PBSNON" cproperty="mHelp" orgtext="Select none of the stores                                                                                                                                                                               " orgcol="Field Text" langtext="حدد أيا من المتاجر"/>
+	<sywhelp_dbf_ar row_key="23 PBSSEL" cproperty="mHelp" orgtext="Select a store. The button alternates between the Select and Unselect modes.                                                                                                                            " orgcol="Field Text" langtext="تحديد مخزن. الزر التبديل بين وضعي حدد Unselect."/>
+	<sywhelp_dbf_ar row_key="23 STORSCR" cproperty="mHelp" orgtext="All the available Stores of the customer.                                                                                                                                                               " orgcol="Field Text" langtext="جميع المتاجر المتوفرة للعميل."/>
+	<sywhelp_dbf_ar row_key="03 1" cproperty="mHelp" orgtext="Select the Chart of Accounts.                                                                                                                                                                           " orgcol="Field Text" langtext="حدد مخطط الحسابات."/>
+	<sywhelp_dbf_ar row_key="03 2" cproperty="mHelp" orgtext="Second chart type                                                                                                                                                                                       " orgcol="Field Text" langtext="نوع المخطط الثاني"/>
+	<sywhelp_dbf_ar row_key="03 3" cproperty="mHelp" orgtext="Third chart type                                                                                                                                                                                        " orgcol="Field Text" langtext="نوع المخطط الثالث"/>
+	<sywhelp_dbf_ar row_key="03 PBCLOSE" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="03 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="03 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="03 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="27 CODBROW" cproperty="mHelp" orgtext="All the available codes with the code description.                                                                                                                                                      " orgcol="Field Text" langtext="كافة الرموز المتوفرة مع وصف التعليمات البرمجية."/>
+	<sywhelp_dbf_ar row_key="27 PBALL" cproperty="mHelp" orgtext="Select all the codes.                                                                                                                                                                                   " orgcol="Field Text" langtext="حدد كافة الرموز."/>
+	<sywhelp_dbf_ar row_key="27 PBCLOSE" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="27 PBINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="27 PBNON" cproperty="mHelp" orgtext="Select none of the codes.                                                                                                                                                                               " orgcol="Field Text" langtext="حدد أيا من الرموز."/>
+	<sywhelp_dbf_ar row_key="27 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="27 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="27 PBSEL" cproperty="mHelp" orgtext="Select code. This button alternates between the Select and Unselect modes.                                                                                                                              " orgcol="Field Text" langtext="تحديد التعليمات البرمجية. هذا الزر التبديل بين وضعي حدد أونسيليكت."/>
+	<sywhelp_dbf_ar row_key="AL M_BOLSTUTS" cproperty="mHelp" orgtext="Assign P. List to BOL:
+
+1-     'Inquire': Once a packing list is saved, the system checks if there's an open BOL already existing for the same shipment details or not. If there's a BOL, an inquiry m" orgcol="Field Text" langtext="تعيين قائمة ص إلى BOL: 1-'التحقيق': حالما يتم حفظ قائمة تعبئة، يقوم النظام بالتحقق ما إذا كان هناك BOL مفتوحة الموجودة بالفعل للحصول على تفاصيل الشحنة نفسها أم لا. إذا كان هناك BOL، م التحقيق"/>
+	<sywhelp_dbf_ar row_key="AL M_CHKAPROV" cproperty="mHelp" orgtext=" Check Order Approved Amnt:
+
+1-     Select 'Yes': To check the order approved amount to make sure that the allocation does not exceed the approved amount. As you set this parameter to 'Yes', a messa" orgcol="Field Text" langtext="الاختيار أمر تمت الموافقة آمنت: 1-حدد 'نعم': للتحقق من مقدار ترتيب الموافقة للتأكد من أن التخصيص لا يتجاوز المبلغ المعتمد. كما قمت بتعيين هذه المعلمة إلى 'نعم'، المساء"/>
+	<sywhelp_dbf_ar row_key="AL M_FORCEALO" cproperty="mHelp" orgtext="Allow Force Allocation:
+
+1-     Select 'Yes': To allow the Force Allocation capability for all users of the system. In other words, to allow all system users to allocate stock even if the allocated " orgcol="Field Text" langtext="السماح بتوزيع القوة: 1-حدد 'نعم': السماح القدرة على &quot;تخصيص حيز&quot; لكافة المستخدمين النظام. وبعبارة أخرى، للسماح للنظام كافة المستخدمين تخصيص الأسهم حتى لو المخصصة"/>
+	<sywhelp_dbf_ar row_key="AR M_BACKORD" cproperty="mHelp" orgtext="Backorder:
+
+1-     Select 'Always': To always keep the leftover quantity of a sales order line as an ordered quantity when the order line is partially invoiced.
+
+2-     Select 'Never': To always c" orgcol="Field Text" langtext="المؤجل: 1-حدد 'دوماً': أن تبقى دائماً كمية متبقية من سطر أمر التوريد ككمية المطلوبة عند فوترة سطر الأمر جزئيا.
+
+2-حدد 'ابدأ': إلى دائماً ج"/>
+	<sywhelp_dbf_ar row_key="AR M_BACKORD" cproperty="mHelp" orgtext="M_BACKORD                                                                                                                                                                                               " orgcol="Field Text" langtext="M_BACKORD"/>
+	<sywhelp_dbf_ar row_key="AR M_CRDT_LMT" cproperty="mHelp" orgtext="Warn above credit limit:
+
+1-     Select 'Yes': To display the customer aging summary on issuing a sales order or a direct invoice, if the customer has exceeded their credit limit. A customer has a c" orgcol="Field Text" langtext="تحذير أعلاه حد الائتمان: 1-حدد 'نعم': لعرض ملخص الشيخوخة العميل على إصدار ترتيب مبيعات أو فاتورة مباشرة، إذا كان العميل قد تجاوز حد الائتمان لهم. عميل لديه ج"/>
+	<sywhelp_dbf_ar row_key="AR M_CRDT_LMT" cproperty="mHelp" orgtext="M_CRDT_LMT                                                                                                                                                                                              " orgcol="Field Text" langtext="M_CRDT_LMT"/>
+	<sywhelp_dbf_ar row_key="AR M_DEFAPRIO" cproperty="mHelp" orgtext="Customer Default Priority:
+
+Customer Default priority is a number that you use to classify customers in the ACCOUNTS RECEIVABLE module. This is the default priority that you assign to all customers/" orgcol="Field Text" langtext="الأولوية الافتراضية العملاء: أولوية العميل الافتراضي هو رقم الذي كنت تستخدم لتصنيف العملاء في الوحدة النمطية &quot;الحسابات المدينة&quot;. هذه هي الأولوية الافتراضية التي قمت بتعيينها لكافة العملاء/"/>
+	<sywhelp_dbf_ar row_key="AR M_DEFAPRIO" cproperty="mHelp" orgtext="M_DEFAPRIO                                                                                                                                                                                              " orgcol="Field Text" langtext="M_DEFAPRIO"/>
+	<sywhelp_dbf_ar row_key="AR M_EDTPRICE" cproperty="mHelp" orgtext="Edit style price in:
+
+1-     Select 'None': To prohibit modifying a style price during both sales order and direct invoicing.
+
+2-     Select 'Invoice Sales Order': To allow modifying a style price" orgcol="Field Text" langtext="تحرير الأسعار نمط في: 1-تحديد 'بلا': لحظر تعديل سعر نمط أثناء ترتيب المبيعات والفواتير مباشرة.
+
+2-حدد '&quot;ترتيب المبيعات الفاتورة&quot;': للسماح بتعديل سعر نمط"/>
+	<sywhelp_dbf_ar row_key="AR M_EDTPRICE" cproperty="mHelp" orgtext="M_EDTPRICE                                                                                                                                                                                              " orgcol="Field Text" langtext="M_EDTPRICE"/>
+	<sywhelp_dbf_ar row_key="AR M_INVBULK" cproperty="mHelp" orgtext=" Invoice Bulk orders:
+
+1-     Select 'Yes': To allow invoicing a bulk sales order.
+
+2-     Select 'No': To prohibit invoicing a bulk sales order.
+
+A bulk sales order is a special type order that" orgcol="Field Text" langtext="الفاتورة معظم الأوامر: 1-حدد 'نعم': للسماح لفوترة أمر توريد السائبة.
+
+2-حدد 'لا': لحظر الفوترة ترتيب مبيعات الجملة.
+
+أمر توريد الجزء الأكبر من نوع خاص لكي"/>
+	<sywhelp_dbf_ar row_key="AR M_INVBULK" cproperty="mHelp" orgtext="M_INVBULK                                                                                                                                                                                               " orgcol="Field Text" langtext="M_INVBULK"/>
+	<sywhelp_dbf_ar row_key="AR M_INVHOLD" cproperty="mHelp" orgtext="Invoice On Hold orders:
+
+1-     Select 'Yes': To allow invoicing a held sales order// i.e. an order with a STATUS value of 'Hold'. In this case, a held sales order can be invoiced after a confirmati" orgcol="Field Text" langtext="أوامر &quot;الفاتورة على عقد&quot;: 1-حدد 'نعم': للسماح لفوترة أمر توريد عقد//أي أمر مع قيمة حالة من 'عقد'. في هذه الحالة، يمكن فوترة أمر توريد الذي عقد بعد كونفيرماتي"/>
+	<sywhelp_dbf_ar row_key="AR M_INVHOLD" cproperty="mHelp" orgtext="M_INVHOLD                                                                                                                                                                                               " orgcol="Field Text" langtext="M_INVHOLD"/>
+	<sywhelp_dbf_ar row_key="AR M_LN_NOTE" cproperty="mHelp" orgtext="Add note to invoice lines:
+
+1-     Select 'Yes': To enable editing notes for each order and/or invoice line// i.e. at the order/invoice detail line level.
+
+2-     Select 'No': To disable editing n" orgcol="Field Text" langtext="إضافة ملاحظة بنود الفاتورة: 1-حدد 'نعم': لتمكين تحرير مذكرات لكل سطر أمر و/أو الفاتورة//أي في مستوى خط تفاصيل فاتورة/أمر.
+
+2-حدد 'لا': لتعطيل التحرير n"/>
+	<sywhelp_dbf_ar row_key="AR M_MPKTKIN" cproperty="mHelp" orgtext="Modify Picking Upon Inv:
+
+This parameter allows you to either modify the picked order lines or increase their number in the picking ticket (PT) while issuing an invoice. On the other hand, you can h" orgcol="Field Text" langtext="تعديل الانتقاء بناء على قوائم الجرد: هذه المعلمة يسمح لك تعديل بنود الأمر المنتقاة أو زيادة عددها في التذاكر الانتقاء (PT) مع إصدار فاتورة. من ناحية أخرى، يمكنك أن ح"/>
+	<sywhelp_dbf_ar row_key="AR M_UPSBOX" cproperty="mHelp" orgtext="Track boxes for UPS manif:
+
+1-     Select 'Yes': To enable tracing and/or maintaining details of each carton/box you ship, i.e. at the carton/box level. These details include the WEIGHT, the DECLARE" orgcol="Field Text" langtext="تعقب مربعات منيف UPS: 1-حدد 'نعم': لتمكين التتبع و/أو الحفاظ على التفاصيل لكل علبة كرتون/كنت السفينة، أي على مستوى علبة كرتون/. وتشمل هذه التفاصيل الوزن، DECLARE"/>
+	<sywhelp_dbf_ar row_key="AR XAGINGTYPE" cproperty="mHelp" orgtext="Age A/R by:
+
+1-     Select 'Date': To age receivable transactions based on the transaction date.
+
+2-     Select 'Terms': to age receivable transactions based on the due date, which is determined a" orgcol="Field Text" langtext="التحريج وإعادة التحريج بالسن: 1-حدد 'تاريخ': لسن حركات المدينة استناداً إلى تاريخ الحركة.
+
+2-حدد 'شروط': حركات المدينة استناداً إلى تاريخ الاستحقاق، والذي يتم تحديده لسن"/>
+	<sywhelp_dbf_ar row_key="AR XPOSTFINV" cproperty="mHelp" orgtext="Post factored A/R to cust:
+
+1-     Select 'Yes': To post receivable transactions that are collected through a factor, to the account of the corresponding factored customer.
+
+2-     Select 'No': To" orgcol="Field Text" langtext="وظيفة تؤخذ التحريج وإعادة التحريج للزبون: 1-حدد 'نعم': لترحيل الحركات المستحقة التي يتم جمعها من خلال عامل، لحساب عميل يؤخذ المقابلة.
+
+2-حدد 'لا': إلى"/>
+	<sywhelp_dbf_ar row_key="CA BB" cproperty="mHelp" orgtext="Cancel session.                                                                                                                                                                                         " orgcol="Field Text" langtext="إلغاء الدورة."/>
+	<sywhelp_dbf_ar row_key="IC CDEFSTYTAX" cproperty="mHelp" orgtext="Default Style Taxable:
+
+Instead of setting each and every style you enter in the STYLE screen as either taxable or not, you can simply use this parameter to fast determine the status of all your sty" orgcol="Field Text" langtext="الافتراضي نمط الخاضع للضريبة: بدلاً من تعيين كل نمط أدخل في الشاشة النمط أما الخاضع للضريبة أم لا، يمكنك ببساطة استخدام هذه المعلمة سريع تحديد حالة كل مكان قذر الخاص بك"/>
+	<sywhelp_dbf_ar row_key="IC MCLRASSCOD" cproperty="mHelp" orgtext="Color Assortment Code:
+
+The color assortment code is the color code you will specify to represent the style color assortment on your EDI outgoing invoices/documents. This color code is specified in " orgcol="Field Text" langtext="رمز تشكيلة اللون: رمز تشكيلة اللون هو لون رمز سوف تحدده لتمثيل تشكيلة لون النمط في التبادل الإلكتروني للبيانات الصادرة الفواتير/المستندات الخاصة بك. هذا رمز اللون المحدد في"/>
+	<sywhelp_dbf_ar row_key="IC MCLRASSORT" cproperty="mHelp" orgtext="Use Color Assortments:
+
+A color assortment is a combination of colors that belong to one style and internally defined within your company. Your customers may order style assortments instead of indiv" orgcol="Field Text" langtext="استخدام لون مطلقات: تشكيلة لون هو مزيج من الألوان التي تنتمي إلى نمط واحد وتعريفها داخليا داخل الشركة الخاصة بك. العملاء قد تأمر بتشكيلات النمط بدلاً من الفردي"/>
+	<sywhelp_dbf_ar row_key="IC M_CICOST1" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. L. Lbl1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such eleme" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. ل. Lbl1، 2، 3، 4، 5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه عليم"/>
+	<sywhelp_dbf_ar row_key="IC M_CICOST2" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. L. Lbl1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such eleme" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. ل. Lbl1، 2، 3، 4، 5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه عليم"/>
+	<sywhelp_dbf_ar row_key="IC M_CICOST3" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. L. Lbl1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such eleme" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. ل. Lbl1، 2، 3، 4، 5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه عليم"/>
+	<sywhelp_dbf_ar row_key="IC M_CICOST4" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. L. Lbl1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such eleme" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. ل. Lbl1، 2، 3، 4، 5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه عليم"/>
+	<sywhelp_dbf_ar row_key="IC M_CICOST5" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. L. Lbl1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such eleme" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. ل. Lbl1، 2، 3، 4، 5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه عليم"/>
+	<sywhelp_dbf_ar row_key="IC M_CISLBL1" cproperty="mHelp" orgtext=" Sty. Imp Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such elements," orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر،"/>
+	<sywhelp_dbf_ar row_key="IC M_CISLBL2" cproperty="mHelp" orgtext=" Sty. Imp Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such elements," orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر،"/>
+	<sywhelp_dbf_ar row_key="IC M_CISLBL3" cproperty="mHelp" orgtext=" Sty. Imp Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such elements," orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر،"/>
+	<sywhelp_dbf_ar row_key="IC M_CISLBL4" cproperty="mHelp" orgtext=" Sty. Imp Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such elements," orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر،"/>
+	<sywhelp_dbf_ar row_key="IC M_CISLBL5" cproperty="mHelp" orgtext=" Sty. Imp Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating the cost of your imported styles. You are free to edit whichever nomenclature you label such elements," orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم تكلفة الأنماط المستوردة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر،"/>
+	<sywhelp_dbf_ar row_key="IC M_CITYPE1" cproperty="mHelp" orgtext=" Sty. Imp Cost Elm. Type 1:
+
+Style purchase price cannot be given the back seat as an actual factor in evaluating the cost of your imported styles. That is why it is given the primary consideration " orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. نوع 1: سعر الشراء نمط يتعذر منح المقعد الخلفي كعامل الفعلية في تقييم تكلفة الأنماط المستوردة الخاصة بك. هذا السبب في أنها تعطي الاعتبار الرئيسي"/>
+	<sywhelp_dbf_ar row_key="IC M_CITYPE2" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. Type 2,3,4,5:
+
+You are provided with four parameter choices to be the next four types to evaluate the cost of the imported styles. Select one choice for each parameter knowing tha" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. نوع 2,345: أنك قدمت مع أربعة خيارات المعلمة أن تكون الأنواع الأربعة التالية لتقييم تكلفة الأنماط المستوردة. قم بتحديد خيار واحد لكل معلمة معرفة ثا"/>
+	<sywhelp_dbf_ar row_key="IC M_CITYPE3" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. Type 2,3,4,5:
+
+You are provided with four parameter choices to be the next four types to evaluate the cost of the imported styles. Select one choice for each parameter knowing tha" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. نوع 2,345: أنك قدمت مع أربعة خيارات المعلمة أن تكون الأنواع الأربعة التالية لتقييم تكلفة الأنماط المستوردة. قم بتحديد خيار واحد لكل معلمة معرفة ثا"/>
+	<sywhelp_dbf_ar row_key="IC M_CITYPE4" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. Type 2,3,4,5:
+
+You are provided with four parameter choices to be the next four types to evaluate the cost of the imported styles. Select one choice for each parameter knowing tha" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. نوع 2,345: أنك قدمت مع أربعة خيارات المعلمة أن تكون الأنواع الأربعة التالية لتقييم تكلفة الأنماط المستوردة. قم بتحديد خيار واحد لكل معلمة معرفة ثا"/>
+	<sywhelp_dbf_ar row_key="IC M_CITYPE5" cproperty="mHelp" orgtext="Sty. Imp Cost Elm. Type 2,3,4,5:
+
+You are provided with four parameter choices to be the next four types to evaluate the cost of the imported styles. Select one choice for each parameter knowing tha" orgcol="Field Text" langtext="مكان قذر. عفريت الدردار التكلفة. نوع 2,345: أنك قدمت مع أربعة خيارات المعلمة أن تكون الأنواع الأربعة التالية لتقييم تكلفة الأنماط المستوردة. قم بتحديد خيار واحد لكل معلمة معرفة ثا"/>
+	<sywhelp_dbf_ar row_key="IC M_CMCOST1" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. L.Lb1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your manufactured styles. You are free to edit whichever nomenclature you label such el" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. L.Lb1,2,3,4,5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الخاص بك أنماط المصنعة. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه ش"/>
+	<sywhelp_dbf_ar row_key="IC M_CMCOST2" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. L.Lb1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your manufactured styles. You are free to edit whichever nomenclature you label such el" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. L.Lb1,2,3,4,5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الخاص بك أنماط المصنعة. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه ش"/>
+	<sywhelp_dbf_ar row_key="IC M_CMCOST3" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. L.Lb1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your manufactured styles. You are free to edit whichever nomenclature you label such el" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. L.Lb1,2,3,4,5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الخاص بك أنماط المصنعة. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه ش"/>
+	<sywhelp_dbf_ar row_key="IC M_CMCOST4" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. L.Lb1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your manufactured styles. You are free to edit whichever nomenclature you label such el" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. L.Lb1,2,3,4,5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الخاص بك أنماط المصنعة. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه ش"/>
+	<sywhelp_dbf_ar row_key="IC M_CMCOST5" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. L.Lb1,2,3,4,5:
+
+Enter the full/long labels for the elements used in evaluating the cost of your manufactured styles. You are free to edit whichever nomenclature you label such el" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. L.Lb1,2,3,4,5: أدخل التسميات كامل/منذ فترة طويلة للعناصر المستخدمة في تقييم تكلفة الخاص بك أنماط المصنعة. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه ش"/>
+	<sywhelp_dbf_ar row_key="IC M_CMSLBL1" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating your manufactured styles. You are free to edit whichever nomenclature you label such elements, or to s" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم الأنماط المصنعة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر، أو إلى s"/>
+	<sywhelp_dbf_ar row_key="IC M_CMSLBL2" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating your manufactured styles. You are free to edit whichever nomenclature you label such elements, or to s" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم الأنماط المصنعة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر، أو إلى s"/>
+	<sywhelp_dbf_ar row_key="IC M_CMSLBL3" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating your manufactured styles. You are free to edit whichever nomenclature you label such elements, or to s" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم الأنماط المصنعة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر، أو إلى s"/>
+	<sywhelp_dbf_ar row_key="IC M_CMSLBL4" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating your manufactured styles. You are free to edit whichever nomenclature you label such elements, or to s" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم الأنماط المصنعة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر، أو إلى s"/>
+	<sywhelp_dbf_ar row_key="IC M_CMSLBL5" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. S. Lbl1,2,3,4,5:
+
+Enter the short label for the elements used in evaluating your manufactured styles. You are free to edit whichever nomenclature you label such elements, or to s" orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. س. Lbl1، 2، 3، 4، 5: إدخال التسمية قصيرة للعناصر المستخدمة في تقييم الأنماط المصنعة الخاصة بك. أنت حر لتحرير التسميات أيهما يمكنك تسمية هذه العناصر، أو إلى s"/>
+	<sywhelp_dbf_ar row_key="IC M_CMTYPE1" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. Type 1,2,3,4,5:
+
+You are provided with four choices to fill the actual five element types in evaluating the cost of the style manufacturing. Select one choice per each parameter," orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. نوع 1,2,3,4,5: أنك قدمت مع أربعة خيارات تعبئة أنواع العناصر الخمسة الفعلية في تقييم تكلفة التصنيع النمط. قم بتحديد خيار واحد لكل معلمة،"/>
+	<sywhelp_dbf_ar row_key="IC M_CMTYPE2" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. Type 1,2,3,4,5:
+
+You are provided with four choices to fill the actual five element types in evaluating the cost of the style manufacturing. Select one choice per each parameter," orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. نوع 1,2,3,4,5: أنك قدمت مع أربعة خيارات تعبئة أنواع العناصر الخمسة الفعلية في تقييم تكلفة التصنيع النمط. قم بتحديد خيار واحد لكل معلمة،"/>
+	<sywhelp_dbf_ar row_key="IC M_CMTYPE3" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. Type 1,2,3,4,5:
+
+You are provided with four choices to fill the actual five element types in evaluating the cost of the style manufacturing. Select one choice per each parameter," orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. نوع 1,2,3,4,5: أنك قدمت مع أربعة خيارات تعبئة أنواع العناصر الخمسة الفعلية في تقييم تكلفة التصنيع النمط. قم بتحديد خيار واحد لكل معلمة،"/>
+	<sywhelp_dbf_ar row_key="IC M_CMTYPE4" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. Type 1,2,3,4,5:
+
+You are provided with four choices to fill the actual five element types in evaluating the cost of the style manufacturing. Select one choice per each parameter," orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. نوع 1,2,3,4,5: أنك قدمت مع أربعة خيارات تعبئة أنواع العناصر الخمسة الفعلية في تقييم تكلفة التصنيع النمط. قم بتحديد خيار واحد لكل معلمة،"/>
+	<sywhelp_dbf_ar row_key="IC M_CMTYPE5" cproperty="mHelp" orgtext="Sty. Mfg. Cost Elm. Type 1,2,3,4,5:
+
+You are provided with four choices to fill the actual five element types in evaluating the cost of the style manufacturing. Select one choice per each parameter," orgcol="Field Text" langtext="مكان قذر. تكلفة تصنيع الدردار. نوع 1,2,3,4,5: أنك قدمت مع أربعة خيارات تعبئة أنواع العناصر الخمسة الفعلية في تقييم تكلفة التصنيع النمط. قم بتحديد خيار واحد لكل معلمة،"/>
+	<sywhelp_dbf_ar row_key="IC M_COST_MET" cproperty="mHelp" orgtext="Style costing method:
+
+Companies adopt one method or another to compute the cost of the sold styles issued from the inventory. The system provides you with four well-known methods to compute such co" orgcol="Field Text" langtext="نمط طريقة تحديد تكاليف الإنتاج: شركات تعتمد أسلوب واحد أو آخر لحساب تكلفة الأنماط تباع الصادرة من المخزون. النظام يوفر لك مع أربعة أساليب معروفة لحساب هذه الشركة"/>
+	<sywhelp_dbf_ar row_key="IC M_DROPWARE" cproperty="mHelp" orgtext="Drop Ship Location:
+
+The drop ship location is a virtual warehouse/location used instead of actual warehouses/locations when the style shipment is directly transferred from the vendor to the custome" orgcol="Field Text" langtext="موقع السفينة الإسقاط: موقع سفينة الإسقاط مستودع/موقع ظاهرية المستخدمة بدلاً من المستودعات/المواقع الفعلية عند شحن نمط منقولا مباشرة من المورد إلى custome"/>
+	<sywhelp_dbf_ar row_key="IC M_DYELOT" cproperty="mHelp" orgtext="Dyelots used:
+
+Dyelots are the shades of color each style or fabric has. Your company either produces styles of different shades of color or not. If you want to use or assign dyelots for your styles" orgcol="Field Text" langtext="دييلوتس المستخدمة: دييلوتس هي ظلال اللون كل نمط أو النسيج. وتنتج الشركة الخاصة بك أما أنماط ظلال مختلفة من اللون أو لا. إذا كنت ترغب في استخدام أو تعيين دييلوتس للأنماط الخاصة بك"/>
+	<sywhelp_dbf_ar row_key="IC M_EXTWIDTH" cproperty="mHelp" orgtext="Extended size scale width:
+
+Specify the width of the extended size scale.                                                                                                                             " orgcol="Field Text" langtext="تمديد عرض مقياس الحجم: تحديد عرض مقياس حجم الموسعة."/>
+	<sywhelp_dbf_ar row_key="IC M_MGROUP" cproperty="mHelp" orgtext="Force style group entry:
+
+Style groups are the sets of styles under which each style is categorized. Style groups are defined in the 'Style Groups' of the company codes. When the STYLE GROUP represe" orgcol="Field Text" langtext="فرض إدخال مجموعة النمط: نمط المجموعات هي مجموعات الأنماط التي يتم تصنيف كل نمط. يتم تعريف نمط المجموعات في &quot;مجموعات&quot; 'نمط' رموز الشركة. عندما ريبريسي على غرار المجموعة"/>
+	<sywhelp_dbf_ar row_key="IC M_OTSPRIOD" cproperty="mHelp" orgtext="O.T.S. period ranges:
+
+OPEN TO SELL is the quantity available to sell without issuing new cut tickets or new purchase orders. It equals the stock quantity plus the quantity under production minus th" orgcol="Field Text" langtext="نطاقات الفترة O.T.S.: مفتوح &quot;لبيع&quot; هو أوامر الشراء الكمية المتاحة لبيع دون إصدار جديد قطع التذاكر أو الجديدة. أنه يعادل كمية المخزون بالإضافة إلى الكمية تحت الإنتاج ناقص th"/>
+	<sywhelp_dbf_ar row_key="IC M_PACK" cproperty="mHelp" orgtext="Use style packs/SKU:
+
+A style pack is a collection of pieces from one or more sizes that belong to one or more styles and dealt with as one package defined by the customer or the manufacturer.  SKU'" orgcol="Field Text" langtext="استخدام نمط حزم/SKU: حزمة نمط هي عبارة عن مجموعة من القطع من أحجام واحد أو أكثر التي تنتمي إلى أنماط واحدة أو أكثر، والتعامل معها كحزمة واحدة التي يحددها العميل أو الشركة المصنعة.  سكو '"/>
+	<sywhelp_dbf_ar row_key="IC M_PREPACK" cproperty="mHelp" orgtext="Prepack status:
+
+A prepack is a size quantity breakdown that belongs to the same size scale for one style and prepared as one package. Through this parameter you can determine the status of your sty" orgcol="Field Text" langtext="بريباك حالة: بريباك هو انهيار حجم كمية التي تنتمي إلى نفس حجم المقياس لنمط واحد وإعدادها كحزمة واحدة. من خلال هذه المعلمة يمكنك تحديد حالة الخاص بك مكان قذر"/>
+	<sywhelp_dbf_ar row_key="IC M_STYMARK" cproperty="mHelp" orgtext="Markup:
+
+Markup is the difference between the selling price of a style and its cost. Depending on the 'Markup' parameter choice setting in the IC setup, the style markup is computed, based on one of" orgcol="Field Text" langtext="العلامات: العلامات هو الفرق بين سعر البيع لنمط وتكاليفه. اعتماداً على إعداد خيار المعلمة 'العلامات' في الإعداد IC، يتم حسابها توصيف نمط، استناداً إلى أحد"/>
+	<sywhelp_dbf_ar row_key="IC M_TOTAVLBL" cproperty="mHelp" orgtext="Include WIP in Unallo Qty:
+
+&quot;Include WIP in Unallocated Quantities&quot; You can set this parameter to 'Yes' so you can have work-in-process quantities included in the on-hand quantity. This way, you can" orgcol="Field Text" langtext="وتشمل الأعمال تحت التنفيذ في Qty أونالو: &quot;تتضمن الأعمال تحت التنفيذ في كميات غير مخصصة&quot; يمكنك تعيين هذه المعلمة إلى 'نعم' حتى تتمكن من العمل في عملية الكميات المدرجة في الكمية الفعلية. وبهذه الطريقة، يمكنك"/>
+	<sywhelp_dbf_ar row_key="IC M_UCCDIV" cproperty="mHelp" orgtext="Maintain U.C.C. Manf. ID:
+
+Uniform Code Council is an international organization that issues the Universal Product Codes to identify the products as was mentioned before. If you are interested in ma" orgcol="Field Text" langtext="الحفاظ على منف U.C.C.. معرف: &quot;المجلس القانون&quot; الموحد هو منظمة دولية أن قضايا &quot;رموز المنتج العالمي&quot; تحديد المنتجات كما ذكرنا من قبل. إذا كنت مهتما في درجة الماجستير"/>
+	<sywhelp_dbf_ar row_key="IC M_UPC_USE" cproperty="mHelp" orgtext="Use U.P.C numbers:
+
+The Universal Product Code numbers are issued by the Uniform Code Council to identify each single product universally. A U.P.C consists of 12 characters. The Uniform Code Council" orgcol="Field Text" langtext="استخدام أرقام U.P.C: أرقام &quot;رمز المنتج العالمي&quot; تم إصدارها من قبل &quot;مجلس قانون موحد&quot; التعرف على كل منتج واحد عالمياً. U.P.C يتكون من 12 حرفاً. مجلس قانون موحد"/>
+	<sywhelp_dbf_ar row_key="IC M_USEEXSSC" cproperty="mHelp" orgtext="Use Extended Size Scale:
+
+Extended size scales are the size scales that use one, two, or even three size dimensions. This feature is introduced in AAS to help you enter as many sizes for each style " orgcol="Field Text" langtext="استخدام مقياس الحجم الموسعة: جداول الحجم الموسعة هي جداول الحجم التي تستخدم أبعاد حجم واحد أو اثنين أو حتى ثلاثة. يتم عرض هذه الميزة في العاص مساعدتك في إدخال العديد من الأحجام لكل نمط"/>
+	<sywhelp_dbf_ar row_key="IC M_WAREHOUS" cproperty="mHelp" orgtext="Use multiple locations:
+
+Locations are the warehouses where you store your style products. If you are interested in using multiple locations, then choose 'Yes'. But if your company uses just one loc" orgcol="Field Text" langtext="استخدام مواقع متعددة: هي مواقع المستودعات حيث قمت بتخزين المنتجات النمط الخاص بك. إذا كنت ترغب في استخدام مواقع متعددة، ثم اختر 'نعم'. ولكن إذا كانت شركتك تستخدم خط واحد فقط"/>
+	<sywhelp_dbf_ar row_key="IC M_WARELOC" cproperty="mHelp" orgtext="Keep track of bins:
+
+Bins are the sub-locations established within a warehouse for the purpose of facilitating access to style breakdown: dyelots, sizes etc. If you want the system to keep track of " orgcol="Field Text" langtext="الاحتفاظ بتعقب من سلال: هي صناديق سوبلوكيشنز المنشأة داخل مستودع لغرض تيسير الوصول إلى انهيار نمط: دييلوتس، أحجام إلخ. إذا كنت تريد أن تتبع النظام"/>
+	<sywhelp_dbf_ar row_key="MA M_CTCOST1" cproperty="mHelp" orgtext="Material Cost Elm. L. Lbl 1 through L. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a long label.  You can label these cost elements names that make it easi" orgcol="Field Text" langtext="الدردار التكلفة المادية. ل. Lbl 1 عن طريق لام Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية طويلة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعله easi"/>
+	<sywhelp_dbf_ar row_key="MA M_CTCOST2" cproperty="mHelp" orgtext="Material Cost Elm. L. Lbl 1 through L. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a long label.  You can label these cost elements names that make it easi" orgcol="Field Text" langtext="الدردار التكلفة المادية. ل. Lbl 1 عن طريق لام Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية طويلة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعله easi"/>
+	<sywhelp_dbf_ar row_key="MA M_CTCOST3" cproperty="mHelp" orgtext="Material Cost Elm. L. Lbl 1 through L. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a long label.  You can label these cost elements names that make it easi" orgcol="Field Text" langtext="الدردار التكلفة المادية. ل. Lbl 1 عن طريق لام Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية طويلة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعله easi"/>
+	<sywhelp_dbf_ar row_key="MA M_CTCOST4" cproperty="mHelp" orgtext="Material Cost Elm. L. Lbl 1 through L. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a long label.  You can label these cost elements names that make it easi" orgcol="Field Text" langtext="الدردار التكلفة المادية. ل. Lbl 1 عن طريق لام Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية طويلة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعله easi"/>
+	<sywhelp_dbf_ar row_key="MA M_CTSLBL1" cproperty="mHelp" orgtext="Material Cost Elm. S. Lbl 1 through S. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a short label.  You can label these cost elements names that make it eas" orgcol="Field Text" langtext="الدردار التكلفة المادية. س. Lbl 1 عن طريق س. Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية قصيرة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعل من قمة شرق آسيا"/>
+	<sywhelp_dbf_ar row_key="MA M_CTSLBL2" cproperty="mHelp" orgtext="Material Cost Elm. S. Lbl 1 through S. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a short label.  You can label these cost elements names that make it eas" orgcol="Field Text" langtext="الدردار التكلفة المادية. س. Lbl 1 عن طريق س. Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية قصيرة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعل من قمة شرق آسيا"/>
+	<sywhelp_dbf_ar row_key="MA M_CTSLBL3" cproperty="mHelp" orgtext="Material Cost Elm. S. Lbl 1 through S. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a short label.  You can label these cost elements names that make it eas" orgcol="Field Text" langtext="الدردار التكلفة المادية. س. Lbl 1 عن طريق س. Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية قصيرة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعل من قمة شرق آسيا"/>
+	<sywhelp_dbf_ar row_key="MA M_CTSLBL4" cproperty="mHelp" orgtext="Material Cost Elm. S. Lbl 1 through S. Lbl 4:
+
+The material item has cost elements of different types.  Each cost element has a short label.  You can label these cost elements names that make it eas" orgcol="Field Text" langtext="الدردار التكلفة المادية. س. Lbl 1 عن طريق س. Lbl 4: العنصر المادي قد كلف عناصر أنواع مختلفة.  يحتوي كل عنصر تكلفة تسمية قصيرة.  يمكنك تسمية هذه أسماء عناصر التكلفة التي تجعل من قمة شرق آسيا"/>
+	<sywhelp_dbf_ar row_key="MA M_CTTYPE1" cproperty="mHelp" orgtext="Material Cost Element Type 1 through 4:
+
+Material cost elements are the material main cost components which form the total cost of the material.  This parameter has a three-value drop down list to c" orgcol="Field Text" langtext="1 نوع عنصر التكلفة المادية عن طريق 4: المواد تكلفة العناصر هي المكونات المادية والتكلفة الرئيسية التي تشكل التكلفة الإجمالية للمواد.  هذه المعلمة قد منسدلة قائمة إلى ج قيمة ثلاثة"/>
+	<sywhelp_dbf_ar row_key="MA M_CTTYPE2" cproperty="mHelp" orgtext="Material Cost Element Type 1 through 4:
+
+Material cost elements are the material main cost components which form the total cost of the material.  This parameter has a three-value drop down list to c" orgcol="Field Text" langtext="1 نوع عنصر التكلفة المادية عن طريق 4: المواد تكلفة العناصر هي المكونات المادية والتكلفة الرئيسية التي تشكل التكلفة الإجمالية للمواد.  هذه المعلمة قد منسدلة قائمة إلى ج قيمة ثلاثة"/>
+	<sywhelp_dbf_ar row_key="MA M_CTTYPE3" cproperty="mHelp" orgtext="Material Cost Element Type 1 through 4:
+
+Material cost elements are the material main cost components which form the total cost of the material.  This parameter has a three-value drop down list to c" orgcol="Field Text" langtext="1 نوع عنصر التكلفة المادية عن طريق 4: المواد تكلفة العناصر هي المكونات المادية والتكلفة الرئيسية التي تشكل التكلفة الإجمالية للمواد.  هذه المعلمة قد منسدلة قائمة إلى ج قيمة ثلاثة"/>
+	<sywhelp_dbf_ar row_key="MA M_CTTYPE4" cproperty="mHelp" orgtext="Material Cost Element Type 1 through 4:
+
+Material cost elements are the material main cost components which form the total cost of the material.  This parameter has a three-value drop down list to c" orgcol="Field Text" langtext="1 نوع عنصر التكلفة المادية عن طريق 4: المواد تكلفة العناصر هي المكونات المادية والتكلفة الرئيسية التي تشكل التكلفة الإجمالية للمواد.  هذه المعلمة قد منسدلة قائمة إلى ج قيمة ثلاثة"/>
+	<sywhelp_dbf_ar row_key="MA M_GENMAPON" cproperty="mHelp" orgtext="Enter Material PO # Manually:
+
+If you set this parameter to &quot;NO&quot;, the system automatically generated a unique serial number for new material purchase orders. If set to 'YES', then you can enter a nu" orgcol="Field Text" langtext="أدخل &quot;مادة ص. ب&quot; # يدوياً: إذا قمت بتعيين هذه المعلمة إلى &quot;لا&quot;، النظام تلقائياً إنشاء رقم تسلسلي فريد من نوعه لأوامر شراء مواد جديدة. في حالة تعيين إلى 'نعم'، ثم يمكنك إدخال نو"/>
+	<sywhelp_dbf_ar row_key="MA M_GENMONUM" cproperty="mHelp" orgtext="Manual Mfg. Order #:
+
+If you set this parameter to &quot;NO&quot;, the system automatically generated a unique serial number for new manufacturing orders. If set to 'YES', then you can enter a number for your" orgcol="Field Text" langtext="دليل تصنيع النظام #: إذا قمت بتعيين هذه المعلمة إلى &quot;لا&quot;، النظام تلقائياً إنشاء رقم تسلسلي فريد من نوعه لأوامر التصنيع الجديدة. في حالة تعيين إلى 'نعم'، ثم يمكنك إدخال عدد للخاص بك"/>
+	<sywhelp_dbf_ar row_key="MA M_GENROLID" cproperty="mHelp" orgtext="Enter Roll ID manually:
+
+This parameter has two value options for you to choose from. Choose 'Yes' to set the roll ID to be entered manually.
+Choose 'No' to set the roll ID to be filled automatical" orgcol="Field Text" langtext="أدخل معرف لفة يدوياً: هذه المعلمة قد اثنين من الخيارات القيمة لتختار من بينها. اختر 'نعم' لتعيين معرف الأسماء المراد إدخالها يدوياً.
+اختر 'لا' لتعيين معرف الأسماء المراد شغلها إلى"/>
+	<sywhelp_dbf_ar row_key="MA M_GNMMOBOM" cproperty="mHelp" orgtext="Issue MMO BOM:
+
+1-     'Always': to always generate the material manufacturing order cost sheet - BOM - directly after saving a newly issued order. You view the cost sheet, edit needed changes and f" orgcol="Field Text" langtext="المسألة أسطورة شجرة المواد: 1-'دائماً': دائماً توليد المواد التحويلية أمر التكلفة ورقة-شجرة المواد-مباشرة بعد حفظ أمر الصادرة حديثا. يمكنك عرض ورقة التكاليف والتغييرات تحرير اللازمة و"/>
+	<sywhelp_dbf_ar row_key="MA M_MATCSTMT" cproperty="mHelp" orgtext="Material Costing Method:
+
+A costing method is a technique used to determine the cost of both the material items issued, i.e. the cost of goods sold, and the cost of the stock on hand (at the ending " orgcol="Field Text" langtext="طريقة تقدير التكاليف المادية: طريقة تقدير تكاليف هو أسلوب يستخدم لتحديد تكلفة كل العناصر المادية الصادرة، أي تكلفة السلع المباعة، وتكلفة المخزون على اليد (في إنهاء"/>
+	<sywhelp_dbf_ar row_key="MA M_MATDYE" cproperty="mHelp" orgtext="Dyelots Used?:
+
+Dyelots refer to the different color shades which the material item has.  This parameter is used to control the feature of having dyelots used in the system or not.  It has a two-val" orgcol="Field Text" langtext="تستخدم دييلوتس؟: دييلوتس تشير إلى ظلال الألوان المختلفة التي قد العنصر المادي.  يتم استخدام هذه المعلمة للتحكم ميزة وجود دييلوتس المستخدمة في هذا النظام أم لا.  فقد اثنين-فال"/>
+	<sywhelp_dbf_ar row_key="MA M_MMOLNLBL" cproperty="mHelp" orgtext="MMO Long Label:
+
+Enter the title that you want to print on the Material Manufacturing Orders report.                                                                                                  " orgcol="Field Text" langtext="أسطورة طويلة التسمية: أدخل العنوان الذي تريد طباعة تقرير &quot;أوامر تصنيع المواد&quot;."/>
+	<sywhelp_dbf_ar row_key="MA M_TINVT" cproperty="mHelp" orgtext="Trim Inventory Maintained:
+
+Select 'YES' to maintain your trim inventory.                                                                                                                             " orgcol="Field Text" langtext="تقليم المخزون Maintained: حدد 'نعم' للحفاظ على المخزون الخاص بك تقليم."/>
+	<sywhelp_dbf_ar row_key="MA M_TRKROLLS" cproperty="mHelp" orgtext="Keep Track of Mat. Rolls:
+
+This parameter is used to allow the system to keep track of material rolls for each material/color.  In other words, the materials can be received in different forms or pa" orgcol="Field Text" langtext="تعقب للشروط المتفق عليها تبادلياً. لفات: يتم استخدام هذه المعلمة للسماح للنظام لتعقب لفات المادية لكل المواد واللون.  وبعبارة أخرى، يمكن أن تلقي المواد في أشكال مختلفة أو السلطة الفلسطينية"/>
+	<sywhelp_dbf_ar row_key="MF M_AOVW" cproperty="mHelp" orgtext="Adornment Order Visibility Window:
+
+You may need to have your styles ornamented with badges, signs, names, …etc. For this process, you need to create an adornment order. 
+This parameter defines the" orgcol="Field Text" langtext="الزينة أمر الرؤية النافذة: فقد تحتاج إلى وجود أنماط الخاص بك مزخرف مع شارات وعلامات الأسماء،... إلخ. لهذه العملية، تحتاج إلى إنشاء أمر زينة. 
+تحدد هذه المعلمة"/>
+	<sywhelp_dbf_ar row_key="MF M_DOVW" cproperty="mHelp" orgtext="Dye Order Visibility Window:
+
+When your company needs to dye manufactured styles, a dye order is created to send these styles to a contractor. In this order, you specify the color to be used then th" orgcol="Field Text" langtext="صبغ أمر الرؤية النافذة: عندما تحتاج شركتك صبغ الأنماط المصنوعة، إنشاء أمر صبغ لإرسال هذه الأنماط إلى مقاول. في هذا النظام، يمكنك تحديد اللون يكون استخدام ثم th"/>
+	<sywhelp_dbf_ar row_key="MF M_DYEOPR" cproperty="mHelp" orgtext="Dyeing Operation:
+
+The DYEING OPERATION parameter allows you to make a dye order for a style. Choose one of the manufacturing operation values available in the drop down list of the DYEING OPERATION" orgcol="Field Text" langtext="صبغ العملية: &quot;عملية الصباغة&quot; المعلمة يسمح لك لجعل أمر صبغ لنمط. اختر واحدة من عملية تصنيع القيم المتوفرة في القائمة المنسدلة قائمة عملية الصباغة"/>
+	<sywhelp_dbf_ar row_key="MF M_GENCTNUM" cproperty="mHelp" orgtext="Manual Cutting Ticket #:
+
+1-     'Yes': to make the maintenance of the C/T serial number a user responsibility. In other words, to ask the user, every time they issue a cutting ticket, to enter a se" orgcol="Field Text" langtext="دليل &quot;قطع التذاكر&quot; #: 1--'نعم': جعل الحفاظ على الرقم التسلسلي ج/تي هي مسؤولية مستخدم. وبعبارة أخرى، أن تسأل المستخدم، كل مرة أنها تصدر تذكرة قطع، بالدخول سراج الدين"/>
+	<sywhelp_dbf_ar row_key="MF M_GNCTBOM" cproperty="mHelp" orgtext="Issue Cutting Ticket BOM:
+
+1-     'Always': to always generate the C/T cost sheet - BOM - directly after saving a newly issued cutting ticket. You view the cost sheet, edit needed changes and finall" orgcol="Field Text" langtext="مسألة قطع التذاكر BOM: 1-'دائماً': لتوليد دائماً ج/تي تكلفة ورقة-شجرة-مباشرة بعد حفظ تذكرة قطع الصادرة حديثا. يمكنك عرض ورقة التكاليف والتغييرات تحرير اللازمة و finall"/>
+	<sywhelp_dbf_ar row_key="MF M_LMFCOST" cproperty="mHelp" orgtext="Use detailed costing:
+
+1-     'Yes': to maintain the costing of a manufactured style detailed by editing cost items in a cost sheet. Then, summarized cost figures are derived from the cost sheet and" orgcol="Field Text" langtext="استخدام تفاصيل التكاليف: 1--'نعم': للحفاظ على تقدير تكاليف نمط المصنعة بالتفصيل عن طريق تحرير عناصر التكلفة في ورقة تكلفة. ثم، الأرقام التكاليف ملخصة مستمدة من الورقة التكاليف و"/>
+	<sywhelp_dbf_ar row_key="MF M_MFDSPPRC" cproperty="mHelp" orgtext="Sell Price and G. Margin on CT:
+
+This parameter gives you the option of whether or not to have selling price and gross margin data in the MANUFACTURING ORDER and GENERATE MANUFACTURING ORDER FROM SO" orgcol="Field Text" langtext="بيع الأسعار وهامش زاي في الأشعة المقطعية: هذه المعلمة يعطيك الخيار ليكون بيع الأسعار وبيانات إجمالي هامش الربح في أمر تصنيع وتوليد التصنيع أمر من ذلك من عدمه"/>
+	<sywhelp_dbf_ar row_key="MF M_PRDLNLBL" cproperty="mHelp" orgtext="Prod. Order Short/Long Label:
+
+If, for your own business/industry, you have a name for the production order other than Cutting Ticket, then you can use these parameters to define customized short an" orgcol="Field Text" langtext="برود. ترتيب التسمية قصيرة/طويلة: إذا، لرجال الأعمال والصناعة الخاصة بك، لديك اسم لأمر الإنتاج عدا &quot;قطع التذاكر&quot;، ثم يمكنك استخدام هذه المعلمات لتعريف قصيرة مخصصة"/>
+	<sywhelp_dbf_ar row_key="MF M_PRDSHLBL" cproperty="mHelp" orgtext="Prod. Order Short/Long Label:
+
+If, for your own business/industry, you have a name for the production order other than Cutting Ticket, then you can use these parameters to define customized short an" orgcol="Field Text" langtext="برود. ترتيب التسمية قصيرة/طويلة: إذا، لرجال الأعمال والصناعة الخاصة بك، لديك اسم لأمر الإنتاج عدا &quot;قطع التذاكر&quot;، ثم يمكنك استخدام هذه المعلمات لتعريف قصيرة مخصصة"/>
+	<sywhelp_dbf_ar row_key="NX BB" cproperty="mHelp" orgtext="Move the next screen.                                                                                                                                                                                   " orgcol="Field Text" langtext="الانتقال الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="PO M_CCOSTIMP" cproperty="mHelp" orgtext="Receive PO by:
+
+This parameter controls the way you receive imported or purchased styles. Choose 'Shipment' to receive styles by shipment number, or choose 'P/O' to receive them by purchase order nu" orgcol="Field Text" langtext="تلقي بو قبل: التحكم هذه المعلمة الطريقة التي تتلقى بها الأنماط المستوردة أو المشتراة. اختر 'شحن' الحصول على أنماط حسب رقم الشحنة، أو اختر 'ف/س' لتلقي لهم شراء أمر نو"/>
+	<sywhelp_dbf_ar row_key="PO M_CRTCSTSH" cproperty="mHelp" orgtext="Create PO Cost Sheet:
+
+This parameter gives you the option to create a cost sheet for your PO according to the following values:
+
+1-     'Always': to always generate the PO cost sheet directly aft" orgcol="Field Text" langtext="إنشاء ورقة التكاليف ص. ب: هذه المعلمة يعطيك الخيار لإنشاء ورقة تكلفة للبريد الخاص بك وفقا للقيم التالية: 1-'دائماً': لتوليد دائماً ورقة تكلفة بو مباشرة من الخلف"/>
+	<sywhelp_dbf_ar row_key="PO M_GENSTORN" cproperty="mHelp" orgtext="Enter style PO # manually:
+
+This parameter has two value options for you to choose from. Choose 'Yes' to set the PO # to be entered manually// that is, for the purchase order number to be typed in e" orgcol="Field Text" langtext="أدخل نمط PO # يدوياً: هذه المعلمة قد اثنين من الخيارات القيمة لتختار من بينها. اختر 'نعم' لتعيين PO # المراد إدخالها يدوياً//هذا هو، لرقم أمر الشراء بكتابته في ه"/>
+	<sywhelp_dbf_ar row_key="PO M_LIMPCOST" cproperty="mHelp" orgtext="Use detailed costing:
+
+This parameter controls the option of having summarized or detailed costing for imported styles.
+Choose 'Yes' to set the parameter to maintain a separate detailed cost sheet " orgcol="Field Text" langtext="استخدام مفصلة تكلف: التحكم هذه المعلمة خيار بعد تلخيص أو حساب التكاليف التفصيلية للأنماط المستوردة.
+اختر 'نعم' لتعيين المعلمة للحفاظ على ورقة منفصلة مفصلة للتكاليف"/>
+	<sywhelp_dbf_ar row_key="PO M_PODSPPRC" cproperty="mHelp" orgtext="Sell Price and G. Margin on PO:
+
+This parameter gives you the option of whether or not to have selling price and gross margin data in the PURCHASE ORDER and GENERATE PO FROM SO screens. The paramete" orgcol="Field Text" langtext="بيع الأسعار وهامش غ. ص. ب: هذه المعلمة يعطيك الخيار ليكون بيع الأسعار وبيانات إجمالي هامش الربح في &quot;أمر الشراء&quot; أو عدمه وشاشات &quot;توليد بو من ذلك&quot;. براميت"/>
+	<sywhelp_dbf_ar row_key="PS LLPOSTRCV" cproperty="mHelp" orgtext="Post After Print:
+
+This parameter enables you to post the transactions data automatically after printing transaction log. This option is time-saving if you approve all transaction data previewed and" orgcol="Field Text" langtext="المنصب بعد الطباعة: تمكن هذه المعلمة يمكنك ترحيل البيانات المعاملات بشكل تلقائي بعد طباعة سجل المعاملات. هذا الخيار توفير الوقت إذا كنت توافق على جميع بيانات المعاملات التي تمت معاينتها و"/>
+	<sywhelp_dbf_ar row_key="PS M_ACPZROPC" cproperty="mHelp" orgtext="Accept Items with 0 Price:
+
+This paramater can be toggled to Yes if you need to disable any error messages from the Module in case no price is added for a certain sold item. This paramater is especi" orgcol="Field Text" langtext="قبول الأصناف مع الأسعار 0: يمكن أن يكون مثبت هذه المعلمات إلى &quot;نعم&quot; إذا كنت بحاجة إلى تعطيل أية رسائل خطأ من الوحدة النمطية في حالة إضافة لا سعر لمعينه تباع البند. هذه المعلمات اسبيسي"/>
+	<sywhelp_dbf_ar row_key="PS M_ACPZRSTK" cproperty="mHelp" orgtext="Allow -ve Inventory:
+
+This paramater enables you to issue styles from any of your stocking locations in quantities higher than those registered in the source location even if exsting quantities are " orgcol="Field Text" langtext="السماح-ve المخزون: هذه المعلمات تمكنك من إصدار أنماط من أي من مواقع التخزين الخاصة بك بكميات أعلى من تلك المسجلة في الموقع المصدر حتى لو كانت كميات اكسستينج"/>
+	<sywhelp_dbf_ar row_key="PS M_ACTNTYPE" cproperty="mHelp" orgtext="Action Type:
+
+Specify the method of processing your transactions, either to process a single online transaction, or a batch of offline transactions.                                                  " orgcol="Field Text" langtext="نوع العمل: تحديد طريقة تجهيز المعاملات الخاصة بك، أما لمعالجة إحدى معاملات عبر إنترنت، أو مجموعة من المعاملات دون اتصال."/>
+	<sywhelp_dbf_ar row_key="PS M_ALWRETRN" cproperty="mHelp" orgtext="Allow Return without Inv.:
+
+This parameter enables you to determine whether or not to accept return merhcandise without invoices. It can be toggled between Yes and No so you can either have the Modu" orgcol="Field Text" langtext="السماح بعودة دون للاستثمار: هذه المعلمة تمكنك من تحديد ما إذا كان سيتم قبول ميرهكانديسي العودة دون فواتير. فإنه يمكن أن يكون مثبت بين نعم ولا حتى يمكن أن يكون أما Modu"/>
+	<sywhelp_dbf_ar row_key="PS M_ATOMDIR" cproperty="mHelp" orgtext="Atomic software directory:
+
+Type the directory of the Atomic software or browse and specify it.
+                                                                                                     " orgcol="Field Text" langtext="دليل البرنامج الذري: اكتب دليل البرنامج الذري أو تصفح وتحديده."/>
+	<sywhelp_dbf_ar row_key="PS M_CASHCOM" cproperty="mHelp" orgtext="Cash Com. Port:
+
+This is the physical cash communication port on the computer identified by the Point of Sale administrator to link the escape sequence to the communication port of the computer. Thi" orgcol="Field Text" langtext="منفذ com. النقدية: هذا هو منفذ الاتصالات النقدية الفعلية على الكمبيوتر حددها مسؤول نقطة بيع لربط تسلسل الهروب إلى منفذ الاتصالات من الكمبيوتر. ثي"/>
+	<sywhelp_dbf_ar row_key="PS M_CASHSEQ" cproperty="mHelp" orgtext="Cash Drawer Escape Seq.:
+
+This is a number set by the Point of Sale administrator to open the cash registry drawer for the cashier once a sales or a returns invoice is issued. A cash drawer is a har" orgcol="Field Text" langtext="النقدية درج الهروب ما يليها: هذه مجموعة رقم مدير نقطة البيع لفتح درج السجل النقدي للصراف حالما تصدر مبيعات أو فاتورة إرجاع. درج نقدية هار"/>
+	<sywhelp_dbf_ar row_key="PS M_DSPFRGHT" cproperty="mHelp" orgtext="Use Freight:
+
+This parameter enables you to include freight fees if you can afford to deliver items to customers'. This option is available only for US users.                                        " orgcol="Field Text" langtext="استخدام الشحن: تمكن هذه المعلمة لك لتشمل رسوم الشحن إذا كنت لا تستطيع تحمله لتسليم العناصر إلى العملاء. يتوفر هذا الخيار فقط للمستخدمين في الولايات المتحدة."/>
+	<sywhelp_dbf_ar row_key="PS M_ENTMETH" cproperty="mHelp" orgtext="Entry Method:
+
+Specify the method with which you are going to enter the card data. You can enter the card data manually, or using a card reader.                                                      " orgcol="Field Text" langtext="أسلوب الإدخال: تحديد الأسلوب الذي كنت تنوي إدخال بيانات البطاقة. يمكنك إدخال بيانات البطاقة يدوياً، أو باستخدام قارئ بطاقة."/>
+	<sywhelp_dbf_ar row_key="PS M_MSCACCNT" cproperty="mHelp" orgtext="Miscellaneous Account:
+
+The miscellaneous account is used to enter all of your sales amounts made by the miscellaneous customers as long as they are neither debtors nor creditors. This customer code" orgcol="Field Text" langtext="حساب المتنوعة: يتم استخدام الحساب المتنوعة لإدخال كافة مبالغ المبيعات الخاص بك المقدمة من العملاء المتنوعة طالما أنهم لا من المدينين أو الدائنين. هذه التعليمات البرمجية العميل"/>
+	<sywhelp_dbf_ar row_key="PS M_STYLEUPC" cproperty="mHelp" orgtext="Style/UPC:
+
+Due to the fact that some styles have U.P.C. numbers and some do not, plus the fact that some may get their U.P.C. ticket lost while you issue an invoice, ARIA SYSTEMS, INC. has develope" orgcol="Field Text" langtext="نمط واتحاد الوطنيين الكونغوليين: يرجع ذلك إلى حقيقة أن بعض أنماط الأرقام U.P.C. وبعضهم لا، بالإضافة إلى الحقيقة أن بعض قد الحصول على تذاكر U.P.C. فقدت بينما يمكنك إصدار فاتورة، ARIA SYSTEMS, INC. وقد وضع"/>
+	<sywhelp_dbf_ar row_key="PS M_USEATOM" cproperty="mHelp" orgtext="Integrated with Atomic:
+
+If you use Credit Cards, then select Yes, to have your system integrated with the Atomic software that validates the validity of the Credit Cards you receive.               " orgcol="Field Text" langtext="متكامل مع الذرية: إذا كنت تستخدم بطاقات الائتمان، ثم حدد &quot;نعم&quot;، يكون لديك نظام متكامل مع البرنامج الذري في التحقق من صحة بطاقات الائتمان التي تتلقى."/>
+	<sywhelp_dbf_ar row_key="RE BB" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="RS BB" cproperty="mHelp" orgtext="Discard the current settings and reset the parameters.                                                                                                                                                  " orgcol="Field Text" langtext="تجاهل الإعدادات الحالية وإعادة تعيين المعلمات."/>
+	<sywhelp_dbf_ar row_key="SO M_CANAFTER" cproperty="mHelp" orgtext="SO Depletion Cancel After:
+
+This parameter is used to handle the reduction you make in the order quantity.  In this parameter you enter a certain number of days. The system adds the time duration yo" orgcol="Field Text" langtext="حتى استنفاد إلغاء بعد: يتم استخدام هذه المعلمة للتعامل مع الحد التي تجريها في كمية الأمر.  في هذه المعلمة تقوم بإدخال عدد معين من الأيام. يضيف النظام مدة زمنية يو"/>
+	<sywhelp_dbf_ar row_key="SO M_CMPDOLN" cproperty="mHelp" orgtext="Comp. Date by Order Line:
+
+In the sales order, the order lines may have different completion dates as per the customer request.  This parameter is used to allow the user to set a separate completion" orgcol="Field Text" langtext="تاريخ اكتمال &quot;سطر الأمر&quot;: في أمر التوريد، قد تكون سطور الأوامر تواريخ الإنجاز مختلفة وفقا لطلب العميل.  يتم استخدام هذه المعلمة السماح للمستخدم بتعيين خاتمة منفصلة"/>
+	<sywhelp_dbf_ar row_key="SO M_COMPDATE" cproperty="mHelp" orgtext="Default SO comp. Days:
+
+The sales order has a Start Date and a Completion Date.  In this parameter, you enter a certain number of days that the order is likely to take to get completed.  The system " orgcol="Field Text" langtext="افتراضي أيام اكتمال ذلك: أمر التوريد لديها تاريخ البدء وتاريخ الانتهاء.  في هذه المعلمة، يمكنك إدخال عدد معين من الأيام بأمر من المرجح أن يستغرق الحصول على الانتهاء.  النظام"/>
+	<sywhelp_dbf_ar row_key="SO M_ESTYPSO" cproperty="mHelp" orgtext="Edit Style Price in SO:
+
+This parameter is used to allow the user to edit the price of the style for each order line.  If the user chooses 'Yes', the price defined in the STYLE screen or in a valid " orgcol="Field Text" langtext="تحرير &quot;نمط السعر&quot; في ذلك: يتم استخدام هذه المعلمة السماح للمستخدمين بتحرير أسعار النمط لكل سطر أمر.  إذا اختار المستخدم 'نعم'، الثمن المعرفة في نمط الشاشة أو في صالح"/>
+	<sywhelp_dbf_ar row_key="SO M_GENORNUM" cproperty="mHelp" orgtext="Enter Order # manually:
+
+This parameter is used to set the system to allow you to enter the order number manually.  It is an editable parameter. It has a drop down list of two values: 'Yes' and 'No'" orgcol="Field Text" langtext="قم بإدخال الأمر # يدوياً: يتم استخدام هذه المعلمة لتعيين النظام لتسمح لك بإدخال رقم الأمر يدوياً.  معلمة قابلة لتحرير. فقد منسدلة قائمة بقيمتين: 'نعم' و 'لا'"/>
+	<sywhelp_dbf_ar row_key="SO M_HOLD_ORD" cproperty="mHelp" orgtext="Default SO Status to Hold:
+
+Select the default status of new sales order from among the following three options: select 'Never' to let the default status of new orders be Open. Select 'Always' to le" orgcol="Field Text" langtext="الافتراضي الحالة هكذا إلى الاحتجاز: حدد الحالة الافتراضية لأمر التوريد الجديدة من بين الخيارات الثلاثة التالية: حدد 'ابدأ' للسماح للحالة الافتراضية لأوامر جديدة تكون مفتوحة. حدد 'دوماً' إلى le"/>
+	<sywhelp_dbf_ar row_key="SO M_OR_NOTE" cproperty="mHelp" orgtext="Add Notes to Order Lines:
+
+This parameter is used to allow the user to add notes to the order lines you enter.  It has a drop down list of two values: 'Yes' and 'No'.  It is an editable reference pa" orgcol="Field Text" langtext="إضافة ملاحظات إلى &quot;سطور الأوامر&quot;: يتم استخدام هذه المعلمة للسماح للمستخدم لإضافة ملاحظات لتقوم بإدخال بنود الأمر.  فقد منسدلة قائمة بقيمتين: 'نعم' و 'لا'.  وهو السلطة الفلسطينية مرجعية قابلة للتحرير"/>
+	<sywhelp_dbf_ar row_key="SR M_REPCB" cproperty="mHelp" orgtext="Chargeback Reps on Credit:
+
+This parameter allows the user to charge back a sales representative for a credit adjustment.  The term 'charge back' means reducing the sales representative account by a" orgcol="Field Text" langtext="ممثلين تحميل التكاليف على الائتمان: هذه المعلمة يسمح للمستخدم لتوجيه الاتهام إلى الوراء مندوب مبيعات لتسوية ائتمان.  يعني مصطلح 'تهمة العودة' الحد من حساب ممثل المبيعات عن طريق"/>
+	<sywhelp_dbf_ar row_key="SR M_REP_COMM" cproperty="mHelp" orgtext="Salesrep Commission Base:
+
+This parameter refers to the basis used for the sales representative commission.  It has a two-value drop down list.  Choose 'Customers' if you want to define the sales re" orgcol="Field Text" langtext="ساليسريب اللجنة قاعدة: تشير هذه المعلمة إلى الأساس المستخدم للجنة ممثل المبيعات.  فقد قيمة اثنين منسدلة قائمة.  اختر 'الزبائن' إذا كنت تريد تعريف إعادة البيع"/>
+	<sywhelp_dbf_ar row_key="SR M_STY_COM" cproperty="mHelp" orgtext="Edit Comm. at Line Level:
+
+This parameter allows the user to edit the commission of the sales representatives at the order line level.  In other words, in the ORDER LINE browse each line has got a s" orgcol="Field Text" langtext="تحرير comm. على &quot;مستوى الخط&quot;: هذه المعلمة يسمح للمستخدم لتحرير لجنة مندوبي المبيعات على مستوى سطر الأمر.  وبعبارة أخرى، في استعراض &quot;سطر أمر&quot; قد حصلت كل خط s"/>
+	<sywhelp_dbf_ar row_key="?? LLEDITEXRA" cproperty="mHelp" orgtext="Change exchange rates:
+
+Toggle this parameter to 'Yes' to enable entering an exchange rate other than the one defined for the currency// for example per transaction. If you select 'No' you can only " orgcol="Field Text" langtext="تغيير أسعار الصرف: تبديل هذه المعلمة إلى 'نعم' لتمكين إدخال سعر الصرف خلاف تعريف للعملة واحدة//وعلى سبيل المثال كل معاملة. إذا قمت بتحديد 'لا' يمكنك فقط"/>
+	<sywhelp_dbf_ar row_key="?? LLEXCHRATE" cproperty="mHelp" orgtext="Define exchange rate on fly:
+
+This parameter is used to enable you to enter exchange rates for non-defined and expired rates, but not necessarily from the &quot;CURRENCY CODE SETUP&quot; window. For example y" orgcol="Field Text" langtext="تحديد سعر الصرف على الطاير: يتم استخدام هذه المعلمة تمكنك من إدخال أسعار الصرف لمعدلات غير محددة ومنتهية الصلاحية، ولكن ليس بالضرورة من إطار &quot;الإعداد رمز العملة&quot;. فعلى سبيل المثال y"/>
+	<sywhelp_dbf_ar row_key="?? LLMULCURR" cproperty="mHelp" orgtext="Use multi currency:
+
+Toggle this parameter to 'Yes' to enable the multi currency function in your system. Once you select 'Yes' you can't modify it to 'No'. Or select 'No' if you do not want to use " orgcol="Field Text" langtext="استخدام متعدد العملات: تبديل هذه المعلمة إلى 'نعم' لتمكين وظيفة العملة المتعددة في النظام الخاص بك. بمجرد تحديد 'نعم' لا يمكنك تعديله إلى 'لا'. أو حدد 'لا' إذا كنت لا ترغب في استخدام"/>
+	<sywhelp_dbf_ar row_key="?? LLSTYPRICE" cproperty="mHelp" orgtext="Style prices on the fly:
+
+Toggling this parameter to 'Yes' enables you to enter the style foreign prices on the fly, if you select a foreign currency, which is not defined for this style, while crea" orgcol="Field Text" langtext="نمط الأسعار على الطاير: تبديل هذه المعلمة إلى 'نعم' تمكنك من إدخال نمط الأسعار الأجنبية على الطاير، إذا قمت بتحديد بالعملات أجنبية، التي لم يتم تعريف لهذا النمط، بينما crea"/>
+	<sywhelp_dbf_ar row_key="?? LNEXRATACC" cproperty="mHelp" orgtext="Difference in exchange rate account:
+
+For this field enter the code of the account that will be used for any differences that occur in the exchange rate. For example if the exchange rate of the Ster" orgcol="Field Text" langtext="الفرق في exchange حساب معدل: لهذا الحقل أدخل التعليمة البرمجية للحساب الذي سيتم استخدامه لأي من الخلافات التي تحدث في سعر الصرف. فعلى سبيل المثال إذا كان سعر صرف خاء (ثالثا)"/>
+	<sywhelp_dbf_ar row_key="?? LNEXRATDAY" cproperty="mHelp" orgtext="No. of days for exchange rate:
+
+This parameter's default is 30 days. In this field you can enter the number of days you want this exchange rate to be valid// that is to say the number of days your s" orgcol="Field Text" langtext="رقم من الأيام لسعر الصرف: القيمة الافتراضية لهذه المعلمة 30 يوما. في هذا الحقل يمكنك إدخال العدد الأيام التي تريدها هذا سعر الصرف لتكون صالحة//أن هذا يعني عدد الأيام الخاصة بك s"/>
+	<sywhelp_dbf_ar row_key="?? M_BOMVAR" cproperty="mHelp" orgtext="Use variant cost sheet:
+
+Toggle this option if you want to configure details for adornment of styles in sales and adornment orders. With this option toggled to 'Yes', you can edit designs, name-drop" orgcol="Field Text" langtext="استخدام متغير تكلفة الورقة: تبديل هذا الخيار إذا كنت ترغب في تكوين تفاصيل لزينة أنماط في المبيعات والطلبيات الزينة. مع هذا الخيار toggled إلى 'نعم'، يمكنك تحرير تصاميم، وإسقاط"/>
+	<sywhelp_dbf_ar row_key="?? M_CONFIRM" cproperty="mHelp" orgtext="Style Entry Confirmation:
+
+The style entry confirmation is a two-value setting developed to customize one feature of using bar code scanners. Some bar code scanners are set to automatically access t" orgcol="Field Text" langtext="نمط إدخال تأكيد: وهو تأكيد إدخال نمط إعداد قيمة اثنين المتقدمة لتخصيص ميزة واحدة لاستخدام ماسحات الباركود. يتم تعيين بعض الماسحات الضوئية قانون نقابة المحامين إلى تلقائياً الوصول t"/>
+	<sywhelp_dbf_ar row_key="?? M_DIV_LINK" cproperty="mHelp" orgtext="Link code at div level:
+
+Toggle this parameter to 'Yes' if you want the system to post sales entries to the GENERAL LEDGER that are defined at division level. With this option toggled, you can move " orgcol="Field Text" langtext="ربط التعليمات البرمجية على مستوى div: تبديل هذه المعلمة إلى 'نعم' إذا كنت تريد نظام لترحيل المبيعات إدخالات إلى &quot;دفتر الأستاذ العام&quot; التي يتم تعريفها على مستوى شعبة. مع هذا الخيار، مثبت، يمكنك نقل"/>
+	<sywhelp_dbf_ar row_key="?? M_DIV_SEQ" cproperty="mHelp" orgtext="Sequence # Based on Div.:
+
+Toggle this parameter to &quot;Yes' if you want to have the sequence numbers to be division dependent. You will have different sets of sequence numbers for unlimited different " orgcol="Field Text" langtext="تسلسل # استناداً إلى div.: تبديل هذه المعلمة إلى &quot;نعم إذا كنت تريد أن يكون أرقام التسلسل يكون شعبة تابعة. سيكون لديك مجموعات مختلفة من تسلسل الأرقام لغير محدود مختلفة"/>
+	<sywhelp_dbf_ar row_key="?? M_GL_CO" cproperty="mHelp" orgtext="G/L company:
+
+With SBT 2.5 selected as a General Ledger, you need to define the company you want to link to the SBT General Ledger by typing its code here.                                           " orgcol="Field Text" langtext="شركة G/L: مع السبط 2.5 المحدد كدفتر الأستاذ العام، تحتاج إلى تحديد الشركة التي تريد الارتباط إلى دفتر الأستاذ العام السبط بكتابة التعليمات البرمجية الخاصة به هنا."/>
+	<sywhelp_dbf_ar row_key="?? M_GL_COST" cproperty="mHelp" orgtext="Generate G/L cost entries:
+
+Toggle this option to &quot;Yes&quot; if you want ARIA 2.7 to create journal entries only for sales and not every kind of transactions that take place.                             " orgcol="Field Text" langtext="توليد غرام/لتر تكلف إدخالات: تبديل هذا الخيار إلى &quot;نعم&quot; إذا كنت تريد 2.7 ARIA لإنشاء إدخالات دفتر اليومية فقط للمبيعات وليس كل نوع من المعاملات التي تجري."/>
+	<sywhelp_dbf_ar row_key="?? M_GL_VERS" cproperty="mHelp" orgtext="G/L version:
+
+Select a G/L version from the following available options: 
+ 
+Aria: Select this option if you've installed the Aria 2.7 General Ledger. In this case, maximum integration with all oth" orgcol="Field Text" langtext="إصدار غرام/لتر: حدد إصدار غرام/لتر من بين الخيارات المتاحة التالية: الأغنية: حدد هذا الخيار إذا قمت بتثبيت دفتر الأستاذ العام Aria 2.7. في هذه الحالة، الحد الأقصى التكامل مع جميع أوراسكوم تليكوم القابضة"/>
+	<sywhelp_dbf_ar row_key="?? M_LINK_GL" cproperty="mHelp" orgtext="Link to G/L:
+
+Toggle this option to 'Yes' if you want all your Aria modules - except for ACCOUNTS PAYABLE- to post entries to a general ledger system.                                                " orgcol="Field Text" langtext="ربط إلى G/l: &quot;تبديل&quot; هذا الخيار إلى 'نعم' إذا كنت تريد جميع الخاص بك نغم وحدات-باستثناء الحسابات المستحقة الدفع-لترحيل إدخالات إلى نظام دفتر أستاذ عام."/>
+	<sywhelp_dbf_ar row_key="?? M_POST_DET" cproperty="mHelp" orgtext="Post in Detail \ Summary:
+
+This parameter is used to control the G/L distribution process of the company's posted entries. Depending on the system parameter setting, the distribution process is eith" orgcol="Field Text" langtext="الوظيفة بالتفصيل \ ملخص: يتم استخدام هذه المعلمة للتحكم في عملية توزيع غرام/لتر من إدخالات تم نشرة للشركة. اعتماداً على إعداد المعلمة النظام، هو عملية التوزيع eith"/>
+	<sywhelp_dbf_ar row_key="?? M_SYSTYPE" cproperty="mHelp" orgtext="System Type:
+
+This drop-down list has three options to choose from, these being:
+
+POINT OF SALE: Select this type if your company, or a branch of which having the package in use, is a point of sal" orgcol="Field Text" langtext="نوع النظام: هذه القائمة المنسدلة على ثلاثة خيارات الاختيار من بينها، وهذه يجري: نقطة البيع: حدد هذا النوع إذا كانت الشركة الخاصة بك، أو فرع منها وجود الحزمة في الاستخدام، نقطة من سأل"/>
+	<sywhelp_dbf_ar row_key="?? M_SYS_DIR" cproperty="mHelp" orgtext="System Files dir:
+
+With SBT 2.5 selected as a General Ledger, Aria modules need to locate the system files directory of this accounting module. Type the path in full or browse for the target locatio" orgcol="Field Text" langtext="نظام الملفات dir: مع السبط 2.5 المحدد كدفتر الأستاذ العام، وحدات الأغنية تحتاج إلى تحديد موقع دليل ملفات النظام هذه الوحدة المحاسبية. اكتب المسار بالكامل أو الاستعراض بحثاً عن لوكاتيو الهدف"/>
+	<sywhelp_dbf_ar row_key="?? M_TAX" cproperty="mHelp" orgtext="Use Taxes:
+
+Toggle this field to 'yes' if you want Aria 2.7 to support tax account.  If you select No, Default Style Taxable parameter in IC setup will be disabled. With this parameter on, you can a" orgcol="Field Text" langtext="استخدام الضرائب: تبديل هذا الحقل 'نعم' إذا كنت تريد 2.7 Aria لدعم حساب الضرائب.  إذا كنت حدد &quot;لا&quot;، سيتم تعطيل المعلمة &quot;الافتراضية نمط للضريبة&quot; في الإعداد IC. مع هذه المعلمة على، يمكنك"/>
+	<sywhelp_dbf_ar row_key="?? M_TAX_DESC" cproperty="mHelp" orgtext="Tax name:
+
+Use this field to enter the name of the tax you want to add the value of which to your produced items.                                                                                     " orgcol="Field Text" langtext="اسم الضريبة: استخدم هذا الحقل لإدخال اسم الضريبة التي تريد أن تضيف القيمة للأصناف المنتجة."/>
+	<sywhelp_dbf_ar row_key="?? M_TAX_METH" cproperty="mHelp" orgtext="Tax method:
+
+Use this parameter to select the taxation method that best matches your business.                                                                                                        " orgcol="Field Text" langtext="ضريبة الأسلوب: استخدام هذه المعلمة لتحديد الأسلوب الضريبي الذي يطابق عملك بشكل أفضل."/>
+	<sywhelp_dbf_ar row_key="?? M_TAX_RATE" cproperty="mHelp" orgtext="Tax Rate:
+
+Use this field to enter the percentage at which the tax value will be calculated out of the product price.                                                                                 " orgcol="Field Text" langtext="معدل الضريبة: استخدم هذا الحقل لإدخال النسبة المئوية التي سيتم احتساب قيمة ضريبة الخروج من سعر المنتج."/>
+	<sywhelp_dbf_ar row_key="?? M_TAX_REFE" cproperty="mHelp" orgtext="Tax Reference:
+
+Use this field to add any reference you want to add to the tax that you want to calculate.                                                                                            " orgcol="Field Text" langtext="مرجع الضريبة: استخدم هذا الحقل لإضافة أي المرجع الذي تريده لإضافة إلى الضرائب التي تريد حساب."/>
+	<sywhelp_dbf_ar row_key="?? XDUNS" cproperty="mHelp" orgtext="Company DUNS number:
+
+If you have obtained a DUNS (D&amp;B's Data Universal Numbering System) number, you can type it in this field. The system supports the use of D&amp;B's distinctive nine-digit identific" orgcol="Field Text" langtext="الشركة رقم DUNS: إذا كنت قد حصلت على رقم DUNS (د آند ب لبيانات عالمية نظام الترقيم)، يمكنك كتابته في هذا الميدان. ويدعم النظام استخدام إيدينتيفيك في د آند ب تسعة أرقام مميزة"/>
+	<sywhelp_dbf_ar row_key="?? XMANUFID" cproperty="mHelp" orgtext="Company UCC manufacturer code:
+
+This is the code that you get from the UCC (Uniform Code Council). It is the first six digits of the UPC numbers that your company prints on its products and packages" orgcol="Field Text" langtext="شركة كاربايد رمز الشركة المصنعة: هذا هو التعليمة البرمجية التي يمكنك الحصول عليها من كاربايد (مجلس قانون موحد). أنها الأرقام الستة الأولى من أرقام اتحاد الوطنيين الكونغوليين الذي يطبع شركتك على منتجاتها والحزم"/>
+	<sywhelp_dbf_ar row_key="?? XUPSACCT" cproperty="mHelp" orgtext="Company UPS Account:
+
+This field is used to enter your ID at UPS.                                                                                                                                     " orgcol="Field Text" langtext="حساب شركة UPS: يتم استخدام هذا الحقل لإدخال المعرف الخاص بك في شركة UPS."/>
+	<sywhelp_dbf_ar row_key="?? XUPSFROM" cproperty="mHelp" orgtext="UPS shipper code:
+
+This field is used enter the UPS (United Parcel Service) code if you have one. The UPS code you type here is used to calculate the shipment charges from your shipment location to " orgcol="Field Text" langtext="رمز الشاحن UPS: يتم استخدام هذا الحقل أدخل التعليمة البرمجية يو بي إس (خدمة الطرود المتحدة) إذا كان لديك واحدة. يتم استخدام UPS التعليمات البرمجية التي تكتبها هنا لحساب رسوم الشحن من موقع الشحن الخاص بك إلى"/>
+	<sywhelp_dbf_ar row_key="01 LLHCOMP" cproperty="mHelp" orgtext="Check this option to make the company you are creating a history company                                                                                                                                " orgcol="Field Text" langtext="حدد هذا الخيار لجعل الشركة تقوم بإنشاء شركة تاريخ"/>
+	<sywhelp_dbf_ar row_key="01 LCHCOMP" cproperty="mHelp" orgtext="Enter the ID of the company which you are creating this history company for                                                                                                                             " orgcol="Field Text" langtext="أدخل معرف الشركة التي تقوم بإنشاء هذه الشركة التاريخ"/>
+	<sywhelp_dbf_ar row_key="15 PBSEL" cproperty="mHelp" orgtext="Click the Select button to select the scale code. A mark to the left of the code appears to denote selection. The button alternates between the Select and Unselect modes.                              " orgcol="Field Text" langtext="انقر على الزر Select لتحديد حجم التعليمات البرمجية. تظهر علامة إلى يسار الرمز للدلالة على التحديد. الزر التبديل بين وضعي حدد Unselect."/>
+	<sywhelp_dbf_ar row_key="15 PBALL" cproperty="mHelp" orgtext="Click the Select All button to select all the codes on the list.                                                                                                                                        " orgcol="Field Text" langtext="انقر فوق الزر &quot;تحديد الكل&quot; لتحديد كافة الرموز على القائمة."/>
+	<sywhelp_dbf_ar row_key="15 PBNON" cproperty="mHelp" orgtext="Select none of the codes.                                                                                                                                                                               " orgcol="Field Text" langtext="حدد أيا من الرموز."/>
+	<sywhelp_dbf_ar row_key="15 PBINV" cproperty="mHelp" orgtext="Invert Selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="15 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="15 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="15 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="15 PBCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="25 PBSEL" cproperty="mHelp" orgtext="Click the Select button to select the highlighted customer. A mark to the left of the customer ID appears to denote selection, the button alternates between the Select and Unselect modes.             " orgcol="Field Text" langtext="انقر على الزر Select لتحديد العملاء المميزة. تظهر علامة على يسار معرف العميل للدلالة على التحديد، المناوبين زر بين أساليب تحديد وأونسيليكت."/>
+	<sywhelp_dbf_ar row_key="25 PBALL" cproperty="mHelp" orgtext="Click the Select All button to select all the customers on the list.                                                                                                                                    " orgcol="Field Text" langtext="انقر فوق الزر &quot;تحديد الكل&quot; لتحديد كافة العملاء في القائمة."/>
+	<sywhelp_dbf_ar row_key="25 PBNON" cproperty="mHelp" orgtext="Select none of the customers.                                                                                                                                                                           " orgcol="Field Text" langtext="حدد أيا من العملاء."/>
+	<sywhelp_dbf_ar row_key="25 PBINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="25 PBSSEL" cproperty="mHelp" orgtext="Click the Select button to select the highlighted stores of the selected customer. A mark to the left of the store name appears to denote selection, the button alternates between the Select and Unsele" orgcol="Field Text" langtext="انقر على الزر Select لتحديد مخازن المميز للعميل المحدد. تظهر علامة على يسار اسم المخزن للدلالة على التحديد، المناوبين زر بين تحديد وانسيل"/>
+	<sywhelp_dbf_ar row_key="25 PBSALL" cproperty="mHelp" orgtext="Click the Select All button to select all the stores on the list.                                                                                                                                       " orgcol="Field Text" langtext="انقر فوق الزر &quot;تحديد الكل&quot; لتحديد كافة مخازن في القائمة."/>
+	<sywhelp_dbf_ar row_key="25 PBSNON" cproperty="mHelp" orgtext="Select none of the stores.                                                                                                                                                                              " orgcol="Field Text" langtext="حدد أيا من المتاجر."/>
+	<sywhelp_dbf_ar row_key="25 PBSINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="25 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="25 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="25 PBNEXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="25 PBCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="28 1" cproperty="mHelp" orgtext="Chart of Accounts:
+Select the segment value in the account structure. An account number is the combination of such previously defined segment values. This step is necessary before you can begin to ad" orgcol="Field Text" langtext="مخطط الحسابات: حدد قيمة قطعة في بنية الحساب. رقم حساب هو التركيبة من هذه القيم الجزء المتعلق بالمعرفة مسبقاً. هذه الخطوة ضرورية قبل البدء للإعلان"/>
+	<sywhelp_dbf_ar row_key="28 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="28 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="28 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="28 PBCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="29 PBSEL" cproperty="mHelp" orgtext="Click the Select button to select the highlighted code. A mark to the left of the selected code appears to denote selection. The button alternates between the Select and Unselect modes.               " orgcol="Field Text" langtext="انقر على الزر Select لتحديد الرمز المميز. تظهر علامة على يسار الرمز المحدد للدلالة على التحديد. الزر التبديل بين وضعي حدد Unselect."/>
+	<sywhelp_dbf_ar row_key="29 PBALL" cproperty="mHelp" orgtext="Click the Select All button to select all the codes on the list.                                                                                                                                        " orgcol="Field Text" langtext="انقر فوق الزر &quot;تحديد الكل&quot; لتحديد كافة الرموز على القائمة."/>
+	<sywhelp_dbf_ar row_key="29 PBNON" cproperty="mHelp" orgtext="Select none of the codes.                                                                                                                                                                               " orgcol="Field Text" langtext="حدد أيا من الرموز."/>
+	<sywhelp_dbf_ar row_key="29 PBINV" cproperty="mHelp" orgtext="Invert selection.                                                                                                                                                                                       " orgcol="Field Text" langtext="عكس التحديد."/>
+	<sywhelp_dbf_ar row_key="29 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="29 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="29 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="29 PBCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="16 LADATA(1)" cproperty="mHelp" orgtext="Default Location:
+Enter a code that should not exceed six characters for the new location in the LOCATION field. A dialog box message is displayed for you to respond by pressing one of the three disp" orgcol="Field Text" langtext="الموقع الافتراضي: إدخال التعليمات برمجية التي لا ينبغي أن تتجاوز ستة أحرف للموقع الجديد في الحقل &quot;الموقع&quot;. يتم عرض رسالة مربع حوار لتتمكن من الاستجابة عن طريق الضغط على أحد disp ثلاثة"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(2)" cproperty="mHelp" orgtext="Description:
+Enter the convenient description for the new location. It is always editable by typing in a free text of your own.                                                                        " orgcol="Field Text" langtext="الوصف: أدخل وصف مناسب للموقع الجديد. أنها دائماً قابلة للتحرير بكتابة في نص حرة الخاصة بك."/>
+	<sywhelp_dbf_ar row_key="16 LADATA(3)" cproperty="mHelp" orgtext="Address Fields:
+Enter the detailed address of the new location. The titles of these fields differ from a country setting to another. For example, if you specify USA from the drop-down list, the title" orgcol="Field Text" langtext="حقول العنوان: أدخل عنوان مفصل للموقع الجديد. عناوين هذه المجالات تختلف عن أجواء البلاد إلى آخر. على سبيل المثال، إذا قمت بتحديد الولايات المتحدة الأمريكية من القائمة المنسدلة، العنوان"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(4)" cproperty="mHelp" orgtext="Address Fields:
+Enter the detailed address of the new location. The titles of these fields differ from a country setting to another. For example, if you specify USA from the drop-down list, the title" orgcol="Field Text" langtext="حقول العنوان: أدخل عنوان مفصل للموقع الجديد. عناوين هذه المجالات تختلف عن أجواء البلاد إلى آخر. على سبيل المثال، إذا قمت بتحديد الولايات المتحدة الأمريكية من القائمة المنسدلة، العنوان"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(5)" cproperty="mHelp" orgtext="Address Fields:
+Enter the detailed address of the new location. The titles of these fields differ from a country setting to another. For example, if you specify USA from the drop-down list, the title" orgcol="Field Text" langtext="حقول العنوان: أدخل عنوان مفصل للموقع الجديد. عناوين هذه المجالات تختلف عن أجواء البلاد إلى آخر. على سبيل المثال، إذا قمت بتحديد الولايات المتحدة الأمريكية من القائمة المنسدلة، العنوان"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(6)" cproperty="mHelp" orgtext="Address Fields:
+Enter the detailed address of the new location. The titles of these fields differ from a country setting to another. For example, if you specify USA from the drop-down list, the title" orgcol="Field Text" langtext="حقول العنوان: أدخل عنوان مفصل للموقع الجديد. عناوين هذه المجالات تختلف عن أجواء البلاد إلى آخر. على سبيل المثال، إذا قمت بتحديد الولايات المتحدة الأمريكية من القائمة المنسدلة، العنوان"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(7)" cproperty="mHelp" orgtext="Address Fields:
+Enter the detailed address of the new location. The titles of these fields differ from a country setting to another. For example, if you specify USA from the drop-down list, the title" orgcol="Field Text" langtext="حقول العنوان: أدخل عنوان مفصل للموقع الجديد. عناوين هذه المجالات تختلف عن أجواء البلاد إلى آخر. على سبيل المثال، إذا قمت بتحديد الولايات المتحدة الأمريكية من القائمة المنسدلة، العنوان"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(8)" cproperty="mHelp" orgtext="Address Fields:
+Enter the detailed address of the new location. The titles of these fields differ from a country setting to another. For example, if you specify USA from the drop-down list, the title" orgcol="Field Text" langtext="حقول العنوان: أدخل عنوان مفصل للموقع الجديد. عناوين هذه المجالات تختلف عن أجواء البلاد إلى آخر. على سبيل المثال، إذا قمت بتحديد الولايات المتحدة الأمريكية من القائمة المنسدلة، العنوان"/>
+	<sywhelp_dbf_ar row_key="16 LADATA(9)" cproperty="mHelp" orgtext="Phone:
+Enter the phone number of the new location. It is always editable by typing in.                                                                                                                 " orgcol="Field Text" langtext="الهاتف: أدخل رقم الهاتف في الموقع الجديد. أنها دائماً قابلة للتحرير بكتابة في."/>
+	<sywhelp_dbf_ar row_key="16 LADATA(10)" cproperty="mHelp" orgtext="Fax:
+Enter the Fax number of the new location. It is always editable.                                                                                                                                  " orgcol="Field Text" langtext="فاكس: أدخل رقم الفاكس للموقع الجديد. أنها دائماً قابلة للتحرير."/>
+	<sywhelp_dbf_ar row_key="16 LADATA(14)" cproperty="mHelp" orgtext="Shipper Code:
+Enter the UPS shipper code upon which the shipment freight from this location to another is computed. The entered characters must be the first 3 characters of the area ZIP code. This fi" orgcol="Field Text" langtext="رمز الشاحن: أدخل رمز الشاحن UPS التي يتم حسابها بشحن شحنة من هذا الموقع إلى آخر. يجب أن تكون الأحرف المدخلة الأحرف الأولى 3 من الرمز البريدي في المنطقة. هذا وأي فأي"/>
+	<sywhelp_dbf_ar row_key="16 PBRESUME" cproperty="mHelp" orgtext="Save and resume later.                                                                                                                                                                                  " orgcol="Field Text" langtext="حفظ واستئناف في وقت لاحق."/>
+	<sywhelp_dbf_ar row_key="16 PBPRE" cproperty="mHelp" orgtext="Move to the previous screen.                                                                                                                                                                            " orgcol="Field Text" langtext="الانتقال إلى الشاشة السابقة."/>
+	<sywhelp_dbf_ar row_key="16 PBNXT" cproperty="mHelp" orgtext="Move to the next screen.                                                                                                                                                                                " orgcol="Field Text" langtext="الانتقال إلى الشاشة التالية."/>
+	<sywhelp_dbf_ar row_key="16 PBCLOSE" cproperty="mHelp" orgtext="Close session.                                                                                                                                                                                          " orgcol="Field Text" langtext="إغلاق جلسة العمل."/>
+	<sywhelp_dbf_ar row_key="?? M_UNQSTPRX" cproperty="mHelp" orgtext="Unique Site Prefix:
+
+Use this field to enter unique initial character to prefix every transaction sequence number in your company  \ site. This is useful to have distinctive and easily recognizable " orgcol="Field Text" langtext="بادئة الموقع فريدة من نوعها: استخدم هذا الحقل لإدخال حرف أولى فريدة من نوعها إضافة بادئة لكل رقم تسلسل الحركة في الشركة \ الموقع. وهذا مفيد ليكون مميز ويمكن التعرف عليه بسهولة"/>
+	<sywhelp_dbf_ar row_key="UP M_EDTRETPR" cproperty="mHelp" orgtext="Send style retail price in the sales catalog                                                                                                                                                            " orgcol="Field Text" langtext="إرسال سعر التجزئة نمط في كتالوج المبيعات"/>
+	<sywhelp_dbf_ar row_key="UP M_EDTSALPR" cproperty="mHelp" orgtext="Send style whole sale price in the sales catalog                                                                                                                                                        " orgcol="Field Text" langtext="إرسال سعر البيع بالجملة نمط في كتالوج المبيعات"/>
+</VFPData>

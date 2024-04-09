@@ -1,0 +1,5 @@
+#DEFINE LANG_DESC "Description"
+#DEFINE LANG_CODE "Code"
+#DEFINE LANG_AUTOTYPE "Automatic type"
+#DEFINE LANG_CODETTL 'Codes File'
+#DEFINE LANG_TRANCODE 'Transaction Codes '

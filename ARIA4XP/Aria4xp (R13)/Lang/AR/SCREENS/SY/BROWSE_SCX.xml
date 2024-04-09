@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<browse_scx_ar row_key="_0UY0KYR70" cproperty="Caption" orgtext="Form1                                                                                                                                                                                                   " orgcol="Form1" langtext="النموذج1"/>
+	<browse_scx_ar row_key="_0UY0SSMR0" cproperty="Caption" orgtext="Custom Fields                                                                                                                                                                                           " orgcol="Form1.cntCustColumn.Ariagrid1.Column1.Header1" langtext="تخصيص الحقول"/>
+	<browse_scx_ar row_key="_0UZ0L0BB4" cproperty="Caption" orgtext="Show                                                                                                                                                                                                    " orgcol="Form1.cntCustColumn.Ariagrid1.Column2.Header1" langtext="إظهار"/>
+	<browse_scx_ar row_key="_0UY0KYR6Z" cproperty="ToolTipText" orgtext="Select Sort fields                                                                                                                                                                                      " orgcol="Form1.Container1.cboTags" langtext="حدد حقول الفرز"/>
+	<browse_scx_ar row_key="_0UZ0L0BB5" cproperty="Caption" orgtext="Find:                                                                                                                                                                                                   " orgcol="Form1.cntQuikSearch.Arialabel1" langtext="البحث عن:"/>
+	<browse_scx_ar row_key="XX_HEADER_XX" cproperty="BROWSE.H" orgtext="SCREENS\SY\" orgcol="" langtext=""/>
+</VFPData>

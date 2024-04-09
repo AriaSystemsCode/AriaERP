@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<aractsum_h_ar row_key="LANG_FULLDATERANGE" cproperty="Caption" orgtext="You have to type a full date range.                                                                                                                                                                     " orgcol="LANG_FULLDATERANGE" langtext="يجب عليك كتابة نطاق تاريخ كامل."/>
+	<aractsum_h_ar row_key="LANG_TYPEMONTH" cproperty="Caption" orgtext="You have to type a month.                                                                                                                                                                               " orgcol="LANG_TYPEMONTH" langtext="يجب عليك كتابة كل شهر."/>
+	<aractsum_h_ar row_key="LANG_PERIOD" cproperty="Caption" orgtext="PERIOD :                                                                                                                                                                                                " orgcol="LANG_PERIOD" langtext="الفترة:"/>
+	<aractsum_h_ar row_key="LANG_ACTIVITY_SUMMARY_REPORT" cproperty="Caption" orgtext="ACTIVITY SUMMARY REPORT                                                                                                                                                                                 " orgcol="LANG_ACTIVITY_SUMMARY_REPORT" langtext="تقرير موجز النشاط"/>
+</VFPData>

@@ -1,0 +1,1 @@
+#DEFINE LANG_ARPINVHK_Select   "Selecting Records For The Report ..."

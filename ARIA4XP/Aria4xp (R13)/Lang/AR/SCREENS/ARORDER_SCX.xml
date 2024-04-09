@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<arorder_scx_ar row_key="_0QO14MZA4" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
+	<arorder_scx_ar row_key="_1930NBOSZ" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
+	<arorder_scx_ar row_key="XX_HEADER_XX" cproperty="ARORDER.H" orgtext="SCREENS\" orgcol="" langtext=""/>
+</VFPData>

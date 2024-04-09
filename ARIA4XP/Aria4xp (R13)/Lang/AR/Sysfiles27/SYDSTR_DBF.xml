@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<sydstr_dbf_ar row_key="ARIAEXPLORERTRANSACTION" cproperty="MSTRING" orgtext="Transaction                                                                                                                                                                                             " orgcol="Field Text" langtext="الحركة"/>
+	<sydstr_dbf_ar row_key="ARIAEXPLORERMASTER_DATA" cproperty="MSTRING" orgtext="Master Data                                                                                                                                                                                             " orgcol="Field Text" langtext="البيانات الرئيسية"/>
+	<sydstr_dbf_ar row_key="SOORDSOSO" cproperty="MSTRING" orgtext="Soso is good enough.                                                                                                                                                                                    " orgcol="Field Text" langtext="Soso is good enough.                                                                                                                                                                                    "/>
+</VFPData>

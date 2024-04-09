@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<syclang clang_id="AR" cshort_des="Arabic" lis_rtl="true" cdate_format="dd/mm/yyyy" ctime_format="hh:mm PM" cformfont="Tahoma" nformfonts="9" crepfont="Tahoma" nrepfonts="8" cformfstyle="N" crepfstyle="N" cdateseparator="/" ccodepage="1256"/>
+	<syclang clang_id="EN" cshort_des="English" lis_rtl="false" cdate_format="mm/dd/yyyy" ctime_format="hh:mm" cformfont="Tahoma" nformfonts="9" crepfont="Tahoma" nrepfonts="9" cformfstyle="N" crepfstyle="N" cdateseparator="/"/>
+	<syclang clang_id="FR" cshort_des="French" lis_rtl="false" cdate_format="mm/dd/yyyy" ctime_format="hh:mm" cformfont="Tahoma" nformfonts="10" crepfont="Tahoma" nrepfonts="10" cformfstyle="N" crepfstyle="N" cdateseparator="/" ccodepage="1111"/>
+
+\</VFPData>

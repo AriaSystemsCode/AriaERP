@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Maximum number of users" orgcol="ariabranchformset.AriaForm1.Arialabel6" langtext="الحد الأقصى لعدد المستخدمين"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Defaults" orgcol="ariabranchformset.AriaForm1.Arialabel2" langtext="الإعدادات الافتراضية"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="User's restrictions" orgcol="ariabranchformset.AriaForm1.Arialabel11" langtext="قيود للمستخدم"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Clock type" orgcol="ariabranchformset.AriaForm1.Arialabel3" langtext="نوع على مدار الساعة"/>
+	<sminstl_scx_ar row_key="_3PV13OVHT" cproperty="Caption" orgtext="Login required" orgcol="ariabranchformset.AriaForm1.laData2" langtext="تسجيل الدخول مطلوب"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Paths" orgcol="ariabranchformset.AriaForm1.Arialabel4" langtext="مسارات"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Company" orgcol="ariabranchformset.AriaForm1.Arialabel5" langtext="الشركة"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Password required" orgcol="ariabranchformset.AriaForm1.laData3" langtext="مطلوب كلمة مرور"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Country" orgcol="ariabranchformset.AriaForm1.Arialabel8" langtext="الدولة"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Companies data files" orgcol="ariabranchformset.AriaForm1.Arialabel9" langtext="ملفات بيانات الشركات"/>
+	<sminstl_scx_ar row_key="_3PV143BDX" cproperty="Caption" orgtext="None" orgcol="ariabranchformset.AriaForm1.rbHours.Ariaoptionbutton1" langtext="لا شيء"/>
+	<sminstl_scx_ar row_key="_3PV143BDX" cproperty="Caption" orgtext="24 hour" orgcol="ariabranchformset.AriaForm1.rbHours.Ariaoptionbutton2" langtext="24 ساعة"/>
+	<sminstl_scx_ar row_key="_3PV143BDX" cproperty="Caption" orgtext="12 hour" orgcol="ariabranchformset.AriaForm1.rbHours.Ariaoptionbutton3" langtext="12 ساعة"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="System files" orgcol="ariabranchformset.AriaForm1.Arialabel10" langtext="ملفات النظام"/>
+	<sminstl_scx_ar row_key="_3PV143BDY" cproperty="Caption" orgtext="User resource file" orgcol="ariabranchformset.AriaForm1.Arialabel12" langtext="ملف المورد المستخدم"/>
+	<sminstl_scx_ar row_key="_3PV11GLW4" cproperty="Caption" orgtext="Ok" orgcol="ariabranchformset.AriaForm1.cmdOk" langtext="موافق"/>
+	<sminstl_scx_ar row_key="_3PW0O5K3J" cproperty="Caption" orgtext="Cancel" orgcol="ariabranchformset.AriaForm1.cmdCancel" langtext="إلغاء الأمر"/>
+</VFPData>

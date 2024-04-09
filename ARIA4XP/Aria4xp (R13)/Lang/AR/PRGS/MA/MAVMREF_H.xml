@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<mavmref_h_ar row_key="LANG_MAVMREF_PRICE" cproperty="Caption" orgtext="Price                                                                                                                                                                                                   " orgcol="LANG_MAVMREF_PRICE" langtext="السعر"/>
+	<mavmref_h_ar row_key="LANG_MAVMREF_QUANTITY" cproperty="Caption" orgtext="Quantity                                                                                                                                                                                                " orgcol="LANG_MAVMREF_QUANTITY" langtext="الكمية"/>
+	<mavmref_h_ar row_key="LANG_MAVMREF_APVENDORS" cproperty="Caption" orgtext="A/P Vendors                                                                                                                                                                                             " orgcol="LANG_MAVMREF_APVENDORS" langtext="بائعو حساب المدفوعات"/>
+</VFPData>

@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<arpacksz_scx_ar row_key="_0PG0ZU1Y9" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.Ariacommandbutton1" langtext="إغلاق"/>
+	<arpacksz_scx_ar row_key="_0PG0ZU1WW" cproperty="Caption" orgtext="Stock                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.Ariatitlelabel1" langtext="المخزون"/>
+	<arpacksz_scx_ar row_key="_0QM0SLA8J" cproperty="Caption" orgtext="Ordered                                                                                                                                                                                                 " orgcol="ariaformset.AriaForm1.Ariatitlelabel2" langtext="وأمرت"/>
+	<arpacksz_scx_ar row_key="_0QM0SLA8K" cproperty="Caption" orgtext="W.I.P.                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.Ariatitlelabel3" langtext="الأعمال الجارية"/>
+	<arpacksz_scx_ar row_key="_0QM0SLA8L" cproperty="Caption" orgtext="Pack                                                                                                                                                                                                    " orgcol="ariaformset.AriaForm1.Ariatitlelabel4" langtext="حزمة"/>
+	<arpacksz_scx_ar row_key="XX_HEADER_XX" cproperty="ARPACKSZ.H" orgtext="SCREENS\" orgcol="" langtext=""/>
+</VFPData>

@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<arsalut_scx_ar row_key="_0Q90TDG2T" cproperty="Caption" orgtext="Salutations                                                                                                                                                                                             " orgcol="ariaformset.AriaForm1" langtext="التحيات"/>
+	<arsalut_scx_ar row_key="_0Q90TDG35" cproperty="Caption" orgtext="Opening                                                                                                                                                                                                 " orgcol="ariaformset.AriaForm1.Ariatitlelabel1" langtext="افتتاحي"/>
+	<arsalut_scx_ar row_key="_0Q90TDG36" cproperty="Caption" orgtext="Concluding                                                                                                                                                                                              " orgcol="ariaformset.AriaForm1.Ariatitlelabel2" langtext="ختامي"/>
+	<arsalut_scx_ar row_key="_0Q90TDG37" cproperty="Caption" orgtext="Ok                                                                                                                                                                                                      " orgcol="ariaformset.AriaForm1.cmdOk" langtext="موافق"/>
+	<arsalut_scx_ar row_key="_0Q90TDG3B" cproperty="Caption" orgtext="Close                                                                                                                                                                                                   " orgcol="ariaformset.AriaForm1.cmdClose" langtext="إغلاق"/>
+	<arsalut_scx_ar row_key="_0Q90TDG39" cproperty="Caption" orgtext="Cancel                                                                                                                                                                                                  " orgcol="ariaformset.AriaForm1.cmdCancel" langtext="إلغاء"/>
+	<arsalut_scx_ar row_key="XX_HEADER_XX" cproperty="ARSALUT.H" orgtext="SCREENS\" orgcol="" langtext=""/>
+</VFPData>

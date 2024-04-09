@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<icnmdrp_h_ar row_key="LANG_Message" cproperty="Caption" orgtext="name drop text top or text bottom                                                                                                                                                                       " orgcol="LANG_Message" langtext="النص العلوي أو النص السفلي لإسقاط الاسم"/>
+	<icnmdrp_h_ar row_key="LANG_ObjectLink" cproperty="Caption" orgtext="Image Link                                                                                                                                                                                              " orgcol="LANG_ObjectLink" langtext="رابط الصورة"/>
+	<icnmdrp_h_ar row_key="LANG_MESSAGE" cproperty="Caption" orgtext="name drop text top or text bottom                                                                                                                                                                       " orgcol="LANG_MESSAGE" langtext="النص العلوي أو النص السفلي لإسقاط الاسم"/>
+	<icnmdrp_h_ar row_key="LANG_OBJECTLINK" cproperty="Caption" orgtext="Image Link                                                                                                                                                                                              " orgcol="LANG_OBJECTLINK" langtext="رابط الصورة"/>
+	<icnmdrp_h_ar row_key="LANG_NAMEDROP" cproperty="Caption" orgtext="Name Drop                                                                                                                                                                                               " orgcol="LANG_NAMEDROP" langtext="إسقاط الاسم"/>
+</VFPData>

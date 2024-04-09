@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding="Windows-1256" standalone="yes"?>
+<VFPData>
+	<glacttyp_h_ar row_key="LANG_TYPECODE" cproperty="Caption" orgtext="Type code                                                                                                                                                                                               " orgcol="LANG_TYPECODE" langtext="كود النوع"/>
+	<glacttyp_h_ar row_key="LANG_TYPEDESC" cproperty="Caption" orgtext="Type description                                                                                                                                                                                        " orgcol="LANG_TYPEDESC" langtext="وصف النوع"/>
+	<glacttyp_h_ar row_key="LANG_ACCLOWER" cproperty="Caption" orgtext="Account lower lim.                                                                                                                                                                                      " orgcol="LANG_ACCLOWER" langtext="حساب أقل يم"/>
+	<glacttyp_h_ar row_key="LANG_TYPES" cproperty="Caption" orgtext="Types                                                                                                                                                                                                   " orgcol="LANG_TYPES" langtext="الانماط"/>
+</VFPData>

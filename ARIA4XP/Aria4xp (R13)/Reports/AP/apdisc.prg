@@ -1,0 +1,294 @@
+*:***************************************************************************
+*: Program file       : APDISC
+*: Program description: Discount Report
+*: Module             : Accounts Payable (AP)
+*: Developer          : Saber A.Razek (SAB)
+*: Tracking Job Number: E303061.EXE
+*: Date               : 02/13/2012
+*:***************************************************************************
+*Modifications:
+*:***************************************************************************
+*N000682,1 MMT 02/05/2013 Globalization changes[Start]
+#include r:\aria4xp\reports\ap\apdisc.h
+*N000682,1 MMT 02/05/2013 Globalization changes[End]
+PRIVATE lcRpCurr, ldRpExDate, lcRpTmpNam
+STORE '' TO lcRpCurr, lcRpTmpNam
+STORE {} TO ldRpExDate
+
+SELECT APINVHDR
+SET ORDER TO TAG VENCODE IN APVENDOR
+SET RELATION TO APINVHDR.cVendCode INTO APVENDOR ADDITIVE
+
+lcInvHdrTmp = gfTempName()
+=lfCreateTemp()
+
+*- Handel All Payment Method Case [Start]
+lcRpExp = STRTRAN(lcRpExp, "APINVHDR.CVENPMETH = 'A'", "APINVHDR.CVENPMETH = ''")
+*- Handel All Payment Method Case [End]
+
+SELECT APINVHDR
+SCAN FOR &lcRpExp.
+  SELECT (lcInvHdrTmp)
+  APPEND BLANK
+  m.cVendCode  = APINVHDR.CVENDCODE
+  m.cVenComp   = APVENDOR.CVENCOMP
+  m.cInvNo     = APINVHDR.CINVNO
+  m.dInvDate   = APINVHDR.DINVDATE
+  m.cVenPrior  = APINVHDR.CVENPRIOR
+  m.dInvDuDat  = APINVHDR.DINVDUDAT
+  m.dInvDisDat = APINVHDR.DINVDATE + APINVHDR.NTERDISCD
+  m.nInvAmnt   = gfAmntDisp(APINVHDR.NINVAMNT, lcRpCurr, ldRpExDate, lcRpTmpNam, .F.)
+  m.nPrvPymnt  = gfAmntDisp(APINVHDR.NINVPAID+APINVHDR.NINVDISTK+APINVHDR.NINVADJ, lcRpCurr, ldRpExDate, lcRpTmpNam, .F.)
+  m.nInvDisOf  = APINVHDR.NINVDISOF
+  m.nInvDisTkn = APINVHDR.NINVDISTK
+  m.nInvDisLos = IIF(APINVHDR.DINVDATE+APINVHDR.NTERDISCD < DATE(), MAX(APINVHDR.NINVDISOF - APINVHDR.NINVDISTK, 0.00), 0.00)
+  m.nInvDisAvl = IIF(APINVHDR.DINVDATE+APINVHDR.NTERDISCD > DATE(), MAX(APINVHDR.NINVDISOF - APINVHDR.NINVDISTK, 0.00), 0.00)
+
+  GATHER MEMO MEMVAR
+ENDSCAN
+
+IF RECCOUNT(lcInvHdrTmp) <= 0
+  *- There are no records to display.
+  =gfModalGen('TRM00052B40011','ALERT')
+  RETURN .F.
+ENDIF
+
+=lfAdjustCRSettings()
+
+IF USED(lcInvHdrTmp)
+  USE IN (lcInvHdrTmp)
+ENDIF
+
+SET STEP ON &&SABER
+DO gfDispRe WITH EVAL('LCRPFORM') &&,'FOR '+lcRpExp
+SET RELATION TO
+
+*!*************************************************************
+*! Name      : lfwRepWhen
+*: Developer : Saber A.Razek (SAB)
+*: Date      : 02/13/2012
+*! Purpose   : Option Grid When function
+*!*************************************************************
+FUNCTION lfwRepWhen
+
+ENDFUNC
+
+
+*!*************************************************************
+*! Name      : lfRepShow
+*: Developer : Saber A.Razek (SAB)
+*: Date      : 02/13/2012
+*! Purpose   : Option Grid Show
+*!*************************************************************
+FUNCTION lfRepShow
+laOGObjCnt[2] = gfGetMemVar('LLMULCURR')
+=lfOGShowGet("lnRepCurr")
+
+ENDFUNC
+
+
+*!*************************************************************
+*! Name      : lfvVend
+*: Developer : Saber A.Razek (SAB)
+*: Date      : 02/13/2012
+*! Purpose   : Validate Vendor
+*!*************************************************************
+FUNCTION lfvVend
+LOCAL lcAlias, lcOrder, lcVendCode
+lcAlias    = ALIAS()
+lcVendCode = laOgVrFlt[1,6]
+
+IF !EMPTY(lcVendCode)
+  SELECT APVENDOR
+  lcOrder = SET("Order")
+  SET ORDER TO VENCODE   && CVENDCODE
+  IF !SEEK(lcVendCode, 'APVENDOR')
+    =gfApVnBrow(@lcVendCode)
+    laOgVrFlt[1,6] = lcVendCode
+  ENDIF
+  SET ORDER TO &lcOrder.
+ENDIF
+SELECT (lcAlias)
+
+ENDFUNC
+
+
+*!*************************************************************
+*! Name      : lfvParior
+*: Developer : Saber A.Razek (SAB)
+*: Date      : 02/13/2012
+*! Purpose   : Validate Payment Priority
+*!*************************************************************
+FUNCTION lfvParior
+lcFldNam=SYS(18)
+IF !INLIST(EVAL(SYS(18)),'0','1','2','3','4','5','6','7','8','9')
+  &lcFldNam  = " "
+ENDIF
+
+ENDFUNC
+
+
+*!*************************************************************
+*! Name      : lfvCurDisp
+*: Developer : Saber A.Razek (SAB)
+*: Date      : 02/13/2012
+*! Purpose   : Validate Currency Display
+*!*************************************************************
+FUNCTION lfvCurDisp
+llRpProced = gfRepCur(.T., @lcRpCurr,@ldRpExDate,lcRpTmpNam)
+
+ENDFUNC
+
+*!*************************************************************
+*! Name      : lfCreateTemp
+*! Developer : Saber A.Razek (SAB)
+*! Date      : 02/08/2012
+*! Purpose   : Procedure to create temp.file
+*!*************************************************************
+PROCEDURE lfCreateTemp
+LOCAL lnItemPos
+lnItemPos = 0
+DIMENSION laStruArr[13, 4]
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'cVendCode'
+laStruArr[lnItemPos, 2] = 'C'
+laStruArr[lnItemPos, 3] = 8
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'cVenComp'
+laStruArr[lnItemPos, 2] = 'C'
+laStruArr[lnItemPos, 3] = 30
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'cInvNo'
+laStruArr[lnItemPos, 2] = 'C'
+laStruArr[lnItemPos, 3] = 12
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'dInvDate'
+laStruArr[lnItemPos, 2] = 'D'
+laStruArr[lnItemPos, 3] = 8
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'cVenPrior'
+laStruArr[lnItemPos, 2] = 'C'
+laStruArr[lnItemPos, 3] = 1
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'dInvDuDat'
+laStruArr[lnItemPos, 2] = 'D'
+laStruArr[lnItemPos, 3] = 8
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'dInvDisDat'
+laStruArr[lnItemPos, 2] = 'D'
+laStruArr[lnItemPos, 3] = 8
+laStruArr[lnItemPos, 4] = 0
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'nInvAmnt'
+laStruArr[lnItemPos, 2] = 'N'
+laStruArr[lnItemPos, 3] = 15
+laStruArr[lnItemPos, 4] = 2
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'nPrvPymnt'
+laStruArr[lnItemPos, 2] = 'N'
+laStruArr[lnItemPos, 3] = 15
+laStruArr[lnItemPos, 4] = 2
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'nInvDisOf'
+laStruArr[lnItemPos, 2] = 'N'
+laStruArr[lnItemPos, 3] = 10
+laStruArr[lnItemPos, 4] = 2
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'nInvDisTkn'
+laStruArr[lnItemPos, 2] = 'N'
+laStruArr[lnItemPos, 3] = 10
+laStruArr[lnItemPos, 4] = 2
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'nInvDisLos'
+laStruArr[lnItemPos, 2] = 'N'
+laStruArr[lnItemPos, 3] = 10
+laStruArr[lnItemPos, 4] = 2
+
+lnItemPos = lnItemPos + 1
+laStruArr[lnItemPos, 1] = 'nInvDisAvl'
+laStruArr[lnItemPos, 2] = 'N'
+laStruArr[lnItemPos, 3] = 10
+laStruArr[lnItemPos, 4] = 2
+
+*lcWorkFile = lcInvHdrTmp
+=gfCrtTmp(lcInvHdrTmp,@laStruArr,'CVENDCODE+CINVNO','VENDINV',.F.)
+
+ENDPROC
+
+
+*************************************************************
+*! Name      : lfAdjustCRSettings
+*: Developer : Saber A.Razek (SAB)
+*: Date      : 02/13/2012
+*! Purpose   : To set the report data files and parameters
+*!*************************************************************
+PROCEDURE lfAdjustCRSettings
+
+DIMENSION loOgScroll.laCRTables[1]
+DIMENSION loOgScroll.laCRParams[5,2]
+
+loOGScroll.cCROrientation='L'
+
+loOgScroll.laCRTables[1] = oAriaApplication.WorkDir + lcInvHdrTmp + ".DBF"
+
+LOCAL lnI
+lnI  = 0
+lnI = lnI + 1
+loOgScroll.laCRParams[lnI, 1] = 'ReportName'
+ * N000682 ,1 Thabet Handle globalization issues [Start]
+*loOgScroll.laCRParams[lnI ,2] = "Discounts"
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loOgScroll.laCRParams[lnI ,2] = LANG_DISCOUNTS
+loOgScroll.laCRParams[lnI ,2] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DISCOUNTS,oAriaApplication.GetHeaderText("LANG_DISCOUNTS",AHEADERFILE))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+* N000682 ,1 Thabet Handle globalization issues [END]
+lnI = lnI + 1
+loOgScroll.laCRParams[lnI, 1] = 'Layout'
+loOgScroll.laCRParams[lnI, 2] = ""&&"Account\Store"
+
+lnI = lnI + 1
+loOgScroll.laCRParams[lnI, 1] = 'SortBy'
+
+* N000682 ,1 Thabet Handle globalization issues [Start]
+*loOgScroll.laCRParams[lnI, 2] = "Vendor"
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*loOgScroll.laCRParams[lnI, 2] = LANG_VENDOR
+loOgScroll.laCRParams[lnI, 2] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_VENDOR,oAriaApplication.GetHeaderText("LANG_VENDOR",AHEADERFILE))
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+* N000682 ,1 Thabet Handle globalization issues [END]
+
+lnI = lnI + 1
+loOgScroll.laCRParams[lnI, 1] = 'OpTitle'
+loOgScroll.laCRParams[lnI, 2] = lcRpOpTitl
+
+*lnI = lnI + 1
+*loOgScroll.laCRParams[lnI, 1] = 'SysDate'
+*loOgScroll.laCRParams[lnI, 2] = oAriaApplication.SYSTEMDATE
+
+lnI = lnI + 1
+loOgScroll.laCRParams[lnI, 1] = 'lnDateFormat'
+loOgScroll.laCRParams[lnI, 2] = IIF(UPPER(ALLTRIM(oAriaApplication.cActCompDateFormat)) == 'BRITISH', 1, 0)
+
+ENDPROC
+
+

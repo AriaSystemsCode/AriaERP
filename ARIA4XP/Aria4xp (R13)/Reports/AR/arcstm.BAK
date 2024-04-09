@@ -1,0 +1,2396 @@
+*:**********************************************************************
+*: Program file  	: ARCSTM.PRG
+*: Program desc. 	: Customer Statement form
+*: Module        	: Account Receivable (AR)
+*: Developer     	: Heba Fathi (HFK)
+*: Tracking Job Number: #037355
+*: Date						: 02/10/2004
+*:**********************************************************************
+*: Calls:
+*:         Programs:
+*:         Screens:
+*:         Global Function:
+*:**********************************************************************
+*: Called From:
+*:**********************************************************************
+*: Passed Parameters: None
+*:**********************************************************************
+*: Example:   Write a calling statement.
+*:**********************************************************************
+*: Modification:
+*: B038979,1 HFK , 01/26/2005 Converting account filter to InList
+*: B038979,2  HFK, 02/06/2005 Fix bug of returning an error when selecing
+*: B608029,1 MMT 04/04/2007 Fix bug of printing only one page per Customer
+*: payment terms more than 24 (T20061226.0027)
+*: B608240,1 MMT 08/27/2007 fix bug of wrong factor address[T20070719.0008]
+*: B608764,1 WAM 12/15/2008 Fix calculating customer history [T20081203.0030]
+*: B609612,1 MMT 06/12/2011 Customer statement report Prints Wrong Division long name[T20110502.0026]
+*: B609661,1 WAM 08/16/2011 Fix calculation of amount for partially paid invoices [T20110607.0020]
+*: B609671,1 WAM 09/19/2011 Create new temporary file to be used when export to excel [T20110627.0014]
+*:**********************************************************************
+*: Notes : var lcFormType must be defined in SyFrmCdD file in memo field
+*:         called mFrmSpSets it takes one of the following values but it is noe disabled and replaced with
+*:         right(lcformname,1)
+*:         A --> Report will collect data for Form A or any typical form to it
+*:         B --> Report will collect data for Form B or any typical form to it
+*:         C --> This is kept for Future use
+*:        '' --> It may be used in case of @SAY
+*: NOTE: due to unproper functionality we replaced lcFormType to right(lcFormName)
+*:**************************************************************************
+* MAH
+PARAMETERS lcRequestID, lcXMLFileName, ClientID
+* MAH
+
+
+#INCLUDE R:\Aria4xp\reports\ar\arcstm.H
+
+
+
+IF TYPE('lcXMLFileName') = 'C'
+
+  llOGFltCh = .T.
+  PUBLIC gcRequestID, gcClientID
+  gcRequestID = lcRequestID
+  gcClientID = ClientId
+
+  loEnvironment = goRemoteCall.GetRemoteObject("Aria.Environment.AriaEnviromentVariables" + gcInstanceName, gcServerName, gnPort)
+  loEnvironment.ClientID = ClientID
+  loEnvironment.ConnectionsRefresh()
+  PRIVATE loAgent
+  loAgent = goRemoteCall.GetRemoteObject("Aria.EnterpriseServices.RequestHandler.AriaRequestAgent" + gcInstanceName, gcServerName, gnPort)
+
+  PRIVATE loProgress
+  loProgress = goRemoteCall.GetRemoteObject("Aria.DataTypes.RequestHandler.AriaRequestProgress" + gcInstanceName, gcServerName, gnPort)
+
+  loProgress.Percent = 0
+  loProgress.Description = "Opening Data Files..."
+  loAgent.UpdateObjectProgress(lcRequestID, loProgress, ClientID)
+
+  LOCAL lcCurrentProcedure
+  lcCurrentProcedure = loEnvironment.Aria40SharedPath
+  SET DEFAULT TO &lcCurrentProcedure.
+  DO (lcCurrentProcedure + "SRVPRGS\SY\ariamain.fxp") WITH loAgent.GetRequestCompany(lcRequestID, ClientID )  , ClientID, lcCurrentProcedure, loEnvironment
+
+  oAriaEnvironment.ProcessID = "ARCSTM"
+
+  SET DEFAULT TO &lcCurrentProcedure.
+
+  = gfOpenFile('CUSTOMER','CUSTOMER')
+  = gfOpenFile('CODES')
+  = gfOpenFile('SYCCURR','CCURRCODE')
+  = gfOpenFile('NOTEPAD','NOTEPAD')
+  = gfOpenFile('CREDIT','CREDIT')
+  = gfOpenFile('ARHIST','ARHISTT')
+  = gfOpenFile('DEBIT','DEBIT')
+  = gfOpenFile('SYCFACT','CFACCODE')
+  = gfOpenFile('SYCINT','CCONTCODE')
+  = gfOpenFile('SYCCOMP','CCOMP_ID')
+  = gfOpenFile('OBJECTS','OBJECTID')
+  = gfOpenFile('OBJLINK','OBJLNKTY')
+
+
+
+  oAriaEnvironment.xml.RestoreFromXML(FILETOSTR(lcXMLFileName),.T.)
+  oAriaEnvironment.Report.gcAct_Appl = 'AR'
+
+    = lfwRepWhen()
+    = lfIntializ()
+
+  PUBLIC gcAct_Appl
+  gcAct_Appl = 'AR'
+  oariaenvironment.activeModuleID = 'AR'
+
+  IF LEFT(gcDevice, 7) = "PRINTER"
+    oAriaEnvironment.gcDevice = "PRINTER"
+  ELSE
+    oAriaEnvironment.gcDevice = "FILE"
+  ENDIF
+
+  lcFormName = oAriaEnvironment.REPORT.GetForm('ARCSTM')
+  lcPrgName  = lcFormName
+ENDIF
+
+
+
+loogScroll.cCROrientation = 'P'
+lcStTime = TIME()
+
+*-- HFK, 02/06/2005, #038979,2 [Start]
+lcNewExp = ""
+IF !EMPTY(loOGScroll.lcRpExp)
+  lnOccur = IIF(OCCURS(' AND',loOGScroll.lcRpExp)>0,OCCURS(' AND',loOGScroll.lcRpExp),1)
+  IF lnOccur > 0 .AND. ATC('CUSTOMER.CTERMCODE',loOGScroll.lcRpExp)> 0
+    for lnCount= 1 to lnOccur+1
+     lnStart = iif(lnCount=1,1,atc(' AND',loOGScroll.lcRpExp,lnCount-1)+5)
+     lnEnd = iif(lnCount = lnOccur+1,LEN(loOGScroll.lcRpExp)+1,atc(' AND',loOGScroll.lcRpExp,lnCount))
+     lnLength = lnend - lnstart
+     lcScatteredExp = substr(loOGScroll.lcRpExp,lnStart,lnLength)
+     if ATC('CUSTOMER.CTERMCODE',lcScatteredExp)> 0 .and. ATC('INLIST',lcScatteredExp)> 0
+       lcTermExp = substr(lcScatteredExp,atc(',',lcScatteredExp,1)+1,len(lcScatteredExp)-1)
+       lcTermexp = strtran(lcTermexp,',',' Or CUSTOMER.CTERMCODE = ')
+       lcTermexp = STRTRAN(lcTermexp,')','')
+       lcTermexp = '( CUSTOMER.CTERMCODE = '+lcTermexp+')'
+     else
+       lcTermexp = lcScatteredExp
+     endif
+    lcNewExp = IIF(EMPTY(lcNEwExp),lcTermexp,lcNewExp+' AND ' +lcTermexp)
+    ENDFOR
+  ELSE
+    lcNewExp = loOGScroll.lcRpExp
+  ENDIF
+ENDIF
+
+*B609671,1 WAM 09/19/2011 Create new temporary file to be used when export to excel
+loOgScroll.ExportFromFile = lcExp2Excl
+*B609671,1 WAM 09/19/2011 (End)
+
+loOGScroll.lcRpExp = lcNewExp
+*-- HFK, 02/06/2005, #038979,2 [End]
+IF loOGScroll.llOGFltCh
+  STORE .F. TO llChAcc
+ENDIF
+
+PRIVATE  lcDBExp, lcCRExp
+STORE "" TO  lcDBExp, lcCRExp
+PRIVATE lcAliasB   &&Variable hold the alias.
+
+*-Array to print Factor Address [Begin]
+DIMENSION laFactTo[6,1]
+laFactTo = ''
+lcFacName = ''
+*-[End]
+
+*- Define the division array. [Begin]
+DECLARE laDivLName[1,2]
+laDivLName[1,1] = 'DIVLNAME'      && Array to get the Division long name
+laDivLName[1,2] = 'lcDivLName'
+lcDivLName =''
+*-[End]
+
+*- print Company name or not (not used in From A,B only in Custom Program) [Begin]
+lcPrnComp = IIF(TYPE('llPrntComp') = 'L' , IIF(llPrntComp , 'Y' , 'N') , 'Y')
+llPrntComp = lcPrnComp  = "Y"
+*-[End]
+
+
+*- Define variable lllogo to indecate whether there is logo or not
+llLogo = IIF(SEEK('*' + 'LOGO' , 'OBJLINK') .AND. SEEK(OBJLINK.cObject_ID ,;
+             'OBJECTS') , .T. , .F.)        && Flag to know if we are to print the Company Logo
+lcTaxRef = gfGetMemVar('M_TAX_REFE')
+
+
+
+lcSelectCommand=[SELECT * FROM SYCCOMP WHERE Ccomp_id=']+oAriaApplication.ActiveCompanyID+[']
+lnResult = oAriaApplication.remotesystemdata.execute(lcSelectCommand,"","SYCCOMP","",oAriaApplication.SystemConnectionString,3,"",SET("DATASESSION"))
+IF lnResult >= 1
+  *TNA Fix Phone Picture Problem [Start]
+  *lcCompFax = TRANSFORM(SycComp.CCOM_FAX , gfPhoneTem())  && Fax No. Pic
+  lcPhonPict      = gfPhoneTem()
+  lcCompFax = TRANSFORM(SycComp.CCOM_FAX , '@R '+lcPhonPict)
+  *TNA Fix Phone Picture Problem [End]
+
+	
+ENDIF
+
+
+
+*-- Checking if Current and all Aging not False (at least one is selected)
+IF !llRpCurrnt AND !llRp30 AND !llRp60 AND !llRp90 AND !llRp120
+  *-- Message <You have to select at least one balance period.>
+  *-- Buttons <                     OK                      >
+  =gfModalGen('TRM40136B40011','ALERT')
+  RETURN
+ENDIF
+
+*-- Restore statement messages from memo file. [Begin]
+
+lcPath = oAriaApplication.DataDir
+IF !FILE('&lcPath.ARSTMSG.MEM')
+
+  *-- Message <Statement Message is Empty>
+  *-- Buttons <  <Proceed>     <Cancel>  >
+  IF gfModalGen('QRM40157B40003','DIALOG') = 2
+    RETURN
+  ELSE
+    STORE SPACE(60) TO MADL1 , MADL2 , MADL3 , MADL4, MADL5 , M120L1, M120L2, M120L3, M90L1, M90L2 , M90L3 , M60L1 , M60L2 , M60L3, M30L1 , M30L2 , M30L3
+    SAVE ALL LIKE M* TO (oAriaApplication.DataDir+'ARSTMSG')
+    llOGFltCh = .T.
+  ENDIF
+ELSE
+  RESTORE ADDITIVE FROM (oAriaApplication.DataDir+'ARSTMSG')
+ENDIF
+*-- Restore statement messages from memo file. [End]
+
+*- Check if factor code is empty. [Begin]
+IF lcRpRemit='F' AND EMPTY(lcRpFactor)
+  *-- Message <You have to enter a factor code.>
+  *-- Buttons <              OK                >
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *=gfModalGen('TRM00250B40011','ALERT',LANG_Arcstm_Faccod)
+  =gfModalGen('TRM00250B40011','ALERT',;
+              IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Faccod,oAriaApplication.GetHeaderText("LANG_Arcstm_Faccod",AHEADERFILE)))
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
+
+  RETURN
+ENDIF
+
+IF llRpRemit
+  =lfGetFac()
+ELSE
+  lcFacName = lcName
+  =ACOPY(laCompany,laFactTo)
+ENDIF
+*- [End]
+
+
+
+*-- if Filter Expression changed (ReCollect data again)
+IF llOGFltCh
+
+  *-- If Arrays is not formed yet or User presses Reset (Array will become empty)
+  IF TYPE("laAccStru[1]") <> 'C' OR EMPTY(laAccStru[1])
+    DO lpFillStru
+  ENDIF
+
+  *-- If Temp file is not used or has records inside
+  IF !USED(lcTmpTrans) OR RECCOUNT(lcTmpTrans) > 0
+    DO lpCreatFil
+  ENDIF
+
+  PRIVATE lcDebitFlt
+  lcDebitFlt = ''
+  lcRpExp = STRTRAN(lcRpExp,"DEBIT.","")
+  lcRpExp = lcRpExp + IIF(EMPTY(lcRpExp),'',[ AND ]) +  [Customer.Prnt_Statm<>'N']
+
+  *- Check if Remit to is Factor 'F'. [Begin]
+  DO CASE
+    CASE lcRpRemit = 'F'
+      lcRpExp = lcRpExp
+    CASE lcRpRemit = 'H'
+      lcRpExp = lcRpExp
+  ENDCASE
+	*- [End]
+
+  *-- If user wants to Print Only Open Invoices
+  IF llRpInvoie
+    lcDebitFlt = lcDebitFlt + IIF(EMPTY(lcDebitFlt),"",[ AND ]) + [TranType = '1']
+  ENDIF
+
+  *-- If Print ChargeBack is NO
+  IF !llRpPrnCha
+    lcDebitFlt = lcDebitFlt + IIF(EMPTY(lcDebitFlt),"",[ AND ]) + [TranType <> '3']
+  ENDIF
+  lcDebitFlt = ALLTRIM(lcDebitFlt)
+
+  *-- check for Date used in Aging
+  ldRpHDate = IIF(EMPTY(ldRpHDate),oAriaApplication.SystemDate,ldRpHDate)
+
+
+  *-- Re-Initialize Age , currency variable
+  lcOldAgeFl = ""
+  lcSavedCur = ""
+
+  *-- Get Sort By Expression.
+  lcReplExpr = lfGetReplc()
+
+  DO lpCollect   && Collect Data
+
+  *B609671,1 WAM 09/19/2011 Create new temporary file to be used when export to excel
+  DO lpApplyAge  && Apply Aging criteria
+
+  lcAccounts = ''
+  SELECT (lcTmpAcct)
+  SCAN
+    lcAccounts = lcAccounts + Account+','
+  ENDSCAN
+  IF USED(lcExp2Excl)
+    USE IN (lcExp2Excl)
+  ENDIF
+
+  SELECT (lcTmpTrans)
+  COPY TO (oAriaApplication.WorkDir+lcExp2Excl) FIELDS EXCEPT cGroupKey, nGroup, nPosition FOR (Account $ lcAccounts)
+
+  USE (oAriaApplication.WorkDir+lcExp2Excl) IN 0
+  *B609671,1 WAM 09/19/2011 (End)
+
+ENDIF
+*-- Endif of Filter Expression changed
+
+*- Reuse the transaction file the get the recno.[Start]
+IF RIGHT(lcFormName,1)= "B" AND lcRepMode = "Text"
+  lcAliasB = SELECT(0)
+  IF USED(lcTmpTrn_A)
+    USE IN (lcTmpTrn_A)
+  ENDIF
+  USE (lcTmpTrans) IN 0 AGAIN ALIAS (lcTmpTrn_A)
+  SELECT(lcAliasB)
+ENDIF
+*- [End]
+
+*B609671,1 WAM 09/19/2011 Apply aging filter only when the filter is changed
+*DO lpApplyAge  && Apply Aging criteria
+*B609671,1 WAM 09/19/2011 (End)
+
+*-- If End of File encountered (no Records to Display)
+SELECT (lcTmpAcct)
+LOCATE
+*-- If End of File encountered (no Records to Display)
+IF EOF()
+  *-- Message <There are no records to display>
+  *-- Buttons <               OK              >
+  *MAH
+  IF TYPE('lcXMLFileName') <> 'C'
+    *MAH
+    = gfModalGen('TRM00052B00000','DIALOG' )
+    *MAH
+  ENDIF
+  *MAH
+  SET DEVICE TO SCREEN	         && in case of @SAY
+  RETURN
+ENDIF
+
+DO lpChSortBy  && Apply changing Sort by
+DO lpGroupChg  && Apply Group change
+DO lpCurrChng  && Apply Cuurency Change
+
+lcOldAgeFl  = lcAgeFlt     && Store Current Age Filter
+lcSavedCur  = lcRpCurr     && Store Current Currency type
+
+*-- Apply Relation
+SELECT (lcTmpTrans)
+LOCATE
+SELECT (lcTmpAcct)
+LOCATE
+DO lpApplyRel  && Apply Relations...
+
+*-- Calculate spent time in collecting data.
+lnInterval = lfCollTime(lcStTime,TIME())  && Calculate collecting data spent time.
+*!*	WAIT WINDOW 'Selected ' + ALLTRIM(STR(RECCOUNT(lcTmpAcct))) + ' Customer(s), ' + ALLTRIM(STR(RECCOUNT())) + ' Transaction(s) in ' + ALLTRIM(STR(lnInterval,6,2)) + ' Seconds...' NOWAIT
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*WAIT WINDOW LANG_Arcstm_Slctd + ALLTRIM(STR(RECCOUNT(lcTmpAcct))) + LANG_Arcstm_Cstmrs + ALLTRIM(STR(RECCOUNT())) + LANG_Arcstm_Tran + ALLTRIM(STR(lnInterval,6,2)) + LANG_Arcstm_Sec NOWAIT
+WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Slctd,oAriaApplication.GetHeaderText("LANG_Arcstm_Slctd",AHEADERFILE)) +;
+            ALLTRIM(STR(RECCOUNT(lcTmpAcct))) +;
+            IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Cstmrs,oAriaApplication.GetHeaderText("LANG_Arcstm_Cstmrs",AHEADERFILE)) +;
+            ALLTRIM(STR(RECCOUNT())) + ;
+            IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Tran,oAriaApplication.GetHeaderText("LANG_Arcstm_Tran",AHEADERFILE)) + ;
+            ALLTRIM(STR(lnInterval,6,2)) +;
+            IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Sec,oAriaApplication.GetHeaderText("LANG_Arcstm_Sec",AHEADERFILE)) NOWAIT
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+*-- Call the Optional Program
+*MAH
+*! E302715,1 MMT 07/13/2010 Convert Invoice Form to work from the request builder[Start]
+IF TYPE('lcXMLFileName') = 'C'
+  lcFormName = oAriaEnvironment.REPORT.GetForm('ARCSTM')
+  lcPrgName  = lcFormName
+
+  *! B609470,1 MMT 11/29/2010 Custom Invoice Forms does not work from the request builder[Start]
+  IF !EMPTY(oAriaEnvironment.Report.lcOptProg)
+    lcPrgName = oAriaEnvironment.Report.lcOptProg
+  ENDIF
+  *! B609470,1 MMT 11/29/2010 Custom Invoice Forms does not work from the request builder[End]
+  IF oAriaEnvironment.multiinst AND  FILE(oAriaEnvironment.clientreporthome+lcPrgName+'.FXP')
+    *! B609470,2 MMT 12/05/2010 Custom Invoice Forms does not work from the request builder[Start]
+    *=lfOptProg(oAriaEnvironment.clientreporthome+lcPrgName+'.FXP')
+    =lfOptProg(oAriaEnvironment.clientreporthome+lcPrgName)
+    *! B609470,2 MMT 12/05/2010 Custom Invoice Forms does not work from the request builder[End]
+  ELSE
+    IF FILE(oAriaEnvironment.ReportHome+lcPrgName+'.FXP')
+      *! B609470,2 MMT 12/05/2010 Custom Invoice Forms does not work from the request builder[Start]
+      *=lfOptProg(oAriaEnvironment.ReportHome+lcPrgName+'.FXP')
+      =lfOptProg(oAriaEnvironment.ReportHome+lcPrgName)
+      *! B609470,2 MMT 12/05/2010 Custom Invoice Forms does not work from the request builder[End]
+    ENDIF
+  ENDIF
+ELSE
+  =lfOptProg()
+ENDIF
+*MAH
+
+*-- If Report type is @SAY
+lcPrgName  = lcFormName
+
+*MAH
+IF TYPE('lcXMLFileName') <> 'C'
+*MAH
+  llIsAparel = lfIsApparl(@lcPrgName)
+*MAH
+ELSE
+*MAH
+  lcFormName = oAriaEnvironment.REPORT.GetForm('ARCSTM')
+  lcPrgName  = lcFormName
+  llIsAparel = oAriaEnvironment.REPORT.isapparell(@lcPrgName)
+*MAH
+ENDIF
+*MAH
+
+
+IF llIsAparel
+  DO EVALUATE('lcPrgName')
+  DO ENDREPORT
+ELSE    && Else Report is FRX
+  STORE '' TO lcOverMsg1, lcOverMsg2, lcOverMsg3
+  STORE .T. TO llGrpChang
+
+
+
+  *- Get the Cut off date if user changed it. [Begin]
+  *-IF lcFormType = "A"
+  IF RIGHT(lcFormName,1)= "A"
+    =lfCutDate()
+  ENDIF
+  DO gfDispRe WITH EVAL('lcFormName')
+ENDIF
+*-- EndIf of Report type is @SAY
+*!**************************************************************************
+*! Name      : lfGroupTot
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Indicate end of group
+*!**************************************************************************
+*! Called from : .FRX group footer (Report Form A)
+*!**************************************************************************
+*
+FUNCTION lfGroupTot
+*-- This Function is called in every page of Form A to detect if group
+*-- is changed
+
+PRIVATE lcAlias , lnGroupNo , lcCurrCode
+lcAlias = ALIAS()      && Save Current Alias
+SELECT (lcTmpGroup)
+lnGroupNo  = nGroup
+lcCurrCode = EVAL(lcTmpTrans+'.cCurrCode')
+* MAH
+LOCAL llSKip1
+* MAH
+IF !EOF()
+  SKIP 1            && Move to next record
+  * MAH
+*!*	  IF TYPE('lcXMLFileName') = 'C'
+*!*	    llSKip1 = .T.
+*!*	  ENDIF
+  * MAH
+ENDIF
+IF lnGroupNo >= nGroup OR EOF()
+  llGrpChang = .T.
+ELSE
+  IF lcCurrCode == EVAL(lcTmpTrans+'.cCurrCode')
+    llGrpChang = .F.
+  ELSE
+    llGrpChang = .T.
+  ENDIF
+ENDIF
+* MAH
+SKIP -1           && Move to previous record
+*!*	IF TYPE('lcXMLFileName') = 'C'
+*!*	  IF llSKip1
+*!*	    SKIP -1           && Move to previous record
+*!*	  ENDIF
+*!*	ELSE
+*!*	  SKIP -1           && Move to previous record
+*!*	ENDIF
+* MAH
+
+
+SELECT (lcAlias)     && Restore Old Alias
+RETURN ''
+*-- End of lfGroupTot.
+
+*!**************************************************************************
+*! Name      : lfwRepWhen
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Report When Function
+*!**************************************************************************
+*
+FUNCTION lfwRepWhen
+PRIVATE lnTranDate
+lnTranDate = lfItmPos('DEBIT.TRANDATE')   && get Tran. Date Fixed filter Position
+
+*-- If Trans. Date found in Fixed filter option
+IF lnTranDate > 0
+  *-- Replace TO DATE in Transaction date with Current Date (System Date)
+  *-- If system uses 4 Char. for Century
+  IF "ON" $ SET('CENTURY')
+        loOGScroll.laOGFxFlt[lnTranDate,6] = '  /  /    |' + DTOC(oAriaApplication.SystemDate)
+  ELSE    && Else system uses 2 char. for Century
+        loOGScroll.laOGFxFlt[lnTranDate,6] = '  /  /  |' + DTOC(oAriaApplication.SystemDate)
+  ENDIF
+  *-- EndIf of system uses 4 Char. for Century
+ENDIF
+*-- Endif of Trans. Date found in Fixed filter option
+
+llRpRemit = (lcRpRemit = 'F')  &&Assign the Remit to factor variable.
+
+*-- check for single currency to open Post Dated Cheques file
+IF !llMulCurr AND !USED('POSTDCHQ')
+  llOpnPdChq = gfOpenFile(oAriaApplication.DataDir+'PostDChq','PostDChq','SH')
+ENDIF
+
+*-- Enable Currency Push Button in Case of Multi Currency
+*!*  LAOGOBJCNT[LFVARPOS('LNRPREPCUR')] = LLMULCURR
+*!*  =LFOGSHOWGET('LNRPREPCUR')
+
+*MAH
+IF TYPE('lcXMLFileName') != 'C'
+*MAH
+*-- Disable only open Invoice in case of not debit
+LAOGOBJCNT[LFVARPOS('LLRPINVOIE')] = IIF(LCRPTRANS = 'D',.T.,.F.)
+=LFOGSHOWGET('LLRPINVOIE')
+
+*-- Disable only [Account has total credit balance] in case of not debit
+LAOGOBJCNT[LFVARPOS('LLRPPRNBAL')] = IIF(LCRPTRANS <> 'D',.T.,.F.)
+=LFOGSHOWGET('LLRPPRNBAL')
+
+*-- Disable ChargeBack Option in case of Credit
+LAOGOBJCNT[LFVARPOS('LLRPPRNCHA')] = IIF(LCRPTRANS $ 'DB',.T.,.F.)
+=LFOGSHOWGET('LLRPPRNCHA')
+
+*MAH
+ENDIF
+*MAH
+
+=lfvInvoice()  &&Checking if Only open invoice is YES from Saved filter
+
+*-- End of lfwRepWhen.
+*!**************************************************************************
+*! Name      : lfItmPos
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To get the position of the fixed filter in OG
+*!**************************************************************************
+*! Called from : OG When Function
+*!**************************************************************************
+*
+FUNCTION lfItmPos
+PARAMETERS lcItmInFlt
+PRIVATE lnItmPos
+
+lnItmPos = ASCAN(loOGScroll.laOGFxFlt,lcItmInFlt)
+IF lnItmPos > 0
+    lnItmPos = ASUBSCRIPT(loOGScroll.laOGFxFlt,lnItmPos,1)
+ENDIF
+RETURN lnItmPos
+*-- End of lfItmPos.
+*!**************************************************************************
+*! Name      : lfVarPos
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To get the position of the Variable in OG
+*!**************************************************************************
+*! Called from : OG when function
+*!**************************************************************************
+*
+FUNCTION lfVarPos
+PARAMETERS lcItmInFlt
+PRIVATE lnItmPos
+LNITMPOS = ASCAN(LAOGOBJTYPE,LCITMINFLT)
+IF lnItmPos > 0
+    LNITMPOS = ASUBSCRIPT(LAOGOBJTYPE,LNITMPOS,1)
+ENDIF
+RETURN lnItmPos
+*-- End of lfVarPos.
+*!**************************************************************************
+*! Name      : lfvDate
+*! Developer : Heba Fathi (HFK)
+*! Date      : 02/10/2004
+*! Purpose   : Validate the enterd date
+*!**************************************************************************
+*
+FUNCTION lfvDate
+PRIVATE lcObjNam , lcObjVal , llObjRet
+lcObjNam = _Screen.ActiveForm.ActiveControl.Name                && Varible to hold  the name of the memory variable used to create the current GET field
+lcObjVal = _Screen.ActiveForm.ActiveControl.Value      && Varible to hold  the value of the current GET field
+
+IF !EMPTY(lcObjVal) .AND.  lcObjVal > (oAriaApplication.SystemDate)
+  =gfModalGen('TRM40135B40011','ALERT')
+  lcObjVal = oAriaApplication.SystemDate
+ENDIF
+ldRpHDate = IIF(EMPTY(ldRpHDate),lcObjVal,MAX(ldRpHDate,lcObjVal))
+*-- End of lfvDate.
+
+*!**************************************************************************
+*! Name      : lfAdrShift
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : Shift the add. if there is any empty one
+*!**************************************************************************
+*! Example   : = lfAdrShift()
+*!**************************************************************************
+*
+FUNCTION lfAdrShift
+PARAMETERS lcArrayNam
+
+FOR lnCount = 1 TO ALEN(&lcArrayNam.,1)
+  *-IF The current Array element is of type character and empty
+  IF TYPE(lcArrayNam + "[" + STR(lnCount , 1) + "]") = "C" .AND.;
+    EMPTY(&lcArrayNam.[lnCount])
+    =ADEL(&lcArrayNam , lnCount)
+    lnCount = lnCount - 1
+  ENDIF    && End of IF
+ENDFOR    && End of FOR Loop
+
+*FOR Loop to loop the Address Array
+FOR lnCount = 1 TO ALEN(&lcArrayNam.,1)
+  *-IF The current Array element is not of type character
+  IF TYPE(lcArrayNam + "[" + STR(lnCount , 1) + "]") <> "C"
+    &lcArrayNam.[lnCount] = ''
+  ENDIF    && End of IF
+ENDFOR    && End of FOR Loop
+*-- End of lfAdrShift.
+
+*!**************************************************************************
+*! Name      : lfvCurDisp
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : Display the Currency Transform Screen
+*!**************************************************************************
+*! Called from : Called from the currency button
+*!**************************************************************************
+*
+FUNCTION lfvCurDisp
+=gfRepCur(.T., @lcRpCurr,@ldRpExDate,lcRpTmpCur)
+*-- End of lfvCurDisp.
+
+*!**************************************************************************
+*! Name      : lfvPeriod
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To be sure that there is only one perid is set to  'Yes'
+*!**************************************************************************
+*
+FUNCTION lfvPeriod
+PARAMETER lnCondition
+
+DO CASE
+  CASE lnCondition = 1
+    STORE .F. TO llRp30 , llRp60 , llRp90 , llRp120
+  CASE lnCondition = 2
+    STORE .F. TO llRpCurrnt , llRp60 , llRp90 , llRp120
+  CASE lnCondition = 3
+    STORE .F. TO llRpCurrnt , llRp30 , llRp90 , llRp120
+  CASE lnCondition = 4
+    STORE .F. TO llRpCurrnt , llRp30 , llRp60 , llRp120
+  CASE lnCondition = 5
+    STORE .F. TO llRpCurrnt , llRp30 , llRp60 , llRp90
+ENDCASE
+=LFOGSHOWGET('LLRPCURRNT')
+=LFOGSHOWGET('LLRP30')
+=LFOGSHOWGET('LLRP60')
+=LFOGSHOWGET('LLRP90')
+=LFOGSHOWGET('LLRP120')
+*-- End of lfvPeriod.
+
+*!**************************************************************************
+*! Name      : lfvTran
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : Disable the invoice option in case of not debit
+*!**************************************************************************
+FUNCTION lfvTran
+*-- Disable only open Invoice in case of not debit
+LAOGOBJCNT[LFVARPOS('LLRPINVOIE')] = IIF(LCRPTRANS = 'D',.T.,.F.)
+=LFOGSHOWGET('LLRPINVOIE')
+
+*-- Disable ChargeBack Option in case of Credit
+LAOGOBJCNT[LFVARPOS('LLRPPRNCHA')] = IIF(LCRPTRANS $ 'DB',.T.,.F.)
+=LFOGSHOWGET('LLRPPRNCHA')
+
+*-- Disable only [Account has total credit balance] in case of not debit
+LAOGOBJCNT[LFVARPOS('LLRPPRNBAL')] = IIF(LCRPTRANS <> 'D',.T.,.F.)
+=LFOGSHOWGET('LLRPPRNBAL')
+
+*-- End of lfvTran.
+
+*!**************************************************************************
+*! Name      : lfGetSign
+*! Developer : Heba Fathi (HFK)
+*! Date      : 10/02/2004
+*! Purpose   : Get the symbol of the used curr.
+*!**************************************************************************
+*! Example   : = lfGetSign()
+*!**************************************************************************
+*
+FUNCTION lfGetSign
+PRIVATE lcSign
+
+lcSign = SPACE(3)
+lcSign = IIF(SEEK(&lcTmpTrans..cCurrCode,'SYCCURR'),SYCCURR.cCurrSmbl,lcSign)
+*!*  RETURN IIF(lcCurrPost="LEFT",lcSign + "  Amount" ,"Amount  " + lcSign)
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*RETURN IIF(lcCurrPost=LANG_Arcstm_Left,lcSign + LANG_Arcstm_Amntl ,LANG_Arcstm_Amntr + lcSign)
+RETURN IIF(lcCurrPost=IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Left,oAriaApplication.GetHeaderText("LANG_Arcstm_Left",AHEADERFILE)),;
+          lcSign + IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Amntl,oAriaApplication.GetHeaderText("LANG_Arcstm_Amntl",AHEADERFILE)) ,;
+          IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Amntr,oAriaApplication.GetHeaderText("LANG_Arcstm_Amntr",AHEADERFILE)) + lcSign)
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+*-- End of lfGetSign
+*!**************************************************************************
+*! Name      : lfIntializ
+*! Developer : Heba Fathi (HFK)
+*! Date      : 02/10/2004
+*! Purpose   : To initialize all variables defined in Syrepuvr
+*!**************************************************************************
+FUNCTION lfIntializ
+
+*-- No of lines displayed in FRX
+lnRpLines = 11
+
+*-- Array to hold the account Sold To Address and Company Address
+DIMENSION laSoldTo [5,1] , laCompany[6,1] , laSortDesc[4,1] , laSortVal[4,1], laSetups[2,2]
+laSoldTo   = ''
+laCompany  = ''
+
+*-- Get the address of the active company
+
+lcSelectCommand=[SELECT * FROM SYCCOMP WHERE Ccomp_id=']+oAriaApplication.ActiveCompanyID+[']
+lnResult = oAriaApplication.remotesystemdata.execute(lcSelectCommand,"","SYCCOMP","",oAriaApplication.SystemConnectionString,3,"",SET("DATASESSION"))
+IF lnResult >= 1
+  lcName  = SycComp.cCom_Name
+  lcPhone = SycComp.cCom_Phon
+  =gfGetAdr('SycComp' , '' , '' , '' , @laCompany, 1)
+
+  *TNA Fix Phone Picture Problem [Start]
+  *laCompany[6,1] = "Phone # : " + TRANSFORM(lcPhone , gfPhoneTem())
+  lcPhonPict      = gfPhoneTem()
+  *N000682,1 MMT 02/10/2013 Globalization changes[Start]
+  * laCompany[6,1] = "Phone # : " + TRANSFORM(lcPhone ,  '@R '+lcPhonPict)
+  laCompany[6,1] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_PhoneNo,oAriaApplication.GetHeaderText("LANG_Arcstm_PhoneNo",AHEADERFILE))+" " +;
+                   TRANSFORM(lcPhone ,  '@R '+lcPhonPict)
+  *N000682,1 MMT 02/10/2013 Globalization changes[End]
+  *TNA Fix Phone Picture Problem [End]
+
+  *--laCompany[6,1] = LANG_Arcstm_Phon# + TRANSFORM(lcPhone , gfPhoneTem())
+  =lfAdrShift('laCompany')
+ENDIF
+
+lcSelectCommand=[SELECT * FROM SYCINT WHERE Ccont_Code=']+ SycComp.cCont_Code+[']
+lnResult = oAriaApplication.remotesystemdata.execute(lcSelectCommand,"","SYCINT","",oAriaApplication.SystemConnectionString,3,"",SET("DATASESSION"))
+IF lnResult >= 1
+  lcCountry  = SycInt.cPart4Lab
+  lcZip      = SycInt.cPart5Lab
+  lcCurrPost = SycInt.cCurrency
+ENDIF
+  *!*  laSortDesc[1] = 'Account'
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *laSortDesc[1] = LANG_Arcstm_Acc
+  laSortDesc[1] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Acc,oAriaApplication.GetHeaderText("LANG_Arcstm_Acc",AHEADERFILE))
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
+
+  laSortDesc[2] = lcCountry
+  laSortDesc[3] = lcZip
+  *!*  laSortDesc[4] = 'Region'
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *laSortDesc[4] = LANG_Arcstm_Regn
+  laSortDesc[4] = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Regn,oAriaApplication.GetHeaderText("LANG_Arcstm_Regn",AHEADERFILE))
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+
+
+laSortVal[1] = 'A'
+laSortVal[2] = 'C'
+laSortVal[3] = 'Z'
+laSortVal[4] = 'R'
+
+*-- Check if the system is setup to use multi currency
+laSetups[1,1] = 'llMulCurr'
+laSetups[2,1] = 'XAGINGTYPE'
+
+*MAH
+**=gfGetMemVar(@laSetups)
+IF TYPE('lcXMLFileName') = 'C'
+  oAriaEnvironment.setups.getSetting(@laSetups)
+ELSE
+  =gfGetMemVar(@laSetups)
+ENDIF
+*MAH
+
+
+llMulCurr = laSetups[1,2]
+lcAgeType = laSetups[2,2]
+
+
+*-- Heading displayed in Option Grid according to Age Type (Date or Terms)
+IF lcAgeType = 'D'
+  *!*    lcHead1  = ' 30 Days+'
+  *!*    lcHead2  = ' 60 Days+'
+  *!*    lcHead3  = ' 90 Days+'
+  *!*    lcHead4  = '120 Days+'
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *lcHead1  = LANG_Arcstm_3Day
+  *lcHead2  = LANG_Arcstm_6Day
+  *lcHead3  = LANG_Arcstm_9Day
+  *lcHead4  = LANG_Arcstm_12Day  
+  lcHead1  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_3Day,oAriaApplication.GetHeaderText("LANG_Arcstm_3Day",AHEADERFILE))
+  lcHead2  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_6Day,oAriaApplication.GetHeaderText("LANG_Arcstm_6Day",AHEADERFILE))
+  lcHead3  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_9Day,oAriaApplication.GetHeaderText("LANG_Arcstm_9Day",AHEADERFILE))
+  lcHead4  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_12Day,oAriaApplication.GetHeaderText("LANG_Arcstm_12Day",AHEADERFILE))
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
+
+ELSE
+  *!*    lcHead1  = ' ( +1 - 30) Days'
+  *!*    lcHead2  = ' (+31 - 60) Days'
+  *!*    lcHead3  = ' (+61 - 90) Days'
+  *!*    lcHead4  = '(+91 - 120) Days'
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *lcHead1  = LANG_Arcstm_13Day
+  *lcHead2  = LANG_Arcstm_36Day
+  *lcHead3  = LANG_Arcstm_69Day
+  *lcHead4  = LANG_Arcstm_91Day
+  lcHead1  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_13Day,oAriaApplication.GetHeaderText("LANG_Arcstm_13Day",AHEADERFILE))
+  lcHead2  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_36Day,oAriaApplication.GetHeaderText("LANG_Arcstm_36Day",AHEADERFILE))
+  lcHead3  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_69Day,oAriaApplication.GetHeaderText("LANG_Arcstm_69Day",AHEADERFILE))
+  lcHead4  = IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_91Day,oAriaApplication.GetHeaderText("LANG_Arcstm_91Day",AHEADERFILE))
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
+ENDIF
+
+*-- Temporay files names
+lcTmpTrans = gfTempName()
+lcTmpAcct  = gfTempName()
+lcTmpGroup = gfTempName()
+lcTmpLoop  = gfTempName()
+lcTmpCurrc = gfTempName()
+lcTmpAcCur = gfTempName()
+
+*-- End of lfIntializ.
+*!**************************************************************************
+*! Name      : lfClearRep
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Clear the Report variables
+*!**************************************************************************
+*
+FUNCTION lfClearRep
+llOGFltCh = .T.
+IF llOpnPdChq
+  USE IN PostDChq
+ENDIF
+
+*-- Close Temporary Cursors
+IF USED(lcTmpTrans)
+  USE IN (lcTmpTrans)
+
+  *- Use the temp. File.
+  *- Variable ( lcTmpTrn_A ) not found.
+  IF !TYPE('lcTmpTrn_A') = "U"
+    IF USED(lcTmpTrn_A)
+      USE IN (lcTmpTrn_A)
+    ENDIF
+  ENDIF
+  ERASE (oAriaApplication.WorkDir+lcTmpTrans+".DBF")
+  ERASE (oAriaApplication.WorkDir+lcTmpTrans+".CDX")
+ENDIF
+
+IF USED(lcTmpAcct)
+  USE IN (lcTmpAcct)
+  ERASE (oAriaApplication.WorkDir+lcTmpAcct+".DBF")
+  ERASE (oAriaApplication.WorkDir+lcTmpAcct+".CDX")
+ENDIF
+
+IF USED(lcTmpGroup)
+  USE IN (lcTmpGroup)
+  ERASE (oAriaApplication.WorkDir+lcTmpGroup+".DBF")
+  ERASE (oAriaApplication.WorkDir+lcTmpGroup+".CDX")
+ENDIF
+
+IF USED(lcTmpLoop)
+  USE IN (lcTmpLoop)
+  ERASE (oAriaApplication.WorkDir+lcTmpLoop+".DBF")
+  ERASE (oAriaApplication.WorkDir+lcTmpLoop+".CDX")
+ENDIF
+
+IF USED(lcTmpCurrc)
+  USE IN (lcTmpCurrc)
+  ERASE (oAriaApplication.WorkDir+lcTmpCurrc+".DBF")
+  ERASE (oAriaApplication.WorkDir+lcTmpCurrc+".CDX")
+ENDIF
+
+IF USED(lcTmpAcCur)
+  USE IN (lcTmpAcCur)
+  ERASE (oAriaApplication.WorkDir+lcTmpAcCur+".DBF")
+  ERASE (oAriaApplication.WorkDir+lcTmpAcCur+".CDX")
+ENDIF
+*B609671,1 WAM 09/19/2011 erase the export to excel file
+IF USED(lcExp2Excl)
+  USE IN (lcExp2Excl)
+  ERASE (oAriaApplication.WorkDir+lcExp2Excl+".DBF")
+ENDIF
+*B609671,1 WAM 09/19/2011 (End)
+
+*-- End of lfClearRep.
+
+*!**************************************************************************
+*! Name      : lpFillStru
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : To fill Structures of all Arrays creating Temp cursors
+*!**************************************************************************
+*
+PROCEDURE lpFillStru
+PRIVATE lnTranFile
+*-- Prepare Arrays
+
+*B609671,1 WAM 09/19/2011 Add new column BTNAME to lcTmpTrans file
+*DIMENSION laAgeStru[11,4],laAccStru[16,4],laTranStru[17,4]
+DIMENSION laAgeStru[11,4],laAccStru[16,4],laTranStru[21,4]
+*B609671,1 WAM 09/19/2011 (End)
+
+*-- Age Array Structure
+laAgeStru[1,1] = "Current"
+laAgeStru[2,1] = "Age30"
+laAgeStru[3,1] = "Age60"
+laAgeStru[4,1] = "Age90"
+laAgeStru[5,1] = "Age120"
+laAgeStru[6,1] = "OpenCr"
+laAgeStru[7,1] = "TotAge"
+laAgeStru[8,1] = "NetBal"
+
+FOR lnI = 1 TO 8
+  laAgeStru[lnI,2] = 'N'
+  laAgeStru[lnI,3] = 20
+  laAgeStru[lnI,4] = 2
+ENDFOR
+
+laAgeStru[9,1] = "cAddress4"
+laAgeStru[9,2] = "C"
+laAgeStru[9,3] = 30
+laAgeStru[9,4] = 0
+
+laAgeStru[10,1] = "cAddress5"
+laAgeStru[10,2] = "C"
+laAgeStru[10,3] = 30
+laAgeStru[10,4] = 0
+
+laAgeStru[11,1] = "Region"
+laAgeStru[11,2] = "C"
+laAgeStru[11,3] = 6
+laAgeStru[11,4] = 0
+
+*-- Account Array Structure
+laAccStru[1,1] = "cGroupKey"
+laAccStru[1,2] = "C"
+laAccStru[1,3] = 35
+laAccStru[1,4] = 0
+
+laAccStru[2,1] = "Account"
+laAccStru[2,2] = "C"
+laAccStru[2,3] = 5
+laAccStru[2,4] = 0
+
+laAccStru[3,1] = "BtName"
+laAccStru[3,2] = "C"
+laAccStru[3,3] = 30
+laAccStru[3,4] = 0
+
+laAccStru[4,1] = "nPostDChq"
+laAccStru[4,2] = "N"
+laAccStru[4,3] = 11
+laAccStru[4,4] = 2
+
+laAccStru[5,1] = "cFacCode"
+laAccStru[5,2] = "C"
+laAccStru[5,3] = 6
+laAccStru[5,4] = 0
+
+*-- Complete account Structure.
+=ACOPY(laAgeStru,laAccStru,1,-1,21)  && (7Rows * 4Col + 1)
+*-- Temp. Transaction file.
+laTranStru[1,1] = "Account"
+laTranStru[1,2] = "C"
+laTranStru[1,3] = 5
+laTranStru[1,4] = 0
+
+laTranStru[2,1] = "TranType"
+laTranStru[2,2] = "C"
+laTranStru[2,3] = 1
+laTranStru[2,4] = 0
+
+laTranStru[3,1] = "TranCode"
+laTranStru[3,2] = "C"
+laTranStru[3,3] = 6
+laTranStru[3,4] = 0
+
+laTranStru[4,1] = "Tran"
+laTranStru[4,2] = "C"
+laTranStru[4,3] = 6
+laTranStru[4,4] = 0
+
+laTranStru[5,1] = "cInsTalno"
+laTranStru[5,2] = "C"
+laTranStru[5,3] = 3
+laTranStru[5,4] = 0
+
+laTranStru[6,1] = "TranDate"
+laTranStru[6,2] = "D"
+laTranStru[6,3] = 8
+laTranStru[6,4] = 0
+
+laTranStru[7,1] = "Desc"
+laTranStru[7,2] = "C"
+laTranStru[7,3] = 20
+laTranStru[7,4] = 0
+
+laTranStru[8,1] = "Reference"
+laTranStru[8,2] = "C"
+laTranStru[8,3] = 30
+laTranStru[8,4] = 0
+
+laTranStru[9,1] = "Amount"
+laTranStru[9,2] = "N"
+laTranStru[9,3] = 11
+laTranStru[9,4] = 2
+
+laTranStru[10,1] = "DueDate"
+laTranStru[10,2] = "D"
+laTranStru[10,3] = 8
+laTranStru[10,4] = 0
+
+laTranStru[11,1] = "cCurrCode"
+laTranStru[11,2] = "C"
+laTranStru[11,3] = 3
+laTranStru[11,4] = 0
+
+laTranStru[12,1] = "cGroupKey"
+laTranStru[12,2] = "C"
+laTranStru[12,3] = 35
+laTranStru[12,4] = 0
+
+laTranStru[13,1] = "nGroup"
+laTranStru[13,2] = "N"
+laTranStru[13,3] = 6
+laTranStru[13,4] = 0
+
+laTranStru[14,1] = "nPosition"
+laTranStru[14,2] = "N"
+laTranStru[14,3] = 2
+laTranStru[14,4] = 0
+
+laTranStru[15,1] = "nHstAmount"
+laTranStru[15,2] = "N"
+laTranStru[15,3] = 11
+laTranStru[15,4] = 2
+
+laTranStru[16,1] = "nORATE"
+laTranStru[16,2] = "N"
+laTranStru[16,3] = 15
+laTranStru[16,4] = 6
+
+laTranStru[17,1] = "Store"
+laTranStru[17,2] = "C"
+laTranStru[17,3] = 8
+laTranStru[17,4] = 0
+
+*B609671,1 WAM 09/19/2011 Add new column BTNAME to lcTmpTrans file
+laTranStru[18,1] = "BtName"
+laTranStru[18,2] = "C"
+laTranStru[18,3] = 30
+laTranStru[18,4] = 0
+
+laTranStru[19,1] = "nPostDChq"
+laTranStru[19,2] = "N"
+laTranStru[19,3] = 11
+laTranStru[19,4] = 2
+
+laTranStru[20,1] = "cFacCode"
+laTranStru[20,2] = "C"
+laTranStru[20,3] = 6
+laTranStru[20,4] = 0
+
+laTranStru[21,1] = "RegionDesc"
+laTranStru[21,2] = "C"
+laTranStru[21,3] = 30
+laTranStru[21,4] = 0
+
+*B609671,1 WAM 09/19/2011 (End)
+lnTranFile = ALEN(laTranStru,1)*ALEN(laTranStru,2)
+
+*-- Copy empty structure only.
+DIMENSION laTranStru[ALEN(laTranStru,1)+ALEN(laAgeStru,1),4]
+=ACOPY(laAgeStru,laTranStru,1,-1,lnTranFile+1)
+*-- End of lpFillStru.
+
+*!**************************************************************************
+*! Name      : lpCreatFil
+*! Developer : Heba Fathi (HFK)
+*! Date      : 10/02/2004
+*! Purpose   : Create work File.
+*!**************************************************************************
+*
+PROCEDURE lpCreatFil
+ IF RIGHT(lcFormName,1)= "A"
+*--HFK, Create Temp. Loop File.
+lcTmpLoop = loOGScroll.gfTempName()
+gfCrtTmp(lcTmpLoop,"(cLoop C(1))","cLoop",lcTmpLoop,.T.)
+INSERT INTO (lcTmpLoop) (cLoop) VALUES ("A")
+INSERT INTO (lcTmpLoop) (cLoop) VALUES ("B")
+
+*-- HFK, Create Temp. Group File.
+lcTmpGroup = loOGScroll.gfTempName()
+gfCrtTmp(lcTmpGroup,"(cGroupKey C(35) , nGroup N(6,0) , nPosition N(2,0) ,Account C(5) , cAddress4 C(30) , cAddress5 C(30) , Region C(6))","cGroupKey + STR(nGroup,6)",lcTmpGroup,.T.)
+SET ORDER TO (lcTmpGroup) DESCENDING IN (lcTmpGroup)
+ENDIF
+
+*--HFK, Temp. Account File.
+lcTmpAcct = loOGScroll.gfTempName()
+gfCrtTmp(lcTmpAcct,@laAccStru,"cGroupKey",lcTmpAcct,.T.)
+
+*!*  *-- Temp Transaction File
+lcTmpTrans = loOGScroll.gfTempName()
+gfCrtTmp(lcTmpTrans,@laTranStru)
+SELECT (lcTmpTrans)
+*-HFK 05/12/2005 [Start]
+*-INDEX ON cGroupKey + STR(nGroup,6) + IIF(llMulCurr AND lcRpCurr="F",cCurrCode,"") + DTOS(TranDate) + Tran    TAG (lcTmpTrans)
+IF llMulCurr AND lcRpCurr="F"
+  INDEX ON cGroupKey + STR(nGroup,6) + cCurrCode + DTOS(TranDate) + Tran    TAG (lcTmpTrans)
+ELSE
+  INDEX ON cGroupKey + STR(nGroup,6) + DTOS(TranDate) + Tran    TAG (lcTmpTrans)
+ENDIF
+*-HFK 05/12/2005 [End]
+
+*-- Temp. Currency File
+*-- If Multi currency create this file
+IF llMulCurr
+lcTmpCurrc = loOGScroll.gfTempName()
+lcTmpAcCur = loOGScroll.gfTempName()
+  gfCrtTmp(lcTmpCurrc,"(cCurrCode C(3),nDRate N(15,6),nURate N(15,6))","cCurrCode",lcTmpCurrc,.T.)
+  gfCrtTmp(lcTmpAcCur,"(cGroupKey C(35) , Account C(5) , cAddress4 C(30) ,cAddress5 C(30) , Region C(6) , cCurrCode C(3) ,Current N(20,2) , Age30 N(20,2) , Age60 N(20,2) ,Age90 N(20,2) , Age120 N(20,2))","cGroupKey + cCurrCode",lcTmpAcCur,.T.)
+ENDIF
+
+*-- End of lpCreatFil.
+
+*!**************************************************************************
+*! Name      : lpCollect
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Collecting Data for Report
+*!**************************************************************************
+*
+PROCEDURE lpCollect
+*-- Intialize variables that calculates data from transaction files. [begin]
+STORE 0.00 TO m.Current , m.Age30 , m.Age60 , m.Age90 , m.Age120 , ;
+              m.OpenCr , m.Totage , m.NetBal , m.Age00 ,;
+              m.nGroup , m.nPostDChq , m.nHstAmount ,;
+              m.cAddress4 , m.cAddress5 , m.Region
+
+PRIVATE lnCurrent , lnAge30 , lnAge60 , lnAge90 , lnAge120 , ;
+        lnOpenCr , lnTotAge , lnNetBal , lnAge00 , lnAmount
+
+STORE 0 TO lnCurrent , lnAge30 , lnAge60 , lnAge90 , lnAge120 , ;
+           lnOpenCr , lnTotAge , lnNetBal , lnAge00 , lnAmount
+*-- Intialize variables that calculates data from transaction files. [End]
+
+*-- Insert Debit Transactions ...
+IF lcRpTrans $ 'DB'
+  DO lpInsDebit
+ENDIF
+
+*-- Insert Credit Transactions ...
+IF lcRpTrans $ 'CB'
+  DO lpInsCredt
+ENDIF
+
+*-- End of lpCollect.
+*!**************************************************************************
+*! Name      : lpInsDebit
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Scan Debit for Records matching Criteria
+*!**************************************************************************
+*! Called from : lpCollect
+*!**************************************************************************
+*
+PROCEDURE lpInsDebit
+PRIVATE lcScanExpr , lcInstalNo
+
+*-- Set relation with customer file.
+SELECT DEBIT
+SET RELATION TO 'M' + ACCOUNT INTO CUSTOMER  && Relation with customer.
+STORE '' TO m.cAddress4 , m.cAddress5 , m.Region
+
+STORE lcRpExp TO lcDBExp
+  DO CASE
+    CASE lcRpRemit = 'F'
+      lcDBExp = lcRpExp + IIF(EMPTY(lcRpExp),'',[ AND ]) + [cFacCode = lcRpFactor]
+    CASE lcRpRemit = 'H'
+      lcDBExp = lcRpExp + IIF(EMPTY(lcRpExp),'',[ AND ]) + [EMPTY(cFacCode)]
+  ENDCASE
+
+IF EMPTY(lcDebitFlt)
+  lcScanExpr = ALLTRIM(lcDBExp)
+ELSE
+  lcScanExpr = ALLTRIM(lcDBExp + IIF(EMPTY(lcDBExp),"",[ AND ]) + lcDebitFlt)
+ENDIF
+
+*-- Scan around Debit file for records matching criteria
+SCAN FOR &lcScanExpr
+  m.cAddress4 = Customer.cAddress4
+  m.cAddress5 = Customer.cAddress5
+  m.Region    = Customer.Region
+  lcInstalNo = cInstalNo
+  lnAmount = 0
+  SCATTER MEMVAR
+
+  *-- If Company Multi Currency and display by Equivalent Amount
+  IF llMulCurr AND Amount <> 0 AND (cCurrCode <> oAriaApplication.BaseCurrency)
+
+    lnAmount = ROUND(lfAmntDisp(Amount,"O",ldRpExDate,lcRpTmpCur),2)
+
+    *-- Checking for the occurence of this currency with "O" type
+    IF !SEEK(cCurrCode,lcTmpCurrc)
+      INSERT INTO (lcTmpCurrc) (cCurrCode) VALUES (Debit.cCurrCode)
+    ENDIF
+
+    m.nORate = lfAmntDisp(1,"O",ldRpExDate,lcRpTmpCur)
+  ELSE
+    lnAmount = Amount
+    m.nORate = 1
+  ENDIF
+
+  DO lpGetAmnt WITH lcInstalNo    && Calculate the amount from History file
+  DO lpDebDeal   && Calculate Ages and fill memory variables.
+  DO lpInsRecrd  && Insert New Record in Transaction Temporary File and Totals Temporary file.
+
+ENDSCAN  && end Scan Debit records achieve both customer and debit filters.
+*-- EndScan around Debit file for records matching criteria
+
+SET RELATION TO  && Rest relation.
+*-- End of lpInsDebit.
+
+*!**************************************************************************
+*! Name      : lpDebDeal
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : To Calculate the Debit Aging
+*!**************************************************************************
+*! Called from : lpInsDebit
+*!**************************************************************************
+*! Example   : DO lpDebDeal
+*!**************************************************************************
+*
+PROCEDURE lpDebDeal
+
+*-- if Age By Date
+IF lcAgeType = 'D'
+  =lfUpdtAge('D',ldRpHDate - TranDate)  && Update Date ages
+ELSE  && else if Age by Terms
+   ldDueDate = IIF(EMPTY(DueDate),TranDate+30,DueDate)
+  =lfUpdtAge('D',ldRpHDate - ldDueDate)  && Update Term ages
+ENDIF  && end if Age By Date
+
+*-- Save total age and net balance per transaction
+STORE m.Amount TO m.TotAge , m.NetBal
+
+STORE lnAmount TO lnTotAge , lnNetBal
+
+*-- End of lpDebDeal.
+
+*!**************************************************************************
+*! Name      : lpInsCredt
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Scan Credit for records matching criteria
+*!**************************************************************************
+*! Called from : lpCollect
+*!**************************************************************************
+*
+PROCEDURE lpInsCredt
+PRIVATE lcInstalNo
+*-- Set relation with customer file.
+SELECT CREDIT
+SET RELATION TO 'M' + ACCOUNT INTO CUSTOMER  && Relation with customer.
+STORE '' TO m.cAddress4 , m.cAddress5 , m.Region
+STORE lcRpExp TO lcCRExp
+DO CASE
+  CASE lcRpRemit = 'F'
+    lcCRExp = lcRpExp
+  CASE lcRpRemit = 'H'
+    lcCRExp = lcRpExp + IIF(EMPTY(lcRpExp),'',[ AND ]) + [EMPTY(cFacCode)]
+ENDCASE
+
+*-- Scan around Credit file for records matching criteria
+SCAN FOR &lcCRExp
+  lnAmount = 0
+  m.cAddress4 = Customer.cAddress4
+  m.cAddress5 = Customer.cAddress5
+  m.Region    = Customer.Region
+  SCATTER MEMVAR
+  IF llMulCurr AND Amount <> 0 AND (cCurrCode <> oAriaApplication.BaseCurrency)
+    lnAmount = ROUND(lfAmntDisp(Amount,"O",ldRpExDate,lcRpTmpCur),2)
+
+    *-- Checking for the occurence of this currency with "O" type
+    IF !SEEK(cCurrCode,lcTmpCurrc)
+      INSERT INTO (lcTmpCurrc) (cCurrCode) VALUES (Credit.cCurrCode)
+    ENDIF
+    m.nORate = lfAmntDisp(1,"O",ldRpExDate,lcRpTmpCur)
+  ELSE
+    lnAmount = Amount
+    m.nORate = 1
+  ENDIF
+  lcInstalNo = ''
+  DO lpGetAmnt WITH lcInstalNo    && Calculate the amount from History file
+  DO lpCreDeal   && Calculate Ages and fill memory variables (OpenCr and NetBal)
+  DO lpInsRecrd  && Insert New Record in Transaction Temporary File and Totals Temporary file.
+
+ENDSCAN  && end Scan Credit records achieve both customer and Credit filters.
+*-- EndScan around Credit file for records matcjing criteria
+
+SET RELATION TO  && Rest relation.
+*-- End of lpInsCredt.
+
+*!**************************************************************************
+*! Name      : lpCreDeal
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : To Calculate the Credit Aging
+*!**************************************************************************
+*! Called from : lpInsCredt
+*!**************************************************************************
+*
+PROCEDURE lpCreDeal
+=lfUpdtAge('C',oAriaApplication.SystemDate - TranDate) && Update Date ages
+
+*-- Save open credit and net balance per transaction
+STORE m.Amount TO m.OpenCr , m.NetBal
+
+STORE lnAmount TO lnOpenCr , lnNetBal
+
+*-- End of lpCreDeal.
+
+*!**************************************************************************
+*! Name      : lfUpdtAge
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Calculate the Aging
+*!**************************************************************************
+*! Called from : lpCreDeal OR lpDebDeal
+*!**************************************************************************
+*! Passed Parameters : lcUpdtTyp --> 'D' for Debit , 'C' for Credit
+*!                     lnAgeDays --> No of Days left
+*!**************************************************************************
+*
+FUNCTION lfUpdtAge
+PARAMETERS lcUpdtTyp , lnAgeDays
+
+*-- Intialize variables that calculate data from transaction files. [begin]
+STORE 0.00 TO m.Current , m.Age30 , m.Age60 , m.Age90 , m.Age120 , ;
+              m.OpenCr , m.Totage , m.NetBal , m.Age00 ,;
+              m.nGroup , m.nPostDChq
+
+STORE 0 TO lnCurrent , lnAge30 , lnAge60 , lnAge90 , lnAge120 , ;
+           lnOpenCr , lnTotAge , lnNetBal , lnAge00
+*-- Intialize variables that calculates data from transaction files. [End]
+
+*-- if no parameter passed (i.e. want to intializing only) then return...
+*-- does occur in this program but it may be.
+IF TYPE('lcUpdtTyp') $ 'UL'
+  RETURN
+ENDIF
+
+*-- lcAges : Varaible Hold Field description (Age00, 30 , 60 , 90 , and 120)
+*-- if Debit
+IF lcUpdtTyp = 'D'
+
+  *-- if Age By Date.
+  IF lcAgeType = 'D'
+    lcAges = 'm.Age'+IIF(lnAgeDays >= 120,'120',IIF(lnAgeDays >= 90 ,'90',;
+      IIF(lnAgeDays >= 60 ,'60' ,IIF(lnAgeDays >= 30 ,'30','00'))))
+  ELSE  && else if Age By Terms.
+    lcAges = 'm.Age'+IIF(lnAgeDays >= 91,'120',IIF(lnAgeDays >= 61 ,'90',;
+      IIF(lnAgeDays >= 31 ,'60' ,IIF(lnAgeDays >= 1 ,'30','00'))))
+  ENDIF  && end if Age By Date.
+
+ELSE  && else if Credit
+  lcAges = 'm.Age'+IIF(lnAgeDays >= 120,'120',IIF(lnAgeDays >= 90 ,'90',;
+    IIF(lnAgeDays >= 60 ,'60' ,IIF(lnAgeDays >= 30 ,'30','00'))))
+ENDIF  && end if Debit
+
+&lcAges   = m.Amount       && Fill Age variable
+m.Current = m.Age00
+
+PRIVATE lcTotAccAg         && Fill the Accumulated Age Variable in lcTmpAcct
+lcTotAccAg  = STRTRAN(lcAges,"m.","ln")
+&lcTotAccAg = lnAmount
+lnCurrent   = lnAge00
+*-- End of lfUpdtAge.
+
+*!**************************************************************************
+*! Name      : lpGetAmnt
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : To Calculate the amount from History file
+*!**************************************************************************
+*! Called from : lpInsDebit OR lpInsCredt
+*!**************************************************************************
+*
+PROCEDURE lpGetAmnt
+PARAMETER lcInstalNo
+*-- If there is Payment in AR History file
+
+*B609661,1 WAM 08/16/2011 Initialize with open amount
+*m.nHstAmount = 0
+m.nHstAmount = lnAmount
+*B609661,1 WAM 08/16/2011 (End)
+
+*B608764,1 WAM 12/15/2008 Include transaction type
+*IF SEEK(m.Account + m.Tran + lcInstalNo,'ArHist')
+lcAlias = SELECT()
+SELECT ArHist
+=SEEK(m.Account + m.Tran + lcInstalNo)
+LOCATE REST WHILE Account+Tran+cInstalNo = m.Account + m.Tran + lcInstalNo FOR TranType = m.TranType
+IF FOUND()
+*B608764,1 WAM 12/15/2008 (End)
+
+  *B609661,1 WAM 08/16/2011 Initialize with open amount
+  *m.nHstAmount = ArHist.OpenAmt + ArHist.Amount
+  m.nHstAmount = m.nHstAmount +  ArHist.Amount
+  *B609661,1 WAM 08/16/2011 (End)
+ELSE
+  m.nHstAmount = m.Amount
+ENDIF
+
+*B608764,1 WAM 12/15/2008 Include transaction type
+SELECT (lcAlias)
+*B608764,1 WAM 12/15/2008 (End)
+
+*-- EndIf of Payment in AR History file
+*-- End of lpGetAmnt.
+
+*!**************************************************************************
+*! Name      : lpInsRecrd
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : To Calculate the Credit Aging
+*!**************************************************************************
+*! Called from : lpInsDebit OR lpInsCredt
+*!**************************************************************************
+*! Example   : DO lpInsRecrd
+*!**************************************************************************
+*
+PROCEDURE lpInsRecrd
+
+m.cGroupKey = EVALUATE(lcReplExpr)
+
+*-- negative number is assigned to nGroup field in Transaction file
+*-- because index is sorted by nGroup so when we add the incremented
+*-- positive numbers for Group Position in Group change proc. with
+*-- SCAN/ENDSCAN the line remains in its position
+*-- AND
+*-- m.nGroup must take value -1 to get the nGroup field begin with -1 not 0
+*-- to treat the case of the instalment of the invoices.
+
+*- Replace nGroup with -99999.
+m.nGroup = -1
+m.nGroup = -99999
+
+*B609671,1 WAM 09/19/2011 Add new column BTNAME to lcTmpTrans file
+m.btName = Customer.BtName
+m.cFacCode = Customer.cFacCode
+m.RegionDesc = gfCodDes(m.Region,"REGION")
+*B609671,1 WAM 09/19/2011 (ENd)
+
+INSERT INTO (lcTmpTrans) FROM MEMVAR         && Insert Transaction Record
+*-- If cGroupKey with this currency is found in Temp Acc Currency file
+IF llMulCurr
+  IF SEEK(&lcTmpTrans..cGroupKey+&lcTmpTrans..cCurrCode,lcTmpAcCur)
+    SELECT (lcTmpAcCur)
+    REPLACE Current WITH Current + &lcTmpTrans..Current ,;
+            Age30   WITH Age30   + &lcTmpTrans..Age30   ,;
+            Age60   WITH Age60   + &lcTmpTrans..Age60   ,;
+            Age90   WITH Age90   + &lcTmpTrans..Age90   ,;
+            Age120  WITH Age120  + &lcTmpTrans..Age120
+  ELSE
+
+    INSERT INTO (lcTmpAcCur) (cGroupKey , Account , cAddress4 , cAddress5 , Region ,;
+                              cCurrCode , Current , Age30 , Age60 , Age90 , Age120) ;
+           VALUES (&lcTmpTrans..cGroupKey , &lcTmpTrans..Account , &lcTmpTrans..cAddress4 , ;
+                   &lcTmpTrans..cAddress5 , &lcTmpTrans..Region , &lcTmpTrans..cCurrCode,;
+                   &lcTmpTrans..Current , &lcTmpTrans..Age30 ,&lcTmpTrans..Age60 , ;
+                   &lcTmpTrans..Age90 , &lcTmpTrans..Age120)
+  ENDIF
+ENDIF
+
+
+*-- if Find this account in Temporary totals file.
+IF SEEK(m.cGroupKey,lcTmpAcct)
+  SELECT (lcTmpAcct)
+  REPLACE Current WITH Current + lnCurrent ,;
+            Age30 WITH Age30   + lnAge30   ,;
+            Age60 WITH Age60   + lnAge60   ,;
+            Age90 WITH Age90   + lnAge90   ,;
+           Age120 WITH Age120  + lnAge120  ,;
+           TotAge WITH TotAge  + lnTotAge  ,;
+           OpenCr WITH OpenCr  + lnOpenCr  ,;
+           NetBal WITH NetBal  + lnNetBal
+
+ELSE  && else if this account not found before.
+
+  *-- Add new record in temporary total files.
+  *!*    WAIT WINDOW 'Collect data for Customer ' + Account NOWAIT
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*WAIT WINDOW LANG_Arcstm_Colct + Account NOWAIT
+WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Colct,oAriaApplication.GetHeaderText("LANG_Arcstm_Colct",AHEADERFILE)) + Account NOWAIT
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+
+
+  *-- Adding postDated Cheques to lcTmpAcct file in single currency comp.
+  IF !llMulCurr AND SEEK(m.Account,'PostDChq')
+    SELECT PostDChq
+    SUM Amount REST WHILE Account = m.Account TO m.nPostDChq
+  ENDIF
+
+  INSERT INTO (lcTmpAcct) (Current, Age30, Age60, Age90, Age120, OpenCr,TotAge, NetBal, cGroupKey, Account, BtName, cAddress4,cAddress5, Region, nPostDchq, cFacCode);
+  VALUES      (lnCurrent, lnAge30, lnAge60, lnAge90, lnAge120, lnOpenCr,lnTotAge, lnNetBal, m.cGroupKey, m.Account, Customer.BtName,Customer.cAddress4, Customer.cAddress5, Customer.Region,m.nPostDchq, Customer.cFacCode)
+
+  *B609671,1 WAM 09/19/2011 Add new column BTNAME to lcTmpTrans file
+  REPLACE nPostDChq WITH m.nPostDChq IN (lcTmpTrans)
+  *B609671,1 WAM 09/19/2011 (ENd)
+
+ENDIF  && End if Find this account in Temporary totals file.
+*-- End of lpInsRecrd.
+
+*!**************************************************************************
+*! Name      : lfGetReplc
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/19/2000
+*! Purpose   : Get Replaced expression.
+*!**************************************************************************
+*! Called from : Report code section.
+*!**************************************************************************
+*! Returns   : lcExpr ---> which means (Sort by expression)
+*!**************************************************************************
+*! Example   : =lfGetReplc()
+*!**************************************************************************
+*
+FUNCTION lfGetReplc
+PRIVATE lcExpr
+
+DO CASE
+  *-- Sort By Account
+  CASE lcRpSort='A'
+    lcExpr   = [Account]
+
+  *-- Sort by Country
+  CASE lcRpSort = 'C'
+    lcExpr   = [cAddress4+Account]
+
+  *-- Sort by Zip Code
+  CASE lcRpSort = 'Z'
+    lcExpr   = [cAddress5+Account]
+
+  *-- Sort by Region
+  CASE lcRpSort = 'R'
+    lcExpr   = [Region+Account]
+ENDCASE
+
+RETURN lcExpr
+*-- End of lfGetReplc
+
+*!**************************************************************************
+*! Name      : lfGetAddr
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : get the address of the customer
+*!**************************************************************************
+*
+FUNCTION lfGetAddr
+LOCAL lcacc
+laSoldTo = ''
+lcacc= &lcTmpTrans..Account
+IF SEEK('M'+lcacc,'Customer')
+ =gfGetAdr('Customer', '' , '' , '' , @laSoldTo , '2')
+ENDIF
+
+lnAlias = SELECT()
+*: B609612,1 MMT 06/12/2011 Customer statement report Prints Wrong Division long name[Start]
+lcDivLName = ''
+*: B609612,1 MMT 06/12/2011 Customer statement report Prints Wrong Division long name[END]
+*B608029,1 MMT 04/04/2007 Fix bug of printing only one page per Customer[Start]
+*=gfRltFld(Customer.cDivision , @laDivLName , 'CDIVISION')  &&Call function to get the division long name.
+IF !USED("Codes")
+  =gfOpenFile(oAriaApplication.DataDir+'Codes',oAriaApplication.DataDir+'Codes','SH')
+ENDIF
+SELECT Codes
+SET ORDER TO TAG Codes
+IF SEEK('N'+Customer.cDivision +'Y'+'CDIVISION')
+  SCAN REST WHILE cdefcode+ccode_no+crltfield+cfld_name = 'N'+Customer.cDivision +'Y'+'CDIVISION'
+    IF crltd_nam = 'DIVLNAME  '
+      lcDivLName = crltd_vlu
+    ENDIF
+  ENDSCAN
+ENDIF
+*B608029,1 MMT 04/04/2007 Fix bug of printing only one page per Customer[End]
+
+SELECT (lnAlias)
+=lfAdrShift('laSoldTo')
+
+RETURN ''
+
+*-- End of lfGetAddr
+
+*!**************************************************************************
+*! Name      : lfGetFac
+*! Developer : Hend Ghanem (HBG)
+*! Date      : 25/03/2001
+*! Purpose   : get the address of the Factor
+*!**************************************************************************
+FUNCTION lfGetFac
+PARAMETER llDummy
+
+laFactTo = ''
+lcFacName = ''
+
+IF lcRpRemit='F' AND !EMPTY(lcRpFactor) AND SEEK(lcRpFactor,'SYCFACT')  &&Change the type of Remit to factor in option grid.
+  lcFacName = SYCFACT.cfaccomp
+  =gfGetAdr('SycFact', '' , '' , '' , @laFactTo , 1)
+  =lfAdrShift('laFactTo')
+ENDIF
+
+
+*!**************************************************************************
+*! Name      : lfEndGroup
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Indicate end of group
+*!**************************************************************************
+*! Called from : .FRX group footer (Report Form B)
+*!**************************************************************************
+*! Example     : = lfEndGroup()
+*!**************************************************************************
+*
+FUNCTION lfEndGroup
+llEndGrp = .T.
+RETURN ''
+*-- End of lfEndGroup.
+
+*!**************************************************************************
+*! Name      : lfOverMsg
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : Evaluate which over message to print.
+*!**************************************************************************
+*! Passed Parameters  : All parameters are called By Reference :
+*!                    : OverMsg1, OverMsg 2, OverMsg3
+*!**************************************************************************
+*! Returns            : Null, But fill Over Messages.
+*!**************************************************************************
+*! Example   : = lfOverMsg(@lcOverMsg1 , lcOverMsg2 , lcOverMsg3)
+*!**************************************************************************
+*
+FUNCTION lfOverMsg
+PARAMETERS lcOver1 , lcOver2 , lcOver3
+PRIVATE lcFileTot
+STORE '' TO lcOver1 , lcOver2 , lcOver3
+
+IF llMulCurr AND lcRpCurr="F" AND SEEK(&lcTmpTrans..cGroupKey + &lcTmpTrans..cCurrCode,lcTmpAcCur)
+  lcFileTot = lcTmpAcCur
+ELSE
+  lcFileTot = lcTmpAcct
+ENDIF
+
+DO CASE
+  CASE &lcFileTot..Age120 > 0
+    lcOver1 = m120L1
+    lcOver2 = m120L2
+    lcOver3 = m120L3
+  CASE &lcFileTot..Age90  > 0
+    lcOver1 = m90L1
+    lcOver2 = m90L2
+    lcOver3 = m90L3
+  CASE &lcFileTot..Age60  > 0
+    lcOver1 = m60L1
+    lcOver2 = m60L2
+    lcOver3 = m60L3
+  CASE &lcFileTot..Age30  > 0
+    lcOver1 = m30L1
+    lcOver2 = m30L2
+    lcOver3 = m30L3
+ENDCASE
+
+RETURN ''
+*-- End of lfOverMsg.
+
+*!**************************************************************************
+*! Name      : lfCollTime
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To return the time of collecting data
+*!**************************************************************************
+*! Example   : = lfCollTime(lcStTime,lcEdTime)
+*!**************************************************************************
+*
+FUNCTION lfCollTime
+PARAMETERS lcStart,lcEnd
+lnStHour  = IIF(VAL(LEFT(lcStart,2)) = 0,VAL(LEFT(lcStart,2))+24,VAL(LEFT(lcStart,2)))
+lnEndHour = IIF(VAL(LEFT(lcEnd,2))   = 0,VAL(LEFT(lcEnd,2))  +24,VAL(LEFT(lcEnd,2)))
+lnStart = 3600 * lnStHour  + 60 * VAL(SUBSTR(lcStart,4,2)) + VAL(RIGHT(lcStart,2))
+lnEnd   = 3600 * lnEndHour + 60 * VAL(SUBSTR(lcEnd,4,2))   + VAL(RIGHT(lcEnd,2))
+RETURN (lnEnd - lnStart)
+*-- End of lfCollTime.
+
+*!**************************************************************************
+*! Name      : lpCurrChng
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To Apply the Currency Change
+*!**************************************************************************
+*! Example   : DO lpCurrChng
+*!**************************************************************************
+*
+PROCEDURE lpCurrChng
+PRIVATE lnAlias , lnAmount
+lnAlias = SELECT()      && Save current Table
+
+*-- If Currency is not Foreign Or Original
+IF (lcRpCurr $ "DU") AND !(lcRpCurr == lcSavedCur)
+
+  SELECT (lcTmpCurrc)
+  *-- Scan Loop around Temp Original Currency File
+  SCAN
+    lnAmount = lfAmntDisp(1,lcRpCurr,ldRpExDate,lcRpTmpCur)
+    REPLACE nDRate WITH lnAmount , nURate WITH lnAmount
+  ENDSCAN
+  *-- EndScan Loop around Temp Original Currency File
+ENDIF
+
+SELECT (lnAlias)         && Restore Old Table
+*-- End of lpCurrChng
+
+*!**************************************************************************
+*! Name      : lpChSortBy
+*! Developer : Heba Fathi (HFK)
+*! Date      : 10/02/2004
+*! Purpose   : To Apply Changing Sort by
+*!**************************************************************************
+*! Example   : DO lpChSortBy
+*!**************************************************************************
+*
+PROCEDURE lpChSortBy
+PRIVATE lnAlias , lcSortExpr , lcSortVal
+*-- lcSortExpr -->  Variable to check for Sort Expression
+lnAlias = SELECT()      && Save current Table
+
+SELECT (lcTmpAcct)
+LOCATE
+lcSortExpr = lfGetReplc()   && cGroupkey Evaluation for first record
+lcSortVal  = EVALUATE(lcSortExpr)
+
+IF !SEEK(lcSortVal,lcTmpAcct)
+
+  SELECT (lcTmpAcct)
+  REPLACE ALL cGroupKey WITH EVALUATE(lcSortExpr)
+
+  IF RIGHT(lcFormName,1)= "A"
+    SELECT (lcTmpGroup)
+    REPLACE ALL cGroupKey WITH EVALUATE(lcSortExpr)
+  ENDIF
+
+  SELECT (lcTmpTrans)
+  REPLACE ALL cGroupKey WITH EVALUATE(lcSortExpr)
+
+  *-- If Company is Multi Currency
+  IF llMulCurr
+    SELECT (lcTmpAcCur)
+    REPLACE ALL cGroupKey WITH EVALUATE(lcSortExpr)
+  ENDIF
+  *-- Endif of Company is Multi Currency.
+ENDIF
+
+SELECT (lnAlias)         && Restore Old Table
+*-- End of lpChSortBy
+
+*!**************************************************************************
+*! Name      : lpApplyAge
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To Apply the Aging Filter
+*!**************************************************************************
+*! Example   : DO lpApplyAge
+*!**************************************************************************
+*
+PROCEDURE lpApplyAge
+lcAgeFlt = ''
+
+set step on
+set debug on
+
+*-- Account has Total Credit Balance
+IF !llRpPrnBal
+
+  *- Add Zero balance to the filter. [Begin]
+  IF llRpPrZero
+    lcAgeFlt = IIF(EMPTY(lcAgeFlt),"",[ AND ]) + [NetBal >= 0]
+  ELSE
+    lcAgeFlt = IIF(EMPTY(lcAgeFlt),"",[ AND ]) + [NetBal > 0]
+  ENDIF
+ENDIF
+
+IF !llRpPrZero AND !("NetBal" $ lcAgeFlt)
+  lcAgeFlt = lcAgeFlt + IIF(EMPTY(lcAgeFlt),"",[ AND ]) + [NetBal <> 0]
+ENDIF
+
+
+*-- Add a filter due to the choice of aging
+IF llRp30 OR llRp60 OR llRp90 OR llRp120
+  lcAgeFlt = lcAgeFlt + IIF(EMPTY(lcAgeFlt),"",[ AND ])
+  DO CASE
+    CASE llRp30
+      lcAgeFlt = lcAgeFlt + [((Age30 > 0) OR (Age60 > 0) OR (Age90 > 0) OR (Age120 > 0))]
+    CASE llRp60
+      lcAgeFlt = lcAgeFlt + [((Age60 > 0) OR (Age90 > 0) OR (Age120 > 0))]
+    CASE llRp90
+      lcAgeFlt = lcAgeFlt + [((Age90 > 0) OR (Age120 > 0))]
+    CASE llRp120
+      lcAgeFlt = lcAgeFlt + [(Age120 > 0)]
+  ENDCASE
+ENDIF
+
+*-- If user Changed Age Filter
+IF !(lcAgeFlt == lcOldAgeFl)
+  SELECT (lcTmpAcct)
+  IF !EMPTY(lcAgeFlt)
+    SET FILTER TO &lcAgeFlt
+  ENDIF
+ENDIF
+*-- EndIf of user Changed Age Filter
+*-- End of lpApplyAge.
+
+*!**************************************************************************
+*! Name      : lpGroupChg
+*! Developer : Heba Fathi (HFK
+*! Date      : 10/02/2004
+*! Purpose   : To Apply the Aging Filter
+*!**************************************************************************
+*! Example   : DO lpGroupChg
+*!**************************************************************************
+*
+PROCEDURE lpGroupChg
+LOCAL lddate
+*-- If Form is A and user changed Filter or currency is changed
+*!*  IF (lcFormType = "A") AND (!(lcAgeFlt == lcOldAgeFl) OR
+IF (RIGHT(lcFormName,1)= "A") AND (!(lcAgeFlt == lcOldAgeFl) OR ;
+   (!(lcSavedCur == lcRpCurr) AND (lcRpCurr = "F" OR lcSavedCur = "F")) OR EMPTY(lcSavedCur))
+
+  PRIVATE lcCurrCode , lcGroupKey , lnGroup , lnPosition , ;
+          lcScanCond , lnCount , lcOldCurr , lcDateType
+
+  *-- This function used to break all the relations before recollecting.
+  =lfBreakRel()
+
+  SELECT (lcTmpTrans)
+
+  *Sameh
+  llOGFltCh = .F.
+  *Sameh
+
+  IF !llOGFltCh
+    DELETE FOR EMPTY(Account)
+    PACK
+
+    *-- This Replace to make sure that the added line will not move to
+    *-- End of Group according to the Index
+
+    *- Replace nGroup with -99999.
+    REPLACE ALL nGroup WITH -99999
+  ENDIF
+
+  *-- Scan loop around Temp Account file
+  SELECT (lcTmpAcct)
+
+  lcScanCond = IIF(EMPTY(lcAgeFlt),".T.",lcAgeFlt)
+  SCAN FOR &lcScanCond
+    lcGroupKey = cGroupKey   && Save current cGroupKey
+
+    *-- If cGroupKey is found in lcTmpTrans file
+    IF SEEK(lcGroupKey,lcTmpTrans)
+      SELECT (lcTmpTrans)
+      lcCurrCode = cCurrCode   && Save current cCurrCode within same cGroupKey
+
+      lnPosition = 0
+      lnGroup    = 1
+
+      *-- Scan loop around Transaction file for same cGroupKey
+      SCAN REST WHILE cGroupKey = lcGroupKey
+        lnPosition = lnPosition + 1
+
+        *-- If position exceeded number of lines in page(lnRpLines) OR
+        *-- Multi Currency and Display Type is Foreign And currency is changed
+        IF llMulCurr AND lcRpCurr = "F" AND !(cCurrCode == lcCurrCode) OR ;
+          lnPosition > lnRpLines
+
+          *-- in Order to keep the Detail band in FORM A with fixed size we
+          *-- have to add empty no of lines in transaction file
+          *-- If no of lines less than the required lines for each Page (lnRpLines)
+          IF lnPosition < lnRpLines
+            SCATTER MEMVAR BLANK
+            m.cGroupKey = lcGroupKey
+            m.nGroup    = lnGroup
+            m.cCurrCode = lcCurrCode
+            lddate      = "09/09/9999"
+            m.TranDate  = CTOD(lddate)
+
+            lcOldCurr = cCurrCode
+            *-- For Loop till the end of the required lines
+            FOR lnCount = lnPosition TO lnRpLines
+              m.nPosition = lnCount
+              *-- add empty records till the end of the required lines for each page
+               INSERT INTO (lcTmpTrans) FROM MEMVAR
+            ENDFOR
+            SKIP
+          ENDIF
+          *-- Endif of no of lines less than required lines
+
+          lcCurrCode = cCurrCode    && Save current cCurrCode within same cGroupKey
+          STORE 1 TO lnPosition     && Reset lnPosition
+
+          lnGroup = lnGroup + 1
+          *-- Add new group no AND Reset Position To 1
+          REPLACE nGroup     WITH lnGroup ,;
+                  nPosition  WITH lnPosition
+
+          INSERT INTO (lcTmpGroup) (cGroupKey , nGroup , nPosition,;
+                                    Account , cAddress4 , cAddress5 , Region);
+                 VALUES (lcGroupKey , lnGroup , lnPosition ,;
+                         &lcTmpAcct..Account , &lcTmpAcct..caddress4 ,;
+                         &lcTmpAcct..caddress5 , &lcTmpAcct..Region)
+
+        ELSE       && Position is less than number of lines
+          *-- Add current Group no AND Add current Position no
+          REPLACE nGroup     WITH lnGroup ,;
+                  nPosition  WITH lnPosition
+          *-- Get Current cGroupKey in Temp Group File to update its position
+          IF SEEK(lcGroupKey,lcTmpGroup)
+            REPLACE &lcTmpGroup..nPosition WITH lnPosition
+          ELSE
+            INSERT INTO (lcTmpGroup) (cGroupKey  , nGroup  , nPosition  , Account , cAddress4 , cAddress5 , Region);
+                               VALUES(lcGroupKey , lnGroup , lnPosition , &lcTmpAcct..Account , &lcTmpAcct..caddress4 ,&lcTmpAcct..caddress5 , &lcTmpAcct..Region)
+          ENDIF
+        lcOldCurr = cCurrCode
+        ENDIF
+        *-- EndIf of position exceeded number of lines in page(lnRpLines)
+      ENDSCAN
+      *-- EndScan loop around Transaction file for same cGroupKey
+
+      *-- If no of lines less than the required lines for each Page (lnRpLines)
+      IF lnPosition < lnRpLines
+
+        SCATTER MEMVAR BLANK
+        m.cGroupKey = lcGroupKey
+        m.nGroup    = lnGroup
+        m.cCurrCode = lcOldCurr
+        lddate      = "09/09/9999"
+        m.TranDate  = CTOD(lddate)
+
+
+        *-- For Loop till the end of the required lines
+        FOR lnCount = lnPosition + 1 TO lnRpLines
+          m.nPosition = lnCount
+
+          *-- add empty records till the end of the required lines for each page
+          INSERT INTO (lcTmpTrans) FROM MEMVAR
+        ENDFOR
+        SKIP
+      ENDIF
+      *-- Endif of no of lines less than required lines
+
+    ENDIF
+    *-- Endif of cGroupKey is found in lcTmpTrans File
+  ENDSCAN
+  *-- EndScan loop around Temp Account file
+ENDIF
+*-- If Form is A and user changed Filter or currency is changed
+
+*-- End of lpGroupChg
+
+*!**************************************************************************
+*! Name      : lpApplyRel
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/1999
+*! Purpose   : To Apply the Relation before displaying of Report
+*!**************************************************************************
+*! Example   : DO lpApplyRel
+*!**************************************************************************
+*
+PROCEDURE lpApplyRel
+*-- Setting Proper Relation before Displaying the Report
+lnAlias = SELECT()      && Save current Table
+
+**************** Form A Relations ****************************
+**************** ---------------- ***************************
+*-- Forming the following Relations
+*   lcTmpAcct
+*           |__
+*              lcTmpGroup
+*                       |__
+*                        __lcTmpLoop
+*                                  |__
+*                                     lcTmpTrans
+*                                               |__
+*                                                  lcTmpCurrc
+**************************************************************
+
+
+**************** Form B Relations ****************************
+**************** ---------------- ****************************
+*   lcTmpAcct
+*           |__
+*              lcTmpTrans
+*                       |__
+*                          lcTmpCurrc
+**************************************************************
+
+SELECT (lcTmpAcct)
+DO CASE
+
+  *-- If Report is Form A
+  *-CASE lcFormType = "A"
+
+  CASE RIGHT(lcFormName,1) = "A"
+    SET RELATION TO cGroupKey INTO (lcTmpGroup)
+    SELECT (lcTmpGroup)
+    SET ORDER TO (lcTmpGroup) ASCENDING
+    SET RELATION TO "" INTO (lcTmpLoop)
+
+    SELECT (lcTmpLoop)
+    SET RELATION TO &lcTmpGroup..cGroupKey + STR(&lcTmpGroup..nGroup,6) INTO (lcTmpTrans)
+
+    IF llMulCurr
+      SELECT (lcTmpTrans)
+      SET RELATION TO &lcTmpTrans..cCurrCode INTO (lcTmpCurrc)
+    ENDIF
+    SELECT (lcTmpAcct)
+    SET SKIP TO (lcTmpGroup) , (lcTmpLoop) , (lcTmpTrans)
+
+  *-- If Report is Form B
+  *-CASE lcFormType = "B"
+  CASE RIGHT(lcFormName,1)= "B"
+    SET RELATION TO cGroupKey INTO (lcTmpTrans)
+    SET SKIP TO (lcTmpTrans)
+
+    IF llMulCurr
+      SELECT (lcTmpTrans)
+      SET RELATION TO &lcTmpTrans..cCurrCode INTO (lcTmpCurrc)
+    ENDIF
+
+  OTHERWISE                  && in Case of @SAY
+ENDCASE
+
+SELECT (lnAlias)         && Restore Old Table
+*-- End of lpApplyRel.
+
+*!**************************************************************************
+*! Name      : lfAmntDisp
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : Display Foreign Currency in Equivalent Base currency
+*!**************************************************************************
+*! Example   : =lfAmntDisp
+*!**************************************************************************
+*! Notes     : This function is a exact copy from gfAmntDisp()
+*!**************************************************************************
+*
+FUNCTION lfAmntDisp
+PARAMETER lnAmount,lcRpDispCur,ldExRateDt,lcTmepFile,llAprvCurr,lcGetFile
+
+PRIVATE lnAmount,lcRpDispCur,ldExRateDt,lcTmepFil,llAprvCurr,lcExSin1,lcExSin2,lnSavAlias
+
+lnAmount    = IIF(TYPE('lnAmount') = 'N',lnAmount,0)
+lcRpDispCur = IIF(TYPE('lcRpDispCur') ='C',lcRpDispCur,'')
+ldExRateDt  = IIF(TYPE('ldExRateDt') = 'D',ldExRateDt,{})
+lcTmepFile  = IIF(TYPE('lcTmepFile') = 'C',lcTmepFile,'')
+llAprvCurr  = IIF(TYPE('llAprvCurr') = 'L',llAprvCurr,.F.)
+lcExSin1    = ''       && Variable to hold the first sign in the equation.
+lcExSin2    = ''       && Variable to hold the second sign in the equation.
+lnSavAlias  = SELECT(0)  && Variable to save the alias.
+lcGetFile   = IIF(TYPE('lcGetFile')$"UL",'',lcGetFile)
+
+DO CASE
+  CASE lcRpDispCur = 'F'
+
+  CASE lcRpDispCur = 'O'
+    IF EMPTY(lcGetFile)
+      lcCurrCode = IIF(llAprvCurr,CAPRCURCOD,CCURRCODE)
+    ELSE
+      lcCurrCode = IIF(llAprvCurr,&lcGetFile..CAPRCURCOD,&lcGetFile..CCURRCODE)
+    ENDIF
+
+    lcExSin2   = ' '
+    lcExSin1   = gfGetExSin(@lcExSin2,lcCurrCode)
+
+    lnExRate = 0
+
+    IF EMPTY(lcGetFile)
+      lnUnit = NCURRUNIT
+      lnUnit = IIF(lnUnit = 0 , 1 , lnUnit)
+      lnExRate = IIF(llAprvCurr , gfChkRate('lnUnit' , lcCurrCode , DINVDATE , .F.) , NEXRATE)
+    ELSE
+      lnUnit = &lcGetFile..NCURRUNIT
+      lnExRate = IIF(llAprvCurr , gfChkRate('lnUnit' , lcCurrCode , &lcGetFile..DINVDATE , .F.) , &lcGetFile..NEXRATE)
+    ENDIF
+
+    lnExRate = IIF(lnExRate <> 0 , lnExRate , 1)
+    lnUnit = IIF(lnExRate <> 0 , lnUnit , 1)
+    lnAmount   = ROUND(lnAmount &lcExSin1 lnExRate &lcExSin2 lnUnit,6)
+
+  CASE lcRpDispCur = 'D'
+    lnExRate   = 0
+    lnUnit     = 0
+
+    IF EMPTY(lcGetFile)
+      lcCurrCode = IIF(llAprvCurr,CAPRCURCOD,CCURRCODE)
+    ELSE
+      lcCurrCode = IIF(llAprvCurr,&lcGetFile..CAPRCURCOD,&lcGetFile..CCURRCODE)
+    ENDIF
+
+    IF lcCurrCode = oAriaApplication.BaseCurrency
+      lnExRate = 1
+      lnUnit   = 1
+    ELSE
+      lnExRate   = gfChkRate('lnUnit',lcCurrCode,ldExRateDt,.F.)
+    ENDIF
+
+    lnExRate = IIF(lnExRate <> 0 , lnExRate , 1)
+    lnUnit = IIF(lnExRate <> 0 , lnUnit , 1)
+    lcExSin2   = ' '
+    lcExSin1   = gfGetExSin(@lcExSin2,lcCurrCode)
+    lnAmount   = ROUND(lnAmount &lcExSin1 lnExRate &lcExSin2 lnUnit,6)
+
+  CASE lcRpDispCur = 'U'
+    lnExRate   = 0
+    lnUnit     = 0
+    IF EMPTY(lcGetFile)
+      lcCurrCode = IIF(llAprvCurr,CAPRCURCOD,CCURRCODE)
+    ELSE
+      lcCurrCode = IIF(llAprvCurr,&lcGetFile..CAPRCURCOD,&lcGetFile..CCURRCODE)
+    ENDIF
+    IF lcCurrCode = oAriaApplication.BaseCurrency
+      lnExRate = 1
+      lnUnit   = 1
+    ELSE
+      IF SEEK(lcCurrCode,lcTmepFile)
+        lnExRate = &lcTmepFile..NEXRATE
+        lnUnit   = &lcTmepFile..NCURRUNIT
+      ENDIF
+    ENDIF
+    lnExRate = IIF(lnExRate <> 0 , lnExRate , 1)
+    lnUnit = IIF(lnExRate <> 0 , lnUnit , 1)
+    lcExSin2   = ' '
+    lcExSin1   = gfGetExSin(@lcExSin2,lcCurrCode)
+    lnAmount   = ROUND(lnAmount &lcExSin1 lnExRate &lcExSin2 lnUnit,6)
+ENDCASE
+
+SELECT (lnSavAlias)
+
+RETURN lnAmount
+*-- End of lfAmntDisp.
+
+*!**************************************************************************
+*! Name      : lfBreakRel
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 04/18/2000
+*! Purpose   : BREAK ALL THE RELATIONS.
+*!**************************************************************************
+*! Example   : =lfBreakRel()
+*!**************************************************************************
+*
+FUNCTION lfBreakRel
+
+SELECT (lcTmpTrans)
+SET RELATION TO
+
+SELECT (lcTmpLoop)
+SET RELATION TO
+
+*-- We have to delete all records in Temp Group file to fill it with
+*-- the new Groups number
+SELECT (lcTmpGroup)
+SET RELATION TO
+ZAP
+
+SELECT (lcTmpAcct)
+SET RELATION TO
+*-- END OF lfBreakRel.
+
+*!**************************************************************************
+*! Name      : lfvInvoice
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 02/04/2000
+*! Purpose   : Validation of Only open invoice option.
+*!**************************************************************************
+*! Example   : =lfvInvoice()
+*!**************************************************************************
+FUNCTION lfvInvoice
+
+IF llRpInvoie
+  llRpPrnCha = .F.
+ENDIF
+
+*MAH
+IF TYPE('lcXMLFileName') != 'C'
+*MAH
+
+*-- Disable ChargeBack Option in case of Only Open invoice YES
+LAOGOBJCNT[LFVARPOS('LLRPPRNCHA')] = !LLRPINVOIE
+=LFOGSHOWGET('LLRPPRNCHA')
+*-- End of lfvInvoice.
+
+*MAH
+ENDIF
+*MAH
+
+*!**************************************************************************
+*! Name      : lfvRemit
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 02/04/2000
+*! Purpose   : Validation for the new Remit.
+*!**************************************************************************
+*! Example   : =lfvRemit()
+*!**************************************************************************
+
+FUNCTION lfvRemit
+ClearRead()
+*- in case of Both and House let the llRpRemit = .F.
+IF lcRpRemit <> 'F'
+  lcRpFactor = ''
+  llRpRemit = .F.
+ELSE
+  llRpRemit = .T.
+ENDIF
+*-- End of lfvRemit.
+
+*!**************************************************************************
+*! Name      : lfvFactor
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 02/04/2000
+*! Purpose   : Validation for the new factor field.
+*!**************************************************************************
+*! Example   : =lfvFactor()
+*!**************************************************************************
+FUNCTION lfvFactor
+IF !EMPTY(lcRpFactor) AND !SEEK(lcRpFactor,'SycFact')
+  PRIVATE lcBrFields , lcAlias
+  lcAlias = ALIAS()
+  *!*    lcBrFields  = [cFacCode:H='Factor',cFacComp:H='Name',cFacCont:H='Contact',cPhoneNo :P= gfPhoneTem() :H='Phone']
+  lcBrFields  = [cFacCode:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Factr,oAriaApplication.GetHeaderText("LANG_Arcstm_Factr",AHEADERFILE))+;
+                [',cFacComp:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Name,oAriaApplication.GetHeaderText("LANG_Arcstm_Name",AHEADERFILE))+;
+                [',cFacCont:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Cntct,oAriaApplication.GetHeaderText("LANG_Arcstm_Cntct",AHEADERFILE))+;
+                *N000682,1 11/20/2012 MMT Globlization changes[Start]
+*[',cPhoneNo :P= gfPhoneTem() :H=']+LANG_Arcstm_Phone+[']
+[',cPhoneNo :P= gfPhoneTem() :H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Phone,oAriaApplication.GetHeaderText("LANG_Arcstm_Phone",AHEADERFILE))+[']
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
+  SELECT SycFact
+  *N000682,1 MMT 02/10/2013 Globalization changes[Start]
+*!*	  lcRpFactor = IIF(ARIABROW('',"Factors",gnBrFSRow1, gnBrFSCol1,;
+*!*	                  gnBrFSRow2, gnBrFSCol2,'','','cFacCode','laBrowArr'),;
+*!*	                  SycFact.cFacCode,SPACE(6))
+  lcRpFactor = IIF(ARIABROW('',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcst_FACTORS,oAriaApplication.GetHeaderText("LANG_Arcst_FACTORS",AHEADERFILE)),gnBrFSRow1, gnBrFSCol1,;
+                  gnBrFSRow2, gnBrFSCol2,'','','cFacCode','laBrowArr'),;
+                  SycFact.cFacCode,SPACE(6))
+  *N000682,1 MMT 02/10/2013 Globalization changes[End]
+  SELECT (lcAlias)
+ENDIF
+*-- End of lfvFactor.
+
+*!**************************************************************************
+*! Name      : lfCutDate
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 02/04/2000
+*! Purpose   : Get Cut off date.
+*!**************************************************************************
+*! Example   : =lfCutDate()
+*!**************************************************************************
+FUNCTION lfCutDate
+PRIVATE lnTranDate
+lnTranDate = lfItmPos('DEBIT.TRANDATE')   && get Tran. Date Fixed filter Position
+ldCutDate = {}
+
+*-- If Trans. Date found in Fixed filter option
+IF lnTranDate > 0
+  *-- Replace TO DATE in Transaction date with Current Date (System Date)
+  *-- If system uses 4 Char. for Century
+  IF "ON" $ SET('CENTURY')
+        ldCutDate = CTOD(SUBSTR(loOGScroll.laOGFxFlt[lnTranDate,6],12,10))
+  ELSE    && Else system uses 2 char. for Century
+        ldCutDate = CTOD(SUBSTR(loOGScroll.laOGFxFlt[lnTranDate,6],12,8))
+  ENDIF
+  *-- EndIf of system uses 4 Char. for Century
+ENDIF
+ldCutDate = IIF(EMPTY(ldCutDate),oAriaApplication.SystemDate,ldCutDate)
+
+
+
+
+*-- End of lfCutDate.
+
+*! #038979, HFK, 01/26/2005, adding browse function and remove validation function.
+*!*************************************************************
+*! Name      : lfsrAcc
+*! Developer : Heba Fathi (HFK)
+*! Date      : 02/11/2004
+*! Purpose   : Rise change account flag, in range browse screen.
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Note      : S symbol is [S,Set],R is Reset.
+*!*************************************************************
+FUNCTION lfsrAcc
+PARAMETERS lcParm
+DO CASE
+  CASE lcParm = 'S'
+    llChAcc = .T.
+    GO TOP IN CUSTOMER
+  CASE lcParm = 'R'
+    llClearAcc = .F.
+ENDCASE
+*-- end of lfsrAcc.
+*!*  *!**************************************************************************
+*!*  *! Name      : lfvAcct
+*!*  *! Developer : Heba Fathi (HFK)
+*!*  *! Date      : 02/09/2004
+*!*  *! Purpose   : Validate the enterd Account
+*!*  *!**************************************************************************
+
+*!*  FUNCTION lfvAcct
+*!*  PRIVATE lcObjNam , lcObjVal ,llObjRet
+
+*!*  *-- HFK,Replaced OGSYS18 With the following commands to be compatible with the Ogbetween Class[Start]
+*!*  lcObjNam = _Screen.ActiveForm.ActiveControl.Name    && Varible to hold  the name of the memory variable used to create the current GET field
+*!*  lcObjVal = _Screen.ActiveForm.ActiveControl.Value     && Varible to hold  the value of the current GET field
+*!*  *-- HFK,Replaced OGSYS18 With the following commands to be compatible with the Ogbetween Class[End]
+
+*!*  *-- IF The user want to Browse or if the Account he entered is not in the file
+*!*  IF !EMPTY(lcObjVal) .AND. !SEEK('M'+lcObjVal , 'CUSTOMER')
+*!*    llBrowse = .T.
+*!*    xAccount = lcObjVal
+*!*    DO CUSBROWM WITH xAccount
+*!*    _Screen.ActiveForm.ActiveControl.Value = xAccount
+*!*    llBrowse = .F.
+*!*  ENDIF    && End of IF
+*!*  *-- End of lfvAcct.
+*! #038979, HFK, 01/26/2005, adding browse function and remove validation function.
+
+*B608240,1 MMT 08/27/2007 fix bug of wrong factor address[Start]
+*!**************************************************************************
+*! Name      : lfGroupTot
+*! Developer : Mariam Mazhar
+*! Date      : 08/27/2007
+*! Purpose   : get the factor address
+*!**************************************************************************
+FUNCTION lfGetRemAdd
+IF lcRpRemit = 'B'
+  IF !EMPTY(EVALUATE(lcTmpAcct+'.cFacCode')) AND SEEK(EVALUATE(lcTmpAcct+'.cFacCode'),'SYCFACT')  &&Change the type of Remit to factor in option grid.
+    lcFacName = SYCFACT.cfaccomp
+    =gfGetAdr('SycFact', '' , '' , '' , @laFactTo , 1)
+    =lfAdrShift('laFactTo')
+  ELSE
+    lcFacName = lcName
+    =ACOPY(laCompany,laFactTo)
+  ENDIF
+ENDIF
+RETURN ''
+*B608240,1 MMT 08/27/2007 fix bug of wrong factor address[End]
