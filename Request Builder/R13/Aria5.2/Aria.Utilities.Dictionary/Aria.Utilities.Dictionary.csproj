@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{216FB726-52E9-4EAA-A387-690462049A32}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.Utilities.Dictionary</RootNamespace>
+    <AssemblyName>Aria.Utilities.Dictionary</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormAddProgramToDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddProgramToDictionary.Designer.cs">
+      <DependentUpon>FormAddProgramToDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddRelatedFileToDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddRelatedFileToDictionary.Designer.cs">
+      <DependentUpon>FormAddRelatedFileToDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddFileToDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddFileToDictionary.Designer.cs">
+      <DependentUpon>FormAddFileToDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddReportToDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddReportToDictionary.Designer.cs">
+      <DependentUpon>FormAddReportToDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddFieldToDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddFieldToDictionary.Designer.cs">
+      <DependentUpon>FormAddFieldToDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddCustomReportToDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddCustomReportToDictionary.Designer.cs">
+      <DependentUpon>FormAddCustomReportToDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectDictionaryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectDictionaryViewer.designer.cs">
+      <DependentUpon>ObjectDictionaryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAddProgramToDictionary.resx">
+      <DependentUpon>FormAddProgramToDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddRelatedFileToDictionary.resx">
+      <DependentUpon>FormAddRelatedFileToDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddFileToDictionary.resx">
+      <DependentUpon>FormAddFileToDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddReportToDictionary.resx">
+      <DependentUpon>FormAddReportToDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddFieldToDictionary.resx">
+      <DependentUpon>FormAddFieldToDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddCustomReportToDictionary.resx">
+      <DependentUpon>FormAddCustomReportToDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectDictionaryViewer.resx">
+      <DependentUpon>ObjectDictionaryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria.Configuration.Server\Aria.Configuration.Server.csproj">
+      <Project>{DBC9B695-61AB-414C-8B27-1C1F50D1BC6B}</Project>
+      <Name>Aria.Configuration.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.DataTypes.ObjectDictionary\Aria.DataTypes.ObjectDictionary.csproj">
+      <Project>{262206F6-FFFF-4033-9CB4-197E4DD38FB9}</Project>
+      <Name>Aria.DataTypes.ObjectDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.DataTypes\Aria.DataTypes.csproj">
+      <Project>{B542AA58-DF3F-4403-A605-6F9A5515E4C8}</Project>
+      <Name>Aria.DataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Data\Aria.Data.csproj">
+      <Project>{85248A73-AC2F-451A-925C-D53890F1A925}</Project>
+      <Name>Aria.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.EnterpriseServices.ObjectDictionary\Aria.EnterpriseServices.ObjectDictionary.csproj">
+      <Project>{ECCC512C-7611-49B3-991A-325903143127}</Project>
+      <Name>Aria.EnterpriseServices.ObjectDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Environment\Aria.Environment.csproj">
+      <Project>{5B531295-5F2B-4044-AA31-C323E3B71BD0}</Project>
+      <Name>Aria.Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Xml\Aria.Xml.csproj">
+      <Project>{85173585-6EB0-4E6C-A36F-9C0F5E9E4ADC}</Project>
+      <Name>Aria.Xml</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

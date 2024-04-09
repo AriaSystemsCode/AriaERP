@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC6FACCF-8A22-44B5-8930-2BC8B7739FFF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.Services.RequestHandler</RootNamespace>
+    <AssemblyName>Aria.Services.RequestHandler</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/Aria.Services.RequestHandler/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aria.EnterpriseServices.Messaging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e67b3c58fc8c22cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.EnterpriseServices.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6c192ac0cc49d834, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.EnterpriseServices.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.RequestHandler, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bd82feefe88f1f20, processorArchitecture=MSIL" />
+    <Reference Include="Aria.EnterpriseServices.RequestHandler.Proxy, Version=2.0.0.0, Culture=neutral, PublicKeyToken=46c3ceff3ffa604e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.EnterpriseServices.RequestHandler.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Environment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=335898ba5fbd5bb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Utilities.Log, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fdb14855d5b07748, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Utilities.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Utilities.ParameterSubstitution, Version=2.0.0.0, Culture=neutral, PublicKeyToken=808761383e6d855c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Utilities.ParameterSubstitution.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AriaRequestHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AriaRequestHandler.Designer.cs">
+      <DependentUpon>AriaRequestHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AriaRequestHandlerInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AriaRequestHandlerInstaller.Designer.cs">
+      <DependentUpon>AriaRequestHandlerInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AriaRequestHandler.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AriaRequestHandler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AriaRequestHandlerInstaller.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AriaRequestHandlerInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria.DataTypes.ObjectDictionary\Aria.DataTypes.ObjectDictionary.csproj">
+      <Project>{262206F6-FFFF-4033-9CB4-197E4DD38FB9}</Project>
+      <Name>Aria.DataTypes.ObjectDictionary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

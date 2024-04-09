@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BF6FB660-921D-48C5-9369-029987F094A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.EnterpriseServices.Messaging</RootNamespace>
+    <AssemblyName>Aria.EnterpriseServices.Messaging</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Aria.EnterpriseServices.Messaging.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <DocumentationFile>bin\Debug\Aria.EnterpriseServices.Messaging.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Testing|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AriaMessagingDBCentric.Template.cs" />
+    <Compile Include="AriaMessagingManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Aria.EnterpriseServices.Messaging.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria.DataTypes.Messaging\Aria.DataTypes.Messaging.csproj">
+      <Project>{3D822713-BA7D-4895-9ADB-7FCFF066235C}</Project>
+      <Name>Aria.DataTypes.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.DataTypes.ObjectDictionary\Aria.DataTypes.ObjectDictionary.csproj">
+      <Project>{262206F6-FFFF-4033-9CB4-197E4DD38FB9}</Project>
+      <Name>Aria.DataTypes.ObjectDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.DataTypes.RequestHandler\Aria.DataTypes.RequestHandler.csproj">
+      <Project>{D40DA560-4AB2-438F-96CF-2814976E1461}</Project>
+      <Name>Aria.DataTypes.RequestHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Data\Aria.Data.csproj">
+      <Project>{85248A73-AC2F-451A-925C-D53890F1A925}</Project>
+      <Name>Aria.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Environment\Aria.Environment.csproj">
+      <Project>{5B531295-5F2B-4044-AA31-C323E3B71BD0}</Project>
+      <Name>Aria.Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Utilities.Log\Aria.Utilities.Log.csproj">
+      <Project>{A7D39D00-C006-4079-B283-BC4D1B91D3ED}</Project>
+      <Name>Aria.Utilities.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Utilities.ParameterSubstitution\Aria.Utilities.ParameterSubstitution.csproj">
+      <Project>{E189E2A8-BF0D-40B6-AAA1-F91C6E74745B}</Project>
+      <Name>Aria.Utilities.ParameterSubstitution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Xml\Aria.Xml.csproj">
+      <Project>{85173585-6EB0-4E6C-A36F-9C0F5E9E4ADC}</Project>
+      <Name>Aria.Xml</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

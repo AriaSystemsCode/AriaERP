@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2C7489D9-117A-4B80-92A4-6D0793511390}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.ObjectDictionary.UI</RootNamespace>
+    <AssemblyName>Aria.ObjectDictionary.UI</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Aria.ObjectDictionary.UI.snk</AssemblyOriginatorKeyFile>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AriaObjectDictionaryUI.cs" />
+    <Compile Include="ObjectDictionaryViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectDictionaryViewer.designer.cs">
+      <DependentUpon>ObjectDictionaryViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ObjectDictionaryViewer.resx">
+      <DependentUpon>ObjectDictionaryViewer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Aria.ObjectDictionary.UI.snk" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="photos\CloseFolder.bmp" />
+    <Content Include="photos\DataObject.bmp" />
+    <Content Include="photos\Event.bmp" />
+    <Content Include="photos\Method.bmp" />
+    <Content Include="photos\Option.bmp" />
+    <Content Include="photos\PackageObject.bmp" />
+    <Content Include="photos\RelatedDataObject.bmp" />
+    <Content Include="photos\RelatedField.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria.DataTypes.ObjectDictionary\Aria.DataTypes.ObjectDictionary.csproj">
+      <Project>{262206F6-FFFF-4033-9CB4-197E4DD38FB9}</Project>
+      <Name>Aria.DataTypes.ObjectDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.DataTypes\Aria.DataTypes.csproj">
+      <Project>{B542AA58-DF3F-4403-A605-6F9A5515E4C8}</Project>
+      <Name>Aria.DataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Data\Aria.Data.csproj">
+      <Project>{85248A73-AC2F-451A-925C-D53890F1A925}</Project>
+      <Name>Aria.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.EnterpriseServices.ObjectDictionary\Aria.EnterpriseServices.ObjectDictionary.csproj">
+      <Project>{ECCC512C-7611-49B3-991A-325903143127}</Project>
+      <Name>Aria.EnterpriseServices.ObjectDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Environment\Aria.Environment.csproj">
+      <Project>{5B531295-5F2B-4044-AA31-C323E3B71BD0}</Project>
+      <Name>Aria.Environment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria.Utilities.RemoteCall\Aria.Utilities.RemoteCall.csproj">
+      <Project>{F5E1C01E-0398-4E6B-8F00-2911E9B5DF06}</Project>
+      <Name>Aria.Utilities.RemoteCall</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

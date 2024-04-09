@@ -1,0 +1,109 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{262206F6-FFFF-4033-9CB4-197E4DD38FB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.DataTypes.ObjectDictionary</RootNamespace>
+    <AssemblyName>Aria.DataTypes.ObjectDictionary</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Aria.DataTypes.ObjectDictionary.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Testing|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aria.DataTypes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=50dbf4009ba40281, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.DataTypes\bin\Debug\Aria.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Environment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=335898ba5fbd5bb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Environment\bin\Debug\Aria.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8da0fd77c710998c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Xml\bin\Debug\Aria.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AriaArgumentParameterizedValue.cs" />
+    <Compile Include="AriaArgumentList.cs" />
+    <Compile Include="AriaObject.cs" />
+    <Compile Include="AriaObjectDescriptor.cs" />
+    <Compile Include="AriaObjectEvent.cs" />
+    <Compile Include="AriaObjectEventParameter.cs" />
+    <Compile Include="AriaObjectMethod.cs" />
+    <Compile Include="AriaObjectMethodParameter.cs" />
+    <Compile Include="AriaObjectProperty.cs" />
+    <Compile Include="AriaObjectRevision.cs" />
+    <Compile Include="AriaArgument.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Interoperability.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\Object\AriaDataObjectSettings.cs" />
+    <Compile Include="Settings\Object\AriaObjectRevisionSettings.cs" />
+    <Compile Include="Settings\Object\AriaOptionGridSettings.cs" />
+    <Compile Include="Settings\Object\AriaPackageSettings.cs" />
+    <Compile Include="Settings\Object\AriaRelatedDataObjectSettings.cs" />
+    <Compile Include="Settings\Object\AriaReportObjectSettings.cs" />
+    <Compile Include="Settings\Object\AriaServerObjectSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Aria.DataTypes.ObjectDictionary.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)Aria.Configuration.Server\bin\Debug\gacutil.exe" /if "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

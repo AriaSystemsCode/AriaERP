@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F6C8D46A-26A4-4735-BC4A-4C0F5830F275}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.Utilities.Aria40Converter</RootNamespace>
+    <AssemblyName>Aria.Utilities.Aria40Converter</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aria.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=094d51c8c9be7436, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Data.BusinessObject, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ed4b489f59590957, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Data.BusinessObject.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Data.DataTypes, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af37fb98f6a57fae, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Data.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes, Version=2.0.0.0, Culture=neutral, PublicKeyToken=50dbf4009ba40281, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=eb16ea7e41946605, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.DataTypes.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6c192ac0cc49d834, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.EnterpriseServices.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.RequestHandler, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bd82feefe88f1f20, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.EnterpriseServices.RequestHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Environment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=335898ba5fbd5bb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.ObjectDictionary.UI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=763fb17306c7328c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.ObjectDictionary.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8da0fd77c710998c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormAriaObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAriaObject.Designer.cs">
+      <DependentUpon>FormAriaObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAriaObjectProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAriaObjectProperty.Designer.cs">
+      <DependentUpon>FormAriaObjectProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemFilesAdaptor\Aria50SchemaInformation.cs" />
+    <Compile Include="WhiteTesting\AriaDataObjectPointerAdapterWhiteTest.cs" />
+    <Compile Include="WhiteTesting\AriaRequestAgentWhiteTest.cs" />
+    <Compile Include="SystemFilesAdaptor\AriaDataAccessFilesException.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectEvent.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectEventParameter.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectEvents.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectField.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectFields.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDataObjects.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDictionaryObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDictionaryObjectCollection.cs" />
+    <Compile Include="AriaDictionaryTree\AriaDictionaryObjectLeave.cs" />
+    <Compile Include="AriaDictionaryTree\AriaPackageObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaPackageObjects.cs" />
+    <Compile Include="AriaDictionaryTree\AriaRelatedDataObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObjects.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObjectMethods.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObjectMethod.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportObjectMethodParameter.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportOptionGridObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportOptionGridObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportOptionGridObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaReportOptionGridOption.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObjectMethod.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObjectMethodParameter.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObjectMethods.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerObjects.cs" />
+    <Compile Include="AriaDictionaryTree\AriaChildDataObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaChildDataObjectField.cs" />
+    <Compile Include="AriaDictionaryTree\AriaChildDataObjectFields.cs" />
+    <Compile Include="AriaDictionaryTree\AriaChildDataObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaChildDataObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaChildDataObjects.cs" />
+    <Compile Include="AriaDictionaryTree\AriaRelatedDataObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaRelatedDataObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaRelatedDataObjects.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerOptionGridObject.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerOptionGridObjectRevision.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerOptionGridObjectRevisions.cs" />
+    <Compile Include="AriaDictionaryTree\AriaServerOptionGridOption.cs" />
+    <Compile Include="AriaDictionaryTree\AriaRelatedDataObjectField.cs" />
+    <Compile Include="AriaDictionaryTree\AriaRelatedDataObjectFields.cs" />
+    <Compile Include="ConvertWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConvertWindow.designer.cs">
+      <DependentUpon>ConvertWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConvertWindow.resx">
+      <DependentUpon>ConvertWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAriaObject.resx">
+      <DependentUpon>FormAriaObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAriaObjectProperty.resx">
+      <DependentUpon>FormAriaObjectProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="bin\Debug\Aria.Utilities.Aria40Converter.exe.config" />
+    <None Include="bin\Debug\Aria.Utilities.Aria40Converter.vshost.exe.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SystemFilesAdaptor\Aria27SchemaInformation.cs" />
+    <Compile Include="SystemFilesAdaptor\Aria4XPSchemaInformation.cs" />
+    <Compile Include="SystemFilesAdaptor\AriaDataAccessFiles.cs" />
+    <Compile Include="SystemFilesAdaptor\Enums.cs" />
+    <Compile Include="SystemFilesAdaptor\Helpers.cs" />
+    <Compile Include="SystemFilesAdaptor\Index.cs" />
+    <Compile Include="SystemFilesAdaptor\IndexField.cs" />
+    <Compile Include="SystemFilesAdaptor\OptionGrid.cs" />
+    <Compile Include="SystemFilesAdaptor\OptionGridVariable.cs" />
+    <Compile Include="SystemFilesAdaptor\SchemaDataAccess.cs" />
+    <Compile Include="SystemFilesAdaptor\SchemaInformation.cs" />
+    <Compile Include="SystemFilesAdaptor\Table.cs" />
+    <Compile Include="SystemFilesAdaptor\TableField.cs" />
+    <Compile Include="SystemFilesAdaptor\TableRelation.cs" />
+    <Compile Include="SystemFilesAdaptor\VFPSchemaHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Aria.Utilities.Aria40Converter.exe" />
+    <Content Include="bin\Debug\Aria.Utilities.Aria40Converter.pdb" />
+    <Content Include="bin\Debug\Aria.Utilities.Aria40Converter.vshost.exe" />
+    <Content Include="bin\Debug\MergeData\Aria27\SYDFIELD.XML" />
+    <Content Include="bin\Debug\MergeData\Aria27\SYDFILES.XML" />
+    <Content Include="bin\Debug\MergeData\Aria27\SYDFLFLD.XML" />
+    <Content Include="bin\Debug\MergeData\Aria27\SYDINDEX.XML" />
+    <Content Include="bin\Debug\MergeData\Aria4XP\SYDFIELD.XML" />
+    <Content Include="bin\Debug\MergeData\Aria4XP\SYDFILES.XML" />
+    <Content Include="bin\Debug\MergeData\Aria4XP\SYDFLFLD.XML" />
+    <Content Include="bin\Debug\MergeData\Aria4XP\SYDINDEX.XML" />
+    <Content Include="bin\Debug\MergeData\Aria4XP\SYDREPRT.XML" />
+    <Content Include="bin\Debug\MergeData\Aria4XP\SYREPUVR.XML" />
+    <Content Include="bin\Debug\MergeData\Aria5\AriaObject.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\AriaObjectProperty.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\System.Master.Old.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\RELFILES.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\RLFILFLD.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\SYDFLFLD-EXT.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\SYDREPRT.xml" />
+    <Content Include="bin\Debug\MergeData\Aria5\SYREPUVR.xml" />
+    <None Include="Resources\wait.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="vfputility">
+      <Guid>{CA0B55AC-9FF7-4396-8144-D1EE3A54255E}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\MergeData\Customers\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

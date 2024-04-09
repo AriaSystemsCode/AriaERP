@@ -1,0 +1,110 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6AC3CCB5-CD49-4DB4-88BB-E103E560C50B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.Utilities.ObjectDictionaryBuilder</RootNamespace>
+    <AssemblyName>Aria.Utilities.ObjectDictionaryBuilder</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aria.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=094d51c8c9be7436, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Data\bin\Debug\Aria.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=50dbf4009ba40281, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.DataTypes\bin\Debug\Aria.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes.ObjectDictionary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=eb16ea7e41946605, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.DataTypes.ObjectDictionary\bin\Debug\Aria.DataTypes.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.ObjectDictionary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6c192ac0cc49d834, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.EnterpriseServices.ObjectDictionary\bin\Debug\Aria.EnterpriseServices.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Environment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=335898ba5fbd5bb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Environment\bin\Debug\Aria.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Xml, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8da0fd77c710998c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Xml\bin\Debug\Aria.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aria27ObjectDictionaryConverter\Aria27SchemaInformation.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\Enums.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\Index.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\IndexColumn.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\SchemaInformation.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\Table.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\TableColumn.cs" />
+    <Compile Include="Aria27ObjectDictionaryConverter\VFPSchemaAdapter.cs" />
+    <Compile Include="AriaObjectDictionaryBuilder.cs" />
+    <Compile Include="AriaObjectDictionaryBuilderUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AriaObjectDictionaryBuilderUI.Designer.cs">
+      <DependentUpon>AriaObjectDictionaryBuilderUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AriaObjectDictionaryBuilderUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AriaObjectDictionaryBuilderUI.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

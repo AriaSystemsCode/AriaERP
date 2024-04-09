@@ -1,0 +1,5 @@
+Customer is granted a non-exclusive license for the use of Aria Software in a matching-readable form, together with accompanying documentation. 
+
+Customer may install and use one copy of this Software on a single Computer/Server. 
+
+Customer may provide Run-Time Access to this Software on a single Computer/Server to up to the number of machines/stations; i.e. users, for which the corresponding fee has been paid; said other machines/stations need not, and must not, be provided with copies of this Software in order to obtain said Run-Time Access.

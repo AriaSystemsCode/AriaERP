@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria.Services.ShutdownHangedRequestService", "Aria.Services.ShutdownHangedRequestService\Aria.Services.ShutdownHangedRequestService.csproj", "{252A13CE-C57F-400B-A926-CD749D8C044D}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Aria.Services.ShutdownHangedRequestService.Setup", "Aria.Services.ShutdownHangedRequestService.Setup\Aria.Services.ShutdownHangedRequestService.Setup.vdproj", "{18B3AC46-3E9C-4981-970D-B7F4A4B6C432}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{252A13CE-C57F-400B-A926-CD749D8C044D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{252A13CE-C57F-400B-A926-CD749D8C044D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{252A13CE-C57F-400B-A926-CD749D8C044D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{252A13CE-C57F-400B-A926-CD749D8C044D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B3AC46-3E9C-4981-970D-B7F4A4B6C432}.Debug|Any CPU.ActiveCfg = Debug
+		{18B3AC46-3E9C-4981-970D-B7F4A4B6C432}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

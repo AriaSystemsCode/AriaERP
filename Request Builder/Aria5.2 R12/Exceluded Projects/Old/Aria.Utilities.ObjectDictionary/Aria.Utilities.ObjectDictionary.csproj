@@ -1,0 +1,221 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{762955BD-EED4-47EF-9AAF-D319DD1C69C8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.Utilities.ObjectDictionary</RootNamespace>
+    <AssemblyName>Aria.Utilities.ObjectDictionary</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aria.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=094d51c8c9be7436, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Data\bin\Debug\Aria.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Data.BusinessObject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ed4b489f59590957, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Data.BusinessObject\bin\Debug\Aria.Data.BusinessObject.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=50dbf4009ba40281, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.DataTypes\bin\Debug\Aria.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=eb16ea7e41946605, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.DataTypes.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6c192ac0cc49d834, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\Aria.EnterpriseServices.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Environment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=335898ba5fbd5bb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Environment\bin\Debug\Aria.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Xml, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8da0fd77c710998c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Aria.Xml\bin\Debug\Aria.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ImportReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportReport.Designer.cs">
+      <DependentUpon>ImportReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectEventParameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectEventParameter.Designer.cs">
+      <DependentUpon>NewObjectEventParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectMethodParameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectMethodParameter.Designer.cs">
+      <DependentUpon>NewObjectMethodParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectEvent.Designer.cs">
+      <DependentUpon>NewObjectEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectMethod.Designer.cs">
+      <DependentUpon>NewObjectMethod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportTableFields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportTableFields.Designer.cs">
+      <DependentUpon>ImportTableFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectProperty.Designer.cs">
+      <DependentUpon>NewObjectProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObject.Designer.cs">
+      <DependentUpon>NewObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewObjectRevision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewObjectRevision.Designer.cs">
+      <DependentUpon>NewObjectRevision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectDictionary.Designer.cs">
+      <DependentUpon>ObjectDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ImportReport.resx">
+      <DependentUpon>ImportReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectEventParameter.resx">
+      <DependentUpon>NewObjectEventParameter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectMethodParameter.resx">
+      <DependentUpon>NewObjectMethodParameter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectEvent.resx">
+      <DependentUpon>NewObjectEvent.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectMethod.resx">
+      <DependentUpon>NewObjectMethod.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportTableFields.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ImportTableFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObject.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectProperty.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewObjectProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewObjectRevision.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NewObjectRevision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectDictionary.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ObjectDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectObject.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SelectObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SelectObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectObject.Designer.cs">
+      <DependentUpon>SelectObject.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

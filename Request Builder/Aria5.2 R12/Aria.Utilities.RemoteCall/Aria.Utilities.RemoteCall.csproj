@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F5E1C01E-0398-4E6B-8F00-2911E9B5DF06}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria.Utilities.RemoteCall</RootNamespace>
+    <AssemblyName>Aria.Utilities.RemoteCall</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Aria.Utilities.RemoteCall.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Aria.Configuration.Server\bin\Debug\GAC Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aria.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=094d51c8c9be7436, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Data.BusinessObject, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ed4b489f59590957, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Data.BusinessObject.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Data.DataTypes, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af37fb98f6a57fae, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Data.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes, Version=2.0.0.0, Culture=neutral, PublicKeyToken=50dbf4009ba40281, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes.Messaging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d9d50c148c28e6e5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.DataTypes.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=eb16ea7e41946605, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.DataTypes.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.DataTypes.RequestHandler, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6738bd32cab75706, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.DataTypes.RequestHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.Messaging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=e67b3c58fc8c22cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.EnterpriseServices.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.ObjectDictionary, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6c192ac0cc49d834, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.EnterpriseServices.ObjectDictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.RequestHandler, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bd82feefe88f1f20, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.EnterpriseServices.RequestHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.EnterpriseServices.RequestHandler.Proxy, Version=2.0.0.0, Culture=neutral, PublicKeyToken=46c3ceff3ffa604e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.EnterpriseServices.RequestHandler.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Environment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=335898ba5fbd5bb5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Environment.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.HelperClass.SAAS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6cebc7b795ae6c8c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.HelperClass.SAAS.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.ObjectDictionary.UI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=763fb17306c7328c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.ObjectDictionary.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Reflection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8e2e344217a5a99f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Utilities.ParameterSubstitution, Version=2.0.0.0, Culture=neutral, PublicKeyToken=808761383e6d855c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Utilities.ParameterSubstitution.dll</HintPath>
+    </Reference>
+    <Reference Include="Aria.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8da0fd77c710998c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Aria.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.COMAdmin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6cebc7b795ae6c8c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\ARIA\Aria Configuration Server\GAC Assemblies\Interop.COMAdmin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AriaActivator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Aria.Utilities.RemoteCall.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
