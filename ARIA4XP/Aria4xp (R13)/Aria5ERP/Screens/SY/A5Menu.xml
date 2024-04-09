@@ -1,0 +1,3298 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<xsd:schema id="VFPData" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="VFPData" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="a5menu" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="capp_id">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="2"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="cpross_id">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="10"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="csub_prpt">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="100"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="cproctype">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="1"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+				<xsd:anyAttribute namespace="http://www.w3.org/XML/1998/namespace" processContents="lax"/>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAREREC</cpross_id>
+		<csub_prpt>Issue Return</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARHIST</cpross_id>
+		<csub_prpt>Customer History Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSTMSG</cpross_id>
+		<csub_prpt>Customer Statement Message</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>GL Link Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFPROJ</cpross_id>
+		<csub_prpt>Cutting Ticket Project</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMRAUT</cpross_id>
+		<csub_prpt>Return Authorization Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SODELVSC</cpross_id>
+		<csub_prpt>Sales Order Delivery Schedule Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POTMPLT</cpross_id>
+		<csub_prpt>Adjust Cost for Receiving Templates</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBEGBL</cpross_id>
+		<csub_prpt>Beginning Balance Batch</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MASCNRL</cpross_id>
+		<csub_prpt>Scan Material Rolls</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMRPTMP</cpross_id>
+		<csub_prpt>Report Template</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCUSCR</cpross_id>
+		<csub_prpt>Customer Credit Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLUBATRN</cpross_id>
+		<csub_prpt>Unposted Batch/Transaction Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICNMDRP</cpross_id>
+		<csub_prpt>Name Drop</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOGROSSP</cpross_id>
+		<csub_prpt>Sales Order Gross Profit Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>Accounts Receivable GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICINVAG</cpross_id>
+		<csub_prpt>Inventory Aging Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>SOMASCA</cpross_id>
+		<csub_prpt>Mass PO Cancelation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALS13</cpross_id>
+		<csub_prpt>Sgl. Seg. vs. Rest of Co. Range of Periods Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>CONVERT</cpross_id>
+		<csub_prpt>Conversion</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>Material GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>Accounts Receivable GL Link Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>MSGTEMP</cpross_id>
+		<csub_prpt>Message Template (Beta)</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSUMSL</cpross_id>
+		<csub_prpt>Sales Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPRCAM</cpross_id>
+		<csub_prpt>Material Purchase Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>APVENLBL</cpross_id>
+		<csub_prpt>Vendor Mailing Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARAGEAR</cpross_id>
+		<csub_prpt>Age Accounts Receivable</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ARSCDACT</cpross_id>
+		<csub_prpt>Allocation Scheduled Activities Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFLBLWZ</cpross_id>
+		<csub_prpt>Care Label &amp; Hang Tag Designer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICCOST</cpross_id>
+		<csub_prpt>Costing Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>POBRCD</cpross_id>
+		<csub_prpt>Cutting Ticket Bar Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARDBADJ</cpross_id>
+		<csub_prpt>Debit Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST2</cpross_id>
+		<csub_prpt>Multi Segment Comparison Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLSETUP</cpross_id>
+		<csub_prpt>General Ledger Setup</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SORQAPR</cpross_id>
+		<csub_prpt>Request for Approval Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSTY</cpross_id>
+		<csub_prpt>Style Purchase Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYPO</cpross_id>
+		<csub_prpt>Style Position</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMCRMEM</cpross_id>
+		<csub_prpt>Credit Memo</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MFPROJ</cpross_id>
+		<csub_prpt>Material Project</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFTRGDT</cpross_id>
+		<csub_prpt>Scheduling Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ARPRFLST</cpross_id>
+		<csub_prpt>Profile Listing Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCLOSP</cpross_id>
+		<csub_prpt>Close Period</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSTYP</cpross_id>
+		<csub_prpt>Style Purchase Order Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLPOBATS</cpross_id>
+		<csub_prpt>Posted Batch Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POGENPO</cpross_id>
+		<csub_prpt>Generate PO from Sales Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>MFPATH</cpross_id>
+		<csub_prpt>Template Information</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POPOCS</cpross_id>
+		<csub_prpt>Style Purchase Order Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APRECIN</cpross_id>
+		<csub_prpt>Accounts Payable Recurring Invoice Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPROJC</cpross_id>
+		<csub_prpt>Material Projection Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST3</cpross_id>
+		<csub_prpt>Total Company PTD/YTD Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ARINDSCD</cpross_id>
+		<csub_prpt>Allocation Individual Schedules Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSTYREC</cpross_id>
+		<csub_prpt>Style P/O Receipts Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POGENPL</cpross_id>
+		<csub_prpt>Generate PO based on Open To Sell</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPMMO</cpross_id>
+		<csub_prpt>Material Manufacturing Order Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSHPCST</cpross_id>
+		<csub_prpt>Shipment Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCAFLOW</cpross_id>
+		<csub_prpt>Statement of Cash Flow Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST4</cpross_id>
+		<csub_prpt>Total Company Range of Periods Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARACTSUM</cpross_id>
+		<csub_prpt>Activity Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOPDLVSC</cpross_id>
+		<csub_prpt>Delivery Schedule(WIP/Plan) Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ARCUST</cpross_id>
+		<csub_prpt>Customer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MASTKJL</cpross_id>
+		<csub_prpt>Material Inventory Adjustment Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSNDSH</cpross_id>
+		<csub_prpt>Send Shipping Confirmation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOSHLB</cpross_id>
+		<csub_prpt>Sales Order Shipping Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POBRCD</cpross_id>
+		<csub_prpt>Style Purchase Order Bar Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFDPO</cpross_id>
+		<csub_prpt>Dye Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCTDT</cpross_id>
+		<csub_prpt>Cutting Ticket Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>SOMASCA</cpross_id>
+		<csub_prpt>Mass Cutting Ticket Cancellation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOSSNAN</cpross_id>
+		<csub_prpt>State/Season Analysis Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCPTYP</cpross_id>
+		<csub_prpt>Copy GL Type and Range</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLPBATRN</cpross_id>
+		<csub_prpt>Posted Batch/Transaction Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYTR</cpross_id>
+		<csub_prpt>Transfer Style Inventory</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST5</cpross_id>
+		<csub_prpt>Actual vs. Other Period Actual Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLPOTRAN</cpross_id>
+		<csub_prpt>Posted Transaction Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MACNMAT</cpross_id>
+		<csub_prpt>Material Contract</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POPRLC</cpross_id>
+		<csub_prpt>Letter of Credit Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLPRATIO</cpross_id>
+		<csub_prpt>Performance Ratio Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSCLRT</cpross_id>
+		<csub_prpt>Scale Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>Manufacturing GL Link Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRDRADJ</cpross_id>
+		<csub_prpt>Sales Rep. Debit Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFPRCT</cpross_id>
+		<csub_prpt>Cutting Ticket Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCTHDR</cpross_id>
+		<csub_prpt>Cutting Ticket Header Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARPRFLST</cpross_id>
+		<csub_prpt>Profile Listing Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>ARINDSCD</cpross_id>
+		<csub_prpt>Returns Individual Schedules Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATRL</cpross_id>
+		<csub_prpt>Material</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICITEMV</cpross_id>
+		<csub_prpt>Style Segment Value</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCDEP</cpross_id>
+		<csub_prpt>Customer Departments Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFHNGCR</cpross_id>
+		<csub_prpt>Hang Tag &amp; Care Label - Graphic Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICCODES</cpross_id>
+		<csub_prpt>Style Code Structure</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APVNHSTS</cpross_id>
+		<csub_prpt>Vendor History Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLSGVLU</cpross_id>
+		<csub_prpt>GL Segment Value</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYCP</cpross_id>
+		<csub_prpt>Copying Multiple Styles</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOORDHD</cpross_id>
+		<csub_prpt>Sales Order Header Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APPYINV</cpross_id>
+		<csub_prpt>Payable Invoice</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARLETER</cpross_id>
+		<csub_prpt>Customer Letters Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFOPMG</cpross_id>
+		<csub_prpt>Manufacturing Operation Management Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARINDSCD</cpross_id>
+		<csub_prpt>Sales Order Individual Schedules Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFISCY</cpross_id>
+		<csub_prpt>Fiscal Calendar Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MAMATRL</cpross_id>
+		<csub_prpt>Material</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APBNKRC</cpross_id>
+		<csub_prpt>Bank Reconciliation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARDINV</cpross_id>
+		<csub_prpt>AR Invoice</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTLB</cpross_id>
+		<csub_prpt>Style Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOMACNT</cpross_id>
+		<csub_prpt>Material Sales Order Contract</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLACTCHR</cpross_id>
+		<csub_prpt>GL Chart of Account Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARIINV</cpross_id>
+		<csub_prpt>Invoice Sales Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLSEGVAL</cpross_id>
+		<csub_prpt>GL Segment Value Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>RETPO</cpross_id>
+		<csub_prpt>Return Purchase Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSCDACT</cpross_id>
+		<csub_prpt>Accounts Receivable Scheduled Activities Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRSPSAL</cpross_id>
+		<csub_prpt>Sales Rep. Shipment Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARUPSMN</cpross_id>
+		<csub_prpt>UPS Manifest Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLACCREC</cpross_id>
+		<csub_prpt>GL Account Reconciliation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALORDAL</cpross_id>
+		<csub_prpt>Allocation by Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POINTRC</cpross_id>
+		<csub_prpt>Inter-Location Purchase Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLUNPREC</cpross_id>
+		<csub_prpt>Account Reconciliation - Unposted Entry Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST6</cpross_id>
+		<csub_prpt>Actual Period Comparison Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLACTTYP</cpross_id>
+		<csub_prpt>GL Account Type Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST7</cpross_id>
+		<csub_prpt>Actual vs. Other Period Budget Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOSLSMON</cpross_id>
+		<csub_prpt>Order/Sales Summary Report By Month Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARASSHT</cpross_id>
+		<csub_prpt>Assignment Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFPATH</cpross_id>
+		<csub_prpt>Template Information</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATLST</cpross_id>
+		<csub_prpt>Material Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSHPST</cpross_id>
+		<csub_prpt>Shipment Status Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOSTKAV</cpross_id>
+		<csub_prpt>Stock Availability Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLACMEN</cpross_id>
+		<csub_prpt>Multiple GL Account</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFDCSH</cpross_id>
+		<csub_prpt>Dye Order Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>POACFRV</cpross_id>
+		<csub_prpt>Cutting Ticket Adjust Cost for Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOORDSRP</cpross_id>
+		<csub_prpt>Order Status Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARPRFLST</cpross_id>
+		<csub_prpt>Profile Listing Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFTMPREC</cpross_id>
+		<csub_prpt>Temporary Receive Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFHNGCR</cpross_id>
+		<csub_prpt>Text</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARMTLOG</cpross_id>
+		<csub_prpt>Material Shipping Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLTRABAL</cpross_id>
+		<csub_prpt>GL Trial Balance Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>System Manager GL Link Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POLCJRL</cpross_id>
+		<csub_prpt>Letter of Credit Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARMINV</cpross_id>
+		<csub_prpt>Invoice Material Sales Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCASHF</cpross_id>
+		<csub_prpt>Cash Flow Item</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFWIPAC</cpross_id>
+		<csub_prpt>Manufacturing GL-WIP Account Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFHNGCR</cpross_id>
+		<csub_prpt>Text</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST8</cpross_id>
+		<csub_prpt>Actual Col. vs. Actual/Budget Col. Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRSLSREP</cpross_id>
+		<csub_prpt>Sales Representative Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>ARCUST</cpross_id>
+		<csub_prpt>Customer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARINDSCD</cpross_id>
+		<csub_prpt>Accounts Receivable Individual Schedules Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>APVENDR</cpross_id>
+		<csub_prpt>Vendor</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLAUTTEM</cpross_id>
+		<csub_prpt>GL Template Entry Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFOPMG</cpross_id>
+		<csub_prpt>Purchase Order Operation Management Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAWIPAC</cpross_id>
+		<csub_prpt>Material WIP GL-Account Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFADPO</cpross_id>
+		<csub_prpt>Adornment Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOEDORD</cpross_id>
+		<csub_prpt>EDI Temporary Sales Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSHPMN</cpross_id>
+		<csub_prpt>Shipping Manifest Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCHBCR</cpross_id>
+		<csub_prpt>Charge Back &amp; Credit Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSHMNSE</cpross_id>
+		<csub_prpt>SEARS Shipping Manifest Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>ICINVLK</cpross_id>
+		<csub_prpt>Material Inventory Locking</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFTRGDT</cpross_id>
+		<csub_prpt>Scheduling Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLSNGAC</cpross_id>
+		<csub_prpt>Single GL Account</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCSTA</cpross_id>
+		<csub_prpt>Income Statement Generator Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFRCVTP</cpross_id>
+		<csub_prpt>Temporary Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLAUTREC</cpross_id>
+		<csub_prpt>GL Recurring Entry Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPAKLG</cpross_id>
+		<csub_prpt>Packing List Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>CONTR</cpross_id>
+		<csub_prpt>Contract</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFACTOR</cpross_id>
+		<csub_prpt>Factor Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>Sales Order GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMUTILS</cpross_id>
+		<csub_prpt>Schedule File Utilities</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICCMPLN</cpross_id>
+		<csub_prpt>Recompute Style Plan Quantity</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMRAREP</cpross_id>
+		<csub_prpt>Return Authorization Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMGLREC</cpross_id>
+		<csub_prpt>GL Entry Reconciliation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRREPCOM</cpross_id>
+		<csub_prpt>Sales Rep. Commission Statement Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLTYPE</cpross_id>
+		<csub_prpt>GL Account Type and Range</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APMNCHK</cpross_id>
+		<csub_prpt>AP Invoice Manual Check Payment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMSTYLS</cpross_id>
+		<csub_prpt>Style Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMNMCNT</cpross_id>
+		<csub_prpt>Sequence Number</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFLTCS</cpross_id>
+		<csub_prpt>Style Purchase Order Lot Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCASHR</cpross_id>
+		<csub_prpt>Cash Receipt</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRCRADJ</cpross_id>
+		<csub_prpt>Sales Rep. Credit Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MACSSH</cpross_id>
+		<csub_prpt>Material Manufacturing Order Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCRATE</cpross_id>
+		<csub_prpt>Convert UPS Rates</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICINVLK</cpross_id>
+		<csub_prpt>Style Inventory Locking</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMNTTMP</cpross_id>
+		<csub_prpt>Notepad Template</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ARTWRKD</cpross_id>
+		<csub_prpt>Artwork Design</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICPACK</cpross_id>
+		<csub_prpt>Pack</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAINVCJ</cpross_id>
+		<csub_prpt>Inventory Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCMINF</cpross_id>
+		<csub_prpt>Company Information</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFOPTR</cpross_id>
+		<csub_prpt>Contractor Tracking Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALSTYAL</cpross_id>
+		<csub_prpt>Allocation by Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APPYINVS</cpross_id>
+		<csub_prpt>Payable Invoice Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>SOSHLB</cpross_id>
+		<csub_prpt>Accounts Receivable Shipping Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCATGR</cpross_id>
+		<csub_prpt>Categories</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APNCKPY</cpross_id>
+		<csub_prpt>AP Invoice Non-Check Payment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>APFOLDER</cpross_id>
+		<csub_prpt>Vendor Folder Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>MFPTHWZ</cpross_id>
+		<csub_prpt>Template Wizard</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLTPOST</cpross_id>
+		<csub_prpt>Post GL Single Transaction</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST9</cpross_id>
+		<csub_prpt>Two Budget Column Comparison Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>REQUEST</cpross_id>
+		<csub_prpt>Request Builder  (Beta)</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOORAPR</cpross_id>
+		<csub_prpt>Sales Orders Approval</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFRCVAP</cpross_id>
+		<csub_prpt>Issue Adornment Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCSLST</cpross_id>
+		<csub_prpt>Customer Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APPYINVD</cpross_id>
+		<csub_prpt>Payable Invoice Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMCMRET</cpross_id>
+		<csub_prpt>Credit Memo Header Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALAUTAL</cpross_id>
+		<csub_prpt>Automatic Allocation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLGROUP</cpross_id>
+		<csub_prpt>GL Account Group</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>Manufacturing GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALRELPI</cpross_id>
+		<csub_prpt>Release Picking Tickets</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYLCK</cpross_id>
+		<csub_prpt>Style Inventory &amp; Markdown Values Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCODOS</cpross_id>
+		<csub_prpt>COD Outstanding Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFLTCS</cpross_id>
+		<csub_prpt>Cutting Ticket Lot Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARCUST</cpross_id>
+		<csub_prpt>Customer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCPACT</cpross_id>
+		<csub_prpt>Copy General Ledger Account</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APCSHPY</cpross_id>
+		<csub_prpt>AP Invoice Cash Payment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOUSRTS</cpross_id>
+		<csub_prpt>Generate User Task List</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSCSREP</cpross_id>
+		<csub_prpt>Imported Style Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATLCK</cpross_id>
+		<csub_prpt>Material Inventory &amp; Markdown Values Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPKTKT</cpross_id>
+		<csub_prpt>Picking Ticket</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOSRORD</cpross_id>
+		<csub_prpt>Style Reorder Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSCUTSO</cpross_id>
+		<csub_prpt>Special Cut &amp; Sold Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APAPROVE</cpross_id>
+		<csub_prpt>Approved to Pay Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>APVNHSTS</cpross_id>
+		<csub_prpt>Vendor History Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MASCNRL</cpross_id>
+		<csub_prpt>Scan Material Rolls</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMCTCS</cpross_id>
+		<csub_prpt>Manufacturing Order Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLAUTALT</cpross_id>
+		<csub_prpt>GL Allocation Entry Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLAUTDIS</cpross_id>
+		<csub_prpt>GL Automatic Distribution Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMRTATH</cpross_id>
+		<csub_prpt>Return Authorization</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCS10</cpross_id>
+		<csub_prpt>GL Single Segment Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>GL Link Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRPAY</cpross_id>
+		<csub_prpt>Sales Representative Payments</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARAGING</cpross_id>
+		<csub_prpt>AR Aging Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>ICLOCN</cpross_id>
+		<csub_prpt>Location</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APAGEINV</cpross_id>
+		<csub_prpt>Aged Payable Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCSREP</cpross_id>
+		<csub_prpt>Manufactured Style Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICPLIST</cpross_id>
+		<csub_prpt>Price List Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPIKTKT</cpross_id>
+		<csub_prpt>Picking Ticket Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCTREC</cpross_id>
+		<csub_prpt>Cutting Ticket Receipt Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMSETREP</cpross_id>
+		<csub_prpt>Setup Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFALOCT</cpross_id>
+		<csub_prpt>Cutting Ticket Allocation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSHP</cpross_id>
+		<csub_prpt>Style PO Shipment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLTRANS</cpross_id>
+		<csub_prpt>GL Single Transaction</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAINVCP</cpross_id>
+		<csub_prpt>Physical Inventory</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFPATH</cpross_id>
+		<csub_prpt>Template Information</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOMAT</cpross_id>
+		<csub_prpt>Material Sales Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICCLRRT</cpross_id>
+		<csub_prpt>Color Collections</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APINSTM</cpross_id>
+		<csub_prpt>Payable Installment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCS11</cpross_id>
+		<csub_prpt>Single Segment Range of Periods Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APDSTTMP</cpross_id>
+		<csub_prpt>Distribution Template Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARJCPMN</cpross_id>
+		<csub_prpt>JCPenny Shipping Manifest Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMWRKSTA</cpross_id>
+		<csub_prpt>Workstation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMPURG4</cpross_id>
+		<csub_prpt>Purge Databases</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APRBALV</cpross_id>
+		<csub_prpt>Recalculate Vendor Balance</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALSTLS1</cpross_id>
+		<csub_prpt>Allocation Report (F#1)</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFPTHWZ</cpross_id>
+		<csub_prpt>Template Wizard</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MARTMAT</cpross_id>
+		<csub_prpt>Return Purchase Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTKJL</cpross_id>
+		<csub_prpt>Style Stock Adjustment Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POCSSH</cpross_id>
+		<csub_prpt>Style PO Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFRECCT</cpross_id>
+		<csub_prpt>Bar Code Temporary Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALSTYF2</cpross_id>
+		<csub_prpt>Allocation Report (F#2)</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MADATSEN</cpross_id>
+		<csub_prpt>Material Date Sensitive Inventory Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARDCTRN</cpross_id>
+		<csub_prpt>Edit Debit/Credit on Account Reason</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFOPENWP</cpross_id>
+		<csub_prpt>Open Work in Process Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCSTTM</cpross_id>
+		<csub_prpt>Manufactured Style Cost Sheet Template</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMMTDIC</cpross_id>
+		<csub_prpt>Maintain Dictionary</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POALOCT</cpross_id>
+		<csub_prpt>Style PO Allocation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>OBJDIC</cpross_id>
+		<csub_prpt>Object Dictionary Viewer (Beta)</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCS12</cpross_id>
+		<csub_prpt>Single Seg. vs. Rest of Company PTD/YTD Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>MFPRJST</cpross_id>
+		<csub_prpt>Project Color Shading</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBUDGET</cpross_id>
+		<csub_prpt>GL Budget Version Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRBOKNG</cpross_id>
+		<csub_prpt>Sales Rep. Booking Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRSLSRP</cpross_id>
+		<csub_prpt>Sales Representative</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMNREC</cpross_id>
+		<csub_prpt>Receive Material Manufacturing Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFPATH</cpross_id>
+		<csub_prpt>Template Information</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMWMAIN</cpross_id>
+		<csub_prpt>New Company Wizard</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>Purchase Order GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCODES</cpross_id>
+		<csub_prpt>Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTWIP</cpross_id>
+		<csub_prpt>W.I.P. Adjustments</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMFRWK</cpross_id>
+		<csub_prpt>Material Rework Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCPAUT</cpross_id>
+		<csub_prpt>Copy GL Automatic Entry</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICROYLTY</cpross_id>
+		<csub_prpt>Royalty Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARPINV</cpross_id>
+		<csub_prpt>Invoice Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOMASCA</cpross_id>
+		<csub_prpt>Mass Order Cancellation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBUDGT</cpross_id>
+		<csub_prpt>GL Budget</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MASHP</cpross_id>
+		<csub_prpt>Material PO Shipment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFLRAT</cpross_id>
+		<csub_prpt>UPS Fuel Surcharge Rate</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APADCHK</cpross_id>
+		<csub_prpt>AP Advance Manual Check Payment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAUTLJL</cpross_id>
+		<csub_prpt>Material Utilization Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APADNCK</cpross_id>
+		<csub_prpt>AP Advance Non-Check Payment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCST1</cpross_id>
+		<csub_prpt>Multi Period Comparison Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCFRTZ</cpross_id>
+		<csub_prpt>Convert UPS Zones</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APVENDRD</cpross_id>
+		<csub_prpt>Vendor Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSJOUR</cpross_id>
+		<csub_prpt>Sales Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCS13</cpross_id>
+		<csub_prpt>Sgl. Seg. vs. Rest of Co. Range of Periods Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMACCOD</cpross_id>
+		<csub_prpt>GL Account Code Structure</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLACTGRP</cpross_id>
+		<csub_prpt>GL Account Group Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLSOUJOR</cpross_id>
+		<csub_prpt>GL Source Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCCODE</cpross_id>
+		<csub_prpt>Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APVENDR</cpross_id>
+		<csub_prpt>Vendor</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARCMLB</cpross_id>
+		<csub_prpt>Customer Mailing Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>PONCSH</cpross_id>
+		<csub_prpt>Inter-location PO Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARSCDACT</cpross_id>
+		<csub_prpt>Sales Order Scheduled Activities Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>MFPROJ</cpross_id>
+		<csub_prpt>Inventory Item Project</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCALND</cpross_id>
+		<csub_prpt>Calendar</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APRCRIN</cpross_id>
+		<csub_prpt>Recurring Payable Invoice</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATP</cpross_id>
+		<csub_prpt>Material Purchase Order Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCSSH</cpross_id>
+		<csub_prpt>Cutting Ticket Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOCONT</cpross_id>
+		<csub_prpt>Contract</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARPOSCH</cpross_id>
+		<csub_prpt>Postdated Check</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>APVENDRS</cpross_id>
+		<csub_prpt>Vendor Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPOHDR</cpross_id>
+		<csub_prpt>Material Purchase Order Header Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APADCSH</cpross_id>
+		<csub_prpt>AP Advance Cash Payment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFLBLWZ</cpross_id>
+		<csub_prpt>Care Label &amp; Hang Tag Designer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MACSREP</cpross_id>
+		<csub_prpt>Material Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPODTL</cpross_id>
+		<csub_prpt>Material Purchase Order Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPLIST</cpross_id>
+		<csub_prpt>Manual Packing List</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLGNALO</cpross_id>
+		<csub_prpt>GL Generate Allocation Transaction</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMFREC</cpross_id>
+		<csub_prpt>Manufacturing Order Receipt log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>SOCAN</cpross_id>
+		<csub_prpt>Cutting Ticket Cancelation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MARWREC</cpross_id>
+		<csub_prpt>Rework Order Issue / Receive</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>APVENDRD</cpross_id>
+		<csub_prpt>Vendor Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCASHFL</cpross_id>
+		<csub_prpt>Cash Flow Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>APVENDRS</cpross_id>
+		<csub_prpt>Vendor Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSUMAG</cpross_id>
+		<csub_prpt>Aging Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFPJMON</cpross_id>
+		<csub_prpt>Project Monitor</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFHNGCR</cpross_id>
+		<csub_prpt>Graphic</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APCASHR</cpross_id>
+		<csub_prpt>Cash Requirement Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOFORCST</cpross_id>
+		<csub_prpt>Forecasting Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRSLJOR</cpross_id>
+		<csub_prpt>Sales Rep. Sales Summary Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>POPRLC</cpross_id>
+		<csub_prpt>Material Letter of Credit Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALAUTP</cpross_id>
+		<csub_prpt>Automatic Packing List</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARCSLST</cpross_id>
+		<csub_prpt>Customer Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFHNGCR</cpross_id>
+		<csub_prpt>Hang Tag &amp; Care Label - Text Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRAGERP</cpross_id>
+		<csub_prpt>Sales Rep. Age Commission Payable</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSTREC</cpross_id>
+		<csub_prpt>Purchase Order Receive PO</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLINCS14</cpross_id>
+		<csub_prpt>Single Segment PTD/YTD Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOMACN</cpross_id>
+		<csub_prpt>Sales Order/Contract Confirmation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APCKREG</cpross_id>
+		<csub_prpt>Check Register Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYREP</cpross_id>
+		<csub_prpt>Style Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POACFRV</cpross_id>
+		<csub_prpt>Style Purchase Order Adjust Cost for Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATREF</cpross_id>
+		<csub_prpt>Material Reference Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APLETTR</cpross_id>
+		<csub_prpt>Vendor Letters Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSKU</cpross_id>
+		<csub_prpt>SKU</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFRCVTP</cpross_id>
+		<csub_prpt>Temporary PO Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMFDTL</cpross_id>
+		<csub_prpt>Manufacturing Order Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICPHINV</cpross_id>
+		<csub_prpt>Style Physical Inventory WorkSheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLUNBATS</cpross_id>
+		<csub_prpt>Unposted Batch Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCTCS</cpross_id>
+		<csub_prpt>Cutting Ticket Cost Sheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATST</cpross_id>
+		<csub_prpt>Style Material Master Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARMDIN</cpross_id>
+		<csub_prpt>Material Invoice</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APAPLDB</cpross_id>
+		<csub_prpt>Apply Debit Memos</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICPAKSKU</cpross_id>
+		<csub_prpt>Pack/SKU Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFTRGDT</cpross_id>
+		<csub_prpt>Manufacturing Scheduling Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMACTSTR</cpross_id>
+		<csub_prpt>Account Code Structure Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSCALE</cpross_id>
+		<csub_prpt>Scale</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFCUTKT</cpross_id>
+		<csub_prpt>Manual Cutting Ticket</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSHT</cpross_id>
+		<csub_prpt>Balance Sheet Generator Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSCTSH</cpross_id>
+		<csub_prpt>Imported Style Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPOREC</cpross_id>
+		<csub_prpt>Receive Material PO</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCPGRP</cpross_id>
+		<csub_prpt>Copy GL Group</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCPBUD</cpross_id>
+		<csub_prpt>Copy GL Budget</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYLST</cpross_id>
+		<csub_prpt>Style Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOUPDNF</cpross_id>
+		<csub_prpt>Upload &amp; Download Amazon.com Files</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>ARSCDACT</cpross_id>
+		<csub_prpt>Returns Scheduled Activities Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPKSCN</cpross_id>
+		<csub_prpt>Pack and Scan</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>SRSLSRP</cpross_id>
+		<csub_prpt>Sales Representative</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYUTL</cpross_id>
+		<csub_prpt>Style Utilization Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLUNTRAN</cpross_id>
+		<csub_prpt>Unposted Transaction Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARRVKEY</cpross_id>
+		<csub_prpt>Reverse key off/payments</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFWIPAC</cpross_id>
+		<csub_prpt>Purchase Order GL-WIP Account Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>APVNHSTS</cpross_id>
+		<csub_prpt>Vendor History Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APDIVIS</cpross_id>
+		<csub_prpt>Division Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APINSTM</cpross_id>
+		<csub_prpt>Payable Installment Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCURR</cpross_id>
+		<csub_prpt>Currency Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFACT</cpross_id>
+		<csub_prpt>Factor</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APTMPDS</cpross_id>
+		<csub_prpt>Template Distribution</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFRMCD</cpross_id>
+		<csub_prpt>Form Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAINVLO</cpross_id>
+		<csub_prpt>Inventory Bin</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYAD</cpross_id>
+		<csub_prpt>Style Inventory Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSH5</cpross_id>
+		<csub_prpt>Actual vs. Other Period Actual Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>PORECPO</cpross_id>
+		<csub_prpt>Bar Code Temporary PO Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMINTER</cpross_id>
+		<csub_prpt>Internationals Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFOPTR</cpross_id>
+		<csub_prpt>Contractor Tracking Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOCAN</cpross_id>
+		<csub_prpt>Order Cancellation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFRCVTP</cpross_id>
+		<csub_prpt>Temporary Inter-Location PO Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARLETTR</cpross_id>
+		<csub_prpt>Customer Letters Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAOPMG</cpross_id>
+		<csub_prpt>Material Operation Management Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APJORN</cpross_id>
+		<csub_prpt>AP Journal Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APDISC</cpross_id>
+		<csub_prpt>Discount Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMFORD</cpross_id>
+		<csub_prpt>Material Manufacturing Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APINVLIN</cpross_id>
+		<csub_prpt>Invoice Contribution Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARKEYOF</cpross_id>
+		<csub_prpt>Apply Debits/Credits</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARVINV</cpross_id>
+		<csub_prpt>Voiding Multiple Invoices</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSTYHRE</cpross_id>
+		<csub_prpt>Style Purchase Order Header Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFGENCT</cpross_id>
+		<csub_prpt>Generate Cutting Ticket from Orders</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMREBAL</cpross_id>
+		<csub_prpt>Rebalance Database</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICLOCN</cpross_id>
+		<csub_prpt>Location</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>SMGLLNK</cpross_id>
+		<csub_prpt>Material GL Link Code</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARSHLOG</cpross_id>
+		<csub_prpt>Shipping Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLSOURJ</cpross_id>
+		<csub_prpt>GL Source Journal</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMFHDR</cpross_id>
+		<csub_prpt>Manufacturing Order Header Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCMLB</cpross_id>
+		<csub_prpt>Customer Mailing Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>SOSHLB</cpross_id>
+		<csub_prpt>Shipping Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SORDDET</cpross_id>
+		<csub_prpt>Sales Order Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>SOALOCP</cpross_id>
+		<csub_prpt>CutTkt/PO Allocation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPKTK</cpross_id>
+		<csub_prpt>Picking Ticket Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPKLS</cpross_id>
+		<csub_prpt>Packing List Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMCTSH</cpross_id>
+		<csub_prpt>Material Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARGROSSP</cpross_id>
+		<csub_prpt>Accounts Receivable Gross Profit Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSH6</cpross_id>
+		<csub_prpt>Actual Period Comparison Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOORCN</cpross_id>
+		<csub_prpt>Order Confirmation Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOALOCP</cpross_id>
+		<csub_prpt>CutTkt/PO Allocation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>APVENLBL</cpross_id>
+		<csub_prpt>Vendor Mailing Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APBNKAD</cpross_id>
+		<csub_prpt>Bank Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFPROJ</cpross_id>
+		<csub_prpt>Cutting Ticket Project</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>APFOLDER</cpross_id>
+		<csub_prpt>Vendor Folder Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRORDST</cpross_id>
+		<csub_prpt>Sales Rep. Order Statistics Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSH7</cpross_id>
+		<csub_prpt>Actual vs. Other Period Budget Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFGENPL</cpross_id>
+		<csub_prpt>Master Production Schedule</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>Inventory GL Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SMLNKCOD</cpross_id>
+		<csub_prpt>Sales Order G/L Link Code Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>RM</capp_id>
+		<cpross_id>RMCMEM</cpross_id>
+		<csub_prpt>Credit Memo Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSTYDRE</cpross_id>
+		<csub_prpt>Style Purchase Order Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARMATI</cpross_id>
+		<csub_prpt>Material Invoice Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOORD</cpross_id>
+		<csub_prpt>Sales Order</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MABARC</cpross_id>
+		<csub_prpt>Rolls Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMATRQ</cpross_id>
+		<csub_prpt>Material Requirement Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAPOREC</cpross_id>
+		<csub_prpt>Material Purchase Order Receipt Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>SOCAN</cpross_id>
+		<csub_prpt>Purchase Order Cancelation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APAPRPA</cpross_id>
+		<csub_prpt>Approve for AP Payments</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFSCTSH</cpross_id>
+		<csub_prpt>Manufactured Style Cost Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APBNKRC</cpross_id>
+		<csub_prpt>Bank Reconciliation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSH8</cpross_id>
+		<csub_prpt>Actual Col. vs. Actual/Budget Col. Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>POSTYREC</cpross_id>
+		<csub_prpt>Dye Order Receipts Log Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMGLENT</cpross_id>
+		<csub_prpt>GL Entry Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBATCH</cpross_id>
+		<csub_prpt>GL Journal Batch</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAINVCT</cpross_id>
+		<csub_prpt>Transfer Material Inventory</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APGNRCR</cpross_id>
+		<csub_prpt>Generate Recurring Payable</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMGLREL</cpross_id>
+		<csub_prpt>Release to GL</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APCHKPRV</cpross_id>
+		<csub_prpt>Payable Checks</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMEXCH</cpross_id>
+		<csub_prpt>Currency Exchange Rate</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POCSTTM</cpross_id>
+		<csub_prpt>Imported Style Cost Sheet Template</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>PORCVRT</cpross_id>
+		<csub_prpt>Issue Return PO</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLDSTTR</cpross_id>
+		<csub_prpt>GL Account Automatic Distribution</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCSTM</cpross_id>
+		<csub_prpt>Customer Statement Form</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCUST</cpross_id>
+		<csub_prpt>Customer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICDATSEN</cpross_id>
+		<csub_prpt>Style Date Sensitive Inventory Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>APVENDRD</cpross_id>
+		<csub_prpt>Vendor Detail Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLTMPTR</cpross_id>
+		<csub_prpt>GL Template Entry</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLGNREC</cpross_id>
+		<csub_prpt>Generate Recurring Transaction</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYPH</cpross_id>
+		<csub_prpt>Style Physical Inventory</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARLETTR</cpross_id>
+		<csub_prpt>Customer Letters Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMINSTAL</cpross_id>
+		<csub_prpt>System Installation Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>APVENDR</cpross_id>
+		<csub_prpt>Vendor</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MATIMREQ</cpross_id>
+		<csub_prpt>Time Phased Material Requirements Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APBANK</cpross_id>
+		<csub_prpt>Bank/Checking Account</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSH9</cpross_id>
+		<csub_prpt>Two Budget Column Comparison Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>GENUPC</cpross_id>
+		<csub_prpt>UPC  Maintenance</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APDIVIS</cpross_id>
+		<csub_prpt>Division</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSRANK</cpross_id>
+		<csub_prpt>Ranking Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARDCMEM</cpross_id>
+		<csub_prpt>Debit/Credit Adjustment Memo Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APAPRIN</cpross_id>
+		<csub_prpt>Approve Payable Installment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAVMREF</cpross_id>
+		<csub_prpt>Material Vendor Reference</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLPURGE</cpross_id>
+		<csub_prpt>GL Purge and Summarize</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>ARCDEP</cpross_id>
+		<csub_prpt>Customer Departments Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCODTG</cpross_id>
+		<csub_prpt>COD Tag Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>SOFRCST</cpross_id>
+		<csub_prpt>Style Forecast</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLCPSEG</cpross_id>
+		<csub_prpt>Copy GL Segment Value</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICCUTSOL</cpross_id>
+		<csub_prpt>Cut &amp; Sold Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APSETUP</cpross_id>
+		<csub_prpt>Accounts Payable Setup</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCHADJ</cpross_id>
+		<csub_prpt>Cash &amp; Adjustment Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAMLTCR</cpross_id>
+		<csub_prpt>Material Letter of Credit</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBPOST</cpross_id>
+		<csub_prpt>Post GL Journal Batch</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SR</capp_id>
+		<cpross_id>SRREPSH</cpross_id>
+		<csub_prpt>Sales Rep. Commission Worksheet Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFRCVCT</cpross_id>
+		<csub_prpt>Manufacturing Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFADORD</cpross_id>
+		<csub_prpt>Adornment Order Planning Tool</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARCRADJ</cpross_id>
+		<csub_prpt>Credit Adjustment</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAOTS</cpross_id>
+		<csub_prpt>Open to Sell Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPLST2</cpross_id>
+		<csub_prpt>Packing List Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>POACFRV</cpross_id>
+		<csub_prpt>Material Adjust Cost for Receiving</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AR</capp_id>
+		<cpross_id>ARPOSTCH</cpross_id>
+		<csub_prpt>Postdated Check Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICINVLO</cpross_id>
+		<csub_prpt>Inventory Bin</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLRCRTR</cpross_id>
+		<csub_prpt>GL Recurring Entry</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MA</capp_id>
+		<cpross_id>MAROLINV</cpross_id>
+		<csub_prpt>Material Inventory Report By Rolls Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICSTYLE</cpross_id>
+		<csub_prpt>Style</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>PORCVIP</cpross_id>
+		<csub_prpt>Issue Inter-Location PO</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APLETER</cpross_id>
+		<csub_prpt>Vendor Letters</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMINSTL</cpross_id>
+		<csub_prpt>System Installation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBGPST</cpross_id>
+		<csub_prpt>Post GL Beginning Balance Batch</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLALCTR</cpross_id>
+		<csub_prpt>GL Allocation Entry</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICDESGN</cpross_id>
+		<csub_prpt>Design</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFSYER</cpross_id>
+		<csub_prpt>Fiscal Year</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POISSBT</cpross_id>
+		<csub_prpt>Issue Inter-Location Batch</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>AP1099F</cpross_id>
+		<csub_prpt>1099 Form</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFPTHWZ</cpross_id>
+		<csub_prpt>Template Wizard</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APVDPAY</cpross_id>
+		<csub_prpt>Void AP Payments</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALSH3</cpross_id>
+		<csub_prpt>Total Company Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POSLTCR</cpross_id>
+		<csub_prpt>Purchase Order Letter of Credit</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APVENLBL</cpross_id>
+		<csub_prpt>Vendor Mailing Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>MFPROJ</cpross_id>
+		<csub_prpt>Purchase Order Project</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>GL</capp_id>
+		<cpross_id>GLBALS12</cpross_id>
+		<csub_prpt>Single Segment vs. Rest of Company Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APFOLDER</cpross_id>
+		<csub_prpt>Vendor Folder Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMCLOSY</cpross_id>
+		<csub_prpt>Close Year</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>MFPTHWZ</cpross_id>
+		<csub_prpt>Template Wizard</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AP</capp_id>
+		<cpross_id>APVENDRS</cpross_id>
+		<csub_prpt>Vendor Summary Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>MF</capp_id>
+		<cpross_id>MFLBLWZ</cpross_id>
+		<csub_prpt>Care Label &amp; Hang Tag Designer</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALBOL</cpross_id>
+		<csub_prpt>Bill of Lading</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALPBOL</cpross_id>
+		<csub_prpt>Bill of Lading Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>PRTKLB</cpross_id>
+		<csub_prpt>Inventory Price Ticket Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SO</capp_id>
+		<cpross_id>PRTKLB</cpross_id>
+		<csub_prpt>Sales Order Price Ticket Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>PRTKLB</cpross_id>
+		<csub_prpt>Purchase Order Price Ticket Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>SCANUPC</cpross_id>
+		<csub_prpt>Scan Items Barcodes</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>IC</capp_id>
+		<cpross_id>ICUPCRPT</cpross_id>
+		<csub_prpt>UPC Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWTOOLS</cpross_id>
+		<csub_prpt>Tools</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWPLANT</cpross_id>
+		<csub_prpt>Plants</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWRKCTR</cpross_id>
+		<csub_prpt>Work Center</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWSCNMN</cpross_id>
+		<csub_prpt>Scan Tickets</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWDTOPR</cpross_id>
+		<csub_prpt>Detail Operation</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWMACH</cpross_id>
+		<csub_prpt>Machine Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWSHIFT</cpross_id>
+		<csub_prpt>Shift</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWEMPL</cpross_id>
+		<csub_prpt>Employee</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWBUNDL</cpross_id>
+		<csub_prpt>Bundle</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWTOOL</cpross_id>
+		<csub_prpt>Tools Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWTRTKT</cpross_id>
+		<csub_prpt>Tracking Tickets Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>TIMECRD</cpross_id>
+		<csub_prpt>Time Card</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HRSETUP</cpross_id>
+		<csub_prpt>Human Resource Setup</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HRDEPT</cpross_id>
+		<csub_prpt>Department</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HREMPLBL</cpross_id>
+		<csub_prpt>Employee Label</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HREMP</cpross_id>
+		<csub_prpt>Employee Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HRPLANT</cpross_id>
+		<csub_prpt>Plant Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HRSHIFT</cpross_id>
+		<csub_prpt>Shift Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HRWRKCNT</cpross_id>
+		<csub_prpt>Work Center Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>HR</capp_id>
+		<cpross_id>HRDEPART</cpross_id>
+		<csub_prpt>Human Resource Department Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWGUMMN</cpross_id>
+		<csub_prpt>Control GUM Sheet</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PW</capp_id>
+		<cpross_id>PWTMPRC</cpross_id>
+		<csub_prpt>Temporary Receive</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>PO</capp_id>
+		<cpross_id>POESTLND</cpross_id>
+		<csub_prpt>Estimated VS Landed Report</csub_prpt>
+		<cproctype>R</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALAUPLJ</cpross_id>
+		<csub_prpt>Packing List Template</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALGAPLJ</cpross_id>
+		<csub_prpt>Automatic Packing List</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>ALSTPCR</cpross_id>
+		<csub_prpt>Carrier Setup</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>AL</capp_id>
+		<cpross_id>MFPROJ</cpross_id>
+		<csub_prpt>Picking Ticket Project</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMFLDCH</cpross_id>
+		<csub_prpt>Change Field Value</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+	<a5menu>
+		<capp_id>SM</capp_id>
+		<cpross_id>SMKEYCH</cpross_id>
+		<csub_prpt>Key Change</csub_prpt>
+		<cproctype>P</cproctype>
+	</a5menu>
+
+
+
+*E612150,1 Es 05/17/2020  Aria 5 - Command prompt [P20190703.0001][Start]
+<a5menu>
+                <capp_id>SM</capp_id>
+                <cpross_id>SMDATMT</cpross_id>
+                <csub_prpt>Data Maintenance</csub_prpt>
+                <cproctype>P</cproctype>
+        </a5menu>
+*E612150,1 Es 05/17/2020  Aria 5 - Command prompt [P20190703.0001][End]
+
+</VFPData>
