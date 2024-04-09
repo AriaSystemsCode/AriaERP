@@ -1,0 +1,7 @@
+#DEFINE LANG_ObjectLink     	"Design Image Links"
+#DEFINE LANG_LinkCode       	"LINK CODE "
+#DEFINE LANG_DesignLinkHeader	"Design Link"
+#DEFINE LANG_DesignCodeHeader	"Design Code"
+#DEFINE LANG_ColorHeader		"Color"
+#DEFINE LANG_LinkCodeBrowsTitle "LINK CODES"
+#DEFINE LANG_VendCode 			"Adornment Contractor Code"

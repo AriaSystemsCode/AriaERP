@@ -1,0 +1,3 @@
+Error in global include file: Include file 'd:\aria4xp\srvclss\sy\excelfile.h' is not found.
+#INCLUDE R:\A4XPDEMO\aria4xp\classes\ado.h
+Error in line 1794 of wwxml.createadoxml (record 36): File does not exist.

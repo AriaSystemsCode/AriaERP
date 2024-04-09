@@ -1,0 +1,596 @@
+*:***************************************************************************
+*: Program file  : MFLTCS
+*: Program desc. : Print Lot Bill of Material
+*: For Report    : MFPRTCSA.FRX
+*: System        : Aria 4 XP
+*: Modules       : MF,PO,MA
+*: Developer     : AYMAN MAHMOUD AHMED
+*: Date          : 02/25/05
+*:Track no       : N 037648
+*:***************************************************************************
+*: Calls : 
+*:    Procedures : ....
+*:    Functions  : lfGetTitle(), lfStGroup(), lfEndGroup(), lfGetTit(), 
+*:                 lfwOldVal(), lfvCont(), lfwOGWhen(), lfsrvTrans()
+*:***************************************************************************
+*: Passed Parameters  : None
+*:***************************************************************************
+*: Example : DO MFLTCS
+*:***************************************************************************
+*: Mod.    : 
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'
+*:***************************************************************************
+
+* Initialize variables
+STORE SPACE(0) TO laCompAdd, lcStyTitle, lcShpName, laShpAdr,;
+                  laOldVal, lcCostItm , lcHead1, lcHead2, lcOper
+* Initialize Fields
+
+IF !EMPTY(lcrplot) AND LEN(Alltrim((lcrplot)))=1
+ lcrplot='0'+Alltrim(lcrplot)
+endif
+                  
+* Set the group expression of the .FRX
+* (The .FRX work as lot cost sheet and cuttkt cost sheet)
+lcMGroup = 'CUTTKT+cLotNo+cOperation'
+lcInGroup = 'CUTTKT+cLotNo+cOperation+Typ'
+lnMajor  = LEN(gfItemMask('PM'))
+lnNMajor = LEN(gfItemMask('PN'))
+STORE SPACE(0) TO lcStyMaj ,lcPattrn,lcLotNo
+lcBomTit = lcTTitle    
+lcTime = Time()
+llEndGroup = .F.
+
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+*lcTemp = gfTempName()
+lcTempF = gfTempName()
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+
+lcMainF = gfTempName()
+
+* Create the main report temporary file.
+SELECT cTktBom_a
+=AFIELDS(laFileStru)
+lnFileStru = ALEN(laFileStru,1)
+DIMENSION laFileStru[lnFileStru+2,18]
+lnFileStru = lnFileStru+1
+laFileStru[lnFileStru,1] = 'cLotNo'
+laFileStru[lnFileStru,2] = 'C'
+laFileStru[lnFileStru,3] = 2
+laFileStru[lnFileStru,4] = 0
+laFileStru[lnFileStru,5] = .F.
+laFileStru[lnFileStru,6] = .F.
+laFileStru[lnFileStru,17] = 0
+laFileStru[lnFileStru,18] = 0
+FOR LCINDX=7 TO 16
+laFileStru[lnFileStru,LCINDX] = ''
+ENDFOR
+
+lnFileStru = lnFileStru+1
+laFileStru[lnFileStru,1] = 'cOperation'
+laFileStru[lnFileStru,2] = 'C'
+laFileStru[lnFileStru,3] = 6
+laFileStru[lnFileStru,4] = 0
+laFileStru[lnFileStru,5] = .F.
+laFileStru[lnFileStru,6] = .F.
+laFileStru[lnFileStru,17] = 0
+laFileStru[lnFileStru,18] = 0
+FOR LCINDX=7 TO 16
+laFileStru[lnFileStru,LCINDX] = ''
+ENDFOR
+
+Create Table (gcWorkDir+lcMainF) FROM ARRAY laFileStru
+INDEX ON CUTTKT+cLotNo+cOperation+Typ+cCatgTyp+Item TAG (lcMainF) 
+INDEX ON cimtyp+cuttkt+cOperation+cLotNo+item+mfgcode TAG MAIN ADDITIVE
+
+* Collect the lot lines in a temporary file
+SELECT MFGOPRDT_a
+
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+*COPY STRUCTURE TO (gcWorkDir+lcTemp)  
+*USE (gcWorkDir+lcTemp) IN 0
+COPY STRUCTURE TO (gcWorkDir+lcTempF)  
+USE (gcWorkDir+lcTempF) IN 0
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+
+Dimension laCost[10,2]
+laCost[1,1]  = 'M_CMTYPE1 '
+laCost[2,1]  = 'M_CMTYPE2 '
+laCost[3,1]  = 'M_CMTYPE3 '
+laCost[4,1]  = 'M_CMTYPE4 '
+laCost[5,1]  = 'M_CMTYPE5 '
+laCost[6,1]  = 'M_CMSLBL1 '
+laCost[7,1]  = 'M_CMSLBL2 '
+laCost[8,1]  = 'M_CMSLBL3 '
+laCost[9,1]  = 'M_CMSLBL4 '
+laCost[10,1] = 'M_CMSLBL5 '
+=gfGetMemvar(@laCost,gcAct_Comp)
+
+STORE '' TO lcCuttkt ,lcContcode 
+STORE .F. TO llOprcode ,llCuttkt ,llContcode 
+
+lcjoin =lfGetJoins  ()
+lcSqlStatement="Select CIMTYP,CTKTNO,CCONTCODE,COPRCODE from MFGOPRHD(index=MFGOPRHD) where CIMTYP='"+lcImTyp+"' AND "
+DO CASE 
+  CASE llCuttkt
+    SELECT (lcCuttkt)
+    SCAN
+      lcTmpCutno=PO
+      loMFGOPRHD.SQLRUN(lcSqlStatement+" MFGOPRHD.CTKTNO='"+lcTmpCutno+"'",'TMFOPHD')
+      SELECT CIMTYP,CTKTNO,CCONTCODE,COPRCODE FROM TMFOPHD &lcjoin. INTO CURSOR TMFOPHD READWRITE 
+      =lfgetdetails()
+    ENDSCAN
+  CASE llContCode
+    SELECT (lcContCode)
+    SCAN
+      lcTmpCont=CVENDCODE
+      loMFGOPRHD.SQLRUN(lcSqlStatement+" MFGOPRHD.CCONTCODE='"+lcTmpCont+"'",'TMFOPHD')
+      SELECT CIMTYP,CTKTNO,CCONTCODE,COPRCODE FROM TMFOPHD &lcjoin. INTO CURSOR TMFOPHD READWRITE 
+      =lfgetdetails()
+    ENDSCAN
+  
+  CASE llOprcode
+    SELECT lcOprcode
+    SCAN
+      lcTmpOprcod=COPRCOD
+      loMFGOPRHD.SQLRUN(lcSqlStatement+" MFGOPRHD.COPRCODE='"+lcTmpOprcod+"'",'TMFOPHD')
+      SELECT CIMTYP,CTKTNO,CCONTCODE,COPRCODE FROM TMFOPHD &lcjoin. INTO CURSOR TMFOPHD READWRITE 
+      =lfgetdetails()
+    ENDSCAN  
+  OTHERWISE 
+    loMFGOPRHD.SQLRUN("Select CIMTYP,CTKTNO,CCONTCODE,COPRCODE from MFGOPRHD(index=MFGOPRHD) where CIMTYP='"+lcImTyp+"'",'TMFOPHD')  
+    SELECT CIMTYP,CTKTNO,CCONTCODE,COPRCODE FROM TMFOPHD &lcjoin. INTO CURSOR TMFOPHD READWRITE 
+    =lfgetdetails()
+ENDCASE
+
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+*SELECT (lcTemp)
+SELECT (lcTempF)
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+
+lcBomlinFields="ctype,style,ccatgtyp,coprcode,item,cimtyp,ctktno,cbomtyp,unitqty "
+SCAN
+  *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+  *loBOMLINE.SQLRUN("SELECT "+lcBomlinFields+" FROM BOMLINE WHERE cImTyp+cTktNo='"+&lcTemp..cImTyp+&lcTemp..cTktNo+"'",'TBOMLINE')
+  *SELECT &lcBomlinFields. FROM TBOMLINE WHERE cType+Style='1'+&lcTemp..Item .AND. cCatgTyp $ 'FTS' ;
+            .AND. cOprCode = &lcTemp..cOprCode INTO CURSOR TBOMLINE  READWRITE 
+
+  loBOMLINE.SQLRUN("SELECT "+lcBomlinFields+" FROM BOMLINE WHERE cImTyp+cTktNo='"+&lcTempF..cImTyp+&lcTempF..cTktNo+"'",'TBOMLINE')
+  SELECT &lcBomlinFields. FROM TBOMLINE WHERE cType+Style='1'+&lcTempF..Item .AND. cCatgTyp $ 'FTS' ;
+            .AND. cOprCode = &lcTempF..cOprCode INTO CURSOR TBOMLINE  READWRITE 
+  *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+  SELECT TBOMLINE 
+  IF RECCOUNT()>0   
+  SCAN       
+    *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+    * IF SEEK(cImTyp+cTktNo+&lcTemp..cOprCode+&lcTemp..cLotNo+Item,lcMainF)
+    IF SEEK(cImTyp+cTktNo+&lcTempF..cOprCode+&lcTempF..cLotNo+Item,lcMainF)
+    *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+      SELECT (lcMainF)
+      
+      *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+      * REPLACE Req_Qty   WITH Req_Qty+ TBOMLINE.UnitQty*&lcTemp..nLottotQty,;
+              Issue_Qty WITH Issue_Qty+lfGetBom() 
+      REPLACE Req_Qty   WITH Req_Qty+ TBOMLINE.UnitQty*&lcTempF..nLottotQty,;
+              Issue_Qty WITH Issue_Qty+lfGetBom() 
+      *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}        
+      
+    ELSE
+      =lfInsFrmCtkt()
+    ENDIF
+  ENDSCAN  
+  ENDIF
+ENDSCAN
+lcFormName = 'MFPRCSA'
+lcOper     = gfCodDes(&lcMainF..cOperation, 'MFGCODE')
+
+loItem.SQLRUN("SELECT STYLE,CITEMFLD1 AS WIDTH,VENDOR FROM ITEM",'Fabric') 
+=CURSORSETPROP("Buffering" ,3,'Fabric')
+SELECT fabric
+INDEX on style TAG fabric
+SELECT cuttkth
+=CURSORSETPROP("Buffering",3,'cuttkth')
+INDEX ON po TAG POCX
+LOUOM.SQLRUN("SELECT CUOMCODE,CUOM_V FROM UOM",'TUOM') 
+SELECT TUOM
+=CURSORSETPROP("Buffering",3,'TUOM')
+INDEX ON CUOMCODE TAG CODCX
+SELECT (lcMainF)
+SET ORDER TO TAG (lcMainF)
+SET RELATION TO ITEM INTO Fabric ADDITIVE
+SET RELATION TO cuttkt INTO CUTTKTH ADDITIVE
+SET RELATION TO CUOMCODE INTO TUOM ADDITIVE
+loogScroll.cCROrientation = 'P'
+* Display the report
+DO gfDispRe WITH (lcFormName)
+
+USE IN (lcMainF)
+ERASE (gcWorkDir+lcMainF)
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+*USE IN (lcTemp)
+*ERASE (gcWorkDir+lcTemp)
+USE IN (lcTempF)
+ERASE (gcWorkDir+lcTempF)
+*:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+  
+
+*!*************************************************************
+*! Name      : lfGetTitle
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : Get title of each cost element group
+*!*************************************************************
+*! Called from : MFPRTCSA.FRX
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None.
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfGetTitle()
+*!*************************************************************
+FUNCTION lfGetTitle
+
+DO CASE
+  CASE  &lcMainF..cCatgTyp = 'T'
+    lcCostItm = laCost[ASCAN(laCost,cCatgTyp)+10]
+    lcHead1   = '                  DATE                 QTY      DATE     DIRECT'
+    lcHead2   = 'VENDOR  ORDERD PO #  ORDRD RECVD. SHIPD.'
+  CASE  &lcMainF..cCatgTyp = 'F'
+    lcCostItm = laCost[ASCAN(laCost,cCatgTyp)+10]
+    lcHead1   = '[------------ PULLED ------------]  TOTAL'
+    lcHead2   = ''
+  CASE  &lcMainF..cCatgTyp = 'S'
+    lcCostItm = laCost[ASCAN(laCost,cCatgTyp)+10]
+    lcHead1   = ''
+    lcHead2   = ''
+ENDCASE
+RETURN ''
+
+*!*************************************************************
+*! Name      : lfStGroup
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : Initialize variables.
+*!*************************************************************
+*! Called from : MFPRTCSA.FRX
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None.
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfStGroup()
+*!*************************************************************
+FUNCTION lfStGroup
+llEndGroup = .F.
+RETURN ''
+*!*************************************************************
+*! Name      : lfEndGroup
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : Set value of variable to don't print the word "Continued"
+*!*************************************************************
+*! Called from : MFPRTCSA.FRX
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None.
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfEndGroup()
+*!*************************************************************
+FUNCTION lfEndGroup
+* Set this variable .T. to don't print the word "CONTINUED"
+llEndGroup = .T.
+RETURN ''
+
+*!*************************************************************
+*! Name      : lfGetTit
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : Get the title of the transaction to be printed
+*!*************************************************************
+*! Called from : MFPRTCSA.FRX
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None.
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfGetTit()
+*!*************************************************************
+FUNCTION lfGetTit
+PRIVATE lcTit
+
+DO CASE
+  CASE oAriaApplication.ActiveModuleID='PO'
+    lcTit = 'Purchase Order'
+  CASE oAriaApplication.ActiveModuleID='MA'
+    lcTit = 'MFG Order'
+  CASE oAriaApplication.ActiveModuleID='MF'
+    lcTit    = ALLTRIM(gfGetMemvar('M_PRDLNLBL',gcAct_Comp))  
+ENDCASE
+lcTit  = IIF(RIGHT(lcTit,1) ='#', lcTit,lcTit+'#')
+RETURN lcTit
+
+*!*************************************************************
+*! Name      : lfwOldVal
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : Get The old value
+*!*************************************************************
+*! Called from : MFOPMGA.FRX
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None.
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfwOldVal()
+*!*************************************************************
+FUNCTION lfwOldVal
+
+laOldVal = EVALUATE(SYS(18))
+
+
+*!*************************************************************
+*! Name      : lfwOGWhen
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : When function of the option grid
+*!*************************************************************
+*! Called from : MFOPMGA.FRX
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None.
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfwOGWhen()
+*!*************************************************************
+FUNCTION lfwOGWhen
+
+DO CASE
+  CASE oAriaApplication.ActiveModuleID='MF'
+    lcImTyp = 'M'
+    lcStytyp= 'U'
+  CASE oAriaApplication.ActiveModuleID='PO'
+    lcImTyp = 'I'
+    lcStytyp= 'P'
+  CASE oAriaApplication.ActiveModuleID='MA'
+    lcImTyp = 'T'
+    lcStytyp= 'M'
+ENDCASE
+
+loCTKTBOM   = CreateObject('RemoteTable','CTKTBOM','CTKTYP','CTKTBOM_A',SET("Datasession"),,.T.)
+loMFGOPRDT  = CreateObject('RemoteTable','MFGOPRDT','TKTOPTRN','MFGOPRDT_A',SET("Datasession"),,.T.)
+loBOMLINE   = CreateObject('RemoteTable','BOMLINE','MFGOPR','BOMLINE_A',SET("Datasession"),,.T.)
+loBOMCOST   = CreateObject('RemoteTable','BOMCOST','BOMCSTKT','BOMCOST_A',SET("Datasession"),,.T.)
+loMFGOPRHD  = CreateObject('RemoteTable','MFGOPRHD','MFGOPRHD','MFGOPRHD_A',SET("Datasession"),,.T.)
+loPosHdr  = CreateObject('RemoteTable','POSHDR','POSHDR','POSHDR_A',SET("Datasession"),,.T.)
+loItem  = CreateObject('RemoteTable','ITEM','STYLE','ITEM_A',SET("Datasession"),,.T.)
+LOUOM=CreateObject('RemoteTable','UOM','UOMCODE','UOM',SET("Datasession"),,.T.)                  
+
+*!*************************************************************
+*! Name      : lfGetOp
+*! Developer : AHMED MOHAMMED IBRAHIM
+*! Date      : 07/28/98
+*! Purpose   : Get Operation description
+*!*************************************************************
+*! Called from : MFOPMG.PRG
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : lcParm
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfGetOp()
+*!*************************************************************
+FUNCTION lfGetOp
+
+lcOper   = gfCodDes(&lcMainF..cOperation, 'MFGCODE')
+DO CASE
+  CASE lcImTyp = 'M'
+    lcStyMaj = CUTTKTH.style
+    lcPattrn = CUTTKTH.pattern
+ENDCASE
+RETURN ''
+
+
+*!*************************************************************
+*! Name      : lfGetJoins 
+*! Developer : AYMAN MAHMOUD AHMED
+*! Date      : 11/29/2005
+*! Purpose   : GET Join Exprission 
+*!*************************************************************
+*! Passed Parameters  :
+*!                      
+*!*************************************************************
+*! Returns            : lcJoin = join line code
+*!*************************************************************
+FUNCTION lfGetJoins  
+PRIVATE lcJoin
+*******************************************************
+lcJoin = ''
+    IF oAriaApplication.ActiveModuleID='MF'
+      lcCuttkt = lfCheckFilter(3,'POSHDR.PO')  	
+      llCuttkt =!EMPTY(lcCuttkt) AND USED(lcCuttkt) AND (RECCOUNT(lcCuttkt) > 0)  
+    ENDIF
+    IF oAriaApplication.ActiveModuleID='PO'
+      lcCuttkt = lfCheckFilter(3,'MFGOPRHD.CTKTNO')  	
+      llCuttkt =!EMPTY(lcCuttkt) AND USED(lcCuttkt) AND (RECCOUNT(lcCuttkt) > 0)  
+    ENDIF  
+    lcContcode = lfCheckFilter(1, 'MFGOPRHD.CCONTCODE')  	
+    llContcode =!EMPTY(lcContcode) AND USED(lcContcode) AND (RECCOUNT(lcContcode) > 0)  
+    IF llContcode 
+       lcJoin = lcJoin +" inner join "+ lcContcode+" on TMFOPHD.CCONTCODE="+lcContcode+".CVENDCODE"   
+    ENDIF
+    
+    lcOprtmpcode = lfCheckFilter(3, 'MFGOPRHD.COPRCODE')  	
+    llOprcode =!EMPTY(lcOprtmpcode ) and lfStr2Curs(lcOprtmpcode ,'lcOprcode','COPRCOD')
+    IF llOprcode 
+       lcJoin = lcJoin +" inner join lcOprcode on TMFOPHD.COPRCODE=lcOprcode.COPRCOD"   
+    ENDIF
+    
+    IF lcStatus<>'L'
+      loPosHdr.SQLRUN("Select po,pattern,style from poshdr where status='"+lcStatus+"'",'CUTTKTH')
+      lcJoin = lcJoin +" inner join CUTTKTH on TMFOPHD.CTKTNO=CUTTKTH.PO"  
+     ELSE
+      loPosHdr.SQLRUN("Select po,pattern,style from poshdr  where PO<>'*******'",'CUTTKTH')  
+    ENDIF
+RETURN(lcJoin)
+
+
+*!*************************************************************
+*! Name      : lfStr2Curs 
+*! Developer : Ayman Mahmoud Ahmed(AYM)
+*! Date      : 02/11/2005
+*! Purpose   : Create cursor from string filters
+*!*************************************************************
+*! Passed Parameters  : File Name
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+FUNCTION lfStr2Curs 
+PARAMETERS lcString , lccursor , lcFieldsName
+
+CREATE CURSOR (lcCursor) (&lcFieldsName. C(6))
+DO WHILE AT('|',lcString)> 0
+  lcFieldsValue  = SUBSTR(lcString,1,AT('|',lcString)-1)
+  lcString = SUBSTR(lcString,AT('|',lcString)+1)
+  SELECT (lcCursor)
+  APPEND BLANK
+  REPLACE &lcFieldsName. WITH lcFieldsValue
+ENDDO
+SELECT (lcCursor)
+APPEND BLANK
+REPLACE &lcFieldsName. WITH lcString
+
+*************************************************************
+*! Name      : lfCheckFilter
+*! Developer : Wael M. Abo-Shawareb (WSH)
+*! Date      : 10/10/2004
+*! Purpose   : Check if the filter was selected
+*!*************************************************************
+FUNCTION lfCheckFilter()
+LPARAMETERS lnArrayType, lcFilter
+
+LOCAL lcReturn, lnPOS
+
+DO CASE
+  CASE lnArrayType = 1              && Fixed Filter
+    lnPOS = ASCAN(loOgScroll.laOGFxFlt, lcFilter)
+    IF lnPos > 0
+      lnPOS = ASUBSCRIPT(loOgScroll.laOGFxFlt, lnPos, 1)
+      lcReturn = loOgScroll.laOGFxFlt[lnPOS,6]
+    ELSE
+      lcReturn = ""
+    ENDIF
+  CASE lnArrayType = 2             && Hidden Filter
+    lnPOS = ASCAN(loOgScroll.laOGHDFlt, lcFilter)
+    IF lnPos > 0
+      lnPOS = ASUBSCRIPT(loOgScroll.laOGHDFlt, lnPos, 1)
+      lcReturn = loOgScroll.laOGHDFlt[lnPOS,6]
+    ELSE
+      lcReturn = ""
+    ENDIF
+  CASE lnArrayType = 3           && Variable Filter
+    lnPOS = ASCAN(loOgScroll.laOGvrFlt, lcFilter)
+    IF lnPos > 0
+      lnPOS = ASUBSCRIPT(loOgScroll.laOGvrFlt, lnPos, 1)
+      lcReturn = loOgScroll.laOGvrFlt[lnPOS,6]
+    ELSE
+      lcReturn = ""
+    ENDIF
+  OTHERWISE :
+    lcReturn = ""
+ENDCASE
+
+RETURN lcReturn
+
+
+*!*************************************************************
+*! Name      : lfStr2Curs 
+*! Developer : Ayman Mahmoud Ahmed(AYM)
+*! Date      : 02/11/2005
+*! Purpose   : Create cursor from string filters
+*!*************************************************************
+*! Passed Parameters  : File Name
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+FUNCTION lfgetdetails
+
+SELECT TMFOPHD 
+SCAN
+  loMFGOPRDT.SQLRUN("SELECT cImTyp,cTktNo,Item,cOprCode,cLotNo,nLottotQty FROM MFGOPRDT(INDEX=TKTOPTRN) WHERE cimTyp+cTktNo+cOprCode+TRANCD"+IIF(!EMPTY(lcrplot),"+"+'CLOTNO','')+" = '"+lcImTyp+cTktNo+cOprCode+'1'+IIF(!EMPTY(lcrplot),lcrplot,'')+"'",'TMFOPDT')
+  *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+  *SELECT (lcTemp)
+  SELECT (lcTempF)
+  *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+  APPEND FROM DBF('TMFOPDT')
+ENDSCAN
+
+*!*************************************************************
+*! Name      : lfInsFrmCtkt
+*! Developer : Ayman Mahmoud Ahmed(AYM)
+*! Date      : 02/25/2006
+*! Purpose   :
+*!*************************************************************
+*! Passed Parameters  : 
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+
+FUNCTION lfInsFrmCtkt
+  lcCtktFilds=" ACT_COST,CADD_TIME ,CADD_USER,CADD_VER,CCATGTYP,WIDTH,CIMTYP,CINVTYPE,COPRCODE,CUOMCODE,CUTTKT,CWARECODE,DADD_DATE,DYELOT,EST_COST ,FLAG,ISSUE_QTY,ITEM,MFGCODE,REQ_QTY,TYP,UNTCOST,UNTQTY,CUOMCODE,[DESC]   "
+  loCTKTBOM.SQLRUN("SELECT "+lcCtktFilds+" FROM CTKTBOM(INDEX=CTKTYP) WHERE cImTyp+cuttkt+Item='"+TBOMLINE.cImTyp+TBOMLINE.cTktNo+TBOMLINE.Item+"'",'ctktbom')
+  SELECT CTKTBOM
+  SCATTER MEMVAR
+  *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{Start}
+*!*	  m.cLotNo    = &lcTemp..cLotNo
+*!*	  m.cOperation  = &lcTemp..cOprCode
+*!*	  m.Req_Qty   = TBOMLINE.UnitQty*&lcTemp..nLottotQty
+  m.cLotNo    = &lcTempF..cLotNo
+  m.cOperation  = &lcTempF..cOprCode
+  m.Req_Qty   = TBOMLINE.UnitQty*&lcTempF..nLottotQty
+  *:B608494,1 04/01/2008 MMT Fix bug of Naming variable as 'lcTemp'{End}
+  m.Issue_Qty = lfGetBom()
+  INSERT INTO (lcMainF) FROM MEMVAR
+  
+*!*************************************************************
+*! Name      : lfGetBom
+*! Developer : Ayman Mahmoud Ahmed(AYM)
+*! Date      : 02/25/2006
+*! Purpose   :
+*!*************************************************************
+*! Passed Parameters  : 
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+FUNCTION lfGetBom
+LOCAL lnIssQtu
+loBOMCOST.SQLRUN("SELECT nTotQty FROM BOMCOST(INDEX=BOMCSTKT) WHERE cBomType+cimTyp+cTktNo+Item='"+TBOMLINE.cBomTyp+TBOMLINE.cimTyp+TBOMLINE.cTktNo+TBOMLINE.Item+"'",'bomcost')
+IF RECCOUNT('bomcost')>0
+  lnIssQtu=BOMCOST.nTotQty
+ELSE
+  lnIssQtu=0
+ENDIF
+RETURN lnIssQtu
+

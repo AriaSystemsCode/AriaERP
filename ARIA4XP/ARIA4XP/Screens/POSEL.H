@@ -1,0 +1,1 @@
+#DEFINE LANG_CollectingData "Please wait .... Collecting data"

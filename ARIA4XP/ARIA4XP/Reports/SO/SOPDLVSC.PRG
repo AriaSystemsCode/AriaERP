@@ -1,0 +1,1592 @@
+*:***************************************************************************
+*: Program file  : SODELVSC.prg
+*: Program desc. : Sales Order Delivery Schedule
+*: System        : Aria Advantage Series.4XP
+*: Module        : Sales Order (SO)
+*: Developer     : Mariam Mazhar [MMT]
+*: REFER TO      : N000575,1
+*:*************************************************************************
+*: Modifications      :
+*! B609049,1 WAM 10/20/2009 Fix Error while updating error while saving [T20091020.0001]
+*!* B609356,1 SMA 07/27/2010 Fix bug of creating empty *.cdx files [T20091027.0093]
+*:***************************************************************************
+#INCLUDE R:\aria4xp\Reports\so\SOPDLVSC.H
+llCutTkt = ('MF' $ oAriaApplication.CompanyInstalledModules)
+llPo = ('PO' $ oAriaApplication.CompanyInstalledModules) OR ('PS' $ oAriaApplication.CompanyInstalledModules)
+
+IF loOgScroll.llOGFltCh && OG Filters changed
+  IF lcBuckBy == "C"
+    IF EMPTY(loogscroll.laOGFxFlt[lnStartPos,6]) .OR. LEN(ALLTRIM(loogscroll.laOGFxFlt[lnStartPos,6])) < 8
+      WAIT WINDOW LANG_Start_Date
+      SET DEVICE TO SCREEN
+      llNoRecs = .T.
+      RETURN
+    ELSE
+      IF OCCURS('|',loogscroll.laOGFxFlt[lnStartPos,6]) > 1
+        WAIT WINDOW LANG_Start_2_Print
+      ENDIF
+    ENDIF
+  ELSE
+    IF EMPTY(loogscroll.laOGFxFlt[lnCompPos,6]) .OR. LEN(ALLTRIM(loogscroll.laOGFxFlt[lnCompPos,6])) < 8
+      WAIT WINDOW LANG_Comp_Date
+      SET DEVICE TO SCREEN
+      llNoRecs = .T.
+      RETURN
+    ELSE
+      IF OCCURS('|',loogscroll.laOGFxFlt[lnCompPos,6]) > 1
+        WAIT WINDOW LANG_Comp_2_Print	
+      ENDIF
+    ENDIF
+  ENDIF
+
+
+  IF lcBuckBy == "C"
+    IF EMPTY(ldRpCmp)
+      WAIT WINDOW LANG_Comp_Empty_Buck
+      RETURN
+    ENDIF
+  ELSE
+    IF EMPTY(ldRpSrt)
+      WAIT WINDOW LANG_Start_Empty_Buck 
+      RETURN
+    ENDIF
+  ENDIF
+  PRIVATE lcCentSt
+  lcCentSt = SET('CENTURY')
+  SET CENTURY ON
+
+  ldEntrDate = IIF(lcBuckBy == "C", ldRpCmp , ldRpSrt )   && Get entered date
+  XDATE0 = ldEntrDate - DOW(ldEntrDate) 
+  XDATE1 = XDATE0 + 7                    
+  XDATE2 = XDATE0 + 14                   
+  XDATE3 = XDATE0 + 21                   
+  XDATE4 = XDATE0 + 28                  
+  STORE XDATE0 + 1 TO ldMinComp,ldMinStrt
+  STORE XDATE4     TO ldMaxComp,ldMaxStrt
+
+
+  SET CENTURY &lcCentSt
+
+  lcRepNmTtl =  gfItemMask("HN")
+  lcTime     =  gfGetTime()
+  XBYCOLOR   = lcRpByClr
+  DECLARE laCmpRange[4]
+
+  STORE 0 TO XO_ORD1,XO_ORDAMT1,XH_ORD1,XH_ORDAMT1,;
+    XO_ORD2,XO_ORDAMT2,XH_ORD2,XH_ORDAMT2,;
+    XO_ORD3,XO_ORDAMT3,XH_ORD3,XH_ORDAMT3,;
+    XO_ORD4,XO_ORDAMT4,XH_ORD4,XH_ORDAMT4,;
+    XWIP1,XWIP2,XWIP3,XWIP4
+  lfCreatTemp()
+  lfCollect()
+ELSE
+  PRIVATE lcCentSt
+  lcCentSt = SET('CENTURY')
+  SET CENTURY ON
+  ldEntrDate = IIF(lcBuckBy == "C", ldRpCmp , ldRpSrt )   && Get entered date
+  XDATE0 = ldEntrDate - DOW(ldEntrDate) 
+  XDATE1 = XDATE0 + 7                    
+  XDATE2 = XDATE0 + 14                   
+  XDATE3 = XDATE0 + 21                   
+  XDATE4 = XDATE0 + 28                  
+  STORE XDATE0 + 1 TO ldMinComp,ldMinStrt
+  STORE XDATE4     TO ldMaxComp,ldMaxStrt
+  SET CENTURY &lcCentSt
+  USE oAriaApplication.WorkDir +  lcWorkTEMP + ".DBF" IN 0
+ENDIF 
+
+IF RECCOUNT(lcWorkTEMP ) = 0
+  =gfModalGen('TRM00052B40011','ALERT')
+  IF USED(lcWorkTEMP)
+    SELECT (lcWorkTEMP)
+    USE
+  ENDIF    
+  RETURN
+ENDIF 
+DIMENSION laWeeks[4,2]
+laWeeks = ''
+lfGetWeek()
+
+DIMENSION loOgScroll.laCRParams[13,2]
+loOgScroll.laCRParams[1,1] = 'ReportName'
+loOgScroll.laCRParams[1,2] = 'Delivery Schedule Report'
+
+loOgScroll.laCRParams[2,1] = 'lcSortBY'
+loOgScroll.laCRParams[2,2] = lcBuckBy 
+
+loOgScroll.laCRParams[3,1] = 'lcWeek1'
+loOgScroll.laCRParams[3,2] = laWeeks[1,1]
+
+loOgScroll.laCRParams[4,1] = 'lcWeek2'
+loOgScroll.laCRParams[4,2] = laWeeks[2,1]
+
+loOgScroll.laCRParams[5,1] = 'lcWeek3'
+loOgScroll.laCRParams[5,2] = laWeeks[3,1]
+
+loOgScroll.laCRParams[6,1] = 'lcWeek4'
+loOgScroll.laCRParams[6,2] = laWeeks[4,1]
+
+loOgScroll.laCRParams[7,1] = 'ldWeek1'
+loOgScroll.laCRParams[7,2] = laWeeks[1,2]
+
+loOgScroll.laCRParams[8,1] = 'ldWeek2'
+loOgScroll.laCRParams[8,2] = laWeeks[2,2]
+
+loOgScroll.laCRParams[9,1] = 'ldWeek3'
+loOgScroll.laCRParams[9,2] = laWeeks[3,2]
+
+loOgScroll.laCRParams[10,1] = 'ldWeek4'
+loOgScroll.laCRParams[10,2] = laWeeks[4,2]
+
+loOgScroll.laCRParams[11,1] = 'lcReporby'
+loOgScroll.laCRParams[11,2] = IIF(lcRpByClr = 'Y','Y','N')
+
+loOgScroll.laCRParams[12,1] = 'lnMajLen'
+loOgScroll.laCRParams[12,2] = lnMajLen
+
+loOgScroll.laCRParams[13,1] = 'lcRpBsPrjn'
+loOgScroll.laCRParams[13,2] = lcRpBsPrjn
+
+
+
+DIMENSION LOogsCROLL.laCRTables[1]
+loOgScroll.laCRTables[1] = oAriaApplication.WorkDir +  lcWorkTEMP + ".DBF"
+SELECT(lcWorkTEMP)
+USE
+gfDispRe()
+RETURN 
+
+*:**************************************************************************
+*:* Name        : lfwRepWhen
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*:* Purpose     : When function of the OG
+*:***************************************************************************
+FUNCTION lfwRepWhen
+IF !llFrstTime
+  =gfOpenTable(oAriaApplication.DataDir+'Scale',oAriaApplication.DataDir+'Scale','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'STYLE',oAriaApplication.DataDir+'STYLE','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'ORDHDR',oAriaApplication.DataDir+'ORDHDR','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'ORDLINE',oAriaApplication.DataDir+'ORDLINES','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'POSHDR',oAriaApplication.DataDir+'POSHDR','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'POSLN',oAriaApplication.DataDir+'POSLNS','SH')
+  =gfOpenTable(oAriaApplication.DataDir+'FORCAST',oAriaApplication.DataDir+'FORCAST','SH')
+  
+  
+  
+  lcSqlStat1 = "SELECT ITEMLOC.Style,ITEMLOC.TOTWIP, ITEMLOC.TOTSTK, ITEMLOC.TOTORD, ITEM.CSTYMAJOR AS FABRIC FROM ITEM INNER JOIN ITEMLOC ON ITEM.STYLE = ITEMLOC.STYLE AND ITEM.CINVTYPE = ITEMLOC.CINVTYPE AND ITEMLOC.DYELOT = '' WHERE ITEM.CINVTYPE = '0002'"
+  lnResult1 = loOGScroll.ORDA.SQLRun(lcSqlStat1, lcTmpFab, , oAriaApplication.ActiveCompanyConStr, 3, "BROWSE", SET("Datasession"))
+  llFrstTime = .T.
+  IF lnResult1 >= 1
+    =lfCreateIndecies(lcTmpFab, "Fabric|Style", "lcFabDye|'Style'")
+  ENDIF
+ENDIF
+ 
+
+IF lcBuckBy == "C"
+  ldRpCmp  = LDOM(DATE())
+  lnStartPos = ASUBSCRIPT(loogscroll.laOGFxFlt,ASCAN(loogscroll.laOGFxFlt,'ORDLINE.START'),1)
+ELSE
+  lnCompPos  = ASUBSCRIPT(loogscroll.laOGFxFlt,ASCAN(loogscroll.laOGFxFlt,'ORDLINE.COMPLETE'),1)
+  ldRpSrt  = LDOM(DATE())
+ENDIF
+
+IF lcBuckBy == "S"
+  IF EMPTY(loogscroll.laOGFxFlt[lnCompPos,6])
+    loogscroll.laOGFxFlt[lnCompPos,6] = DTOC(DATE()) + '|' + DTOC(DATE())
+  ENDIF
+ELSE
+  IF EMPTY(loogscroll.laOGFxFlt[lnStartPos,6])
+    loogscroll.laOGFxFlt[lnStartPos,6] = DTOC(DATE()) + '|' + DTOC(DATE())
+  ENDIF
+ENDIF
+
+lnMajSeg  = gfItemMask('SM')  && No. of major segments.
+*--Get Major Length
+IF lnMajSeg > 1
+  FOR lnLoop = 1 TO lnMajSeg
+    lnMajLen = lnMajLen + LEN(laMajSeg[lnLoop,3])
+  ENDFOR
+  *--Take Care of seprators
+  lnMajLen = lnMajLen + lnMajSeg - 1
+ELSE
+  lnMajLen = LEN(laMajSeg[lnMajSeg,3])
+ENDIF
+
+*:**************************************************************************
+*:* Name        : lfAdjSeg
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*! Purpose   : Get the style code segments information.
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfAdjSeg()
+*:***************************************************************************
+FUNCTION lfAdjSeg
+
+STORE 0 TO lnFPos , lnDPos , lnZPos   , lnGPos , lnCPos , lnOPos , lnTPos , ;
+           lnQPos , lnSPos , lnMajPos
+STORE 0 TO lnMajLen
+STORE 1 TO lnMajPos
+*-- laMajSeg array holds the style code segments data
+*-- laMajSeg[x,1] Holds segment type
+*-- laMajSeg[x,2] Holds segment title
+*-- laMajSeg[x,3] Holds segment picture
+*-- laMajSeg[x,4] Holds segment Starting position
+*-- laMajSeg[x,5] Holds segment description
+*-- laMajSeg[x,6] Holds segment separator
+*-- laMajSeg[x,7] Holds (.T./.F.) segment end major.
+
+
+DIMENSION laMajSeg[1,1]
+= gfItemMask(@laMajSeg)
+lnMajSeg  = gfItemMask('SM')  && No. of major segments.
+*--Get Major Length
+
+FOR lnC = 1 TO ALEN(laMajSeg,1)
+  *-- If the style major consists of one segment, don't display it,
+  *-- display the style major instead (style major will browse from the
+  *-- style file directly)
+  IF lnC = 1 .AND. lnMajSeg = 1
+    LOOP
+  ENDIF
+  DO CASE
+    CASE laMajSeg[lnC,1] = 'F'
+      *-- If there are more than one "FREE" segment , get first one only
+      lnFPos = IIF(lnFPos = 0, lnC , lnFPos)
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Style'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'D'
+      lnDPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Division'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'Z'
+      lnZPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Season'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'G'
+      lnGPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Style Group'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'C'
+      lnCPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Color'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'O'
+      *-- If there are more than one "OTHER" segment , get first one only
+      lnOPos = IIF(lnOPos = 0, lnC , lnOPos)
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Other'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'T'
+      lnTPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Make'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'Q'
+      lnQPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Quality'
+      ENDIF
+    CASE laMajSeg[lnC,1] = 'S'
+      lnSPos = lnC
+      IF EMPTY(laMajSeg[lnC,5])
+        laMajSeg[lnC,5] = 'Scale'
+      ENDIF
+  ENDCASE
+
+ENDFOR
+
+*!*************************************************************
+*! Name      : lfCreateIndecies
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*! Purpose   : Create Indecies for a cursor
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+FUNCTION lfCreateIndecies
+LPARAMETERS lcCursor, lcIndex, lcTages
+
+LOCAL lnOldBuffMode, lcIndex1, lcTages1, lcIndExp
+
+*--If Query Successfully executed, Create Indexes if needed for the result cursor
+lnOldBuffMode = CURSORGETPROP("Buffering", lcCursor)
+=CURSORSETPROP("Buffering", 3, lcCursor)
+
+lcTages1 = lcTages
+lcIndex1 = lcIndex
+SELECT (lcCursor)
+DO WHILE AT("|", lcIndex1,1) <> 0
+  lcIndex  = SUBSTR(lcIndex1, 1, AT("|", lcIndex1, 1) - 1)
+  lcIndex1 = STRTRAN(lcIndex1, lcIndex + "|", "", 1, 1)
+  lcTages  = SUBSTR(lcTages1, 1, AT("|", lcTages1, 1) - 1)
+  lcTages1 = STRTRAN(lcTages1, lcTages + "|", "", 1, 1)
+  *B609356,1 SMA 07/27/2010 remove of clause to prevent empty *.cdx files from creation.....[BEGIN]
+  *INDEX ON &lcIndex. TAG (lcTages) OF (lcCursor)
+  INDEX ON &lcIndex. TAG (lcTages) 
+  *B609356,1 SMA 07/27/2010 remove of clause to prevent empty *.cdx files from creation.....[END]
+ENDDO
+=CURSORSETPROP("Buffering", IIF(TYPE("lnBuffMode") = 'N', lnBuffMode, lnOldBuffMode), lcCursor)
+
+RETURN .T.
+
+*:**************************************************************************
+*:* Name        : lfCreatTemp
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*:* Purpose     : Function to adjust date
+*:***************************************************************************
+FUNCTION lfCreatTemp
+DIMENSION laTempacstru[47,4]
+
+laTempacstru[1,1] = 'STYLE'
+laTempacstru[1,2]='C'
+laTempacstru[1,3]= 19 
+laTempacstru[1,4]= 0
+
+laTempacstru[2,1] = 'COLOR'
+laTempacstru[2,2]='C'
+laTempacstru[2,3]= 6
+laTempacstru[2,4]= 0
+
+laTempacstru[3,1] = 'O_ORD1'
+laTempacstru[3,2]='N'
+laTempacstru[3,3]= 10
+laTempacstru[3,4]= 0
+
+laTempacstru[4,1] = 'O_ORD2'
+laTempacstru[4,2]='N'
+laTempacstru[4,3]= 10
+laTempacstru[4,4]= 0
+
+laTempacstru[5,1] = 'O_ORD3'
+laTempacstru[5,2]='N'
+laTempacstru[5,3]= 10
+laTempacstru[5,4]= 0
+
+laTempacstru[6,1] = 'O_ORD4'
+laTempacstru[6,2]='N'
+laTempacstru[6,3]= 10
+laTempacstru[6,4]= 0
+
+laTempacstru[7,1] = 'O_ORDAMT1'
+laTempacstru[7,2]='N'
+laTempacstru[7,3]= 13
+laTempacstru[7,4]= 2
+
+laTempacstru[8,1] = 'O_ORDAMT2'
+laTempacstru[8,2]='N'
+laTempacstru[8,3]= 13
+laTempacstru[8,4]= 2
+
+laTempacstru[9,1] = 'O_ORDAMT3'
+laTempacstru[9,2]='N'
+laTempacstru[9,3]= 13
+laTempacstru[9,4]= 2
+
+laTempacstru[10,1] = 'O_ORDAMT4'
+laTempacstru[10,2]='N'
+laTempacstru[10,3]= 13
+laTempacstru[10,4]= 2
+
+laTempacstru[11,1] = 'H_ORD1'
+laTempacstru[11,2]='N'
+laTempacstru[11,3]= 10
+laTempacstru[11,4]= 0
+
+laTempacstru[12,1] = 'H_ORD2'
+laTempacstru[12,2]='N'
+laTempacstru[12,3]= 10
+laTempacstru[12,4]= 0
+
+laTempacstru[13,1] = 'H_ORD3'
+laTempacstru[13,2]='N'
+laTempacstru[13,3]= 10
+laTempacstru[13,4]= 0
+
+laTempacstru[14,1] = 'H_ORD4'
+laTempacstru[14,2]='N'
+laTempacstru[14,3]= 10
+laTempacstru[14,4]= 0
+
+laTempacstru[15,1] = 'H_ORDAMT1'
+laTempacstru[15,2]='N'
+laTempacstru[15,3]= 13
+laTempacstru[15,4]= 2
+
+laTempacstru[16,1] = 'H_ORDAMT2'
+laTempacstru[16,2]='N'
+laTempacstru[16,3]= 13
+laTempacstru[16,4]= 2
+
+laTempacstru[17,1] = 'H_ORDAMT3'
+laTempacstru[17,2]='N'
+laTempacstru[17,3]= 13
+laTempacstru[17,4]= 2
+
+laTempacstru[18,1] = 'H_ORDAMT4'
+laTempacstru[18,2]='N'
+laTempacstru[18,3]= 13
+laTempacstru[18,4]= 2
+
+laTempacstru[19,1] = 'WIP1'
+laTempacstru[19,2]='N'
+laTempacstru[19,3]= 10
+laTempacstru[19,4]= 0
+
+laTempacstru[20,1] = 'WIP2'
+laTempacstru[20,2]='N'
+laTempacstru[20,3]= 10
+laTempacstru[20,4]= 0
+
+laTempacstru[21,1] = 'WIP3'
+laTempacstru[21,2]='N'
+laTempacstru[21,3]= 10
+laTempacstru[21,4]= 0
+
+laTempacstru[22,1] = 'WIP4'
+laTempacstru[22,2]='N'
+laTempacstru[22,3]= 10
+laTempacstru[22,4]= 0
+
+laTempacstru[23,1] = 'STK1'
+laTempacstru[23,2]='N'
+laTempacstru[23,3]= 10
+laTempacstru[23,4]= 0
+
+laTempacstru[24,1] = 'STK2'
+laTempacstru[24,2]='N'
+laTempacstru[24,3]= 10
+laTempacstru[24,4]= 0
+
+laTempacstru[25,1] = 'STK3'
+laTempacstru[25,2]='N'
+laTempacstru[25,3]= 10
+laTempacstru[25,4]= 0
+
+laTempacstru[26,1] = 'STK4'
+laTempacstru[26,2]='N'
+laTempacstru[26,3]= 10
+laTempacstru[26,4]= 0
+
+laTempacstru[27,1] = 'TOTSTK'
+laTempacstru[27,2]='N'
+laTempacstru[27,3]= 10
+laTempacstru[27,4]= 0
+
+
+laTempacstru[28,1] = 'TOTORD'
+laTempacstru[28,2]='N'
+laTempacstru[28,3]= 12
+laTempacstru[28,4]= 0
+
+laTempacstru[29,1] = 'TOTWIP'
+laTempacstru[29,2]='N'
+laTempacstru[29,3]= 10
+laTempacstru[29,4]= 2
+
+laTempacstru[30,1] = 'H_TOTORDA'
+laTempacstru[30,2]='N'
+laTempacstru[30,3]= 13
+laTempacstru[30,4]= 2
+
+laTempacstru[31,1] = 'O_TOTORDA'
+laTempacstru[31,2]='N'
+laTempacstru[31,3]= 13
+laTempacstru[31,4]= 2
+
+laTempacstru[32,1] = 'PYSHIP1'
+laTempacstru[32,2]='N'
+laTempacstru[32,3]= 7
+laTempacstru[32,4]= 0
+
+laTempacstru[33,1] = 'PYSHIP2'
+laTempacstru[33,2]='N'
+laTempacstru[33,3]= 7
+laTempacstru[33,4]= 0
+
+laTempacstru[34,1] = 'PYSHIP3'
+laTempacstru[34,2]='N'
+laTempacstru[34,3]= 7
+laTempacstru[34,4]= 0
+
+laTempacstru[35,1] = 'PYSHIP4'
+laTempacstru[35,2]='N'
+laTempacstru[35,3]= 7
+laTempacstru[35,4]= 0
+
+laTempacstru[36,1] = 'PNSHIP1'
+laTempacstru[36,2]='N'
+laTempacstru[36,3]= 7
+laTempacstru[36,4]= 0
+
+laTempacstru[37,1] = 'PNSHIP2'
+laTempacstru[37,2]='N'
+laTempacstru[37,3]= 7
+laTempacstru[37,4]= 0
+
+laTempacstru[38,1] = 'PNSHIP3'
+laTempacstru[38,2]='N'
+laTempacstru[38,3]= 7
+laTempacstru[38,4]= 0
+
+laTempacstru[39,1] = 'PNSHIP4'
+laTempacstru[39,2]='N'
+laTempacstru[39,3]= 7
+laTempacstru[39,4]= 0
+
+laTempacstru[40,1] = 'AYSHIP1'
+laTempacstru[40,2]='N'
+laTempacstru[40,3]= 7
+laTempacstru[40,4]= 0
+
+laTempacstru[41,1] = 'AYSHIP2'
+laTempacstru[41,2]='N'
+laTempacstru[41,3]= 7
+laTempacstru[41,4]= 0
+
+laTempacstru[42,1] = 'AYSHIP3'
+laTempacstru[42,2]='N'
+laTempacstru[42,3]= 7
+laTempacstru[42,4]= 0
+
+laTempacstru[43,1] = 'AYSHIP4'
+laTempacstru[43,2]='N'
+laTempacstru[43,3]= 7
+laTempacstru[43,4]= 0
+
+laTempacstru[44,1] = 'ANSHIP1'
+laTempacstru[44,2]='N'
+laTempacstru[44,3]= 7
+laTempacstru[44,4]= 0
+
+laTempacstru[45,1] = 'ANSHIP2'
+laTempacstru[45,2]='N'
+laTempacstru[45,3]= 7
+laTempacstru[45,4]= 0
+
+laTempacstru[46,1] = 'ANSHIP3'
+laTempacstru[46,2]='N'
+laTempacstru[46,3]= 7
+laTempacstru[46,4]= 0
+
+laTempacstru[47,1] = 'ANSHIP4'
+laTempacstru[47,2]='N'
+laTempacstru[47,3]= 7
+laTempacstru[47,4]= 0
+
+= gfCrtTmp(lcWorkTemp,@laTempacstru,'Style',lcWorkTemp,.F.)
+*:**************************************************************************
+*:* Name        : LDOM
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*:* Purpose     : Function to adjust date
+*:***************************************************************************
+PROCEDURE LDOM
+
+PARAMETER XDATE
+PRIVATE X                       && ADDED BY FAR ON 07/28/93
+
+XNEXTM   = IIF( MONTH(XDATE) = 12 , 1, MONTH(XDATE) + 1 )
+
+FOR X=1 TO 32
+  XDATE = XDATE + 1
+  IF MONTH(XDATE) = XNEXTM
+    EXIT
+  ENDIF
+
+ENDFOR
+XDATE = XDATE - 1
+
+RETURN(XDATE)
+*:**************************************************************************
+*:* Name        : lfvClear
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*:* Purpose     : 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvClear()
+*:***************************************************************************
+FUNCTION lfvClear
+CLEARREAD()
+*!*************************************************************
+*! Name      : lfFabSum
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*! Purpose   : sum a specific field for the current fabric in fabric file
+*!*************************************************************
+*! Calls     :
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Called from : Option Grid,fabric browse calculated fields.
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : Calculated field value.
+*!*************************************************************
+*! Example   : =lfFabSum()
+*!*************************************************************
+FUNCTION lfFabSum
+LPARAMETERS lcFab, lcComp
+LOCAL lnTotcomp,  lnAlias
+lnTotcomp = 0
+
+  IF SEEK(ALLTRIM(lcFab), lcTmpFab)
+    SUM &lcTmpFab..&lcCOMP. TO lnTotcomp WHILE &lcTmpFab..Fabric = lcFab
+  ENDIF
+RETURN lnTotcomp
+*:**************************************************************************
+*:* Name        : lfvEdiOrd
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*! Purpose   : to validate (Print Orders/Edi Orders) popup in OG 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvEdiOrd()
+*:***************************************************************************
+FUNCTION lfvEdiOrd
+lcRpEdiFlt = ""
+IF 'EB' $ oAriaApplication.CompanyInstalledModules AND lcRpEdiPrn <> "B"
+  lcRpEdiFlt = IIF(lcRpEdiPrn="O",[!OrdHdr.lEdiOrder],[OrdHdr.lEdiOrder])
+ENDIF
+*-- end of lfvEdiOrd.
+
+*!*************************************************************
+*! Name      : lfCollect
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 01/14/2007
+*! Purpose   : Collect data 
+*!*************************************************************
+FUNCTION lfCollect
+
+IF !USED('Style') 
+  =gfOpenTable(oAriaApplication.DataDir+'STYLE',oAriaApplication.DataDir+'STYLE','SH')
+ENDIF 
+
+
+llUseStyle = .F.
+llUseDiv   = .F.
+llUseSea   = .F.
+llUseGrp   = .F.
+llUseFab   = .F.
+llUseClr   = .F.
+
+*--Style
+lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGFxFlt,ASCAN(loOGScroll.laOGFxFlt,'PADR(SUBSTR(ORDLINE.STYLE,lnMajPos,lnMajLen),19)'),1)
+IF lnPosition > 0
+  lcStylFile = LOOGSCROLL.laOGFxFlt[lnPosition,6]
+  llUseStyle = IIF(!EMPTY(lcStylFile) .AND. USED(lcStylFile) .AND. RECCOUNT(lcStylFile)>0,.T.,.F.)
+ENDIF
+IF llUseStyle 
+  SELECT(lcStylFile)
+  LOCATE 
+  IF EOF()
+    llUseStyle = .F.
+  ENDIF 
+ENDIF 
+
+*---Division Filter
+lnDivPos = ASUBSCRIPT(LOOGSCROLL.laOGFXFlt,ASCAN(loOGScroll.laOGFXFlt,'STYLE.CDIVISION'),1)
+IF lnDivPos  > 0
+  lcDivStr = LOOGSCROLL.laOGFXFlt[lnDivPos,6]
+  lcDivFile = loOGScroll.gfTempName()
+  llUseDiv = IIF(LEN(lcDivStr)>0,.T.,.F.) AND lfConvertToCursor(lcDivStr,'CDIVISION',lcDivFile)
+ENDIF
+
+*---Season Filter
+lnSeaPos = ASUBSCRIPT(LOOGSCROLL.laOGFXFlt,ASCAN(loOGScroll.laOGFXFlt,'STYLE.SEASON'),1)
+IF lnSeaPos > 0
+  lcSeaStr = LOOGSCROLL.laOGFXFlt[lnSeaPos,6]
+  lcSeaFile = loOGScroll.gfTempName()
+  llUseSea = IIF(LEN(lcSeaStr)>0,.T.,.F.) AND lfConvertToCursor(lcSeaStr,'SEASON',lcSeaFile)
+ENDIF
+
+*--Style Group
+lnGrpPos = ASUBSCRIPT(LOOGSCROLL.laOGFXFlt,ASCAN(loOGScroll.laOGFXFlt,'STYLE.CSTYGROUP'),1)
+IF lnGrpPos > 0
+  lcGrpStr = LOOGSCROLL.laOGFXFlt[lnGrpPos,6]
+  lcGrpFile = loOGScroll.gfTempName()
+  llUseGrp = IIF(LEN(lcGrpStr)>0,.T.,.F.) AND lfConvertToCursor(lcGrpStr,'CSTYGRP',lcGrpFile)
+ENDIF
+
+
+*--Style Fabric
+lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGFXFlt,ASCAN(loOGScroll.laOGFXFlt,'STYLE.FABRIC'),1)
+IF lnPosition > 0
+  lcFabFile = LOOGSCROLL.laOGFXFlt[lnPosition,6]
+  llUseFab = IIF(!EMPTY(lcFabFile) .AND. USED(lcFabFile) .AND. RECCOUNT(lcFabFile)>0,.T.,.F.)
+ENDIF
+IF llUseFab 
+  SELECT(lcFabFile)
+  LOCATE 
+  IF EOF()
+    llUseFab = .F.
+  ENDIF 
+ENDIF 
+
+
+*--Style Color
+lnClrPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'SUBSTR(STYLE.STYLE,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))'),1)
+IF lnClrPos > 0
+  lcClrStr = LOOGSCROLL.laOGVRFlt[lnClrPos,6]
+  lcClrFile = loOGScroll.gfTempName()
+  llUseClr = IIF(LEN(lcClrStr)>0,.T.,.F.) AND lfConvertToCursor(lcClrStr,'CSTYCLR',lcClrFile)
+ENDIF
+
+
+*--Pattern
+lcPattStr = ""
+lnPattPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.PATTERN'),1)
+IF lnPattPos > 0
+  lcPattStr = LOOGSCROLL.laOGVRFlt[lnPattPos,6]
+ENDIF
+
+lcStatusStr = ""
+lnStatusPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.STATUS'),1)
+IF lnStatusPos  > 0 AND !EMPTY(LOOGSCROLL.laOGVRFlt[lnStatusPos,6])
+  lcStatusStr = "INLIST(Style.Status,'"+STRTRAN(LOOGSCROLL.laOGVRFlt[lnStatusPos,6],'|',"','")+"')"
+ENDIF
+
+llUseF = .F.
+IF lnFPos <> 0
+  lnFPosPos = ASUBSCRIPT(LOOGSCROLL.laOGfxFlt,ASCAN(loOGScroll.laOGfxFlt,'SUBSTR(STYLE.STYLE,laMajSeg[lnFPos,4],LEN(laMajSeg[lnFPos,3]))'),1)
+  IF lnFPosPos > 0
+    lcFStr = LOOGSCROLL.laOGfxFlt[lnFPosPos,6]
+    lcFFile = loOGScroll.gfTempName()
+    llUseF = IIF(LEN(lcClrStr)>0,.T.,.F.) AND lfConvertToCursor(lcFStr,'CFCLR',lcFFile)
+  ENDIF
+ENDIF 
+
+
+
+llUseQ = .F.
+IF lnQPos <> 0
+  lnQPosPos = ASUBSCRIPT(LOOGSCROLL.laOGfxFlt,ASCAN(loOGScroll.laOGfxFlt,'SUBSTR(STYLE.STYLE,laMajSeg[lnQPos,4],LEN(laMajSeg[lnQPos,3]))'),1)
+  IF lnQPosPos > 0
+    lcQStr = LOOGSCROLL.laOGfxFlt[lnQPosPos,6]
+    lcQFile = loOGScroll.gfTempName()
+    llUseQ = IIF(LEN(lcClrStr)>0,.T.,.F.) AND lfConvertToCursor(lcQStr,'CQCLR',lcQFile)
+  ENDIF
+ENDIF 
+
+llUseO = .F.
+IF lnOPos <> 0
+  lnOPosPos = ASUBSCRIPT(LOOGSCROLL.laOGfxFlt,ASCAN(loOGScroll.laOGfxFlt,'SUBSTR(STYLE.STYLE,laMajSeg[lnOPos,4],LEN(laMajSeg[lnOPos,3]))'),1)
+  IF lnOPosPos > 0
+    lcOStr = LOOGSCROLL.laOGfxFlt[lnOPosPos,6]
+    lcOFile = loOGScroll.gfTempName()
+    llUseO = IIF(LEN(lcClrStr)>0,.T.,.F.) AND lfConvertToCursor(lcOStr,'COCLR',lcOFile)
+  ENDIF
+ENDIF 
+
+llUse_Extended = gfGetMemVar('M_USEEXSSC')
+lcScaleFile = ''
+llScaleUsed = .F.
+IF llUse_Extended 
+  lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGFXFlt,ASCAN(loOGScroll.laOGFXFlt,'STYLE.SCALE'),1)
+  IF lnPosition > 0
+    lcScaleFile = LOOGSCROLL.laOGFXFlt[lnPosition,6]
+    llScaleUsed  = IIF(!EMPTY(lcScaleFile) .AND. USED(lcScaleFile) .AND. RECCOUNT(lcScaleFile)>0,.T.,.F.)
+  ENDIF
+  IF llScaleUsed 
+    SELECT(lcScaleFile)
+    LOCATE 
+    IF EOF()
+      llScaleUsed = .F.
+    ENDIF 
+  ENDIF 
+ENDIF 
+
+*
+lcStartDate = ""
+ldSDate = {}
+ldEnd = {}
+lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGFxFlt,ASCAN(LOOGSCROLL.laOGFxFlt,'ORDLINE.START'),1)
+IF lnPosition > 0 .AND. !EMPTY(LOOGSCROLL.laOGFxFlt[lnPosition,6])
+  lnSepPos = AT('|',LOOGSCROLL.laOGFxFlt[lnPosition,6])
+  IF !EMPTY(CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],1,lnSepPos-1))) .OR.;
+     !EMPTY(CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],lnSepPos+1)))
+     ldSDate = CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],1,lnSepPos-1))
+     ldEnd =CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],lnSepPos+1))
+     lcStartDate = 'BETWEEN(ORDLINE.START,ldSDate,ldEnd)'
+  ENDIF
+ENDIF
+
+lcCompDate  = ""
+lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGFxFlt,ASCAN(LOOGSCROLL.laOGFxFlt,'ORDLINE.COMPLETE'),1)
+IF lnPosition > 0 .AND. !EMPTY(LOOGSCROLL.laOGFxFlt[lnPosition,6])
+  lnSepPos = AT('|',LOOGSCROLL.laOGFxFlt[lnPosition,6])
+  IF !EMPTY(CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],1,lnSepPos-1))) .OR.;
+     !EMPTY(CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],lnSepPos+1)))
+     ldSDate = CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],1,lnSepPos-1))
+     ldEnd =CTOD(SUBSTR(LOOGSCROLL.laOGFxFlt[lnPosition,6],lnSepPos+1))
+     lcCompDate = 'BETWEEN(ORDLINE.COMPLETE,ldSDate ,ldEnd )'
+  ENDIF
+ENDIF
+
+
+IF lcBuckBy == "C"
+  lcCompExp = 'BETWEEN(OrdLine.COMPLETE,ldMinComp,ldMaxComp)'
+ELSE
+  lcStartExp = 'BETWEEN(OrdLine.START,ldMinStrt,ldMaxStrt)'
+ENDIF  
+
+XSTYLE = SPACE(19)
+XCOLOR = SPACE(6)
+HSTYLE = SPACE(6)
+lcLopedSty = ''
+IF llUseStyle 
+  SELECT(lcStylFile)
+  SCAN
+    IF gfSeek(SUBSTR(&lcStylFile..cStyMajor,1,lnMajLen),'ORDLINE','ORDLINES')
+      SELECT ORDLINE
+      SCAN REST WHILE Style+DTOS(Complete)+cOrdType+Order+Store+STR(lineno,6) = SUBSTR(&lcStylFile..cStyMajor,1,lnMajLen) FOR ;
+        IIF(lcBuckBy == "C" ,EVALUATE(lcCompExp),EVALUATE(lcStartExp)) AND ;
+        IIF(!EMPTY(lcCompDate),EVALUATE(lcCompDate),.T.) AND ;
+        IIF(!EMPTY(lcStartDate),EVALUATE(lcStartDate),.T.) AND ;
+        gfSeek('O'+ordline.ORDeR,'ORDHDR','ORDHDR') AND;
+        IIF(!EMPTY(lcRpEdiFlt),EVALUATE(lcRpEdiFlt),.T.) AND ;
+        gfSeek(ordline.Style,'Style','Style') AND IIF(!EMPTY(lcStatusStr),EVALUATE(lcStatusStr),.T.) AND ;
+        IIF(llUseClr,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3])),lcClrFile),.T.) AND ;
+        IIF(llUseDiv,SEEK(STYLE.CDIVISION,lcDivFile),.T.);
+        AND IIF(llUseSea,SEEK(STYLE.SEASON,lcSeaFile),.T.) ;
+        AND IIF(llUseGrp,SEEK(STYLE.CSTYGROUP,lcGrpFile),.T.);
+        AND IIF(llUseFab,SEEK(STYLE.FABRIC,lcFabFile),.T.) ;
+        AND IIF(!EMPTY(lcPattStr),STYLE.PATTERN = lcPattStr,.T.);
+        AND IIF(llUse_Extended  and llScaleUsed ,Seek(Style.Scale,lcScaleFile),.T.) AND ;
+        IIF(llUseF and lnFPos <> 0,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnFPos,4],LEN(laMajSeg[lnFPos,3])),lcFFile),.T.) AND ;
+        IIF(llUseQ and lnQPos <> 0,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnQPos,4],LEN(laMajSeg[lnQPos,3])),lcQFile),.T.) AND ;
+        IIF(llUseO and lnOPos <> 0,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnOPos,4],LEN(laMajSeg[lnOPos,3])),lcOFile),.T.) AND ;
+        !(IIF(lcRpByClr = 'Y',STYLE,PADR(SUBSTR(STYLE,1,lnMajLen),19)) $ lcLopedSty)
+
+        STORE 0 TO XO_ORD1,XO_ORDAMT1,XH_ORD1,XH_ORDAMT1,;
+          XO_ORD2,XO_ORDAMT2,XH_ORD2,XH_ORDAMT2,;
+          XO_ORD3,XO_ORDAMT3,XH_ORD3,XH_ORDAMT3,;
+          XO_ORD4,XO_ORDAMT4,XH_ORD4,XH_ORDAMT4,;
+          XWIP1,XWIP2,XWIP3,XWIP4
+        SELECT STYLE
+        XCOLOR  = SUBSTR(STYLE.Style,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))
+        IF EOF()
+          EXIT
+        ENDIF
+        IF !EMPTY(HSTYLE) .AND. STYLE > HSTYLE
+          EXIT
+        ENDIF
+        IF IIF(lcRpByClr = 'Y',STYLE,PADR(SUBSTR(STYLE,1,lnMajLen),19)) <> XSTYLE
+          STORE 0 TO XO_ORD1,XO_ORDAMT1,XH_ORD1,XH_ORDAMT1,;
+            XO_ORD2,XO_ORDAMT2,XH_ORD2,XH_ORDAMT2,;
+            XO_ORD3,XO_ORDAMT3,XH_ORD3,XH_ORDAMT3,;
+            XO_ORD4,XO_ORDAMT4,XH_ORD4,XH_ORDAMT4,;
+            XWIP1,XWIP2,XWIP3,XWIP4
+        ENDIF
+        
+        IF lcRpByClr = 'Y'
+          XSTYLE = STYLE
+        ELSE
+          XSTYLE = PADR(SUBSTR(STYLE,1,lnMajLen),19)
+        ENDIF
+  
+        lcLopedSty = lcLopedSty + '|' + XSTYLE
+
+        WAIT WINDOW 'Calculating Cut&Sold info for ' + lcStyTitle + ' ' + XSTYLE NOWAIT
+    
+        XCOLOR  = SUBSTR(STYLE.Style,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))
+        XTOTSTK = 0
+        XKEY    = STYLE
+        XTOTSTK = IIF(TOTSTK > 0, TOTSTK, 0)
+        
+        SELECT(lcWorkTemp)            
+        IF !SEEK(XKEY)
+          APPEND BLANK
+          REPLACE STYLE  WITH XSTYLE,;
+          COLOR  WITH XCOLOR
+        ENDIF
+        REPLACE TOTSTK WITH TOTSTK + XTOTSTK
+        SELECT ORDLINE
+        lnLineRec = RECNO()
+        
+        SELECT ORDLINE
+        lnRecNo = IIF(EOF(),0,RECNO())
+
+        SCAN REST WHILE IIF(lcRpByClr = 'Y',STYLE,PADR(SUBSTR(STYLE,1,lnMajLen),19)) = XSTYLE
+          =gfSeek('O'+ordline.order,'ordhdr')
+          lnRecNo = IIF(EOF(),0,RECNO())
+          IF ORDHDR->STATUS $ 'CX' .OR. TOTQTY <= 0
+            LOOP
+          ENDIF
+          XORDER = ORDER
+          IF lcBuckBy == "C"
+            DO CASE
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE0 + 1 , XDATE1)
+                Z='1'
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE1 + 1 , XDATE2)
+                Z='2'
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE2 + 1 , XDATE3)
+                Z='3'
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE3 + 1 , XDATE4)
+                Z='4'
+              OTHERWISE
+                Z= '*'
+            ENDCASE
+          ELSE
+            DO CASE
+              CASE BETWEEN(ORDHDR.START,XDATE0 + 1 , XDATE1)              
+                Z='1'
+              CASE BETWEEN(ORDHDR.START,XDATE1 + 1 , XDATE2)
+                Z='2'
+              CASE BETWEEN(ORDHDR.START,XDATE2 + 1 , XDATE3)
+                Z='3'
+              CASE BETWEEN(ORDHDR.START,XDATE3 + 1 , XDATE4)
+                Z='4'
+              OTHE
+                Z= '*'
+            ENDCASE
+          ENDIF
+             
+          IF Z<>'*'
+            IF (ORDHDR->STATUS='O')
+              XO_ORD&Z     =XO_ORD&Z   + TOTQTY
+              XO_ORDAMT&Z  =XO_ORDAMT&Z+ (PRICE * TOTQTY)
+            ELSE
+              XH_ORD&Z     =XH_ORD&Z   + TOTQTY
+              XH_ORDAMT&Z  =XH_ORDAMT&Z+ (PRICE * TOTQTY)
+            ENDIF
+          ENDIF
+        ENDSCAN 
+        SELECT ORDLINE
+        IF lnRecNo > 0
+          GO (lnRecNo)
+        ENDIF
+        SELECT (lcWorkTemp)
+        REPLACE O_ORD1     WITH O_ORD1+XO_ORD1;
+          O_ORDAMT1  WITH O_ORDAMT1+XO_ORDAMT1;
+          H_ORD1     WITH H_ORD1+XH_ORD1;
+          H_ORDAMT1  WITH H_ORDAMT1+XH_ORDAMT1;
+          O_ORD2     WITH O_ORD2+XO_ORD2;
+          O_ORDAMT2  WITH O_ORDAMT2+XO_ORDAMT2;
+          H_ORD2     WITH H_ORD2+XH_ORD2;
+          H_ORDAMT2  WITH H_ORDAMT2+XH_ORDAMT2;
+          O_ORD3     WITH O_ORD3+XO_ORD3;
+          O_ORDAMT3  WITH O_ORDAMT3+XO_ORDAMT3;
+          H_ORD3     WITH H_ORD3+XH_ORD3;
+          H_ORDAMT3  WITH H_ORDAMT3+XH_ORDAMT3;
+          O_ORD4     WITH O_ORD4+XO_ORD4;
+          O_ORDAMT4  WITH O_ORDAMT4+XO_ORDAMT4;
+          H_ORD4     WITH H_ORD4+XH_ORD4;
+          H_ORDAMT4  WITH H_ORDAMT4+XH_ORDAMT4
+
+          
+          *P/O FILE
+          IF lcRpBsPrjn $ 'WA'
+            *B609049,1 WAM 10/20/2009 Get the WIP for this style/color
+*!*	            IF (llPo OR llCutTkt) AND gfSeek('0001'+SUBSTR(XSTYLE,1,lnMajLen),'POSLN','POSLNS')
+*!*	              SELECT POSLN
+*!*	              SCAN REST WHILE cinvtype+ style+ cbusdocu+ cstytype+ po+STR(lineno,6)+trancd = '0001'+SUBSTR(XSTYLE,1,lnMajLen) FOR;
+*!*	               gfSeek(cbusdocu+cstytype+po,'POSHDR','POSHDR') AND POSHDR.STATUS $ 'OH'
+            IF (llPo OR llCutTkt) AND gfSeek('0001'+IIF(lcRpByClr='Y',XSTYLE,SUBSTR(XSTYLE,1,lnMajLen)),'POSLN','POSLNS')
+              SELECT POSLN
+              SCAN REST WHILE cinvtype+ style+ cbusdocu+ cstytype+ po+STR(lineno,6)+trancd = '0001'+IIF(lcRpByClr='Y',XSTYLE,SUBSTR(XSTYLE,1,lnMajLen)) FOR;
+               gfSeek(cbusdocu+cstytype+po,'POSHDR','POSHDR') AND POSHDR.STATUS $ 'OH'
+            *B609049,1 WAM 10/20/2009 (End)
+
+               IF cbusdocu = 'P' AND POSLN.Cstytype = 'U'
+                 IF lcBuckBy == "C"
+                  DO CASE
+                    CASE BETWEEN(POSHDR.COMPLETE, XDATE0 + 1 , XDATE1)
+                      XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.COMPLETE, XDATE1 + 1 , XDATE2)
+                      XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.COMPLETE , XDATE2 + 1 , XDATE3 )
+                      XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.COMPLETE , XDATE3 + 1 , XDATE4)
+                      XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                  ENDCASE
+                ELSE
+                  DO CASE
+                    CASE BETWEEN(POSHDR.ENTERED, XDATE0 + 1 , XDATE1)
+                      XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.ENTERED, XDATE1 + 1 , XDATE2)
+                      XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.ENTERED , XDATE2 + 1 , XDATE3 )
+                      XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.ENTERED , XDATE3 + 1 , XDATE4)
+                      XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                  ENDCASE
+                ENDIF
+               ELSE
+                 IF  cbusdocu = 'P' AND POSLN.Cstytype = 'P'
+                 IF TRANCD <> '3' .AND. BETWEEN(IIF(EMPTY(POSHDR.AVAILABLE),POSHDR.COMPLETE,POSHDR.AVAILABLE),ldMinComp,ldMaxComp)
+                  XDATE = IIF(EMPTY(POSHDR.AVAILABLE),POSHDR.COMPLETE,POSHDR.AVAILABLE)
+                  IF lcBuckBy == "C"
+                    DO CASE
+                      CASE BETWEEN(XDATE,XDATE0+1,XDATE1)
+                        XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                      CASE BETWEEN(XDATE,XDATE1+1,XDATE2)
+                        XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                      CASE BETWEEN(XDATE,XDATE2+1,XDATE3)
+                        XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                      CASE BETWEEN(XDATE,XDATE3+1,XDATE4)
+                        XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                    ENDCASE
+                  ELSE
+                   DO CASE
+                    CASE BETWEEN(XDATE,XDATE0+1,XDATE1)
+                      XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(XDATE,XDATE1+1,XDATE2)
+                      XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(XDATE,XDATE2+1,XDATE3)
+                      XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(XDATE,XDATE3+1,XDATE4)
+                      XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                  ENDCASE
+                  ENDIF 
+ 
+                  ENDIF 
+                 ENDIF  
+               ENDIF 
+              ENDSCAN 
+            ENDIF
+            XWorP1 = XWIP1
+            XWorP2 = XWIP2
+            XWorP3 = XWIP3
+            XWorP4 = XWIP4
+          ENDIF 
+          =lfUpdWorPn()          
+          SELECT STYLE
+          XCOLOR  = SUBSTR(STYLE.Style,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))
+          *MMT
+            lcOldAlis = SELECT(0)
+            SELECT (lcWorkTemp)
+            REPLACE TOTORD  WITH O_ORD1+H_ORD1+O_ORD2+H_ORD2+O_ORD3+H_ORD3+O_ORD4+H_ORD4 IN (lcWorkTemp)
+            REPLACE O_TOTORDA WITH O_ORDAMT1+O_ORDAMT2+O_ORDAMT3+O_ORDAMT4 IN (lcWorkTemp)
+            REPLACE H_TOTORDA WITH H_ORDAMT1+H_ORDAMT2+H_ORDAMT3+H_ORDAMT4 IN (lcWorkTemp)
+            REPLACE TOTWIP  WITH WIP1+WIP2+WIP3+WIP4 IN (lcWorkTemp)
+
+            *B609049,1 WAM 10/20/2009 Consider positive OTS only
+*!*	            REPLACE STK1 WITH  TOTSTK IN (lcWorkTemp)
+*!*	            REPLACE STK2 WITH  STK1 + WIP1 - (O_ORD1+H_ORD1)IN (lcWorkTemp)
+*!*	            REPLACE STK3 WITH  STK2 + WIP2 - (O_ORD2+H_ORD2)IN (lcWorkTemp)
+*!*	            REPLACE STK4 WITH  STK3 + WIP3 - (O_ORD3+H_ORD3)IN (lcWorkTemp)
+*!*	            REPLACE TOTSTK WITH  STK1 +STK2 + STK3+STK4 IN (lcWorkTemp)
+
+            REPLACE STK1 WITH  TOTSTK ,;
+                    STK2 WITH  MAX(STK1 + WIP1 - (O_ORD1+H_ORD1),0) ,;
+                    STK3 WITH  MAX(STK2 + WIP2 - (O_ORD2+H_ORD2),0) ,;
+                    STK4 WITH  MAX(STK3 + WIP3 - (O_ORD3+H_ORD3),0) IN (lcWorkTemp)
+            *B609049,1 WAM 10/20/2009 (End)
+            
+            IF STK2<0
+              STK2=0
+            ENDIF
+            IF STK3<0
+              STK3=0
+            ENDIF
+            IF STK4<0
+              STK4=0
+            ENDIF
+            FOR I=1 TO 4
+              Z=STR(I,1)
+              AVL&Z = STK&Z + WIP&Z
+              IF AVL&Z >= ( H_ORD&Z + O_ORD&Z )
+                REPLACE PYSHIP&Z WITH ( H_ORD&Z + O_ORD&Z )
+                REPLACE PNSHIP&Z WITH 0
+              ELSE   &&-AVAILABEL < ORDERS
+                REPLACE PYSHIP&Z WITH AVL&Z
+                REPLACE PNSHIP&Z WITH AVL&Z - ( H_ORD&Z + O_ORD&Z )
+              ENDIF
+            ENDFOR
+            
+                        *MMT
+             IF TOTORD<>0
+              lnAVGPRICE = ROUND( (O_TOTORDA+H_TOTORDA)/TOTORD,2)
+             ELSE
+              lnAVGPRICE =0
+             ENDIF
+            REPLACE   AYSHIP1 WITH  ROUND(PYSHIP1 * lnAVGPRICE,0),;
+                      ANSHIP1 WITH  ROUND(PNSHIP1 * lnAVGPRICE,0),;
+                      AYSHIP2 WITH  ROUND(PYSHIP2 * lnAVGPRICE,0),;
+                      ANSHIP2 WITH  ROUND(PNSHIP2 * lnAVGPRICE,0),;
+                      AYSHIP3 WITH  ROUND(PYSHIP3 * lnAVGPRICE,0),;
+                      ANSHIP3 WITH  ROUND(PNSHIP3 * lnAVGPRICE,0),;
+                      AYSHIP4 WITH  ROUND(PYSHIP4 * lnAVGPRICE,0),;
+                      ANSHIP4 WITH  ROUND(PNSHIP4 * lnAVGPRICE,0)
+            
+
+            *MMT
+            SELECT (lcOldAlis)
+           *MMT
+
+      ENDSCAN   
+    ENDIF 
+  ENDSCAN 
+ELSE
+   SELECT ORDLINE
+      SCAN FOR ;
+        IIF(lcBuckBy == "C" ,EVALUATE(lcCompExp),EVALUATE(lcStartExp)) AND ;
+        IIF(!EMPTY(lcCompDate),EVALUATE(lcCompDate),.T.) AND ;
+        IIF(!EMPTY(lcStartDate),EVALUATE(lcStartDate),.T.) AND ;
+        gfSeek('O'+ordline.ORDeR,'ORDHDR','ORDHDR') AND;
+        IIF(!EMPTY(lcRpEdiFlt),EVALUATE(lcRpEdiFlt),.T.) AND ;
+        gfSeek(ordline.Style,'Style','Style') AND IIF(!EMPTY(lcStatusStr),EVALUATE(lcStatusStr),.T.) AND ;
+        IIF(llUseClr,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3])),lcClrFile),.T.) AND ;
+        IIF(llUseDiv,SEEK(STYLE.CDIVISION,lcDivFile),.T.);
+        AND IIF(llUseSea,SEEK(STYLE.SEASON,lcSeaFile),.T.) ;
+        AND IIF(llUseGrp,SEEK(STYLE.CSTYGROUP,lcGrpFile),.T.);
+        AND IIF(llUseFab,SEEK(STYLE.FABRIC,lcFabFile),.T.) ;
+        AND IIF(!EMPTY(lcPattStr),STYLE.PATTERN = lcPattStr,.T.);
+        AND IIF(llUse_Extended  and llScaleUsed ,Seek(Style.Scale,lcScaleFile),.T.) AND ;
+        IIF(llUseF and lnFPos <> 0,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnFPos,4],LEN(laMajSeg[lnFPos,3])),lcFFile),.T.) AND ;
+        IIF(llUseQ and lnQPos <> 0,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnQPos,4],LEN(laMajSeg[lnQPos,3])),lcQFile),.T.) AND ;
+        IIF(llUseO and lnOPos <> 0,SEEK(SUBSTR(STYLE.STYLE,laMajSeg[lnOPos,4],LEN(laMajSeg[lnOPos,3])),lcOFile),.T.) AND ;
+        !(IIF(lcRpByClr = 'Y',STYLE,PADR(SUBSTR(STYLE,1,lnMajLen),19)) $ lcLopedSty)
+
+        STORE 0 TO XO_ORD1,XO_ORDAMT1,XH_ORD1,XH_ORDAMT1,;
+          XO_ORD2,XO_ORDAMT2,XH_ORD2,XH_ORDAMT2,;
+          XO_ORD3,XO_ORDAMT3,XH_ORD3,XH_ORDAMT3,;
+          XO_ORD4,XO_ORDAMT4,XH_ORD4,XH_ORDAMT4,;
+          XWIP1,XWIP2,XWIP3,XWIP4
+        SELECT STYLE
+        XCOLOR  = SUBSTR(STYLE.Style,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))
+        IF EOF()
+          EXIT
+        ENDIF
+        IF !EMPTY(HSTYLE) .AND. STYLE > HSTYLE
+          EXIT
+        ENDIF
+        IF IIF(lcRpByClr = 'Y',STYLE,PADR(SUBSTR(STYLE,1,lnMajLen),19)) <> XSTYLE
+          STORE 0 TO XO_ORD1,XO_ORDAMT1,XH_ORD1,XH_ORDAMT1,;
+            XO_ORD2,XO_ORDAMT2,XH_ORD2,XH_ORDAMT2,;
+            XO_ORD3,XO_ORDAMT3,XH_ORD3,XH_ORDAMT3,;
+            XO_ORD4,XO_ORDAMT4,XH_ORD4,XH_ORDAMT4,;
+            XWIP1,XWIP2,XWIP3,XWIP4
+        ENDIF
+        
+        IF lcRpByClr = 'Y'
+          XSTYLE = STYLE
+        ELSE
+          XSTYLE = PADR(SUBSTR(STYLE,1,lnMajLen),19)
+        ENDIF
+  
+        lcLopedSty = lcLopedSty + '|' + XSTYLE
+
+        WAIT WINDOW 'Calculating Cut&Sold info for ' + lcStyTitle + ' ' + XSTYLE NOWAIT
+    
+        XCOLOR  = SUBSTR(STYLE.Style,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))
+        XTOTSTK = 0
+        XKEY    = STYLE
+        XTOTSTK = IIF(TOTSTK > 0, TOTSTK, 0)
+        
+        SELECT(lcWorkTemp)            
+        IF !SEEK(XKEY)
+          APPEND BLANK
+          REPLACE STYLE  WITH XSTYLE,;
+          COLOR  WITH XCOLOR
+        ENDIF
+        REPLACE TOTSTK WITH TOTSTK + XTOTSTK
+        SELECT ORDLINE
+        lnLineRec = RECNO()
+        
+        SELECT ORDLINE
+        lnRecNo = IIF(EOF(),0,RECNO())
+
+        SCAN REST WHILE IIF(lcRpByClr = 'Y',STYLE,PADR(SUBSTR(STYLE,1,lnMajLen),19)) = XSTYLE
+          =gfSeek('O'+ordline.order,'ordhdr')
+          lnRecNo = IIF(EOF(),0,RECNO())
+          IF ORDHDR->STATUS $ 'CX' .OR. TOTQTY <= 0
+            LOOP
+          ENDIF
+          XORDER = ORDER
+          IF lcBuckBy == "C"
+            DO CASE
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE0 + 1 , XDATE1)
+                Z='1'
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE1 + 1 , XDATE2)
+                Z='2'
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE2 + 1 , XDATE3)
+                Z='3'
+              CASE BETWEEN(ORDHDR.COMPLETE,XDATE3 + 1 , XDATE4)
+                Z='4'
+              OTHERWISE
+                Z= '*'
+            ENDCASE
+          ELSE
+            DO CASE
+              CASE BETWEEN(ORDHDR.START,XDATE0 + 1 , XDATE1)              
+                Z='1'
+              CASE BETWEEN(ORDHDR.START,XDATE1 + 1 , XDATE2)
+                Z='2'
+              CASE BETWEEN(ORDHDR.START,XDATE2 + 1 , XDATE3)
+                Z='3'
+              CASE BETWEEN(ORDHDR.START,XDATE3 + 1 , XDATE4)
+                Z='4'
+              OTHE
+                Z= '*'
+            ENDCASE
+          ENDIF
+             
+          IF Z<>'*'
+            IF (ORDHDR->STATUS='O')
+              XO_ORD&Z     =XO_ORD&Z   + TOTQTY
+              XO_ORDAMT&Z  =XO_ORDAMT&Z+ (PRICE * TOTQTY)
+            ELSE
+              XH_ORD&Z     =XH_ORD&Z   + TOTQTY
+              XH_ORDAMT&Z  =XH_ORDAMT&Z+ (PRICE * TOTQTY)
+            ENDIF
+          ENDIF
+        ENDSCAN 
+        SELECT ORDLINE
+        IF lnRecNo > 0
+          GO (lnRecNo)
+        ENDIF
+        SELECT (lcWorkTemp)
+        REPLACE O_ORD1     WITH O_ORD1+XO_ORD1;
+          O_ORDAMT1  WITH O_ORDAMT1+XO_ORDAMT1;
+          H_ORD1     WITH H_ORD1+XH_ORD1;
+          H_ORDAMT1  WITH H_ORDAMT1+XH_ORDAMT1;
+          O_ORD2     WITH O_ORD2+XO_ORD2;
+          O_ORDAMT2  WITH O_ORDAMT2+XO_ORDAMT2;
+          H_ORD2     WITH H_ORD2+XH_ORD2;
+          H_ORDAMT2  WITH H_ORDAMT2+XH_ORDAMT2;
+          O_ORD3     WITH O_ORD3+XO_ORD3;
+          O_ORDAMT3  WITH O_ORDAMT3+XO_ORDAMT3;
+          H_ORD3     WITH H_ORD3+XH_ORD3;
+          H_ORDAMT3  WITH H_ORDAMT3+XH_ORDAMT3;
+          O_ORD4     WITH O_ORD4+XO_ORD4;
+          O_ORDAMT4  WITH O_ORDAMT4+XO_ORDAMT4;
+          H_ORD4     WITH H_ORD4+XH_ORD4;
+          H_ORDAMT4  WITH H_ORDAMT4+XH_ORDAMT4
+
+          
+          *P/O FILE
+          IF lcRpBsPrjn $ 'WA'
+            *B609049,1 WAM 10/20/2009 Get the WIP for this style/color
+*!*	            IF (llPo OR llCutTkt) AND gfSeek('0001'+SUBSTR(XSTYLE,1,lnMajLen),'POSLN','POSLNS')
+*!*	              SELECT POSLN
+*!*	              SCAN REST WHILE cinvtype+ style+ cbusdocu+ cstytype+ po+STR(lineno,6)+trancd = '0001'+SUBSTR(XSTYLE,1,lnMajLen) FOR;
+*!*	               gfSeek(cbusdocu+cstytype+po,'POSHDR','POSHDR') AND POSHDR.STATUS $ 'OH'
+
+            IF (llPo OR llCutTkt) AND gfSeek('0001'+IIF(lcRpByClr='Y',XSTYLE,SUBSTR(XSTYLE,1,lnMajLen)),'POSLN','POSLNS')
+              SELECT POSLN
+              SCAN REST WHILE cinvtype+ style+ cbusdocu+ cstytype+ po+STR(lineno,6)+trancd = '0001'+IIF(lcRpByClr='Y',XSTYLE,SUBSTR(XSTYLE,1,lnMajLen)) FOR;
+               gfSeek(cbusdocu+cstytype+po,'POSHDR','POSHDR') AND POSHDR.STATUS $ 'OH'
+            *B609049,1 WAM 10/20/2009 (End)
+
+               IF  cbusdocu = 'P' AND Cstytype = 'U'
+                 IF lcBuckBy == "C"
+                  DO CASE
+                    CASE BETWEEN(POSHDR.COMPLETE, XDATE0 + 1 , XDATE1)
+                      XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.COMPLETE, XDATE1 + 1 , XDATE2)
+                      XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.COMPLETE , XDATE2 + 1 , XDATE3 )
+                      XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.COMPLETE , XDATE3 + 1 , XDATE4)
+                      XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                  ENDCASE
+                ELSE
+                  DO CASE
+                    CASE BETWEEN(POSHDR.ENTERED, XDATE0 + 1 , XDATE1)
+                      XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.ENTERED, XDATE1 + 1 , XDATE2)
+                      XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.ENTERED , XDATE2 + 1 , XDATE3 )
+                      XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(POSHDR.ENTERED , XDATE3 + 1 , XDATE4)
+                      XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                  ENDCASE
+                ENDIF
+               ELSE
+                 IF  cbusdocu = 'P' AND POSLN.Cstytype = 'P'
+                 IF TRANCD <> '3' .AND. BETWEEN(IIF(EMPTY(POSHDR.AVAILABLE),POSHDR.COMPLETE,POSHDR.AVAILABLE),ldMinComp,ldMaxComp)
+                  XDATE = IIF(EMPTY(POSHDR.AVAILABLE),POSHDR.COMPLETE,POSHDR.AVAILABLE)
+                  IF lcBuckBy == "C"
+                    DO CASE
+                      CASE BETWEEN(XDATE,XDATE0+1,XDATE1)
+                        XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                      CASE BETWEEN(XDATE,XDATE1+1,XDATE2)
+                        XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                      CASE BETWEEN(XDATE,XDATE2+1,XDATE3)
+                        XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                      CASE BETWEEN(XDATE,XDATE3+1,XDATE4)
+                        XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                    ENDCASE
+                  ELSE
+                   DO CASE
+                    CASE BETWEEN(XDATE,XDATE0+1,XDATE1)
+                      XWIP1 = XWIP1 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(XDATE,XDATE1+1,XDATE2)
+                      XWIP2 = XWIP2 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(XDATE,XDATE2+1,XDATE3)
+                      XWIP3 = XWIP3 + IIF( TranCd = '1', TotQty, -TotQty )
+                    CASE BETWEEN(XDATE,XDATE3+1,XDATE4)
+                      XWIP4 = XWIP4 + IIF( TranCd = '1', TotQty, -TotQty )
+                  ENDCASE
+                  ENDIF 
+                  ENDIF 
+                 ENDIF  
+               ENDIF 
+              ENDSCAN 
+            ENDIF
+            XWorP1 = XWIP1
+            XWorP2 = XWIP2
+            XWorP3 = XWIP3
+            XWorP4 = XWIP4
+          ENDIF 
+          =lfUpdWorPn()          
+          SELECT STYLE
+          XCOLOR  = SUBSTR(STYLE.Style,laMajSeg[lnCPos,4],LEN(laMajSeg[lnCPos,3]))
+          
+          *MMT
+            lcOldAlis = SELECT(0)
+            SELECT (lcWorkTemp)
+            REPLACE TOTORD  WITH O_ORD1+H_ORD1+O_ORD2+H_ORD2+O_ORD3+H_ORD3+O_ORD4+H_ORD4 IN (lcWorkTemp)
+            REPLACE O_TOTORDA WITH O_ORDAMT1+O_ORDAMT2+O_ORDAMT3+O_ORDAMT4 IN (lcWorkTemp)
+            REPLACE H_TOTORDA WITH H_ORDAMT1+H_ORDAMT2+H_ORDAMT3+H_ORDAMT4 IN (lcWorkTemp)
+            REPLACE TOTWIP  WITH WIP1+WIP2+WIP3+WIP4 IN (lcWorkTemp)
+
+            *B609049,1 WAM 10/20/2009 Consider positive OTS only
+*!*	            REPLACE STK1 WITH  TOTSTK IN (lcWorkTemp)
+*!*	            REPLACE STK2 WITH  STK1 + WIP1 - (O_ORD1+H_ORD1)IN (lcWorkTemp)
+*!*	            REPLACE STK3 WITH  STK2 + WIP2 - (O_ORD2+H_ORD2)IN (lcWorkTemp)
+*!*	            REPLACE STK4 WITH  STK3 + WIP3 - (O_ORD3+H_ORD3)IN (lcWorkTemp)
+*!*	            REPLACE TOTSTK WITH  STK1 +STK2 + STK3+STK4 IN (lcWorkTemp)
+            
+            REPLACE STK1 WITH  TOTSTK ,;
+                    STK2 WITH  MAX(STK1 + WIP1 - (O_ORD1+H_ORD1),0) ,;
+                    STK3 WITH  MAX(STK2 + WIP2 - (O_ORD2+H_ORD2),0) ,;
+                    STK4 WITH  MAX(STK3 + WIP3 - (O_ORD3+H_ORD3),0) IN (lcWorkTemp)
+            *B609049,1 WAM 10/20/2009 (End)
+
+            IF STK2<0
+              STK2=0
+            ENDIF
+            IF STK3<0
+              STK3=0
+            ENDIF
+            IF STK4<0
+              STK4=0
+            ENDIF
+            FOR I=1 TO 4
+              Z=STR(I,1)
+              AVL&Z = STK&Z + WIP&Z
+              IF AVL&Z >= ( H_ORD&Z + O_ORD&Z )
+                REPLACE PYSHIP&Z WITH ( H_ORD&Z + O_ORD&Z )
+                REPLACE PNSHIP&Z WITH 0
+              ELSE   &&-AVAILABEL < ORDERS
+                REPLACE PYSHIP&Z WITH AVL&Z
+                REPLACE PNSHIP&Z WITH AVL&Z - ( H_ORD&Z + O_ORD&Z )
+              ENDIF
+            ENDFOR
+            
+            *MMT
+             IF TOTORD<>0
+              lnAVGPRICE = ROUND( (O_TOTORDA+H_TOTORDA)/TOTORD,2)
+             ELSE
+              lnAVGPRICE =0
+             ENDIF
+            REPLACE   AYSHIP1 WITH  ROUND(PYSHIP1 * lnAVGPRICE,0),;
+                      ANSHIP1 WITH  ROUND(PNSHIP1 * lnAVGPRICE,0),;
+                      AYSHIP2 WITH  ROUND(PYSHIP2 * lnAVGPRICE,0),;
+                      ANSHIP2 WITH  ROUND(PNSHIP2 * lnAVGPRICE,0),;
+                      AYSHIP3 WITH  ROUND(PYSHIP3 * lnAVGPRICE,0),;
+                      ANSHIP3 WITH  ROUND(PNSHIP3 * lnAVGPRICE,0),;
+                      AYSHIP4 WITH  ROUND(PYSHIP4 * lnAVGPRICE,0),;
+                      ANSHIP4 WITH  ROUND(PNSHIP4 * lnAVGPRICE,0)
+
+             
+
+            *MMT
+            SELECT (lcOldAlis)
+           *MMT
+      ENDSCAN   
+ 
+ENDIF 
+*lcWorkTemp
+*!*************************************************************
+*! Name      : lfConvertToCursor
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*! Purpose   : Convert a list of values into a cusrsor
+*!*************************************************************
+*!
+FUNCTION lfConvertToCursor
+PARAMETERS lcStrToConv,lcFieldName ,lcNewFile
+lcCursorTemp = lcNewFile &&Cursor Hold Selected values
+DIMENSION laTempacstru[1,4]
+laTempacstru[1,1] = lcFieldName 
+
+DO CASE 
+  
+CASE   ALLTRIM(lcFieldName) = 'SEASON'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+CASE   ALLTRIM(lcFieldName) = 'CDIVISION'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+  
+CASE   ALLTRIM(lcFieldName) = 'CSTYGRP'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+CASE   ALLTRIM(lcFieldName) = 'CSTYCLR'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+CASE   ALLTRIM(lcFieldName) = 'CFCLR'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+CASE   ALLTRIM(lcFieldName) = 'CQCLR'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+  
+CASE   ALLTRIM(lcFieldName) = 'COCLR'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+ENDCASE 
+ = gfCrtTmp(lcCursorTemp ,@laTempacstru,lcFieldName ,lcCursorTemp ,.T.)
+lcValuesToConvert = lcStrToConv
+IF !EMPTY(lcValuesToConvert)
+  lnStart=1 
+  lnEnd=AT('|',lcValuesToConvert )
+  DO WHILE lnEnd <> 0
+    SELECT(lcCursorTemp ) 
+    APPEND BLANK 
+    REPLACE &lcFieldName  WITH SUBSTR(lcValuesToConvert,lnStart,lnEnd-1)
+    lcValuesToConvert = STUFF(lcValuesToConvert ,lnStart,lnEnd,"") 
+    lnEnd=AT('|',lcValuesToConvert )
+  ENDDO 
+  IF lnEnd = 0
+    SELECT(lcCursorTemp ) 
+    APPEND BLANK 
+    REPLACE &lcFieldName  WITH lcValuesToConvert 
+  ENDIF 
+ENDIF 
+RETURN .T.
+
+*:**************************************************************************
+*:* Name        : lfUpdWorPn
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*:* Purpose     : Calc Plan qty's and update the temp file
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfUpdWorPn()
+*:***************************************************************************
+FUNCTION lfUpdWorPn
+PRIVATE XPLAN1,XPLAN2,XPLAN3,XPLAN4,lcSty
+
+IF lcRpBsPrjn $ 'PA'
+  STORE 0 TO XPLAN1,XPLAN2,XPLAN3,XPLAN4
+  IF lcRpByClr = 'Y'
+    lcSty = XSTYLE
+  ELSE
+    lcSty = SUBSTR(XSTYLE,1,lnMajLen)
+  ENDIF
+      
+  SELECT FORCAST
+  *-- Key :  STYLE+STR(NYEAR,4)+STR(NWEEK,2)
+  FOR lnX = 1 TO 4
+    lcX = STR(lnX,1)
+    lcYear = STR(YEAR(XDATE&lcX),4)
+    ld1stDay = CTOD('1/1/'+lcYear)
+    ld1stDay = ld1stDay - DOW(ld1stDay) 
+    lnWeek =  (XDATE&lcX-DOW(XDATE&lcX) - ld1stDay)/7 + 1
+    IF lcRpByClr = 'Y'
+      IF gfSEEK(lcSty+lcYear+STR(lnWeek,2),'FORCAST')
+        XPLAN&lcX = FORCAST.NFORTOTQTY
+      ENDIF
+    ELSE
+      =gfSEEK(lcSty,'FORCAST')
+      SCAN REST WHILE STYLE+STR(NYEAR,4)+STR(NWEEK,2) = lcSty ;
+                FOR STR(NYEAR,4)+STR(NWEEK,2)=lcYear+STR(lnWeek,2)
+        XPLAN&lcX = XPLAN&lcX + FORCAST.NFORTOTQTY
+      ENDSCAN          
+    ENDIF
+  ENDFOR          
+  *--
+  XWorP1 = XPLAN1
+  XWorP2 = XPLAN2
+  XWorP3 = XPLAN3
+  XWorP4 = XPLAN4
+            
+ENDIF
+    
+IF lcRpBsPrjn = 'A'
+  XWorP1 = MAX( XWIP1 , XPLAN1 )
+  XWorP2 = MAX( XWIP2 , XPLAN2 )
+  XWorP3 = MAX( XWIP3 , XPLAN3 )
+  XWorP4 = MAX( XWIP4 , XPLAN4 )
+ENDIF
+   
+SELECT(lcWorkTemp)
+REPLACE WIP1 WITH WIP1+XWorP1,;
+        WIP2 WITH WIP2+XWorP2,;
+        WIP3 WITH WIP3+XWorP3,;
+        WIP4 WITH WIP4+XWorP4
+
+*-- end of lfUpdWorPn.
+
+*:**************************************************************************
+*:* Name        : lfGetWeek
+*:* Developer   : Mariam Mazhar [MMT]
+*:* Date        : 01/15/2007
+*:* Purpose     : Fill laWeeks array
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGetWeek()
+*:***************************************************************************
+FUNCTION lfGetWeek
+PRIVATE lcYear,ld1stDay,lnWeek,lnI,lcI
+FOR lnI = 1 TO 4
+  lcI = STR(lnI,1)
+  lcYear = STR(YEAR(XDATE&lcI),4)
+  ld1stDay = CTOD('1/1/'+lcYear)
+  ld1stDay = ld1stDay - DOW(ld1stDay) 
+  lnWeek =  (XDATE&lcI-DOW(XDATE&lcI) - ld1stDay)/7 + 1
+  Day1 = XDATE&lcI - DOW(XDATE&lcI) + 1
+  laWeeks[lnI,1] =  'Week ' + STR(lnWeek,2) + SPACE(17)
+  laWeeks[lnI,2] =  DTOC(Day1) + '-' + DTOC(Day1+6) + SPACE(7)
+ENDFOR
+

@@ -1,0 +1,1 @@
+#DEFINE CONS_AddEditMode 'AE'

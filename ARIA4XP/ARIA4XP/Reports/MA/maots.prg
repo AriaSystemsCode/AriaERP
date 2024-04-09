@@ -1,0 +1,1723 @@
+*:************************************************************************
+*: Program file  : MAOTS.PRG
+*: Program desc. : Material Open To Sall Report.
+*:         System: ARIA 4 XP
+*:         Module: MATERIALS (MA).
+*:      Developer: AMH - AHMED MAHER / SMM - SAEED MOHAMED MOSTAFA
+*:           Date: 03/31/2005
+*:   Call Reports: MAOTS.FRX
+*:************************************************************************
+*: Modifications :
+*:************************************************************************
+
+loOGScroll.cCRorientation = 'P'
+IF TYPE('lcTmpRmain') $ 'UL'
+  lcTmpRmain = ''
+ENDIF
+
+IF TYPE('lcMatReq') $ 'UL'
+  lcMatReq = ''
+ENDIF
+
+IF TYPE('lcTmpItems') $ 'UL'
+  lcTmpItems = ''
+ENDIF
+
+IF TYPE('lcPOTmpHD') $ 'UL'
+  lcPOTmpHD = ''
+ENDIF
+
+IF TYPE('lcPOTmpLN') $ 'UL'
+  lcPOTmpLN = ''
+ENDIF
+
+STORE 0 TO lnOTotRem , lnHTotRem , lnPTotRem , lnOIssued , lnHIssued , lnPIssued
+STORE '' TO lcFDesc , lcClrDsc
+lcSTime = TIME()
+
+*-- Define variables used in .FRX [Begin
+lnRemainO  = 0 
+lnRemainH  = 0
+lnRemainP  = 0
+lnOReq     = 0
+lnHReq     = 0
+lnPReq     = 0
+*-- Define variables used in .FRX [End
+
+lcCurrMark =  SET('CURRENCY',1)
+lcRpComPn  = 'A'
+lcRpRmChk  = 'O'
+lcRpBasePj = 'P'
+lcRpReqBas = 'B'
+llRpEditPj = .F.
+llRpInvItm = .F.
+llRpPastCm = .F.
+llRpzeroRq = .T.
+lnRpPrinCr = 0
+
+*--lcRpExp1  Expresion on OrdLine file.
+=ACOPY(loOgScroll.laOGFxFlt,laOrdFlt,65,24)
+DIME laOrdFlt[3,8]
+lcRpExp1 = gfGenFlt('laOrdFlt',.T.)
+lcRpExp1 = IIF(EMPTY(lcRpExp1),".T.",lcRpExp1)
+
+*--Get fabric color was selected in grid filter.
+lcFabClr = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'lcRPClrs'),1)
+IF lnPosition > 0
+  lcFabClr = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Get Fabric color segment information.
+STORE 0 TO lnClrFSrt,lnClrFEnd
+=lfGetFColor()
+
+*--Program variabels.
+*--Read the Style major part length and item title.
+lcMjrPct  = gfItemMask('PM')
+lcStyTtl  = gfItemMask('HI')
+lCnMJPct  = gfItemMask('PN')
+lnMajorLn = LEN(lcMjrPct)
+lnNMjrLn  = LEN(lCnMJPct)
+lnMatMjrL = LEN(gfItemMask('PM',"",'0002'))
+lcFabTtl  = gfItemMask('HI',"","0002")
+
+*--Use extended size scale.  
+llMScale  = gfGetMemVar('M_USEEXSSC')
+
+*--Need to update plane in style file.
+llUpdPlan = .F.
+
+*--Flag for style by location or no (Lcation was entered in grid).
+lcStyDFile = ''
+llByLoctn  = .F.
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYDYE.CWARECODE'),1)
+IF lnPosition > 0
+  lcStyDFile = loOgScroll.laOGFxFlt[lnPosition,6]
+  llByLoctn  = IIF(!EMPTY(lcStyDFile) .AND. USED(lcStyDFile) .AND. RECCOUNT(lcStyDFile)>0,.T.,.F.)
+ENDIF
+IF llByLoctn
+  SELECT (lcStyDFile)
+  INDEX on cWareCode TAG (lcStyDFile)
+ENDIF
+
+*--flag if style range was entered in grid.
+lcStylFile = ''
+llStyRang  = .F.
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYLE.STYLE'),1)
+IF lnPosition > 0
+  lcStylFile = loOgScroll.laOGFxFlt[lnPosition,6]
+  llStyRang  = IIF(!EMPTY(lcStylFile) .AND. USED(lcStylFile) .AND. RECCOUNT(lcStylFile)>0,.T.,.F.)
+ENDIF
+IF llStyRang
+  SELECT (lcStylFile)
+  INDEX on cStyMajor TAG (lcStylFile)
+ENDIF
+
+*--Flag for fabric by location or no (Lcation was entered in grid).
+lcFabDFile = ''
+llByFabLoc = .F.
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'ITEMLOC.CWARECODE'),1)
+IF lnPosition > 0
+  lcFabDFile = loOgScroll.laOGFxFlt[lnPosition,6]
+  llByFabLoc = IIF(!EMPTY(lcFabDFile) .AND. USED(lcFabDFile) .AND. RECCOUNT(lcFabDFile)>0,.T.,.F.)
+ENDIF
+
+*--flag if Primary fabarics range was entered in grid.
+lcStyFFile = ''
+llStyFRang = .F.
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYLE.FABRIC'),1)
+IF lnPosition > 0
+  lcStyFFile = loOgScroll.laOGFxFlt[lnPosition,6]
+  llStyFRang = IIF(!EMPTY(lcStyFFile) .AND. USED(lcStyFFile) .AND. RECCOUNT(lcStyFFile)>0,.T.,.F.)
+ENDIF
+IF llStyFRang
+  SELECT (lcStyFFile)
+  INDEX on cStyMajor TAG (lcStyFFile)
+ENDIF
+
+*--Get Style Season was selected in grid filter.
+lcStySeasn = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYLE.SEASON'),1)
+IF lnPosition > 0
+  lcStySeasn = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Get Style Division was selected in grid filter.
+lcStyDiv = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYLE.CDIVISION'),1)
+IF lnPosition > 0
+  lcStyDiv = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Get Style Group was selected in grid filter.
+lcStyGrp = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYLE.CSTYGROUP'),1)
+IF lnPosition > 0
+  lcStyGrp = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Get Style Pattern was selected in grid filter.
+lcStyPtrn = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'STYLE.PATTERN'),1)
+IF lnPosition > 0
+  lcStyPtrn = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Get Style Color was selected in grid filter.
+lcStyClr = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,"SUBSTR(Style.style,lnClrSrt,lnClrEnd)"),1)
+IF lnPosition > 0
+  lcStyClr = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Check if there is no filter on style.
+llNoStyFlter = EMPTY(llStyRang) AND EMPTY(llStyFRang) AND EMPTY(lcStySeasn) AND;
+               EMPTY(lcStyDiv)  AND EMPTY(lcStyGrp)   AND EMPTY(lcStyPtrn)  AND EMPTY(lcStyClr)
+
+*--flag if fabarics range was entered in grid.
+lcFabrFile = ''
+llFabrRang = .F.
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'ITEM.STYLE'),1)
+IF lnPosition > 0
+  lcFabrFile = loOgScroll.laOGFxFlt[lnPosition,6]
+  llFabrRang = IIF(!EMPTY(lcFabrFile) .AND. USED(lcFabrFile) .AND. RECCOUNT(lcFabrFile)>0,.T.,.F.)
+ENDIF
+IF llFabrRang
+  SELECT (lcFabrFile)
+  INDEX on cStyMajor TAG (lcFabrFile)
+ENDIF
+
+*--flag if vendor fabaric range was entered in grid.
+lcFabVFile = ''
+llFabVRang = .F.
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'ITEM.VENDOR'),1)
+IF lnPosition > 0
+  lcFabVFile = loOgScroll.laOGFxFlt[lnPosition,6]
+  llFabVRang = IIF(!EMPTY(lcFabVFile) .AND. USED(lcFabVFile) .AND. RECCOUNT(lcFabVFile)>0,.T.,.F.)
+ENDIF
+IF llFabVRang
+  SELECT (lcFabVFile)
+  INDEX on cVendCode TAG (lcFabVFile)
+ENDIF
+
+*--Get fabric purchased group was selected in grid filter.
+lcFabPur = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'ITEM.CPURCODE'),1)
+IF lnPosition > 0
+  lcFabPur = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Get fabric item type was selected in grid filter.
+lcFabIType = ''
+lnPosition = ASUBSCRIPT(loOgScroll.laOGFxFlt,ASCAN(loOgScroll.laOGFxFlt,'ITEM.ITEM_TYPE'),1)
+IF lnPosition > 0
+  lcFabIType = loOgScroll.laOGFxFlt[lnPosition,6]
+ENDIF
+
+*--Open report needed files.
+PRIVATE loScale,loBomLine,loCtktBom,loPoshdr,loPosLn,loBom,loFabric,loFabdye
+STORE .NULL. TO loScale,loBomLine,loCtktBom,loPoshdr,loPosLn,loBom,loFabric,loFabdye
+loScale   = CREATEOBJECT('RemoteTable','SCALE','SCALE','SCALE',SET("Datasession"),.F.,.T.)
+loBomLine = CREATEOBJECT('RemoteTable','BOMLINE','BOMLINE','BOMLINE',SET("Datasession"),.F.,.T.)
+loCtktBom = CREATEOBJECT('RemoteTable','CTKTBOM','CTKTBOM','CTKTBOM',SET("Datasession"),.F.,.T.)
+IF (OCCURS('PO',oAriaApplication.CompanyInstalledModules)<>0) OR;
+   (OCCURS('MF',oAriaApplication.CompanyInstalledModules)<>0)
+  loPoshdr  = CREATEOBJECT('RemoteTable','POSHDR','POSHDR','POSHDR',SET("Datasession"),.F.,.T.)
+  loPosLn   = CREATEOBJECT('RemoteTable','POSLN','POSLNS','POSLN',SET("Datasession"),.F.,.T.)
+ENDIF
+loBom = CREATEOBJECT('RemoteTable','BOM','MULTIBOM','BOM',SET("Datasession"),.F.,.T.)
+*B99999,1 MMT 02/16/2006 fix bug of error while preview[Start]
+*loFabric = CREATEOBJECT('RemoteTable','ITEM','STYLE','FABRIC',SET("Datasession"),.F.,.T.)
+loFabric = CREATEOBJECT('RemoteTable','ITEM','STYLE','FABRIC',SET("Datasession"),.F.)
+*B99999,1 MMT 02/16/2006 fix bug of error while preview[End]
+loFabDye = CREATEOBJECT('RemoteTable','ITEMLOC','STYDYE','FABDYE',SET("Datasession"),.F.,.T.)
+
+*--Create MR temp file with structure.
+=lfCreateFl()
+=gfOpenFile(oAriaApplication.WorkDir+lcMatReq,'','EX')
+
+*--Open needed indeces.
+INDEX ON cCatgTyp+Item+Style+cWareCode TAG Matreq ADDITIVE
+INDEX ON Style+cWareCode UNIQUE TAG Mrstyle ADDITIVE
+INDEX ON Style+cWareCode+cCatgTyp+Item TAG Mrstyitm ADDITIVE
+
+*--Create and Open items temp file.
+IF ! llNoStyFlter
+  IF USED(lcTmpItems)
+    USE IN (lcTmpItems)
+  ENDIF
+  COPY STRU TO (oAriaApplication.WorkDir+lcTmpItems)
+  = gfOpenFile(oAriaApplication.WorkDir+lcTmpItems,'','EX')
+  INDEX ON Typ+Item TAG (lcTmpItems)
+ENDIF
+
+** (1) FIRST PART STEPS. ********************************************
+*--Calculating the total yield (qty/unit) in Cost sheet.
+*- Scan for styles with selected criteria.
+*- Check if style major has a cost sheet.
+*- Append or Update record in (lcMatReq) file. 
+*- Update the total yield (qty/utit) in (lcMatReq) file.
+*********************************************************************
+SELECT (lcMatReq)
+SET ORDER TO TAG MATReq
+
+SELECT STYLE
+SET ORDER TO TAG Style
+lcStyMajor = SPACE(19)
+
+*--Prepare the scan file and expresion.
+IF llByLoctn
+  =lfGetStyDye()
+ELSE
+  IF llStyRang
+    =lfGetStyRang()
+  ELSE
+    =lfGetStyAll()
+  ENDIF
+ENDIF
+WAIT CLEAR
+
+*--Check requirements existance.
+GO TOP IN (lcMatReq)
+IF EOF(lcMatReq)
+  *--No cost sheet information found for any of the selected
+  *--styles or fabrics 'in location'.
+  *--                           [Ok]
+  =gfModalGen('TRM36107B36000','DIALOG',IIF(llByLoctn OR llByFabLoc,'in location',''))
+  RETURN
+ENDIF
+
+** (2) SECOND PART STEPS. *******************************************
+*--Calculating the total yield (qty/utit) in Cost sheet.
+*- Scan for selected items in preivius step.
+*- Scan for styles out of the selected criteria for this items.
+*- Append or Update record in (lcMatReq) file. 
+*- Update the total yield (qty/utit) in (lcMatReq) file.
+*********************************************************************
+
+*--Start select styles that use the same item components and 
+*--out of the grid filter.
+*--Only if there is a filter used ,becouse if not this styles allready
+*--selected if preivus part.
+IF llByLoctn
+  SELECT STYDYE
+  SET ORDER TO TAG Stydye
+ENDIF
+SELECT STYLE
+SET ORDER TO TAG STYLE
+IF !llNoStyFlter
+  loBom.SETORDER('MBOMITEM')
+  SELECT (lcTmpItems)
+  SCAN
+    lnAstPos = AT('*',Item)
+    lcKeyCnd = Typ + IIF(cCatgTyp="S","0001","0002") + IIF(lnAstPos=0,Item,SUBSTR(Item,1,lnAstPos-1))
+    lcWhlCnd = "Typ + cInvTypC + Item = lcKeyCnd"
+    WAIT WINDOW 'Checking for styles useing material : '+PADR(Item,19) NOWAIT
+    
+    SELECT BOM
+    loBom.SEEK(lcKeyCnd)
+    SCAN WHILE &lcWhlCnd. FOR LIKE(STRTRAN(Item,'*','?'),EVALUATE(lcTmpItems+'.Item'))
+      *--Current item code and an item color.
+      lcItem = EVALUATE(lcTmpItems+'.Item')
+      
+      *--Read the style code and an style color for Exist Item.
+      lnAstPos  = AT('*',cItmMask)
+      lcStyMask = IIF(lnAstPos=0,cItmMask,SUBSTR(cItmMask,1,lnAstPos-1))
+      
+      lcStyClr = ""
+      IF CCATGTYP $ 'FT'
+        IF lnAstPos <> 0 AND lnClrSrt<>0 AND SUBSTR(cItmMask,lnClrSrt,lnClrEnd) ='*'
+          lcStyClr = SUBSTR(lcItem,lnClrFSrt,lnClrFEnd)
+        ENDIF
+      ELSE
+        IF lnAstPos <> 0
+          lcStyClr = SUBSTR(lcItem,lnAstPos,LEN(lcItem)-IIF(llMScale,3,0))
+        ENDIF
+      ENDIF
+      
+      *--Check if style is out of filter.
+      SELECT STYLE
+      SEEK lcStyMask
+      
+      IF llStyRang
+        lcForExp = "!SEEK(SUBSTR(STYLE.Style,1,lnMajorLn),lcStylFile)"
+      ELSE
+        lcForExp = ".T."
+      ENDIF
+      
+      IF llStyFRang
+        lcForExp = lcForExp + " OR !SEEK(STYLE.Fabric,lcStyFFile)"
+      ENDIF
+      lcForExp = lcForExp + " OR !(EMPTY(lcStySeasn) OR STYLE.Season$lcStySeasn )"+;
+                            " OR !(EMPTY(lcStyDiv)   OR STYLE.cDivision$lcStyDiv)"+;
+                            " OR !(EMPTY(lcStyGrp)   OR STYLE.cStyGroup$lcStyGrp)"+;
+                            " OR !(EMPTY(lcStyPtrn)  OR STYLE.Pattern=lcStyPtrn) "+;
+                            " OR !(EMPTY(lcStyClr)   OR SUBSTR(STYLE.STYLE,lnClrSrt,lnClrEnd)$lcStyClr)"
+      
+      IF llByLoctn
+        SELECT STYDYE
+        SEEK lcStyMask
+        lcForExp = "SEEK(Style,'STYLE') AND (" + lcForExp + ") AND SEEK(STYDYE.cWareCode,lcStyDFile)"
+      ELSE
+      
+      ENDIF
+      
+      SCAN WHILE Style = lcStyMask FOR &lcForExp. AND;
+           LIKE(STRTRAN(BOM.cItmMask,'*','?'),Style) AND SUBSTR(Style,lnClrSrt,lnClrEnd) = lcStyClr
+        *--Current style code and style scale.
+        lcCStyle   = STYLE.Style
+        lcLocation = IIF(llByLoctn,STYDYE.cWareCode,SPACE(6))
+        lnCnt      = IIF( loScale.SEEK("S"+STYLE.Scale), SCALE.Cnt , 8 )
+        
+        *--Append or Update record in (lcMatReq) file.
+        =lfUpdReq()
+      ENDSCAN
+    ENDSCAN 
+  ENDSCAN
+  WAIT CLEAR
+  USE IN (lcTmpItems)
+  ERASE (oAriaApplication.WorkDir+lcTmpItems+'.DBF')
+  ERASE (oAriaApplication.WorkDir+lcTmpItems+'.CDX')
+ENDIF
+
+** (3) THERD PART STEPS. ********************************************
+*--Calculating the Open-to-Cut for the selected styles.
+*- Scan for styles selected in privius steps.
+*- Calculate ordered pieces.
+*- Calculate work in prosses pieces.
+*- Calculate Requirements Pieces per size.
+*- Compute the Projection      
+*- Update style with Requirements pieces.
+*********************************************************************
+
+SELECT (lcMatReq)
+
+*--Initilize report variables and arrays.
+*--[1] Ordered pieces for Open and Open+Hold orders. 
+DECLARE laOrders[2,9]               && Row =1 OPEN ,2=HOLD+OPEN
+*--[2] WIP open pieces for Actualize,Open,Hold C/t.
+DECLARE laWIP[3,9]                  && ROW =1 'A', =2 'O', =3 'H'
+*--[3] Pieces requirements for Open and Open+Hold orders or Plane. 
+DECLARE laRequr[3,9]                 && Row =1 OPEN ,2=HOLD+OPEN, 3=PLANE
+
+*--Thermometer counter.
+lnRecCount = RECCOUNT()
+lnCurNum   = 0
+*--Set tag on styles unique.
+SET ORDER TO TAG MRStyle
+
+loThermo = CREATEOBJECT('AriaProgressBar')
+loThermo.TotalProgress = lnRecCount
+loThermo.lblFirstLabel.Caption = "Calculating requirements"
+loThermo.Show()
+SCAN
+  *--Current style code.
+  lcCStyle   = Style
+  lcLocation = cWareCode
+  lnCurNum   = lnCurNum + 1
+  loThermo.lblSecondLabel.Caption = 'Style : '+Style
+  loThermo.CurrentProgress(lnCurNum)
+  
+  *--Style scale count.
+  lnCnt    = Cnt
+  = SEEK(lcCStyle , 'STYLE')
+  lcChkFile = 'STYLE'
+  IF llByLoctn
+    =SEEK(lcCStyle+lcLocation,'STYDYE')
+    lcChkFile = 'STYDYE'
+  ENDIF
+  lcForWare = IIF( llByLoctn ,"cWarecode = lcLocation" , ".T." )
+  
+  *--Initilize variables and arrayes for starting calculation.
+  laOrders  = 0        && Ordered pieces for Open and Open+Hold orders.   
+  laWIP     = 0        && WIP pieces.
+  laRequr   = 0        && Requirements pieces.
+  
+  *--Calculate ordered pieces.
+  IF EVALUATE(lcChkFile+'.TotOrd') <> 0
+    =lfChkOrder()
+  ENDIF
+  
+  SELECT (lcMatReq)
+  SET ORDER TO TAG MRStyItm
+  SEEK lcCStyle
+  *--Start update the style with the qty. 
+  SCAN WHILE Style = lcCStyle
+    FOR lnXLoop = 1 TO 3
+      FOR lnYLoop = 1 TO 9
+        laWIP[lnXLoop,lnYLoop] = 0
+      ENDFOR
+    ENDFOR
+  
+    FOR lnXLoop = 1 TO 3
+      FOR lnYLoop = 1 TO 9
+        laRequr[lnXLoop,lnYLoop] = 0
+      ENDFOR
+    ENDFOR
+    =lfChk_PO()
+    *--Calculate Requirements Pieces per size.
+    FOR I=1 TO lnCnt
+      Z=STR(I,1)
+      *--Read the style Stock pieces.
+      lnStock = IIF(EVALUATE(lcChkFile+'.Stk'+Z) > 0, EVALUATE(lcChkFile+'.Stk'+Z) , 0)
+      
+      *--[1] Requirements Pieces for OPEN orders.
+      lnReqPieces = laOrders[1,I]-(lnStock+laWIP[1,I])
+      laRequr[1,I] = MAX(lnReqPieces,(laWIP[2,I]+laWIP[3,I]))
+      laRequr[1,I] = MAX( laRequr[1,I] , 0 )
+      laRequr[1,9] = laRequr[1,9] + laRequr[1,I]
+      
+      *--[2] Requirements Pieces for OPEN+HOLD orders.
+      lnReqPieces = laOrders[2,I]-(lnStock+laWIP[1,I])
+      laRequr[2,I] = MAX(lnReqPieces,(laWIP[2,I]+laWIP[3,I]))
+      laRequr[2,I] = MAX( laRequr[2,I] , 0 )
+      laRequr[2,9] = laRequr[2,9] + laRequr[2,I]
+      
+      *--[3] Requirements Pieces for Projection (dependent).
+      *--Compute the Projection (Depends on requirements calculated before).    
+      *--or depens on plane if select projection for plane.
+      laRequr[3,I] = IIF(EVALUATE('STYLE.Plan'+Z) > 0, EVALUATE('STYLE.Plan'+Z) + ROUND(EVALUATE('STYLE.Plan'+Z)*((lnRpPrIncr/100)),0), 0)
+      laRequr[3,9] = laRequr[3,9] + laRequr[3,I]    
+    ENDFOR
+    REPLACE OReq1    WITH laRequr[1,1],;
+            OReq2    WITH laRequr[1,2],;
+            OReq3    WITH laRequr[1,3],;
+            OReq4    WITH laRequr[1,4],;
+            OReq5    WITH laRequr[1,5],;
+            OReq6    WITH laRequr[1,6],;
+            OReq7    WITH laRequr[1,7],;
+            OReq8    WITH laRequr[1,8],;
+            OReqTot  WITH laRequr[1,9],;
+            OHReq1   WITH laRequr[2,1],;
+            OHReq2   WITH laRequr[2,2],;
+            OHReq3   WITH laRequr[2,3],;
+            OHReq4   WITH laRequr[2,4],;
+            OHReq5   WITH laRequr[2,5],;
+            OHReq6   WITH laRequr[2,6],;
+            OHReq7   WITH laRequr[2,7],;
+            OHReq8   WITH laRequr[2,8],;
+            OHReqTot WITH laRequr[2,9],;
+            nProj1   WITH laRequr[3,1],;
+            nProj2   WITH laRequr[3,2],;
+            nProj3   WITH laRequr[3,3],;
+            nProj4   WITH laRequr[3,4],;
+            nProj5   WITH laRequr[3,5],;
+            nProj6   WITH laRequr[3,6],;
+            nProj7   WITH laRequr[3,7],;
+            nProj8   WITH laRequr[3,8],;
+            Project  WITH laRequr[3,9]
+    *--Update the open WIP pieces.
+    REPLACE nOpnWip1 WITH laWIP[2,1],;
+            nOpnWip2 WITH laWIP[2,2],;
+            nOpnWip3 WITH laWIP[2,3],;
+            nOpnWip4 WITH laWIP[2,4],;
+            nOpnWip5 WITH laWIP[2,5],;
+            nOpnWip6 WITH laWIP[2,6],;
+            nOpnWip7 WITH laWIP[2,7],;
+            nOpnWip8 WITH laWIP[2,8],;
+            nOpnWip  WITH laWIP[2,9]
+  ENDSCAN
+  SET ORDER TO TAG MRStyle
+  SEEK lcCStyle
+ENDSCAN
+loThermo = NULL
+WAIT CLEAR
+
+SELECT (lcMatReq)
+SET ORDER TO TAG MATREQ
+GO TOP
+
+*--Check requirements existance.
+IF EOF()
+  *--None of the selected styles have any requirements.
+  *--                     [Ok]
+  =gfModalGen('TRM36108B36000','DIALOG')
+  RETURN
+ENDIF
+
+*--Collecting -ve remaining fabrics variables.
+lnFabcost = 0
+
+SELECT (lcMatReq)
+*--Print reports.
+wait window 'Printing....' NOWAIT
+=lfPrintRep()
+
+*--Close all Open Files.
+IF USED(lcMatReq)
+  USE IN (lcMatReq)
+ENDIF
+ERASE (oAriaApplication.WorkDir+lcMatReq+'.DBF')
+ERASE (oAriaApplication.WorkDir+lcMatReq+'.CDX')
+STORE .NULL. TO loScale,loBomLine,loCtktBom,loPoshdr,loPosLn,loBom,loFabric,loFabdye
+
+RETURN
+*--End...
+
+*!*************************************************************
+*! Name      : lfwRepWhen
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Optional Grid When Function.
+*!*************************************************************
+*! Calls     : ...........
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfwRepWhen()
+*!*************************************************************
+FUNCTION lfwRepWhen
+
+*--Set needed orders in grid. 
+*--Temp files names.
+lcMatReq   = gfTempName()
+lcTmpItems = gfTempName()
+
+*--Get the style major picture.
+lcStyPict = '@! '+gfItemMask('PM')
+*--Get color segment information.
+STORE 0 TO lnClrSrt,lnClrEnd
+=lfGetColor()
+
+RETURN
+
+*!*************************************************************
+*! Name      : lfGetColor
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Get the color length and width.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfGetColor()
+*!*************************************************************
+FUNCTION lfGetColor
+
+DIME laMajSeg[1,1]
+=gfItemMask(@laMajSeg)
+FOR lnCnt=1 TO ALEN(laMajSeg,1)
+  *--Check for existance of color segment in style structure.
+  IF laMajSeg[lnCnt,1]='C'
+    *--Get the color length and width.
+    lnClrSrt = laMajSeg[lnCnt,4]
+    lnClrEnd = LEN(laMajSeg[lnCnt,3])
+    EXIT
+  ENDIF
+ENDFOR
+RETURN
+
+*!*************************************************************
+*! Name      : lfUpdReq
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Update material requirement file.
+*!*************************************************************
+*! Calls     : ...........
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfUpdReq()
+*!*************************************************************
+FUNCTION lfUpdReq
+
+SELECT (lcMatReq)
+IF !SEEK(BOM.cCatgTyp+lcItem+lcCStyle+lcLocation)
+  APPEND BLANK
+  REPLACE Style    WITH lcCStyle     ,;
+          Typ      WITH BOM.Typ      ,;
+          cCatgTyp WITH BOM.cCatgTyp ,;
+          Item     WITH lcItem       ,;
+          Desc     WITH BOM.Desc     ,;
+          Cnt      WITH IIF(lnCnt=0,8,lnCnt),;
+          lStyMake WITH STYLE.Make   ,;
+          cWareCode WITH IIF(llByLoctn,lcLocation,"")
+ENDIF
+*--Update the bom unit qty.
+IF !EMPTY(BOM.mSizes)
+  lcAvlSizes = ALLTRIM(SUBSTR(MLINE(BOM.mSizes,1),AT('~',MLINE(BOM.mSizes,1))+1))
+ELSE
+  *--All Sizes.
+  lcAvlSizes = "1,2,3,4,5,6,7,8"
+ENDIF
+FOR I=1 TO lnCnt
+  lcSz = STR(I,1)
+  IF lcSz $ lcAvlSizes
+    REPLACE ('Qty'+lcSz) WITH EVALUATE('Qty'+lcSz) + BOM.nBOMTotQty
+  ENDIF
+ENDFOR
+RETURN
+
+*******************
+FUNCTION lfReadItem
+
+*--Get style component code.
+IF cCatGTyp='S'
+  *--If style size not used in cost sheet.
+  IF !(STYLE.Scale $ BOM.MSIZES)
+    RETURN .F.
+  ENDIF
+  
+  *--Get an equevelent item non major part.
+  lcCompNmj=''
+  *--Non major length without scale segment.
+  lnNmjPart = lnNMjrLn - IIF(llMScale,3,0)
+  FOR lnI = 1 TO lnNmjPart
+    lcCutChr  = SUBSTR(BOM.Item ,lnMajorLn+1+lnI ,1)
+    lcCompNmj = lcCompNmj + IIF(lcCutChr='*',SUBSTR(STYLE.Style, lnMajorLn+1+lnI ,1),lcCutChr)
+  ENDFOR
+  lcItem = SUBSTR(Item,1,lnMajorLn+1)+lcCompNmj
+  
+  *--Get an equevelent item scale part.       
+  IF llMScale
+    lcEqSCSz = STYLE.Scale
+    FOR lnMI = 1 TO MEMLINES(BOM.MSZCROSREF)
+      lcMemSLine = MLINE(BOM.MSZCROSREF,lnMI)
+      IF STYLE.Scale $ lcMemSLine
+        lcEqSCSz = SUBSTR(lcMemSLine,AT('~',lcMemSLine)+1,3)
+        EXIT
+      ENDIF 
+    ENDFOR
+    lcItem = lcItem + lcEqSCSz
+  ENDIF
+  
+  *--Check existance of style component.
+  lnRcSv=IIF(!EOF('STYLE'),RECNO('STYLE'),0)
+  SELECT STYLE
+  lcStyOrder=ORDER('STYLE') 
+  SET ORDER TO TAG Style
+  llSComFund = SEEK(lcItem,'STYLE')
+  IF lnRcSv<>0
+    GOTO lnRcSv IN STYLE
+  ENDIF
+  SET ORDER TO &lcStyOrder
+  SELECT BOM
+  IF !llSComFund
+    RETURN .F.
+  ENDIF
+ELSE  && CCATGTYP $ 'FT'
+  lcItem = STUFF(BOM.Item,lnClrFSrt,lnClrFEnd,SUBSTR(STYLE.Style,lnClrSrt,lnClrEnd))
+ENDIF
+RETURN .T.
+
+*!*************************************************************
+*! Name      : lfUpdItem
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Update items temp file.
+*!*************************************************************
+*! Calls     : ...........
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfUpdItem()
+*!*************************************************************
+FUNCTION lfUpdItem
+
+IF !SEEK(BOM.Typ+lcItem,lcTmpItems)
+  SELECT (lcTmpItems)
+  APPEND BLANK
+  REPLACE Typ      WITH BOM.Typ      ,;
+          cCatgTyp WITH BOM.cCatgTyp ,;
+          Item     WITH lcItem
+ENDIF                  
+RETURN
+
+*!*************************************************************
+*! Name      : lfChkOrder
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Get the ordered pieces.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : laOrders[]
+*!*************************************************************
+*! Example   : =lfChkOrder()
+*!*************************************************************
+FUNCTION lfChkOrder
+
+LOCAL lnAlias 
+lnAlias = SELECT()
+SELECT ORDLINE
+SEEK lcCStyle
+SCAN WHILE Style=lcCStyle FOR &lcForWare.
+  =SEEK('O'+ORDLINE.Order,'ORDHDR')
+  *--Check orders filter.
+  IF !&lcRpExp1.
+    LOOP
+  ENDIF
+  IF OrdHdr.Status $ 'OH'
+    FOR I=1 TO lnCnt      
+      Z=STR(I,1)
+      IF OrdHdr.Status = 'O'
+        laOrders[1,I]=laOrders[1,I]+EVALUATE('ORDLINE.Qty'+Z)
+      ENDIF
+      IF OrdHdr.Status $ 'OH'
+        laOrders[2,I]=laOrders[2,I]+EVALUATE('ORDLINE.Qty'+Z)
+      ENDIF
+    ENDFOR
+    laOrders[1,9]=laOrders[1,1]+laOrders[1,2]+laOrders[1,3]+laOrders[1,4]+laOrders[1,5]+laOrders[1,6]+laOrders[1,7]+laOrders[1,8]
+    laOrders[2,9]=laOrders[2,1]+laOrders[2,2]+laOrders[2,3]+laOrders[2,4]+laOrders[2,5]+laOrders[2,6]+laOrders[2,7]+laOrders[2,8]
+    IF EVALUATE(lcChkFile+'.TotOrd') = laOrders[2,9]
+      EXIT
+    ENDIF
+  ENDIF
+ENDSCAN
+SELECT ORDLINE
+SELECT (lnAlias)
+RETURN
+
+*!*************************************************************
+*! Name      : lfChk_PO
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Get WIP pieces from P/Os.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : laWIP[]
+*!*************************************************************
+*! Example   : =lfChk_PO()
+*!*************************************************************
+FUNCTION lfChk_PO
+
+LOCAL lnAlias 
+lnAlias = SELECT()
+SELECT POSLN
+loPosLn.SEEK("0001"+lcCStyle)
+SCAN WHILE Style=lcCStyle FOR cBusDocu $ 'PRN' AND cStyType $ 'PUN' AND !(TranCd $ '367') AND &lcForWare. AND;
+                              IIF(loPosHdr.Seek(cBusDocu+cStyType+PO),POSHDR.Status $ 'OHA',.F.)
+  IF POSHDR.STATUS<>'H' AND;
+     !loBomLine.SEEK(IIF(cStyType='U','M','I')+'1'+POSHDR.PO+STR(POSLN.lineno,6)+EVALUATE(lcMatReq+'.Typ')+"0001"+;
+                     EVALUATE(lcMatReq+'.style')+"0002"+EVALUATE(lcMatReq+'.item'))
+    LOOP
+  ENDIF
+
+  lcSign  = IIF(cBusDocu='R','-','+')
+  lcOSign = IIF(cBusDocu='R','+','-')
+  FOR I=1 TO lnCnt
+    Z=STR(I,1)
+    DO CASE
+      CASE POSHDR.STATUS = 'A'
+        laWIP[1,I]=IIF(TranCd='1',(laWIP[1,I] &lcSign MAX(Qty&Z,0)),(MAX(laWIP[1,I] &lcOSign ABS(Qty&Z),0)))
+      CASE POSHDR.Status = 'O'      
+        IF gfDoTriger('MAMATRQ',PADR('CLCWIPGMA',10))
+          laWIP[2,I]=IIF(TranCd='1',(laWIP[2,I] &lcSign MAX(Qty&Z,0)),laWIP[2,I])
+        ELSE
+          laWIP[2,I]=IIF(TranCd='1',(laWIP[2,I] &lcSign MAX(Qty&Z,0)),(MAX(laWIP[2,I] &lcOSign ABS(Qty&Z),0)))
+        ENDIF
+      CASE POSHDR.Status = 'H'
+        laWIP[3,I]=IIF(TranCd='1',(laWIP[3,I] &lcSign MAX(Qty&Z,0)),(MAX(laWIP[3,I] &lcOSign ABS(Qty&Z),0)))
+    ENDCASE
+  ENDFOR
+ENDSCAN
+
+FOR I=1 TO lnCnt
+  laWIP[1,9]=laWIP[1,9]+laWIP[1,I]
+  laWIP[2,9]=laWIP[2,9]+laWIP[2,I]
+  laWIP[3,9]=laWIP[3,9]+laWIP[3,I]
+ENDFOR
+SELECT (lnAlias)
+RETURN
+
+*!*************************************************************
+*! Name      : lfPrintRep
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Start printing.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfPrintRep()
+*!*************************************************************
+*
+FUNCTION lfPrintRep
+
+SELECT (lcMatReq)
+SET ORDER TO TAG MATREQ
+
+*--Reset report calculated fields.
+REPLACE ALL nYTOWIP  WITH 0,;
+            nYTOWIP1 WITH 0,;
+            nYTOWIP2 WITH 0,;
+            nYTOWIP3 WITH 0,;
+            nYTOWIP4 WITH 0,;
+            nYTOWIP5 WITH 0,;
+            nYTOWIP6 WITH 0,;
+            nYTOWIP7 WITH 0,;
+            nYTOWIP8 WITH 0,;
+            nNetReq  WITH 0,;
+            nNetReq1 WITH 0,;
+            nNetReq2 WITH 0,;
+            nNetReq3 WITH 0,;
+            nNetReq4 WITH 0,;
+            nNetReq5 WITH 0,;
+            nNetReq6 WITH 0,;
+            nNetReq7 WITH 0,;
+            nNetReq8 WITH 0,;
+            nUsedReq WITH 0
+
+*--Initialize printing report variables.
+STORE 0   TO lnOnHand,lnOnOrdr,lnConv,lnLeadTm,lnYield,lnYield1,lnYield2,;
+             lnAvl1,lnAvl2,lnAvl3,lnAvl4,lnAvl5,lnAvl6,lnAvl7,lnAvl8
+STORE " " TO lcDescrp,lcFabVen,lcOldItem,lcSDescrp,lcTkTRUn,;
+             lcSize1,lcSize2,lcSize3,lcSize4,lcSize5,lcSize6,lcSize7,lcSize8
+
+*--[1] Fabrics requirement report.
+SET KEY TO 'F'
+
+IF SEEK('F')
+  DO gfDispRe WITH EVAL('lcRpRname')
+ENDIF
+
+*--[2] Trims requirement report.
+SELECT (lcMatReq)
+SET KEY TO 'T'
+IF SEEK('T')
+  *--Initialize printing variables
+  =lfInitVar()
+  DO gfDispRe WITH EVAL('lcRpRname')
+ENDIF
+
+*--[3] Style components requirement report.
+SELECT (lcMatReq)
+SET KEY TO 'S'
+IF SEEK('S')
+  *--Initialize printing variables
+  =lfInitVar()
+  DO gfDispRe WITH EVAL('lcRpRname')
+ENDIF
+SET KEY TO
+
+RETURN
+
+*!*************************************************************
+*! Name      : lfInitVar
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Function to initialize report calculated varbls.
+*!*************************************************************
+FUNCTION lfInitVar
+STORE 0   TO lnOnHand,lnOnOrdr,lnConv,lnLeadTm,lnYield,lnYield1,lnYield2,;
+             lnAvl1,lnAvl2,lnAvl3,lnAvl4,lnAvl5,lnAvl6,lnAvl7,lnAvl8
+STORE " " TO lcDescrp,lcFabVen,lcOldItem,lcSDescrp,lcTkTRUn,;
+             lcSize1,lcSize2,lcSize3,lcSize4,lcSize5,lcSize6,lcSize7,lcSize8
+RETURN
+
+*!*************************************************************
+*! Name      : lfCreateFl
+*! Developer : AHM - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Create the report temp file.
+*!*************************************************************
+FUNCTION lfCreateFl
+
+DIMENSION laFlSruc[74,4]
+
+*--First array element [Name].
+laFlSruc[1,1] = "STYLE"
+laFlSruc[2,1] = "ITEM"
+laFlSruc[3,1] = "ICLR"
+laFlSruc[4,1] = "DESC"
+laFlSruc[5,1] = "CWARECODE"
+laFlSruc[6,1] = "TYP"
+laFlSruc[7,1] = "CCATGTYP"
+laFlSruc[8,1] = "CNT"
+laFlSruc[9,1] = "UOM"
+laFlSruc[10,1]= "QTY1"
+laFlSruc[11,1]= "QTY2"
+laFlSruc[12,1]= "QTY3"
+laFlSruc[13,1]= "QTY4"
+laFlSruc[14,1]= "QTY5"
+laFlSruc[15,1]= "QTY6"
+laFlSruc[16,1]= "QTY7"
+laFlSruc[17,1]= "QTY8"
+laFlSruc[18,1]= "OREQ1"
+laFlSruc[19,1]= "OREQ2"
+laFlSruc[20,1]= "OREQ3"
+laFlSruc[21,1]= "OREQ4"
+laFlSruc[22,1]= "OREQ5"
+laFlSruc[23,1]= "OREQ6"
+laFlSruc[24,1]= "OREQ7"
+laFlSruc[25,1]= "OREQ8"
+laFlSruc[26,1]= "OREQTOT"
+laFlSruc[27,1]= "OHREQ1"
+laFlSruc[28,1]= "OHREQ2"
+laFlSruc[29,1]= "OHREQ3"
+laFlSruc[30,1]= "OHREQ4"
+laFlSruc[31,1]= "OHREQ5"
+laFlSruc[32,1]= "OHREQ6"
+laFlSruc[33,1]= "OHREQ7"
+laFlSruc[34,1]= "OHREQ8"
+laFlSruc[35,1]= "OHREQTOT"
+laFlSruc[36,1]= "NPROJ1"
+laFlSruc[37,1]= "NPROJ2"
+laFlSruc[38,1]= "NPROJ3"
+laFlSruc[39,1]= "NPROJ4"
+laFlSruc[40,1]= "NPROJ5"
+laFlSruc[41,1]= "NPROJ6"
+laFlSruc[42,1]= "NPROJ7"
+laFlSruc[43,1]= "NPROJ8"
+laFlSruc[44,1]= "PROJECT"
+laFlSruc[45,1]= "NOPNWIP"
+laFlSruc[46,1]= "NYTOWIP"
+laFlSruc[47,1]= "NUSEDREQ"
+laFlSruc[48,1]= "NNETREQ"
+laFlSruc[49,1]= "LSTYMAKE"
+laFlSruc[50,1]= "NNETREQ1"
+laFlSruc[51,1]= "NNETREQ2"
+laFlSruc[52,1]= "NNETREQ3"
+laFlSruc[53,1]= "NNETREQ4"
+laFlSruc[54,1]= "NNETREQ5"
+laFlSruc[55,1]= "NNETREQ6"
+laFlSruc[56,1]= "NNETREQ7"
+laFlSruc[57,1]= "NNETREQ8"
+laFlSruc[58,1]= "NOPNWIP1"
+laFlSruc[59,1]= "NOPNWIP2"
+laFlSruc[60,1]= "NOPNWIP3"
+laFlSruc[61,1]= "NOPNWIP4"
+laFlSruc[62,1]= "NOPNWIP5"
+laFlSruc[63,1]= "NOPNWIP6"
+laFlSruc[64,1]= "NOPNWIP7"
+laFlSruc[65,1]= "NOPNWIP8"
+laFlSruc[66,1]= "NYTOWIP1"
+laFlSruc[67,1]= "NYTOWIP2"
+laFlSruc[68,1]= "NYTOWIP3"
+laFlSruc[69,1]= "NYTOWIP4"
+laFlSruc[70,1]= "NYTOWIP5"
+laFlSruc[71,1]= "NYTOWIP6"
+laFlSruc[72,1]= "NYTOWIP7"
+laFlSruc[73,1]= "NYTOWIP8"
+
+*--Second array element [Type].
+STORE "C" TO laFlSruc[1,2] ,laFlSruc[2,2] ,laFlSruc[3,2] ,laFlSruc[4,2],;
+             laFlSruc[5,2] ,laFlSruc[6,2] ,laFlSruc[7,2] ,laFlSruc[9,2]
+STORE "N" TO laFlSruc[8,2] ,laFlSruc[10,2],laFlSruc[11,2],laFlSruc[12,2],;
+             laFlSruc[13,2],laFlSruc[14,2],laFlSruc[15,2],laFlSruc[16,2],;
+             laFlSruc[17,2],laFlSruc[18,2],laFlSruc[19,2],laFlSruc[20,2],;
+             laFlSruc[21,2],laFlSruc[22,2],laFlSruc[23,2],laFlSruc[24,2],;
+             laFlSruc[25,2],laFlSruc[26,2],laFlSruc[27,2],laFlSruc[28,2],;
+             laFlSruc[29,2],laFlSruc[30,2],laFlSruc[31,2],laFlSruc[32,2],;
+             laFlSruc[33,2],laFlSruc[34,2],laFlSruc[35,2],laFlSruc[36,2],;
+             laFlSruc[37,2],laFlSruc[38,2],laFlSruc[39,2],laFlSruc[40,2],;             
+             laFlSruc[41,2],laFlSruc[42,2],laFlSruc[43,2],laFlSruc[44,2],;
+             laFlSruc[45,2],laFlSruc[46,2],laFlSruc[47,2],laFlSruc[48,2]
+STORE "L" TO laFlSruc[49,2]
+STORE "N" TO laFlSruc[50,2],laFlSruc[51,2],laFlSruc[52,2],laFlSruc[53,2],;
+             laFlSruc[54,2],laFlSruc[55,2],laFlSruc[56,2],laFlSruc[57,2],;
+             laFlSruc[58,2],laFlSruc[59,2],laFlSruc[60,2],laFlSruc[61,2],;
+             laFlSruc[62,2],laFlSruc[63,2],laFlSruc[64,2],laFlSruc[65,2],;
+             laFlSruc[66,2],laFlSruc[67,2],laFlSruc[68,2],laFlSruc[69,2],;
+             laFlSruc[70,2],laFlSruc[71,2],laFlSruc[72,2],laFlSruc[73,2]
+
+*--Thered array element [Length].
+STORE  1  TO laFlSruc[6,3] ,laFlSruc[7,3] ,laFlSruc[8,3],laFlSruc[49,3]
+STORE  3  TO laFlSruc[9,3]
+STORE  6  TO laFlSruc[3,3] ,laFlSruc[5,3] ,laFlSruc[18,3],laFlSruc[19,3],;
+             laFlSruc[20,3],laFlSruc[21,3],laFlSruc[22,3],laFlSruc[23,3],;
+             laFlSruc[24,3],laFlSruc[25,3],laFlSruc[27,3],laFlSruc[28,3],;
+             laFlSruc[29,3],laFlSruc[30,3],laFlSruc[31,3],laFlSruc[32,3],;
+             laFlSruc[33,3],laFlSruc[34,3],laFlSruc[36,3],laFlSruc[37,3],;
+             laFlSruc[38,3],laFlSruc[39,3],laFlSruc[40,3],laFlSruc[41,3],;
+             laFlSruc[42,3],laFlSruc[43,3]
+STORE  7  TO laFlSruc[10,3],laFlSruc[11,3],laFlSruc[12,3],laFlSruc[13,3],;
+             laFlSruc[14,3],laFlSruc[15,3],laFlSruc[16,3],laFlSruc[17,3],;
+             laFlSruc[26,3],laFlSruc[35,3],laFlSruc[44,3],laFlSruc[45,3]
+STORE 19  TO laFlSruc[1,3] ,laFlSruc[2,3]
+STORE 12  TO laFlSruc[46,3],laFlSruc[47,3],laFlSruc[48,3]
+STORE 20  TO laFlSruc[4,3]
+STORE 12  TO laFlSruc[50,3],laFlSruc[51,3],laFlSruc[52,3],laFlSruc[53,3],;
+             laFlSruc[54,3],laFlSruc[55,3],laFlSruc[56,3],laFlSruc[57,3]
+STORE  7  TO laFlSruc[58,3],laFlSruc[59,3],laFlSruc[60,3],laFlSruc[61,3],;
+             laFlSruc[62,3],laFlSruc[63,3],laFlSruc[64,3],laFlSruc[65,3],;
+             laFlSruc[66,3],laFlSruc[67,3],laFlSruc[68,3],laFlSruc[69,3],;
+             laFlSruc[70,3],laFlSruc[71,3],laFlSruc[72,3],laFlSruc[73,3]
+
+*--Forth array element [Decemal].
+STORE  0  TO laFlSruc[1,4] ,laFlSruc[2,4] ,laFlSruc[3,4] ,laFlSruc[4,4], ;
+             laFlSruc[5,4] ,laFlSruc[6,4] ,laFlSruc[7,4] ,laFlSruc[8,4], ;
+             laFlSruc[9,4] ,laFlSruc[18,4],laFlSruc[19,4],laFlSruc[20,4],;
+             laFlSruc[21,4],laFlSruc[22,4],laFlSruc[23,4],laFlSruc[24,4],;
+             laFlSruc[25,4],laFlSruc[26,4],laFlSruc[27,4],laFlSruc[28,4],;
+             laFlSruc[29,4],laFlSruc[30,4],laFlSruc[31,4],laFlSruc[32,4],;
+             laFlSruc[33,4],laFlSruc[34,4],laFlSruc[35,4],laFlSruc[36,4],;
+             laFlSruc[37,4],laFlSruc[38,4],laFlSruc[39,4],laFlSruc[40,4],;
+             laFlSruc[41,4],laFlSruc[42,4],laFlSruc[43,4],laFlSruc[44,4],;
+             laFlSruc[45,4],laFlSruc[49,4]
+STORE  3  TO laFlSruc[10,4],laFlSruc[11,4],laFlSruc[12,4],laFlSruc[13,4],;
+             laFlSruc[14,4],laFlSruc[15,4],laFlSruc[16,4],laFlSruc[17,4],;
+             laFlSruc[46,4],laFlSruc[47,4],laFlSruc[48,4]
+STORE  0  TO laFlSruc[58,4],laFlSruc[59,4],laFlSruc[60,4],laFlSruc[61,4],;
+             laFlSruc[62,4],laFlSruc[63,4],laFlSruc[64,4],laFlSruc[65,4]
+STORE  3  TO laFlSruc[50,4],laFlSruc[51,4],laFlSruc[52,4],laFlSruc[53,4],;
+             laFlSruc[54,4],laFlSruc[55,4],laFlSruc[56,4],laFlSruc[57,4],;
+             laFlSruc[66,4],laFlSruc[67,4],laFlSruc[68,4],laFlSruc[69,4],;
+             laFlSruc[70,4],laFlSruc[71,4],laFlSruc[72,4],laFlSruc[73,4]
+laFlSruc[74,1] = "PoCt"
+laFlSruc[74,2] = "M"
+laFlSruc[74,3] = "10"
+laFlSruc[74,4] = "0"
+CREATE DBF (oAriaApplication.WorkDir+lcMatReq) FROM ARRAY laFlSruc
+RETURN
+
+****************************
+
+*** FRX FUNCTIONS
+
+****************************
+
+*!*************************************************************
+*! Name      : lfGetInfo
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Get Fabric,Trim or Style comp information like
+*!             description,onhand and onorder.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfGetInfo()
+*!*************************************************************
+FUNCTION lfGetInfo
+llSekFile = IIF(cCatgTyp = 'S' , SEEK(Item,'STYLE') , loFabric.Seek("0002"+Item) )
+IF llSekFile
+  IF cCatgTyp = 'S'
+    lcDescrp = STYLE.Desc1
+    lnOnHand = STYLE.TotStk
+    lnOnOrdr = STYLE.TotWip
+    FOR lnI=1 TO 8
+      lcZ=STR(lnI,1)
+      lnAvl&lcZ = ( STYLE.Stk&lcZ + STYLE.WIP&lcZ)
+    ENDFOR
+  ELSE
+    lcFDesc  = FABRIC.Desc1
+    lcClrDsc = gfCodDes(SUBSTR(FABRIC.Style,lnClrFSrt,lnClrFEnd),'COLOR     ')
+    IF llByFabLoc AND cCatgTyp='F'
+      loFabdye.SEEK("0002"+Item+cWareCode)
+      lnOnHand = FABDYE.TotStk
+      lnOnOrdr = FABDYE.TotWip
+    ELSE
+      loFabdye.SEEK("0002"+Item)
+      =lfGetFabInfo()
+    ENDIF
+    lcFabVen = FABRIC.Vendor
+    lcDescrp = gfCodDes(SUBSTR(FABRIC.Style,lnClrFSrt,lnClrFEnd),'COLOR     ')+' - '+FABRIC.Desc1
+  ENDIF
+ELSE
+
+  STORE 0   TO lnOnHand, lnOnOrdr ,lnConv ,lnLeadTm  ,lnFabcost
+  STORE " " TO lcDescrp, lcFabVen
+ENDIF
+RETURN ''
+
+*!*************************************************************
+*! Name      : lfvReq
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Calculate the requirement use (pieces*yield)
+*!*************************************************************
+*! Passed Parameters  : Complute
+*!                      Requirement yield
+*!                             'O' for open order
+*!                             'H' for open+hold
+*!                             'P' for projection
+*!                     'S' Open Wip yield
+*!*************************************************************
+*! Returns            : lnItmRec -> requirement for item/color.
+*!*************************************************************
+*! Example   : =lfvReq('O')
+*!*************************************************************
+FUNCTION lfvReq
+PARA lcForTyp
+
+lnItmRec=0
+DO CASE
+  CASE lcForTyp='O'
+     lnItmRec = (oreq1*Qty1)+(oreq2*Qty2)+(oreq3*Qty3)+(oreq4*Qty4)+;
+                (oreq5*Qty5)+(oreq6*Qty6)+(oreq7*Qty7)+(oreq8*Qty8)
+  CASE lcForTyp='H'
+     lnItmRec = (oHreq1*Qty1)+(oHreq2*Qty2)+(oHreq3*Qty3)+(oHreq4*Qty4)+;
+                (oHreq5*Qty5)+(oHreq6*Qty6)+(oHreq7*Qty7)+(oHreq8*Qty8)
+  CASE lcForTyp='P'
+     lnItmRec = (NPROJ1*Qty1)+(NPROJ2*Qty2)+(NPROJ3*Qty3)+(NPROJ4*Qty4)+;
+                (NPROJ5*Qty5)+(NPROJ6*Qty6)+(NPROJ7*Qty7)+(NPROJ8*Qty8)
+  CASE lcForTyp='S'
+    lnItmRec = nYToWIP
+ENDCASE
+RETURN (lnItmRec)
+
+*!*************************************************************
+*! Name      : lfvReqln
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Calculate the requirement use per size.
+*!*************************************************************
+*! Passed Parameters  : lcForTyp > Requirement for type
+*!                             'O' for open order
+*!                             'H' for open+hold
+*!                             'P' for projection
+*!                             'S' Open Wip yield
+*!                     lnRSize > Size no to get req. for it.
+*!*************************************************************
+*! Returns            : lnItmRec -> requirement for item/color.
+*!*************************************************************
+*! Example   : =lfvReqLn('O',3)
+*!*************************************************************
+FUNCTION lfvReqLn
+PARA lcForTyp,lnRSize
+
+lcRSize=STR(lnRSize,1)
+lnItmRec=0
+DO CASE
+  CASE lcForTyp='O'
+    lnItmRec = (OReq&lcRSize * Qty&lcRSize) 
+  CASE lcForTyp='H'
+    lnItmRec = (OHReq&lcRSize * Qty&lcRSize) 
+  CASE lcForTyp='P'
+    lnItmRec = (nProj&lcRSize * Qty&lcRSize) 
+  *--Open Wip yards on P/o or C/t. passed as 'S'
+  CASE lcForTyp='S'
+    lnItmRec = nYToWIP&lcRSize
+ENDCASE
+RETURN (lnItmRec)
+
+*!*************************************************************
+*! Name      : lfRqIsUsd
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Get issed Used and Net required qty.
+*!*************************************************************
+*! Passed Parameters  : lcPrStyle -> Current style
+*!                      lcPrItem  -> Current Item
+*!                      lcPrTyp   -> Item type
+*!                      lnPrOpnWip-> Open Style WIP.
+*!                      llClcIssue-> Need to calculate issue.
+*!*************************************************************
+*! Returns            : space(0) to not print anything in repo.
+*!*************************************************************
+*! Example   :
+*! lfRqIsUsd(EVAL(lcMatReq+'.Style'),EVAL(lcMatReq+'.Item'),;
+*!            EVAL(lcMatReq+'.IClr'),EVAL(lcMatReq+'.lStyMake'),;
+*!            EVAL(lcMatReq+'.Typ'),EVAL(lcMatReq+'.nOpnWip'),;
+*!           (EVAL(lcMatReq+'.Item')+EVAL(lcMatReq+'.Iclr')<>lcOldItem))
+*!*************************************************************
+FUNCTION lfRqIsUsd
+PARA lcPrStyle,lcPrItem,lcPrTyp,lnPrOpnWip,llClcIssue
+
+*--Hold old item/color code.
+lcOldItem = lcPrItem
+*--If no open wip qty exist and no need to calculate issue then exit.
+IF (lnPrOpnWip = 0  AND !llClcIssue) OR EVALUATE(lcMatReq+'.nYTOWIP')<>0
+  RETURN ''
+ENDIF
+IF !loPosLn.SEEK("0001"+lcPrStyle)
+  RETURN ''
+ENDIF
+
+lcInvType = IIF(EVALUATE(lcMatReq+'.cCatgTyp') = 'S',"0001","0002")
+lcSvTkt = "  "
+lnAlias = SELECT()
+SELECT POSLN
+
+SCAN WHILE cInvType+Style = "0001"+lcPrStyle FOR cBusDocu $ 'PRN' AND cStyType $ 'PUN' AND;
+           loPosHdr.Seek(cBusDocu+cStyType+PO) AND POSHDR.Status $ 'O' AND TranCd = '1'
+  *--Tiket type.
+  lcTktType = IIF(cStyType='U','M','I')
+  *--C/t no or P/o no.
+  lcTktk    = Po
+  *--Line no.
+  lcSLineNo = STR(POSLN.LineNo,6)
+  DECLARE laWipPln[9]
+  laWipPln = 0
+  =lfGtWipPln()
+  IF laWipPln[9] <> 0
+    SELECT BOMLINE
+    *--Seek on full expresion in BomLine.
+    *-cimtyp+ctype+ctktno+STR(lineno,6)+cbomtyp+cInvType+style+cInvTypC+item
+    lcBomLnKey = lcTktType+'1'+lcTktk+lcSLineNo+lcPrTyp+"0001"+lcPrStyle+lcInvType+lcPrItem
+    IF loBomLine.SEEK(lcBomLnKey)
+      lnBomUqt = BOMLINE.UnitQty
+      SELECT (lcMatReq)
+      REPLACE nYTOWIP  WITH nYTOWIP  + (laWipPln[9] * lnBomUqt),;
+              nYTOWIP1 WITH nYTOWIP1 + (laWipPln[1] * lnBomUqt ),;
+              nYTOWIP2 WITH nYTOWIP2 + (laWipPln[2] * lnBomUqt ),;
+              nYTOWIP3 WITH nYTOWIP3 + (laWipPln[3] * lnBomUqt ),;
+              nYTOWIP4 WITH nYTOWIP4 + (laWipPln[4] * lnBomUqt ),;
+              nYTOWIP5 WITH nYTOWIP5 + (laWipPln[5] * lnBomUqt ),;
+              nYTOWIP6 WITH nYTOWIP6 + (laWipPln[6] * lnBomUqt ),;
+              nYTOWIP7 WITH nYTOWIP7 + (laWipPln[7] * lnBomUqt ),;
+              nYTOWIP8 WITH nYTOWIP8 + (laWipPln[8] * lnBomUqt )           
+    ENDIF
+  ENDIF
+  
+  SELECT CTKTBOM
+  IF loCtktBom.SEEK(lcTktType+lcTktk+lcPrTyp+lcInvType+lcPrItem)
+    *--If style component need to calculate the net required by size ,
+    *--used in remaining.
+    
+    IF EVAL(lcMatReq+'.cCatgTyp') = 'S'
+      STORE 0 TO lnIssue,lnNRequ,lnNrqu1,lnNrqu2,lnNrqu3,lnNrqu4,lnNrqu5,lnNrqu6,lnNrqu7,lnNrqu8
+      SUM REST Used_Qty,MAX(Req_Qty-Used_Qty,0),MAX(Req_Qty1-Used_Qty1,0),MAX(Req_Qty2-Used_Qty2,0),;
+         MAX(Req_Qty3-Used_Qty3,0),MAX(Req_Qty4-Used_Qty4,0),MAX(Req_Qty5-Used_Qty5,0),;
+         MAX(Req_Qty6-Used_Qty6,0),MAX(Req_Qty7-Used_Qty7,0),MAX(Req_Qty8-Used_Qty8,0);
+         TO lnIssue,lnNRequ,lnNrqu1,lnNrqu2,lnNrqu3,lnNrqu4,lnNrqu5,lnNrqu6,lnNrqu7,lnNrqu8 ;
+         WHILE cIMTyp+Cuttkt+typ+cInvType+Item = lcTktType+lcTktk+lcPrTyp+lcInvType+lcPrItem
+      
+      SELECT (lcMatReq)
+      lnSavRec = RECNO()
+      lcSekKey = cCatgTyp+Item
+      SEEK lcSekKey
+      SCAN REST WHILE cCatgTyp+Item=lcSekKey
+        IF !(lcTktType+lcTktk  $ PoCt )
+          REPLACE  nUsedReq WITH nUsedReq + lnIssue,;
+                   nNetReq  WITH nNetReq  + lnNRequ,;
+                   nNetReq1 WITH nNetReq1 + lnNrqu1,;
+                   nNetReq2 WITH nNetReq2 + lnNrqu2,;
+                   nNetReq3 WITH nNetReq3 + lnNrqu3,;
+                   nNetReq4 WITH nNetReq4 + lnNrqu4,;
+                   nNetReq5 WITH nNetReq5 + lnNrqu5,;
+                   nNetReq6 WITH nNetReq6 + lnNrqu6,;
+                   nNetReq7 WITH nNetReq7 + lnNrqu7,;                                                                                                         
+                   nNetReq8 WITH nNetReq8 + lnNrqu8,;
+                   PoCt 	  WITH poCt + lcTktType+lcTktk+','
+        ENDIF
+      ENDSCAN
+      GOTO lnSavRec
+    ELSE
+      STORE 0 TO lnIssue,lnNRequ
+      SUM REST Used_Qty,MAX(Req_Qty-Used_Qty,0) TO lnIssue,lnNRequ ;
+         WHILE cIMTyp+Cuttkt+typ+cInvType+Item = lcTktType+lcTktk+lcPrTyp+lcInvType+lcPrItem
+      SELECT (lcMatReq)
+      lnSavRec = RECNO()
+      lcSekKey = cCatgTyp+Item
+      SEEK lcSekKey
+      SCAN REST WHILE cCatgTyp+Item=lcSekKey
+        IF !(lcTktType+lcTktk  $ PoCt )
+          REPLACE nUsedReq WITH nUsedReq + lnIssue,;
+                  nNetReq  WITH nNetReq  + lnNRequ,;
+                  PoCt 	 WITH poCt + lcTktType+lcTktk+','
+        ENDIF
+      ENDSCAN
+      GOTO lnSavRec
+    ENDIF
+  ENDIF
+  lcSvTkt = lcTktk
+ENDSCAN
+
+SELECT (lnAlias)
+RETURN ''
+
+*!*************************************************************
+*! Name      : lfRemain
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Compute remaining and check -ve remaining.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Call               : lfSavNRItm()
+*!*************************************************************
+*! Returns            : lnRemain -> Remaining.
+*!*************************************************************
+*! Example   : =lfRemain()
+*!*************************************************************
+FUNCTION lfRemain
+PARA lcForTyp
+
+*--Initilize remaining as zero.
+STORE 0 TO lnRemReq , lnRemain
+
+IF lcForTyp='P'
+  lnRemain = (lnOnHand+lnOnOrdr) - lnPReq
+ELSE
+  IF EVAL(lcMatReq+'.cCatgTyp') = 'S'
+    FOR lnI = 1 TO 8
+      lcZ=STR(lnI,1)
+      lnRequr  = EVAL('ln'+lcForTyp+'Req'+lcZ)
+      lnRemReq = ABS( lnRequr - lnYTWip&lcZ )
+      *--Read Remaining and acumulate for all sizes.
+      lnRemain = lnRemain + ;
+        (lnAvl&lcZ - ( lnRemReq + EVAL(lcMatReq+'.nNetReq'+lcZ) ))
+    ENDFOR
+  ELSE
+    lnRemReq = ABS( EVAL('ln'+lcForTyp+'Req') - lnYTWip)
+    *--Read Remaining.
+    lnRemain = (lnOnHand+lnOnOrdr) - ( lnRemReq + EVAL(lcMatReq+'.nNetReq') )
+    *lnRemain = (lnOnHand+lnOnOrdr) - ( lnRemReq + lnNetReq )
+  ENDIF
+ENDIF
+
+*--Check negative remaining for fabrics and trims. 
+IF EVAL(lcMatReq+'.cCatgTyp') $ 'FT' AND lcForTyp = lcRpRmChk AND lnRemain < 0
+  lnRequired = ABS(lnRemain)
+ENDIF
+
+*-- IN MATERIAL O.T.S REPORT WE NEED TO CALL THIS 
+*-- FUNCTION AGAIN TO CALCULATE VALUE OPEN TO SELL. 
+*-- INSTEAD OF THAT THE RETURN VALUE WILL BE SAVED
+*-- IN VARIABELS lnRemainO if the parameter is O
+*--              lnRemainH if the parameter is H 
+*--              lnRemainP if the parameter is P
+DO CASE
+  CASE lcForTyp = 'O'
+    lnRemainO = lnRemain
+  CASE lcForTyp = 'H'
+    lnRemainH = lnRemain
+  CASE lcForTyp = 'P'
+    lnRemainP = lnRemain
+ENDCASE
+
+RETURN (lnRemain)
+
+*!*************************************************************
+*! Name      : lfGtWipPln
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : caclculate the WIP for specific PO/CT
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  .F.
+*!*************************************************************
+*! Example            :  =lfGtWipPln()
+*!*************************************************************
+FUNCTION lfGtWipPln
+
+lnCurRec = RECNO()
+lcTranNo = Po 
+SCAN WHILE cInvType+Style="0001"+lcPrStyle FOR Po = lcTranNo AND !(TranCd $ '367') AND &lcForWare
+  lcSign  = IIF(cBusDocu='R','-','+')
+  lcOSign = IIF(cBusDocu='R','+','-')
+  FOR I=1 TO 8
+    Z=STR(I,1)
+    IF gfDoTriger('MAMATRQ',PADR('CLCWIPGMA',10))
+      laWipPln[I]=IIF(TranCd = '1', (laWipPln[I] &lcSign  MAX(Qty&Z,0)) , laWipPln[I])
+    ELSE
+      laWipPln[I]=IIF(TranCd = '1', (laWipPln[I] &lcSign MAX(Qty&Z,0)) ,;
+                       (MAX(laWipPln[I] &lcOSign ABS(Qty&Z),0) ) )
+    ENDIF
+  ENDFOR
+ENDSCAN
+FOR I=1 TO 8      
+ laWipPln[9]=laWipPln[9]+laWipPln[I]
+ENDFOR
+GO lnCurRec
+RETURN
+
+*!*************************************************************
+*! Name      : lfGetStyDye
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/04/2005
+*! Purpose   : Collating data from selected Warehouse only.
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  .F.
+*!*************************************************************
+*! Example            :  =lfGetStyDye()
+*!*************************************************************
+FUNCTION lfGetStyDye
+
+SELECT STYDYE
+SET ORDER TO TAG Stydyew
+SELECT (lcStyDFile)
+LOCATE
+SCAN
+  IF SEEK(cWareCode,'STYDYE')
+    IF llStyRang
+      SELECT (lcStylFile)
+      LOCATE
+      SCAN
+        IF SEEK(EVALUATE(lcStyDFile+'.cWareCode')+SUBSTR(cStyMajor,1,lnMajorLn),'STYDYE')
+          SELECT STYDYE
+          SCAN REST WHILE cWareCode+Style = EVALUATE(lcStyDFile+'.cWareCode')+SUBSTR(EVALUATE(lcStylFile+'.cStyMajor'),1,lnMajorLn) FOR EMPTY(Dyelot)
+            IF SEEK(style,'STYLE')
+              SELECT STYLE
+              =lfGetStyle()
+            ENDIF
+          ENDSCAN
+        ENDIF
+      ENDSCAN
+    ELSE
+      SELECT STYDYE
+      SCAN REST WHILE cWareCode = EVALUATE(lcStyDFile+'.cWareCode') FOR EMPTY(Dyelot)
+        IF SEEK(style,'STYLE')
+          SELECT STYLE
+          =lfGetStyle()
+        ENDIF
+      ENDSCAN
+    ENDIF
+  ENDIF
+ENDSCAN
+*--end of lfGetStyDye.
+
+*!*************************************************************
+*! Name      : lfGetStyRang
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/04/2005
+*! Purpose   : Collating data from selected styles only.
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  .F.
+*!*************************************************************
+*! Example            :  =lfGetStyRang()
+*!*************************************************************
+FUNCTION lfGetStyRang
+
+SELECT (lcStylFile)
+LOCATE
+SCAN
+  IF SEEK(SUBSTR(cStyMajor,1,lnMajorLn),'STYLE')
+    SELECT STYLE
+    SCAN REST WHILE Style = SUBSTR(EVALUATE(lcStylFile+'.cStyMajor'),1,lnMajorLn)
+      =lfGetStyle()
+    ENDSCAN
+  ENDIF
+ENDSCAN
+*--end of lfGetStyRang.
+
+*!*************************************************************
+*! Name      : lfGetStyAll
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/04/2005
+*! Purpose   : Collating data from All styles.
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  .F.
+*!*************************************************************
+*! Example            :  =lfGetStyAll()
+*!*************************************************************
+FUNCTION lfGetStyAll
+
+SELECT STYLE
+SCAN
+  =lfGetStyle()
+ENDSCAN
+*--end of lfGetStyAll.
+
+*!*************************************************************
+*! Name      : lfGetStyle
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/04/2005
+*! Purpose   : Collating data from one style.
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  .F.
+*!*************************************************************
+*! Example            :  =lfGetStyle()
+*!*************************************************************
+FUNCTION lfGetStyle
+
+*--Check if the Primary Fabric.
+IF llStyFRang AND !SEEK(STYLE.Fabric,lcStyFFile)
+  RETURN
+ENDIF
+
+*--Check other style filters.
+IF !(EMPTY(lcStySeasn) OR STYLE.Season$lcStySeasn)  OR !(EMPTY(lcStyDiv)  OR STYLE.cDivision$lcStyDiv) OR;
+   !(EMPTY(lcStyGrp)   OR STYLE.cStyGroup$lcStyGrp) OR !(EMPTY(lcStyPtrn) OR STYLE.Pattern=lcStyPtrn)  OR;
+   !(EMPTY(lcStyClr)   OR SUBSTR(STYLE.STYLE,lnClrSrt,lnClrEnd)$lcStyClr)
+  RETURN
+ENDIF
+
+*--Check if the style has a cost sheet.
+IF !(STYLE.cStyMajor == lcStyMajor)
+  lcStyMajor = STYLE.cStyMajor
+  IF !loBom.SEEK("0001"+lcStyMajor)
+    RETURN
+  ENDIF
+  *hma
+  *loBom.SETORDER('MULTIBOM')
+  *hma  
+ENDIF
+
+*--Current style code and style scale.
+lcCStyle   = STYLE.Style
+lcLocation = IIF(llByLoctn,STYDYE.cWareCode,SPACE(6))
+lnCnt      = IIF( loScale.SEEK("S"+STYLE.Scale), SCALE.Cnt , 8 )
+WAIT WINDOW 'Collecting the cost sheet information for Style : '+lcCStyle NOWAIT
+SELECT BOM
+LOCATE
+SCAN REST WHILE cInvType+cItmMajor = "0001"+lcStyMajor ;
+            FOR LIKE(STRTRAN(cItmMask,'*','?'),lcCStyle) AND ;
+                cCatgTyp $ IIF(lcRpCompn='A','FTS',lcRpCompn)
+      loFabric.Seek("0002"+SUBSTR(Item,1,lnMatMjrL),'STYLE',.T.)
+  
+  *--Don't include non inventory trims if not setup to use it.
+  IF (cCatgTyp='T' AND !Trim_Invt AND !llRpInvItm)
+    LOOP
+  ENDIF  
+
+  *--Read an item code and an item color[lcItem,lcIClr].
+  STORE '' TO lcItem
+  IF !lfReadItem()
+    LOOP
+  ENDIF 
+  
+  *--If commponent is fabric check fabric and colors in grid filter.
+  IF llByFabLoc AND (cCatgTyp = 'F' OR (cCatgTyp='T' AND Trim_Invt))
+    IF !lfGetFabDye()
+      LOOP
+    ENDIF
+  ENDIF
+  
+  *--Check if maririal/color entered in grid is valid.
+  IF (BOM.cCatgTyp = 'F' OR BOM.cCatgTyp='T')
+    IF (llFabrRang AND !SEEK(SUBSTR(lcItem,1,lnMatMjrL),lcFabrFile)) OR;
+      !(EMPTY(lcFabPur) OR FABRIC.cPurCode$lcFabPur)                 OR;
+       (llFabVRang AND !SEEK(FABRIC.VENDOR,lcFabVFile))              OR;
+      !(EMPTY(lcFabIType) OR FABRIC.Item_Type$lcFabIType)            OR;
+      !(EMPTY(lcFabClr) OR SUBSTR(lcItem,lnClrFSrt,lnClrFEnd)$lcFabClr)
+      LOOP
+    ENDIF
+  ENDIF
+  
+  *--Append or Update record in (lcMatReq) file.
+  =lfUpdReq()
+
+  *--Append item/color used in style cost sheet in temp items file. 
+  IF !llNoStyFlter
+    =lfUpdItem()
+  ENDIF
+ENDSCAN
+*--end of lfGetStyle.
+
+*!*************************************************************
+*! Name      : lfGetFabDye
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Collating data from FabDye.
+*!*************************************************************
+*! Calls     : None
+*!*************************************************************
+*! Passed Parameters  :  None
+*!*************************************************************
+*! Returns            :  .F.
+*!*************************************************************
+*! Example            :  =lfGetFabDye()
+*!*************************************************************
+FUNCTION lfGetFabDye
+
+LOCAL lnAlias
+lnAlias = SELECT(0)
+SELECT (lcFabDFile)
+LOCATE
+SCAN
+  IF loFabdye.seek("0002"+lcItem+cWareCode)
+    SELECT (lnAlias)
+    RETURN .T.
+  ENDIF
+ENDSCAN
+SELECT (lnAlias)
+RETURN .F.
+*--end of lfGetFabDye.
+
+*!*************************************************************
+*! Name      : lfGetFColor
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/05/2005
+*! Purpose   : Get the fabric color length and width.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfGetColor()
+*!*************************************************************
+FUNCTION lfGetFColor
+
+DIME laMajSeg[1,1]
+=gfItemMask(@laMajSeg,"","0002")
+FOR lnCnt=1 TO ALEN(laMajSeg,1)
+  *--Check for existance of color segment in style structure.
+  IF laMajSeg[lnCnt,1]='C'
+    *--Get the color length and width.
+    lnClrFSrt = laMajSeg[lnCnt,4]
+    lnClrFEnd = LEN(laMajSeg[lnCnt,3])
+    EXIT
+  ENDIF
+ENDFOR
+RETURN
+*--end lfGetFColor.
+
+*!*************************************************************
+*! Name      : lfsrvSty
+*! Developer : AHMED MAHER (AMH)
+*! Date      : 04/06/2005
+*! Purpose   : Rise change style flag, in range browse screen.
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Called from : Option Grid
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Example   : =lfsrvSty()
+*!*************************************************************
+*! Note      : SRV symbol is [S,Set -- R,Reset -- V,Valid]
+*!*************************************************************
+FUNCTION lfSRSty
+PARAMETERS lcParm
+
+DO CASE
+  CASE lcParm = 'S'  && Set code
+    *-- open this file in another alias to set order to Style Major 
+    *-- unique index.
+    SELECT STYLE
+    SET ORDER TO TAG Cstyle
+  CASE lcParm = 'R'  && Reset code
+    SELECT STYLE
+    SET ORDER TO TAG STYLE
+ENDCASE
+*-- end of lfsrvSty.
+
+*!*************************************************************
+*! Name      : lfGetFabInfo
+*! Developer : AMH - AHMED MAHER
+*! Date      : 04/06/2005
+*! Purpose   : Get the fabric onHand and onOrder.
+*!*************************************************************
+*! Passed Parameters  : ............
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Example   : =lfGetFabInfo()
+*!*************************************************************
+FUNCTION lfGetFabInfo
+
+LOCAL lnAlias
+lnAlias = SELECT(0)
+SELECT FABDYE
+SUM TotStk,TotWip TO lnOnHand,lnOnOrdr FOR EMPTY(Dyelot)
+SELECT (lnAlias)
+RETURN
+*--end lfGetFabInfo.

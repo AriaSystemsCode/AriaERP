@@ -1,0 +1,1 @@
+alpktk.exe /regserver

@@ -1,0 +1,1 @@
+rmcmem.exe /regserver

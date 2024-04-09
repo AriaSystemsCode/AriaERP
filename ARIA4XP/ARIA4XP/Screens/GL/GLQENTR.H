@@ -1,0 +1,2 @@
+#DEFINE LANG_SrcMod  "Source module"
+#DEFINE LANG_SrcJrn  "Source journal"

@@ -1,0 +1,6 @@
+#DEFINE LANG_Start_Date	      'You have to enter at least one Start Date !'
+#DEFINE LANG_Start_2_Print	  'Only 2 Start Dates will be printed ...'
+#DEFINE LANG_Comp_Date	      'You have to enter at least one Complete Date !'
+#DEFINE LANG_Comp_2_Print	  'Only 2 Complete Dates will be printed ...'
+#DEFINE LANG_Comp_Empty_Buck  'No Bucket Completion date found, Cannot proceed!'
+#DEFINE LANG_Start_Empty_Buck 'No Bucket Starting date found, Cannot proceed!'

@@ -1,0 +1,1788 @@
+*:***************************************************************************
+*: Program file  : SOSTKAV
+*: Program desc. : Stock Availiablity Report
+*: For Report    : (....)
+*: System        : Aria Advantage Series.
+*: Module        : Sales Order (SO)
+*: Developer     : Mariam Mazhar (MMT)
+*: Date          : 06/28/2006 (037675)
+*:***************************************************************************
+*: Calls : 
+*:    Procedures : lpPrnCode,DISP_TITLES,ORD971,ORD972,SUB_ORDQTY,ACUM_OTS,
+*:               : POST_NVE_VALUS,POST_BF,DISP_OTS_LINES,lpUpdOTS 
+*:    Functions  : gfModalGen,gfItemMask,gfThermo,gfCodDes,FaBrow,gfRange.
+*:               : lfwRepWhen,lfStyTemp,lfwOldVal,lfEvalSegs,lfSRVSty,lfStySum,
+*:               : lfvFabric,lfClearRep,lfCollTime,lfGtYTD.
+*:***************************************************************************
+*: Passed Parameters  : None
+*:***************************************************************************
+*: Modification:
+*!* B609356,1 SMA 07/26/2010 Fix bug of creating empty *.cdx files [T20091027.0093]
+*!* B610448,1 HIA 07/28/13 T20130723.0008 - Stock Availablity report problem:some colors are not showing up.
+*:***************************************************************************
+*: Example : DO SOSTKAV
+*:***************************************************************************
+lcStTime = TIME()
+llOTSbasTr = gfGetMemVar('M_OTSBASTR',oAriaApplication.ActiveCompanyID)
+
+llEngDate = (ALLTRIM(oAriaApplication.DefaultCountry) = 'ENG' .OR. SET('DATE')='BRITISH')
+
+DIMENSION laNetQTY[8]
+llHaveClr = (lcFree_Clr = 'C')
+
+DIMENSION loOgScroll.laCRParams[7,2]
+
+loOgScroll.laCRParams[1,1] = 'ReportName'
+loOgScroll.laCRParams[1,2] = 'Stock Availability Report'
+
+loOgScroll.laCRParams[2,1] = 'llEngDate'
+loOgScroll.laCRParams[2,2] = IIF(llEngDate,1,0)
+
+loOgScroll.laCRParams[3,1] = 'llRpZeroAv'
+loOgScroll.laCRParams[3,2] = IIF(llRpZeroAv,1,0)
+
+loOgScroll.laCRParams[4,1] = 'llRpSizes'
+loOgScroll.laCRParams[4,2] = IIF(llRpSizes,1,0)
+
+loOgScroll.laCRParams[5,1] = 'gdSysDate'
+loOgScroll.laCRParams[5,2] = oAriaApplication.SystemDate
+
+loOgScroll.laCRParams[6,1] = 'lcStyMajor'
+loOgScroll.laCRParams[6,2] = lcStyMajor
+
+loOgScroll.laCRParams[7,1] = 'lcOtherTlt'
+loOgScroll.laCRParams[7,2] = lcOtherTlt
+
+
+
+IF loOgScroll.llOGFltCh && OG Filters changed
+  STORE 0  TO lnCountRec
+  WAIT WINDOW "Collecting Data......." NOWAIT 
+  *-- if you have previous data clear workfile then recreate it. [begin]
+  IF !USED(lcWorkFile) OR (RECCOUNT(lcWorkFile) > 0)
+    IF USED(lcWorkFile)
+      USE IN (lcWorkFile)
+    ENDIF  
+    = lfStyTemp()  && Create temporary cursor.
+  ENDIF
+  lfCollect()
+ELSE
+  IF FILE(oAriaApplication.WorkDir +  lcWorkFile + ".DBF") AND !USED(lcWorkFile)
+    USE oAriaApplication.WorkDir +  lcWorkFile + ".DBF" IN 0 
+  ENDIF 
+ENDIF  
+
+loOgScroll.lcOGLastForm = 'SOSTKAV'
+loOgScroll.cCRorientation = 'L'
+
+IF RECCOUNT(lcWorkFile) = 0
+  *-- Message : There are no records to display...!
+  *--                < Ok > 
+  =gfModalGen('TRM00052B40011','ALERT')
+  RETURN
+ENDIF
+
+SELECT(lcWorkFile)
+IF !llRpZeroAv
+ LOCATE FOR per11 <> 0  or  per12 <> 0
+ IF !FOUND()
+   =gfModalGen('TRM00052B40011','ALERT')
+    RETURN
+ ENDIF 
+ENDIF 
+DIMENSION LOogsCROLL.laCRTables[1]
+lcEdTime = TIME()  && Time in which we finish collect data.
+lnInterval = lfCollTime(lcStTime,lcEdTime)  && Calculate collecting data spent time.
+WAIT WINDOW 'Selected ' + ALLTRIM(STR(lnCountRec)) + ' Records in ' + ALLTRIM(STR(lnInterval,6,2)) + ' Seconds...' NOWAIT
+*COPY TO oAriaApplication.WorkDir +  lcTmpFile+ ".DBF"
+*loOgScroll.laCRTables[1] = oAriaApplication.WorkDir +  lcTmpFile + ".DBF"
+
+loOgScroll.laCRTables[1] = oAriaApplication.WorkDir +  lcWorkFile + ".DBF"
+SELECT(lcWorkFile)
+USE 
+gfDispRe()
+RETURN 
+
+
+*-- if company setuped to use Purshase order module.
+*!*	IF 'PO' $ oAriaApplication.CompanyInstalledModules
+*!*	  SELECT POSLN
+*!*	  SET RELATION TO ShipNo INTO SHPMTHDR, cStyType + Po INTO POSHDR
+*!*	ENDIF
+
+*!*	*-- if company setuped to use Manufacturing module.
+*!*	IF 'MF' $ oAriaApplication.CompanyInstalledModules
+*!*	  SELECT CUTTKTL
+*!*	  SET RELATION TO CUTTKT INTO CUTTKTH
+*!*	ENDIF
+
+*!*	*-- if company setuped to use Account Receivable module.
+*!*	IF 'AR' $ oAriaApplication.CompanyInstalledModules
+*!*	  SELECT INVLINE
+*!*	  SET RELATION TO Invoice INTO INVHDR
+*!*	ENDIF
+
+*!*	SELECT ORDLINE
+*!*	SET RELATION TO cOrdType + Order INTO ORDHDR
+
+*!*	*-- Setup relation Section [End  ]
+
+*!*	SELECT (lcWorkFile)
+*!*	GO TOP
+
+
+*!*	CLEAR TYPEAHEAD
+*!*	SET DEVICE TO PRINT
+*!*	DO lpPrnCode  && Do Print code.
+
+*!*	*-- Calculate spent time in collecting data.
+*!*	lcEdTime = TIME()  && Time in which we finish collect data.
+*!*	lnInterval = lfCollTime(lcStTime,lcEdTime)  && Calculate collecting data spent time.
+
+*!*	WAIT WINDOW 'Selected ' + ALLTRIM(STR(lnCountRec)) + ' Records in ' + ALLTRIM(STR(lnInterval,6,2)) + ' Seconds...' NOWAIT
+*!*	*RECCOUNT(lcWorkFile)
+*!*	DO ENDREPORT  && Display or print the report .
+*!*	WAIT CLEAR
+
+*!*	SET DEVICE TO SCREEN
+*!*	*--- End   Report printing.
+
+*!*	*-- Clean relation Section [Begin]
+
+*!*	*-- if company setuped to use Purshase order module.
+*!*	IF 'PO' $ oAriaApplication.CompanyInstalledModules
+*!*	  SELECT POSLN
+*!*	  SET RELATION TO
+*!*	ENDIF
+
+*!*	*-- if company setuped to use Manufacturing module.
+*!*	IF 'MF' $ oAriaApplication.CompanyInstalledModules
+*!*	  SELECT CUTTKTL
+*!*	  SET RELATION TO
+*!*	ENDIF
+
+*!*	*-- if company setuped to use Account receivable module.
+*!*	IF 'AR' $ oAriaApplication.CompanyInstalledModules
+*!*	  SELECT INVLINE
+*!*	  SET RELATION TO
+*!*	ENDIF
+
+*!*	SELECT ORDLINE
+*!*	SET RELATION TO
+
+*-- Clean relation Section [End  ]
+
+*-- end of report code.
+
+*-- Start of function and procedure section.
+*-------------------------------------------
+
+*!*************************************************************
+*! Name      : lfwRepWhen
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 07/11/2006
+*! Purpose   : When function of OG
+*!*************************************************************
+*! Called from : OG read cycle
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfwRepWhen()
+*!*************************************************************
+*
+FUNCTION lfwRepWhen
+IF !llFrstTime
+  loDBFStyle    = CreateObject("RemoteTable","Style","Style",'Style',SET("DATASESSION"))&&,"",.T.)
+  loDBFPOSLN    = CreateObject("RemoteTable","POSLN","POSLNS",'POSLN',SET("DATASESSION"))&&,"",.T.)
+  loDBFPOSHDR   = CreateObject("RemoteTable","POSHDR","POSHDR",'POSHDR',SET("DATASESSION"))&&,"",.T.)
+  loDBFOrdline  = CreateObject("RemoteTable","Ordline","Ordline",'Ordline',SET("DATASESSION"))&&,"",.T.)
+  loDBFordhdr   = CreateObject("RemoteTable","ordhdr","ordhdr",'ordhdr',SET("DATASESSION"))&&,"",.T.)
+  loDBFInvhdr   = CreateObject("RemoteTable","Invhdr","Invhdr",'Invhdr',SET("DATASESSION"))&&,"",.T.)
+  loDBFinvline  = CreateObject("RemoteTable","invline","invline",'invline',SET("DATASESSION"))&&,"",.T.)
+  loDBFShpmthdr = CreateObject("RemoteTable","Shpmthdr","Shpmthdr",'Shpmthdr',SET("DATASESSION"))&&,"",.T.)
+  loDBFScale    = CreateObject("RemoteTable","Scale","Scale",'Scale',SET("DATASESSION"))&&,"",.T.)
+  loDBFCodes   = CreateObject("RemoteTable","Codes","Codes",'Codes',SET("DATASESSION"))&&,"",.T.)
+    
+    
+  lcSqlStat1 = "SELECT ITEMLOC.Style,ITEMLOC.TOTWIP, ITEMLOC.TOTSTK, ITEMLOC.TOTORD, ITEM.CSTYMAJOR AS FABRIC FROM ITEM INNER JOIN ITEMLOC ON ITEM.STYLE = ITEMLOC.STYLE AND ITEM.CINVTYPE = ITEMLOC.CINVTYPE AND ITEMLOC.DYELOT = '' WHERE ITEM.CINVTYPE = '0002'"
+  lnResult1 = loOGScroll.ORDA.SQLRun(lcSqlStat1, lcTmpFab, , oAriaApplication.ActiveCompanyConStr, 3, "BROWSE", SET("Datasession"))
+  llFrstTime = .T.
+  IF lnResult1 >= 1
+    =lfCreateIndecies(lcTmpFab, "Fabric|Style", "lcFabDye|'Style'")
+  ENDIF
+ENDIF 
+
+
+IF TYPE('lcLastExpr') $ 'UL' OR EMPTY(lcLastExpr)
+
+
+  DIMENSION laTempStru[1,18]
+  laTempStru = ''
+
+  SELECT STYLE
+  lnAllFlds = AFIELDS(laTempStru)
+
+  DIMENSION laTempStru[lnAllFlds + IIF(lnNonMajLn>0,17,16), 18]
+  laTempStru[lnAllFlds+1,1] = 'COLOR'
+  laTempStru[lnAllFlds+1,2] = 'C'
+  laTempStru[lnAllFlds+1,3] = 6
+  laTempStru[lnAllFlds+1,4] = 0
+  
+  laTempStru[lnAllFlds+2,1] = 'cMajor'
+  laTempStru[lnAllFlds+2,2] = 'C'
+  laTempStru[lnAllFlds+2,3] = lnMajorLen
+  laTempStru[lnAllFlds+2,4] = 0
+
+  laTempStru[lnAllFlds+3,1] = 'sz'
+  laTempStru[lnAllFlds+3,2] = 'C'
+  laTempStru[lnAllFlds+3,3] = 5
+  laTempStru[lnAllFlds+3,4] = 0
+
+  laTempStru[lnAllFlds+4,1] = 'per1'
+  laTempStru[lnAllFlds+4,2] = 'N'
+  laTempStru[lnAllFlds+4,3] = 7
+  laTempStru[lnAllFlds+4,4] = 0
+
+  laTempStru[lnAllFlds+5,1] = 'per2'
+  laTempStru[lnAllFlds+5,2] = 'N'
+  laTempStru[lnAllFlds+5,3] = 7
+  laTempStru[lnAllFlds+5,4] = 0
+
+  laTempStru[lnAllFlds+6,1] = 'per3'
+  laTempStru[lnAllFlds+6,2] = 'N'
+  laTempStru[lnAllFlds+6,3] = 7
+  laTempStru[lnAllFlds+6,4] = 0
+
+  laTempStru[lnAllFlds+7,1] = 'per4'
+  laTempStru[lnAllFlds+7,2] = 'N'
+  laTempStru[lnAllFlds+7,3] = 7
+  laTempStru[lnAllFlds+7,4] = 0
+
+  laTempStru[lnAllFlds+8,1] = 'per5'
+  laTempStru[lnAllFlds+8,2] = 'N'
+  laTempStru[lnAllFlds+8,3] = 7
+  laTempStru[lnAllFlds+8,4] = 0
+
+  laTempStru[lnAllFlds+9,1] = 'per6'
+  laTempStru[lnAllFlds+9,2] = 'N'
+  laTempStru[lnAllFlds+9,3] = 7
+  laTempStru[lnAllFlds+9,4] = 0
+
+  laTempStru[lnAllFlds+10,1] = 'per7'
+  laTempStru[lnAllFlds+10,2] = 'N'
+  laTempStru[lnAllFlds+10,3] = 7
+  laTempStru[lnAllFlds+10,4] = 0
+
+  laTempStru[lnAllFlds+11,1] = 'per8'
+  laTempStru[lnAllFlds+11,2] = 'N'
+  laTempStru[lnAllFlds+11,3] = 7
+  laTempStru[lnAllFlds+11,4] = 0
+
+  laTempStru[lnAllFlds+12,1] = 'per9'
+  laTempStru[lnAllFlds+12,2] = 'N'
+  laTempStru[lnAllFlds+12,3] = 7
+  laTempStru[lnAllFlds+12,4] = 0
+
+  laTempStru[lnAllFlds+13,1] = 'per10'
+  laTempStru[lnAllFlds+13,2] = 'N'
+  laTempStru[lnAllFlds+13,3] = 7
+  laTempStru[lnAllFlds+13,4] = 0
+
+  laTempStru[lnAllFlds+14,1] = 'per11'
+  laTempStru[lnAllFlds+14,2] = 'N'
+  laTempStru[lnAllFlds+14,3] = 7
+  laTempStru[lnAllFlds+14,4] = 0
+
+  laTempStru[lnAllFlds+15,1] = 'per12'
+  laTempStru[lnAllFlds+15,2] = 'N'
+  laTempStru[lnAllFlds+15,3] = 7
+  laTempStru[lnAllFlds+15,4] = 0
+
+  laTempStru[lnAllFlds+16,1] = 'ClrDesc'
+  laTempStru[lnAllFlds+16,2] = 'C'
+  laTempStru[lnAllFlds+16,3] = 30
+  laTempStru[lnAllFlds+16,4] = 0
+
+
+  IF lnNonMajLn > 0
+    laTempStru[lnAllFlds+17,1] = 'cNonMajor'
+    laTempStru[lnAllFlds+17,2] = 'C'
+    laTempStru[lnAllFlds+17,3] = lnNonMajLn
+    laTempStru[lnAllFlds+17,4] = 0
+  ENDIF  
+
+  
+  FOR lnLoop = 1 TO  IIF(lnNonMajLn>0,17,16)
+  STORE ' ' TO  laTempStru[lnAllFlds+lnLoop,7],laTempStru[lnAllFlds+lnLoop,8],;
+                laTempStru[lnAllFlds+lnLoop,9],laTempStru[lnAllFlds+lnLoop,10],;
+                laTempStru[lnAllFlds+lnLoop,11],laTempStru[lnAllFlds+lnLoop,12],;
+                laTempStru[lnAllFlds+lnLoop,13],laTempStru[lnAllFlds+lnLoop,14],;
+                laTempStru[lnAllFlds+lnLoop,15],laTempStru[lnAllFlds+lnLoop,16]
+  STORE 0 TO    laTempStru[lnAllFlds+lnLoop,17] ,laTempStru[lnAllFlds+lnLoop,18]
+ENDFOR   
+
+  =lfStyTemp()  && Create temporary used in collecting data.
+
+ENDIF
+*-- end of lfwRepWhen.
+
+*!*************************************************************
+*! Name      : lfStyTemp
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Create temporary cursor.
+*!*************************************************************
+*! Called from : Program code, OG when function.
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfStyTemp()
+*!*************************************************************
+*
+FUNCTION lfStyTemp
+ = gfCrtTmp(lcWorkFile ,@laTempStru,"cMajor+"+ IIF(lcFree_Clr = 'C',"Color" , "cNonMajor") ,lcWorkFile,.F.)
+*!*************************************************************
+*! Name      : lfwOldVal
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : When function to get the Old value
+*!*************************************************************
+*! Called from : Some of the Option Grid fields
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfwOldVal()
+*!*************************************************************
+FUNCTION lfwOldVal
+laOldVal = EVALUATE(SYS(18))      && Varible to hold the old value
+*-- end of lfwOldVal.
+
+*!*************************************************************
+*! Name      : lfEvalSegs
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Evaluate NonMajor Type and variables.
+*!*************************************************************
+*! Called from : [Option Grid] lcDummy variable.
+*!*************************************************************
+*! Calls       : ....
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfEvalSegs()
+*!*************************************************************
+FUNCTION lfEvalSegs
+
+  lnMajSeg    = gfItemMask('SM')  && No. of major segments.
+  *-- Compute Free/Color Items in Style code Structure. [Begin]
+  DIMENSION laMajSegs[1,1]
+  = gfItemMask(@laMajSegs)
+
+  *-- Loop Around Non Major elements.
+  FOR lnI = lnMajSeg + 1 TO ALEN(laMajSegs,1)
+    IF laMajSegs[lnI,1] $ 'CF'
+      lcFree_Clr = laMajSegs[lnI,1]
+
+      lnNonMajSt = IIF(lnNonMajSt=0 .OR. laMajSegs[lnI,1]='C',laMajSegs[lnI,4],lnNonMajSt)      && This item hold seg. start position.
+
+      lcNonMajPi = IIF(EMPTY(lcNonMajPi) .OR. laMajSegs[lnI,1]='C',;
+                   laMajSegs[lnI,3],;
+                   lcNonMajPi + laMajSegs[lnI-1,6] + laMajSegs[lnI,3])
+
+      lcNonMajTl = IIF(EMPTY(lcNonMajTl) .OR. laMajSegs[lnI,1]='C',;
+                   PADR(laMajSegs[lnI,2],LEN(laMajSegs[lnI,3])),;
+                   lcNonMajTl + laMajSegs[lnI-1,6] + PADR(laMajSegs[lnI,2],LEN(laMajSegs[lnI,3])))
+    ENDIF                     
+
+    *-- If you Find Color Type or Find Free Type and current type not Free.
+    IF laMajSegs[lnI,1] = 'C' OR (!EMPTY(lcFree_Clr) AND laMajSegs[lnI,1] != 'F')
+      EXIT
+    ENDIF   && end If you Find Color Type or Find Free Type and current type not Free.
+
+  ENDFOR    && end Loop Around Non Major elements.
+
+  STORE LEN(lcNonMajPi) TO lnFreeLen , lnColorLen
+  lcColorTlt = 'Only These ' + ALLTRIM(lcNonMajTl) + 's.'
+  *-- Compute Free/Color Items in Style code Structure. [End]
+
+  *-- Compute Variables titles. [begin]
+  lcStyStat = lcStyMajor + ' Status'
+  lcStyMake = lcStyMajor + ' (Make/Buy)'
+  *-- Compute Variables titles. [end]
+
+RETURN ''
+*-- end of lfEvalSegs.
+
+*!*************************************************************
+*! Name      : lfsrvSty
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Rise change style flag, in range browse screen.
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Called from : Option Grid
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Example   : =lfsrvSty()
+*!*************************************************************
+*! Note      : SRV symbol is [S,Set -- R,Reset -- V,Valid]
+*!*************************************************************
+FUNCTION lfSRVSty
+PARAMETERS lcParm
+IF lcParm = 'S'  && Set code
+  SET ORDER TO TAG CSTYLE IN STYLE
+*!*  ELSE
+*!*    SET ORDER TO TAG STYLE IN STYLE
+ENDIF
+
+*!*  DO CASE
+*!*    CASE lcParm = 'S'  && Set code
+*!*      *-- open this file in another alias to set order to Style Major 
+*!*      *-- unique index.
+*!*      USE (gcDataDir+'Style') AGAIN ALIAS STYLE_X ORDER TAG Style IN 0
+*!*      SELECT STYLE
+*!*      SET ORDER TO TAG Cstyle
+*!*      SET RELATION TO STYLE.STYLE INTO STYLE_X
+*!*      GO TOP IN STYLE
+*!*      llChStyle = .T.
+*!*    CASE lcParm = 'R'  && Reset code
+*!*      USE IN STYLE_X
+*!*      SELECT STYLE
+*!*      SET ORDER TO TAG STYLE
+*!*      llClearSty = .F.
+*!*  ENDCASE
+*-- end of lfsrvSty.
+
+*!*************************************************************
+*! Name      : lfStySum
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : sum a specific field for the current style in style file
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Called from : Option Grid,style browse calculated fields.
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : Calculated field value.
+*!*************************************************************
+*! Example   : =lfStySum()
+*!*************************************************************
+FUNCTION lfStySum
+PARAMETERS lcSty,lccomp,lnAddToVar
+PRIVATE lnStyRec
+lnStyRec = IIF(BETWEEN(RECNO('STYLE'),1,RECCOUNT('STYLE')),RECNO('STYLE'),1)
+lnTotcomp = 0
+SELECT Style_X
+SUM &lcCOMP TO lnTotcomp WHILE Style = ALLTRIM(lcSty)
+SELECT Style
+GO lnStyRec
+DO CASE
+  CASE lnAddToVar = 1
+    lnO_T_S = lnTotcomp
+  CASE lnAddToVar = 2
+    lnO_T_S = lnO_T_S + lnTotcomp
+  CASE lnAddToVar = 3
+    lnO_T_S = lnO_T_S - lnTotcomp
+ENDCASE
+RETURN INT(lnTotcomp)
+*-- end of lfStySum.
+
+*!*************************************************************
+*! Name      : lfvFabric
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Valid function of the Fabric
+*!*************************************************************
+*! Called from : Option grid [Fabric Get field]
+*!*************************************************************
+*! Calls       : FaBrow()
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*
+FUNCTION lfvFabric
+
+lcObjName = SYS(18)      && Varible to hold  the name of the memory variable used to create the current GET field
+lcObjVal = EVALUATE(SYS(18))      && Varible to hold  the value of the current GET field
+
+*IF The user want to Browse or if the Fabric he entered is not in the file
+IF '?' $ lcObjVal .OR. (!EMPTY(lcObjVal) .AND. !SEEK(lcObjVal , 'FABRIC'))
+  llObjRet = FaBrow(@lcObjVal , '*')
+  lcObjVal = IIF(llObjRet , lcObjVal , laOldVal)
+  &lcObjName = lcObjVal
+ENDIF    && End of IF
+*-- end of lfvFabric.
+
+*!*************************************************************
+*! Name      : lfClearRep
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Function that we call when Close the option grid.
+*!*************************************************************
+*! Called from : [Option Grid] < Close > button.
+*!*************************************************************
+*! Calls       : ....
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Example     : = lfClearRep()
+*!*************************************************************
+FUNCTION lfClearRep
+llClearFn = .T.  && Rise clear done flag.
+*-- Close temp. opended files, if it used.
+IF USED(lcWorkFile)
+ USE IN (lcWorkFile)
+ENDIF
+*-- end of lfClearRep.
+
+*!*************************************************************
+*! Name      : lfCollTime
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Calcualte spent time in data collection.
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Called from : Report code section.
+*!*************************************************************
+*! Passed Parameters  : Start collection date,End collection date
+*!*************************************************************
+*! Returns            : Spent time.
+*!*************************************************************
+*! Example   : =lfCollTime()
+*!*************************************************************
+FUNCTION lfCollTime
+PARAMETERS lcStart,lcEnd
+lnStHour  = IIF(VAL(LEFT(lcStart,2)) = 0,VAL(LEFT(lcStart,2))+24,VAL(LEFT(lcStart,2)))
+lnEndHour = IIF(VAL(LEFT(lcEnd,2))   = 0,VAL(LEFT(lcEnd,2))  +24,VAL(LEFT(lcEnd,2)))
+lnStart = 3600 * lnStHour  + 60 * VAL(SUBSTR(lcStart,4,2)) + VAL(RIGHT(lcStart,2))
+lnEnd   = 3600 * lnEndHour + 60 * VAL(SUBSTR(lcEnd,4,2))   + VAL(RIGHT(lcEnd,2))
+RETURN (lnEnd - lnStart)
+*-- end of lfCollTime.
+
+*!*************************************************************
+*! Name      : lpPrnCode
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 01/04/1999
+*! Purpose   : Report Print code.
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : DISP_TITLES,ORD971,ORD972,POST_NVE_VALUS,DISP_OTS_LINES,
+*!             Functions  : lfGtYTD.
+*!*************************************************************
+*! Called from : Report code section.
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Returns            : ....
+*!*************************************************************
+*! Example   : =lpPrnCode()
+*!*************************************************************
+PROCEDURE lpPrnCode
+* -- Initialize the necessary global variables.
+*!*  R_TITLE    = 'Stock Availability Report'
+*!*  PAGENO     = 00
+*!*  ROW        = 99
+
+*B606586,1 BWA 01/06/2003 Increase the printing size.[START]
+*XMAXROW    = 47
+*!*  XMAXROW    = 58
+*!*  *B606586,1 BWA.[END]
+
+*!*  XTODAY     = gdSysDate
+*!*  C_MONTH    = MONTH (XTODAY)
+*!*  C_YEAR     = YEAR  (XTODAY)
+*!*  XSTYLE     = SPACE (12)
+*!*  XCOLOR     = SPACE (06)
+*!*  lcFullSty  = SPACE(19)
+*!*  llPrintSty = .F.    && TAK 05/25/94 Flag to print style and
+*!*                      && desc if style was changed in case of
+*!*                      && llRpZeroAv = .F.
+
+*!*  STORE 0 TO lnTitlLen,lnSzStart,lnClrStart,lnDescSt
+
+* --- Create and initialize :
+* -- 1) An array to hold the 10 periods. Each period contains 2 dates ,
+* --    the first one is the start of the period and the last one is the end
+* --    of the period , so ..
+* --    the array will be "XPERIOD_ARR [10 * 2]" (Remember that this report
+* --    deals with only 5 month).
+* -- 2) An array to hold the end day for each month....
+* --    The report titles variables are XLINE_1 , XLINE_2, And....
+* --    to display XLINE_2 with the start and end of each period, we
+* --    had to have an array "XYEAR" to hold the end day for each month.
+* --    This array will be released after finishing of forming the titles.
+* -- 3) Two dimensional array "STY_INFO", to hold the OTS quantities
+* --    for each [Color\Size,Period], it will be initialized each time
+* --    the style changes to fit the size scale for the current style.
+* --    The array has 12 cols., 10 of these 12 are for the periods,
+* --    and col. no.[11] is to hold the total of the periods,
+* --    and col. no.[12] is to hold the quantities shipped for this
+* --    color/size.
+* --    The array also has a dynamic number of rows according to ..
+* --    A) The size scale which changes from one style to another.
+* --    B) The Report format : if not by size the array rows will be
+* --       increased by one to hold the totals for each color,
+* --       otherwise no rows will be added.
+* -- 4) One dimensional array "XTOTAL", to hold the total OTS quantities
+* --    for one style\color (Accumulater).
+
+* -- Create and Initialive the arrays .
+DIMENSION XPERIOD_ARR [20] , XYEAR [12] , STY_INFO [1,12] , XTOTAL [12]
+XPERIOD_ARR = {}
+XYEAR       = 31
+STORE 30 TO XYEAR(4),XYEAR(6),XYEAR(9),XYEAR(11)
+XYEAR (2)   = IIF (MOD(YEAR(XTODAY),4)=0 , 29 , 28)
+STY_INFO    = 00
+XTOTAL      = 00
+
+* -- Initialize the first period with the first day of today's month .
+
+*B129693,1 EIH 10/02/2005 Fix wrong date of first period in case of england [Begin].
+*XPERIOD_ARR(1) = CTOD(ALLTRIM(STR(C_MONTH))+'/01/'+ALLTRIM(STR(C_YEAR)))
+*B129693,1 EIH 10/02/2005 [End].
+
+*ahmed
+*XPERIOD_ARR(2) = CTOD(ALLTRIM(STR(C_MONTH))+'/15/'+ALLTRIM(STR(C_YEAR)))
+
+IF llEngDate 
+  
+  *B129693,1 EIH 10/02/2005 Fix wrong date of first period in case of england [Begin].
+  XPERIOD_ARR(1) = CTOD('01/'+ALLTRIM(STR(C_MONTH))+'/'+ALLTRIM(STR(C_YEAR)))
+  *B129693,1 EIH 10/02/2005 [End].
+  
+  XPERIOD_ARR(2) = CTOD('15/'+ALLTRIM(STR(C_MONTH))+'/'+ALLTRIM(STR(C_YEAR)))
+ELSE
+  
+  *B129693,1 EIH 10/02/2005 Fix wrong date of first period in case of england [Begin].
+  XPERIOD_ARR(1) = CTOD(ALLTRIM(STR(C_MONTH))+'/01/'+ALLTRIM(STR(C_YEAR)))  
+  *B129693,1 EIH 10/02/2005 [End].
+  
+  XPERIOD_ARR(2) = CTOD(ALLTRIM(STR(C_MONTH))+'/15/'+ALLTRIM(STR(C_YEAR)))
+ENDIF
+*ahmed end
+
+* -- Initialize the title variables.
+lnTitlLen = 25 - ( LEN(lcStyMajor) + LEN(lcOtherTlt) )
+lnSzStart = LEN(lcStyMajor) + 1
+lnClrStart= lnSzStart + 6
+lnDescSt  = lnClrStart + LEN(lcOtherTlt) + 1   
+
+XLINE_1   = SPACE (11)
+XLINE_2   = lcStyMajor + IIF (llRpSizes,'/Size  ',SPACE(7))+ ;
+            lcOtherTlt + ' Desc.' + SPACE(lnTitlLen)
+
+
+* -- Fill the "XPERIOD_ARR" array and form the report titles.
+XLOOP   = 3
+XPERIOD = 1
+XMONTH  = 0
+DO WHILE XPERIOD < 10
+  * -- Fill the periods array.
+  XPERIOD_ARR(XLOOP  ) = XPERIOD_ARR(XLOOP-1) + 1
+  XPERIOD_ARR(XLOOP+1) = IIF ( MOD(XPERIOD,2) = 0 ,               ;
+                               XPERIOD_ARR(XLOOP) + 14          , ;
+                               GOMONTH (XPERIOD_ARR(XLOOP-2),1)-1 )
+  * -- Form the titles.
+  IF MOD (XPERIOD,2) <> 0
+    XLINE_1 = XLINE_1 + PADC (UPPER(CMONTH(GOMONTH(XTODAY,XMONTH))) + ;
+                        IIF (XMONTH=4,' FUTURE','') , 16 , ' ' )
+    XLINE_2 = XLINE_2 + '01-15   16-'+;
+                        ALLTRIM(STR(XYEAR(MONTH(GOMONTH(XTODAY,XMONTH)))))+;
+                        SPACE(3)
+    XMONTH  = XMONTH + 1
+  ENDIF
+
+  XLOOP   = XLOOP   + 2
+  XPERIOD = XPERIOD + 1
+ENDDO
+
+* -- To complete forming the title variabls.
+XLINE_1 = XLINE_1 + ' TOTAL  TOTAL'
+XLINE_2 = XLINE_2 +  'AVAIL SOLD YTD'
+RELEASE XYEAR
+* --- End of Initializing the necessary variables and arrays. ----------
+
+*! 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴� !*
+*!                    *****                   *****                    !*
+*!                    *** --- THE MAIN LOOP --- ***                    !*
+*!                    *****                   *****                    !*
+*! 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴� !*
+
+SELECT (lcWorkFile)
+
+lnUpThermo = RECCOUNT(lcWorkFile)
+lnThermoNo = 0
+
+
+*B129693,1 EIH 10/02/2005 Fix bug that print wrong scale in case of extended size scale [Begin] .
+STORE '' TO lcOldScl 
+STORE ' ' TO  lcNewScl
+*B129693,1 EIH 10/02/2005 [End] .
+
+
+DO WHILE !EOF()
+  
+  IF ROW > XMAXROW - 2
+  
+    DO DISP_TITLES
+    LOOP
+  
+  ELSE
+  
+    * -- Each time the style changes the following will be done :
+    * -- 1) Update the current style variable "XSTYLE".
+    * -- 2) Print the style title.
+    * -- 3) Get the size scale for this style.
+    * -- 4) Recreate "STY_INFO" to fit the current style\size scale.
+
+    *B129693,1 EIH 10/02/2005 Fix bug that print wrong scale in case of extended size scale [Begin] .
+    *IF cMajor <> XSTYLE
+    IF cMajor <> XSTYLE OR lcOldScl <> lcNewScl
+      lcOldScl = lcNewScl
+  *B129693,1 EIH 10/02/2005 [End] .
+  
+      XSTYLE    = cMajor
+      SET DEVICE TO SCREEN
+      lnThermoNo = lnThermoNo + 1
+      = gfThermo(lnUpThermo,lnThermoNo,'Calculate availability for ' + lcStyMajor + ': ',XSTYLE)
+      SET DEVICE TO PRINT
+      
+      Y =1                           && TMI 12/01/94
+
+      *-- Added by TAK 05/25/94
+      IF !llRpZeroAv
+        llPrintSty = .T.
+        XSTYLE  = cMajor
+        XDESC  = DESC1
+      ELSE
+        
+        @ ROW,00 SAY XSTYLE
+        @ ROW,lnDescSt SAY DESC1                            && TAK 02/28/94
+        ROW = ROW + 1
+      
+      ENDIF
+      *-- End TAK 05/25/94 ---
+
+      SELECT SCALE
+      XSIZE_CNT = IIF ( SEEK ('S'+&lcWorkFile..SCALE) , CNT , 1)
+      
+      *B129693,1 EIH 10/02/2005 Fix bug that print wrong scale in case of extended size scale [Begin] .
+      lcNewScl = &lcWorkFile..SCALE
+      *B129693,1 EIH 10/02/2005 [End] .
+      
+      XSCALES   = GETSCALE (&lcWorkFile..SCALE,SPACE(0))          && TMI 12/01/94
+      DIMENSION STY_INFO [XSIZE_CNT+IIF(llRpSizes,0,1),12]
+      STY_INFO  = 00
+      SELECT (lcWorkFile)
+    ENDIF
+
+    * -- Each time the color changes the following will be done :
+    * -- 1) Display the new color on the screen.
+    * -- 2) Update the current color variable "XCOLOR".
+    * -- 4) Reinitialize "STY_INFO".
+    * -- 5) Put the stock for this color on the 1st half or on the 2nd half
+    * --    of the first month as a starting number for all the size scale
+    * --    "STY_INFO [XSIZE_NO,(1 or 2)]".
+    * -- 6) Put the shipped quantities on the last col. of the array for all
+    * --    the size scale "STY_INFO [XSIZE_NO,12]" .
+    * -- 7) If the report format is not by size then add the 2 quantities
+    * --    (*No.5,6) on the last row of the array to accumulate them.
+
+    XCOLOR    = IIF(llHaveClr,COLOR,cNonMajor)
+    lcFullSty = STYLE
+
+    STY_INFO = 0.00
+
+    *B500568,1 Call a function to compute the ordered & shiped
+    *B500568,1 quantities only for orders and invoices within
+    *B500568,1 the current fiscal year.   
+    IF llRpCurPrd
+      STORE 0 TO lnOrd1,lnOrd2,lnOrd3,lnOrd4,lnOrd5,lnOrd6,lnOrd7,lnOrd8
+      STORE 0 TO lnShp1,lnShp2,lnShp3,lnShp4,lnShp5,lnShp6,lnShp7,lnShp8
+      = lfGtYTD()
+    ENDIF  
+
+    FOR  XSIZE_NO = 1 TO XSIZE_CNT
+      XSTK_ID = 'STK' + ALLTRIM(STR(XSIZE_NO))
+      STY_INFO [XSIZE_NO,01] = &XSTK_ID
+      *-- YMA 06/09/94 Added the ordered quantity to the last column.
+      *B500568,1 If the user selected to print the sold year
+      *B500568,1 to date for current year only, Accumulate
+      *B500568,1 the order and ship quantities from the order 
+      *B500568,1 and invoice files otherwise get the order and 
+      *B500568,1 ship quantities from the style file.
+      XSHP_ID = IIF(llRpCurPrd,'lnShp','SHP') + ALLTRIM(STR(XSIZE_NO))
+      lcOrdId = IIF(llRpCurPrd,'lnOrd','ORD') + ALLTRIM(STR(XSIZE_NO))
+      STY_INFO [XSIZE_NO,12] = &XSHP_ID + &lcOrdId
+    ENDFOR
+
+    SELECT (lcWorkFile)
+
+    *-- According to "MAKE" field please call either "ORD971" or "ORD972".
+    IF MAKE
+
+      IF 'MF' $ oAriaApplication.CompanyInstalledModules
+        DO ORD972
+      ENDIF
+    
+    ELSE  && Imported style
+      
+      IF 'PO' $ oAriaApplication.CompanyInstalledModules
+        DO ORD971
+      ENDIF
+
+    ENDIF
+
+    IF !llOTSbasTr
+      DO POST_NVE_VALUS
+    ELSE
+      DO lpUpdOTS
+    ENDIF 
+    *B120121,1 MMM [End]
+   
+    * -- Then we will print the OTS lines .
+    DO DISP_OTS_LINES
+  ENDIF
+
+  * -- Go to the next record .
+  SELECT (lcWorkFile)
+  SKIP
+ENDDO
+
+SET DEVICE TO SCREEN
+= gfThermo(lnUpThermo,lnUpThermo,'Finish Printing Stock availability',' ')
+*WAIT WINDOW 'Calculate availability for ' + lcStyMajor + ': ' + XSTYLE NOWAIT
+SET DEVICE TO PRINT
+
+* --- This part is to print the "GRAND TOTAL" --------------------------
+* --- It will be done when the report is finished .
+IF ROW > XMAXROW
+  DO DISP_TITLES
+ENDIF
+
+ROW = ROW + 1
+@ ROW,0 SAY REPLICATE ('*',132)
+ROW = ROW + 1
+@ ROW,5 SAY 'GRAND TOTAL'
+XCOL = 36
+FOR XLOOP = 1 TO 12
+  XCOL = IIF ( XLOOP = 12 , XCOL+1 , XCOL )
+  @ ROW,XCOL SAY XTOTAL [XLOOP] PICTURE '9999999'
+  XCOL = XCOL + 8
+ENDFOR
+ROW = ROW + 1
+@ ROW,0 SAY REPLICATE ('*',132)
+* --- End of printing the "GRAND TOTAL" -------------------------------
+
+*-- end of lpPrnCode. DO
+
+
+*! 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+*! PROG : DISP_TITLES
+*! DATE : JAN 24,94
+*! AUTH : YASSER MOHAMMED ALY (YMA)
+*! DESC : Print the report titles and initialize the necessary variables .
+*! NOTE : Called from ORD970.PRG
+*! 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+PROCEDURE DISP_TITLES
+
+PAGENO  = PAGENO  + 1
+DO RPT_HDR WITH 'SOSTKAV','',R_WIDTH
+@ 5,26 SAY XLINE_1
+@ 6,00 SAY XLINE_2
+ROW = 7
+* ------------------ END OF DISP_TITLES PROCEDURE ------------------ *
+
+
+
+*********** BADRAN
+
+*!*************************************************************
+*! Name      : ORD971
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : Procedure to compute the OTS quantites
+*!*************************************************************
+*!
+PROCEDURE ORD971
+IF SEEK('0001' + lcFullSty,'POSLN')
+  *loDBFPOSLN.SEEK('0001' + lcFullSty,'Poslns')
+  SELECT POSLN
+  SCAN REST WHILE cinvtype+style+cbusdocu+cstytype+po+STR(lineno)+trancd = '0001' +  lcFullSty ;
+            FOR !(posln.cstytype $ 'C').AND. TranCD $ '12' AND ;
+                IIF(cbusdocu+cstytype = 'PU',Stat_PO $ 'OAH' ,Stat_PO $ 'HO')           
+  *AND loDBFPOSHDR.SEEK(POSLN.cbusdocu+posln.cstytype+posln.po,.F.,.T.) AND CUTTKTH.STATUS $ 'OAH'
+*    XTRAN_DATE = IIF (EMPTY(POSHDR.AVAILABLE) ,;
+                      POSHDR.COMPLETE         ,;
+                      POSHDR.AVAILABLE )
+    XTRAN_DATE = IIF (EMPTY(Po_avl) ,;
+                      Po_Comp  ,;
+                      Po_avl)
+
+
+    lcTrSign = IIF(Trancd='1',1,-1) * IIF(cStyType $ 'ADPNU',1,-1)
+    DO ACUM_OTS WITH 'POSLN' , XTRAN_DATE , lcTrSign
+    IF TRANCD ='3'
+      loDBFSHPMTHDR.Seek(POSLN.cbusdocu+posln.cstytype+posln.shipno,.F.,.T.)
+      DO ACUM_OTS WITH 'POSLN' , SHPMTHDR->ETA , 1
+    ENDIF
+  ENDSCAN
+ENDIF
+* -- To subtract the proper quantities in the "ORDLINE" file .
+DO SUB_ORDQTY
+
+*!*************************************************************
+*! Name      : ORD972
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : Procedure to compute the OTS quantites 
+*!*************************************************************
+*!
+PROCEDURE ORD972
+IF SEEK('0001' + lcFullSty + 'PU','POSLN')
+  *loDBFPOSLN.SEEK('0001' + lcFullSty+'PU','Poslns')
+  SELECT POSLN
+  SCAN REST WHILE cinvtype+style+cbusdocu+cstytype+po+STR(lineno)+trancd ='0001' +  lcFullSty + 'PU' ;
+        FOR TranCD $ '12' AND  Stat_PO $ 'HO'
+        *loDBFPOSHDR.SEEK(POSLN.cbusdocu+posln.cstytype+posln.po,.F.,.T.) AND ;
+        POSHDR.STATUS $ 'OAH' 
+
+    * -- To accumulate the quantity in process.   
+*    DO ACUM_OTS WITH 'POSLN' , POSHDR.COMPLETE , IIF (TRANCD='1',1,-1)
+    DO ACUM_OTS WITH 'POSLN' , Po_Comp , IIF (TRANCD='1',1,-1)
+  ENDSCAN
+ENDIF
+* -- To subtract the proper quantities in the "ORDLINE" file .
+DO SUB_ORDQTY
+*!*************************************************************
+*! Name      : SUB_ORDQTY
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : Procedure to substract the order line quantities from the
+*!        OTS quantities .
+*!*************************************************************
+*!
+PROCEDURE SUB_ORDQTY
+
+* -- Remember that there is a relation between
+* -- "ORDLINE" -> "ORDHDR"  to check on the status of the order .
+IF loDBFORDLINE.SEEK(lcFullSty,'ORDLINES')
+  SELECT ORDLINE
+  SCAN REST WHILE Style+DTOS(complete)+cordtype+order+store+STR(lineno,6) = lcFullSty ;
+            FOR loDBFORDHDR.Seek(ordline.cordtype +ordline.order) AND ORDHDR.STATUS $ 'OH'
+
+    * -- To accumulate the quantity in process .
+    DO ACUM_OTS WITH 'ORDLINE' , START , -1
+  ENDSCAN
+ENDIF  
+
+*!*************************************************************
+*! Name      : ACUM_OTS
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : Procedure to accumulate the OTS quantities .
+*!*************************************************************
+*!
+PROCEDURE ACUM_OTS
+PARAMETERS XFILE , XTRANS_DATE , XTYPE
+
+SELECT (XFILE)
+STORE 0 TO laNetQTY
+IF XFILE = 'POSLN' 
+  STORE 0 TO laNetQTY
+  lnRecNo = RECNO(XFILE)
+  IF TRANCD = '2' 
+    lcCurrKey = '0001'+POSLN.STYLE+POSLN.CSTYTYPE+POSLN.PO+STR(POSLN.lineno,6)
+    lcSession = POSLN.crsession
+    =SEEK('0001'+POSLN.STYLE+POSLN.CSTYTYPE+POSLN.PO+STR(POSLN.lineno,6),'POSLN')
+    SCAN REST WHILE cinvtype + style+cstytype+po+STR(lineno,6)+trancd = lcCurrKey 
+      IF TRANCD = '1'
+        FOR XSIZE_NO = 1 TO XSIZE_CNT
+          lcQtyNo = 'QTY' + ALLTRIM(STR(XSIZE_NO))
+          laNetQTY[XSIZE_NO] = laNetQTY[XSIZE_NO] + &lcQtyNo
+        ENDFOR  
+      ELSE
+        FOR XSIZE_NO = 1 TO XSIZE_CNT
+          lcQtyNo = 'QTY' + ALLTRIM(STR(XSIZE_NO))
+          laNetQTY[XSIZE_NO] = laNetQTY[XSIZE_NO] - &lcQtyNo
+        ENDFOR
+      ENDIF  
+      IF (POSLN.crsession = lcSession )
+        EXIT
+      ENDIF
+    ENDSCAN
+  ENDIF   
+  GOTO lnRecNo 
+ENDIF
+* -- If the transaction date between the (1st OR 2nd) half of the first
+* -- month and the last half of the last month we will do the following :
+* -- ......
+IF BETWEEN(XTRANS_DATE,XPERIOD_ARR[1],XPERIOD_ARR[20])
+  * -- Loop around the size scale to check it all.
+  FOR XSIZE_NO = 1 TO XSIZE_CNT
+    XPER = 1
+    * -- Search for the right period to process .
+    DO WHILE XPER < 20
+
+      * -- If the transaction date is between the current period "XPER" ..
+      * -- Get all the quantities in process , then add them to the
+      * -- proper cells in the array [Size,Period] .
+      * -- And add them to the last row of the array [Max Size+1,Period]
+      * -- to acumulate them (Get the sum) if the report format is not by
+      * -- size.
+      IF BETWEEN (XTRANS_DATE,XPERIOD_ARR[XPER],XPERIOD_ARR[XPER+1])
+        XQTY_ID = 'QTY' + ALLTRIM(STR(XSIZE_NO))
+        IF laNetQTY[XSIZE_NO] < 0 
+          XQTY    =  (laNetQTY[XSIZE_NO] + &XQTY_ID) * XTYPE 
+        ELSE
+          XQTY    =  &XQTY_ID * XTYPE 
+        ENDIF
+               
+        STY_INFO [XSIZE_NO,ROUND(XPER/2,0)] = ;
+        STY_INFO [XSIZE_NO,ROUND(XPER/2,0)] + XQTY
+        EXIT
+      ENDIF
+      XPER = XPER + 2
+    ENDDO
+  ENDFOR
+ELSE
+  * -- If the transaction date is after the last half of the last month
+  * -- the following will be done :
+  IF XTRANS_DATE > XPERIOD_ARR[20]
+  *IF {XTRANS_DATE} > {XPERIOD_ARR[20]}
+    * -- Add the quantities in process to the last period for all the
+    * -- size scale STY_INFO [XSIZE_NO,10] .
+    * -- And add them - for all the size scale - to the last row of the
+    * -- array STY_INFO [XSIZE_CNT+1,10] to acumulate it if the report
+    * -- format is not by size.
+    FOR  XSIZE_NO = 1 TO XSIZE_CNT
+      XQTY_ID = 'QTY' + ALLTRIM(STR(XSIZE_NO))
+      IF laNetQTY[XSIZE_NO] < 0 
+        XQTY    = (laNetQTY[XSIZE_NO] + &XQTY_ID) * XTYPE 
+      ELSE
+        XQTY    =  &XQTY_ID * XTYPE 
+      ENDIF
+      STY_INFO [XSIZE_NO,10] = STY_INFO [XSIZE_NO,10] + XQTY
+    ENDFOR
+  ELSE
+    *-- that have a date prior to the first date to the first period
+    *-- in the report.
+    FOR  XSIZE_NO = 1 TO XSIZE_CNT
+      XQTY_ID = 'QTY' + ALLTRIM(STR(XSIZE_NO))
+      IF laNetQTY[XSIZE_NO] < 0 
+        XQTY    = (laNetQTY[XSIZE_NO] + &XQTY_ID) * XTYPE 
+      ELSE
+        XQTY    =  &XQTY_ID * XTYPE 
+      ENDIF
+      STY_INFO [XSIZE_NO,1] = STY_INFO [XSIZE_NO,1] + XQTY
+    ENDFOR
+  ENDIF
+ENDIF
+
+*!*************************************************************
+*! Name      : POST_NVE_VALUS
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : Procedure to post the negative values in any period to the
+*!        nearst positive value of any next period.
+*!        - We do this by looping the two dimensional array "STY_INFO"
+*!          in case of the report format is by size , otherwise we will
+*!          loop just the last row of the same array (which holds the
+*!          total OTS quantities for this color) ,to do the following :
+*!          - If there is a negative value , we will make it 0 and subtract
+*!            it from the nearst next period has a POSITIVE value.
+*!*************************************************************
+*!
+PROCEDURE POST_NVE_VALUS
+
+XON_HAND = 0
+FOR XSIZE_NO = 1 TO XSIZE_CNT
+  FOR XPER = 1 TO 10
+    IF STY_INFO [XSIZE_NO,XPER] < 0    && -VE NUMBER
+      XON_HAND = STY_INFO [XSIZE_NO,XPER]
+      STY_INFO [XSIZE_NO,XPER] = 0
+      IF XPER = 1
+        DO POST_BF WITH 2,10                     && GO_BACKWORD   ->
+      ELSE
+        DO POST_BF WITH XPER-1,1                 && GO_BACKWORD   <-
+        IF (XON_HAND < 0) .AND. (XPER < 10)
+          DO POST_BF WITH XPER+1,10              && GO_FOREWORD   ->
+        ENDIF
+      ENDIF
+
+    ENDIF   && ---------------------->     -VE NUMBER
+  ENDFOR
+  *-- YMA 06/20/94 To put the remainning -ve quantity in the last period.
+  IF XON_HAND < 0
+    STY_INFO [XSIZE_NO,10] = XON_HAND
+  ENDIF
+  XON_HAND = 0
+ENDFOR
+
+*!*************************************************************
+*! Name      : POST_BF
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : 
+***************************************************************
+PROCEDURE POST_BF
+PARAMETERS INIT_PER , END_PER
+
+X_LLOOP = IIF (INIT_PER > END_PER , 'INIT_PER TO END_PER  STEP -1', ;
+                                    'INIT_PER TO END_PER'           )
+FOR X_XPER = &X_LLOOP
+  XON_HAND =  XON_HAND + STY_INFO [XSIZE_NO,X_XPER]
+  IF XON_HAND <= 0
+    STY_INFO [XSIZE_NO,X_XPER] = 0
+  ELSE
+    STY_INFO [XSIZE_NO,X_XPER] = XON_HAND
+    XON_HAND = 0
+    EXIT
+  ENDIF
+ENDFOR
+
+*!*************************************************************
+*! Name      : DISP_OTS_LINES
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : PRINT THE OTS QUANTITIES.
+***************************************************************
+PROCEDURE DISP_OTS_LINES
+
+*-- YMA 05/29/94 To Accumulate the OTS quantities.
+IF !llRpSizes
+  FOR XPER = 1 TO 12
+    FOR XSIZE_NO = 1 TO XSIZE_CNT
+      STY_INFO [XSIZE_CNT+1,XPER] = STY_INFO [XSIZE_CNT+1,XPER] + ;
+                                    STY_INFO [XSIZE_NO,XPER]
+    ENDFOR
+  ENDFOR
+ENDIF
+
+* -- Loop to accumulate the the OTS lines and total to the 11th col.
+* -- in the array .
+FOR XSIZE_NO = 1 TO XSIZE_CNT+IIF (llRpSizes,0,1)
+  *B120121,1 MMM 11/13/2003 Fix Bug of not Printing the OTS for each period IF the setting of 
+  *                         OTS based on exact transaction date = 'Yes' [Start]
+  *FOR XPER = 1 TO 10
+  *  STY_INFO [XSIZE_NO,11] = STY_INFO [XSIZE_NO,11] + ;
+                             STY_INFO [XSIZE_NO,XPER]
+  *ENDFOR
+  IF !llOTSbasTr
+    FOR XPER = 1 TO 10
+      STY_INFO [XSIZE_NO,11] = STY_INFO [XSIZE_NO,11] + ;
+                               STY_INFO [XSIZE_NO,XPER]
+    ENDFOR
+  ELSE
+    STY_INFO [XSIZE_NO,11] = STY_INFO[XSIZE_NO,10] 
+  ENDIF   
+  *B120121,1 MMM [End]        
+ENDFOR
+
+XFIRST_TIME = .T.    && Flag to avoid printing the color more than once.
+
+* -- If the report format is by size scale the following will be done
+* -- for each color ...
+*!*  IF llRpSizes
+*!*    * -- loop around the Two dimensional array "STY_INFO" to print the
+*!*    * -- OTS line for each [color\size] .
+
+*!*    * -- This is the outer loop [sizes]
+*!*    FOR  XSIZE_NO = 1 TO XSIZE_CNT
+
+*!*      *-- Added by TAK 05/25/94
+*!*      IF !llRpZeroAv
+*!*       IF STY_INFO [XSIZE_NO,11] = 0 .AND. ;
+*!*          STY_INFO [XSIZE_NO,12] = 0
+*!*          LOOP
+*!*        ENDIF
+*!*      ENDIF
+
+*!*      IF llPrintSty
+*!*        *-- Print the style and the style description.
+*!*        @ ROW,00 SAY XSTYLE
+*!*        @ ROW,lnDescSt SAY XDESC
+*!*        llPrintSty =.F.
+*!*        ROW = ROW + 1
+*!*      ENDIF
+*!*      *--End TAK 05/25/94 ---
+
+*!*      * -- Print the size .
+*!*      XSIZE = SUBSTR (XSCALES,((XSIZE_NO-1)*5)+1,5)          && TMI 12/01/94
+
+*!*      @ ROW,lnSzStart SAY XSIZE 
+
+*!*      * -- If we have not print the color then please print it.
+*!*      IF XFIRST_TIME
+*!*        @ ROW,lnClrStart SAY XCOLOR
+*!*        lcClrDesc = PADR(gfCodDes(XCOLOR , 'COLOR'  ),lnTitlLen+3)
+*!*        @ ROW,lnDescSt SAY lcClrDesc
+*!*        XFIRST_TIME = .F.
+*!*      ENDIF
+
+*!*      * -- This is the inner loop [Periods].
+*!*      XCOL  = 36
+*!*      FOR XLOOP = 1 TO 12
+*!*        XCOL = IIF ( XLOOP = 12 , XCOL+1 , XCOL )
+*!*        @ ROW,XCOL SAY STY_INFO [XSIZE_NO,XLOOP] PICTURE '9999999'
+*!*        XCOL = XCOL + 8
+
+*!*        * -- To add this line to the "XTOTAL" array .
+*!*        XTOTAL [XLOOP] = XTOTAL [XLOOP] + STY_INFO [XSIZE_NO,XLOOP]
+*!*      ENDFOR
+*!*      ROW = ROW + 1
+*!*    ENDFOR
+
+*!*  ELSE
+
+*!*    * -- If the report format is not by size the following will be done
+*!*    * -- for each color ....
+
+*!*    *-- Added by TAK 05/25/94
+*!*    IF !llRpZeroAv
+*!*     IF STY_INFO [XSIZE_CNT+1,11] = 0 .AND. ;
+*!*        STY_INFO [XSIZE_CNT+1,12] = 0
+*!*        RETURN
+*!*      ENDIF
+*!*    ENDIF
+
+*!*    IF llPrintSty
+*!*      *-- Print the style and the style description.
+*!*      @ ROW,00 SAY XSTYLE
+*!*      @ ROW,lnDescSt SAY XDESC
+*!*      llPrintSty =.F.
+*!*      ROW = ROW + 1
+*!*    ENDIF
+*!*    *--End TAK 05/25/94 ---
+
+*!*    * -- Print the color and the color description.
+*!*    @ ROW,lnClrStart SAY XCOLOR
+*!*    lcClrDesc = PADR(gfCodDes(XCOLOR , 'COLOR'  ),lnTitlLen+3)
+*!*    @ ROW,lnDescSt SAY lcClrDesc
+*!*    XCOL  = 36
+
+*!*    * -- Loop around the "STY_INFO" array to print a single line
+*!*    * -- ( Total sizes for one color ) .
+*!*    FOR XLOOP = 1 TO 12
+*!*      * -- To print the quantities for this color.
+*!*      XCOL = IIF ( XLOOP = 12 , XCOL+1 , XCOL )
+*!*      @ ROW,XCOL SAY STY_INFO [XSIZE_CNT+1,XLOOP] PICTURE '9999999'
+*!*      XCOL = XCOL + 8
+
+*!*      * -- To accumulate the quantities in "XTOTAL" array.
+*!*      XTOTAL [XLOOP] = XTOTAL [XLOOP] + STY_INFO [XSIZE_CNT+1,XLOOP]
+*!*    ENDFOR
+
+*!*    ROW = ROW + 1
+*!*  ENDIF
+
+* -------------------- END OF DISP_OTS_LINES PROCEDURE ---------------- *
+*!*************************************************************
+*! Name      : lfGtYTD
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/11/2006
+*! Purpose   : Calculate ordered and shipped quantites.
+*!*************************************************************
+*!
+FUNCTION lfGtYTD
+PRIVATE lnAlias,lcCentuary
+lnAlias = SELECT()
+lcCentuary = SET('CENTURY')
+SET CENTURY ON
+ 
+IF loDBFOrdline.SEEK(lcFullSty,'ORDLINES') 
+  SELECT ORDLINE
+  SUM REST  Qty1,Qty2,Qty3,Qty4,Qty5,Qty6,Qty7,Qty8 ;
+      WHILE STYLE+DTOS(complete)+cordtype+order+store+STR(lineno,6) = lcFullSty ;
+      FOR  loDBFOrdHDR.SEEK(ORDLINE.cOrdType + ORDLINE.Order) AND  OrdHdr.Status $ 'OH' .AND. oAriaApplication.CurrentYear = STR(YEAR(OrdHdr.Entered),4) ;
+      TO    lnOrd1,lnOrd2,lnOrd3,lnOrd4,lnOrd5,lnOrd6,lnOrd7,lnOrd8
+ENDIF
+
+IF 'AR' $ oAriaApplication.CompanyInstalledModules AND loDBFinvline.SEEK(lcFullSty,'INVLINES')
+  SELECT INVLINE
+  SUM REST  Qty1,Qty2,Qty3,Qty4,Qty5,Qty6,Qty7,Qty8 ;
+      WHILE style+invoice+STR(lineno,6) = lcFullSty ;
+      FOR   LODBFINVHDR.SEEK(INVLINE.invoice) AND INVHDR.STATUS <> 'V' .AND. oAriaApplication.CurrentYear = STR(YEAR(INVDATE),4) ;
+      TO    lnShp1,lnShp2,lnShp3,lnShp4,lnShp5,lnShp6,lnShp7,lnShp8
+ENDIF
+
+SET CENTURY &lcCentuary
+SELECT (lnAlias)
+RETURN (.T.)
+
+*!*************************************************************
+*! Name      : lpUpdOTS      
+*! Developer : Mariam Mazhar Tawfik (MMT)
+*! Date      : 07/11/2006
+*! Purpose   : Update OTS qty. in each period.
+*!*************************************************************
+*! Calls     :         
+*!*************************************************************
+*! Called from : Report code section.
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Returns            : ....
+*!*************************************************************
+*! Example   : 
+*!*************************************************************
+PROCEDURE lpUpdOTS         
+
+FOR XSIZE_NO = 1 TO XSIZE_CNT
+  lnCurrent = STY_INFO [XSIZE_NO,1]  
+  FOR I = 2 TO 10
+    STY_INFO [XSIZE_NO,I] = STY_INFO [XSIZE_NO,I] + lnCurrent
+    lnCurrent = STY_INFO[XSIZE_NO,I]
+  ENDFOR  
+ENDFOR
+
+*!*************************************************************
+*! Name      : lfFabSum
+*! Developer : MAriam Mazhar[MMT]
+*! Date      : 06/11/2006
+*! Purpose   : sum a specific field for the current fabric in fabric file
+*!*************************************************************
+*! Calls     :
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Called from : Option Grid,fabric browse calculated fields.
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : Calculated field value.
+*!*************************************************************
+*! Example   : =lfFabSum()
+*!*************************************************************
+FUNCTION lfFabSum
+LPARAMETERS lcFab, lcComp
+LOCAL lnTotcomp,  lnAlias
+lnTotcomp = 0
+
+  IF SEEK(ALLTRIM(lcFab), lcTmpFab)
+    SUM &lcTmpFab..&lcCOMP. TO lnTotcomp WHILE &lcTmpFab..Fabric = lcFab
+  ENDIF
+
+RETURN lnTotcomp
+*!*************************************************************
+*! Name      : lfCreateIndecies
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 06/11/2006
+*! Purpose   : Create Indecies for a cursor
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+FUNCTION lfCreateIndecies
+LPARAMETERS lcCursor, lcIndex, lcTages
+
+LOCAL lnOldBuffMode, lcIndex1, lcTages1, lcIndExp
+
+*--If Query Successfully executed, Create Indexes if needed for the result cursor
+lnOldBuffMode = CURSORGETPROP("Buffering", lcCursor)
+=CURSORSETPROP("Buffering", 3, lcCursor)
+
+lcTages1 = lcTages
+lcIndex1 = lcIndex
+SELECT (lcCursor)
+DO WHILE AT("|", lcIndex1,1) <> 0
+  lcIndex  = SUBSTR(lcIndex1, 1, AT("|", lcIndex1, 1) - 1)
+  lcIndex1 = STRTRAN(lcIndex1, lcIndex + "|", "", 1, 1)
+  lcTages  = SUBSTR(lcTages1, 1, AT("|", lcTages1, 1) - 1)
+  lcTages1 = STRTRAN(lcTages1, lcTages + "|", "", 1, 1)
+  *B609356,1 SMA 07/26/2010 remove of clause to prevent empty *.cdx files from creation.....[BEGIN]
+  *INDEX ON &lcIndex. TAG (lcTages) OF (lcCursor)
+  INDEX ON &lcIndex. TAG (lcTages)
+  *B609356,1 SMA 07/26/2010 remove of clause to prevent empty *.cdx files from creation.....[END]
+ENDDO
+=CURSORSETPROP("Buffering", IIF(TYPE("lnBuffMode") = 'N', lnBuffMode, lnOldBuffMode), lcCursor)
+
+RETURN .T.
+
+*!*************************************************************
+*! Name      : lfCollect
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 07/11/2006
+*! Purpose   : Collect data 
+*!*************************************************************
+FUNCTION lfCollect
+
+llUseStyle = .F.
+llUseDiv   = .F.
+llUseSea   = .F.
+llUseGrp   = .F.
+llUseFab   = .F.
+llUseClr   = .F.
+
+*--Style major
+lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGFxFlt,ASCAN(loOGScroll.laOGFxFlt,'STYLE.CSTYMAJOR'),1)
+IF lnPosition > 0
+  lcStylFile = LOOGSCROLL.laOGFxFlt[lnPosition,6]
+  llUseStyle = IIF(!EMPTY(lcStylFile) .AND. USED(lcStylFile) .AND. RECCOUNT(lcStylFile)>0,.T.,.F.)
+ENDIF
+
+IF llUseStyle 
+  SELECT(lcStylFile)
+  LOCATE 
+  IF EOF()
+    llUseStyle = .F.
+  ENDIF 
+ENDIF 
+
+*---Division Filter
+lnDivPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.CDIVISION'),1)
+IF lnDivPos  > 0
+  lcDivStr = LOOGSCROLL.laOGVRFlt[lnDivPos,6]
+  lcDivFile = loOGScroll.gfTempName()
+  llUseDiv = IIF(LEN(lcDivStr)>0,.T.,.F.) AND lfConvertToCursor(lcDivStr,'CDIVISION',lcDivFile)
+ENDIF
+
+*---Season Filter
+lnSeaPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.SEASON'),1)
+IF lnSeaPos > 0
+  lcSeaStr = LOOGSCROLL.laOGVRFlt[lnSeaPos,6]
+  lcSeaFile = loOGScroll.gfTempName()
+  llUseSea = IIF(LEN(lcSeaStr)>0,.T.,.F.) AND lfConvertToCursor(lcSeaStr,'SEASON',lcSeaFile)
+ENDIF
+
+*--Style Group
+lnGrpPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.CSTYGROUP'),1)
+IF lnGrpPos > 0
+  lcGrpStr = LOOGSCROLL.laOGVRFlt[lnGrpPos,6]
+  lcGrpFile = loOGScroll.gfTempName()
+  llUseGrp = IIF(LEN(lcGrpStr)>0,.T.,.F.) AND lfConvertToCursor(lcGrpStr,'CSTYGRP',lcGrpFile)
+ENDIF
+
+*--Style Fabric
+lnPosition = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.FABRIC'),1)
+IF lnPosition > 0
+  lcFabFile = LOOGSCROLL.laOGVRFlt[lnPosition,6]
+  llUseFab = IIF(!EMPTY(lcFabFile) .AND. USED(lcFabFile) .AND. RECCOUNT(lcFabFile)>0,.T.,.F.)
+ENDIF
+IF llUseFab 
+  SELECT(lcFabFile)
+  LOCATE 
+  IF EOF()
+    llUseFab = .F.
+  ENDIF 
+ENDIF 
+
+
+*--Style Color
+lnClrPos = ASUBSCRIPT(LOOGSCROLL.laOGFXFlt,ASCAN(loOGScroll.laOGFXFlt,'SUBSTR(STYLE.STYLE,lnNonMajSt,lnColorLen)'),1)
+IF lnClrPos > 0
+  lcClrStr = LOOGSCROLL.laOGFXFlt[lnClrPos,6]
+  lcClrFile = loOGScroll.gfTempName()
+  llUseClr = IIF(LEN(lcClrStr)>0,.T.,.F.) AND lfConvertToCursor(lcClrStr,'CSTYCLR',lcClrFile)
+ENDIF
+
+*--Pattern
+lcPattStr = ""
+lnPattPos = ASUBSCRIPT(LOOGSCROLL.laOGVRFlt,ASCAN(loOGScroll.laOGVRFlt,'STYLE.PATTERN'),1)
+IF lnPattPos > 0
+  lcPattStr = LOOGSCROLL.laOGVRFlt[lnPattPos,6]
+ENDIF
+
+lcStatStr  = ""
+IF lcRpStatus <>'B'
+  lcStatStr  = IIF(lcRpStatus='B','',"Status='" + lcRpStatus+"'")
+ENDIF
+
+XTODAY     = oAriaApplication.SystemDate
+C_MONTH    = MONTH (XTODAY)
+C_YEAR     = YEAR  (XTODAY)
+XSTYLE     = SPACE (12)
+XCOLOR     = SPACE (06)
+lcFullSty  = SPACE(19)
+llPrintSty = .F.
+
+DIMENSION XPERIOD_ARR [20] , XYEAR [12] , STY_INFO [1,12] , XTOTAL [12]
+XPERIOD_ARR = {}
+XYEAR       = 31
+STORE 30 TO XYEAR(4),XYEAR(6),XYEAR(9),XYEAR(11)
+XYEAR (2)   = IIF (MOD(YEAR(XTODAY),4)=0 , 29 , 28)
+STY_INFO    = 00
+XTOTAL      = 00
+lnTitlLen = 25 - ( LEN(lcStyMajor) + LEN(lcOtherTlt) )
+* -- Initialize the first period with the first day of today's month .
+IF llEngDate 
+  XPERIOD_ARR(1) = CTOD('01/'+ALLTRIM(STR(C_MONTH))+'/'+ALLTRIM(STR(C_YEAR)))
+  XPERIOD_ARR(2) = CTOD('15/'+ALLTRIM(STR(C_MONTH))+'/'+ALLTRIM(STR(C_YEAR)))
+ELSE
+  XPERIOD_ARR(1) = CTOD(ALLTRIM(STR(C_MONTH))+'/01/'+ALLTRIM(STR(C_YEAR)))  
+  XPERIOD_ARR(2) = CTOD(ALLTRIM(STR(C_MONTH))+'/15/'+ALLTRIM(STR(C_YEAR)))
+ENDIF
+
+* -- Fill the "XPERIOD_ARR" array and form the report titles.
+XLOOP   = 3
+XPERIOD = 1
+XMONTH  = 0
+
+DO WHILE XPERIOD < 10
+  * -- Fill the periods array.
+  XPERIOD_ARR(XLOOP  ) = XPERIOD_ARR(XLOOP-1) + 1
+  XPERIOD_ARR(XLOOP+1) = IIF ( MOD(XPERIOD,2) = 0 ,               ;
+                               XPERIOD_ARR(XLOOP) + 14          , ;
+                               GOMONTH (XPERIOD_ARR(XLOOP-2),1)-1 )
+  XLOOP   = XLOOP   + 2
+  XPERIOD = XPERIOD + 1
+ENDDO
+lcStyMaj = SPACE(19)
+
+IF llUseStyle
+  SELECT(lcStylFile)
+  SCAN 
+    *B610448,1 HIA 07/28/13 T20130723.0008 - Stock Availablity report problem:some colors are not showing up. [Begin]
+    *=loDBFStyle.Seek(&lcStylFile..CSTYMAJOR,'CSTYLE')
+    =loDBFStyle.Seek(SUBSTR(&LCSTYLFILE..CSTYMAJOR,1,LNMAJORLEN),'STYLE')
+    *B610448,1 HIA 07/28/13 T20130723.0008 - Stock Availablity report problem:some colors are not showing up. [End]
+    SELECT STYLE
+    
+    *B610448,1 HIA 07/28/13 T20130723.0008 - Stock Availablity report problem:some colors are not showing up. [Begin]
+    *SCAN REST WHILE CSTYMAJOR = &lcStylFile..CSTYMAJOR FOR IIF(llUseClr,SEEK(SUBSTR(STYLE.STYLE,lnNonMajSt,lnColorLen),lcClrFile),.T.);
+    *                AND IIF(llUseDiv,SEEK(STYLE.CDIVISION,lcDivFile),.T.);
+    *                AND IIF(llUseSea,SEEK(STYLE.SEASON,lcSeaFile),.T.) ;
+    *                AND IIF(llUseGrp,SEEK(STYLE.CSTYGROUP,lcGrpFile),.T.);
+    *                AND IIF(llUseFab,SEEK(STYLE.FABRIC,lcFabFile),.T.) ;
+    *                AND IIF(!EMPTY(lcPattStr),STYLE.PATTERN = lcPattStr,.T.);
+    *                AND IIF(!EMPTY(lcStatStr),eval(lcStatStr),.T.)
+                    
+    SCAN REST WHILE Style = SUBSTR(&LCSTYLFILE..CSTYMAJOR,1,LNMAJORLEN) FOR IIF(llUseClr,SEEK(SUBSTR(STYLE.STYLE,lnNonMajSt,lnColorLen),lcClrFile),.T.);
+                    AND IIF(llUseDiv,SEEK(STYLE.CDIVISION,lcDivFile),.T.);
+                    AND IIF(llUseSea,SEEK(STYLE.SEASON,lcSeaFile),.T.) ;
+                    AND IIF(llUseGrp,SEEK(STYLE.CSTYGROUP,lcGrpFile),.T.);
+                    AND IIF(llUseFab,SEEK(STYLE.FABRIC,lcFabFile),.T.) ;
+                    AND IIF(!EMPTY(lcPattStr),STYLE.PATTERN = lcPattStr,.T.);
+                    AND IIF(!EMPTY(lcStatStr),eval(lcStatStr),.T.)                    
+                    
+   *B610448,1 HIA 07/28/13 T20130723.0008 - Stock Availablity report problem:some colors are not showing up. [End]                    
+                    
+      WAIT WINDOW  'Calculate availability for ' + &lcStylFile..CSTYMAJOR NOWAIT 
+      IF lcStyMaj <> Style.CSTYMAJOR
+
+        loDBFPOSLN.Sqlrun("Select Posln.*,Poshdr.Status AS Stat_PO,"+;
+					      "POSHDR.AVAILABLE As Po_avl,POSHDR.COMPLETE  As Po_Comp from Posln(index = poslns)"+;
+                          " inner join poshdr(index = poshdr) on posln.cbusdocu = poshdr.cbusdocu "+;
+                          " and posln.cstytype = poshdr.cstytype and posln.po = poshdr.po where posln.cinvtype = '0001'"+;
+                          " and POSLN.STYLE LIKE '"+LEFT(Style.CSTYMAJOR,lnMajorLen)+"%'")
+        lcStyMaj = Style.CSTYMAJOR
+      ENDIF 
+      SELECT STYLE
+      lnCountRec = lnCountRec + 1
+      SCATTER MEMVAR MEMO
+      m.cMajor    = LEFT(STYLE,lnMajorLen)
+      m.cNonMajor = RIGHT(STYLE,lnNonMajLn)
+      m.Color     = IIF(llHaveClr,SUBSTR(STYLE,lnNonMajSt,lnColorLen),SPACE(6))
+      IF loDBFScale.SEEK('S'+ m.SCALE)
+        XSIZE_CNT = Scale.cnt
+      ENDIF
+      lcFullSty  = SPACE(19)
+      XCOLOR    = IIF(llHaveClr,COLOR,cNonMajor)
+      lcFullSty = STYLE
+      DIMENSION STY_INFO [XSIZE_CNT+IIF(llRpSizes,0,1),12]  
+      STORE 0 TO STY_INFO 
+      IF llRpCurPrd
+        STORE 0 TO lnOrd1,lnOrd2,lnOrd3,lnOrd4,lnOrd5,lnOrd6,lnOrd7,lnOrd8
+        STORE 0 TO lnShp1,lnShp2,lnShp3,lnShp4,lnShp5,lnShp6,lnShp7,lnShp8
+         = lfGtYTD()
+      ENDIF  
+      
+      FOR  XSIZE_NO = 1 TO XSIZE_CNT
+        XSTK_ID = 'STK' + ALLTRIM(STR(XSIZE_NO))
+        STY_INFO [XSIZE_NO,01] = &XSTK_ID
+        XSHP_ID = IIF(llRpCurPrd,'lnShp','SHP') + ALLTRIM(STR(XSIZE_NO))
+        lcOrdId = IIF(llRpCurPrd,'lnOrd','ORD') + ALLTRIM(STR(XSIZE_NO))
+        STY_INFO [XSIZE_NO,12] = &XSHP_ID + &lcOrdId
+      ENDFOR
+      SELECT (lcWorkFile)
+      IF 'PO' $ oAriaApplication.CompanyInstalledModules OR 'MF' $ oAriaApplication.CompanyInstalledModules
+        DO ORD971
+      ENDIF
+      IF !llOTSbasTr
+        DO POST_NVE_VALUS
+      ELSE
+        DO lpUpdOTS
+      ENDIF 
+      * -- Then we will print the OTS lines .
+      DO DISP_OTS_LINES
+      m.ClrDesc = PADR(lfGetDesc(XCOLOR),lnTitlLen+3)
+      FOR d = 1 TO XSIZE_CNT
+        y = ALLTRIM(STR(d,2))
+        m.sz = scale.sz&y.
+        FOR i=1 TO 12
+           x = ALLTRIM(STR(i,2))
+          m.per&x. = STY_INFO[d,i]
+        ENDFOR 
+        INSERT INTO (lcWorkFile) FROM MEMVAR
+      ENDFOR 
+    ENDSCAN   
+  ENDSCAN 
+ELSE
+
+  SELECT STYLE
+  SCAN FOR IIF(llUseClr,SEEK(SUBSTR(STYLE.STYLE,lnNonMajSt,lnColorLen),lcClrFile),.T.);
+            AND IIF(llUseDiv,SEEK(STYLE.CDIVISION,lcDivFile),.T.);
+           AND IIF(llUseSea,SEEK(STYLE.SEASON,lcSeaFile),.T.) ;
+           AND IIF(llUseGrp,SEEK(STYLE.CSTYGROUP,lcGrpFile),.T.);
+           AND IIF(llUseFab,SEEK(STYLE.FABRIC,lcFabFile),.T.) ;
+           AND IIF(!EMPTY(lcPattStr),STYLE.PATTERN = lcPattStr,.T.);
+           AND IIF(!EMPTY(lcStatStr),eval(lcStatStr),.T.)
+           
+      WAIT WINDOW  'Calculate availability for ' + STYLE.CSTYMAJOR NOWAIT 
+      IF lcStyMaj <> Style.CSTYMAJOR
+        loDBFPOSLN.Sqlrun("Select Posln.*,Poshdr.Status AS Stat_PO ,"+;
+        				  "POSHDR.AVAILABLE As Po_avl,POSHDR.COMPLETE  As Po_Comp from Posln(index = poslns)"+;
+                          " inner join poshdr(index = poshdr) on posln.cbusdocu = poshdr.cbusdocu "+;
+                          " and posln.cstytype = poshdr.cstytype and posln.po = poshdr.po where posln.cinvtype = '0001'"+;
+                          " and POSLN.STYLE LIKE '"+LEFT(Style.CSTYMAJOR,lnMajorLen)+"%'")
+        lcStyMaj = Style.CSTYMAJOR
+      ENDIF 
+      lnCountRec = lnCountRec + 1
+      SELECT STYLE
+      SCATTER MEMVAR MEMO
+      m.cMajor    = LEFT(STYLE,lnMajorLen)
+      m.cNonMajor = RIGHT(STYLE,lnNonMajLn)
+      m.Color     = IIF(llHaveClr,SUBSTR(STYLE,lnNonMajSt,lnColorLen),SPACE(6))
+      IF loDBFScale.SEEK('S'+ m.SCALE)
+        XSIZE_CNT = Scale.cnt
+      ENDIF
+      lcFullSty  = SPACE(19)
+      XCOLOR    = IIF(llHaveClr,COLOR,cNonMajor)
+      lcFullSty = STYLE
+      DIMENSION STY_INFO [XSIZE_CNT+IIF(llRpSizes,0,1),12]  
+      STORE 0 TO STY_INFO 
+      IF llRpCurPrd
+        STORE 0 TO lnOrd1,lnOrd2,lnOrd3,lnOrd4,lnOrd5,lnOrd6,lnOrd7,lnOrd8
+        STORE 0 TO lnShp1,lnShp2,lnShp3,lnShp4,lnShp5,lnShp6,lnShp7,lnShp8
+         = lfGtYTD()
+      ENDIF  
+      FOR  XSIZE_NO = 1 TO XSIZE_CNT
+        XSTK_ID = 'STK' + ALLTRIM(STR(XSIZE_NO))
+        STY_INFO [XSIZE_NO,01] = &XSTK_ID
+        XSHP_ID = IIF(llRpCurPrd,'lnShp','SHP') + ALLTRIM(STR(XSIZE_NO))
+        lcOrdId = IIF(llRpCurPrd,'lnOrd','ORD') + ALLTRIM(STR(XSIZE_NO))
+        STY_INFO [XSIZE_NO,12] = &XSHP_ID + &lcOrdId
+      ENDFOR
+      SELECT (lcWorkFile)
+      IF 'PO' $ oAriaApplication.CompanyInstalledModules OR 'MF' $ oAriaApplication.CompanyInstalledModules
+        DO ORD971
+      ENDIF
+      IF !llOTSbasTr
+        DO POST_NVE_VALUS
+      ELSE
+        DO lpUpdOTS
+      ENDIF 
+      * -- Then we will print the OTS lines .
+      DO DISP_OTS_LINES
+       m.ClrDesc = PADR(lfGetDesc(XCOLOR),lnTitlLen+3)
+      FOR d = 1 TO XSIZE_CNT && loop on sizes
+        y = ALLTRIM(STR(d,2))
+        m.sz = scale.sz&y.
+        FOR i=1 TO 12 && loop on periods
+           x = ALLTRIM(STR(i,2))
+          m.per&x. = STY_INFO[d,i]
+        ENDFOR 
+      INSERT INTO (lcWorkFile) FROM MEMVAR
+    ENDFOR 
+  ENDSCAN 
+ENDIF &&Style filter if Statement
+*!*************************************************************
+*! Name      : lfConvertToCursor
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 06/22/2006
+*! Purpose   : Convert a list of values into a cusrsor
+*!*************************************************************
+*!
+FUNCTION lfConvertToCursor
+PARAMETERS lcStrToConv,lcFieldName ,lcNewFile
+lcCursorTemp = lcNewFile &&Cursor Hold Selected values
+DIMENSION laTempacstru[1,4]
+laTempacstru[1,1] = lcFieldName 
+
+DO CASE 
+  
+CASE   ALLTRIM(lcFieldName) = 'SEASON'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+CASE   ALLTRIM(lcFieldName) = 'CDIVISION'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+  
+CASE   ALLTRIM(lcFieldName) = 'CSTYGRP'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+CASE   ALLTRIM(lcFieldName) = 'CSTYCLR'
+  laTempacstru[1,2]='C'
+  laTempacstru[1,3]= 6 
+  laTempacstru[1,4]= 0
+
+ENDCASE 
+ = gfCrtTmp(lcCursorTemp ,@laTempacstru,lcFieldName ,lcCursorTemp ,.T.)
+lcValuesToConvert = lcStrToConv
+IF !EMPTY(lcValuesToConvert)
+  lnStart=1 
+  lnEnd=AT('|',lcValuesToConvert )
+  DO WHILE lnEnd <> 0
+    SELECT(lcCursorTemp ) 
+    APPEND BLANK 
+    REPLACE &lcFieldName  WITH SUBSTR(lcValuesToConvert,lnStart,lnEnd-1)
+    lcValuesToConvert = STUFF(lcValuesToConvert ,lnStart,lnEnd,"") 
+    lnEnd=AT('|',lcValuesToConvert )
+  ENDDO 
+  IF lnEnd = 0
+    SELECT(lcCursorTemp ) 
+    APPEND BLANK 
+    REPLACE &lcFieldName  WITH lcValuesToConvert 
+  ENDIF 
+ENDIF 
+RETURN .T.
+*!*************************************************************
+*! Name      : lfGetDesc
+*! Developer : Mohamed Badran (MAB)
+*! Date      : 06/04/99
+*! Purpose   : Calcualte spent time in data collection.
+*!*************************************************************
+FUNCTION lfGetDesc
+PARAMETERS lcMFCode
+lcMfName = ""
+loDBFCodes.Setorder('Codes')
+IF loDBFCodes.SEEK('N'+lcMFCode+'N'+'COLOR     ')
+  lcMfName = codes.cdiscrep
+ENDIF
+RETURN lcMfName
+  
