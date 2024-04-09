@@ -1,0 +1,46 @@
+#DEFINE LANG_SMFACT_Form_Title         'Factor'
+
+#DEFINE LANG_SMFACT_Browse_Title       'Factor'
+
+#DEFINE LANG_SMFACT_FactCode           'Factor code'
+#DEFINE LANG_SMFACT_FactName           'Factor name'
+#DEFINE LANG_SMFACT_Contact            'Contact'
+#DEFINE LANG_SMFACT_Title              'Title'
+#DEFINE LANG_SMFACT_Comment            'Comment'
+#DEFINE LANG_SMFACT_GLLink             '\<GL link code'
+#DEFINE LANG_SMFACT_ElecBatch          'Factor uses electronic batch transmission'
+#DEFINE LANG_SMFACT_ID                 'ID assigned by the factor'
+#DEFINE LANG_SMFACT_ConfirmID          'Confirmation ID assigned by the factor'
+#DEFINE LANG_SMFACT_Number             'Number assigned by the factor'
+#DEFINE LANG_SMFACT_Password           'Factor security password'
+
+#DEFINE LANG_SMFACT_Browse_FactCode    'Factor code'
+#DEFINE LANG_SMFACT_Browse_FactName    'Factor/Company name'
+#DEFINE LANG_SMFACT_Browse_Phone       'Phone'
+#DEFINE LANG_SMFACT_Browse_Fax         'Fax'
+#DEFINE LANG_SMFACT_Browse_Contact     'Contact'
+#DEFINE LANG_SMFACT_Browse_FacTitle    'Title'
+#DEFINE LANG_SMFACT_Browse_Comment     'Comment'
+#DEFINE LANG_SMFACT_Browse_ContCode    'Country'
+#DEFINE LANG_SMFACT_Browse_Address1    'Ship to Address 1'
+#DEFINE LANG_SMFACT_Browse_Address2    'Ship to Address 2'
+#DEFINE LANG_SMFACT_Browse_Address3    'Ship to Address 3'
+#DEFINE LANG_SMFACT_Browse_Address4    'Ship to Address 4'
+#DEFINE LANG_SMFACT_Browse_Address5    'Ship to Address 5'
+#DEFINE LANG_SMFACT_Browse_Address6    'Ship to Address 6'
+
+
+#DEFINE LANG_SMFACT_System_Currency    'This record has been defined by the system.'
+#DEFINE LANG_SMFACT_Used_Currency      'This Code is currently used by one or more international(s).'
+
+
+#DEFINE LANG_SMFCLNK_Form_Title        'Factor GL link code'
+#DEFINE LANG_SMFCLNK_GLLinkCode        'GL link code'
+#DEFINE LANG_SMFCLNK_CompID            'Company codes'
+#DEFINE LANG_SMFCLNK_CompName          'Company name'
+#DEFINE LANG_SMFCLNK_LinkCode          'Link code'
+
+*B610333,1 fix media R13 issues TMI 05/19/13 [Start] add these two messages
+#DEFINE LANG_DELETEMSG1                 'Are you sure you want to delete this record?'
+#DEFINE LANG_DELETEMSG2                 'This record is locked, cannot continue'
+*B610333,1 fix media R13 issues TMI 05/19/13 [End  ] 

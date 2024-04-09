@@ -1,0 +1,15 @@
+#DEFINE LANG_CollectingData "Please wait .... Collecting data"
+*N000682,1 MMT 11/20/2012 Globalization project[Start]
+#DEFINE LANG_POSEL_LINE_NO    'Line No'
+#DEFINE LANG_POSEL_BOOKING_NO    'Booking No'
+#DEFINE LANG_POSEL_WAREHOUSE    'Warehouse'
+#DEFINE LANG_POSEL_REFERENCE    'Reference'
+#DEFINE LANG_POSEL_OPEN    'Open'
+#DEFINE LANG_POSEL_RECEIVED    'Received'
+#DEFINE LANG_POSEL_INTRANSIT    'In-Transit'
+#DEFINE LANG_POSEL_AMOUNT    'Amount'
+#DEFINE LANG_POSEL_POLINES 'PO Lines'
+#DEFINE LANG_POSEL_PLANNEDSHIP 'Planned Shipment Lines'
+#DEFINE LANG_POSEL_ORGINIAL 'Original'
+#DEFINE LANG_POSEL_QTY 'Quantity'
+*N000682,1 MMT 11/20/2012 Globalization project[End]

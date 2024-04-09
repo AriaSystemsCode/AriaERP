@@ -1,0 +1,2 @@
+#DEFINE LANG_VENDOR_COL 'Vendor:'    
+#DEFINE LANG_TRANSDATE 'Transaction Date'

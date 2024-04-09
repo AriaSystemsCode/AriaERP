@@ -1,0 +1,9 @@
+#DEFINE LANG_SrcMod  "Source module"
+#DEFINE LANG_SrcJrn  "Source journal"
+#DEFINE LANG_BATCHNO 'Batch#'
+#DEFINE LANG_TRANSNO 'Trans#'
+#DEFINE LANG_SM 'SM'
+#DEFINE LANG_SJ 'SJ'
+#DEFINE LANG_DATE 'Date'
+#DEFINE LANG_DEBITCREDIT 'Debit/(Credit)'
+#DEFINE LANG_COMMENT 'Comment'

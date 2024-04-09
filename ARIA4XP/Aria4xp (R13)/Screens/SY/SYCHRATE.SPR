@@ -1,0 +1,50 @@
+EXTERNAL PROC sychrate.scx
+
+DO FORM "sychrate.scx" NAME _0OP0JF4G0 LINKED 
+
+*- [CONVERTER] Begin CLEANUP and other procedures from 2.x Form
+
+FUNCTION lfvCurDate
+IF ldCurrDate <= ldCurrDay+lnExRatDay
+  WAIT 'Exchange date must be greater than' window
+ENDIF
+*IF SEEK(gcBaseCurr+lcCurrency+DTOS(ldCurrDate))
+*  lnExRate = NExRate
+*  SHOW GET lnExRate
+*ENDIF
+
+
+FUNCTION lfvCurOk
+IF EMPTY(lcCurrency) OR EMPTY(ldCurrDate)
+  _CUROBJ=IIF(EMPTY(lcCurrency),1,2)
+  RETURN gfModalGen('QRM00248B00000','Dialog',IIF(EMPTY(lcCurrency),'Currency','Date'))    
+ENDIF
+IF lnExRate<=0
+  _CUROBJ=OBJNUM(lnExRate)
+  RETURN gfModalGen('QRM00247B00000','Dialog')
+ENDIF  
+
+*B601623,1 Change this line to use the varible lcBaseCurr [The to currncy]
+*IF SEEK(gcBaseCurr+lcCurrency+DTOS(ldCurrDate))
+IF SEEK(lcBaseCurr+lcCurrency+DTOS(ldCurrDate))
+*B601623,1 Change this line [End]
+  IF gfModalGen('QRM00246B00012','Dialog')=2
+    _CUROBJ = OBJNUM(lcCurrency)
+    RETURN
+  ENDIF
+ELSE  
+  APPEND BLANK
+  *B601623,1 Change this line to use the varible lcBaseCurr [The to currncy]
+  *REPLACE cBaseCurr WITH gcBaseCurr,;
+  *        cCurrCode WITH lcCurrency,;
+  *        DRATEDATE WITH ldCurrDate
+  REPLACE cBaseCurr WITH lcBaseCurr,;
+          cCurrCode WITH lcCurrency,;
+          DRATEDATE WITH ldCurrDate
+*B601623,1 Change this line [End]
+ENDIF
+REPLACE nExRate WITH lnExRate
+= gfAdd_Info()
+lnRetRate = lnExRate
+CLEAR READ
+*- [CONVERTER] End CLEANUP and other procedures from 2.x Form

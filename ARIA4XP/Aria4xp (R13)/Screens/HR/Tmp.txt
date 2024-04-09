@@ -1,0 +1,59 @@
+PROCEDURE Valid
+IF EMPTY(This.Value)
+  ThisForm.txtEmployeeName.Value = ''
+  RETURN
+ENDIF
+
+IF This.Value == This.OldValue
+  RETURN
+ENDIF
+
+LOCAL lcShift, lcActionType, llUpdated
+llUpdated = .F.
+
+ThisFormSet.lcPersonID = This.Value
+ThisForm.txtEmployeeName.Value = ThisFormSet.GetEmployeeName(This.Value)
+
+IF EMPTY(ThisForm.txtEmployeeName.Value)
+  gfModalGen('INM00000B00000','F','ALERT', ' ', LANG_Employee_Not_Found)
+  This.Value = This.OldValue
+  RETURN
+ENDIF
+
+lcActionType = ThisFormSet.GetActionType()
+lcShift = ThisFormSet.GetShiftData()
+IF EMPTY(ALLTRIM(lcShift))
+  gfModalGen('INM00000B00000','F','ALERT', ' ', LANG_No_Shift_Defined)
+  RETURN 
+ENDIF
+
+SELECT TIMECARD
+APPEND BLANK 
+REPLACE CACTIONCOD WITH '' ,;
+        CACTIONTYP WITH lcActionType ,;
+        CCARDNO    WITH '' ,;
+        CCOSTCENT  WITH ThisFormSet.lcCostCenter ,;
+        CDEPTID    WITH ThisFormSet.lcDeptID ,;
+        CPERSON_ID WITH ThisFormSet.lcPersonID ,;
+        CPLANT_ID  WITH ThisFormSet.lcPlantID ,;
+        CSHIFT_ID  WITH lcShift ,;
+        DWORKDATE  WITH oAriaApplication.SystemDate ,;
+        CTIME      WITH TIME() ,;
+        CWORKCENT  WITH ThisFormSet.lcWorkCenter, NOTE WITH ''
+=gfAdd_Info('TIMECARD')
+=gfReplace('')
+
+llUpdated = gfTableUpdate()
+IF llUpdated
+  *-SAB
+  *=gfModalGen('INM00000B00000', .F., .F., .F., LANG_Data_Saved1 + ALLTRIM(ThisForm.txtEmployeeName.Value) ;
+              + LANG_Data_Saved2 + IIF(lcActionType == 'I', 'in', 'out') + LANG_Data_Saved3)
+  ThisForm.lblMessage.Caption = ALLTRIM(ThisForm.txtEmployeeName.Value) + LANG_Data_Saved2 + IIF(lcActionType == 'I', 'IN', 'OUT') + LANG_Data_Saved3
+  *-SAB
+  This.Value = ''
+  ThisForm.txtEmployeeName.Value = ''  
+  *RETURN .F.
+ELSE
+  *- Not Updated
+ENDIF
+ENDPROC

@@ -1,0 +1,2 @@
+#DEFINE LANG_YTDBAL 'YTD Balance'
+#DEFINE LANG_ENDBAL 'End Balance'

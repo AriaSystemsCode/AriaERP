@@ -1,0 +1,36 @@
+#DEFINE LANG_MainVc_NO_MAT_LOC       'No materials Locations found' 
+#DEFINE LANG_MainVc_NO_LOCATION      'Locations file is Empty'
+#DEFINE LANG_MainVc_LOCATION         'Location'
+#DEFINE LANG_MainVc_FROM_LOC         'From Location'
+#DEFINE LANG_MainVc_EXISTING         'T.Existing'
+#DEFINE LANG_MainVc_TRANSFER         'Transfer'
+#DEFINE LANG_MainVc_ADJ              'T.Adj. +\-'
+#DEFINE LANG_MainVc_NEWINV           'New Inv.'
+#DEFINE LANG_MainVc_TOTAL            'Total'
+#DEFINE LANG_MainVc_ADJUSTMENT       'adjustment'
+#DEFINE LANG_MainVc_DYELOT           'dyelot'
+#DEFINE LANG_MainVc_ASSIGN_LOC       'Assign Locations'
+#DEFINE LANG_MainVc_FROM_WH          'From WH.'
+#DEFINE LANG_MainVc_TO_WH            'To WH.'
+#DEFINE LANG_MainVc_ITEMCOST         'Item Cost'
+#DEFINE LANG_MainVc_CHANGES          'changes'
+#DEFINE LANG_MainVc_CLOSE            '\<Close'
+#DEFINE LANG_MainVc_CANCEL           '\<Cancel'
+*: N000601,1 MMT 03/20/2007 Convert Rolls Screen to Aria4XP[Start]
+#DEFINE LANG_MainVc_ROLLS            'Rolls label'
+*: N000601,1 MMT 03/20/2007 Convert Rolls Screen to Aria4XP[END]
+#DEFINE LANG_MainVc_ITEMREC          'Item record '
+#DEFINE LANG_MainVc_IDYEREC          'Item dyelot record '
+#DEFINE LANG_MainVc_IRECLOT          'Item receiving lot record '
+#DEFINE LANG_MainVc_UPDMSG           'Updating Fabric-Color'
+#DEFINE LANG_MainVc_Oldcost          'Old Cost'
+#DEFINE LANG_MainVc_newcost          'New Cost'
+*N000682,1 MMT 11/20/2012 Globalization project[Start]
+#DEFINE LANG_MAINVCT4_STYLE_CONFEGRATION  'STYLE CONFEGRATION '
+#DEFINE LANG_MAINVCT4_LOTS '\<Lots'
+#DEFINE LANG_MAINVCT4_ROLLS '\<Rolls'
+*N000682,1 MMT 11/20/2012 Globalization project[End]
+*N000682,1 MMT 04/19/2013 Fix Media issues[Start]
+#DEFINE LANG_MainVc_MSG_ROLLS 'rolls'
+#DEFINE LANG_MainVc_MSG_LOTS 'lots'
+*N000682,1 MMT 04/19/2013 Fix Media issues[End]
