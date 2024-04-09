@@ -1,0 +1,365 @@
+********************************************************************************
+*! Porgram       : SOSHLBAL.PRG                (C102200)
+*! Desc          : SHIPPING LABLE PRINT FROM PACKING SLIP FORM AL
+*! Date          : 02/11/2001
+*: System        : Aria 27 System 
+*: Module        : Sales Order (SO)
+*: Developer     : Mohamed Shokry (MHM)
+*: NOTES         : This program used (ALL300,ALL301,AL302 LABELS)
+*:******************************************************************************
+*: Calls Procedures : 
+*:******************************************************************************
+*: Passed Parameters  : None
+*:******************************************************************************
+*: Modifications      :
+*:B604260 MHM 27/02/2001  Fix the bug of performance is low
+*:B604212 MHM 22/03/2001  Fix the bug of not printing (From Carton - To carton)
+*:******************************************************************************
+
+****** TEMPORARY FILE FOR SELECTED RECORDS
+
+SELECT PACK_HDR
+LOCATE
+PACKTEMP = gfTempName()
+
+SELECT PACK_HDR
+LOCATE
+IF EOF()
+  *--No records to display.
+  = gfModalGen('TRM00052B00000','DIALOG' )
+  RETURN
+ENDIF
+
+*B604212 MHM 22/03/2001 get color [START]
+STORE '' TO lcStyMjr,lcClrMjr,lcColorNm
+STORE 0 TO lnClrLen,lnClrPos,lnStyLen
+=lfGtColr()
+*B604212 MHM 22/03/2001 get color [END]
+IF !USED('&PACKTEMP')
+ SELECT PACK_HDR
+  COPY ALL TO &gcWorkDir.&PACKTEMP FOR &lcRpExp
+  SELECT 0 
+  =gfOpenFile(gcWorkDir+PACKTEMP,'','EX')
+ENDIF
+SELECT &PACKTEMP
+INDEX ON PACK_NO TO &gcWorkDir.&PACKTEMP
+
+SELECT &PACKTEMP
+LOCATE
+IF EOF()
+  *--No records to display.
+  = gfModalGen('TRM00052B00000','DIALOG' )
+  RETURN
+ENDIF
+
+**************************************************************************
+* TEMP FILE HAS BEEN SELECTED , PREPARE TO PRINT THE LABELS
+**************************************************************************
+
+SELECT &PACKTEMP
+
+SET RELATION TO 'O' + ORDER INTO ORDHDR, IIF(STORE=SPACE(8) ,;
+'M'+ACCOUNT, 'S'+ACCOUNT+STORE) INTO CUSTOMER
+
+R_WIDTH   = 'N'
+lnMaxLine = 8                        
+lnNoOfLn  = 1
+lcOldOrd  = SPACE( 6 )
+
+WAIT WINDOW 'LABELS PRINTING - <Space Bar> TO ABORT' NOWAIT
+
+*:B604212 MHM 22/03/2001[start]
+*lnOfBox   = lfGetNo( &PackTemp..Pack_No , '>=' , 'To_Crt' )
+*lnMinBox  = lfGetNo( &PackTemp..Pack_No , '<=' , 'From_Crt' )
+lnOfBox   = lfGetNo( &PackTemp..Pack_No , '>=' , 'No_Cart' )
+lnMinBox  = lfGetNo( &PackTemp..Pack_No , '<=' , 'No_Cart' )
+*:B604212 MHM 22/03/2001 [end]
+
+DO WHILE INKEY() <> 32
+
+  xPack_No = &PackTemp..Pack_No
+  xName    = Customer.STName
+  xAddr1   = Customer.CADDRESS1
+  xAddr2   = Customer.CADDRESS2
+  xCity    = LEFT(Customer.CADDRESS3,15)
+  xState   = LEFT(Customer.CADDRESS4,3)
+  xZip     = LEFT(Customer.CADDRESS5,10)
+  lcCustPo = LEFT(OrdHdr.CustPo,10)
+  lcDeptNo = OrdHdr.Dept
+  xOrder   = OrdHdr.Order
+  ldDate   = OrdHdr.Complete
+  lcStore  = SUBSTR( IIF( !EMPTY( &PackTemp..Store ),;
+                     XNAME, SPACE(20) ) ,1, 17)+' '+&PackTemp..Store
+  Y   = '  '    && Used in scale
+  lcScale = '^'
+  lnNoOfSze=0
+  STORE SPACE(59) TO lcIns1, lcIns2, lcIns3
+  =lfGetIns( 'B', OrdHdr.Order,'#', @lcIns1, @lcIns2, @lcIns3 , 59 )
+  
+  SELECT Pack_Lin
+  SEEK &PackTemp..Pack_No
+  
+  lnRecNo = RECNO()
+  *:B604260 MHM 27/02/2001  [start]
+  *COUNT REST TO lnNoInPack FOR Pack_No = &PackTemp..Pack_No .AND. ;
+  *                         lnMinBox >= From_Crt .AND. lnMinBox <= To_Crt
+  
+  *:B604212 MHM 22/03/2001 change From_Crt and To_Crt to No_Cart [start]
+  *COUNT REST TO lnNoInPack WHILE Pack_No = &PackTemp..Pack_No FOR ;
+  *                         lnMinBox >= From_Crt .AND. lnMinBox <= To_Crt
+  COUNT REST TO lnNoInPack WHILE Pack_No = &PackTemp..Pack_No FOR lnMinBox = No_Cart
+  *:B604212 MHM 22/03/2001 [end]     
+  *:B604260 MHM 27/02/2001  [End]
+  GO lnRecNo
+
+  SELECT &PackTemp
+  LABEL FORM (GCREPHOME+GCACT_APPL+'\SOAll300') NEXT 1 TO PRINT NOCONSOL
+  SELECT Pack_Lin
+  SEEK &PackTemp..Pack_No
+  
+  *:B604260 MHM 27/02/2001  [start]
+  *SCAN WHILE lnMinBox <= lnOfBox FOR Pack_No = &PackTemp..Pack_No
+  SCAN WHILE lnMinBox <= lnOfBox AND Pack_No = &PackTemp..Pack_No
+  *:B604260 MHM 27/02/2001  [End]
+    *:B604212 MHM 22/03/2001 add new variable to get last carton[start] 
+    *lnmax2 = Pack_Lin.No_Cart
+    *IF lnMinBox >= From_Crt .AND. lnMinBox <= To_Crt
+    IF lnMinBox = No_Cart
+    *:B604212 MHM 22/03/2001 [end]
+      IF lnNoOfLn + lnNoOfSze < lnMaxLine
+        *:B604212 MHM 22/03/2001 get STYLE [START]
+        *lcStyle = Pack_Lin.Style
+        =lfStyMj(Pack_Lin.Style)
+        lcStyle   = LEFT(lcStyMjr,7)
+        lcColor   = IIF(EMPTY(SUBSTR(gfCodDes(lcClrMjr , 'COLOR     '),1,11 )),;
+                    SUBSTR(lcClrMjr,1,11),SUBSTR(gfCodDes(lcClrMjr,'COLOR     '),1,11))
+        
+        *:B604212 MHM 22/03/2001 get color [END]
+
+        lcSize    = STR( Qty1, 4 ) + ' ' + STR( Qty2, 4 ) + ' ' + ;
+                    STR( Qty3, 4 ) + ' ' + STR( Qty4, 4 ) + ' ' + ;
+                    STR( Qty5, 4 ) + ' ' + STR( Qty6, 4 ) + ' ' + ;
+                    STR( Qty7, 4 )
+        lnPcsBox  = Pack_Lin.TotQty
+
+        *-- Print style scale. 
+        =SEEK( Pack_Lin.Style, 'Style' )
+        IF lcScale <> Style.Scale
+          IF lnNoOfLn + lnNoOfSze <> lnMaxLine
+            lcScale  = Style.Scale
+            SELECT Scale 
+            lcPrLine = SPACE(21) + + IIF(SEEK( 'S'+lcScale ),SZ1+Y+SZ2+Y+SZ3+Y+SZ4+Y+SZ5+Y+SZ6+Y+SZ7,Y )
+            SELECT &PackTemp
+            *LABEL FORM &qLB.All301 NEXT 1 TO PRINT
+            LABEL FORM (GCREPHOME+GCACT_APPL+'\SOAll301') NEXT 1 TO PRINT NOCONSOL
+          ENDIF
+          lnNoOfSze = lnNoOfSze + 1
+        ENDIF  
+        
+        IF lnNoOfLn + lnNoOfSze <> lnMaxLine .OR. lnNoInPack + lnNoOfSze = lnMaxLine
+          *:B604212 MHM 22/03/2001 get color [START]
+          *lcPrLine = lcStyle + SPACE(1) + lcSize + SPACE(1) + IIF( lnPcsBox = 0, SPACE(4), STR( lnPcsBox, 4 ) )
+           lcPrLine = lcStyle + SPACE(1) +lcColor + SPACE(1) + lcSize + SPACE(1) + IIF( lnPcsBox = 0, SPACE(4), STR( lnPcsBox, 4 ) )
+          *:B604212 MHM 22/03/2001 get color [END]
+        ELSE
+          *:B604212 MHM 22/03/2001 get color [START]
+          *lcStyle  = SPACE(19)
+          lcStyle  = SPACE(7)
+          lcColor  = SPACE(11)
+          *:B604212 MHM 22/03/2001 get color [END]
+          lcSize   = SPACE(34)
+          lcPrLine = lcStyle + SPACE(1) +lcColor + SPACE(1) +  lcSize + SPACE(1) + IIF( lnPcsBox = 0, SPACE(4), STR( lnPcsBox, 4 ) )
+        ENDIF  
+
+        SELECT &PackTemp
+        LABEL FORM (GCREPHOME+GCACT_APPL+'\SOAll301') NEXT 1 TO PRINT NOCONSOL
+     
+        lnPcsBox  = 0
+        lnNoOfLn  = lnNoOfLn + 1
+      ELSE
+        lnPcsBox = lnPcsBox + Pack_Lin.TotQty
+      ENDIF
+    ENDIF
+  ENDSCAN
+
+  SELECT &PackTemp
+
+  DO WHILE lnNoOfLn + lnNoOfSze <= lnMaxLine
+    *:B604212 MHM 22/03/2001 get STYLE [START]
+    *lcStyle  = SPACE(19)
+    lcStyle  = SPACE(7)
+    lcColor  = SPACE(11)
+    *:B604212 MHM 22/03/2001 get STYLE [END]
+    lcSize   = SPACE(34)
+
+    lcPrLine = lcStyle + SPACE(1) +lcColor+ SPACE(1) + lcSize + SPACE(1) + IIF( lnPcsBox = 0, SPACE(4), STR( lnPcsBox, 4 ) )
+    LABEL FORM (GCREPHOME+GCACT_APPL+'\SOAll301') NEXT 1 TO PRINT NOCONSOL
+ 
+    lnNoOfLn = lnNoOfLn + 1
+    lnPcsBox = 0
+  ENDDO
+
+  IF lcOldOrd <> OrdHdr.Order
+    STORE SPACE(59) TO lcIns1, lcIns2, lcIns3
+    lcShpVia = SUBSTR( gfCodDes(ORDHDR.ShipVia , 'SHIPVIA'  ), 1, 14 )
+    lcOldOrd = OrdHdr.Order
+
+  ENDIF
+
+  LABEL FORM (GCREPHOME+GCACT_APPL+'\SOAll302') NEXT 1 TO PRINT NOCONSOL
+
+  lnMinBox = lnMinBox + 1
+  lnNoOfLn = 1
+  IF lnMinBox > lnOfBox
+    SELECT &PackTemp
+    IF !EOF()
+      SKIP
+      IF !EOF()
+        
+        *:B604212 MHM 22/03/2001 [start]
+        *lnOfBox  = lfGetNo( &PackTemp..Pack_No , '>=' , 'To_Crt' )
+        *lnMinBox = lfGetNo( &PackTemp..Pack_No , '<=' , 'From_Crt' )
+        lnOfBox  = lfGetNo( &PackTemp..Pack_No , '>=' , 'No_Cart' )
+        lnMinBox = lfGetNo( &PackTemp..Pack_No , '<=' , 'No_Cart' )
+        *:B604212 MHM 22/03/2001 [end]
+        
+      ELSE
+        EXIT
+      ENDIF  
+    ELSE
+      EXIT
+    ENDIF
+  ENDIF
+ENDDO
+
+DO ENDREPORT
+SET DEVICE TO SCREEN
+gcDevice = 'SCREEN'
+  
+*!*************************************************************
+*! Name : lfGetNo
+*! Auth : Mohamed Shokry Mohamed (MHM).
+*! Date : 02/11/2001.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ         
+*! Synopsis : Return the max number or the minmum of cartons.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+*! Passed :
+*!        Parameters : 
+*!          lcPackNo : The pack number.   
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+*! Returned : 
+*!        Variables  : The max number or the minmum of cartons.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+*! Modifications :
+*!*************************************************************
+FUNCTION lfGetNo
+PARAMETERS lcPackNo, lcSign, lcFiled
+
+PRIVATE lnAlias, lnRecNo, lnMax
+lnAlias = SELECT()
+
+SELECT Pack_Lin
+SEEK lcPackNo
+lnRecNo = RECNO()
+*:B604212 MHM 22/03/2001 [start]
+*lnMax   = To_Crt
+lnMax   = No_Cart
+*:B604212 MHM 22/03/2001 [end]
+SCAN WHILE lcPackNo = Pack_No
+  lnMax = IIF ( No_Cart &lcSign lnMax , &lcFiled, lnMax )
+ENDSCAN
+
+GO lnRecNo
+SELECT ( lnAlias )
+RETURN lnMax
+
+*--EOF( lfGetNo )
+
+*!*************************************************************
+*! Name : lfGetIns.
+*! Auth : Mohamed Shokry Mohamed (MHM).
+*! Date : 02/11/2001.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ         
+*! Synopsis : Get the special instructions.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+*! Modifications :
+*!*************************************************************
+FUNCTION lfGetIns
+PARAMETERS lcType, lcCode, lcSrchFor, lcIns1, lcIns2, lcIns3, lnSize
+
+PRIVATE lcType, lcCode, lcSrchFor, lnSize ,lnAlias, lnCountr
+
+
+lnSize   = IIF( lnSize > 59, 59, lnSize )
+lnCountr = 1
+lnAlias  = SELECT()
+
+IF !USED( 'NotePad' )
+  SELECT 0
+  =gfOpenFile(gcDataDir+'NotePad',gcDataDir+'NotePad','SH')
+ENDIF
+
+IF SEEK( lcType + lcCode, 'NotePad' )
+
+  SELECT NotePad
+  SCAN WHILE Type + Key = lcType + lcCode .AND. lnCountr <= 3
+  
+    *:B604260 MHM 27/02/2001  Text is replaced by mNotes in Aria27 [start]
+    *IF !EMPTY( lcSrchFor ) .AND. SUBSTR( Text, 1, 1 ) = lcSrchFor
+    *:B604260 MHM 27/02/2001 [end]
+  
+    IF !EMPTY( lcSrchFor ) .AND. SUBSTR( ALLTRIM(mNotes) , 1, 1 ) = lcSrchFor
+      lcCountr = STR( lnCountr, 1)
+
+      *:B604260 MHM 27/02/2001  Text is replaced by mNotes in Aria27 [start]
+      *lcIns&lcCountr = SUBSTR( Text, 2, lnSize )
+      lcIns&lcCountr = SUBSTR( ALLTRIM(mNotes), 2, lnSize )
+      *:B604260 MHM 27/02/2001 [end]
+
+      lnCountr = lnCountr + 1
+    ENDIF
+  
+  ENDSCAN
+
+ENDIF
+SELECT ( lnAlias )
+
+RETURN .T.
+
+*-- EOF( lfPrnIns )
+
+*!*************************************************************
+*! Name : lfGtColr.                       (B604212)
+*! Auth : Mohamed Shokry Mohamed (MHM).
+*! Date : 03/22/2001.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ         
+*! Synopsis : Get color.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+*! Modifications :
+*!*************************************************************
+FUNCTION lfGtColr
+*--Get color 
+DECLARE laItemSeg[1]
+=gfItemMask(@laItemSeg)
+FOR lnCount = 1 TO ALEN(laItemSeg,1)
+  IF laItemSeg[lnCount,1]='C'
+    lnClrLen = LEN(laItemSeg[lnCount,3])
+    lnClrPos = laItemSeg[lnCount,4]
+    EXIT
+  ENDIF
+ENDFOR
+lnStyLen = LEN(gfItemMask("PM"))
+
+*!*************************************************************
+*! Name : lfStyMj.                         (B604212)
+*! Auth : Mohamed Shokry Mohamed (MHM).
+*! Date : 03/22/2001.
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ         
+*! Synopsis : Get maj .
+*! ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+*! Modifications :
+*!*************************************************************
+FUNCTION lfStyMj
+PARAMETERS lcStyMaj
+lcClrMjr = SUBSTR(lcStyMaj,lnClrPos,lnClrLen)
+lcStyMjr = SUBSTR(lcStyMaj,1,lnStyLen)

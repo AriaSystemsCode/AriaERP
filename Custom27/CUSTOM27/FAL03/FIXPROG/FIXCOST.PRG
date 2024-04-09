@@ -1,0 +1,56 @@
+lcDataDir = GETDIR(SET('DEFAULT'),'Select Data Directory')
+
+IF EMPTY(lcDataDir)
+  RETURN
+ENDIF
+
+IF FILE(lcDataDir+'STYINVJL.DBF')
+  USE (lcDataDir+'STYINVJL') IN 0 SHARED ORDER TAG STYINVJL
+ELSE
+  WAIT WINDOW 'STYINVJL file does not exist, Cannot procced'
+  RETURN
+ENDIF
+
+IF FILE(lcDataDir+'STYLE.DBF')
+  USE (lcDataDir+'STYLE') IN 0 SHARED ORDER TAG STYLE
+ELSE
+  WAIT WINDOW 'STYLE file does not exist, Cannot procced'
+  RETURN
+ENDIF
+
+IF FILE(lcDataDir+'INVLINE.DBF')
+  USE (lcDataDir+'INVLINE') IN 0 SHARED ORDER TAG INVLINE
+ELSE
+  WAIT WINDOW 'INVLINE file does not exist, Cannot procced'
+  RETURN
+ENDIF
+
+SELECT STYLE
+SCAN FOR TOTCOST > 1
+  WAIT WINDOW 'Fix the average cost in the STYLE file for style : '+STYLE NOWAIT
+  REPLACE ALL AVE_COST WITH TOTCOST,;
+              NSTKVAL  WITH TOTCOST * TOTSTK
+  IF SEEK(STYLE,'STYINVJL')
+    SELECT STYINVJL
+    SCAN REST WHILE style+cwarecode+csession+DTOS(dtrdate)+ctrcode+STR(lineno,6) = STYLE.STYLE
+      WAIT WINDOW 'Fixing the STYINVJL file for style : '+STYLE NOWAIT
+	  REPLACE NCOST    WITH STYLE.AVE_COST,;
+              NSTKVAL  WITH NCOST * NTOTSTK
+    ENDSCAN
+  ENDIF
+ENDSCAN
+
+SET ORDER TO TAG MFGOPR IN STYINVJL
+SELECT INVLINE
+SCAN
+  WAIT WINDOW 'Fix the cost in the INVLINE file.' NOWAIT
+  IF SEEK(INVOICE,'STYINVJL')
+    REPLACE COST WITH STYINVJL.NCOST
+  ELSE
+    IF SEEK(STYLE,'STYLE')
+      REPLACE COST WITH STYLE.AVE_COST
+    ENDIF
+  ENDIF
+ENDSCAN
+
+WAIT WINDOW 'Fixing completed successfully'

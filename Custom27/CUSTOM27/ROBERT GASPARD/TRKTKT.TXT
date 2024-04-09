@@ -1,0 +1,53 @@
+
+  Tracking   #: 999999    Order #: 999999        | Work Order #: 999999      
+                                                 | Order #     : 999999
+  Customer #  : XXXXX                            |       
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  | Customer #  :  XXXXX
+                XXXXXXXXXXXXXXXX XXX XXXXXXXXXX  | XXXXXXXXXXXXXXXXXXXX
+                                                 |
+  Operation # : 01   XXXXXX    QTY : 99999999    | Oper. # : 01  XXXXXX           
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  | Quantity: 99999999
+                                                 | Issued  : 99/99/9999      
+  Issued : 99/99/9999     Comp. by : 99/99/9999  | Comp. by: 99/99/9999      
+  Style/Color/Size:  XXXXXXX/XXXXXX/XXXXX        | Color   : XXXXXX  
+                     ³³ÝÞ³³³ÛÞÞº³º³³ÝÞ³³³ÛÞÞº³º  | Size    : XXXXX     
+-----------------------------------------------------------------------                                                                                      
+  Tracking   #: 999999    Order #: 999999        | Work Order #: 999999      
+                                                 | Order #     : 999999
+  Customer #  : XXXXX                            |       
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  | Customer #  :  XXXXX
+                XXXXXXXXXXXXXXXX XXX XXXXXXXXXX  | XXXXXXXXXXXXXXXXXXXX
+                                                 |
+  Operation # : 01   XXXXXX    QTY : 99999999    | Oper. # : 01  XXXXXX           
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  | Quantity: 99999999
+                                                 | Issued  : 99/99/9999      
+  Issued : 99/99/9999     Comp. by : 99/99/9999  | Comp. by: 99/99/9999      
+  Style/Color/Size:  XXXXXXX/XXXXXX/XXXXX        | Color   : XXXXXX  
+                     ³³ÝÞ³³³ÛÞÞº³º³³ÝÞ³³³ÛÞÞº³º  | Size    : XXXXX     
+-----------------------------------------------------------------------                                                                                      
+  Tracking   #: 999999    Order #: 999999        | Work Order #: 999999      
+                                                 | Order #     : 999999
+  Customer #  : XXXXX                            |       
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  | Customer #  :  XXXXX
+                XXXXXXXXXXXXXXXX XXX XXXXXXXXXX  | XXXXXXXXXXXXXXXXXXXX
+                                                 |
+  Operation # : 01   XXXXXX    QTY : 99999999    | Oper. # : 01  XXXXXX           
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  | Quantity: 99999999
+                                                 | Issued  : 99/99/9999      
+  Issued : 99/99/9999     Comp. by : 99/99/9999  | Comp. by: 99/99/9999      
+  Style/Color/Size:  XXXXXXX/XXXXXX/XXXXX        | Color   : XXXXXX  
+                     ³³ÝÞ³³³ÛÞÞº³º³³ÝÞ³³³ÛÞÞº³º  | Size    : XXXXX     
+-----------------------------------------------------------------------                                                                                      
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           
+                                           

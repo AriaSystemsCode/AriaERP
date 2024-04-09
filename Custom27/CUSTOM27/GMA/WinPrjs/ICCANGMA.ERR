@@ -1,0 +1,18 @@
+Screen Set d:\aria27\sysfiles\iccangma.spr has the following errors:
+    Unknown LASCRMODE - Undefined
+    Unknown LAARRAYES - Undefined
+    Unknown GFCTRDIRCT - Undefined
+    Unknown GFOBJ_MSG - Undefined
+    Unknown GFUSERPRIV - Undefined
+    Proc./Func. GPDOPROG - Undefined
+    Unknown GFRUNCALND - Undefined
+
+Program v:\custom27\gma\prgs\ic\iccangm.prg has the following errors:
+    Unknown GFTEMPNAME - Undefined
+    Unknown LACTRSTAT - Undefined
+    Unknown GFSETUP - Undefined
+    Unknown GFOPENFILE - Undefined
+    Unknown GFMODALGEN - Undefined
+    Unknown PSETUP - Undefined
+    Unknown GFBROWS - Undefined
+

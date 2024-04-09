@@ -1,0 +1,1 @@
+DO (gcAppHome+gcWinAppl+'\EBFACIN') WITH 'O'

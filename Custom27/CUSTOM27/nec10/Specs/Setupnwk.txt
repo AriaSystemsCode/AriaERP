@@ -1,0 +1,330 @@
+                                 ARIA Advantage Series 2.7
+                                      System Settings
+Date :06/19/2002                                                        By User: ARIA_20570
+Number of licensed Users = 6
+------------------------------------------------------------------------------------------
+Hardware Settings:
+Processor=80486
+Video Adapter=VGA/Color
+Memory Limit=0
+FoxPro Memory=4227040
+FoxPro EMS Memory=0
+Memory in Use=655360
+Operating System=DOS 07.10
+Available Disk Space=1999896576
+Temp File Directory=C:\WINDOWS\TEMP
+Station Physical ID=
+Printer Status=READY
+Files in config.sys=255
+------------------------------------------------------------------------------------------
+System Printers:
+         1-HP                  Driver:HP LJ II (60 lpp)             
+------------------------------------------------------------------------------------------
+Company:Demo company                  
+History Company          = .F.
+History Company Code     = 
+Sequence # based on div. = Y
+Use Multi Currency       = .T.
+Define Exch. Rate on fly = .T.
+Style prices on the fly  = .T.
+Change exch. rates       = .F.
+No. of days for Exch.rat.= 30
+Diff. in Exch.rat. Acc.  = CUDIF                   
+Company DUNS Number      = 
+Company UCC Manf. Code   = 
+UPS Shipper Code         = 
+Company UPS Account      = 
+Use Taxes                = N
+Tax Name                 = 
+Tax Method               = A
+Tax Rate                 = 1.000
+Tax Reference            = 
+Link to G/L              = N
+Generate G/L cost entries= Y
+G/L version              =  
+System Files dir.        =  
+G/L Company              =  
+Post in Details/Summay   =  
+Link Code at Div Level   =  
+System Type              = M
+Use Variant Cost Sheet   = .T.
+Style entry confirmation = N
+Unique Site Prefix       = T
+HST Tax Rate             = 15
+------------------------------------------------------------------------------------------
+Module: AR
+Add note to invoice lines= Y
+Age A/R by               = T
+Track boxes for UPS manif= Y
+Backorder                = A
+Warn above credit limit  = Y
+Post factored A/R to cust= Y
+Edit style price in      = N
+Invoice Bulk Orders      = N
+Invoice On Hold Orders   = N
+Modify Picking Upon Inv. = Y
+Default Customer Priority= 5
+------------------------------------------------------------------------------------------
+Module: IC
+Style Structure:
+Header : Style       -Color 
+Picture: XXXXXXXXXXXX-XXXXXX
+Markup                   = B
+Dyelots used             = N
+Force style group entry  = N
+Use style packs / SKU    = Y
+Use multiple locations   = Y
+Keep track of bins       = Y
+Use U.P.C. Numbers       = Y
+Maintain U.C.C. Manf. ID = Y
+Style costing method     = A
+Use extended size scale  = .F.
+Extended Size Scale Width= 1
+Sty. Imp Cost Elm. Type 1= P
+Sty. Imp Cost Elm. S.Lbl1= P. Price
+Sty. Imp Cost Elm. L.Lbl1= Purchase Price
+Sty. Imp Cost Elm. Type 2= D
+Sty. Imp Cost Elm. S.Lbl2= Duty
+Sty. Imp Cost Elm. L.Lbl2= Duty
+Sty. Imp Cost Elm. Type 3= F
+Sty. Imp Cost Elm. S.Lbl3= Fabric
+Sty. Imp Cost Elm. L.Lbl3= Imported Styles Fabric
+Sty. Imp Cost Elm. Type 4= M
+Sty. Imp Cost Elm. S.Lbl4= Misc.
+Sty. Imp Cost Elm. L.Lbl4= Imported styles Miscellaneous
+Sty. Imp Cost Elm. Type 5= S
+Sty. Imp Cost Elm. S.Lbl5= Sty. Comp.
+Sty. Imp Cost Elm. L.Lbl5= Imported Style Component
+Sty. Mfg Cost Elm. Type 1= F
+Sty. Mfg Cost Elm. S.Lbl1= Fabric
+Sty. Mfg Cost Elm. L.Lbl1= Material Fabric
+Sty. Mfg Cost Elm. Type 2= T
+Sty. Mfg Cost Elm. S.Lbl2= Trim
+Sty. Mfg Cost Elm. L.Lbl2= Material Trim
+Sty. Mfg Cost Elm. Type 3= M
+Sty. Mfg Cost Elm. S.Lbl3= Mfg.Oper.
+Sty. Mfg Cost Elm. L.Lbl3= Manufacturing Operation
+Sty. Mfg Cost Elm. Type 4= S
+Sty. Mfg Cost Elm. S.Lbl4= Sty. Comp.
+Sty. Mfg Cost Elm. L.Lbl4= Style Component
+Sty. Mfg Cost Elm. Type 5= M
+Sty. Mfg Cost Elm. S.Lbl5= Misc.
+Sty. Mfg Cost Elm. L.Lbl5= Miscellaneous
+O.T.S. period ranges     = E
+Drop ship location       = 
+Prepack status           = S
+Use color assortments    = N
+Color assortment code    = 
+Default style taxable    = N
+Include WIP in Unallo Qty= .F.
+OTS based on Trans. Date = .F.
+------------------------------------------------------------------------------------------
+Module: MA
+Dyelots used?            = N
+Material costing  method = L
+Manual Mfg.Order #       = N
+Issue MMO BOM            = M
+Keep Track of Mat. Rolls = N
+Enter Roll ID manually   = N
+Material Cost Elm. Type 1= F
+Material Cost Elm. S.Lbl1= Fabric
+Material Cost Elm. L.Lbl1= Material Fabric
+Material Cost Elm. Type 2= T
+Material Cost Elm. S.Lbl2= Trim
+Material Cost Elm. L.Lbl2= Material Trim
+Material Cost Elm. Type 3= M
+Material Cost Elm. S.Lbl3= Mfg.Oper
+Material Cost Elm. L.Lbl3= Manufacturing Operation
+Material Cost Elm. Type 4= M
+Material Cost Elm. S.Lbl4= Misc.
+Material Cost Elm. L.Lbl4= Misc.
+Trim Inventory Maintained= Y
+M.M.O Long Label         = Material Manufacturing Order
+Enter Material PO# manual= N
+------------------------------------------------------------------------------------------
+Module: MF
+Manual Cutting Ticket #  = N
+Issue Cutting Ticket BOM = M
+Use detailed costing     = .T.
+Prod. Order Short Label  = CutTkt#
+Prod. Order Long Label   = Cutting Ticket
+Dye Order Visibility wind= 366
+Adornment Order Vis. wind= 366
+Dyeing Operation         = DYING 
+Sel.Price&G.Marrgin on CT= .F.
+------------------------------------------------------------------------------------------
+Module: SO
+Default SO status to Hold= Y
+Add notes to order lines = Y
+Enter order # manually   = N
+Default SO comp. days    = 
+SO depletion cancel after= 
+Comp. Date by Order line = .F.
+Edit Style Price in SO   = .T.
+------------------------------------------------------------------------------------------
+Module: SR
+Chargeback reps on credit= Y
+Edit comm. at line level = Y
+Salesrep commission base = D
+------------------------------------------------------------------------------------------
+Module: AL
+Allow Force Allocation   = Y
+Check Order Approved Amnt= .F.
+Assign P. List To BOL    = I
+P. List Sort By          = L
+Pack Per Size            = .F.
+------------------------------------------------------------------------------------------
+Company:NECKWORKS,INC.                
+History Company          = .F.
+History Company Code     = 
+Sequence # based on div. = N
+Use Multi Currency       = .T.
+Define Exch. Rate on fly = .F.
+Style prices on the fly  = .F.
+Change exch. rates       = .F.
+No. of days for Exch.rat.= 0
+Diff. in Exch.rat. Acc.  = 
+Company DUNS Number      = 62-3863248  
+Company UCC Manf. Code   =       
+UPS Shipper Code         = 189
+Company UPS Account      = 196-85E     
+Use Taxes                = Y
+Tax Name                 = GST                 
+Tax Method               = M
+Tax Rate                 = 0.000
+Tax Reference            =                               
+Link to G/L              = N
+Generate G/L cost entries= Y
+G/L version              = A
+System Files dir.        =  
+G/L Company              = 1 
+Post in Details/Summay   = D
+Link Code at Div Level   = N
+System Type              = M
+Use Variant Cost Sheet   = .F.
+Style entry confirmation = N
+Unique Site Prefix       = 
+HST Tax Rate             = 15
+------------------------------------------------------------------------------------------
+Module: AL
+Allow Force Allocation   = Y
+Check Order Approved Amnt= .F.
+Assign P. List To BOL    = I
+P. List Sort By          = L
+Pack Per Size            = .F.
+------------------------------------------------------------------------------------------
+Module: AR
+Add note to invoice lines= N
+Age A/R by               = D
+Track boxes for UPS manif= N
+Backorder                = I
+Warn above credit limit  = Y
+Post factored A/R to cust= Y
+Edit style price in      = N
+Invoice Bulk Orders      = N
+Invoice On Hold Orders   = N
+Modify Picking Upon Inv. = Y
+Default Customer Priority= 5
+------------------------------------------------------------------------------------------
+Module: IC
+Style Structure:
+Header : Style       -Color 
+Picture: XXXXXXXXXXXX-XXXXXXXXXXXX
+Markup                   = B
+Dyelots used             = N
+Force style group entry  = Y
+Use style packs / SKU    = Y
+Use multiple locations   = N
+Keep track of bins       = N
+Use U.P.C. Numbers       = N
+Maintain U.C.C. Manf. ID = Y
+Style costing method     = S
+Use extended size scale  = .F.
+Extended Size Scale Width= 1
+Sty. Imp Cost Elm. Type 1= P
+Sty. Imp Cost Elm. S.Lbl1= P. PRICE 
+Sty. Imp Cost Elm. L.Lbl1= Purchase cost                 
+Sty. Imp Cost Elm. Type 2= D
+Sty. Imp Cost Elm. S.Lbl2= FREIGHT  
+Sty. Imp Cost Elm. L.Lbl2= Freight                       
+Sty. Imp Cost Elm. Type 3= D
+Sty. Imp Cost Elm. S.Lbl3= TAX      
+Sty. Imp Cost Elm. L.Lbl3= Tax                           
+Sty. Imp Cost Elm. Type 4= D
+Sty. Imp Cost Elm. S.Lbl4= QUOTA    
+Sty. Imp Cost Elm. L.Lbl4= Quota                         
+Sty. Imp Cost Elm. Type 5= M
+Sty. Imp Cost Elm. S.Lbl5= MISC.    
+Sty. Imp Cost Elm. L.Lbl5= Miscellaneous                 
+Sty. Mfg Cost Elm. Type 1= F
+Sty. Mfg Cost Elm. S.Lbl1= FABRIC   
+Sty. Mfg Cost Elm. L.Lbl1= Fabric                        
+Sty. Mfg Cost Elm. Type 2= T
+Sty. Mfg Cost Elm. S.Lbl2= TRIM     
+Sty. Mfg Cost Elm. L.Lbl2= Trim                          
+Sty. Mfg Cost Elm. Type 3= M
+Sty. Mfg Cost Elm. S.Lbl3= MFG OPER.
+Sty. Mfg Cost Elm. L.Lbl3= Manufacturing operations      
+Sty. Mfg Cost Elm. Type 4= S
+Sty. Mfg Cost Elm. S.Lbl4= STYLE    
+Sty. Mfg Cost Elm. L.Lbl4= Style components              
+Sty. Mfg Cost Elm. Type 5= M
+Sty. Mfg Cost Elm. S.Lbl5= MISC.    
+Sty. Mfg Cost Elm. L.Lbl5= Miscellaneous                 
+O.T.S. period ranges     = E
+Drop ship location       = 
+Prepack status           = S
+Use color assortments    = N
+Color assortment code    = 
+Default style taxable    = N
+Include WIP in Unallo Qty= .F.
+OTS based on Trans. Date = .F.
+------------------------------------------------------------------------------------------
+Module: MA
+Dyelots used?            = N
+Material costing  method = S
+Manual Mfg.Order #       = N
+Issue MMO BOM            = M
+Keep Track of Mat. Rolls = Y
+Enter Roll ID manually   = Y
+Material Cost Elm. Type 1= F
+Material Cost Elm. S.Lbl1= FABRIC   
+Material Cost Elm. L.Lbl1= Fabric                        
+Material Cost Elm. Type 2= T
+Material Cost Elm. S.Lbl2= TRIM     
+Material Cost Elm. L.Lbl2= Trim                          
+Material Cost Elm. Type 3= M
+Material Cost Elm. S.Lbl3= MFG OPER.
+Material Cost Elm. L.Lbl3= Manufacturing operations      
+Material Cost Elm. Type 4= M
+Material Cost Elm. S.Lbl4= MISC.    
+Material Cost Elm. L.Lbl4= Miscellaneous                 
+Trim Inventory Maintained= Y
+M.M.O Long Label         = Material Manufacturing Order
+Enter Material PO# manual= N
+------------------------------------------------------------------------------------------
+Module: MF
+Manual Cutting Ticket #  = N
+Issue Cutting Ticket BOM = M
+Use detailed costing     = Y
+Prod. Order Short Label  = CutTkt#
+Prod. Order Long Label   = Cutting Ticket
+Dye Order Visibility wind= 366
+Adornment Order Vis. wind= 366
+Dyeing Operation         = 
+Sel.Price&G.Marrgin on CT= .F.
+------------------------------------------------------------------------------------------
+Module: SO
+Default SO status to Hold= N
+Add notes to order lines = Y
+Enter order # manually   = N
+Default SO comp. days    = 
+SO depletion cancel after= 
+Comp. Date by Order line = .F.
+Edit Style Price in SO   = .T.
+------------------------------------------------------------------------------------------
+Module: SR
+Chargeback reps on credit= Y
+Edit comm. at line level = N
+Salesrep commission base = C
+------------------------------------------------------------------------------------------

@@ -1,0 +1,216 @@
+{\rtf1\adeflang1025\ansi\ansicpg1252\uc1\adeff0\deff0\stshfdbch0\stshfloch0\stshfhich0\stshfbi0\deflang1033\deflangfe1033{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f1\fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}
+{\f2\fmodern\fcharset0\fprq1{\*\panose 02070309020205020404}Courier New;}{\f3\froman\fcharset2\fprq2{\*\panose 05050102010706020507}Symbol;}{\f10\fnil\fcharset2\fprq2{\*\panose 05000000000000000000}Wingdings;}
+{\f46\fswiss\fcharset0\fprq2{\*\panose 020b0604030504040204}Verdana;}{\f47\froman\fcharset0\fprq2{\*\panose 02020404030301010803}Garamond;}{\f199\froman\fcharset238\fprq2 Times New Roman CE;}{\f200\froman\fcharset204\fprq2 Times New Roman Cyr;}
+{\f202\froman\fcharset161\fprq2 Times New Roman Greek;}{\f203\froman\fcharset162\fprq2 Times New Roman Tur;}{\f204\fbidi \froman\fcharset177\fprq2 Times New Roman (Hebrew);}{\f205\fbidi \froman\fcharset178\fprq2 Times New Roman (Arabic);}
+{\f206\froman\fcharset186\fprq2 Times New Roman Baltic;}{\f207\froman\fcharset163\fprq2 Times New Roman (Vietnamese);}{\f209\fswiss\fcharset238\fprq2 Arial CE;}{\f210\fswiss\fcharset204\fprq2 Arial Cyr;}{\f212\fswiss\fcharset161\fprq2 Arial Greek;}
+{\f213\fswiss\fcharset162\fprq2 Arial Tur;}{\f214\fbidi \fswiss\fcharset177\fprq2 Arial (Hebrew);}{\f215\fbidi \fswiss\fcharset178\fprq2 Arial (Arabic);}{\f216\fswiss\fcharset186\fprq2 Arial Baltic;}{\f217\fswiss\fcharset163\fprq2 Arial (Vietnamese);}
+{\f219\fmodern\fcharset238\fprq1 Courier New CE;}{\f220\fmodern\fcharset204\fprq1 Courier New Cyr;}{\f222\fmodern\fcharset161\fprq1 Courier New Greek;}{\f223\fmodern\fcharset162\fprq1 Courier New Tur;}
+{\f224\fbidi \fmodern\fcharset177\fprq1 Courier New (Hebrew);}{\f225\fbidi \fmodern\fcharset178\fprq1 Courier New (Arabic);}{\f226\fmodern\fcharset186\fprq1 Courier New Baltic;}{\f227\fmodern\fcharset163\fprq1 Courier New (Vietnamese);}
+{\f659\fswiss\fcharset238\fprq2 Verdana CE;}{\f660\fswiss\fcharset204\fprq2 Verdana Cyr;}{\f662\fswiss\fcharset161\fprq2 Verdana Greek;}{\f663\fswiss\fcharset162\fprq2 Verdana Tur;}{\f666\fswiss\fcharset186\fprq2 Verdana Baltic;}
+{\f667\fswiss\fcharset163\fprq2 Verdana (Vietnamese);}{\f669\froman\fcharset238\fprq2 Garamond CE;}{\f670\froman\fcharset204\fprq2 Garamond Cyr;}{\f672\froman\fcharset161\fprq2 Garamond Greek;}{\f673\froman\fcharset162\fprq2 Garamond Tur;}
+{\f676\froman\fcharset186\fprq2 Garamond Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;
+\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;\red153\green51\blue102;\red51\green102\blue255;\red51\green51\blue0;}
+{\stylesheet{\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 \snext0 Normal;}{\*\cs10 \additive \ssemihidden Default Paragraph Font;}{\*
+\ts11\tsrowd\trftsWidthB3\trpaddl108\trpaddr108\trpaddfl3\trpaddft3\trpaddfb3\trpaddfr3\trcbpat1\trcfpat1\tscellwidthfts0\tsvertalt\tsbrdrt\tsbrdrl\tsbrdrb\tsbrdrr\tsbrdrdgl\tsbrdrdgr\tsbrdrh\tsbrdrv 
+\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0 \rtlch \af0\afs20 \ltrch \fs20\lang1024\langfe1024\cgrid\langnp1024\langfenp1024 \snext11 \ssemihidden Normal Table;}{
+\s15\ql \li284\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin284\itap0 \rtlch \af47\afs22\alang1025 \ltrch \f47\fs22\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 \sbasedon0 \snext15 \styrsid608470 Normal indent;}{\*\cs16 \additive 
+\rtlch \ab\af0 \ltrch \b \sbasedon10 \styrsid11489716 Strong;}{\s17\ql \li0\ri0\sb100\sa100\sbauto1\saauto1\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0 \rtlch \af0\afs24\alang1025 \ltrch 
+\fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 \sbasedon0 \snext17 \styrsid11489716 normalindent;}}{\*\latentstyles\lsdstimax156\lsdlockeddef0}{\*\listtable{\list\listtemplateid-272314112\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0
+\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid1868100760\'01-;}{\levelnumbers;}\loch\af46\hich\af46\dbch\af0\fbias0 \fi-360\li644\jclisttab\tx644\lin644 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0
+\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid67698691\'01o;}{\levelnumbers;}\f2\fbias0 \fi-360\li1364\jclisttab\tx1364\lin1364 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0
+\levelindent0{\leveltext\leveltemplateid67698693\'01\u-3929 ?;}{\levelnumbers;}\f10\fbias0 \fi-360\li2084\jclisttab\tx2084\lin2084 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext
+\leveltemplateid67698689\'01\u-3913 ?;}{\levelnumbers;}\f3\fbias0 \fi-360\li2804\jclisttab\tx2804\lin2804 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid67698691
+\'01o;}{\levelnumbers;}\f2\fbias0 \fi-360\li3524\jclisttab\tx3524\lin3524 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid67698693\'01\u-3929 ?;}{\levelnumbers;}
+\f10\fbias0 \fi-360\li4244\jclisttab\tx4244\lin4244 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid67698689\'01\u-3913 ?;}{\levelnumbers;}\f3\fbias0 \fi-360\li4964
+\jclisttab\tx4964\lin4964 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid67698691\'01o;}{\levelnumbers;}\f2\fbias0 \fi-360\li5684\jclisttab\tx5684\lin5684 }{\listlevel
+\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\leveltemplateid67698693\'01\u-3929 ?;}{\levelnumbers;}\f10\fbias0 \fi-360\li6404\jclisttab\tx6404\lin6404 }{\listname ;}\listid2138789834}}
+{\*\listoverridetable{\listoverride\listid2138789834\listoverridecount0\ls1}}{\*\pgptbl {\pgp\ipgp0\itap0\li0\ri0\sb1995\sa0}{\pgp\ipgp0\itap0\li0\ri0\sb1995\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0
+\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp0\itap0\li0\ri0\sb1995\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp
+\ipgp24\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp0\itap0\li0\ri0\sb1995\sa0}{\pgp\ipgp24\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0
+\li0\ri0\sb0\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp0\itap0\li0\ri0\sb1995\sa0}{\pgp\ipgp0\itap0\li0\ri0\sb1995\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp0\itap0\li0\ri0
+\sb1995\sa0}{\pgp\ipgp1\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}{\pgp\ipgp2\itap0\li0\ri0\sb0\sa0}}{\*\rsidtbl \rsid608470\rsid1145090\rsid1468788\rsid1584973\rsid1711234\rsid2516105\rsid3159838
+\rsid4271982\rsid4401130\rsid7158362\rsid7566335\rsid7611363\rsid7630910\rsid8286970\rsid9064261\rsid9463445\rsid10361255\rsid10373430\rsid11143848\rsid11173717\rsid11471857\rsid11489716\rsid11612536\rsid12586197\rsid12718240\rsid13722764\rsid14772169
+\rsid16081849}{\*\generator Microsoft Word 11.0.5604;}{\info{\title 1) At the Specs: They usually issues: Knitting Order and Finishing Order}{\author nag}{\operator ash}{\creatim\yr2005\mo3\dy8\hr8\min25}{\revtim\yr2005\mo3\dy24\hr16\min48}{\version4}
+{\edmins49}{\nofpages4}{\nofwords1150}{\nofchars6557}{\*\company Aria System, Inc.}{\nofcharsws7692}{\vern24689}}\ltrsect \widowctrl\ftnbj\aenddoc\noxlattoyen\expshrtn\noultrlspc\dntblnsbdb\nospaceforul\hyphcaps0\horzdoc\dghspace120\dgvspace120
+\dghorigin1701\dgvorigin1984\dghshow0\dgvshow3\jcompress\viewkind4\viewscale100\nolnhtadjtbl\rsidroot12586197 \fet0\ltrpar \sectd \ltrsect\linex0\sectdefaultcl\sftnbj {\*\pnseclvl1\pnucrm\pnqc\pnstart1\pnindent720\pnhang {\pntxta .}}{\*\pnseclvl2
+\pnucltr\pnqc\pnstart1\pnindent720\pnhang {\pntxta .}}{\*\pnseclvl3\pndec\pnqc\pnstart1\pnindent720\pnhang {\pntxta .}}{\*\pnseclvl4\pnlcltr\pnqc\pnstart1\pnindent720\pnhang {\pntxta )}}{\*\pnseclvl5\pndec\pnqc\pnstart1\pnindent720\pnhang {\pntxtb (}
+{\pntxta )}}{\*\pnseclvl6\pnlcltr\pnqc\pnstart1\pnindent720\pnhang {\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnqc\pnstart1\pnindent720\pnhang {\pntxtb (}{\pntxta )}}{\*\pnseclvl8\pnlcltr\pnqc\pnstart1\pnindent720\pnhang {\pntxtb (}{\pntxta )}}
+{\*\pnseclvl9\pnlcrm\pnqc\pnstart1\pnindent720\pnhang {\pntxtb (}{\pntxta )}}\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid12586197 \rtlch \af0\afs24\alang1025 \ltrch 
+\fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch \b\insrsid12586197\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid7611363 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 1) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363\charrsid7611363 At the Specs}{\rtlch \ab\af0 
+\ltrch \b\insrsid7611363\charrsid7611363 : }{\rtlch \ab\af0 \ltrch \b\insrsid12586197\charrsid7611363 They usually issues:}{\rtlch \ab\af0 \ltrch \b\insrsid7611363\charrsid7611363  }{\rtlch \ab\af0 \ltrch \b\insrsid12586197\charrsid7611363 Knitting Order}
+{\rtlch \ab\af0 \ltrch \b\insrsid7611363\charrsid7611363  and }{\rtlch \ab\af0 \ltrch \b\insrsid12586197\charrsid7611363 Finishing Order
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid12586197 {\rtlch \ab\af0 \ltrch \b\insrsid12586197\charrsid7611363 What do you mean by Knitting/Finishing Order??? }{\rtlch \ab\af0 \ltrch 
+\b\insrsid7611363\charrsid7611363 
+\par 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid12586197\charrsid7611363 Do you mean MMO or Material Sales Order??
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid7158362\charrsid11489716 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid12586197\charrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid7158362\charrsid11489716 Knitting and Finishing are two manufacturing operations for the material.
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid7158362\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid3159838 {\rtlch \ab\af46 \ltrch \b\f46\ul\cf6\insrsid9463445 2)}{\rtlch \ab\af46 \ltrch \b\f46\ul\cf6\insrsid9463445\charrsid7630910  At}{\rtlch \ab\af46 
+\ltrch \b\f46\ul\cf6\insrsid7611363\charrsid7630910  the Specs}{\rtlch \ab\af0 \ltrch \b\cf17\insrsid7611363\charrsid7611363  }{\rtlch \ab\af0 \ltrch \b\insrsid3159838\charrsid11489716 At Aria Functional Needs: Run the screen from SO module. 
+What screen you mean???
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid7158362\charrsid11489716 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid3159838\charrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid7158362\charrsid11489716 You can ignore this sentence. 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid7158362\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9463445 3)}{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9463445\charrsid7611363  At}{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363  the Specs}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 
+: They will create MMFG order for each width. 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid11489716 So,}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363  we will always have One Material at each MMO???}{\rtlch \ab\af0 \ltrch \b\insrsid3159838\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11471857\charrsid11489716 Answer:
+\par The problem h
+ere is that they have multiple widths for each material, they want to keep track of inventory for each width separately, so we have to enter each width as a separate item. and at the same time they want to issue one material manufacturing order for all wi
+dths. Aria doesn\rquote t allow that, the MMFO is for one item (one width in their case).}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid9064261\charrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 4) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 At the Specs:}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 
+ On each order, we will enter the account and customer PO. The Consignee will be entered in the account field.
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid7611363\charrsid11489716 So: you}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363  mean that we need custom fields at MMO to add Account code or you mean by word \'93Order\'94 the material SO???
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid10373430 {\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 Also, in case, }{\rtlch \ab\af0 \ltrch \b\insrsid10373430 we have }{\rtlch \ab\af0 \ltrch 
+\b\insrsid9064261\charrsid7611363 ORDER has Contractor \'93Account\'94}{\rtlch \ab\af0 \ltrch \b\insrsid10373430 , so how we could enter }{\rtlch \ab\af0 \ltrch \b\insrsid10373430\charrsid7611363 Consignee in the account field}{\rtlch \ab\af0 \ltrch 
+\b\insrsid9064261\charrsid7611363 ???}{\rtlch \ab\af0 \ltrch \b\insrsid10373430  I mean the field should have either the account code or the consignee!!!}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid9064261 {\rtlch \ab\af0 \ltrch \b\cf2\insrsid11471857\charrsid11489716 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid9064261\charrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11471857\charrsid11489716 Please check the latest material Manufacturing order screen and update your system. It\rquote s already has the account and customer PO on it.
+\par {\listtext\pard\plain\ltrpar \s15 \rtlch \ab\af47\afs22 \ltrch \f46\fs22\cf2\insrsid11471857\charrsid11489716 \hich\af46\dbch\af0\loch\f46 -\tab}}\pard\plain \ltrpar\s15\ql \fi-360\li644\ri0\sa120\widctlpar
+\jclisttab\tx644\aspalpha\aspnum\faauto\ls1\adjustright\rin0\lin644\itap0\pararsid11471857 \rtlch \af47\afs22\alang1025 \ltrch \f47\fs22\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af47 \ltrch \b\cf2\insrsid11471857\charrsid11489716 
+Also, please check the latest specs I sent to ARIA27 PM. In the latest specs I wrote: }{\rtlch \af46\afs24 \ltrch \f46\fs24\cf2\insrsid11471857\charrsid11489716 
+\par }\pard \ltrpar\s15\ql \li0\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 {\rtlch \ab\af47 \ltrch \b\cf2\insrsid11471857\charrsid11489716 \{}{\rtlch \af46\afs24 \ltrch 
+\f46\fs24\cf2\insrsid11471857\charrsid11489716 If they receive the order from the contractor, the consignee will be added in the Alternative ship to name and addresses of the material sales order. 
+\par }\pard \ltrpar\s15\ql \li0\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11471857 {\rtlch \af46\afs24 \ltrch \f46\fs24\cf2\insrsid11471857\charrsid11489716 
+The user will enter the customer PO on the material MMFG order and on the material sales order as well.
+\par }\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid9064261 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\b\cf2\insrsid11471857\charrsid11489716 \}
+\par 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid11471857\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid7630910 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 5)}{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363\charrsid7611363  At}{\rtlch \ab\af0 \ltrch 
+\b\ul\cf6\insrsid9064261\charrsid7611363  the Specs:}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363  If Restex receives the order from the consignee directly}{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363 \'85 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid10373430 {\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid1584973 So}{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363 : In this case, }{\rtlch \ab\af0 
+\ltrch \b\insrsid10373430 the}{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363  add M.SO }{\rtlch \ab\af0 \ltrch \b\insrsid10373430 will be }{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363 by using \'93CUSTOMER\'94
+ File also?? Or they already }{\rtlch \ab\af0 \ltrch \b\insrsid10373430\charrsid7611363 have}{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363  their saved files which contain all the consignees they deal with????}{\rtlch \ab\af0 \ltrch 
+\b\insrsid9064261 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 Answer:
+\par Please check the previous point and the latest specs. We will user the Alternative ship via feature instead of filling the account on the material manufacturing order screen.}{\rtlch \ab\af0 \ltrch \b\ul\cf2\insrsid4271982\charrsid1584973 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid9064261 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid11471857\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 6) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 At the Specs:}{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363  The user will enter the customer PO on the material MMFG order.}{
+\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf18\insrsid7630910\charrsid7611363 SO:}{\rtlch \ab\af0 \ltrch \b\insrsid7630910\charrsid7611363  You need a new custom field to include the CUSTPO#??}{\rtlch \ab\af0 \ltrch \b\insrsid7630910 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 Answer:
+\par Please check point # 4}{\rtlch \ab\af0 \ltrch \b\ul\cf2\insrsid4271982\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid16081849 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 7) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 At the Specs:}{\rtlch \ab\af0 
+\ltrch \b\insrsid16081849\charrsid7611363  . If there is an alternative shipping addresses, }{\rtlch \ab\af0 \ltrch \b\insrsid10373430\charrsid7611363 we}{\rtlch \ab\af0 \ltrch \b\insrsid16081849\charrsid7611363 
+ will print the sales order account name in the \'93FOR ACCOUNT\'94 field, and the first field in the Alternative ship to, in the customer field.}{\rtlch \ab\af0 \ltrch \b\insrsid9064261\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf18\insrsid16081849\charrsid7611363 So:}{\rtlch \ab\af0 \ltrch \b\insrsid16081849\charrsid7611363  We will print }{\rtlch \ab\af0 \ltrch \b\insrsid1145090 The }{\rtlch \ab\af0 \ltrch \b\insrsid16081849\charrsid7611363 
+Account name twice???}{\rtlch \ab\af0 \ltrch \b\insrsid16081849 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 Answer:
+\par In case of ALTERNATIVE SHIP VIA, we will have two account, the consignee and the contractor.
+\par We will print the contractor in the FOR ACCOUNT field, the consignee (which his address should be in the alternative ship via set of addresses) will be printed in the customer field.
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid9064261 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 
+\par }\pard\plain \ltrpar\s15\ql \li0\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid608470 \rtlch \af47\afs22\alang1025 \ltrch \f47\fs22\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\b\f0\ul\cf6\insrsid7611363 8) }{\rtlch \ab\af0 \ltrch \b\f0\ul\cf6\insrsid9064261\charrsid7611363 At the Specs:}{\rtlch \ab\af0 \ltrch \b\f0\insrsid608470\charrsid7611363  }{\rtlch \ab\af0\afs24 \ltrch \b\f0\fs24\insrsid608470\charrsid7611363 
+The report will print based on the customer PO number not the MMFG order number. User should be able to select a PO # and the report will gather all MMFG orders with that PO and print them in one page.}{\rtlch \ab\af0\afs24 \ltrch 
+\b\f0\fs24\insrsid608470 
+\par }\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid1145090 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\b\ul\cf18\insrsid608470\charrsid7611363 SO:}{\rtlch \ab\af0 \ltrch \b\ul\cf18\insrsid4401130\charrsid7611363  }{\rtlch \ab\af0 \ltrch \b\ul\cf18\insrsid12718240\charrsid7611363 you}{\rtlch \ab\af0 \ltrch \b\cf19\insrsid4401130\charrsid7611363 
+ mean that ALL }{\rtlch \ab\af0 \ltrch \b\cf19\insrsid1145090\charrsid7611363 the}{\rtlch \ab\af0 \ltrch \b\cf19\insrsid4401130\charrsid7611363  Generated M.SO which has the same CUSTPO# will be for the same ACCOUNT???}{\rtlch \ab\af0 \ltrch 
+\b\cf19\insrsid12718240\charrsid7611363 I mean that we will }{\rtlch \ab\af0 \ltrch \b\cf19\insrsid1145090 never}{\rtlch \ab\af0 \ltrch \b\cf19\insrsid12718240\charrsid7611363  }{\rtlch \ab\af0 \ltrch \b\cf19\insrsid1145090\charrsid7611363 have}{\rtlch 
+\ab\af0 \ltrch \b\cf19\insrsid12718240\charrsid7611363  the same CUSTPO# at 2 M.Sales orders each one has different Account Code!!}{\rtlch \ab\af0 \ltrch \b\cf19\insrsid9064261\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid9064261 {\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4401130\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 It should be that way, the EDI module doesn\rquote t receive same customer PO if it\rquote s already in the system, so the customer PO should be unique.
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid1145090 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 10) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid9064261\charrsid7611363 At the Specs:}{\rtlch \ab\af0 
+\ltrch \b\insrsid4401130\charrsid7611363  If we are printing the finishing operation which is last operation in the sequence, we will print the ship to name and addresses from the material sales order alternative ship to set of addresses.\line }{\rtlch 
+\ab\af0 \ltrch \b\ul\cf18\insrsid4401130\charrsid7611363 SO: }{\rtlch \ab\af0 \ltrch \b\cf19\insrsid4401130\charrsid7611363  }{\rtlch \ab\af0 \ltrch \b\cf19\insrsid1145090 D}{\rtlch \ab\af0 \ltrch \b\cf19\insrsid11143848\charrsid7611363 
+oes all the generated M.SO which has same CUSTPO# will have the same ship}{\rtlch \ab\af0 \ltrch \b\insrsid11143848\charrsid7611363  to name and addresses????}{\rtlch \ab\af0 \ltrch \b\insrsid9064261 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11143848 {\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11143848\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 We will have one Material sales order for the customer PO.
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid4271982\charrsid7611363 
+\par }\pard\plain \ltrpar\s15\ql \li0\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid13722764 \rtlch \af47\afs22\alang1025 \ltrch \f47\fs22\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\b\f0\ul\cf6\insrsid7611363 11) }{\rtlch \ab\af0 \ltrch \b\f0\ul\cf6\insrsid13722764\charrsid7611363 At the Specs}{\rtlch \ab\af0\afs24 \ltrch \b\f0\fs24\insrsid13722764\charrsid7611363  : }{\rtlch \ab\af0\afs24 \ltrch 
+\b\f0\fs24\insrsid11143848\charrsid7611363 At the Header contents of the report, point#10, you refer to only 2 different cases, is that mean we will always have ONLY 2 operations at the cost sheet of each }{\rtlch \ab\af0\afs24 \ltrch 
+\b\f0\fs24\insrsid1711234\charrsid7611363 MFG Material}{\rtlch \ab\af0\afs24 \ltrch \b\f0\fs24\insrsid13722764\charrsid7611363 ?}{\rtlch \ab\af0\afs24 \ltrch \b\f0\fs24\insrsid1711234\charrsid7611363  }{\rtlch \ab\af0\afs24 \ltrch 
+\b\f0\fs24\insrsid11143848\charrsid7611363 
+\par }\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11143848 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\b\cf2\insrsid4271982\charrsid1584973 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11143848\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid4271982\charrsid1584973 No. We will have a third operation (cutting) in some materials.
+\par }{\rtlch \ab\af0 \ltrch \b\cf19\insrsid4271982\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11173717 {\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 12) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid13722764\charrsid7611363 At the }{\rtlch \ab\af0 \ltrch 
+\b\ul\cf6\insrsid9463445\charrsid7611363 Specs}{\rtlch \ab\af0 \ltrch \b\insrsid9463445\charrsid7611363 : At}{\rtlch \ab\af0 \ltrch \b\insrsid11173717\charrsid7611363  detail section, the Required }{\rtlch \ab\af0 \ltrch \b\insrsid9463445\charrsid7611363 
+UOM }{\rtlch \ab\af0 \ltrch \b\insrsid9463445 Units}{\rtlch \ab\af0 \ltrch \b\insrsid11173717\charrsid7611363 , for MAK or for Sell
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid2516105 {\rtlch \ab\af0 \ltrch \b\insrsid2516105\charrsid7611363 Also at the FINISHED GOODS inventory section, the Required UOM, for MAK or for Sell Units??
+
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11173717 {\rtlch \ab\af0 \ltrch \b\cf2\insrsid14772169\charrsid1584973 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid2516105\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid14772169\charrsid1584973 We will print the MAKE UOM in finished goods material section and the USE UOM in the BOM required section.
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11143848 {\rtlch \ab\af0 \ltrch \b\insrsid13722764\charrsid7611363 
+\par }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid7611363 13) }{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid13722764\charrsid7611363 At the Specs}{\rtlch \ab\af0 \ltrch \b\ul\cf6\insrsid11612536\charrsid7611363  : At }{\rtlch \ab\af0 \ltrch 
+\b\insrsid11612536\charrsid7611363 the finished goods material section , if we have more than one LOT# for the same MMO, should we accumulate all their qty at \'93TOTAL Quantity\'94 field or they should be separated??}{\rtlch \ab\af0 \ltrch 
+\b\insrsid13722764\charrsid7611363 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid3159838 {\rtlch \ab\af0 \ltrch \b\cf2\insrsid14772169\charrsid1584973  Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid9064261\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid14772169\charrsid1584973 Currently, they don\rquote t use the multi lot feature in the }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11489716\charrsid1584973 MMFO;}{\rtlch \ab\af0 \ltrch 
+\b\cf2\insrsid14772169\charrsid1584973  they are planning to use it later on. We will accumulate the quantities and print the totals of all lots if any.
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid11489716 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 {\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\cf1\insrsid11489716 14}{\rtlch \af0 \ltrch \insrsid11489716\charrsid1584973 ) }{\rtlch \ab\af0 \ltrch 
+\b\insrsid11489716\charrsid1584973 At\~the HEADER section of the required layout:}{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 a)\~ Point#3 and point#9 has Vendor Code. Which vendor we will print at point#3???}{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 b) At Point#10 you said: If}{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973  the customer PO in the MMFG 
+order is not found in the sales order master file, we will print the warehouse addresses in the ship to box.
+\par \~
+\par }\pard\plain \ltrpar\s17\ql \li0\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\b\insrsid11489716\charrsid1584973 What shall we do if the gathered MMFG orders have more than one warehouse at their headers, which address we should get?????????????}{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 Also, in case that the SAME MMFG order is multi Location, so we will have more than one address.}{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 
+\par }\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid3159838 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch \b\insrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11489716\charrsid1584973 Answer:
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 {\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 a) }{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 Regarding points # 3 & 9, 
+}{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 it is}{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973  }{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 the }{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 
+same thing, it\rquote s just }{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 duplication}{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 . 
+\par }{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 b) }{\rtlch \af1 \ltrch \f1\cf2\insrsid11489716\charrsid1584973 Regarding point # 10, the warehouse. They 
+will always create a sales order for one warehouse. But just in case they have more than warehouse, we will print a separate page for each warehouse with its set of addresses and lines.
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid3159838 {\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 {\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 1}{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 5}{\rtlch \ab\af0 
+\ltrch \cs16\b\insrsid11489716\charrsid1584973 ) \~in the following section what shall we do if we have issued materials came from more than one Lot, and each Lot has Different vendor:}{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+
+\par \~}{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 7- Mill}{\rtlch \af0 \ltrch \insrsid11489716\charrsid1584973 \line }{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 
+The material vendor. If the material is issued, we will get this information from the issued lot number, otherwise get it from the material master file}{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \cs16\b\cf2\insrsid11489716\charrsid1584973 Answer:
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716\charrsid1584973 If the issued material has different vendors, we will print each vendor in a separate line with the issued quantity.
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf9\insrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \cs16\b\cf1\insrsid11489716 16}{\rtlch \ab\af0 \ltrch \cs16\b\cf1\insrsid11489716 ) If the MMFG Order has custpo# not found at M.Sales Order Files, What shall we print at the following 2 fields on the Header Form: }{\rtlch 
+\af1\afs20 \ltrch \f1\fs20\cf1\insrsid11489716 
+\par }\pard\plain \ltrpar\s17\ql \li284\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin284\itap0\pararsid11489716 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \af0 \ltrch 
+\cf1\insrsid11489716 5- \'93FOR ACCOUNT\'94 
+\par 6- Customer : }{\rtlch \af0 \ltrch \cf1\insrsid11489716 
+\par }\pard \ltrpar\s17\ql \li0\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 {\rtlch \ab\af0 \ltrch \b\cf2\insrsid11489716\charrsid1584973 Answer:
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716\charrsid1584973 If the customer PO is not found in the material sales order, the FOR ACCOUNT, will be the division long name. The customer field will be empty.}{\rtlch \af1\afs20 \ltrch 
+\f1\fs20\cf2\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf1\insrsid11489716\charrsid11489716 
+\par }\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af1\afs20 \ltrch 
+\cs16\b\f1\fs20\insrsid11489716\charrsid1584973 17}{\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\insrsid11489716\charrsid1584973 ) We have 2 MMFG Orders both of them has the same Operation Knitting but:}{\rtlch \af1\afs20 \ltrch 
+\f1\fs20\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\insrsid11489716\charrsid1584973 \~ For Knitting Operation At MMFG Order#1 there are Ship Via Information at Comments Field.}{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\insrsid11489716\charrsid1584973 \~\~For Knitting Operation At MMFG Order#2\~there are\~Different Ship Via Information at Comments Field .}{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+
+\par }{\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\insrsid11489716\charrsid1584973 So, which Ship Via Information will be printed at }{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+\par }\pard\plain \ltrpar\s17\ql \li284\ri0\sa120\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin284\itap0\pararsid11489716 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af0 \ltrch 
+\cs16\b\insrsid11489716\charrsid1584973 "8- Ship Via:" at header section}{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+\par }\pard\plain \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid11489716 \rtlch \af0\afs24\alang1025 \ltrch \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {\rtlch \ab\af1\afs20 \ltrch 
+\b\f1\fs20\cf2\insrsid11489716\charrsid1584973 Answer:
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716\charrsid1584973 \~If we have many ship via with the same customer PO, that means there\rquote 
+s something wrong. A user mistake or something. In that case the user should correct it. We can print something on the report like\~\~ SHIP VIA\~ is\~ \'93MULTIPLE\'94 or \'93MANY\'94}{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716 
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid1584973\charrsid1584973 
+\par }{\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\insrsid11489716\charrsid1584973 18}{\rtlch \ab\af1\afs20 \ltrch \cs16\b\f1\fs20\insrsid11489716\charrsid1584973 ) For Ship To Address in the header section, For Finishing Operation You said that :}{\rtlch 
+\af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 we will print the ship to name and addresses from the material sales order alternative ship to set of addresses.}{\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid1584973 \line }{\rtlch 
+\ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 What if the related M.Sales order has no Alternative, we will print the shipe to Of the Sales Order Account ??}{\rtlch \af0 \ltrch \insrsid11489716\charrsid1584973 \line }{\rtlch \af0 \ltrch 
+\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11489716\charrsid1584973 Answer:}{\rtlch \ab\af1\afs20 \ltrch \b\f1\fs20\cf2\insrsid11489716\charrsid1584973 
+\par }{\rtlch \af0 \ltrch \cf2\insrsid11489716\charrsid1584973 \~}{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716\charrsid1584973 Yes, if the ship to is NOT alternative, we will print the ship to addresses from the account ship to addresses.}{\rtlch 
+\af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716\charrsid1584973 
+\par 
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 19)}{\rtlch \af0 \ltrch \cs15\insrsid11489716\charrsid1584973  }{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 
+WHAT ABout different MMFG Orders with different Notbad and SAME CUSTPO#.}{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+\par }{\rtlch \ab\af0 \ltrch \cs16\b\insrsid11489716\charrsid1584973 Should we will print the Notbad that realted to each MMFG Order at the required Form.}{\rtlch \af1\afs20 \ltrch \f1\fs20\insrsid11489716\charrsid1584973 
+\par }{\rtlch \af0 \ltrch \cf1\insrsid11489716 
+\par }{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11489716\charrsid1584973 Answer:}{\rtlch \ab\af0 \ltrch \b\cf2\insrsid11489716\charrsid1584973 
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf2\insrsid11489716\charrsid1584973 \~If we have different notepads on different MMFG for the same customer PO, we will print them all.
+\par }{\rtlch \af1\afs20 \ltrch \f1\fs20\cf1\insrsid11489716 
+\par }\pard \ltrpar\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0\pararsid3159838 {\rtlch \ab\af0 \ltrch \b\insrsid11489716\charrsid7611363 
+\par }}

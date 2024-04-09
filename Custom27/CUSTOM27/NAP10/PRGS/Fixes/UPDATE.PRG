@@ -1,0 +1,49 @@
+CLOSE ALL
+USE r:\aria27\dbfs\02\posHdr.dbf SHARED IN 0 ORDER 1
+
+USE r:\aria26\data2\posln.dbf SHARED again alias POSLN26 IN 0 ORDER 2
+SELECT Posln26
+SET FILTER TO Posln26.trancd$"32"
+GO TOP
+
+USE r:\aria27\dbfs\02\posln.dbf SHARED again alias POSLN27 IN 0 ORDER 1
+SELECT Posln27
+SET FILTER TO Posln27.trancd$"32"
+GO TOP
+
+USE r:\aria26\povar.dbf EXCL IN 0
+SELECT POVAR
+INDEX ON PO TAG PO
+GO TOP
+SELECT POVAR
+SET RELATION TO Povar.po INTO Posln26 ADDITIVE
+SET RELATION TO "P"+ Povar.po INTO Posln27 ADDITIVE
+SET RELATION TO "P"+Povar.po INTO Poshdr ADDITIVE
+SELECT * FROM POVAR WHERE .F. INTO DBF R:\ARIA27\FXPTMP\REJ
+SELECT POVAR
+GO TOP
+COUNT FOR !EOF("POSLN26") .AND. !EOF("POSLN27") TO ln
+WAIT WINDOW STR(ln)
+SET FILTER TO !EOF("POSLN26") .AND. !EOF("POSLN27")
+RETURN
+SCAN FOR EOF("POSLN26") .AND. !EOF("POSLN27")
+  SELECT POSLN
+  SCAN FOR POSHDR.STATUS $ "CO"
+    FOR lnInd = 1 TO 4
+      lcInd = STR(lnInd,1)
+      REPLACE nAct_Cst&lcInd  WITH nAct_Cst&lcInd/TOTQTY,;
+              neactCost&lcInd WITH neactCost&lcInd/TOTQTY
+      lnAct&lcInd = lnAct&lcInd + nAct_Cst&lcInd*TOTQTY
+    ENDFOR
+  ENDSCAN
+  
+  FOR lnInd = 1 TO 4
+    lcInd = STR(lnInd,1)
+    IF lnAct&lcInd <> POSHDR.nAct_Cost&lcInd
+      SELECT REJ
+      APPEND BLANK
+      REPLACE PO WITH POSHDR.PO,;
+              VAR WITH lcInd
+    ENDIF
+ ENDFOR
+ENDSCAN

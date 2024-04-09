@@ -1,0 +1,37 @@
+Program v:\custom27\els01\prgs\ic\icscnel.prg has the following errors:
+    Unknown LADEFPROC - Undefined
+    Unknown GFSETUP - Undefined
+    Unknown GFOPENFILE - Undefined
+    Unknown GFITEMMASK - Undefined
+    Unknown GFGETMEMVA - Undefined
+    Unknown GFWCODEPOP - Undefined
+    Unknown GFSEQUENCE - Undefined
+    Unknown GFTEMPNAME - Undefined
+    Unknown LACTRSTAT - Undefined
+    Unknown LASCRMODE - Undefined
+    Unknown GFSTOPBROW - Undefined
+    Unknown GFBROWWARE - Undefined
+    Unknown CHECKPRD - Undefined
+    Unknown GFMODALGEN - Undefined
+    Unknown GFMOVER - Undefined
+    Unknown GFSTYBRW - Undefined
+    Proc./Func. GPADSTYWAR - Undefined
+    Unknown LFVLDSTY - Undefined
+    Unknown ARIABROW - Undefined
+    Unknown GFCPSAVE - Undefined
+    Unknown GFRLTFLD - Undefined
+    Unknown GFCODDES - Undefined
+    Unknown GFSTYCRL - Undefined
+    Unknown GFADD_INFO - Undefined
+
+Screen Set d:\aria28\icscnel.spr has the following errors:
+    Unknown GFWCODEPOP - Undefined
+    Unknown LASCRMODE - Undefined
+    Unknown LAARRAYES - Undefined
+    Unknown GFCTRDIRCT - Undefined
+    Unknown GFOBJ_MSG - Undefined
+    Unknown GFUSERPRIV - Undefined
+    Proc./Func. GPDOPROG - Undefined
+    Unknown GFRUNCALND - Undefined
+    Unknown LAADJCODE - Undefined
+

@@ -1,0 +1,216 @@
+[Root]
+Most Recent Package=Standard Setup Package 1
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\timpro1
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=Yes
+Jet 2.x=Yes
+Paradox=Yes
+Excel=No
+Lotus=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=Yes
+ODBCDirect=Yes
+
+[Package|Standard Setup Package 1|Files Found]
+mapi32.dll=\\Wael\c\WIN98\SYSTEM\mapi32.dll
+
+[Package|Standard Setup Package 1|Files Released]
+msmapi.srg=
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+C:\WIN98\SYSTEM\MSMAP.TLB=
+C:\Program Files\Common Files\SYSTEM\Mapi\1033\95\MAPI32.DLL=
+C:\Program Files\Common Files\SYSTEM\ADO\msado20.tlb=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+C:\WIN98\SYSTEM\MSMAPI32.OCX=
+C:\WINDOWS\SYSTEM\SCRRUN.DLL=
+C:\WIN98\SYSTEM\scrrun.dll=
+C:\WIN98\SYSTEM\MSRDO20.DLL=
+C:\WIN98\SYSTEM\MSMASK32.OCX=
+C:\WIN98\SYSTEM\Mscomctl.ocx=
+C:\WIN98\SYSTEM\MSDATGRD.OCX=
+C:\WIN98\SYSTEM\COMDLG32.OCX=
+C:\WIN98\SYSTEM\MSADODC.OCX=
+
+[Package|Standard Setup Package 1|Files Added]
+c:\program files\common files\system\mapi\1033\95\mapi32.dll=
+
+[Package|Standard Setup Package 1|Files Removed]
+c:\win98\system\msvcrt.dll=
+c:\program files\common files\system\ado\msado20.tlb=
+
+[Package|Standard Setup Package 1|Files In Project]
+D:\timanad\POS.exe=Yes
+C:\WIN98\SYSTEM\MSVBVM60.DLL=Yes
+C:\WIN98\SYSTEM\OLEAUT32.DLL=Yes
+C:\WIN98\SYSTEM\OlePro32.dll=Yes
+C:\WIN98\SYSTEM\AsycFilt.dll=Yes
+C:\WIN98\SYSTEM\StdOle2.tlb=Yes
+C:\WIN98\SYSTEM\MSJET35.DLL=Yes
+C:\WIN98\SYSTEM\MSJTER35.DLL=Yes
+C:\WIN98\SYSTEM\MSJINT35.DLL=Yes
+C:\WIN98\SYSTEM\VBAJET32.DLL=Yes
+C:\WIN98\SYSTEM\EXPSRV.DLL=Yes
+C:\WIN98\SYSTEM\MSRD2X35.DLL=Yes
+C:\WIN98\SYSTEM\MSREPL35.DLL=Yes
+C:\WIN98\SYSTEM\VB5DB.DLL=Yes
+C:\WIN98\SYSTEM\MSSTDFMT.DLL=Yes
+C:\WIN98\SYSTEM\MSDBRPTR.DLL=Yes
+C:\WIN98\SYSTEM\scrrun.dll=Yes
+C:\WIN98\SYSTEM\MSVCRT.DLL=No
+C:\WIN98\SYSTEM\MSADODC.OCX=Yes
+C:\WIN98\SYSTEM\COMDLG32.OCX=Yes
+C:\WIN98\SYSTEM\MSDATGRD.OCX=Yes
+C:\WIN98\SYSTEM\MSCOMCTL.OCX=Yes
+C:\WIN98\SYSTEM\MSMASK32.OCX=Yes
+C:\WIN98\SYSTEM\MSMAPI32.OCX=Yes
+C:\WIN98\SYSTEM\MSXBSE35.DLL=Yes
+C:\WIN98\SYSTEM\MSRDO20.DLL=Yes
+C:\WIN98\SYSTEM\RDOCURS.DLL=Yes
+C:\WIN98\SYSTEM\MSPDOX35.DLL=Yes
+C:\WIN98\SYSTEM\VB6STKIT.DLL=Yes
+C:\Program Files\Common Files\SYSTEM\Mapi\1033\95\MAPI32.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\Program Files\Common Files\SYSTEM\ADO\msado20.tlb=No
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\DAO350.DLL=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+D:\timanad\POS.exe=$(AppPath)
+C:\WIN98\SYSTEM\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\DAO\DAO350.DLL=$(MSDAOPath)
+C:\WIN98\SYSTEM\MSJET35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSJTER35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSJINT35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\VBAJET32.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSRD2X35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSREPL35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WIN98\SYSTEM\MSSTDFMT.DLL=$(WinSysPath)
+C:\WIN98\SYSTEM\MSMAP.TLB=$(WinSysPath)
+C:\WIN98\SYSTEM\MSADODC.OCX=$(WinSysPath)
+C:\WIN98\SYSTEM\COMDLG32.OCX=$(WinSysPath)
+C:\WIN98\SYSTEM\MSDATGRD.OCX=$(WinSysPath)
+C:\WIN98\SYSTEM\MSCOMCTL.OCX=$(WinSysPath)
+C:\WIN98\SYSTEM\MSDBRPTR.DLL=$(WinSysPath)
+C:\WIN98\SYSTEM\MSMASK32.OCX=$(WinSysPath)
+C:\WIN98\SYSTEM\MSEXCL35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSRDO20.DLL=$(WinSysPath)
+C:\WIN98\SYSTEM\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\WIN98\SYSTEM\MSPDOX35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSTEXT35.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSXBSE35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WIN98\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WIN98\SYSTEM\MSMAPI32.OCX=$(WinSysPath)
+C:\WIN98\SYSTEM\MAPI32.DLL=$(WinSysPathSysFile)
+C:\WIN98\SYSTEM\MSMAPI.SRG=$(AppPath)
+J:\timanad\POS.exe=$(AppPath)
+C:\WINDOWS\SYSTEM\Msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSJET35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSJTER35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSJINT35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VBAJET32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\EXPSRV.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSRD2X35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSREPL35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSDBRPTR.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\SCRRUN.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSADODC.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\Comdlg32.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSDATGRD.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSMASK32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSMAPI32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSXBSE35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSRDO20.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\RDOCURS.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSEXCL35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSTEXT35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\VB6STKIT.DLL=$(WinSysPathSysFile)
+\\Wael\c\WIN98\SYSTEM\mapi32.dll=$(WinSysPathSysFile)
+\\Wael\c\WIN98\SYSTEM\MSMAPI.SRG=$(AppPath)
+C:\WINDOWS\SYSTEM\MSMAPI.SRG=$(AppPath)
+C:\WIN98\SYSTEM\scrrun.dll=$(WinSysPath)
+C:\WIN98\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\SYSTEM\Mapi\1033\95\MAPI32.DLL=$(WinSysPath)
+C:\WIN98\SYSTEM\ODBC32.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\SYSTEM\ADO\msado20.tlb=$(WinSysPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WIN98\SYSTEM\DAO350.DLL=$(MSDAOPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+D:\timanad\POS.exe=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\WIN98\SYSTEM\MSMAPI.SRG=Yes
+J:\timanad\POS.exe=Yes
+\\Wael\c\WIN98\SYSTEM\MSMAPI.SRG=No
+C:\WINDOWS\SYSTEM\MSMAPI.SRG=Yes
+E:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=Product Activity
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=d:\timpro1
+ProjectFolder=D:\timanad
+ServerSideCab=
+File1=d:\timpro1\setup.exe
+File2=d:\timpro1\Setup.Lst
+File3=d:\timpro1\POS.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Standard Setup Package 1|IconGroups]
+Group0=Product Activity
+PrivateGroup0=True
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 1|Product Activity]
+Icon1=POS.exe
+Title1=Product Activity
+StartIn1=$(AppPath)
+Key1=Icon1

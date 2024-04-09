@@ -1,0 +1,9 @@
+DEPT           	String	6	
+CSTYGROUP      	String	6	
+CCATG          	String	6	
+CCLASS         	String	6	
+CSUB_CLASS     	String	6	
+UPC	String	13	
+PACK_ID	String	16	
+PACK_DESC	String	20	
+SELLPRICE      	Currency		

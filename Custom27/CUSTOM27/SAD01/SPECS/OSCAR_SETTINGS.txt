@@ -1,0 +1,446 @@
+                                 ARIA Advantage Series 2.7
+                                      System Settings
+Date :05/07/2001                                                        By User: ARIA_78611
+Number of licensed Users = 25
+------------------------------------------------------------------------------------------
+Hardware Settings:
+Processor=80486
+Video Adapter=VGA/Color
+Memory Limit=0
+FoxPro Memory=4227040
+FoxPro EMS Memory=0
+Memory in Use=655360
+Operating System=DOS 07.10
+Available Disk Space=2147450880
+Temp File Directory=C:\WINDOWS\TEMP
+Station Physical ID=
+Printer Status=READY
+Files in config.sys=255
+------------------------------------------------------------------------------------------
+System Printers:
+         1-EPSON               Driver:Canon BJC-800                 
+------------------------------------------------------------------------------------------
+Company:Demo company                  
+History Company          = .F.
+History Company Code     = 
+Sequence # based on div. = N
+Use Multi Currency       = .F.
+Define Exch. Rate on fly = .F.
+Style prices on the fly  = .F.
+Change exch. rates       = .F.
+No. of days for Exch.rat.= 0
+Diff. in Exch.rat. Acc.  = 
+Company DUNS Number      = 
+Company UCC Manf. Code   = 606418
+UPS Shipper Code         = 070
+Company UPS Account      = 36W496      
+Use Taxes                = N
+Tax Name                 = 
+Tax Method               = A
+Tax Rate                 = 1.000
+Tax Reference            = 
+Link to G/L              = Y
+Generate G/L cost entries= Y
+G/L version              = A
+System Files dir.        =  
+G/L Company              =   
+Post in Details/Summay   = D
+Link Code at Div Level   = N
+System Type              = M
+Use Variant Cost Sheet   = .F.
+Style entry confirmation = N
+Unique Site Prefix       = A
+------------------------------------------------------------------------------------------
+Module: AP
+AP account                = 2000-000
+Default expense account   = 1050-010
+Adjustment account        = 1000-000
+Gl non checking account   = 1000-000
+Purchase variance account = 00000000
+Discount account          = 1078-000
+Linked to GL              = Y
+GL company                = 99
+Vendors group #1 label    = Type
+Vendors group #2 label    = Class
+Vendors group #3 label    = Buyer
+Tax type                  = L
+Bank code                 = HSBC
+Bank checking account     = 123-123-999
+Allow prior period transa = No
+Suppress 1099 processing  = No
+Aria app. linked company  = 
+Aria app. system path     = 
+Setup was done            = Yes
+Released batches posting  = 1
+Release transaction Meth. = 1
+Summarize AP Account      = No
+Summarize Distribut. Acc. = No
+Summarize discount Acc.   = No
+Summarize Adj. Account    = No
+Summarize for Check. Acc. = No
+Exchange diffrence Acc.   = 
+State/Payers state number = 
+------------------------------------------------------------------------------------------
+Module: GL
+Retained earning acct maj = 3010
+Suspense account major    = 6600
+Default budget code       = 
+Cost center               = 1
+Beg. balance posting flag = No
+Require batch control tot = Yes
+Lock period at period cls = Yes
+Acct. attributes editable = No
+Allow beginning balances  = Yes
+Beginning balance date    = 04/30/2001
+Consolidation only        = No
+Force printing edit list  = No
+Force printing gl posting = No
+Allow adding acct. on fly = No
+Batch posting window      = 1
+Batch posting control     = P
+Allow single transactions = Yes
+Linked applications       = AP~Accounts payable
+Setup was done            = Yes
+Exchange rates diffrence  = 
+------------------------------------------------------------------------------------------
+Module: AL
+Allow Force Allocation   = Y
+Check Order Approved Amnt= .T.
+Assign P. List To BOL    = I
+------------------------------------------------------------------------------------------
+Module: AR
+Add note to invoice lines= Y
+Age A/R by               = T
+Track boxes for UPS manif= N
+Backorder                = A
+Warn above credit limit  = N
+Post factored A/R to cust= Y
+Edit style price in      = B
+Invoice Bulk Orders      = N
+Invoice On Hold Orders   = N
+Modify Picking Upon Inv. = Y
+Default Customer Priority= 5
+------------------------------------------------------------------------------------------
+Module: EB
+Setup for Module EB Was not done
+------------------------------------------------------------------------------------------
+Module: IC
+Style Structure:
+Header : Style       -Color 
+Picture: XXXXXXXXXXXX-XXXXXX
+Markup                   = B
+Dyelots used             = Y
+Force style group entry  = ÌY
+Use style packs / SKU    = N
+Use multiple locations   = Y
+Keep track of bins       = N
+Use U.P.C. Numbers       = Y
+Maintain U.C.C. Manf. ID = Y
+Style costing method     = A
+Use extended size scale  = .F.
+Extended Size Scale Width= 1
+Sty. Imp Cost Elm. Type 1= P
+Sty. Imp Cost Elm. S.Lbl1= FOB Px   
+Sty. Imp Cost Elm. L.Lbl1= FOB Purchase Price            
+Sty. Imp Cost Elm. Type 2= D
+Sty. Imp Cost Elm. S.Lbl2= Duty
+Sty. Imp Cost Elm. L.Lbl2= Duty
+Sty. Imp Cost Elm. Type 3= M
+Sty. Imp Cost Elm. S.Lbl3= Freight  
+Sty. Imp Cost Elm. L.Lbl3= Freight Charges               
+Sty. Imp Cost Elm. Type 4= M
+Sty. Imp Cost Elm. S.Lbl4= Agent Fee
+Sty. Imp Cost Elm. L.Lbl4= Agent Fees                    
+Sty. Imp Cost Elm. Type 5= M
+Sty. Imp Cost Elm. S.Lbl5= Misc.    .
+Sty. Imp Cost Elm. L.Lbl5= Miscellaneous                 
+Sty. Mfg Cost Elm. Type 1= F
+Sty. Mfg Cost Elm. S.Lbl1= Fabric
+Sty. Mfg Cost Elm. L.Lbl1= Material Fabric
+Sty. Mfg Cost Elm. Type 2= T
+Sty. Mfg Cost Elm. S.Lbl2= Trim
+Sty. Mfg Cost Elm. L.Lbl2= Material Trim
+Sty. Mfg Cost Elm. Type 3= M
+Sty. Mfg Cost Elm. S.Lbl3= Mfg.Oper.
+Sty. Mfg Cost Elm. L.Lbl3= Manufacturing Operation
+Sty. Mfg Cost Elm. Type 4= S
+Sty. Mfg Cost Elm. S.Lbl4= Sty. Comp.
+Sty. Mfg Cost Elm. L.Lbl4= Style Component
+Sty. Mfg Cost Elm. Type 5= M
+Sty. Mfg Cost Elm. S.Lbl5= Misc.
+Sty. Mfg Cost Elm. L.Lbl5= Miscellaneous
+O.T.S. period ranges     = E
+Drop ship location       = 
+Prepack status           = N
+Use color assortments    = N
+Color assortment code    = 
+Default style taxable    = N
+Include WIP in Unallo Qty= .T.
+------------------------------------------------------------------------------------------
+Module: MA
+Dyelots used?            = Y
+Material costing  method = A
+Manual Mfg.Order #       = N
+Issue MMO BOM            = M
+Keep Track of Mat. Rolls = N
+Enter Roll ID manually   = N
+Material Cost Elm. Type 1= F
+Material Cost Elm. S.Lbl1= Fabric
+Material Cost Elm. L.Lbl1= Material Fabric
+Material Cost Elm. Type 2= T
+Material Cost Elm. S.Lbl2= Trim
+Material Cost Elm. L.Lbl2= Material Trim
+Material Cost Elm. Type 3= M
+Material Cost Elm. S.Lbl3= Mfg.Oper
+Material Cost Elm. L.Lbl3= Manufacturing Operation
+Material Cost Elm. Type 4= M
+Material Cost Elm. S.Lbl4= Misc.
+Material Cost Elm. L.Lbl4= Misc.
+Trim Inventory Maintained= Y
+M.M.O Long Label         = Material Manufacturing Order
+Enter Material PO# manual= N
+------------------------------------------------------------------------------------------
+Module: MF
+Manual Cutting Ticket #  = N
+Issue Cutting Ticket BOM = M
+Use detailed costing     = .T.
+Prod. Order Short Label  = CutTkt#
+Prod. Order Long Label   = Cutting Ticket
+Dye Order Visibility wind= 366
+Adornment Order Vis. wind= 366
+Dyeing Operation         = 
+Sel.Price&G.Marrgin on CT= .F.
+------------------------------------------------------------------------------------------
+Module: PO
+Enter style PO # manually= N
+Use detailed costing     = .F.
+Receive PO By:           = S
+Create PO Cost Sheet     = T
+Sel.Price&G.Marrgin on Po= .F.
+------------------------------------------------------------------------------------------
+Module: SO
+Default SO status to Hold= Y
+Add notes to order lines = Y
+Enter order # manually   = N
+Default SO comp. days    = 0
+SO depletion cancel after= 90
+Comp. Date by Order line = .F.
+Edit Style Price in SO   = .T.
+------------------------------------------------------------------------------------------
+Module: SR
+Chargeback reps on credit= Y
+Edit comm. at line level = N
+Salesrep commission base = D
+------------------------------------------------------------------------------------------
+Company:Apparel Group International   
+History Company          = .F.
+History Company Code     = 
+Sequence # based on div. = N
+Use Multi Currency       = .F.
+Define Exch. Rate on fly = .F.
+Style prices on the fly  = .F.
+Change exch. rates       = .F.
+No. of days for Exch.rat.= 0
+Diff. in Exch.rat. Acc.  = 
+Company DUNS Number      = 
+Company UCC Manf. Code   = 606418
+UPS Shipper Code         = 070
+Company UPS Account      = 36W496      
+Use Taxes                = N
+Tax Name                 = 
+Tax Method               = A
+Tax Rate                 = 1.000
+Tax Reference            = 
+Link to G/L              = N
+Generate G/L cost entries= Y
+G/L version              =  
+System Files dir.        =  
+G/L Company              =  
+Post in Details/Summay   =  
+Link Code at Div Level   =  
+System Type              = M
+Use Variant Cost Sheet   = .F.
+Style entry confirmation = N
+Unique Site Prefix       = 1
+------------------------------------------------------------------------------------------
+Module: AP
+AP account                = 
+Default expense account   = 
+Adjustment account        = 
+Gl non checking account   = 
+Purchase variance account = 
+Discount account          = 
+Linked to GL              = 
+GL company                = 
+Vendors group #1 label    = 
+Vendors group #2 label    = 
+Vendors group #3 label    = 
+Tax type                  = 
+Bank code                 = 
+Bank checking account     = 
+Allow prior period transa = No
+Suppress 1099 processing  = No
+Aria app. linked company  = 
+Aria app. system path     = 
+Setup was done            = No
+Released batches posting  = 0
+Release transaction Meth. = 0
+Summarize AP Account      = No
+Summarize Distribut. Acc. = No
+Summarize discount Acc.   = No
+Summarize Adj. Account    = No
+Summarize for Check. Acc. = No
+Exchange diffrence Acc.   = 
+State/Payers state number = 
+------------------------------------------------------------------------------------------
+Module: GL
+Retained earning acct maj = 
+Suspense account major    = 
+Default budget code       = 
+Cost center               = 1
+Beg. balance posting flag = No
+Require batch control tot = Yes
+Lock period at period cls = Yes
+Acct. attributes editable = No
+Allow beginning balances  = Yes
+Beginning balance date    = 04/30/2001
+Consolidation only        = No
+Force printing edit list  = No
+Force printing gl posting = No
+Allow adding acct. on fly = No
+Batch posting window      = 1
+Batch posting control     = P
+Allow single transactions = Yes
+Linked applications       = 
+Setup was done            = Yes
+Exchange rates diffrence  = 
+------------------------------------------------------------------------------------------
+Module: AL
+Allow Force Allocation   = Y
+Check Order Approved Amnt= .T.
+Assign P. List To BOL    = I
+------------------------------------------------------------------------------------------
+Module: AR
+Add note to invoice lines= Y
+Age A/R by               = T
+Track boxes for UPS manif= N
+Backorder                = A
+Warn above credit limit  = N
+Post factored A/R to cust= Y
+Edit style price in      = B
+Invoice Bulk Orders      = N
+Invoice On Hold Orders   = N
+Modify Picking Upon Inv. = Y
+Default Customer Priority= 5
+------------------------------------------------------------------------------------------
+Module: EB
+Setup for Module EB Was not done
+------------------------------------------------------------------------------------------
+Module: IC
+Style Structure:
+Header : Style       -Color 
+Picture: XXXXXXXXXXXX-XXXXXX
+Markup                   = B
+Dyelots used             = Y
+Force style group entry  = ÌY
+Use style packs / SKU    = N
+Use multiple locations   = Y
+Keep track of bins       = N
+Use U.P.C. Numbers       = Y
+Maintain U.C.C. Manf. ID = Y
+Style costing method     = A
+Use extended size scale  = .F.
+Extended Size Scale Width= 1
+Sty. Imp Cost Elm. Type 1= P
+Sty. Imp Cost Elm. S.Lbl1= FOB Px   
+Sty. Imp Cost Elm. L.Lbl1= FOB Purchase Price            
+Sty. Imp Cost Elm. Type 2= D
+Sty. Imp Cost Elm. S.Lbl2= Duty
+Sty. Imp Cost Elm. L.Lbl2= Duty
+Sty. Imp Cost Elm. Type 3= M
+Sty. Imp Cost Elm. S.Lbl3= Freight  
+Sty. Imp Cost Elm. L.Lbl3= Freight Charges               
+Sty. Imp Cost Elm. Type 4= M
+Sty. Imp Cost Elm. S.Lbl4= Agent Fee
+Sty. Imp Cost Elm. L.Lbl4= Agent Fees                    
+Sty. Imp Cost Elm. Type 5= M
+Sty. Imp Cost Elm. S.Lbl5= Misc.    .
+Sty. Imp Cost Elm. L.Lbl5= Miscellaneous                 
+Sty. Mfg Cost Elm. Type 1= F
+Sty. Mfg Cost Elm. S.Lbl1= Fabric
+Sty. Mfg Cost Elm. L.Lbl1= Material Fabric
+Sty. Mfg Cost Elm. Type 2= T
+Sty. Mfg Cost Elm. S.Lbl2= Trim
+Sty. Mfg Cost Elm. L.Lbl2= Material Trim
+Sty. Mfg Cost Elm. Type 3= M
+Sty. Mfg Cost Elm. S.Lbl3= Mfg.Oper.
+Sty. Mfg Cost Elm. L.Lbl3= Manufacturing Operation
+Sty. Mfg Cost Elm. Type 4= S
+Sty. Mfg Cost Elm. S.Lbl4= Sty. Comp.
+Sty. Mfg Cost Elm. L.Lbl4= Style Component
+Sty. Mfg Cost Elm. Type 5= M
+Sty. Mfg Cost Elm. S.Lbl5= Misc.
+Sty. Mfg Cost Elm. L.Lbl5= Miscellaneous
+O.T.S. period ranges     = E
+Drop ship location       = 
+Prepack status           = N
+Use color assortments    = N
+Color assortment code    = 
+Default style taxable    = N
+Include WIP in Unallo Qty= .T.
+------------------------------------------------------------------------------------------
+Module: MA
+Dyelots used?            = Y
+Material costing  method = A
+Manual Mfg.Order #       = Y
+Issue MMO BOM            = M
+Keep Track of Mat. Rolls = N
+Enter Roll ID manually   = N
+Material Cost Elm. Type 1= F
+Material Cost Elm. S.Lbl1= Fabric
+Material Cost Elm. L.Lbl1= Material Fabric
+Material Cost Elm. Type 2= T
+Material Cost Elm. S.Lbl2= Trim
+Material Cost Elm. L.Lbl2= Material Trim
+Material Cost Elm. Type 3= M
+Material Cost Elm. S.Lbl3= Mfg.Oper
+Material Cost Elm. L.Lbl3= Manufacturing Operation
+Material Cost Elm. Type 4= M
+Material Cost Elm. S.Lbl4= Misc.
+Material Cost Elm. L.Lbl4= Misc.
+Trim Inventory Maintained= Y
+M.M.O Long Label         = Material Manufacturing Order
+Enter Material PO# manual= Y
+------------------------------------------------------------------------------------------
+Module: MF
+Manual Cutting Ticket #  = Y
+Issue Cutting Ticket BOM = M
+Use detailed costing     = .T.
+Prod. Order Short Label  = CutTkt#
+Prod. Order Long Label   = Cutting Ticket
+Dye Order Visibility wind= 366
+Adornment Order Vis. wind= 366
+Dyeing Operation         = 
+Sel.Price&G.Marrgin on CT= .F.
+------------------------------------------------------------------------------------------
+Module: PO
+Enter style PO # manually= N
+Use detailed costing     = .F.
+Receive PO By:           = S
+Create PO Cost Sheet     = T
+Sel.Price&G.Marrgin on Po= .F.
+------------------------------------------------------------------------------------------
+Module: SO
+Default SO status to Hold= Y
+Add notes to order lines = Y
+Enter order # manually   = N
+Default SO comp. days    = 0
+SO depletion cancel after= 90
+Comp. Date by Order line = .F.
+Edit Style Price in SO   = .T.
+------------------------------------------------------------------------------------------
+Module: SR
+Chargeback reps on credit= Y
+Edit comm. at line level = N
+Salesrep commission base = D
+------------------------------------------------------------------------------------------

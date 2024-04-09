@@ -1,0 +1,40 @@
+*:****************************************************************************************
+*: Program desc. : Main Program.
+*:****************************************************************************************
+*C130156,1 AEH Make the reference field as the concatination between BOL# the Pack list #
+*:****************************************************************************************
+PARAMETER lcEvntFun,lcFunPars
+lcFunPars  = IIF(TYPE('lcFunPars') = 'C',lcFunPars,'')
+lcFunToRun = 'lf'+ALLTRIM(lcEvntFun)+'('+lcFunPars+')'
+
+*-- Run the function.
+llRetValue = EVAL(lcFunToRun)
+
+RETURN llRetValue
+*-- End of Program.
+
+
+*:****************************************************************************************
+*! Name      : lfREF
+*! Developer : Amgad EL Halawany (AEH)
+*! Date      : 10/18/2005
+*! Purpose   :Make the reference field as the concatination between BOL# the Pack list #
+*:****************************************************************************************
+*! Called from : EDIRF.VCX (Transaction 753)
+*:****************************************************************************************
+*C130156,1
+FUNCTION lfREF
+ MREFRENCE= MBOL_NO + &lcTempFile..Pack_No 
+ENDFUNC
+*:****************************************************************************************
+*! Name      : lfUCC9
+*! Developer : Amgad EL Halawany (AEH)
+*! Date      : 10/19/2005
+*! Purpose   :Make the UPC9 variable as the PackNo will be 6 and CartonNo will be 3 digits
+*:****************************************************************************************
+*! Called from : EDI.VCX ,EDISH.VCX
+*:****************************************************************************************
+*C130125,1
+FUNCTION lfUCC9
+ lcUCC9 = RIGHT(PADL(ALLTRIM(MPACKNO),6,'0'),6)+PADL(MBOX_SER,3,'0')
+ENDFUNC

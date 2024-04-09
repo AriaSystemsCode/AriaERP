@@ -1,0 +1,369 @@
+E&l0O(s10H(s0S(s0B&l0E&l7.27C&l58F
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C1  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+
+Module : Main System                              
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+History Company                                  &a50CNo                            
+History Company Code                             &a50C                              
+Sequence # based on div.                         &a50CNo                            
+Use Multi Currency                               &a50CNo                            
+Define Exch. Rate on fly                         &a50CNo                            
+Style prices on the fly                          &a50CNo                            
+Change exch. rates                               &a50CNo                            
+No. of days for Exch.rat.                        &a50C0                             
+Diff. in Exch.rat. Acc.                          &a50C                              
+Company DUNS Number                              &a50C879739985                     
+Company UCC Manf. Code                           &a50C739980                        
+UPS Shipper Code                                 &a50C117                           
+Company UPS Account                              &a50C130-382                       
+Use Taxes                                        &a50CNo                            
+Tax Name                                         &a50C                              
+Tax Method                                       &a50CAll Charges                   
+Tax Rate                                         &a50C1.000                         
+Tax Reference                                    &a50C                              
+Link to G/L                                      &a50CYes                           
+Generate G/L cost entries                        &a50CYes                           
+G/L version                                      &a50C          ARIA                
+System Files dir.                                &a50C                              
+G/L Company                                      &a50C                              
+Post in Details/Summay                           &a50CDetail                        
+Link Code at Div Level                           &a50CNo                            
+System Type                                      &a50CManufacturing and\or Importing
+Use Variant Cost Sheet                           &a50CNo                            
+Style entry confirmation                         &a50COff                           
+Unique Site Prefix                               &a50C                              
+HST Tax Rate                                     &a50C15.000                        
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Sales Order Allocation                   
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Allow Force Allocation                           &a50CYes                           
+Check Order Approved Amnt                        &a50CNo                            
+Assign P. List To BOL                            &a50CInquire                       
+P. List Sort By                                  &a50CLine No                       
+Generate P/T from P. List                        &a50CYes                           
+Pack Per Size                                    &a50CNo                            
+--------------------------------------------------------------------------------
+================================================================================
+
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C2  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+
+Module : Accounts Payable                         
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+AP account                                       &a50C2010                          
+Default expense account                          &a50C1430                          
+Adjustment account                               &a50C8490                          
+Gl non checking account                          &a50C1010                          
+Purchase variance account                        &a50C0000                          
+Discount account                                 &a50C9120                          
+Linked to GL                                     &a50CY                             
+GL company                                       &a50C01                            
+Vendors group #1 label                           &a50CType                          
+Vendors group #2 label                           &a50CClass                         
+Vendors group #3 label                           &a50CBuyer                         
+Tax type                                         &a50CT                             
+Bank code                                        &a50CFLEET                         
+Bank checking account                            &a50C94200 47543                   
+Allow prior period transa                        &a50CNo                            
+Suppress 1099 processing                         &a50CNo                            
+Aria app. linked company                         &a50C                              
+Aria app. system path                            &a50C                              
+Setup was done                                   &a50CYes                           
+Released batches posting                         &a50C1                             
+Release transaction Meth.                        &a50C1                             
+Summarize AP Account                             &a50CNo                            
+Summarize Distribut. Acc.                        &a50CNo                            
+Summarize discount Acc.                          &a50CNo                            
+Summarize Adj. Account                           &a50CNo                            
+Summarize for Check. Acc.                        &a50CNo                            
+Exchange diffrence Acc.                          &a50C                              
+CADD_USER                                        &a50CJOEV                          
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Accounts Receivable                      
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Add note to invoice lines                        &a50CYes                           
+Age A/R by                                       &a50CDate                          
+Track boxes for UPS manif                        &a50CYes                           
+Backorder                                        &a50CInquire                       
+Warn above credit limit                          &a50CYes                           
+Post factored A/R to cust                        &a50CYes                           
+Edit style price in                              &a50CBoth                          
+Invoice Bulk Orders                              &a50CNo                            
+Invoice On Hold Orders                           &a50CYes                           
+Modify Picking Upon Inv.                         &a50CYes                           
+
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C3  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+Default Customer Priority                        &a50C5                             
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Electronic Data Interchange              
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Send Retail Price                                &a50CInquire                       
+Send Wholesale Price                             &a50CInquire                       
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : General Ledger                           
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Retained earning acct maj                        &a50C3820                          
+Suspense account major                           &a50C1230                          
+Default budget code                              &a50C                              
+Cost center                                      &a50C1                             
+Beg. balance posting flag                        &a50CNo                            
+Require batch control tot                        &a50CYes                           
+Lock period at period cls                        &a50CYes                           
+Acct. attributes editable                        &a50CYes                           
+Allow beginning balances                         &a50CNo                            
+Beginning balance date                           &a50CNo                            
+Consolidation only                               &a50CNo                            
+Force printing edit list                         &a50CNo                            
+Force printing gl posting                        &a50CNo                            
+Allow adding acct. on fly                        &a50CYes                           
+Batch posting window                             &a50C1                             
+Batch posting control                            &a50CP                             
+Allow single transactions                        &a50CYes                           
+Linked applications                              &a50CYes                           
+Setup was done                                   &a50CYes                           
+Exchange rates diffrence                         &a50C                              
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Inventory Control                        
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Markup                                           &a50CBased on cost                 
+Dyelots used                                     &a50CNo                            
+Force style group entry                          &a50CNo                            
+Use style packs / SKU                            &a50CYes                           
+Use multiple locations                           &a50CYes                           
+Keep track of bins                               &a50CNo                            
+
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C4  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+Use U.P.C. Numbers                               &a50CYes                           
+Maintain U.C.C. Manf. ID                         &a50CCompany                       
+Style costing method                             &a50CAverage                       
+Use extended size scale                          &a50CNo                            
+Extended Size Scale Width                        &a50COne Character                 
+Sty. Imp Cost Elm. Type 1                        &a50CP. Price                      
+Sty. Imp Cost Elm. S.Lbl1                        &a50CP. Price                      
+Sty. Imp Cost Elm. L.Lbl1                        &a50CPurchase Price                
+Sty. Imp Cost Elm. Type 2                        &a50CDuty                          
+Sty. Imp Cost Elm. S.Lbl2                        &a50CDuty                          
+Sty. Imp Cost Elm. L.Lbl2                        &a50CDuty                          
+Sty. Imp Cost Elm. Type 3                        &a50CFabric Material               
+Sty. Imp Cost Elm. S.Lbl3                        &a50CFabric                        
+Sty. Imp Cost Elm. L.Lbl3                        &a50CImported Styles Fabric        
+Sty. Imp Cost Elm. Type 4                        &a50CMfg. Operation                
+Sty. Imp Cost Elm. S.Lbl4                        &a50CMisc.                         
+Sty. Imp Cost Elm. L.Lbl4                        &a50CImported styles Miscellaneous 
+Sty. Imp Cost Elm. Type 5                        &a50CMfg. Operation                
+Sty. Imp Cost Elm. S.Lbl5                        &a50CFreight  .                    
+Sty. Imp Cost Elm. L.Lbl5                        &a50CFreight                       
+Sty. Mfg Cost Elm. Type 1                        &a50CFabric Material               
+Sty. Mfg Cost Elm. S.Lbl1                        &a50CFabric                        
+Sty. Mfg Cost Elm. L.Lbl1                        &a50CMaterial Fabric               
+Sty. Mfg Cost Elm. Type 2                        &a50CFabric Material               
+Sty. Mfg Cost Elm. S.Lbl2                        &a50CFab Combo                     
+Sty. Mfg Cost Elm. L.Lbl2                        &a50CFabric Combo                  
+Sty. Mfg Cost Elm. Type 3                        &a50CTrim material                 
+Sty. Mfg Cost Elm. S.Lbl3                        &a50CTrim                          
+Sty. Mfg Cost Elm. L.Lbl3                        &a50CTrim Material                 
+Sty. Mfg Cost Elm. Type 4                        &a50CMfg. Operation                
+Sty. Mfg Cost Elm. S.Lbl4                        &a50CMfg. Oper.                    
+Sty. Mfg Cost Elm. L.Lbl4                        &a50CManufacturing Operation       
+Sty. Mfg Cost Elm. Type 5                        &a50CMfg. Operation                
+Sty. Mfg Cost Elm. S.Lbl5                        &a50CMisc.                         
+Sty. Mfg Cost Elm. L.Lbl5                        &a50CMiscellaneous                 
+O.T.S. period ranges                             &a50C2 Weeks                       
+Drop ship location                               &a50C                              
+Prepack status                                   &a50CNo prepack                    
+Use color assortments                            &a50CNo                            
+Color assortment code                            &a50C                              
+Default style taxable                            &a50CNo                            
+Include WIP in Unallo Qty                        &a50CNo                            
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Material                                 
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Dyelots used?                                    &a50CNo                            
+
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C5  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+Material costing  method                         &a50CAverage                       
+Manual Mfg.Order #                               &a50CNo                            
+Issue MMO BOM                                    &a50CManually                      
+Keep Track of Mat. Rolls                         &a50CNo                            
+Enter Roll ID manually                           &a50CNo                            
+Material Cost Elm. Type 1                        &a50CFabric material               
+Material Cost Elm. S.Lbl1                        &a50CFabric                        
+Material Cost Elm. L.Lbl1                        &a50CMaterial Fabric               
+Material Cost Elm. Type 2                        &a50CTrim material                 
+Material Cost Elm. S.Lbl2                        &a50CTrim                          
+Material Cost Elm. L.Lbl2                        &a50CMaterial Trim                 
+Material Cost Elm. Type 3                        &a50CMfg. Operation\Misc.          
+Material Cost Elm. S.Lbl3                        &a50CMfg.Oper                      
+Material Cost Elm. L.Lbl3                        &a50CManufacturing Operation       
+Material Cost Elm. Type 4                        &a50CMfg. Operation\Misc.          
+Material Cost Elm. S.Lbl4                        &a50CMisc.                         
+Material Cost Elm. L.Lbl4                        &a50CMisc.                         
+Trim Inventory Maintained                        &a50CYes                           
+M.M.O Long Label                                 &a50CMaterial Manufacturing Order  
+Enter Material PO# manual                        &a50CNo                            
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Manufacturing                            
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Manual Cutting Ticket #                          &a50CNo                            
+Issue Cutting Ticket BOM                         &a50CInquire                       
+Use detailed costing                             &a50CYes                           
+Prod. Order Short Label                          &a50CCutTkt#                       
+Prod. Order Long Label                           &a50CCutting Ticket                
+Dye Order Visibility wind                        &a50C366                           
+Adornment Order Vis. wind                        &a50C366                           
+Dyeing Operation                                 &a50C                              
+Sel.Price&G.Marrgin on CT                        &a50CNo                            
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Style Purchase Order                     
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Enter style PO # manually                        &a50CNo                            
+Use detailed costing                             &a50CYes                           
+Receive PO By:                                   &a50CP/O                           
+Create PO Cost Sheet                             &a50CInquire                       
+Sel.Price&G.Marrgin on Po                        &a50CNo                            
+--------------------------------------------------------------------------------
+================================================================================
+
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C6  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+
+Module : Sales Order                              
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Default SO status to Hold                        &a50CYes                           
+Add notes to order lines                         &a50CYes                           
+Enter order # manually                           &a50CNo                            
+Default SO comp. days                            &a50C30                            
+SO depletion cancel after                        &a50C5                             
+Comp. Date by Order line                         &a50CNo                            
+Edit Style Price in SO                           &a50CYes                           
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Product Development Manager              
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Markup percent based on                          &a50CCost                          
+Whalesale Cost Markup %                          &a50C40                            
+Retailer Cost Markup %                           &a50C100                           
+Whalesale Price Markup %                         &a50C0                             
+Retailer Price Markup %                          &a50C0                             
+Edit prototype ID                                &a50C                              
+Report Path                                      &a50CF:\ARIA27\Templates\          
+LINK EMBEDING PICTURE                            &a50CF:\ARIA27\Pictures\01\        
+Company Logo                                     &a50CF:\ARIA27\BMPS\LOGO.BMP       
+Enter Costing Ctg. #01                           &a50CCostingCategory = Purchase    
+Enter Costing Ctg. #02                           &a50CCostingCategory = Component   
+Enter Costing Ctg. #03                           &a50CCostingCategory = Duty        
+Enter Costing Ctg. #04                           &a50CCostingCategory = Service     
+Enter Costing Ctg. #05                           &a50CCostingCategory = Component   
+Enter Costing Ctg. #06                           &a50CCostingCategory = Component   
+Enter Costing Ctg. #07                           &a50CCostingCategory = Service     
+Enter Costing Ctg. #08                           &a50CCostingCategory = Component   
+Enter Costing Ctg. #09                           &a50CCostingCategory = Service     
+Enter Costing Ctg. #10                           &a50CCostingCategory = Service     
+Measurement Type                                 &a50CF                             
+Application language                             &a50CSpanish                       
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Sales Representative                     
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Chargeback reps on credit                        &a50CYes                           
+Edit comm. at line level                         &a50CNo                            
+Salesrep commission base                         &a50CCustomers                     
+
+&a15C(s3B             VITAL APPAREL GROUP, INC             (s0B
+SMSETREP&a28CSetups Report by Module 
+Time : 07:52:31       &a65CDate :&a72C06/20/02
+                                                            &a65CPage :&a72C7  
+--------------------------------------------------------------------------------
+Setting&a50CValue
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+================================================================================
+
+Module : Universal Product Code                   
+==================================================
+Company : VITAL APPAREL GROUP, INC                
+--------------------------------------------------
+Send Retail Price                                &a50CInquire                       
+Send Wholesale Price                             &a50CInquire                       
+--------------------------------------------------------------------------------
+================================================================================
+
+E

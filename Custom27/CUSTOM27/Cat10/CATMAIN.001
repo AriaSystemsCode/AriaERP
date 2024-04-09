@@ -1,0 +1,2388 @@
+*!**************************************************************************
+*! Name      : CATMAIN.PRG
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 11/30/2000
+*! Purpose   : Cathy Daniels Custom Process Program .
+*!**************************************************************************
+*! Parameters: lcEvntFun -> Process event function name without 'lf..'  .
+*!             lcFunPars -> Process function parameters, sent as a string.
+*!**************************************************************************
+*! Returns   : Logical value.       C101796,1
+*!**************************************************************************
+*
+PARAMETER lcEvntFun,lcFunPars
+
+lcFunPars  = IIF(TYPE('lcFunPars') = 'C',lcFunPars,'')
+lcFunToRun = 'lf'+ALLTRIM(lcEvntFun)+'('+lcFunPars+')'
+
+*-- Run the function.
+llRetValue = EVAL(lcFunToRun)
+
+RETURN llRetValue
+*-- End of Program.
+
+*!**************************************************************************
+*! Name      : lfComplDat
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 11/30/2000
+*! Purpose   : Check for Complete date in Sales Order screen if found in 
+*!             Packs file as Sale_date field.
+*!**************************************************************************
+*! Passed Parameters : ldCompDate  (Complete Date from Sales Order screen)
+*!**************************************************************************
+*! Notes : No need to check for the passed parameters because we know well
+*!         it's coming from Complete Date field.
+*!**************************************************************************
+*
+FUNCTION lfChckComp
+PARAMETERS ldCompDate , lcPack
+PRIVATE lcYear , llPackUsed
+
+llPackUsed = gfOpenFile(gcDataDir+'Packs',gcDataDir+'cYear','SH')
+lcYear = ALLTRIM(STR(YEAR(ldCompDate)))
+*LOCATE FOR dSale_Date = ldCompDate AND cYear = lcYear
+LOCATE FOR dSale_Date = ldCompDate 
+
+IF FOUND()
+  lcPack = cPack
+ELSE
+  *-- Message <Complete date is not found in Packs file.>
+  *-- Buttons <             OK             >
+  =gfModalGen("TRM000000B00000","DIALOG",'','',"Complete date is not found in Packs file.")
+  lcPack= ""
+  RETURN
+ENDIF
+
+*-- Close the Packs file if opened in this function
+IF llPackUsed
+  USE IN Packs
+ENDIF  
+*-- End of lfChckComp.
+
+*!**************************************************************************
+*! Name      : lfSavCtFld
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 12/19/2000
+*! Purpose   : Save manual cutting ticket
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102094
+*:**************************************************************************
+*
+FUNCTION lfSavCtFld
+
+PRIVATE lnAlias, lcOrder, lnLot, lnRecNO
+lnAlias = SELECT(0)
+SELECT CUTTKTH
+lcOrder = SET('ORDER')
+lnLot = 0
+lnRecNo = RECNO()
+SET ORDER TO CUTTKTHS
+SEEK PADR(laData[2],19)
+SCAN REST WHILE Style+CutTkt = PADR(laData[2],19)
+  lnLot = MAX(lnLot,nLot_No)
+ENDSCAN
+SET ORDER TO &lcOrder.
+IF BETWEEN(lnRecNo,1,RECCOUNT())
+  GO lnRecNo
+ENDIF
+SELECT CUTTKTH
+REPLACE CTKTTYPE WITH PADL(lnLot+1,6,' ')
+
+*khm
+SELECT CutTktL
+IF SEEK (CutTktH.CutTkt)
+  REPLACE REST nLot_No WITH lnLot+1 WHILE cuttkt+style+dyelot+trancd = CutTktH.CutTkt
+ENDIF
+*khalid
+=lfUpdUsrFl('NLOT_NO',lnLot+1)
+llBrowse = .F.
+ldComplet = laData[6]
+lnPackPos = ASCAN(laUsrFields,'CPACK')
+IF lnPackPos > 0
+  lnPackPos = ASUBSCRIPT(laUsrFields,lnPackPos,1)
+  lcPackNo = laUsrFields[lnPackPos,6]
+ENDIF
+DO (gcScrDir+gcWinAppl+'\MFCTSAV.SPX')
+*-- end fo lfSavCtFld.
+
+*!*************************************************************
+*! Name      : lfvPack
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/19/2000
+*! Purpose   : Valid function to validate Pack NO field.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Due to C102094
+*:*************************************************************
+*
+FUNCTION lfvPack
+PARAMETER llCmFrmScr
+
+PRIVATE llCmFrmBrw, lcYear, lnAlias, lcYearPack
+STORE .F. TO llCmFrmBrw
+
+IF llBrowse OR LASTKEY()=13 OR LASTKEY()=9 OR !llCmFrmScr
+  *--Ok start validate.
+ELSE
+  RETURN
+ENDIF
+
+lnAlias = SELECT(0)
+lcYear = ALLTRIM(STR(YEAR(gdSysDate)))
+IF !llCmFrmScr
+  lcVar = SYS(18)
+  IF TYPE('LAUSRFIELD') = "U"
+    RETURN
+  ENDIF
+  lnPackPos = ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CPACK'),1)
+  IF !(lcVar == "LAOGFXFLT(" + ALLTRIM(STR(lnPackPos)) + ",6)")
+    RETURN
+  ENDIF
+  lcPackNo = EVALUATE(lcVar)
+ENDIF
+lcYearPack = lcYear+lcPackNo
+= gfOpenFile(gcDataDir+'Packs',gcDataDir+'cYear','SH')
+IF llbrowse OR (!EMPTY(lcPackNo) .AND. !SEEK(lcYearPack,'PACKS'))
+  llbrowse = .F.
+  lcYearPack = gfbrowpk('')
+  lcPackNo = SUBSTR(lcYearPack,5,2)
+  IF !llCmFrmScr
+    laUsrFields[lnPackPos,6] = lcPackNo
+    laOGFxFlt[lnPackPos,6] = lcPackNo
+  ENDIF
+  lcYear = SUBSTR(lcYearPack,1,4)
+  llCmFrmBrw = .T.
+ENDIF
+SELECT PACKS
+SEEK lcYearPack
+IF EMPTY(lcPackNo)
+  *B604630,1 AMH If not coming from save screen [Start]
+  *ldComplet = laData[6]
+  IF llCmFrmScr
+    ldComplet = laData[6]
+  ELSE
+    LOCATE FOR DPROD_DATE = laData[6]
+    =gfModalGen("TRM00000B00000","DIALOG",'','',"Pack Id cannot be empty.")
+    laUsrFields[lnPackPos,6] = cPack
+    laOgFxFlt[lnPackPos,6] = cPack
+  ENDIF
+  *B604630,1 AMH [End]
+ELSE
+
+  *B804220,1 AMH Check if production date less than system date [Start]
+  IF DPROD_DATE < gdSysDate
+    *B604874,1 AMH if production date less than system date tack the production date of 
+    *B604874,1     the next year with the same pack id [Start]
+    *-- Message <Pack number selected occurs in the past.>
+    *-- Buttons <Proceed> , <ReEnter>
+    *lnMsg = gfModalGen("TRM00000B38028","DIALOG",'','',"Production date selected must be after current system date.")
+    *IF lnMsg = 2
+    SEEK STR(VAL(SUBSTR(lcYearPack,1,4))+1,4)+SUBSTR(lcYearPack,5)
+    IF !FOUND()
+      *-- Message <Invalid Pack ID.>
+      *-- Buttons <Ok>
+      =gfModalGen("TRM00000B00000","DIALOG",'','',"Invalid Pack ID.")
+      lcPackNo = ''
+      IF !llCmFrmScr
+        laUsrFields[lnPackPos,6] = lcPackNo
+        laOGFxFlt[lnPackPos,6] = lcPackNo
+      ENDIF
+      _CUROBJ = _CUROBJ
+      = gfCloseFile('PACKS')
+      SELECT (lnAlias)
+      RETURN
+    ENDIF
+    *B604874,1 AMH [End]
+  ENDIF
+  *B804220,1 AMH [End]
+  
+  ldComplet = DPROD_DATE
+  IF !llCmFrmScr
+    laData[6] = DPROD_DATE
+    SHOW GET laData[6] LEVEL RDLEVEL()-1
+    = gfCloseFile('PACKS')
+    IF EMPTY(laData[6])
+      laData[6] = ldOComplet
+      _CUROBJ   = _CUROBJ
+    ELSE
+      IF !EMPTY(laData[1]) AND CutTktH.Complete # laData[6]
+        *-- Would you like the system to store 99\99\99 as the 
+        *-- initial comp. date ?
+        *-- < Yes > < No >
+        lcDate = DTOC(CutTktH.Complete)
+        IF gfModalGen("QRM38099B38006","DIALOG",lcDate) = 1
+          laData[34] = CutTktH.Complete
+          lcOGWindow = WONTOP()
+          llNoThing  = lfRefresh(lcCTChWn31)
+          SHOW WINDOW (lcOGWindow) TOP
+        ENDIF
+      ENDIF
+    ENDIF
+    SELECT (lnAlias)
+    RETURN
+  ENDIF
+ENDIF
+= gfCloseFile('PACKS')
+SELECT (lnAlias)
+IF EMPTY(lcPackNo)
+  SHOW GET ldComplet ENABLE
+ELSE
+  SHOW GET ldComplet DISABLE
+ENDIF
+RETURN
+*-- end of lfvPack.
+
+*!*************************************************************
+*! Name      : lfvLastCut
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/19/2000
+*! Purpose   : Valid function to validate Last Cut PopUp.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Due to C102094
+*:*************************************************************
+*
+FUNCTION lfvLastCut
+
+IF lcLastCut = "Yes"
+  SHOW GET lcUpdtPlan ENABLE
+ELSE
+  SHOW GET lcUpdtPlan DISABLE
+ENDIF
+=lfRefresh()
+RETURN
+*-- end of lfvLastCut.
+
+*!*************************************************************
+*! Name      : lfvOk
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/19/2000
+*! Purpose   : Valid function to validate Ok button.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Returns            : ............
+*!*************************************************************
+*! Due to C102094
+*:*************************************************************
+*
+FUNCTION lfvOk
+
+PRIVATE lnAlias, lnI, lcI,lnI1,lcI1 lcOrder, laPlan
+
+*B804220,1 AMH Check if empty Pack No [Start]
+IF EMPTY(lcPackNo)
+  *-- Message <Complete date is not found in Packs file.>
+  *-- Buttons <             OK             >
+  =gfModalGen("TRM000000B00000","DIALOG",'','',"Complete date is not found in Packs file.")
+  _CUROBJ = OBJNUM(lcPackNo)
+  RETURN
+ENDIF
+*B804220,1 [End]
+
+lnAlias = SELECT(0)
+SELECT CUTTKTH
+REPLACE COMPLETE WITH ldComplet
+=lfUpdUsrFl('CPACK',lcPackNo)
+=lfUpdUsrFl('CCT1CSTY',lcStyle1)
+=lfUpdUsrFl('CCT2CSTY',lcStyle2)
+=lfUpdUsrFl('CCT3CSTY',lcStyle3)
+=lfUpdUsrFl('CCT4CSTY',lcStyle4)
+=lfUpdUsrFl('CCT5CSTY',lcStyle5)
+=lfUpdUsrFl('NCT1NLOT',lnLot1)
+=lfUpdUsrFl('NCT2NLOT',lnLot2)
+=lfUpdUsrFl('NCT3NLOT',lnLot3)
+=lfUpdUsrFl('NCT4NLOT',lnLot4)
+=lfUpdUsrFl('NCT5NLOT',lnLot5)
+=lfUpdUsrFl('DBOMDATE',{  /  /  })
+
+IF lcUpdtPlan = "Yes"
+
+  SELECT CutTktH
+  lcCutTHOrd = SET ('ORDER')
+  SET ORDER TO CutTktH
+  SELECT CUTTKTL
+  lcOrder = SET('ORDER')
+  SET ORDER TO TAG CUTTKTLS
+  SELECT (lcTmpCutLn)
+  SCAN FOR TotQty <> 0
+    DIMENSION laPlan[9]
+    STORE 0 TO laPlan
+    SELECT CUTTKTL
+    IF SEEK(&lcTmpCutLn..STYLE)
+      SCAN REST WHILE style+cuttkt+trancd = &lcTmpCutLn..STYLE FOR TRANCD = '1'
+        IF SEEK(CUTTKT,'CUTTKTH') AND CUTTKTH.STATUS <> 'X'
+          lnI  = 1
+          FOR lnI = 1 TO 8
+            lcI = STR(lnI,1)
+            laPlan[lnI] = laPlan[lnI] + QTY&lcI.
+            laPlan[9] = laPlan[9] + QTY&lcI.
+          ENDFOR
+        ENDIF
+      ENDSCAN
+    ENDIF
+    SELECT (lcTmpCutLn)
+    IF SEEK(STYLE,'STYLE')
+      lnI1 = 1
+      FOR lnI1 = 1 TO 8
+        lcI1 = STR(lnI1,1)
+        REPLACE STYLE.PLAN&lcI1. WITH laPlan[lnI1]
+      ENDFOR
+      REPLACE STYLE.TOTPLAN WITH laPlan[9]
+    ENDIF
+  ENDSCAN
+  SELECT CutTktH
+  SET ORDER TO &lcCutTHOrd 
+  SELECT CUTTKTL
+  SET ORDER TO &lcOrder
+ENDIF
+SELECT (lnAlias)
+
+*C102433,1 AMH Export the C/T to the old system [Start]
+=lfExpCtOld()
+*C102433,1 AMH [End]
+
+CLEAR READ
+*-- end of lfvOk.
+
+*!**************************************************************************
+*! Name      : lfSelCtFld
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 12/19/2000
+*! Purpose   : Select manual cutting ticket
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102094
+*:**************************************************************************
+*
+FUNCTION lfSelCtFld
+
+llBrowse = .F.
+lcOldValue = SPACE(0)
+lcMjrPct = gfItemMask('PM')
+lcHdEsc1= ON('KEY','ESC')
+ON KEY LABEL ESC DO lfvClose
+DO (gcScrDir+gcWinAppl+'\MFCTSEL.SPX')
+ON KEY LABEL ESC &lcHdEsc1
+*-- end fo lfSelCtFld.
+
+*!*************************************************************
+*! Name      : lfvCutTkt
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/21/2000
+*! Purpose   : Valid function to validate cuttkt field.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094
+*!*************************************************************
+*
+FUNCTION lfvCutTkt
+PRIVATE lnAlias, lcBrFields, lcBrowTitle
+
+lnAlias = SELECT(0)
+IF !llBrowse  AND EMPTY(lcCtkt)
+  RETURN
+ENDIF
+
+SELECT CutTktH
+SET ORDER TO CutTktH
+IF llBrowse OR (!EMPTY(lcCtkt) AND !SEEK(lcCtkt,"CutTktH"))
+  llBrowse  = .F.
+  xCutTkt   = lcCtkt
+  xStyle    = lcStyle
+  llNoThing = CutBrow(xCutTkt,xStyle)
+  IF EMPTY(xCutTkt)
+    lcCtkt = SPACE(1)
+    _CUROBJ = _CUROBJ
+  ELSE
+    lcCtkt  = xCutTkt
+  ENDIF
+ENDIF
+IF EMPTY(lcCtkt)
+  SHOW GET pbOk DISABLE
+  lnLot   = SPACE(4)
+  _CUROBJ = _CUROBJ
+ELSE
+  lcStyle = ALLTRIM(Style)
+  lnLot   = STR(nLot_No,4)
+  SHOW GET pbOk ENABLE
+ENDIF
+SHOW GET lcStyle ENABLE
+SHOW GET lnLot   ENABLE
+SELECT(lnAlias)
+*-- end of lfvCutTkt.
+
+*!*************************************************************
+*! Name      : lfvOkSel()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/24/2000
+*! Purpose   : Valid function to validate Ok Button in Select Window.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094
+*!*************************************************************
+*
+FUNCTION lfvOkSel
+
+lcCutTkt     = lcCtkt
+laScrMode    = .F.
+laScrMode[2] = .T.
+CLEAR READ
+*-- end of lfvOkSel.
+
+*!*************************************************************
+*! Name      : lfvNew()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/24/2000
+*! Purpose   : Valid function to validate New Button in Select Window.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094
+*!*************************************************************
+*
+FUNCTION lfvNew
+=lfUpdUsrFl('NLOT_NO',0)
+=lfUpdUsrFl('NCT1NLOT',0)
+=lfUpdUsrFl('NCT2NLOT',0)
+=lfUpdUsrFl('NCT3NLOT',0)
+=lfUpdUsrFl('NCT4NLOT',0)
+=lfUpdUsrFl('NCT5NLOT',0)
+=lfUpdUsrFl('DBOMDATE',{})
+
+SELECT CutTktH
+SET ORDER TO CutTktH
+laScrMode    = .F.
+laScrMode[4] = .T.
+CLEAR READ
+*-- end of lfvNew.
+
+*!*************************************************************
+*! Name      : lfvClose()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/24/2000
+*! Purpose   : Valid function to validate Close Button in Select Window.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094
+*!*************************************************************
+*
+FUNCTION lfvClose
+
+llCloseCt = .T.
+CLEAR READ
+*-- end of lfvClose.
+
+*!**************************************************************************
+*! Name      : lfSelCsFld
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 01/01/2001
+*! Purpose   : Select cutting ticket cost sheet
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102095
+*:**************************************************************************
+*
+FUNCTION lfSelCsFld
+
+PRIVATE llBrowse, lcCtkt
+llBrowse = .F.
+STORE SPACE(0) TO lcCtkt , lcOldValue
+lcMjrPct = gfItemMask('PM')
+lcHdEsc1= ON('KEY','ESC')
+ON KEY LABEL ESC DO lfvCloseCs
+DO (gcScrDir+'MFCSSEL.SPX')
+ON KEY LABEL ESC &lcHdEsc1
+*-- end of lfSelCsFld.
+
+*!*************************************************************
+*! Name      : lfvMajor
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/21/2000
+*! Purpose   : Valid function to validate style field.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094,102095
+*:*************************************************************
+*
+FUNCTION lfvMajor
+
+PRIVATE llCmFrmBrw, llOpenSty, lnAlias, lcOrder
+STORE .F. TO llCmFrmBrw, llOpenSty
+IF TYPE('lcRecStyle') # 'U'
+  lcStyle = lcRecStyle
+ENDIF
+
+IF !llbrowse AND EMPTY(SUBSTR(lcStyle,1,3)) AND EMPTY(SUBSTR(lcStyle,5,LEN(ALLTRIM(lcStyle))))
+  RETURN
+ENDIF
+IF !USED('STYLE')
+  = gfOpenFile(gcDataDir+'STYLE',gcDataDir+'STYLE','SH')
+  llOpenSty = .T.
+ENDIF
+SELECT Style
+
+*B804221,1 AMH Browse style with C/T only [Start]
+*SET FILTER TO Make AND Status <> 'X'
+IF WEXIST('MFCSSEL')
+  SET FILTER TO Make AND Status <> 'X' AND NTOTWO <> 0
+ELSE
+  SET FILTER TO Make AND Status <> 'X'
+ENDIF
+*B804221,1 AMH [End]
+
+IF llbrowse OR !EMPTY(lcStyle) .OR. !SEEK(lcStyle,'STYLE')
+  IF llbrowse OR ATC('?',lcStyle) <> 0
+    llbrowse = .F.
+    lcStyle = gfStyBrw('M',"","",.F.)
+    llCmFrmBrw = .T.
+  ENDIF
+  IF !SEEK(lcStyle,'STYLE') .AND. !EMPTY(lcStyle)
+    lcStyle = gfStyBrw('M',"","",.F.)
+    llCmFrmBrw = .T.
+  ENDIF
+ENDIF
+IF llOpenSty
+  = gfCloseFile('STYLE')
+ENDIF
+
+IF !(lcOldValue == lcStyle)
+  lcCtkt = SPACE(0)
+  lnLot = SPACE(4)
+  SHOW GET lcCtkt
+  SHOW GET lnLot
+  SHOW GET pbOk DISABLE
+ENDIF
+IF EMPTY(SUBSTR(lcStyle,1,3)) AND EMPTY(SUBSTR(lcStyle,5,LEN(ALLTRIM(lcStyle))))
+ _CUROBJ = _CUROBJ
+ENDIF
+IF TYPE('lcRecStyle') # 'U'
+  lcRecStyle = lcStyle
+  lcStyle    = ''
+  lcRStyDesc = desc1
+  SHOW GETS WINDOW (lcWindCh2)
+ENDIF
+SELECT CutTktH
+RETURN
+*-- end of lfvMajor.
+
+*!*************************************************************
+*! Name      : lfwMajor
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/21/2000
+*! Purpose   : When function to get the current style field.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094,102095
+*:*************************************************************
+*
+FUNCTION lfwMajor
+
+lcOldValue = lcStyle
+RETURN
+*-- end of lfwMajor.
+
+*!*************************************************************
+*! Name      : lfvOkSelCs()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/24/2000
+*! Purpose   : Valid function to validate Ok Button in Select Window.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102095
+*!*************************************************************
+*
+FUNCTION lfvOkSelCs
+SELECT CutTktH
+SET ORDER TO CutTktH
+lcTranNo     = lcCtkt
+laScrMode    = .F.
+laScrMode[2] = .T.
+CLEAR READ
+*-- end of lfvOkSelCs.
+
+*!*************************************************************
+*! Name      : lfvCloseCs()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/24/2000
+*! Purpose   : Valid function to validate Close Button in Select Window.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102095
+*!*************************************************************
+*
+FUNCTION lfvCloseCs
+
+llCloseCs = .T.
+CLEAR READ
+*-- end of lfvCloseCs.
+
+*!*************************************************************
+*! Name      : lfvLot()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 12/24/2000
+*! Purpose   : Valid function to validate Lot field.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094,C102095
+*!*************************************************************
+*
+FUNCTION lfvLot
+
+PRIVATE llCmFrmBrw, lnAlias, lcOrder, llFound, lcFile_Ttl, lcKeyVal, lnI, lcI
+STORE .F. TO llCmFrmBrw, llFound
+DIMENSION laTempData[3]
+STORE '' TO laTempData
+
+IF EMPTY(lnLot) AND !llBrowse
+  lcCtkt = SPACE(6)
+  SHOW GET lcCtkt
+  RETURN
+ENDIF
+
+IF TYPE('lcRecStyle') # 'U'
+  lcStyle = lcRecStyle
+ENDIF
+
+lnAlias = SELECT(0)
+SELECT CUTTKTH
+lcOrder = SET('ORDER')
+SET ORDER TO CUTTKTHS
+IF !SEEK(lcStyle) .AND. !EMPTY(lcStyle) 
+  =gfModalGen("TRM000000B00000","DIALOG",'','',"Ther are no cutting tickets for this style.")
+  lnLot = SPACE(4)
+  _CUROBJ = _CUROBJ
+  RETURN
+ENDIF
+lcKeyVal = IIF(EOF(),"[]","[lcStyle]")
+
+lcFile_Ttl = 'Cutting Tickets'
+lcBrFields = "CutTkt  :H='Cutkt'   ,"+;
+             "Style   :H='Style'   ,"+;
+             "nLot_No :H='Lot #'   ,"+;
+             "Status  :H='S'       ,"+;
+             "Entered :H='Issue'   ,"+;
+             "Complete:H='Complete',"+;
+             "cDivision:H='Di'     ,"+;
+             "Pcs_Bud :H='Budget':P='999999',"+;
+             "Pcs_Rec :H='Recvd' :P='999999',"+;
+             "Pcs_Dam :H='Damged':P='999999',"+;
+             "Pcs_Opn :H='Open'  :P='999999' "
+
+IF llbrowse
+  llbrowse = .F.
+  =AriaBrow(&lcKeyVal,lcFile_Ttl,gnBrFSRow1,gnBrFSCol1,gnBrFSRow2,gnBrFSCol2,.F.,.F.,'nLot_No,CutTkt,Style','laTempData')
+  lnLot = IIF(EMPTY(laTempData[1]),SPACE(4),STR(laTempData[1],4))
+  lcCtkt = laTempData[2]
+  lcStyle = IIF(!EMPTY(ALLTRIM(laTempData[3])),ALLTRIM(laTempData[3]),lcStyle)
+  llCmFrmBrw = .T.
+ELSE
+  lnLot = INT(VAL(lnLot))
+  IF lnLot = 0
+    =AriaBrow(&lcKeyVal,lcFile_Ttl,gnBrFSRow1,gnBrFSCol1,gnBrFSRow2,gnBrFSCol2,.F.,.F.,'nLot_No,CutTkt,Style','laTempData')
+    lnLot = IIF(EMPTY(laTempData[1]),SPACE(4),STR(laTempData[1],4))
+    lcCtkt = laTempData[2]
+    lcStyle = IIF(!EMPTY(ALLTRIM(laTempData[3])),ALLTRIM(laTempData[3]),lcStyle)
+    llCmFrmBrw = .T.
+  ELSE
+    LOCATE REST WHILE STYLE+CUTTKT=lcStyle FOR nLot_No = lnLot
+    IF FOUND()
+      llFound = .T.
+      lcCtkt  = CutTkt
+      lnLot = STR(lnLot,4)
+    ELSE
+      =SEEK(lcStyle)
+      lcKeyVal = IIF(EOF(),"[]","[lcStyle]")
+      =AriaBrow(&lcKeyVal,lcFile_Ttl,gnBrFSRow1,gnBrFSCol1,gnBrFSRow2,gnBrFSCol2,.F.,.F.,'nLot_No,CutTkt,Style','laTempData')
+      lnLot = IIF(EMPTY(laTempData[1]),SPACE(4),STR(laTempData[1],4))
+      lcCtkt = laTempData[2]
+      lcStyle = IIF(!EMPTY(ALLTRIM(laTempData[3])),ALLTRIM(laTempData[3]),lcStyle)
+      llCmFrmBrw = .T.
+    ENDIF  
+  ENDIF
+ENDIF
+IF !EMPTY(lcCtkt)
+  IF TYPE('lcRecStyle') # 'U'
+    lcRecStyle = lcStyle
+    lcStyle    = ''
+
+    llAbort=.F.
+    lcPoTtle = 'Cutting ticket'
+    DO WHILE .T.
+      DO CASE
+        CASE CUTTKTH.Status = 'S'
+          *--XXX status is XXX. Therefore,no receivings can be done.
+          = gfModalGen('INM34055B42000','DIALOG',lcPoTtle+'|'+'Closed'+'|'+'receivings')
+          llAbort=.T.
+          EXIT 
+        CASE CUTTKTH.Status = 'H'
+          *--XXX status is Hold since a cost sheet has not been created yet. Therefore,no receivings can be done.
+          = gfModalGen('INM34056B42000','DIALOG',lcPoTtle)
+          llAbort=.T.
+          EXIT 
+        CASE CUTTKTH.Status = 'X'
+          *--XXX has been canceled. Not allowed to receive.
+          = gfModalGen('INM34057B42000','DIALOG',lcPoTtle+'|'+'receive')
+          llAbort=.T.
+          EXIT 
+        CASE CUTTKTH.Status = 'C'
+          *--XXX is completely received. Do you wish to continue ?,\<Yes;\<No
+          IF gfModalGen('INM34058B42002','DIALOG',lcPoTtle) = 2
+            llAbort=.T.
+            EXIT 
+          ENDIF
+      ENDCASE
+      EXIT
+    ENDDO
+
+    IF llAbort
+      lnLot = SPACE(4)
+      lcCtkt = SPACE(6)
+      SHOW GET lnLot
+      _CUROBJ = OBJNUM(lnLot)
+    ELSE
+      IF SEEK(lcCtkt,'CUTTKTL')
+        lcTCode = lcCtkt
+        DO lpGetOpen
+        lcTCode = ''
+        SELECT CUTTKTL
+        SET RELATION TO Style INTO Style
+        SET RELATION TO cuttkt+style+dyelot+trancd INTO (lcTempFile) ADDITIVE
+        lcBrFields = "Style     :R :H=lcStyHdr :25,"+;
+                     "Style.Desc1 :R :H='Desc':45,"+;
+                     IIF(llDyelot,"Dyelot :R :H='Dyelot':15,","")+;
+                     "TotQty      :R :H='Quantity':P='9999999',"+;
+                     "lnBOpnQty=IIF(&lcTempFile..TOTQTY<0,0,&lcTempFile..TOTQTY) :R :H='Open' :10,"+;
+                     "nTotCost =nCost1+nCost2+nCost3+nCost4+nCost5 :R :H='Total Cost':P='9999999.999'"
+        DIMENSION laTemp[1]
+        laTemp = ''
+        SELECT CUTTKTL
+        =ARIABROW([lcCtkt FOR Trancd='1'],'Select cutting ticket Line',gnbrhsrow1,gnbrhscol1,gnbrhsrow2,gnbrhscol2,'','','Style','laTemp')
+        IF !EMPTY(laTemp[1])
+          IF SEEK('1'+SPACE(3)+lcCtkt+laTemp[1],lcTmpLine) .OR. SEEK(lcCtkt+laTemp[1]+dyelot+'1',lcTktSheet)
+            *-This XXXX has been entered on this XXXX.
+            =gfModalGen('TRM42107B42000','DIALOG','Style'+'|'+'receiving cutting ticket')
+            _CUROBJ=OBJNUM(lnLot)
+            SELECT CUTTKTL
+            SET RELATION OFF INTO STYLE
+            SET RELATION OFF INTO (lcTempFile)
+            SELECT CUTTKTH
+            RETURN
+          ENDIF
+          IF SEEK(lcCtkt+laTemp[1])
+            SCAN REST WHILE CUTTKT+STYLE+DYELOT+TRANCD = lcCtkt+laTemp[1]
+              SCATTER MEMVAR
+              m.nLot_no = CUTTKTH.NLOT_NO
+              STORE 0 TO m.TotStk, m.TotDam, m.Totcan
+              SELECT (lcTktSheet)
+              IF m.Trancd = '1'
+                APPEND BLANK
+              ELSE
+                m.TotQty = 0
+                lnI = 1
+                FOR lnI = 1 TO 8
+                  lcI = STR(lnI,1)
+                  m.Qty&lcI. = Qty&lcI. - m.Qty&lcI.
+                  m.TotQty = m.TotQty + m.Qty&lcI.
+                ENDFOR
+                m.Trancd = '1'
+              ENDIF
+              GATHER MEMVAR
+            ENDSCAN
+          ENDIF
+        ELSE
+          lnLot  = SPACE(4)
+          lcCtkt = SPACE(6)
+          _CUROBJ=OBJNUM(lnLot)
+          SELECT CUTTKTL
+          SET RELATION OFF INTO STYLE
+          SET RELATION OFF INTO (lcTempFile)
+          SELECT CUTTKTH
+          RETURN
+        ENDIF
+        =lfShwLtScr()
+        SELECT CUTTKTL
+        SET RELATION OFF INTO STYLE
+        SET RELATION OFF INTO (lcTempFile)
+        SELECT CUTTKTH
+      ELSE
+
+        *-The lines for this 'C/T' are missing ! cannot proceed.
+        =gfModalGen('TRM34017B42000','DIALOG','C/T')
+        lnLot = SPACE(4)
+        SELECT (lnAlias)
+        _CUROBJ=OBJNUM(lnLot)
+        RETURN
+      ENDIF
+    ENDIF
+  ENDIF
+  SHOW GET pbOk ENABLE
+  SHOW GET lcStyle ENABLE
+  SHOW GET lcCtkt
+ELSE
+  SHOW GET pbOk DISABLE
+  _CUROBJ = _CUROBJ
+ENDIF
+SET ORDER TO &lcOrder.
+SELECT (lnAlias)
+RETURN
+*-- end of lfvLot.
+
+*!**************************************************************************
+*! Name      : lpOrdPack
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/17/2000
+*! Purpose   : Custom Validation of Packs for Cathy Daniels (Sales Order screen).
+*!**************************************************************************
+*! Reference : C102067,1
+*!**************************************************************************
+*! Called From : Validation of User defined fields from SydField.
+*!**************************************************************************
+*! Example   : DO lpOrdPack
+*!**************************************************************************
+*
+PROCEDURE lpOrdPack
+
+lcVar = SYS(18)                && Varible to hold  the name of the memory variable used to create the current GET control
+lcObj = EVALUATE(SYS(18))      && Varible to hold the current field value
+
+*-- If laUsrField is defined.
+IF TYPE('LAUSRFIELD') <> "U"
+  *-- Get position of packs in laUsrField
+  lnPackPos = ASCAN(laUsrField,"CPACK")
+  IF lnPackPos > 0
+    lnPackPos = ASUBSCRIPT(laUsrField,lnPackPos,1)
+  ENDIF
+
+  IF lcVar == "LAOGFXFLT(" + ALLTRIM(STR(lnPackPos)) + ",6)"
+
+    *-- Validation for Packs no in User defined fields Option grid.
+    PRIVATE lnPackPos , lcVar , lcObj , lcYearPack , llPackUsed , ldCompDate
+    llPackUsed = .F.
+  
+    *-- If User defined field is not empty.
+    IF !EMPTY(lcObj)
+      llPackUsed = gfOpenFile(gcDataDir+'Packs',gcDataDir+'cYear','SH')
+
+      ldCompDate = laData[10]
+      IF SEEK(ALLTRIM(STR(YEAR(IIF(EMPTY(laData[9]),gdSysDate,laData[9])))) + lcObj , 'Packs')
+        laData[10] = Packs.dSale_Date
+        IF !lfChckPack()
+          lcObj = ''
+          laData[10] = ldCompDate
+        ENDIF
+        SHOW GET laData[10] LEVEL RDLEVEL()-1
+      ELSE
+        lcYearPack = ''
+        DO gfBrowPk WITH lcYearPack
+    
+        *-- IF The user selected a record
+        IF EMPTY(lcYearPack)
+          lcObj = ''
+        ELSE    && Else
+          lcObj      = SUBSTR(lcYearPack,5)       && to take only Pack no.
+          laData[10] = IIF(SEEK(lcYearPack,'Packs'),Packs.dSale_Date,laData[10])
+          IF !lfChckPack()
+            lcObj = ''
+            laData[10] = ldCompDate
+          ENDIF
+          SHOW GET laData[10] LEVEL RDLEVEL()-1
+        ENDIF    && End of IF
+  
+      ENDIF  
+  
+      &lcVar = lcObj      && Update the field  
+      *-- Close the Packs file if opened in this function
+      IF llPackUsed
+        USE IN Packs
+      ENDIF  
+    ENDIF
+    *-- EndIf of User defined field is not empty.
+  ENDIF  
+  *-- End of lpOrdPack.
+ENDIF
+*-- EndIf of laUsrField is defined.  
+
+*!**************************************************************************
+*! Name      : lfChckPack
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/17/2000
+*! Purpose   : Custom Validation of Complete date for Cathy Daniels.
+*!**************************************************************************
+*! Reference : C102067,1
+*!**************************************************************************
+*! Called From : lpOrdPack.
+*!**************************************************************************
+*! Example   : =lfChckPack()
+*!**************************************************************************
+*
+FUNCTION lfChckPack
+PRIVATE llReturn
+llReturn = .T.
+IF laData[10] <> &lcOrdHdr..Complete
+  IF laData[9] > laData[10]
+    *B604874,1 AMH if completion date less than starting date tack the completion date of 
+    *B604874,1     the next year with the same pack id [Start]
+    *-- Message <The starting date cannot be greater than the completion date.>
+    *-- Buttons <                              OK                             >
+    *=gfModalGen('TRM32013B00000','ALERT')
+    *laData[10] = &lcOrdHdr..Complete
+    *llReturn = .F.
+    *RETURN llReturn
+    IF SEEK(STR(YEAR(laData[9])+1,4)+lcObj,'PACKS')
+      laData[10] = Packs.dSale_Date
+    ELSE
+      *-- Message <Invalid Pack ID.>
+      *-- Buttons <Ok>
+      =gfModalGen("TRM00000B00000","DIALOG",'','',"Invalid Pack ID.")
+      laData[10] = &lcOrdHdr..Complete
+      llReturn = .F.
+      RETURN llReturn
+    ENDIF
+    *B604784,1 AMH [End]
+  ENDIF
+  
+  IF gdSysDate > laData[10]
+    *B604874,1 AMH if completion date less than system date tack the completion date of 
+    *B604874,1     the next year with the same pack id [Start]
+    *-- Message <The Complete date is less than the System date.>
+    *-- Buttons <                      OK                       >
+    *=gfModalGen("TRM000000B00000","ALERT",'','',"The Complete date is less than the System date.")
+    *laData[10] = &lcOrdHdr..Complete
+    *llReturn = .F.
+    *RETURN llReturn  
+    IF SEEK(STR(YEAR(gdSysDate)+1,4)+lcObj,'PACKS')
+      laData[10] = Packs.dSale_Date
+    ELSE
+      *-- Message <Invalid Pack ID.>
+      *-- Buttons <Ok>
+      =gfModalGen("TRM00000B00000","DIALOG",'','',"Invalid Pack ID.")
+      laData[10] = &lcOrdHdr..Complete
+      llReturn = .F.
+      RETURN llReturn
+    ENDIF
+  ENDIF
+  
+  IF  gcContCode # 'EGYPT'
+    IF CDOW(laData[10])='Saturday' .OR. CDOW(laData[10])='Sunday'
+      *-- Message <The completion date is a xxxxx.>
+      *-- Buttons <              OK               >
+      =gfModalGen('INM32014B00000','ALERT',CDOW(laData[10]))
+    ENDIF
+  ENDIF
+  llCUpdate = .T.
+  SELECT (lcOrdHdr)
+  =RLOCK()
+  REPLACE Complete WITH laData[10]
+  UNLOCK
+ENDIF
+RETURN llReturn
+*-- End of lfChckPack.
+
+*!**************************************************************************
+*! Name      : lfUpdBomDt
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 01/07/2001
+*! Purpose   : Custom Validation of dBomDate for Cathy Daniels.
+*!**************************************************************************
+*! Reference : C102095,1
+*!**************************************************************************
+*! Example   : =lfUpdBomDt()
+*!**************************************************************************
+*
+FUNCTION lfUpdBomDt
+
+lnDatePos = ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'DBOMDATE'),1)
+IF lnDatePos <> 0
+  laUsrFields[lnDatePos,6] = gdSysDate
+ENDIF  
+*-- end of lfUpdBomDt.
+
+*!**************************************************************************
+*! Name      : lfChgMode  
+*! Developer : Hend Ghanem (HBG)
+*! Date      : 01/11/2001
+*! Purpose   : Make the Mode of The OG of the Custom fields always View
+*!**************************************************************************
+*! Reference : C,1
+*!**************************************************************************
+*! Example   : =lfChgMode  ()
+*!**************************************************************************
+*
+FUNCTION lfChgMode
+
+laScrMode = .F.
+
+*-- IF Sales Description field or Product descreption field Go to View mode.
+IF ALLTRIM(&lcFltArray[lnPosInArr,1]) = 'MSALESDESC' OR;
+   ALLTRIM(&lcFltArray[lnPosInArr,1]) = 'MPRODDESC'
+  laScrMode[2] = .T.
+ELSE  && else OG Edit mode.
+  laScrMode[3] = .T.
+ENDIF
+
+*-- end of lfChgMode  .
+
+*!**************************************************************************
+*! Name      : lflfChgTitle 
+*! Developer : Hend Ghanem (HBG)
+*! Date      : 01/11/2001
+*! Purpose   : Make the Mode of The OG of the Custom fields always View
+*!**************************************************************************
+*! Reference : C,1
+*!**************************************************************************
+*! Example   : =lflfChgTitle  ()
+*!**************************************************************************
+*
+FUNCTION lfChgTitle
+
+IF ALLTRIM(&lcOGArrName[lnOGArrPos,1]) = 'MSALESDESC' OR;
+   ALLTRIM(&lcOGArrName[lnOGArrPos,1]) = 'MPRODDESC'
+ lcOGPrmpt = "View" + "..."
+ENDIF
+
+*-- end of lfChgTitle
+
+*!**************************************************************************
+*! Name      : lfUpdUsrFl
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 01/07/2001
+*! Purpose   : Updating User defined fields.
+*!**************************************************************************
+*! Reference : C102094,C102095
+*!**************************************************************************
+*! Example   : =lfUpdUsrFl()
+*!**************************************************************************
+*
+FUNCTION lfUpdUsrFl
+PARAMETERS lcFldName,lcFldValue
+
+lnFldPos = ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,lcFldName),1)
+laUsrFields[lnFldPos,6] = lcFldValue
+*-- end of lfUpdUsrFl.
+
+*--- SSH [Start]
+FUNCTION lfENABSEA
+PRIVATE lcCathCod
+IF ALLTRIM(laCodes[lnActCode,2]) = "SEASON"
+  SHOW GET pbReltdFld ENABLE
+ENDIF
+
+FUNCTION lfCODESCR
+PRIVATE lnOldAls , llByMe , lcCathCod , lcCathDes , lcCathDatD
+
+lnOldAls = SELECT(0)
+WAIT WINDOW "Get "+ALLTRIM(laCodes[lnActCode,2])+" Related fields" NOWAIT
+lcCathCod = IIF(laScrMode[2], CODES.cCode_No, &lc_TmpFl..cCode_No)
+lcCathDes = ALLTRIM(IIF(laScrMode[2], CODES.cDiscrep, &lc_TmpFl..cDiscrep))
+lcTitl = ALLTRIM(laCodes[lnActCode,2])+": "+ALLTRIM(lcCathCod) +" - "+lcCathDes
+IF !USED("cathcode")
+  lcCathDatD = gfGetDataDir(IIF(SEEK(laComp[lnComp,2],'SYCCOMP'),ALLTRIM(SYCCOMP.cCom_DDir), gcDataDir))
+  llByMe = gfOpenFile(lcCathDatD+'cathcode',lcCathDatD+'Crltfield','SH')
+ENDIF
+SELECT cathcode
+*--- crltfield+cfld_name+ccode_no+crltd_nam
+IF SEEK("Y"+"SEASON    "+lcCathCod+"CSEALNAME ")
+  lcLong1 = cRltd_Vlu
+ELSE
+  lcLong1 = ""
+ENDIF
+IF SEEK("Y"+"SEASON    "+lcCathCod+"CSEA2NAME ")
+  lcLong2 = cRltd_Vlu
+ELSE
+  lcLong2 = ""
+ENDIF
+
+PUSH KEY
+ON KEY
+DO (gcScrDir +  gcAct_Appl + '\SMCatcod.SPR')
+POP KEY
+IF llByMe
+  USE IN cathcode
+ENDIF
+SELECT(lnOldAls)
+
+FUNCTION lfCodOk
+PRIVATE lnOldAls
+
+lnOldAls = SELECT(0)
+IF laScrMode[3]
+  SELECT CathCode
+  FOR lnCount = 1 TO 3 
+    APPEND BLANK
+    REPLACE crltfield WITH IIF(lnCount=1,"N","Y"),;
+            cfld_Name WITH "SEASON",;
+            cCode_No  WITH lcCathCod,;
+            cRltd_Nam WITH IIF(lnCount=1,"",IIF(lnCount=2,"CSEALNAME","CSEA2NAME")),;
+            cRltd_Vlu WITH IIF(lnCount=1,"",IIF(lnCount=2,lcLong1,lcLong2))
+  ENDFOR
+ENDIF
+IF SEEK("Y"+"SEASON    "+lcCathCod+"CSEALNAME ")
+  REPLACE cRltd_Vlu WITH lcLong1
+ENDIF
+IF SEEK("Y"+"SEASON    "+lcCathCod+"CSEA2NAME ")
+  REPLACE cRltd_Vlu WITH lcLong2
+ENDIF
+
+SELECT(lnOldAls)
+*--- SSH [End..]
+
+*!*************************************************************************
+*! Name      : lfAdOptCat
+*! Developer : AMH (Ahmed Maher)
+*! Date      : 01/29/2001
+*! Purpose   : add option to call screen recive by lot or screen recive by invoice
+*!*************************************************************************
+*! Returns   : None.
+*!*************************************************************************
+*! Due to C102172
+*:**************************************************************************
+*
+FUNCTION lfAdOptCat
+
+*--check if the option pad is already defined on the sysmenu
+IF !lfFoundPad('Options')
+  DEFINE PAD _Option OF _MSYSMENU PROMPT 'O\<ptions' KEY ALT+P , ' '
+  ON PAD _Option OF _msysmenu ACTIVATE POPUP _OPTIONPOP
+  DEFINE POPUP _OPTIONPOP MARGIN SHADOW
+ENDIF
+lnBarNo = CNTBAR('_OPTIONPOP') + 1
+DEFINE BAR lnBarNo OF _OPTIONPOP PROMPT 'Receive by Lot' SKIP FOR (lcPType <>'M' OR (lcPType='M' AND (lnType<>1 OR EMPTY(laType[1]))) OR llRecInv)
+ON SELECTION BAR lnBarNo OF _OPTIONPOP DO gfDoTriger WITH "MFRCVCT",PADR("RECBYLOT",10)
+DEFINE BAR lnBarNo+1 OF _OPTIONPOP PROMPT 'Receive by Invoice' SKIP FOR (lcPType <>'M' OR (lcPType='M' AND (lnType<>1 OR EMPTY(laType[1]))) OR llRecLot)
+ON SELECTION BAR lnBarNo+1 OF _OPTIONPOP DO gfDoTriger WITH "MFRCVCT",PADR("RECBYINV",10)
+RETURN
+*-- end of lfAdOptCat.
+
+*!*************************************************************
+*! Name      : lfFoundPad
+*! Developer : AMH (Ahmed Maher)
+*! Date      : 01/29/2001
+*! Purpose   : check if any pad menu is exit in _sysmenu
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : lcPadName ---> Pad NAme 
+*!*************************************************************
+*! Return      : .T. ----> if exist
+*!               .F. ----> if not exist
+*!*************************************************************
+*! Example     : =lfFoundPad(lcPadName)
+*!*************************************************************
+*! Due to C102172
+*:**************************************************************************
+*
+FUNCTION lfFoundPad
+PARAMETER lcPadName
+
+PRIVATE llFound
+llFound = .F.
+FOR lnCount = 1 TO CNTPAD('_MSYSMENU')		&& Number of pads
+	IF PRMPAD('_MSYSMENU', GETPAD('_MSYSMENU', LnCount)) = lcPadName
+        llfound = .T.
+		EXIT
+	ENDIF
+ENDFOR
+RETURN(llFOund)
+*-- end of lfFoundPad.
+
+*!**************************************************************************
+*! Name      : lfRecByLot
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 01/29/2001
+*! Purpose   : Receiving by Lot
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102172
+*:**************************************************************************
+*
+FUNCTION lfRecByLot
+
+llRecLot = .T.
+=lfRecLtInv()
+*-- end of lfRecByLot.
+
+*!**************************************************************************
+*! Name      : lfRecByInv
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 02/01/2001
+*! Purpose   : Receiving by Invoice
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102172
+*:**************************************************************************
+*
+FUNCTION lfRecByInv
+
+llRecInv = .T.
+=lfRecLtInv()
+*-- end of lfRecByInv.
+
+*!**************************************************************************
+*! Name      : lfRecLtInv
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 02/01/2001
+*! Purpose   : Receiving by (Lot/Invoice)
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102172
+*:**************************************************************************
+*
+FUNCTION lfRecLtInv
+
+PRIVATE llBrowse, lcCtkt
+llBrowse = .F.
+STORE SPACE(0) TO lcCtkt , lcOldValue
+lcMjrPct = gfItemMask('PM')
+
+*C102172,4 AMH Comment next lines [Start]
+*lcHdEsc1= ON('KEY','ESC')
+*C102172,4 AMH [End]
+
+llFoundRec = .F.
+llShowPop  = .T.
+
+DO (gcAppHome+gcWinAppl+'\MFRECLOT.FXP')
+
+*C102172,4 AMH Comment next lines [Start]
+*ON KEY LABEL ESC &lcHdEsc1
+*C102172,4 AMH [End]
+
+laScrMode=.F.
+IF llFoundRec
+  laScrMode[4]=.T.
+ELSE
+  laScrMode[1]=.T.
+ENDIF
+SHOW GETS
+*-- end of lfRecLtInv.
+
+*!**************************************************************************
+*! Name      : lfSaveRecv
+*! Developer : (AMH) Ahmed Maher
+*! Date      : 03/14/2001
+*! Purpose   : Saving Receive by (Lot/Invoice)
+*!**************************************************************************
+*! Passed Parameters : 
+*!**************************************************************************
+*! Due to C102172
+*:**************************************************************************
+*
+FUNCTION lfSaveRecv
+
+PRIVATE lnAlias
+lnAlias = SELECT(0)
+= gfOpenFile(gcDataDir+'TRANSHDR',gcDataDir+'TRANSHDR','SH')
+SELECT (lcTmpLine)
+LOCATE
+SCAN FOR TRANCD $ '56'
+  IF SEEK(CUTTKT+STYLE+DYELOT+TRANCD,'CUTTKTL')
+    SELECT CUTTKTL
+    DELETE
+  ENDIF
+  IF SEEK(CCUTVEN+CSHIP_TYPE+CCUTINV,'TRANSHDR')
+    SELECT TRANSHDR
+    REPLACE STATUS WITH 'C'
+  ENDIF
+ENDSCAN
+DELETE FOR TRANCD $ '56'
+=gfCloseFile('TRANSHDR')
+=lfUpdUsrFl('NLOT_NO',CUTTKTH.NLOT_NO)
+=lfUpdUsrFl('CPACK',CUTTKTH.CPACK)
+=lfUpdUsrFl('CCT1CSTY',CUTTKTH.CCT1CSTY)
+=lfUpdUsrFl('CCT2CSTY',CUTTKTH.CCT2CSTY)
+=lfUpdUsrFl('CCT3CSTY',CUTTKTH.CCT3CSTY)
+=lfUpdUsrFl('CCT4CSTY',CUTTKTH.CCT4CSTY)
+=lfUpdUsrFl('CCT5CSTY',CUTTKTH.CCT5CSTY)
+=lfUpdUsrFl('NCT1NLOT',CUTTKTH.NCT1NLOT)
+=lfUpdUsrFl('NCT2NLOT',CUTTKTH.NCT2NLOT)
+=lfUpdUsrFl('NCT3NLOT',CUTTKTH.NCT3NLOT)
+=lfUpdUsrFl('NCT4NLOT',CUTTKTH.NCT4NLOT)
+=lfUpdUsrFl('NCT5NLOT',CUTTKTH.NCT5NLOT)
+=lfUpdUsrFl('DBOMDATE',CUTTKTH.DBOMDATE)
+STORE .F. TO llRecLot, llRecInv
+SELECT (lnAlias)
+*-- end of lfSaveRecv.
+
+*!**************************************************************************
+*! Name      : lfvDisPack
+*! Developer : 
+*! Date      : 01/07/2001
+*! Purpose   : 
+*!**************************************************************************
+*! Reference : 
+*!**************************************************************************
+*! Example   : 
+*!**************************************************************************
+*
+FUNCTION lfvDisPack
+PARAMETERS lcRetVal
+lcRetVal = .T.
+DO CASE
+   CASE gcAct_Appl  = "SO"
+     DO lpOrdPack
+   CASE gcAct_Appl = "MF"
+   do lfvPackNo
+ENDCASE
+RETURN  lcRetVal
+*-- end of lfvPackNo
+
+*!**************************************************************************
+*! Name      : lfwcPack
+*! Developer : 
+*! Date      : 01/07/2001
+*! Purpose   : 
+*!**************************************************************************
+*! Reference : 
+*!**************************************************************************
+*! Example   : 
+*!**************************************************************************
+*
+FUNCTION lfwcPack
+PARAMETERS lcRetVal
+lcRetVal = .T.
+DO CASE
+   CASE gcAct_Appl  = "SO"
+     
+   CASE gcAct_Appl = "MF"
+     lcRetVal=lfwCutWhen()
+ENDCASE
+RETURN  lcRetVal
+*gfUsrVldFn('lfvDisPack','CATMAIN')    WHEN gfUsrVldFn('lfwcPack','CATMAIN')
+
+*!*************************************************************
+*! Name      : lfIniUsrFl()
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 01/30/2001
+*! Purpose   : get the initial values of user defiend fields.
+*!*************************************************************
+*! Calls     : 
+*!*************************************************************
+*! Passed Parameters  : ....
+*!*************************************************************
+*! Due to C102094
+*!*************************************************************
+*
+FUNCTION lfIniUsrFl
+=lfUpdUsrFl('NLOT_NO',0)
+=lfUpdUsrFl('NCT1NLOT',0)
+=lfUpdUsrFl('NCT2NLOT',0)
+=lfUpdUsrFl('NCT3NLOT',0)
+=lfUpdUsrFl('NCT4NLOT',0)
+=lfUpdUsrFl('NCT5NLOT',0)
+=lfUpdUsrFl('DBOMDATE',{})
+=lfUpdUsrFl('CPACK','')
+=lfUpdUsrFl('CCT1CSTY','')
+=lfUpdUsrFl('CCT2CSTY','')
+=lfUpdUsrFl('CCT3CSTY','')
+=lfUpdUsrFl('CCT4CSTY','')
+=lfUpdUsrFl('CCT5CSTY','')
+*-- end of lfIniUsrFl.
+
+
+*!**************************************************************************
+*! Name      : lfvPayType
+*! Developer : AAN
+*! Date      : 03/20/2001
+*! Purpose   : Custom Validation of CVenPyType for Cathy Daniels.
+*!**************************************************************************
+*! Example   : =lfvPayType()
+*!**************************************************************************
+*
+FUNCTION lfvPayType
+PARAMETERS lcRetVal
+lcRetVal = .T.
+
+lcVar = SYS(18)                && Varible to hold  the name of the memory variable used to create the current GET control
+lcObj = EVALUATE(SYS(18))      && Varible to hold the current field value
+
+*-- If laUsrField is defined.
+IF TYPE('LAUSRFIELD') <> "U"
+  *-- Get position of CVENPYTYPE in laUsrField
+  lnVenPYPos = ASCAN(laUsrField,"CVENPYTYPE")
+  IF lnVenPYPos > 0
+    lnVenPYPos = ASUBSCRIPT(laUsrField,lnVenPYPos,1)
+  ENDIF
+  
+  IF lcVar == "LAOGFXFLT(" + ALLTRIM(STR(lnVenPYPos)) + ",6)"
+      IF !(UPPER(ALLTRIM(lcObj)) $ 'ABC') 
+        IF EMPTY(apvendor.cvenpytype)
+          lcObj='A'
+        ELSE
+          lcObj=apvendor.cvenpytype
+        ENDIF
+      ENDIF
+    &lcVar = UPPER(lcObj)      && Update the field  
+    laUsrField[lnVenPYPos ,6] = UPPER(lcObj)
+  ENDIF  
+ENDIF
+
+RETURN lcRetVal
+*-- end of lfvPayType.
+
+*!*************************************************************
+*! Name      : lfGETUPCST
+*! Developer : Haytham El-Sheltawi (HS)
+*! Date      : 05/08/2001
+*! Purpose   : Function to get Cathey Danial account style
+*!*************************************************************
+*! Calls     : 
+*!             Procedures : ....
+*!             Functions  : ....
+*!*************************************************************
+*! Passed Parameters  : lcVarName, The name of the variable that holds the style
+*!                      lcAccount, Account Code
+*!                      lnMajorLen, Style Major length
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Example   : =lfGETUPCST("lcUPCStyle")
+*!*************************************************************
+
+FUNCTION lfGETUPCST
+PARAMETERS lcVarName , lcAccount , lnMajorLen
+
+IF TYPE("lcVarName")  = "C" .AND. !EMPTY(lcVarName) .AND.;
+   TYPE("lcAccount")  = "C" .AND. !EMPTY(lcAccount) .AND.;
+   TYPE("lnMajorLen") = "N" .AND. lnMajorLen > 0
+
+  PRIVATE lcOrgStyle , lcCatAcSty
+  
+  lcVarName  = ALLTRIM(lcVarName)
+  lcAccount  = PADR(lcAccount , 5)
+  
+  lcOrgStyle = &lcVarName
+  IF SEEK("A" + lcAccount , "EdiAcPrt") .AND. !EMPTY(EDIAcPrt.cAccCode) .AND.;
+     SUBSTR(lcOrgStyle , lnMajorLen - 1 , 2) = EDIAcPrt.cAccCode
+    
+    lcCatAcSty = LEFT(lcOrgStyle , lnMajorLen - 2) + SPACE(2) +;
+                 SUBSTR(lcOrgStyle , lnMajorLen + 1)
+    
+    lcCatAcSty = IIF(SEEK(lcCatAcSty , 'STYLE') , lcCatAcSty , lcOrgStyle)
+    &lcVarName = lcCatAcSty
+  ENDIF
+ENDIF
+
+*!**************************************************************************
+*! Name      : lfvComPack
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 05/22/2001
+*! Purpose   : Valid function of Complete date for C/T.
+*!*************************************************************
+*! Due to B804220
+*:*************************************************************
+*
+FUNCTION lfvComPack
+PRIVATE llPackUsed
+
+*B604630,1 AMH If not coming from save screen use ladata[6] insted of ldcomplet [Start]
+ldComplet = IIF(WEXIST('MFCTSAV'),ldComplet,laData[6])
+IF !WEXIST('MFCTSAV')
+  lnFldPos = ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CPACK'),1)
+  lcPackNo = laUsrFields[lnFldPos,6]
+ENDIF
+*B604630,1 AMH [End]
+
+llPackUsed = gfOpenFile(gcDataDir+'Packs',gcDataDir+'cYear','SH')
+LOCATE FOR DPROD_DATE = ldComplet
+
+IF FOUND()
+  IF ldComplet < gdSysDate
+    *-- Message <Pack number selected occurs in the past.>
+    *-- Buttons <Proceed> , <ReEnter>
+    lnMsg = gfModalGen("TRM00000B38028","DIALOG",'','',"Complete date must be after current system date.")
+    IF lnMsg = 2
+      ldComplet = {  /  /  }
+      
+      _CUROBJ = _CUROBJ
+    ELSE
+      lcPackNo = cPack
+      SHOW GET lcPackNo
+    ENDIF
+  ELSE
+    lcPackNo = cPack
+    SHOW GET lcPackNo
+  ENDIF
+ELSE
+  *-- Message <Complete date is not found in Packs file.>
+  *-- Buttons <             OK             >
+  =gfModalGen("TRM00000B00000","DIALOG",'','',"Complete date is not found in Packs file.")
+
+  *B604630,1 AMH If not coming from save screen restore the old data [Start]
+  *lcPackNo = ''
+  lcPackNo  = IIF(WEXIST('MFCTSAV'),'',lcPackNo)
+  SEEK STR(YEAR(gdSysDate),4)+lcPackNo
+  ldComplet = IIF(WEXIST('MFCTSAV'),ldComplet,DPROD_DATE)
+  *B604630,1 AMH [End]
+
+  SHOW GET lcPackNo
+ENDIF
+
+*B604630,1 AMH If not coming from save screen [Start]
+IF !WEXIST('MFCTSAV')
+  laData[6] = ldComplet
+  =lfUpdUsrFl('CPACK',lcPackNo)
+ENDIF
+*B604630,1 AMH [End]
+
+*-- Close the Packs file if opened in this function
+IF llPackUsed
+  USE IN Packs
+ENDIF  
+*-- End of lfvComPack.
+
+
+*!**************************************************************************
+*! Name      : lfExpCtOld
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 08/19/2001
+*! Purpose   : function to export C/T to Aria 2.0
+*!*************************************************************
+*! Due to C102433,1 / C102433,2 by SSE
+*:*************************************************************
+*
+FUNCTION lfExpCtOld
+
+PRIVATE lcLnOrder, lnAlias
+lnAlias = SELECT()
+
+*C102433,2 Check if using Manufacturing or Sales Order Module. [Begin]
+lcOldPath = SPACE(0)
+DO CASE
+  CASE gcAct_Appl = "MF"
+    PRIVATE lcOldCtkH, lcOldCtkL
+    STORE SPACE(0) TO lcOldCtkH, lcOldCtkL
+  CASE gcAct_Appl = "SO"
+    PRIVATE lcOldOrdH, lcOldOrdL
+    STORE SPACE(0) TO lcOldOrdH, lcOldOrdL
+ENDCASE  
+*C102433,2 Check if using Manufacturing or Sales Order Module. [End]
+
+*ahmed-cat [Start]
+STORE .F. TO llStyleFnd, llCodesFnd, llNoteFnd, llScaleFnd, llCrlblFnd, llNotePad, llNewScale
+STORE SPACE(0) TO lcOldStyle, lcOldCodes, lcOldNote, lcOldScale, lcOldCrlbl
+*khalid
+STORE SPACE(0) TO lcOldCust
+*khalid
+*ahmed-cat [End]
+
+IF FILE(gcDataDir+'MFOLDPTH.MEM')
+  RESTORE FROM (gcDataDir+'MFOLDPTH.MEM') ADDITIVE
+  IF !EMPTY(lcOldPath)
+    
+    *C102433,2 Check for either MF or SO AND it main files for each. [Begin]
+    *IF FILE(lcOldPath+'CUTTKTH.DBF') .AND. FILE(lcOldPath+'CUTTKTL.DBF')
+    IF (FILE(lcOldPath+'CUTTKTH.DBF') .AND. FILE(lcOldPath+'CUTTKTL.DBF') AND gcAct_Appl = "MF") OR;
+       (FILE(lcOldPath+'ORDHDR.DBF') AND FILE(lcOldPath+'ORDLINE.DBF') AND gcAct_Appl = "SO")
+    *C102433,2 Check for either MF or SO AND it main files for each. [End]
+    
+      *C102433,2 Check if using Manufacturing or Sales Order Module. [Begin]
+      DO CASE
+        CASE gcAct_Appl = "MF"
+          lcOldCtkH = gfTempName()
+          lcOldCtkL = gfTempName()
+          =gfOpenFile(lcOldPath+'CUTTKTH',lcOldPath+'CUTTKTH','SH',@lcOldCtkH,.T.)
+          =gfOpenFile(lcOldPath+'CUTTKTL',lcOldPath+'CUTTKTL','SH',@lcOldCtkL,.T.)
+        CASE gcAct_Appl = "SO"
+          lcOldOrdH = gfTempName()
+          lcOldOrdL = gfTempName()
+
+          *B604886,1 Update the customer file in version 1. [Begin]
+          lcOldCust = gfTempName()
+          *B604886,1 Update the customer file in version 1. [End]
+          
+          =gfOpenFile(lcOldPath+'OrdHdr',lcOldPath+'OrdHdr','SH',@lcOldOrdH,.T.)
+          =gfOpenFile(lcOldPath+'OrdLine',lcOldPath+'OrdLine','SH',@lcOldOrdL,.T.)
+          
+          *B604886,1 Update the customer file in version 1. [Begin]
+          =gfOpenFile(lcOldPath+'Customer',lcOldPath+'Customer','SH',@lcOldCust,.T.)
+          *B604886,1 Update the customer file in version 1. [End]
+          
+      ENDCASE
+      *C102433,2 Check if using Manufacturing or Sales Order Module. [End]
+      *ahmed-cat [Start]
+      llStyleFnd = FILE(lcOldPath+'STYLE.DBF')
+      llCodesFnd = FILE(lcOldPath+'CODE.DBF')
+      llNoteFnd  = FILE(lcOldPath+'NOTEPAD.DBF')
+      llScaleFnd = FILE(lcOldPath+'SCALE.DBF')
+      llCrlblFnd = FILE(lcOldPath+'CARE_LBL.DBF')
+      IF llStyleFnd
+        lcOldStyle = gfTempName()
+        =gfOpenFile(lcOldPath+'STYLE',lcOldPath+'STYLE','SH',@lcOldStyle,.T.)
+      ENDIF
+      IF llCodesFnd
+        lcOldCodes = gfTempName()
+        =gfOpenFile(lcOldPath+'CODE',lcOldPath+'CODE','SH',@lcOldCodes,.T.)
+      ENDIF
+      IF llNoteFnd
+        lcOldNote = gfTempName()
+        =gfOpenFile(lcOldPath+'NOTEPAD',lcOldPath+'NOTEPAD','SH',@lcOldNote,.T.)
+      ENDIF
+      IF llScaleFnd
+        lcOldScale = gfTempName()
+        =gfOpenFile(lcOldPath+'SCALE',lcOldPath+'SCALE','SH',@lcOldScale,.T.)
+      ENDIF
+      IF llCrlblFnd
+        lcOldCrlbl = gfTempName()
+        =gfOpenFile(lcOldPath+'CARE_LBL',lcOldPath+'CARE_LBL','SH',@lcOldCrlbl,.T.)
+      ENDIF
+      IF !USED('NotePad')      
+        llNotePad = .T.
+        =gfOpenFile(gcDataDir+'NotePad',gcDataDir+'NotePad','SH')
+      ENDIF  
+      IF !USED('Scale')
+        llNewScale = .T.
+        =gfOpenFile(gcDataDir+'Scale',gcDataDir+'Scale','SH')      
+      ENDIF
+      
+      *ahmed-cat [End]      
+    ELSE
+      =lfGetOldDr()
+    ENDIF
+  ELSE
+    =lfGetOldDr()
+  ENDIF
+ELSE
+  =lfGetOldDr()
+ENDIF
+
+IF EMPTY(lcOldPath)
+  RETURN
+ENDIF
+SAVE TO (gcDataDir+'MFOLDPTH.MEM') ALL LIKE lcOldPath
+
+DO CASE
+  CASE gcAct_Appl = "MF"
+    SELECT CUTTKTL
+    lcLnOrder = SET('ORDER')
+    SET ORDER TO TAG CUTTKTL
+    IF SEEK(laData[1],'CUTTKTH')
+      SELECT CUTTKTH
+      SCATTER MEMVAR
+      SELECT (lcOldCtkH)
+      IF !SEEK(laData[1])
+        APPEND BLANK
+      ENDIF
+      *ahmed-cat [Start]
+      IF llCodesFnd
+        lcDivDesc  = gfCodDes(m.cDivision         ,'CDIVISION')
+        m.Division = lfUpdCodes(lcDivDesc ,'D')
+        lcSeaDesc  = gfCodDes(SUBSTR(m.Style,1,3) ,'SEASON   ')
+        m.Season   = lfUpdCodes(lcSeaDesc,'Z',m.Season)
+      ENDIF      
+      *ahmed-cat [End]
+      SELECT (lcOldCtkH)
+      GATHER MEMVAR
+      *ahmed-cat [Start]
+      *REPLACE LOT_NO     WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NLOT_NO'),1),6],;
+              DIVISION   WITH ALLTRIM(CUTTKTH.CDIVISION),;
+              PACK       WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CPACK'),1),6],;
+              STYLE      WITH SUBSTR(CUTTKTH.STYLE,5,8),;
+              TYPE       WITH CUTTKTH.CTKTTYPE,;
+              LAST_CUT   WITH IIF(laScrMode[4],SUBSTR(lcLastCut,1,1),LAST_CUT),;
+              SEA_ADD1   WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT1CSTY'),1),6],1,3),;
+              STYLE_ADD1 WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT1CSTY'),1),6],5,8),;
+              LOT_ADD1   WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NCT1NLOT'),1),6]
+      REPLACE LOT_NO     WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NLOT_NO'),1),6],;
+              PACK       WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CPACK'),1),6],;
+              STYLE      WITH SUBSTR(CUTTKTH.STYLE,5,8),;
+              TYPE       WITH CUTTKTH.CTKTTYPE,;
+              LAST_CUT   WITH IIF(laScrMode[4],SUBSTR(lcLastCut,1,1),LAST_CUT),;
+              SEA_ADD1   WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT1CSTY'),1),6],1,3),;
+              STYLE_ADD1 WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT1CSTY'),1),6],5,8),;
+              LOT_ADD1   WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NCT1NLOT'),1),6]
+      *ahmed-cat [End]
+      REPLACE SEA_ADD2   WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT2CSTY'),1),6],1,3),;
+              STYLE_ADD2 WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT2CSTY'),1),6],5,8),;
+              LOT_ADD2   WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NCT2NLOT'),1),6],;
+              SEA_ADD3   WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT3CSTY'),1),6],1,3),;
+              STYLE_ADD3 WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT3CSTY'),1),6],5,8),;
+              LOT_ADD3   WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NCT3NLOT'),1),6],;
+              SEA_ADD4   WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT4CSTY'),1),6],1,3),;
+              STYLE_ADD4 WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT4CSTY'),1),6],5,8),;
+              LOT_ADD4   WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NCT4NLOT'),1),6]
+      REPLACE SEA_ADD5   WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT5CSTY'),1),6],1,3),;
+              STYLE_ADD5 WITH SUBSTR(laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CCT5CSTY'),1),6],5,8),;
+              LOT_ADD5   WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NCT5NLOT'),1),6]
+      *ahmed-cat [Start]
+      IF llNoteFnd
+        =lfUpdNote('I'+laData[1],'I'+laData[1])
+      ENDIF
+      *ahmed-cat [End]
+      IF SEEK(laData[1],'CUTTKTL')
+        SELECT (lcOldCtkL)
+        IF SEEK(laData[1])
+          DELETE REST WHILE Cuttkt+Season+Style+Color+Dyelot+Trancd+STR(RECNO(),7) = laData[1]
+        ENDIF
+        SELECT CUTTKTL
+        SCAN REST WHILE Cuttkt+Style+Dyelot+Trancd = laData[1] FOR TRANCD = '1'
+          SCATTER MEMVAR
+          SELECT (lcOldCtkL)
+          APPEND BLANK
+          *ahmed-cat [Start]
+          IF llCodesFnd
+            IF RIGHT(m.Style,3) = '000' 
+              IF SEEK('C'+SUBSTR(m.Style,14,3),lcOldCodes)
+                m.Color = SUBSTR(m.Style,14,3)
+              ELSE
+                lcClrDesc  = gfCodDes(SUBSTR(m.Style,14),'COLOR    ')
+                SELECT (lcOldCodes)
+                APPEND BLANK
+                REPLACE CODE  WITH 'C'+SUBSTR(m.Style,14,3),;
+                        CDATA WITH lcClrDesc
+              ENDIF
+            ELSE
+              lcClrDesc  = gfCodDes(SUBSTR(m.Style,14),'COLOR    ')
+              m.Color    = lfUpdCodes(lcClrDesc,'C')
+            ENDIF
+          ENDIF
+          *ahmed-cat [End]
+          GATHER MEMVAR
+          *ahmed-cat [Start]
+          *REPLACE LOT_NO    WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NLOT_NO'),1),6],;
+                  STYLE     WITH SUBSTR(CUTTKTL.STYLE,5,8),;
+                  SEASON    WITH SUBSTR(CUTTKTL.STYLE,1,3),;
+                  COLOR     WITH SUBSTR(CUTTKTL.STYLE,17,3),;
+                  FACTORY   WITH CUTTKTL.CCUTVEN,;
+                  SHIP_TYPE WITH CUTTKTL.CSHIP_TYPE,;
+                  INVOICE   WITH CUTTKTL.CCUTINV
+          REPLACE LOT_NO    WITH laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'NLOT_NO'),1),6],;
+                  STYLE     WITH SUBSTR(CUTTKTL.STYLE,5,8),;
+                  FACTORY   WITH CUTTKTL.CCUTVEN,;
+                  SHIP_TYPE WITH CUTTKTL.CSHIP_TYPE,;
+                  INVOICE   WITH CUTTKTL.CCUTINV
+          =lfUpdStyle(SEASON+STYLE+COLOR,m.Style)
+          *ahmed-cat [End]          
+        ENDSCAN
+      ENDIF
+    ENDIF
+    SELECT CUTTKTL
+    SET ORDER TO &lcLnOrder.
+
+    = gfCloseFile(lcOldCtkH)
+    = gfCloseFile(lcOldCtkL)
+
+  CASE gcAct_Appl = "SO"
+
+    SELECT OrdLine
+    lcLnOrder = SET('ORDER')
+    SET ORDER TO TAG OrdLine
+    IF SEEK(lcOrdType + laData[1],'OrdHdr')
+      SELECT OrdHdr
+      SCATTER MEMVAR
+      IF llCodesFnd
+        *m.Division = m.cDivision
+        m.Division = lfUpdCodes(gfCodDes(m.cDivision ,'CDIVISION'),'D')
+      
+        m.ReOrder  = m.cReOrder
+      
+        *m.Terms    = m.cTermCode
+        IF !EMPTY(m.cTermCode)
+          m.Terms    = lfUpdCodes(gfCodDes(m.cTermCode ,'CTERMCODE '),'T')
+        ENDIF  
+      
+        *m.Insur    = m.cInsur
+        IF !EMPTY(m.cInsur)
+          m.SpcInst    = lfUpdCodes(gfCodDes(m.SpcInst ,'SPCINST   '),'S')
+        ENDIF  
+      
+        m.Factor   = m.cFacCode
+        *m.Class    = m.cClass
+        IF !EMPTY(m.cClass)
+          m.Class    = lfUpdCodes(gfCodDes(m.cClass ,'CLASS     '),'L')
+        ENDIF  
+      
+        IF !EMPTY(m.ShipVia)
+          m.ShipVia    = lfUpdCodes(gfCodDes(m.ShipVia ,'SHIPVIA   '),'V')
+        ENDIF  
+      
+        m.Pack = laUsrFields[ASUBSCRIPT(laUsrFields,ASCAN(laUsrFields,'CPACK'),1),6]
+        lcSeaDesc  = gfCodDes(SUBSTR(m.Style,1,3) ,'SEASON   ')
+        m.Season   = lfUpdCodes(lcSeaDesc,'Z',m.Season)
+        
+      ENDIF
+
+      IF laScrMode[3]            && Edit Mode.
+        m.Mod_Time   = m.cAdd_Time
+        m.Mod_Date   = m.dAdd_Date
+        m.Mod_UserID = m.cAdd_User
+      ELSE                       && Else Add Mode.
+        m.Add_Time   = m.cAdd_Time
+        m.Add_Date   = m.dAdd_Date
+        m.Add_UserID = m.cAdd_User      
+      ENDIF
+      
+      SELECT (lcOldOrdH)
+      IF !SEEK(laData[1])
+        APPEND BLANK
+      ENDIF
+      GATHER MEMVAR
+      
+      *B604886,1 Update the customer file in version 1. [Begin]
+      DO lpAddCust WITH &lcOldOrdH..Account
+      *B604886,1 Update the customer file in version 1. [Begin]
+
+      *ahmed-cat [Start]
+      IF llNoteFnd
+        =lfUpdNote('B'+laData[1],'B'+laData[1])
+      ENDIF
+
+      *ahmed-cat [End]
+      IF SEEK(lcOrdType + laData[1],'OrdLine')
+        PRIVATE lcSetDelet
+        lcSetDelet = SET('DELETE')
+        SET DELETE OFF
+        
+        SELECT OrdLine
+        SCAN REST WHILE cOrdType + Order + STR(LineNo,6) = lcOrdType + laData[1]
+          IF DELETED()
+            IF SEEK(laData[1]+STR(OrdLine.LineNo,4),(lcOldOrdL))
+              SELECT (lcOldOrdL)
+              DELETE
+            ENDIF  
+          ELSE
+            SCATTER MEMVAR
+            m.Pack     = m.cPack
+            
+            *SSE cat
+            IF llCodesFnd
+              *m.Season = SUBSTR(m.Style,1,3)
+              *m.Color  = SUBSTR(m.Style,lnMajorLen+2)
+              *khalid
+              *m.Season   = lfUpdCodes(gfCodDes(SUBSTR(m.Style,1,3) ,'SEASON   '),'Z',SUBSTR(m.Style,1,3))
+              lcSeaDesc  = gfCodDes(SUBSTR(m.Style,1,3) ,'SEASON   ')
+              m.Season   = lfUpdCodes(lcSeaDesc,'Z',m.Season)
+              IF RIGHT(m.Style,3) = '000' 
+                IF SEEK('C'+SUBSTR(m.Style,14,3),lcOldCodes)
+                  m.Color = SUBSTR(m.Style,14,3)
+                ELSE
+                  lcClrDesc  = gfCodDes(SUBSTR(m.Style,14),'COLOR    ')
+                  SELECT (lcOldCodes)
+                  APPEND BLANK
+                  REPLACE CODE  WITH 'C'+SUBSTR(m.Style,14,3),;
+                          CDATA WITH lcClrDesc
+                ENDIF
+              ELSE
+                lcClrDesc  = gfCodDes(SUBSTR(m.Style,14),'COLOR    ')
+                m.Color    = lfUpdCodes(lcClrDesc,'C')
+              ENDIF
+            ENDIF
+            *SSE cat
+            
+            m.Style  = SUBSTR(m.Style,5,lnMajorLen)
+          
+            IF laScrMode[3]            && Edit Mode.
+              m.Mod_Time   = m.cAdd_Time
+              m.Mod_Date   = m.dAdd_Date
+              m.Mod_UserID = m.cAdd_User
+            ELSE                       && Else Add Mode.
+              m.Add_Time   = m.cAdd_Time
+              m.Add_Date   = m.dAdd_Date
+              m.Add_UserID = m.cAdd_User
+            ENDIF
+
+            SELECT (lcOldOrdL)
+            IF !SEEK(laData[1]+STR(OrdLine.LineNo,4))
+              APPEND BLANK
+            ENDIF
+            GATHER MEMVAR
+            
+            *SSE Cat
+            =lfUpdStyle(SEASON+STYLE+COLOR,OrdLine.Style)             
+            *SSE Cat
+          ENDIF
+        ENDSCAN
+
+        SET DELETE &lcSetDelet.
+
+      ENDIF
+      
+    ENDIF
+    SELECT OrdLine
+    SET ORDER TO &lcLnOrder
+
+    = gfCloseFile(lcOldOrdH)
+    = gfCloseFile(lcOldOrdL)
+    
+    *B604885,1 Close the Customer file in version 1. [Begin]
+    =gfCloseFile(lcOldCust)
+    *B604885,1 Close the Customer file in version 1. [End]
+ENDCASE
+*ahmed-cat [start]
+IF llCodesFnd
+  = gfCloseFile(lcOldCodes)
+ENDIF
+IF llStyleFnd
+  = gfCloseFile(lcOldStyle)
+ENDIF
+IF llCodesFnd
+  = gfCloseFile(lcOldCodes)
+ENDIF
+IF llNoteFnd
+  = gfCloseFile(lcOldNote)
+ENDIF
+IF llScaleFnd
+  = gfCloseFile(lcOldScale)
+ENDIF
+IF llCrlblFnd
+  = gfCloseFile(lcOldCrlbl)
+ENDIF
+IF llNotePad 
+  = gfCloseFile('NotePad')
+ENDIF
+
+IF llNewScale
+  = gfCloseFile('Scale')
+ENDIF
+
+SELECT(lnAlias)
+*-- End of lfExpCtOld.
+
+*!**************************************************************************
+*! Name      : lfGetOldDr
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 08/19/2001
+*! Purpose   : function to get the dir of C/T in Aria 2.0
+*!*************************************************************
+*! Due to C102433,1 / C102433,2 by SSE
+*:*************************************************************
+*
+FUNCTION lfGetOldDr
+
+lcOldPath = GETDIR(lcOldPath,'Select Aria 2.0 data path')
+IF !EMPTY(lcOldPath)
+
+  *C102433,2 Check for either MF or SO AND it main files for each. [Begin]
+  *IF FILE(lcOldPath+'CUTTKTH.DBF') .AND. FILE(lcOldPath+'CUTTKTL.DBF')
+  IF (FILE(lcOldPath+'CUTTKTH.DBF') .AND. FILE(lcOldPath+'CUTTKTL.DBF') AND gcAct_Appl = "MF") OR;
+     (FILE(lcOldPath+'ORDHDR.DBF') AND FILE(lcOldPath+'ORDLINE.DBF') AND gcAct_Appl = "SO")
+  *C102433,2 Check for either MF or SO AND it main files for each. [End]
+
+    *C102433,2 Check if using Manufacturing or Sales Order Module. [Begin]
+    DO CASE
+      CASE gcAct_Appl = "MF"
+        lcOldCtkH = gfTempName()
+        lcOldCtkL = gfTempName()
+        =gfOpenFile(lcOldPath+'CUTTKTH',lcOldPath+'CUTTKTH','SH',@lcOldCtkH,.T.)
+        =gfOpenFile(lcOldPath+'CUTTKTL',lcOldPath+'CUTTKTL','SH',@lcOldCtkL,.T.)
+      CASE gcAct_Appl = "SO"
+        lcOldOrdH = gfTempName()
+        lcOldOrdL = gfTempName()
+        =gfOpenFile(lcOldPath+'OrdHdr',lcOldPath+'OrdHdr','SH',@lcOldOrdH,.T.)
+        =gfOpenFile(lcOldPath+'OrdLine',lcOldPath+'OrdLine','SH',@lcOldOrdL,.T.)
+
+        *B604886,1 Update the customer file in version 1. [Begin]
+        lcOldCust = gfTempName()
+        =gfOpenFile(lcOldPath+'Customer',lcOldPath+'Customer','SH',@lcOldCust,.T.)
+        *B604886,1 Update the customer file in version 1. [End]
+    ENDCASE
+    *C102433,2 Check if using Manufacturing or Sales Order Module. [End]
+
+    
+    *ahmed-cat [Start]
+    llStyleFnd = FILE(lcOldPath+'STYLE.DBF')
+    llCodesFnd = FILE(lcOldPath+'CODE.DBF')
+    llNoteFnd  = FILE(lcOldPath+'NOTEPAD.DBF')
+    llScaleFnd = FILE(lcOldPath+'SCALE.DBF')
+    llCrlblFnd = FILE(lcOldPath+'CARE_LBL.DBF')
+    IF llStyleFnd
+      lcOldStyle = gfTempName()
+      =gfOpenFile(lcOldPath+'STYLE',lcOldPath+'STYLE','SH',@lcOldStyle,.T.)
+    ENDIF
+    IF llCodesFnd
+      lcOldCodes = gfTempName()
+      =gfOpenFile(lcOldPath+'CODE',lcOldPath+'CODE','SH',@lcOldCodes,.T.)
+    ENDIF
+    IF llNoteFnd
+      lcOldNote = gfTempName()
+      =gfOpenFile(lcOldPath+'NOTEPAD',lcOldPath+'NOTEPAD','SH',@lcOldNote,.T.)
+    ENDIF
+    IF llScaleFnd
+      lcOldScale = gfTempName()
+      =gfOpenFile(lcOldPath+'SCALE',lcOldPath+'SCALE','SH',@lcOldScale,.T.)
+    ENDIF
+    IF llCrlblFnd
+      lcOldCrlbl = gfTempName()
+      =gfOpenFile(lcOldPath+'CARE_LBL',lcOldPath+'CARE_LBL','SH',@lcOldCrlbl,.T.)
+    ENDIF
+    *ahmed-cat [End]
+
+  ELSE
+    *C102433,2 Check if using Manufacturing or Sales Order Module. [Begin]
+    DO CASE
+      CASE gcAct_Appl = "MF"
+        =gfModalGen("TRM000000B00000","DIALOG",'','',"CutTktH.DBF and CutTktL.DBF not found in "+ALLTRIM(lcOldPath)+". Cannot proceed.")
+      CASE gcAct_Appl = "SO"
+        =gfModalGen("TRM000000B00000","DIALOG",'','',"OrdHdr.DBF and OrdLine.DBF not found in "+ALLTRIM(lcOldPath)+". Cannot proceed.")
+    ENDCASE
+    *C102433,2 Check if using Manufacturing or Sales Order Module. [End]
+
+    =lfGetOldDr()
+  ENDIF
+ENDIF
+*-- End of lfGetOldDr.
+
+*ahmed-cat [Start]
+FUNCTION lfUpdStyle
+PARAMETERS lcOldSty,lcNewSty
+
+PRIVATE lcOldSty,lcNewSty,lnMemoSet, lnAlias
+lnAlias = SELECT(0)
+
+SELECT (lcOldStyle)
+lnMemoSet = SET('MEMOWIDTH')
+SET MEMOWIDTH TO 40
+
+IF SEEK(lcNewSty,'STYLE')
+  SELECT STYLE
+  SCATTER MEMO MEMVAR
+  SELECT (lcOldStyle)
+  IF !SEEK(lcOldSty)
+    APPEND BLANK
+  ENDIF
+    IF llCodesFnd
+      lcDivDesc  = gfCodDes(m.cDivision         ,'CDIVISION')
+      m.Division = lfUpdCodes(lcDivDesc,'D')
+      lcGrpDesc  = gfCodDes(m.cStyGroup         ,'CSTYGROUP')
+      m.Group    = lfUpdCodes(lcGrpDesc,'G')
+      lcSeaDesc  = gfCodDes(SUBSTR(m.Style,1,3) ,'SEASON   ')
+      m.Season   = lfUpdCodes(lcSeaDesc,'Z',m.Season)
+      IF RIGHT(m.Style,3) = '000' 
+        IF SEEK('C'+SUBSTR(m.Style,14,3),lcOldCodes)
+          m.Color = SUBSTR(m.Style,14,3)
+        ELSE
+          lcClrDesc  = gfCodDes(SUBSTR(m.Style,14),'COLOR    ')
+          SELECT (lcOldCodes)
+          APPEND BLANK
+          REPLACE CODE  WITH 'C'+SUBSTR(m.Style,14,3),;
+                  CDATA WITH lcClrDesc
+        ENDIF
+      ELSE
+        lcClrDesc  = gfCodDes(SUBSTR(m.Style,14),'COLOR    ')
+        m.Color    = lfUpdCodes(lcClrDesc,'C')
+      ENDIF
+    ENDIF
+    SELECT (lcOldStyle)
+    m.style    = SUBSTR(m.style,5,8)
+    m.Lbl_Code = m.cCarLbl
+    m.Weight   = m.nStyWeight
+    m.ProdDesc = m.MProdDesc
+    IF MEMLINES(STYLE.MSALESDESC) > 0
+      FOR lnI = 1 TO MEMLINES(STYLE.MSALESDESC)
+        IF lnI <= 5
+          lcInI = STR(lnI,1)        
+          m.SDesc&lcInI = MLINE(STYLE.MSALESDESC,lnI)
+        ENDIF  
+      ENDFOR
+    ENDIF
+    GATHER MEMO MEMVAR
+    IF llNoteFnd
+      =lfUpdNote('F'+SEASON+STYLE,'F'+SUBSTR(lcNewSty,1,12))
+    ENDIF
+    IF llScaleFnd
+      IF SEEK('S'+STYLE.SCALE,'SCALE')
+        SELECT SCALE
+        SCATTER MEMVAR
+        SELECT (lcOldScale)
+        IF !SEEK('S'+ALLTRIM(STYLE.SCALE))
+          APPEND BLANK
+        ENDIF
+        m.Desc = m.cScl_Desc
+        GATHER MEMVAR
+      ENDIF
+      IF SEEK('S'+STYLE.SCALE+STYLE.PREPAK,'SCALE')
+        SELECT SCALE
+        SCATTER MEMVAR
+        SELECT (lcOldScale)
+        IF !SEEK('S'+ALLT(STYLE.SCALE)+STYLE.PREPAK)
+          APPEND BLANK
+        ENDIF
+        m.Desc = m.cScl_Desc
+        GATHER MEMVAR
+      ENDIF
+    ENDIF
+    IF llCrlblFnd
+      SELECT (lcOldCrlbl)
+      IF !SEEK(m.Lbl_Code)
+        APPEND BLANK
+      ENDIF
+      STORE SPACE(0) TO lcCareDsc1, lcCareDsc2, lcCareDsc3, lcCareDsc4, lcCareDsc5
+      DECLARE laCare1[1,2]
+      DECLARE laCare2[1,2]
+      DECLARE laCare3[1,2]
+      DECLARE laCare4[1,2]
+      DECLARE laCare5[1,2]
+
+      laCare1[1,1] = 'CDESC1'
+      laCare1[1,2] = 'lcCareDsc1'
+      laCare2[1,1] = 'CDESC2'
+      laCare2[1,2] = 'lcCareDsc2'
+      laCare3[1,1] = 'CDESC3'
+      laCare3[1,2] = 'lcCareDsc3'
+      laCare4[1,1] = 'CDESC4'
+      laCare4[1,2] = 'lcCareDsc4'
+      laCare5[1,1] = 'CDESC5'
+      laCare5[1,2] = 'lcCareDsc5'
+      = gfRltFld(m.Lbl_Code , @laCare1 , 'CCARLBL')
+      = gfRltFld(m.Lbl_Code , @laCare2 , 'CCARLBL')
+      = gfRltFld(m.Lbl_Code , @laCare3 , 'CCARLBL')
+      = gfRltFld(m.Lbl_Code , @laCare4 , 'CCARLBL')
+      = gfRltFld(m.Lbl_Code , @laCare5 , 'CCARLBL')
+      REPLACE Lbl_Code WITH m.Lbl_Code,;
+              DESC1 WITH lcCareDsc1,;
+              DESC2 WITH lcCareDsc2,;
+              DESC3 WITH lcCareDsc3,;
+              DESC4 WITH lcCareDsc4,;
+              DESC5 WITH lcCareDsc5
+    ENDIF
+  
+ENDIF
+SET MEMOWIDTH TO lnMemoSet
+SELECT(lnAlias)
+*-- End of lfUpdStyle.
+
+
+*ahmed-cat [Start]
+FUNCTION lfUpdCodes
+PARAMETERS lcDesc, lcType, lcNewCode
+PRIVATE lcDesc, lcType, lcNewCode, lcCode, lnCnt, lnLen, lnAlias
+lnAlias = SELECT(0)
+
+SELECT (lcOldCodes)
+*LOCATE FOR UPPER(CDATA) = UPPER(LEFT(lcDesc,15)) AND LEFT(Code,1) = lcType
+SEEK lcType
+LOCATE REST WHILE Code = lcType FOR ALLTRIM(UPPER(CDATA)) == ALLTRIM(UPPER(lcDesc))
+IF FOUND()
+  lcCode = CODE
+ELSE
+  IF lcType = 'Z' .AND. SEEK(lcType+ALLTRIM(lcNewCode))
+    lcCode = SUBSTR(CODE,2)
+    SELECT(lnAlias)
+    RETURN lcCode
+  ELSE
+    IF lcType = 'Z'
+      SELECT (lcOldCodes)
+      APPEND BLANK
+      REPLACE CODE  WITH 'Z'+lcNewCode,;
+              CDATA WITH lcDesc
+      SELECT(lnAlias)
+      RETURN ALLTRIM(lcNewCode)
+    ENDIF  
+  ENDIF
+  lnCnt = 0
+  lnLen = IIF(lcType$'ZC',3,2)
+  DO WHILE lnCnt < 10^lnLen
+    lcCode = lcType + PADL(ALLTRIM(STR(lnCnt)),lnLen,'0')
+    IF SEEK(lcCode)
+      lnCnt = lnCnt + 1
+    ELSE
+      APPEND BLANK
+      REPLACE CODE  WITH lcCode,;
+              CDATA WITH lcDesc
+      EXIT
+    ENDIF
+  ENDDO
+ENDIF
+lcCode = SUBSTR(lcCode,2)
+SELECT(lnAlias)
+RETURN lcCode
+*-- End of lfUpdCodes.
+*ahmed-cat [End]
+
+*ahmed-cat [Start]
+FUNCTION lfUpdNote
+PARAMETERS lcNoteOld, lcNewNote
+PRIVATE lcNoteOld, lcNewNote, lnAlias, lnMemoSet
+lnAlias = SELECT(0)
+lnMemoSet = SET('MEMOWIDTH')
+SET MEMOWIDTH TO 75
+IF SEEK(lcNewNote,'NOTEPAD')
+  SELECT (lcOldNote)
+  IF SEEK(lcNoteOld)
+    DELETE REST WHILE Type+Key+STR(RECNO(),7) = lcNoteOld
+  ENDIF
+  IF MEMLINES(NOTEPAD.MNOTES) > 0
+    FOR lnI = 1 TO MEMLINES(NOTEPAD.MNOTES)
+      APPEND BLANK
+      REPLACE TYPE WITH NOTEPAD.TYPE,;
+              KEY  WITH NOTEPAD.KEY,;
+              TEXT WITH MLINE(NOTEPAD.MNOTES,lnI)
+    ENDFOR
+  ENDIF
+ENDIF
+SET MEMOWIDTH TO lnMemoSet
+SELECT (lnAlias)
+*-- End of lfUpdNote.
+*ahmed-cat [End]
+
+*!**************************************************************************
+*! Name      : lpAddCust
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 09/11/2000
+*! Purpose   : Update Customer file in Version 1.
+*!**************************************************************************
+*! Parameters: lcAccount -> Account code.
+*!**************************************************************************
+*
+PROCEDURE lpAddCust
+PARAMETERS lcAccount
+PRIVATE lcAlias
+
+lcAlias = ALIAS()
+
+IF SEEK('M'+lcAccount,'Customer')
+  SELECT Customer
+  SCATTER MEMVAR MEMO
+  SELECT (lcOldCust)
+
+  m.Division = lfUpdCodes(gfCodDes(m.cDivision ,'CDIVISION'),'D')
+  IF !EMPTY(m.Region)
+    m.Region = lfUpdCodes(gfCodDes(m.Region,'REGION'),'R')
+  ENDIF  
+
+  IF !EMPTY(m.cTermCode)
+    m.Terms = lfUpdCodes(gfCodDes(m.cTermCode ,'CTERMCODE'),'T')
+  ENDIF  
+      
+  IF !EMPTY(m.cInsur)
+    m.SpcInst = lfUpdCodes(gfCodDes(m.SpcInst ,'SPCINST'),'S')
+  ENDIF  
+      
+  IF !EMPTY(m.Class)
+    m.Class = lfUpdCodes(gfCodDes(m.Class ,'CLASS'),'L')
+  ENDIF  
+      
+  IF !EMPTY(m.ShipVia)
+    m.ShipVia = lfUpdCodes(gfCodDes(m.ShipVia ,'SHIPVIA'),'V')
+  ENDIF  
+  
+  IF !SEEK('M'+lcAccount)
+    APPEND BLANK
+  ENDIF  
+  GATHER MEMVAR MEMO
+
+  REPLACE FactAcct WITH m.cFacCode  ,;
+          Insur    WITH m.cInsur    ,;
+          StAddr1  WITH m.cAddress1 ,;
+          StAddr2  WITH m.cAddress2 ,;
+          StCity   WITH m.cAddress3 ,;
+          StState  WITH m.cAddress4 ,;
+          StZip    WITH m.cAddress5 ,;
+          BtAddr1  WITH m.cAddress12 ,;
+          BtAddr2  WITH m.cAddress22 ,;
+          BtCity   WITH m.cAddress32 ,;
+          BtState  WITH m.cAddress42 ,;
+          BtZip    WITH m.cAddress52
+          
+  IF llNoteFnd
+    =lfUpdNote('A'+lcAccount,'A'+lcAccount)
+  ENDIF
+ENDIF
+
+IF SEEK('S'+lcAccount,'Customer')
+  SELECT Customer
+  
+  SCAN REST WHILE Type + Account + Store = 'S' + lcAccount
+    SCATTER MEMVAR MEMO
+    SELECT (lcOldCust)
+
+    IF !EMPTY(m.ShipVia)
+      m.ShipVia = lfUpdCodes(gfCodDes(m.ShipVia ,'SHIPVIA'),'V')
+    ENDIF  
+  
+    IF !SEEK('S'+lcAccount+m.Store)
+      APPEND BLANK
+    ENDIF  
+  
+    GATHER MEMVAR MEMO
+    REPLACE FactAcct WITH m.cFacCode  ,;
+            Insur    WITH m.cInsur    ,;
+            StAddr1  WITH m.cAddress1 ,;
+            StAddr2  WITH m.cAddress2 ,;
+            StCity   WITH m.cAddress3 ,;
+            StState  WITH m.cAddress4 ,;
+            StZip    WITH m.cAddress5 ,;
+            BtAddr1  WITH m.cAddress12 ,;
+            BtAddr2  WITH m.cAddress22 ,;
+            BtCity   WITH m.cAddress32 ,;
+            BtState  WITH m.cAddress42 ,;
+            BtZip    WITH m.cAddress52          
+
+  ENDSCAN  
+ENDIF
+
+SELECT(lcAlias)
+*-- End of lpAddCust.
+
+*!**************************************************************************
+*! Name      : lfUpdBomCa
+*! Developer : Ahmed Maher (AMH)
+*! Date      : 09/11/2001
+*! Purpose   : function to update custom fields in BOM file.
+*!*************************************************************
+*! Due to B604899
+*:*************************************************************
+*
+FUNCTION lfUpdBomCa
+
+PRIVATE lnAlias
+lnAlias = SELECT(0)
+IF TYPE('laAStySeg') # 'U'
+  lnMark_Len  = PDMMARK.CMARK_LEN
+  lnOut_Goods = PDMMARK.NOUTGOODS
+  lnTot_Units = PDMMARK.NUNITS
+  lnLoss      = PDMMARK.NMRKLOSS
+ELSE
+  SELECT (lcTmpBom)
+  REPLACE MARKER_LEN WITH PDMMARK.CMARK_LEN,;
+          OUT_GOODS  WITH PDMMARK.NOUTGOODS,;
+          TOT_UNITS  WITH PDMMARK.NUNITS,;
+          LOSS       WITH PDMMARK.NMRKLOSS
+ENDIF
+SELECT (lnAlias)
+*--end of lfUpdBomCa.

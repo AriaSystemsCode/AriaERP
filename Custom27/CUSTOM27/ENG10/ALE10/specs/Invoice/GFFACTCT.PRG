@@ -1,0 +1,18 @@
+LCFILE = ALIAS()
+IF  .NOT. USED('NOTEPAD')
+   SELECT 0
+   USE (GCDATADIR+'NOTEPAD')
+ENDIF
+SELECT NOTEPAD
+SET ORDER TO NOTEPAD
+IF SEEK('T'+'CONDITIONS')
+	store mnotes to lmmnotes2
+   SELECT &lcFile
+   RETURN .T.
+ELSE
+	store '' to lmmnotes2
+   SELECT &lcFile
+   RETURN .F.
+ENDIF
+RETURN
+*

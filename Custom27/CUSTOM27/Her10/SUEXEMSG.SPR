@@ -1,0 +1,279 @@
+
+*       *********************************************************
+*       *
+*       * 07/05/2001           SUEXEMSG.SPR              13:02:36
+*       *
+*       *********************************************************
+*       *
+*       * Author's Mohamed Atia Badran
+*       *
+*       * Copyright (c) 2001 Aria Systems Inc.
+*       *********************************************************
+
+
+*       *********************************************************
+*       *
+*       *         SUEXEMSG/Windows Setup Code - SECTION 1
+*       *
+*       *********************************************************
+#REGION 1
+lcNoPrompt = IIF(TYPE("lcNoPrompt") = "C",lcNoPrompt,"\<No")
+
+#REGION 0
+REGIONAL m.currarea, m.talkstat, m.compstat
+
+IF SET("TALK") = "ON"
+	SET TALK OFF
+	m.talkstat = "ON"
+ELSE
+	m.talkstat = "OFF"
+ENDIF
+m.compstat = SET("COMPATIBLE")
+SET COMPATIBLE FOXPLUS
+
+*       *********************************************************
+*       *
+*       *               Windows Window definitions
+*       *
+*       *********************************************************
+*
+
+lcIcon = IIF(FILE("ARIA.ICO"),[ICON FILE "ARIA.ICO"],"")
+lnWinWidth = 42.857
+
+*** Calculat window higth according to the length of the messag
+lnWinHight = INT(LEN(ALLTRIM(lcMessage))/lnWinWidth) + 6
+
+IF NOT WEXIST("_0fg0zpukp")
+    DEFINE WINDOW "_0fg0zpukp" ;
+	       AT  0.000, 0.000  ;
+		   SIZE lnWinHight,lnWinWidth;
+		   FONT "System", 10 ;
+		   STYLE "B" ;
+		   FLOAT ;
+           SYSTEM ;
+           TITLE "Aria Advantage Series";
+		   NOMINIMIZE ;
+		   COLOR RGB(,,,192,192,192);
+		&lcIcon
+
+	MOVE WINDOW _0fg0zpukp CENTER
+ENDIF
+
+
+*       *********************************************************
+*       *
+*       *             SUEXEMSG/Windows Screen Layout
+*       *
+*       *********************************************************
+*
+
+#REGION 1
+IF WVISIBLE("_0fg0zpukp")
+	ACTIVATE WINDOW _0fg0zpukp SAME
+    llSayCnt=.F.
+ELSE
+	ACTIVATE WINDOW _0fg0zpukp NOSHOW
+    llSayCnt=.T.
+ENDIF
+
+
+      @ 0.000,0.000 TO 0.000,lnWinWidth ;
+		PEN 1, 8 ;
+		STYLE "1" ;
+		  COLOR RGB(255,255,255,255,255,255)
+  	  @ 0.000,0.000 TO lnWinHight,0.000 ;
+		PEN 1, 8 ;
+		  COLOR RGB(255,255,255,255,255,255)
+  	  @ 0.188,0.429 TO 0.188,lnWinWidth-.6 ;
+		PEN 1, 8 ;
+		STYLE "1" ;
+		  COLOR RGB(128,128,128,128,128,128)
+	  @ 0.188,0.429 TO lnWinHight-.3,0.429 ;
+		PEN 1, 8 ;
+		  COLOR RGB(128,128,128,128,128,128)
+	  @ 0.000,lnWinWidth TO lnWinHight,lnWinWidth ;
+		PEN 1, 8 ;
+		  COLOR RGB(128,128,128,128,128,128)
+	  @ 0.188,lnWinWidth-.6 TO lnWinHight-.3,lnWinWidth-.6 ;
+		PEN 1, 8 ;
+		  COLOR RGB(255,255,255,255,255,255)
+	  @ lnWinHight,0.143 TO lnWinHight,lnWinWidth ;
+		PEN 1, 8 ;
+		STYLE "1" ;
+		  COLOR RGB(128,128,128,128,128,128)
+	  @ lnWinHight-.3,0.4 TO lnWinHight-.3,lnWinWidth-.4 ;
+		PEN 1, 8 ;
+		STYLE "1" ;
+	      COLOR RGB(255,255,255,255,255,255)
+
+IF lnMessType = 4
+    @ lnWinHight - 2,11.286 GET pbYes ;
+	    PICTURE "@*HT \<Yes" ;
+	    SIZE 1.846,11.333,1.000 ;
+	    DEFAULT 1 ;
+	  FONT "MS Sans Serif", 9 ;
+	   STYLE "B" ;
+	    VALID _0fg0zpumv()
+ENDIF
+
+IF lnMessType = 4
+    @ lnWinHight -2,21.714 GET pbNo ;
+	    PICTURE "@*HT "+lcNoPrompt ;
+	    SIZE 1.846,11.333,1.000 ;
+	    DEFAULT 1 ;
+	  FONT "MS Sans Serif", 9 ;
+	   STYLE "B" ;
+	    VALID _0fg0zpun4()
+ENDIF
+
+IF lnMessType = 0
+    @ lnWinHight - 2,16.571 GET pbOK ;
+	    PICTURE "@*HT \<OK" ;
+	    SIZE 1.846,11.333,1.000 ;
+	    DEFAULT 1 ;
+	  FONT "MS Sans Serif", 9 ;
+	   STYLE "B" ;
+	    VALID _0fg0zpunb()
+ENDIF
+
+@ 1.5,2 SAY lcMessage SIZE lnWinHight-4,lnWinWidth-3
+
+lcWindNoGr = ''
+
+IF NOT WVISIBLE("_0fg0zpukp")
+	ACTIVATE WINDOW _0fg0zpukp
+ENDIF
+
+READ CYCLE MODAL ;
+	ACTIVATE lfAriaAct()
+
+  RELEASE WINDOW _0fg0zpukp
+
+#REGION 0
+IF m.talkstat = "ON"
+	SET TALK ON
+ENDIF
+IF m.compstat = "ON"
+	SET COMPATIBLE ON
+ENDIF
+
+
+
+*       *********************************************************
+*       *
+*       * _0FG0ZPUMV           pbYes VALID
+*       *
+*       * Function Origin:
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         SUEXEMSG,     Record Number:   10
+*       * Variable:            pbYes
+*       * Called By:           VALID Clause
+*       * Object Type:         Push Button
+*       * Snippet Number:      1
+*       *
+*       *********************************************************
+*
+FUNCTION _0fg0zpumv     &&  pbYes VALID
+#REGION 1
+lnReturn = 1
+
+*       *********************************************************
+*       *
+*       * _0FG0ZPUN4           pbNo VALID
+*       *
+*       * Function Origin:
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         SUEXEMSG,     Record Number:   11
+*       * Variable:            pbNo
+*       * Called By:           VALID Clause
+*       * Object Type:         Push Button
+*       * Snippet Number:      2
+*       *
+*       *********************************************************
+*
+FUNCTION _0fg0zpun4     &&  pbNo VALID
+#REGION 1
+lnReturn = 0
+
+*       *********************************************************
+*       *
+*       * _0FG0ZPUNB           pbOK VALID
+*       *
+*       * Function Origin:
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         SUEXEMSG,     Record Number:   12
+*       * Variable:            pbOK
+*       * Called By:           VALID Clause
+*       * Object Type:         Push Button
+*       * Snippet Number:      3
+*       *
+*       *********************************************************
+*
+FUNCTION _0fg0zpunb     &&  pbOK VALID
+#REGION 1
+lnReturn = 0
+
+*       *********************************************************
+*       *
+*       * LFARIAACT           Read Level Activate
+*       *
+*       * Function Origin:
+*       *
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         SUEXEMSG
+*       * Called By:           READ Statement
+*       * Snippet Number:      4
+*       *
+*       *********************************************************
+*
+FUNCTION lfAriaAct     && Read Level Activate
+IF TYPE('lcWindNoGr') = 'C' AND !EMPTY(lcWindNoGr)
+  DO CASE
+    CASE WONTOP() $ lcWindNoGr
+      MODIFY WINDOW (WONTOP()) NOGROW
+      lcWindNoGr = STRTRAN(lcWindNoGr,WONTOP())
+    CASE WPARENT(WONTOP()) $ lcWindNoGr
+      MODIFY WINDOW (WPARENT(WONTOP())) NOGROW
+      lcWindNoGr = STRTRAN(lcWindNoGr,WPARENT(WONTOP()))
+  ENDCASE
+ENDIF
+
+*       *********************************************************
+*       *
+*       * LFVY2K           Valid 1900 year
+*       *
+*       * Function Origin:
+*       *
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         SUEXEMSG
+*       * Called By:           READ Statement
+*       * Snippet Number:      5
+*       *
+*       *********************************************************
+*
+FUNCTION lfvY2K     && Valid 1900 year
+PRIVATE lcY2kCent , ldY2kDate , lcY2kObj , lnY2kIncr , lnY2KNew , lcY2KAlias
+lcY2KAlias = SELECT(0)
+SELECT 0
+IF TYPE(SYS(18)) = 'U'
+  SELECT (lcY2KAlias)
+ENDIF
+IF YEAR(EVALUATE(VARREAD())) <= 1930
+  lcY2KCent = SET('CENT')
+  SET CENT ON
+  lcY2KObj     = SYS(18)
+  lnY2KIncr    = YEAR(EVALUATE(VARREAD()))
+  lnY2KNew     = 2000+(lnY2KIncr/100-int(lnY2KIncr/100))*100
+  ldY2KDate    = DTOC(EVALUATE(VARREAD()))
+  ldY2KDate    = STRTRAN(ldY2KDate , ALLTRIM(STR(YEAR(EVALUATE(VARREAD())))) , ALLTRIM(STR(lnY2KNew)))
+  ldY2KDate    = CTOD(ldY2KDate)
+  &lcY2KObj    = ldY2KDate
+  SET CENT &lcY2KCent
+ENDIF
+SELECT (lcY2KAlias)

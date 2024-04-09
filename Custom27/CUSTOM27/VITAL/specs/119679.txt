@@ -1,0 +1,31 @@
+Questions (1):
+I want to confirm that you need the following:
+1- Use the same selection criteria as Sales rep booking report.
+2- Add a new option to select by style.
+3- Add a new option to select range of months.
+4- You don’t need to print the order number.
+5- Based on which date we will break the bookings by month: Completion date, Entered date or Start Date?
+
+Answers(1):
+In addition to what you mentioned, we need the field ROYALTY which is under the Style table. We use this field to group our styles.
+
+The report needs to be printed in DETAIL or SUMMARY.
+If Detail, then Order# is to be included. IF Summary is chosen by the user, then only totals are to be printed and Order# is to be omitted.
+The format is to be as in the Attached specs
+
+Questions(2):
+1- Based on which date we will break the bookings by month: Completion date, Entered date or Start Date?
+2- How many month you need to print ? Do you want to print the 12 months of the year?
+3- In case of detail format, how we will print the order#? Will it affect the totals? Please send us another format for the detail report.
+4- In case of summary, the total will be for each customer, right?
+5- Regarding the royalty, do you want to add an option to filter on it, or do you want to print it in the report?
+
+Answers(2):
+1- Usually Booking Reports are based on the date orders were booked, so it is the Entry date. However, Can we have the user select either "Entered Date" or " Start Ship Date" or "Complete Date".
+2- Yes print 12 months in a column format as shown in the attachment.
+3- Forget about the detail report. Just give the ability for the user to sort the summary by either Customer or by Style. If the user selects the sort by Style then under each style listall Customers who bought this style; if the user selects By Customer, then list all the Styles the customer bought.
+4- Explained in point#3, Total by Customer then total by Style. See Attachment example on this.
+5- Under the style screen in Aria, we have 3 fields that are related to a style; they are: Season, Group, Royalty. The user needs to be able to filter in any of these fields.
+
+The user will be able to filter a single customer or all customers.
+The user will be able to filter on Season, Group, or Royalty. 

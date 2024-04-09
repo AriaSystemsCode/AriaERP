@@ -1,0 +1,8 @@
+LPARAMETERS lcMemoFile
+Error in line 1: Unrecognized command verb.
+_SCREEN.CAPTION = 'Purchase Order Report'
+Error in line 9: Unrecognized command verb.
+_SCREEN.WINDOWSTATE = 2
+Error in line 10: Unrecognized command verb.
+LPARAMETERS lcField
+Error in line 27: Unrecognized command verb.

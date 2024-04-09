@@ -1,0 +1,48 @@
+ROWTYPE        	String	2	
+DEPT           	String	6	
+CSTYGROUP      	String	6	
+CCATG          	String	6	
+CCLASS         	String	6	
+CSUB_CLASS     	String	6	
+STYLE          	String	12	
+COLOR          	String	6	
+CDESC          	String	15	
+PO             	String	6	
+IMMOTS         	Long		
+ONORDER        	Long		
+ALLOCATED      	Long		
+OTS            	Long		
+ONHOLD         	Long		
+PRICEA         	Currency		
+PRICEC	Currency		
+NSUGRETPRI     	Currency		
+MSPRICE        	Currency		
+ETD	Date		
+ETA	Date		
+CUSTDELDT      	Date		
+UPC	String	13	
+INNERPACK      	Long		
+MASTPACK       	Long		
+MPLENGHT       	Long		
+MPWIDTH        	Long		
+MPDEPTH        	Number		
+MPCUBE         	Number		
+MPWEIGHT       	Number		
+PACK_ID	String	16	
+PACK_DESC	String	20	
+SELLPRICE      	Currency		
+SHIPVIA        	String	1	
+FOBCOST        	Currency		
+CMTCOST        	Currency		
+DUTY           	Currency		
+FREIGHT        	Currency		
+TICKETING      	Currency		
+FABRICCOST     	Currency		
+LANDEDCOST     	Currency		
+MFG	String	8	
+COMMISSION     	String	10	
+EXTENSION      	Currency		
+HTS	Long		
+ADD_DATETIME	Date		
+DEPTDESC       	String	30	
+SIZE	String	6

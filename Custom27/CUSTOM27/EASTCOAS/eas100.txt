@@ -1,0 +1,18 @@
+ 0....+....1....+....2....+....3....+....4....+....5
+ 1
+ 2   
+ 3   (ITEM)       (ITEM DESC            )
+ 4   
+ 5   (COLOR)      (COLOR DESCRIPTION)
+ 6   
+ 7   (FABRIC CONTENT  45 Chrs                     )
+ 8
+ 9   XXXXXXXXXXXXXXXXXXXX        (YARDAGE) (UOM)  
+10   XXXXXXXXXXXXXXXXXXXX
+11   X(ROLL ID BAR CODE)X
+12   XXXXXXXXXXXXXXXXXXXX        (TRANSACTION DATE)
+13   XXXXXXXXXXXXXXXXXXXX
+14
+15   'ROLL ID:' (ROLL ID)
+16
+18

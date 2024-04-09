@@ -1,0 +1,23 @@
+For the EXE file to complete updating your system correctly, please do the following
+  
+1- Please update file structure for file(s) GLBATEX
+In order to update file Structures, please do the following
+  a. Be sure that no other users in the system.
+  b. Run the System.
+  c. Select the System Manager module.
+  d. Run the Maintain Dictionary screen by clicking the "Transaction/Maintain Dictionary" menu bar.
+  e. Select the above mentioned file(s).
+  f. Press the "Update file Structures" button.
+  g. The system will prompt you that updating finished, then you should press OK and close the screen.
+ 
+2- Please update file index(s) for file(s) GLBATEX
+In order to update file Indices, please do the following
+  a. Be sure that no other users in the system.
+  b. Run the System.
+  c. Select the System Manager module.
+  d. Run the Maintain Dictionary screen by clicking the "Transaction/Maintain Dictionary" menu bar.
+  e. Select the above mentioned file(s).
+  f. Press the "Update file Indices" button.
+  g. The system will prompt you that updating finished, then you should press OK and close the screen.
+ 
+----------------------------------------------------------------------

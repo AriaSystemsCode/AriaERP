@@ -1,0 +1,6 @@
+Line 21: Property OleObjectBlob in ctrTotalProgress had an invalid file reference.
+Line 18: Cannot load control ctrTotalProgress.
+Line 29: Property OleObjectBlob in ctrFileProgress had an invalid file reference.
+Line 26: Cannot load control ctrFileProgress.
+Line 54: Property OleObjectBlob in zipZipControl had an invalid file reference.
+Line 52: Cannot load control zipZipControl.

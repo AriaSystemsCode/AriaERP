@@ -1,0 +1,36 @@
+LPARAMETERS lcMemoFile
+IF TYPE('lcMemoFile')#'C'
+  RETURN
+ENDIF
+RESTORE FROM (lcMemoFile) ADDI
+*WAIT lcRpDtDir WINDOW
+lcCriter = IIF(EMPTY(lcRpExp) OR lcRpExp='.T.','','For '+lcRpExp)
+HIDE MENU _MSYSMENU
+_SCREEN.CAPTION = 'Purchase Order Report'
+_SCREEN.WINDOWSTATE = 2
+DEFINE WINDOW PRTWIND FROM 0,0 TO SROWS()-1,SCOLS();
+       TITLE 'Purchase Order';
+       SYSTEM CLOSE FLOAT GROW
+
+*ACTI WINDOW PRTWIND       
+DO CASE
+  CASE lcRpDevice = 'SCREEN'
+     REPORT FORM (lcRpRpDir+'PO\POSTYCP.FRX') PREVIEW WINDOW PRTWIND &lcCriter
+  CASE lcRpDevice = 'PRINTER'  
+     REPORT FORM (lcRpRpDir+'PO\POSTYCP.FRX') TO PRINTER &lcCriter NOCONSOLE
+ENDCASE
+RELEASE WINDOW PRTWIND
+SHOW MENU _MSYSMENU
+
+*C102471,1 AMH Function to get the code description [Start]
+FUNCTION lfCodeDesc
+LPARAMETERS lcField
+PRIVATE lcRet
+lcRet = ''
+IF TYPE('POSHDR.'+lcField) # 'U'
+  IF SEEK('N'+PADR(lcField,10)+ALLTRIM(EVALUATE('POSHDR.'+lcField)),'CODES')
+    lcRet = Codes.cDiscRep
+  ENDIF
+ENDIF
+RETURN lcRet
+*C102471,1 AMH [End]

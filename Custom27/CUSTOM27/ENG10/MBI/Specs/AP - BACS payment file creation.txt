@@ -1,0 +1,379 @@
+From: tony [tony@mbi-int.co.uk]
+Sent: Monday, May 21, 2001 10:06 AM
+To: AP
+Subject: RE: quote for AP - BACS payment file creation
+
+hi Amin
+
+Re the two points:
+
+1) Always prompt him for the file name
+2) Allow the overwrite or append option
+
+regds
+
+tony
+
+
+-----Original Message-----
+From: AP [mailto:AP@ARIA.COM.EG]
+Sent: Sunday, May 20, 2001 09:09
+To: UK TONY
+Subject: RE: quote for AP - BACS payment file creation
+
+
+
+
+Hi Tony,
+
+
+Thanks, but you did not reply to my questions!
+
+Thanks a lot
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Friday, May 18, 2001 12:49 PM
+To: AP
+Subject: RE: quote for AP - BACS payment file creation
+
+hi
+
+Sorry for the delay - please find attached example of the file that is to be
+created.
+
+regds
+
+tony
+
+
+-----Original Message-----
+From: AP [mailto:AP@ARIA.COM.EG]
+Sent: Thursday, May 03, 2001 09:52
+To: tony@mbi-int. co. uk (E-mail)
+Subject: FW: quote for AP - BACS payment file creation
+
+
+
+
+Hi Tony,
+
+Did you receive the below message. Please confirm
+
+
+Thanks
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: AP
+Sent: Sunday, April 29, 2001 8:15 PM
+To: UK TONY
+Subject: RE: quote for AP - BACS payment file creation
+
+
+Hi Tony,
+
+As per your request you want to save the payment entries to an ASCII file.
+Could you please send me an ASCII file that contains all the information for
+just two AP entries.  This will let the estimation for this entry accurate
+enough.
+
+Please let me know what we should do with the following points:
+1- Do we need to give a facility to the user to enter the ASCII file name
+and its path each time while printing the BACK PAYMENT?
+2- Do we need to overwrite the ASCII file each time while printing the BACK
+PAYMENT? Or we should give him a facility to overwrite / Append the new back
+payments?
+
+Thanks a lot
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Tuesday, April 24, 2001 4:31 PM
+To: AP
+Subject: RE: quote for AP - BACS payment file creation
+
+hi Amin
+
+Please find revised spec - sorry the original was confusing ( I had
+forgotten that a mentioned a new screen for CREATE BACS FILE - which I meant
+as later on in the spec to be part of the standard Print Cheque routine)
+
+regds
+
+tony
+
+
+-----Original Message-----
+From: AP [mailto:AP@ARIA.COM.EG]
+Sent: Tuesday, April 24, 2001 10:48
+To: UK TONY
+Subject: RE: quote for AP - BACS payment file creation
+
+
+
+
+Hi Tony,
+
+Please find attached original specs that I received from you about this
+entry.  Could you please look at it and update it with the final process.
+Please explain the process with the complete information especially the new
+screen and the printing pheques report.
+
+Thanks a lot
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Monday, April 23, 2001 9:40 AM
+To: AP
+Subject: RE: quote for AP - BACS payment file creation
+
+hi AMin
+
+In reference to the points below:
+
+1) Yes it is OK for these details to be entered on a separate screen
+
+2) We do not need another screen to create the BACS payment file because of
+3 below
+
+3) Instead of having a new screen as above if we add  a new option on the
+screen for printing cheques - "create BACS payment file ?" - then the
+process of the cheque printing stays the same with all the updates including
+the printing of a "CHEQUE/REMITTANCE ADVICE" - as this is the only way they
+have of alerting the Vendor of the coming payment.
+
+I hope this is now clear.
+
+regds
+
+tony
+
+
+
+-----Original Message-----
+From: AP [mailto:AP@ARIA.COM.EG]
+Sent: Sunday, April 22, 2001 02:42
+To: tony@mbi-int. co. uk (E-mail)
+Subject: FW: quote for AP - BACS payment file creation
+
+
+
+
+Hi Tony,
+
+Here is a scenario of this entry. Please read it and if you find anything
+wrong please confirm:
+
+- Do we need to update the Vendor master file to have the new fields or we
+should have a separate file to have all those fields. I recommend to have a
+separate file to have it especially if the vendor dealings with more than
+one bank.
+- New screen needs to be added to hold those new fields. The objective from
+this screen is to determine which vendor needs automatic payments to the
+bank.  This screen will hold one record for each supplier + Bank.  The
+layout of this screen as follows:
+
+       Supplier Code:
+       Sort Code:
+       Account Code :
+       Payee Name :
+       Bank Code:
+        <<   Ok   >>     << Cancel>>
+
+- Another new screen will be added to create back payments file. This screen
+will create an entry to ASCI file without printing any cheques or remittance
+advice. The layout of this screen as follows:
+       Supplier Code:
+        Bank Code:
+        <<   Ok   >>     << Cancel>>
+
+- One more option will be added in Print Cheque report grid "CREATE BACS
+PAYMENT FILE", Really it's not clear to me what should I do with this option
+in Printing Cheque report. Please explain.
+
+
+Note:  I attached the original specs that I have received from you about
+this issue just in case you want to review it.
+
+
+Thanks a lot.
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Thursday, April 19, 2001 6:05 PM
+To: AP
+Subject: RE: quote for AP - BACS payment file creation
+
+hi Amin
+
+re the simple ones:
+
+Point 1 - yes the approve payments will be done in the standard way
+
+Point 2 - the new screen is just an information screen where the client can
+enter these extra details for each Vendor that will be paid by this method -
+no payment processing will be done here.
+
+Point 3 - The new "Create BACS PAYMENTS" - could be a new program or an
+option on the report grid of the standard AP-Ouput-Print Cheque program. The
+program  still needs to print a cheque/remittance advice -  which are sent
+to the Vendor to alert them that a payment has been made. The only
+difference will be if this option is selected it will create a entry to the
+BACS ASCII file for each supplier that has an entry in the new screen as per
+point 2.
+
+
+I hope that this clarifies the issues
+
+regds
+
+tony
+
+
+-----Original Message-----
+From: AP [mailto:AP@ARIA.COM.EG]
+Sent: Thursday, April 19, 2001 04:52
+To: tony
+Subject: RE: quote for AP - BACS payment file creation
+
+
+
+
+Hi Tony!
+
+Thanks for your explanation, now the idea is clear, but I'm still having
+some questions about the implementing this issue.  I will explain to you
+what I have understood and please confirm it:
+1. After we have created the AP invoice for each supplier, we will approve
+the payments as usually from the standard screen.
+2. We will have a new screen that will pick up all the approved payments per
+supplier. This screen will have the following fields ( supplier code, sort
+code, account code, payee name, bank code and Ok button).   Once the user
+clicks Ok button for the selected supplier, the program will do the same
+process of the printing cheques but it will hold the data into an ASCII
+file.
+
+So far the process is clear but in the specs you have mentioned that you
+have to add one more option to "Create Bas File", Really I don't know what
+should I do with this option and what is the difference with the above point
+# 2.  I have attached the original specs that I have received from you just
+to review the pages #  3 and 4.
+
+It will good for me if you attach your explaining with an example starting
+from beginning until the updating the ASCII File.
+
+
+Waiting for your help
+
+Thanks a lot
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Wednesday, April 18, 2001 4:48 PM
+To: SO
+Cc: AP
+Subject: FW: quote for AP - BACS payment file creation
+
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Wednesday, April 18, 2001 03:46
+To: tony
+Subject: RE: quote for AP - BACS payment file creation
+
+
+hi
+
+I will try to explain as simply as possible:
+
+We have a facility in the UK called "Bank Automated Credit Transfers" hence
+the the phrase BACS payments. This is where a customer's bank auotmatically
+transfers payment to a vendor based on information sent to the bank by the
+customer.
+
+e.g. If I was a customer paying Aria (the vendor) - i would instruct the
+bank to pay Aria a certain sum of money that would be autoamtically
+transferred from my bank to Aria's bank.
+
+There is a facility at the moment provided by the Banks whereby you can key
+the amounts to be paid into a piece of software supplied by the banks which
+auotmatically sends a file to the bank to let them know which vendors to pay
+and how much. The client wants to be able to create this file in Aria to
+save having to do the job twice.
+
+The specification I sent you was suppossed to explain this and how it should
+work.
+
+If the spec still does not make sense please let me know which aspects
+require more clarification I will do it for you.
+
+
+regds
+
+tony
+
+
+-----Original Message-----
+From: tony [mailto:tony@mbi-int.co.uk]
+Sent: Wednesday, April 18, 2001 02:51
+To: SO
+Subject: RE: quote for AP - BACS payment file creation
+
+
+hi Amin
+
+I received it this morning and will reply tonight or tommorrow
+
+regds
+
+tony
+
+
+
+-----Original Message-----
+From: SO [mailto:SO@ARIA.COM.EG]
+Sent: Wednesday, April 18, 2001 02:26
+To: tony@mbi-int. co. uk (E-mail)
+Subject: FW: quote for AP - BACS payment file creation
+
+
+
+
+Hi Tony,
+
+Please confirm whether you have received it or not.
+
+Thanks a lot.
+Amin Khodary
+Aria System, Inc.
+
+-----Original Message-----
+From: AP
+Sent: Tuesday, April 17, 2001 6:42 PM
+To: tony@mbi-int. co. uk (E-mail)
+Subject: RE: quote for AP - BACS payment file creation
+
+
+Hi Tony,
+
+Regarding the BACS payment   program ,  I'm  really confused,  I had read
+this specs so many times to just put my hand on the process of this entry
+but each time I got a different idea.
+Could you please send me in detail what you need exactly with this entry so
+that I can understand  what actually required so that I can estimate how
+many days required to finish this entry.
+Thanks  a lot
+Amin Khodary
+Aria System, Inc.

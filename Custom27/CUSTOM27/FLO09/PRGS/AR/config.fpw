@@ -1,0 +1,13 @@
+TITLE       = Aria Apparel System
+FILES       = 200
+DOSMEM      = OFF
+MVCOUNT     = 3000
+MEMLIMIT    = 400,40,6024
+BUCKETS     = 5
+RESOURCE    = OFF
+MOUSE       = 7
+TALK        = OFF
+EXCLUSIVE   = OFF
+DELETE      = ON
+CLOCK       = OFF
+CATMAN      = OFF

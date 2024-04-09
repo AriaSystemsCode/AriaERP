@@ -1,0 +1,27 @@
+:20:40003
+:32a:050603EUR670,50
+:50k:/51507865
+:57d://SC560035
+:59:/10054875
+Mrs C Brown
+788 London Row
+East Dulwich
+SE17 3AE
+-
+:20:40004
+:32a:050610AUD5700,00
+:50k:/51507865
+:57d:ANZ Bank
+Darlinghurst Ave
+Kings Cross
+Australia
+:59:/45213600
+Bob Wilson
+3a Bueller Court
+Richmond
+Victoria
+Australia
+:70:Sheepskin Rugs
+Wool
+:71a:/SHA
+-

@@ -1,0 +1,226 @@
+
+SET910                          OOC APPAREL, INC.                     05/31/01 ~
+10:26:31                       COMPANY INFORMATION                    PAGE#    1
+                                        
+********************************************************************************
+ COMPANY INFORMATION
+ ====================
+ COMPANY ....   OOC APPAREL, INC.             
+ ADDRESS .....  234 W. 39TH STREET            
+ ADDRESS .....  SUITE 403                     
+ C/S/Z........  NEW YORK        NY  10018     
+ PHONE .......  212-997-6800    
+ DUNS NO .....  14-821-8808 
+ UPS CODE ....  070            UPS ACCT.#              
+ FAX .........  212-764-1008    
+ ===============================================================================
+
+ FORMS CODE
+ ===========
+                    (A-Z)  (Y/N) (Y/N)
+                   FORMAT  NAME  FACTOR
+ ===============================================================================
+ ORDER           :   A      Y
+ INVOICE         :   Z      Y      Y
+ PICKING TICKET  :   B      Y
+ CREDIT MEMO     :   A      Y
+ STYLE PUR ORD   :   A      Y
+ MATERIAL PUR ORD:   A      Y
+ SHP LBL         :   D      Y
+ R/A LBL         :   D      Y
+ STATEMT         :   A      Y
+ ML. LBL         :   A      Y
+ CUTTING TICKET  :   A      Y
+ ===============================================================================
+
+ DIRECTORIES
+ ===========
+ Data directory ...  DATA49\             
+ Library directory.. LIB\                
+ Work directory .... WORK\               
+ Image directory ... IMAGES\                            
+ ===============================================================================
+
+SET910                          OOC APPAREL, INC.                     05/31/01 ~
+10:26:31                       COMPANY INFORMATION                    PAGE#    2
+                                        
+********************************************************************************
+ NUMERIC CONTROL
+ ===============
+ FOR GROUP  :  01
+ ===============================================================================
+      TYPE                                                         NUMBER
+ ===============================================================================
+ Order                                                             100123
+ Factored invoice                                                  100000
+ Non factored invoice                                              900000
+ Purchase order                                                         0
+ Picking ticket                                                       115
+ Return authorization                                                   0
+ Cutting ticket                                                         0
+ Credit memo                                                            0
+ Debit                                                                  0
+ Credit                                                                 0
+ History                                                                0
+ Charge back                                                            0
+ Batch adjustment                                                       0
+ Batch payment                                                          0
+ Salesrep transactions                                                  0
+ Letter of credit                                                       0
+ Transaction session                                                    0
+ Material manufacturing order                                           0
+
+SET910                          OOC APPAREL, INC.                     05/31/01 ~
+10:26:31                       COMPANY INFORMATION                    PAGE#    3
+                                        
+********************************************************************************
+ NUMERIC CONTROL
+ ===============
+ FOR GROUP  :  02
+ ===============================================================================
+      TYPE                                                         NUMBER
+ ===============================================================================
+ Order                                                             200045
+ Factored invoice                                                  200000
+ Non factored invoice                                              800000
+ Purchase order                                                         0
+ Picking ticket                                                         0
+ Return authorization                                                   0
+ Cutting ticket                                                         0
+ Credit memo                                                            0
+ Debit                                                                  0
+ Credit                                                                 0
+ History                                                                0
+ Charge back                                                            0
+ Batch adjustment                                                       0
+ Batch payment                                                          0
+ Salesrep transactions                                                  0
+ Letter of credit                                                       0
+ Transaction session                                                    0
+ Material manufacturing order                                           0
+
+SET910                          OOC APPAREL, INC.                     05/31/01 ~
+10:26:31                       COMPANY INFORMATION                    PAGE#    4
+                                        
+********************************************************************************
+ NUMERIC CONTROL
+ ===============
+ FOR GROUP  :  03
+ ===============================================================================
+      TYPE                                                         NUMBER
+ ===============================================================================
+ Order                                                             300212
+ Factored invoice                                                  300000
+ Non factored invoice                                              700000
+ Purchase order                                                         0
+ Picking ticket                                                         0
+ Return authorization                                                   0
+ Cutting ticket                                                         0
+ Credit memo                                                            0
+ Debit                                                                  0
+ Credit                                                                 0
+ History                                                                0
+ Charge back                                                            0
+ Batch adjustment                                                       0
+ Batch payment                                                          0
+ Salesrep transactions                                                  0
+ Letter of credit                                                       0
+ Transaction session                                                    0
+ Material manufacturing order                                           0
+
+SET910                          OOC APPAREL, INC.                     05/31/01 ~
+10:26:31                       COMPANY INFORMATION                    PAGE#    5
+                                        
+********************************************************************************
+ NUMERIC CONTROL
+ ===============
+ FOR GROUP  :  04
+ ===============================================================================
+      TYPE                                                         NUMBER
+ ===============================================================================
+ Order                                                             400001
+ Factored invoice                                                  400000
+ Non factored invoice                                              600000
+ Purchase order                                                         0
+ Picking ticket                                                         0
+ Return authorization                                                   0
+ Cutting ticket                                                         0
+ Credit memo                                                            0
+ Debit                                                                  0
+ Credit                                                                 0
+ History                                                                0
+ Charge back                                                            0
+ Batch adjustment                                                       0
+ Batch payment                                                          0
+ Salesrep transactions                                                  0
+ Letter of credit                                                       0
+ Transaction session                                                    0
+ Material manufacturing order                                           0
+ ===============================================================================
+
+ WAREHOUSE ADDRESS
+ =================
+ WAREHOUSE....  OOC APPAREL, INC.             
+ ADDRESS .....  234 W. 39TH STREET            
+ ADDRESS .....  SUITE 403                     
+ C/S/Z........  NEW YORK        NY  10018     
+ PHONE .......  212-997-6800    
+ ===============================================================================
+
+ SPECIAL PARAMETERS
+ ===================
+ Markup [B]ottom up  [T]op down                                B
+ Dyelots used ? [Y/N]                                          N
+ Track boxes for UPS manifest ? [Y/N]                          N
+ Backorder ? [A]lways [N]ever [I]nquire                        I
+ Show color names on browses  [Y/N]                            Y
+ Chargeback reps on credit adjustment ? [Y/N]                  Y
+ Force style group entry ? [Y/N]                               N
+ Default order status to "H" (hold) ? [Y/N]                    Y
+ Warn for customer above credit limit ? [Y/N]                  Y
+ Use style packs / SKU ? [Y/N]                                 Y
+ Add notes to order and invoice lines ? [Y/N]                  Y
+ Edit sales rep. commission at style level ? [Y/N]             Y
+ Sales rep. commission based on [C]ustomers or [D]ivisions     C
+ Allow posting to prior periods ? [Y/N]                        Y
+ Use multiple warehouses ? [Y/N]                               Y
+ Sequence numbers based on division ? [Y/N]                    Y
+ Style width 12 characters ? [Y/N]                             Y
+ Color width 6 characters ? [Y/N]                              Y
+ Enter the order number manually ? [Y/N]                       N
+ Enter the style PO number manually ? [Y/N]                    Y
+ Bypass invoice completion screen ? [Y/N]                      N
+ Post factored A/R to customer accounts ? [Y/N]                Y
+ Age A/R by (D)ate  (T)erms ?                                  T
+ Use U.P.C. numbers ? [Y/N]                                    Y
+ Maintain U.C.C. manufacturer ID at division level ? [Y/N]     N
+ Keep track of locations within warehouses ? [Y/N]             N
+ Post Mat. Cost variance to a var. or inv. account ? [V/I]     V
+ Enter the material PO number manually ? [Y/N]                 N
+ ===============================================================================
+
+ COSTING SETUP
+ =============
+ Trim inventory maintained ? [Y/N]............... N
+ Cost materials using:?[S]tandard [A]verage [L]ot A
+ Cost style using ?:[S]tandard  [A]verage.......  A
+ Use detailed costing for imported styles ? [Y/N] N
+ ===============================================================================
+
+ COSTING CATEGORY NAMES FOR MANUFACTURED STYLES
+ ==============================================
+ Fabric                        FABRIC        F
+ Trim                          TRIM          T
+ Manufacturing operations      MFG OPER.     M
+ Style components              STYLE         S
+ Miscellaneous                 MISC.         M
+ ===============================================================================
+
+ COSTING CATEGORY NAMES FOR IMPORTED STYLES
+ ==========================================
+ Purchase cost                 P. PRICE      P
+ Freight                       FREIGHT       D
+ Tax                           TAX           D
+ Quota                         QUOTA         D
+ Miscellaneous                 MISC.         M
+ ===============================================================================

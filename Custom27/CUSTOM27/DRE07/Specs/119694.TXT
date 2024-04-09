@@ -1,0 +1,78 @@
+MFCTCS                                                Dream Apparel Group,LLC                                           08/19/03 ~
+14:35:52                                         CUTTING TICKET COST SHEET REPORT                                       PAGE#    1
+                                                                 
+************************************************************************************************************************************
+TICKET STYLE.............. ......DESC..... .....SEASON...... .....DIVISION.... ....................SIZE SCALE.........................
+STATUS   ENTERED    CONTR1   .............NAME............. ..MFG. ..........OPERATION..........     RATE PATTERN    TYPE
+ORDER    COMPLETE   CONTR2   .............NAME............. ..MFG. ..........OPERATION..........     RATE VENDOR     ACT.QTY
+ACCOUNT             CONTR3   .............NAME............. ..MFG. ..........OPERATION..........     RATE 
+------------------------------------------------------------------------------------------------------------------------------------
+032269 R743N59             "Leopard Heart FALL 2003          DREAM APPAREL     A   XXS   XS    S     M     L     XL    XXL  
+ACTUAL   04/11/03   IRC      INTERNATIONAL RICHARD CUTTING  CUT    Cutting                              0.075                
+         08/01/03   MI       MILLENIUS INDUSTRIES           SEW    Sewing                               0.854           5808
+TO STOCK                                                            
+               ================================================================================================================
+                ITEM                COLOR ......DESC.......... UNT COST        YARDGE      EXTD. COST AVG.YIELD AVG.COST/PIECE
+                --------------------------------------------------< Fabric >--------------------------------------------------
+                PANNE               LILPRD Panne                (A)  1.550(B)1044.000     (C) 1618.200 (D)0.180        (E)0.2800
+                PANNE               SDLLIL Panne                     1.050   6746.000         7083.300    1.162           1.2200
+                    Fabric TOTAL ===========================>                7790.000         8701.500    1.341           1.5000
+                ---------------------------------------------------< Trim >---------------------------------------------------
+                1/2"                WT     1/2" Knitted Elastic      0.0090   4239.840           38.160    0.730           0.0100
+                1100NA              NATRL  10" Bottom                0.1070   5082.000          543.770    0.875           0.0900
+                1104NA              NATRL  8" Bottom                 0.1040   1016.400          105.710    0.175           0.0200
+                16166               BROWN  16  X 16 X 6              0.6500    482.064          313.340    0.083           0.0500
+                20X54               CLEAR  Polybag 20 X 54           0.0270   6388.800          172.500    1.100           0.0300
+                3"FINE              CLEAR  3" Fine Swiftachment      0.0010   6388.800            6.390    1.100           0.0010
+                485RU               CLEAR  Used Top 15"              0.1320   5082.000          670.820    0.875           0.1200
+                498RU               CLEAR  12" Top Used              0.1250   1016.400          127.050    0.175           0.0200
+                BI1.25              N/A    1 1/4" BIAS               0.0100   3868.128           38.680    0.666           0.0100
+                BOW#1               LILMIS 1 1/5 X 1" - 1/4"         0.0180   6098.400          109.770    1.050           0.0200
+                BRAVOK              1410   100% SpunPoly Thread      2.1500    243.936          524.580    0.042           0.0900
+                PLNZZG              PU     Planet Z Girls label      0.0300  12777.600          383.330    2.200           0.0700
+                PRTPRN              MULTI  Ht.tr.Pretty Princes      0.1350   6098.400          823.280    1.050           0.1400
+                SEARSPT             WHITE  Sears P Tkt               0.0090      0.000            0.000    0.000           0.0000
+                SLPWR               BLWHYL Sleepwear HT              0.0080   6388.800           51.110    1.100           0.0100
+                SZMBL               RED    Marc Bric for sz L        0.0160   2032.800           32.520    0.350           0.0100
+                SZMBM               TEAL   Marc Bric for sz M        0.0160   2032.800           32.520    0.350           0.0100
+                SZMBS               YELLOW Marc Bric for sz S        0.0160   1016.400           16.260    0.175           0.0030
+                SZMBXL              ORANGE Marc Bric for sz XL       0.0160   1016.400           16.260    0.175           0.0030
+                    Trim TOTAL =============================>               71269.968         4006.0500   12.271           0.6900
+                ------------------------------------------------< Mfg.Oper. >-------------------------------------------------
+                                       (F) CUT    - Cutting          0.075      5808.000       435.60    1.000           0.0800
+                                           SEW    - Sewing           0.854      5808.000      4960.03    1.000           0.8500
+                    Mfg.Oper. TOTAL ========================>                   0.000            0.000                    0.9300
+                ------------------------------------------------< Misc.    . >------------------------------------------------
+                                       (G) DPG    - DPG COST         0.250   5808.000            0.00    0.000           0.0000
+                    Misc.    . TOTAL =======================>                   0.000            0.000                    0.0000
+                                                             TOTAL COSTS  ===>               12707.550                    2.1900
+                               SELLING PRICE :         7.00 GROSS PROFIT  ===>               27948.45                     4.81
+                                                            GROSS PROFIT %===>                 68.74%                   68.74%
+
+
+NOTES
+
+(A) - This value should come from the "bomline.unitcost" this field should also be increased to 4 digits to the right of the decimal
+(B) - This value should come from the "bomline.itemqty"  this field should have 3 digits to the right of the decimal
+(c) - This value should be calculated the same way.  The only difference is that it should have 3 digits to the right of the decimal
+(D) - This field should be calculated the same way.  The only difference is that it should have 3 digits to the right of the decimal
+(E) - This value should be calculated the same way.  The only difference is that is should have 4 dgits to the right of the decimal.  The only reason for this is that some values are to small to be seen with only 3 digits to the right of the decimal since the cost per piece is very small.
+(F) - This value should be picked up from the bomline.mfgcode.  All the dollar values should be picked up from the bomline.dbf accordingly
+(G) - This value should be picked up from the bomline.mfgcode.  All the dollar values should be picked up from the bomline.dbf accordingly
+
+Please note that the cost that it should pick up are the more recent cost.  For Example, if I went to the Adjust for Receiving Cost screen and made modifications, then those are the new values that it should pick up.  (There is a flag on the BOMLINE file on the "Ctyp" field.  If a record has the value "2" then it should pick up that Dollar Value and Unit Cost instead of the same record but with the value "1"
+
+Please note that this is very urgent and we Need this as soon as tommorrow if possible.  I know that you have to modify this report 
+
+
+These are the information that I would like to see on the report. I will type next to each field with the field name from the adjust cost for receiving screen
+
+1- UNT COST = Unit Cost from the adjust cost for receiving screen
+2- YARDGE = This will come from the same place as the standard Cutting Ticket Cost Sheet Report.. It will either show the Actual yardage issued for that Cutting Ticket (in case of landed or Actual) or the Estimated Requried Yardage(in case of estimated).
+3- EXTD. COST = UNT Cost X Yardge on the report
+4- AVG.YIELD = QTY/Unit on the adjust cost for receiving screen
+5- AVG.COST/PIECE= EXT. This cost is when you click on the Cost Forecasting Screen
+6- The Total avg/cost for Piece should be the same as the total cost from the Cost Forecasting on the Adjust cost for receiving screen.
+
+Please also keep in mind that I want to see the MFG Operations and MISC cost with totals also. They should also have the total yardage and costs from the Adjust cost for receiving, and the Yardage should be handled the same way as the Standard report
+  

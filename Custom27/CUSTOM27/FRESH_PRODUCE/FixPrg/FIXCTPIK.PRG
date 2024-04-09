@@ -1,0 +1,62 @@
+LCDATA=GETDIR('','Select data directory')
+IF EMPTY(LCDATA)
+  WAIT WINDOW ' NO DATA DIRECRORY WAS SELECTED!'
+  RETURN
+ENDIF  
+
+CLOSE DATA
+SELECT 0
+USE (LCDATA+'PIKTKT.dbf') SHARED
+
+SELECT 0
+USE (LCDATA+'posln.dbf') SHARED
+SET ORDER TO TAG Posln
+
+SELECT 0
+USE (LCDATA+'ordline.dbf') SHARED
+SET ORDER TO TAG Ordline
+
+SELECT 0
+USE (LCDATA+'ordhdr.dbf') SHARED
+SET ORDER TO TAG Ordhdr
+
+SELECT 0
+USE (LCDATA+'cutpick.dbf') SHARED
+SET ORDER TO TAG Cutord 
+
+
+SET DELETED ON
+SELECT PIKTKT
+SCAN FOR Status $ 'OHP' AND CPICKTYPE='A'
+  SCATTER MEMVAR MEMO
+
+  WAIT WINDOW 'Checking Piktkt:'+PIKTKT NOWAIT
+
+  IF SEEK('O'+PIKTKT.Order,'ORDHDR') AND ORDHDR.Status $ 'OH'
+    SELECT ORDLINE
+    =SEEK('O'+PIKTKT.Order)
+    SCAN WHILE cOrdType+Order+STR(LineNo,6)='O'+PIKTKT.Order ;
+           FOR Piktkt = PIKTKT.Piktkt AND TotPik<>0
+      
+      IF !SEEK('2'+ORDLINE.order+STR(ORDLINE.lineno,6),'CUTPICK')
+        SELECT CUTPICK
+        SET DELETED OFF
+        IF SEEK('2'+ORDLINE.order+STR(ORDLINE.lineno,6),'CUTPICK')
+          *--Special case for this order line, recall secord record instead of fisrt.
+          IF ORDLINE.order+STR(ORDLINE.lineno,6)='011408'+STR(2,6)
+            SKIP
+          ENDIF
+          RECALL
+          REPLACE QTY1 WITH ORDLINE.PIK1,QTY2 WITH ORDLINE.PIK2,QTY3 WITH ORDLINE.PIK3,;
+                  QTY4 WITH ORDLINE.PIK4,QTY5 WITH ORDLINE.PIK5,QTY6 WITH ORDLINE.PIK6,;
+                  QTY7 WITH ORDLINE.PIK7,QTY8 WITH ORDLINE.PIK8,TOTQTY WITH ORDLINE.TOTPIK
+        ENDIF
+        SET DELETED ON
+      ENDIF  
+  
+      SELECT ORDLINE  
+    ENDSCAN
+  ENDIF
+
+ENDSCAN
+WAIT CLEAR

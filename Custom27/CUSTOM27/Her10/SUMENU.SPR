@@ -1,0 +1,340 @@
+
+#REGION 0
+REGIONAL m.currarea, m.talkstat, m.compstat
+
+IF SET("TALK") = "ON"
+	SET TALK OFF
+	m.talkstat = "ON"
+ELSE
+	m.talkstat = "OFF"
+ENDIF
+m.compstat = SET("COMPATIBLE")
+SET COMPATIBLE FOXPLUS
+
+m.rborder = SET("READBORDER")
+SET READBORDER ON
+
+*       *********************************************************
+*       *
+*       *               Windows Window definitions
+*       *
+*       *********************************************************
+*
+
+lcIcon = IIF(FILE("ARIA.ICO"),[ICON FILE "ARIA.ICO"],"")
+IF NOT WEXIST("sumenu") ;
+	OR UPPER(WTITLE("SUMENU")) == "SUMENU.PJX";
+	OR UPPER(WTITLE("SUMENU")) == "SUMENU.SCX";
+	OR UPPER(WTITLE("SUMENU")) == "SUMENU.MNX";
+	OR UPPER(WTITLE("SUMENU")) == "SUMENU.PRG";
+	OR UPPER(WTITLE("SUMENU")) == "SUMENU.FRX";
+	OR UPPER(WTITLE("SUMENU")) == "SUMENU.QPR"
+	lcGrow = ''
+	IF _WINDOWS
+	  lcGrow = IIF(RIGHT(OS(1),2)='95','GROW','')
+	ENDIF
+	DEFINE WINDOW sumenu ;
+		AT 0.000, 0.000 ;
+		SIZE 33.000,99.200 ;
+		TITLE "Insert Menu Bar" ;
+		FONT "MS Sans Serif", 8 ;
+		FLOAT ;
+		NOCLOSE ;
+		MINIMIZE ;
+		SYSTEM ;
+		  COLOR RGB(,,,192,192,192) ;
+		&lcIcon ;
+		&LCGROW
+	MOVE WINDOW sumenu CENTER
+ENDIF
+
+IF NOT WEXIST("sumenu2") ;
+	OR UPPER(WTITLE("SUMENU2")) == "SUMENU2.PJX";
+	OR UPPER(WTITLE("SUMENU2")) == "SUMENU2.SCX";
+	OR UPPER(WTITLE("SUMENU2")) == "SUMENU2.MNX";
+	OR UPPER(WTITLE("SUMENU2")) == "SUMENU2.PRG";
+	OR UPPER(WTITLE("SUMENU2")) == "SUMENU2.FRX";
+	OR UPPER(WTITLE("SUMENU2")) == "SUMENU2.QPR"
+	DEFINE WINDOW sumenu2 ;
+		AT 0.250, 1.450 ;
+		SIZE 8.000,93.200 ;
+		FONT "MS Sans Serif", 8 ;
+		NOFLOAT ;
+		NOCLOSE ;
+		NOMINIMIZE ;
+		NONE ;
+		  COLOR RGB(,,,192,192,192) ;
+		&lcIcon ;
+		IN WINDOW SUMENU
+ENDIF
+
+IF NOT WEXIST("sumenu3") ;
+	OR UPPER(WTITLE("SUMENU3")) == "SUMENU3.PJX";
+	OR UPPER(WTITLE("SUMENU3")) == "SUMENU3.SCX";
+	OR UPPER(WTITLE("SUMENU3")) == "SUMENU3.MNX";
+	OR UPPER(WTITLE("SUMENU3")) == "SUMENU3.PRG";
+	OR UPPER(WTITLE("SUMENU3")) == "SUMENU3.FRX";
+	OR UPPER(WTITLE("SUMENU3")) == "SUMENU3.QPR"
+	DEFINE WINDOW sumenu3 ;
+		AT 10.250, 1.450 ;
+		SIZE 18.000,93.200 ;
+		FONT "MS Sans Serif", 8 ;
+		NOFLOAT ;
+		NOCLOSE ;
+		NOMINIMIZE ;
+		NONE ;
+		  COLOR RGB(,,,192,192,192) ;
+		&lcIcon ;
+		IN WINDOW SUMENU
+ENDIF
+
+IF NOT WEXIST("sumenu1") ;
+	OR UPPER(WTITLE("SUMENU1")) == "SUMENU1.PJX";
+	OR UPPER(WTITLE("SUMENU1")) == "SUMENU1.SCX";
+	OR UPPER(WTITLE("SUMENU1")) == "SUMENU1.MNX";
+	OR UPPER(WTITLE("SUMENU1")) == "SUMENU1.PRG";
+	OR UPPER(WTITLE("SUMENU1")) == "SUMENU1.FRX";
+	OR UPPER(WTITLE("SUMENU1")) == "SUMENU1.QPR"
+	DEFINE WINDOW sumenu1 ;
+		AT 29.500, 0.750 ;
+		SIZE 5.846,97.800 ;
+		FONT "MS Sans Serif", 8 ;
+		NOFLOAT ;
+		NOCLOSE ;
+		NOMINIMIZE ;
+		NONE ;
+		  COLOR RGB(,,,192,192,192) ;
+		&lcIcon ;
+		IN WINDOW SUMENU
+ENDIF
+
+
+*       *********************************************************
+*       *
+*       *              SUMENU/Windows Screen Layout
+*       *
+*       *********************************************************
+*
+
+#REGION 1
+IF WVISIBLE("sumenu")
+	ACTIVATE WINDOW sumenu SAME
+    llSayCnt=.F.
+ELSE
+	ACTIVATE WINDOW sumenu NOSHOW
+    llSayCnt=.T.
+ENDIF
+
+lcWindNoGr = ''
+
+
+
+
+*       *********************************************************
+*       *
+*       *              SUMENU2/Windows Screen Layout
+*       *
+*       *********************************************************
+*
+
+#REGION 2
+IF .F.
+IF WVISIBLE("sumenu2")
+	ACTIVATE WINDOW sumenu2 SAME
+    llSayCnt=.F.
+ELSE
+	ACTIVATE WINDOW sumenu2 NOSHOW
+    llSayCnt=.T.
+ENDIF
+ENDIF
+
+lcWindNoGr = ''
+
+
+
+
+*       *********************************************************
+*       *
+*       *              SUMENU3/Windows Screen Layout
+*       *
+*       *********************************************************
+*
+
+#REGION 3
+IF .F.
+IF WVISIBLE("sumenu3")
+	ACTIVATE WINDOW sumenu3 SAME
+    llSayCnt=.F.
+ELSE
+	ACTIVATE WINDOW sumenu3 NOSHOW
+    llSayCnt=.T.
+ENDIF
+ENDIF
+
+lcWindNoGr = ''
+
+
+
+
+*       *********************************************************
+*       *
+*       *              SUMENU1/Windows Screen Layout
+*       *
+*       *********************************************************
+*
+
+#REGION 4
+IF WVISIBLE("sumenu1")
+	ACTIVATE WINDOW sumenu1 SAME
+    llSayCnt=.F.
+ELSE
+	ACTIVATE WINDOW sumenu1 NOSHOW
+    llSayCnt=.T.
+ENDIF
+
+  @ 1.000,22.000 GET pbInsert ;
+	  PICTURE "@*HN \<Insert" ;
+	  SIZE 1.846,9.667,0.667 ;
+	  DEFAULT 1 ;
+	FONT "MS Sans Serif", 8 ;
+	 STYLE "B" ;
+	 &lcInsPrpt;
+	  VALID lfvInsert()
+
+  @ 1.000,34.000 GET pbDelete ;
+	  PICTURE "@*HN \<Remove" ;
+	  SIZE 1.846,9.667,0.667 ;
+	  DEFAULT 1 ;
+	FONT "MS Sans Serif", 8 ;
+	 STYLE "B" ;
+	 &lcDelPrpt   ;
+	  VALID lfvDelete()
+
+  @ 0.531,1.600 TO 3.154,95.800 ;
+    PEN 1, 8 ;
+	  COLOR RGB(128,128,128,,,,)
+
+  @ 0.608,1.800 TO 3.231,96.000 ;
+    PEN 1, 8 ;
+	  COLOR RGB(255,255,255,,,,)
+
+  @ 1.000,52.400 GET pbOk ;
+	  PICTURE "@*HN \<OK" ;
+	  SIZE 1.846,9.667,0.667 ;
+	  DEFAULT 1 ;
+	FONT "MS Sans Serif", 8 ;
+	 STYLE "B" ;
+	  VALID lfvOkSys()
+
+  @ 1.000,64.400 GET pbCancel ;
+	  PICTURE "@*HN \<Cancel" ;
+	  SIZE 1.846,9.667,0.667 ;
+	  DEFAULT 1 ;
+	FONT "MS Sans Serif", 8 ;
+	 STYLE "B" ;
+	  VALID lfvCnSys()
+
+lcWindNoGr = ''
+
+IF NOT WVISIBLE("sumenu1")
+	ACTIVATE WINDOW sumenu1
+ENDIF
+IF .F.
+IF NOT WVISIBLE("sumenu3")
+	ACTIVATE WINDOW sumenu3
+ENDIF
+ENDIF
+IF .F.
+IF NOT WVISIBLE("sumenu2")
+	ACTIVATE WINDOW sumenu2
+ENDIF
+ENDIF
+IF NOT WVISIBLE("sumenu")
+  MODIFY WINDOW  sumenu NOGROW
+	ACTIVATE WINDOW sumenu
+ENDIF
+
+
+READ CYCLE MODAL ;
+	WHEN lfwRdSys() ;
+	ACTIVATE lfAriaAct() ;
+	WITH SUUPSYS, SUUPSYS1, CUSTOMER, NEW
+
+  RELEASE WINDOW sumenu
+  RELEASE WINDOW sumenu1
+  RELEASE WINDOW sumenu2
+  RELEASE WINDOW sumenu3
+
+#REGION 0
+
+SET READBORDER &rborder
+
+IF m.talkstat = "ON"
+	SET TALK ON
+ENDIF
+IF m.compstat = "ON"
+	SET COMPATIBLE ON
+ENDIF
+
+
+
+*       *********************************************************
+*       *
+*       * LFARIAACT           Read Level Activate
+*       *
+*       * Function Origin:
+*       *
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         Multiple Screens
+*       * Called By:           READ Statement
+*       * Snippet Number:      1
+*       *
+*       *********************************************************
+*
+FUNCTION lfAriaAct     && Read Level Activate
+IF TYPE('lcWindNoGr') = 'C' AND !EMPTY(lcWindNoGr)
+  DO CASE
+    CASE WONTOP() $ lcWindNoGr
+      MODIFY WINDOW (WONTOP()) NOGROW
+      lcWindNoGr = STRTRAN(lcWindNoGr,WONTOP())
+    CASE WPARENT(WONTOP()) $ lcWindNoGr
+      MODIFY WINDOW (WPARENT(WONTOP())) NOGROW
+      lcWindNoGr = STRTRAN(lcWindNoGr,WPARENT(WONTOP()))
+  ENDCASE
+ENDIF
+
+*       *********************************************************
+*       *
+*       * LFVY2K           Valid 1900 year
+*       *
+*       * Function Origin:
+*       *
+*       *
+*       * From Platform:       Windows
+*       * From Screen:         Multiple Screens
+*       * Called By:           READ Statement
+*       * Snippet Number:      2
+*       *
+*       *********************************************************
+*
+FUNCTION lfvY2K     && Valid 1900 year
+PRIVATE lcY2kCent , ldY2kDate , lcY2kObj , lnY2kIncr , lnY2KNew , lcY2KAlias
+lcY2KAlias = SELECT(0)
+SELECT 0
+IF TYPE(SYS(18)) = 'U'
+  SELECT (lcY2KAlias)
+ENDIF
+IF YEAR(EVALUATE(VARREAD())) <= 1930
+  lcY2KCent = SET('CENT')
+  SET CENT ON
+  lcY2KObj     = SYS(18)
+  lnY2KIncr    = YEAR(EVALUATE(VARREAD()))
+  lnY2KNew     = 2000+(lnY2KIncr/100-int(lnY2KIncr/100))*100
+  ldY2KDate    = DTOC(EVALUATE(VARREAD()))
+  ldY2KDate    = STRTRAN(ldY2KDate , ALLTRIM(STR(YEAR(EVALUATE(VARREAD())))) , ALLTRIM(STR(lnY2KNew)))
+  ldY2KDate    = CTOD(ldY2KDate)
+  &lcY2KObj    = ldY2KDate
+  SET CENT &lcY2KCent
+ENDIF
+SELECT (lcY2KAlias)

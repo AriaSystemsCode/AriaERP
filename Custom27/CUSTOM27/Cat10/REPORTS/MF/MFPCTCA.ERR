@@ -1,0 +1,22 @@
+LPARAMETERS lcMemoFile
+Error in line 1: Unrecognized command verb.
+_SCREEN.CAPTION = 'Cutting Ticket'
+Error in line 8: Unrecognized command verb.
+_SCREEN.WINDOWSTATE = 2
+Error in line 9: Unrecognized command verb.
+LOCAL lcSrvr, lcOldClassLib
+Error in line 66: Unrecognized command verb.
+SET CLASSLIB TO (lcRpDefPth+'classes\cathy.vcx')
+Error in line 69: Unrecognized phrase/keyword in command.
+lnError = oReg.GetRegKey("SQLServer",@lcSrvr,"Aria Connections\AriaServer",0)
+Error in line 71: Syntax error.
+REPORT FORM (ALLTRIM(lcRpRpDir) + 'MF\MFCTKCA.FRX') PREVIEW WINDOW PRTWIND
+Error in line 280: Unrecognized phrase/keyword in command.
+LOCAL lcPrinter
+Error in line 285: Unrecognized command verb.
+SQLDISCONNECT(lnConnectionHandle)
+Error in line 297: Unrecognized command verb.
+LOCAL laServerErrors , lcErrMsg
+Error in line 312: Unrecognized command verb.
+AERROR(laServerErrors)
+Error in line 314: Unrecognized command verb.

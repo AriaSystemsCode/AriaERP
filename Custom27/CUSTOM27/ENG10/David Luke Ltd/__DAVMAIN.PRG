@@ -1,0 +1,4733 @@
+*!**************************************************************************
+*! Name      : DAVMAIN.PRG
+*! Developer : RANIA ABDEL RAZIK (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : David Luke Ltd Custom Process Program .
+*!**************************************************************************
+*! Parameters: lcEvntFun -> Process event function name without 'lf..'  .
+*!             lcFunPars -> Process function parameters, sent as a string.
+*!**************************************************************************
+*! Returns   : Logical value.
+*!**************************************************************************
+*! C200431,1 REA,TMI Quick order entry screen for sales order 
+*! C200443,1 SSE 12/24/2002 Custom add early date option to Sales Order Invoice screen.
+*! C200452,1 TMI 01/16/2003 Quick order entry screen for PO module
+*! B606927,1 TMI 02/03/2003 Solve some problems for C#200431
+*! B606931,1 KHM 02/05/2003 Fix the bug of not refreshing the charges field.
+*! B606945,1 ASH 02/16/2003 The checking of completion dates is not working properly.
+*! C200500,1 ASH 02/17/2003 Don't apply the Earliest Invoice Date on the Invoice Date and Posting Date,
+*! C200500,1                and apply it only on the due date.
+*! B607077,1 KHM 03/24/2003 To zero the nCustCharg field when removing the charages.
+*!**************************************************************************
+PARAMETER lcEvntFun,lcFunPars
+
+lcFunPars  = IIF(TYPE('lcFunPars') = 'C',lcFunPars,'')
+lcFunToRun = 'lf'+ALLTRIM(lcEvntFun)+'('+lcFunPars+')'
+***ash1
+*=gfItemMask(@laMajSeg)
+*lnMajSeg  = gfItemMask('SM')
+*lnNonSeg  = gfItemMask('SN')  
+*lcItemTl  = gfItemMask('HI')
+*lcMjrTtl  = gfItemMask('HM')
+*lcNMjrTl  = gfItemMask('HN')
+*lcMjrPct  = gfItemMask('PM')
+*lcNMjrPt  = gfItemMask('PN')
+*lcIMjrPt  = gfItemMask('PI')
+*lnstylewid=LEN(lcMjrPct)
+*lncolorwid=LEN(lcNMjrPt)
+*lcSepart  =SUBSTR(lcIMjrPt,lnstylewid+1,1)
+
+*-- Run the function.
+llRetValue = EVAL(lcFunToRun)
+
+RETURN llRetValue
+
+*!**************************************************************************
+*! Name      : lfDavMenu
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Add a new entry to the Option Menu - "Enter Customer Prices".
+*!**************************************************************************
+
+FUNCTION lfDavMenu
+
+*-- This Option Menu will be enable in the Edit mode.
+DEFINE BAR 10 OF _lPopOpt PROMPT "\-" SKIP FOR .T.
+*C200431,4 TMI [Start] fix that The bar is enabled in select mode
+*DEFINE BAR 11 OF _lPopOpt PROMPT "\<Enter Customer Prices" SKIP FOR (laScrMode[2]) OR llallcolors
+DEFINE BAR 11 OF _lPopOpt PROMPT "\<Enter Customer Prices" SKIP FOR (!laScrMode[3]) OR llAllColors
+*C200431,4 TMI [End  ] 
+
+*!**************************************************************************
+*! Name      : lfOptnBar
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Call the Customer Prices screen.
+*!**************************************************************************
+
+FUNCTION lfOptnBar
+
+DECLARE laBrowArr[1]
+STORE '' TO laBrowArr , lcSz1     , lcSz2    , lcSz3     , lcSz4   , lcSz5    ,;
+             lcSz6    , lcSz7     , lcSz8    , lcSz9 , lcSz10
+
+lcTempCst = gfTempName()
+
+*-- Open the needed files.
+=lfOpenFil()
+*-- Create the Temp. file.
+=lfTempFil()
+PUSH KEY
+ON KEY
+=lfSizes()
+lcBro_Titl = 'Sizes_Lines'
+DO (gcScrDir+gcWinAppl+"\ICPRCLS.SPX")
+POP KEY
+*-- Close the files.
+=lfCloseFil()
+lnBarNo = 0
+
+*!**************************************************************************
+*! Name      : lfTraps
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : 
+*!**************************************************************************
+
+FUNCTION lfTraps
+
+PARAMETERS lnTrap
+
+DO CASE 
+  *-- Case TAB
+  CASE lnTrap = 1
+    IF WONTOP()= lcBro_Titl
+      glFromBrow = .T.
+      ACTI WINDOW ICPRCLS3 TOP
+    ELSE
+      _CUROBJ = _CUROBJ +1
+    ENDIF
+    
+  *-- Case BACKTAB
+  CASE lnTrap = 2
+    ACTI WINDOW ICPRCLS1 TOP
+    
+  *-- Case ESC
+  CASE lnTrap = 3
+   DO  lpDetEsc
+    
+  *-- Case CTRL+END
+  CASE lnTrap = 4
+    GO BOTTOM
+  
+  *-- Case CTRL+HOME
+  CASE lnTrap = 5
+    GO TOP
+  
+  *-- Case CTRL+ENTER
+  CASE lnTrap = 6
+    RETURN  
+ENDCASE
+
+*!**************************************************************************
+*! Name      : lpDetEsc
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Trap Esc for lines entry.
+*!**************************************************************************
+
+PROCEDURE lpDetEsc
+
+ACTIVATE WINDOW ('gwcContrl1')
+_CUROBJ = OBJNUM(pbCls)
+KEYBOARD '{ENTER}'
+RETURN
+
+*!**************************************************************************
+*! Name      : lfvAccCurr
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Valid function of Currency code.
+*!**************************************************************************
+
+FUNCTION lfvAccCurr
+PRIVATE lcCurrency
+
+*IF EMPTY(lcCurrCod) .AND. !llBrowse
+*  lcMsg2 = 'You have to select the Currency Code'
+*  =gfModalGen("TRM00000B00000","DIALOG",.F.,.F.,lcMsg2)
+*   _CUROBJ = _CUROBJ
+*   _CUROBJ = OBJNUM(lcCurrCod)
+*   RETURN
+*ENDIF
+
+STORE '' TO lcMessage
+
+IF llBrowse .OR. (!EMPTY(lcCurrCod) .AND. !SEEK(lcCurrCod,'SycCurr') .AND. !SEEK(lcPrcCod+lcCurrCod,'CSTPRICH'))
+  lcCurrency = lcCurrCod
+  IF !gfCurrBrow(@lcCurrency)
+    lcCurrency = lcOLdValue
+  ENDIF
+  lcCurrCod = lcCurrency
+  llBrowse = .F.  
+ENDIF
+=lfvCurr()
+IF EMPTY(lcCurrCod) OR LEFT(lcCurrCod,1)="?"
+  RETURN
+ENDIF
+SHOW GET pbSave ENABLE
+SHOW GET pbClr ENABLE
+SHOW GET lcPrcCod DISABLE
+SHOW GET lcCurrCod DISABLE
+
+*!**************************************************************************
+*! Name      : lfvCurr
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Valid function for Currency field.
+*!**************************************************************************
+
+FUNCTION lfvCurr
+IF EMPTY(lcCurrCod) OR LEFT(lcCurrCod,1)="?"
+  RETURN
+ENDIF
+
+IF !SEEK(lcPrcCod+lcCurrCod,'CSTPRICH')
+  lcMessage = 'This Price / Currency code'
+  lnOption = gfModalGen('QRM00001B00001','Dialog',lcMessage)
+
+  DO CASE
+    CASE lnOption = 1
+      *-- Browse Case
+      llBrowse = .T.
+      =lfvAccCurr()
+            
+    CASE lnOption = 2
+      *-- Add Case
+      SELECT CSTPRICH
+      IF !SEEK(lcPrcCod+CcurrCod)
+        APPEND BLANK
+        REPLACE Priccode WITH lcPrcCod  ,;
+                CcurrCod WITH lcCurrCod
+      ELSE
+        REPLACE CcurrCod WITH lcCurrCod
+      ENDIF
+      
+*      SELECT CSTPRICE
+*      IF !SEEK(lcPrcCod+lcCurrCod)
+*        APPEND BLANK
+*      ENDIF
+*      REPLACE Priccode  WITH lcPrcCod  ,;
+*              CcurrCod  WITH lcCurrCod ,;
+*              Stydv     WITH STYLE.Style   ,;
+*              DCrt_Date WITH gdSysDate ,;
+*              Colordv   WITH SUBSTR(lcNonMjr,1,LEN(lcNonMjr)-4)
+      
+      FOR lnI = 1 TO 10
+        lcI = ALLT(STR(lnI,2))
+        STORE 0 TO lnPrc&lcI
+        STORE 0 TO lnComm&lcI
+        SHOW GET lnComm&lcI ENABLE
+        SHOW GET lnPrc&lcI ENABLE          
+
+      ENDFOR
+
+    CASE lnOption = 3
+      *-- Reenter Case
+      lcCurrCod = ''
+      _CUROBJ = _CUROBJ
+  ENDCASE
+ELSE
+  lcCurrCod = CSTPRICH.cCurrCod
+  SHOW GET lcCurrCod
+      FOR lnI = 1 TO 10
+        lcI = ALLT(STR(lnI,2))
+        STORE 0 TO lnPrc&lcI
+        STORE 0 TO lnComm&lcI
+        SHOW GET lnComm&lcI ENABLE
+        SHOW GET lnPrc&lcI ENABLE          
+      ENDFOR
+      lnI = 1
+      SELECT CSTPRICE
+      *ash1
+      *=SEEK(lcPrcCod+lcCurrCod+STYLE.Style)
+      =SEEK(lcPrcCod+lcCurrCod+lcMajor+lcSepart+LEFT(lcNonMjr,LEN(ALLTRIM(lcNonMjr))-3))
+      SCAN REST WHILE priccode+ccurrcod+stydv = lcPrcCod+lcCurrCod+lcMajor+lcSepart+LEFT(lcNonMjr,LEN(ALLTRIM(lcNonMjr))-3)
+        
+          lcI = ALLT(STR(lnI,2))
+          lnPrc&lcI = IIF(!EMPTY(lcSz&lcI),CSTPRICE.Pricedv,0)
+          lnComm&lcI= IIF(!EMPTY(lcSz&lcI),CSTPRICE.Commdv,0)
+          SHOW GET lnComm&lcI ENABLE
+          SHOW GET lnPrc&lcI ENABLE          
+          LnI = 1 + lnI 
+          IF lnI > 10
+            EXIT
+          ENDIF
+      ENDSCAN
+ENDIF
+
+*!**************************************************************************
+*! Name      : lfSizes
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Call the Customer Prices screen.
+*!**************************************************************************
+
+FUNCTION lfSizes
+
+lnAlias = SELECT()
+lnCont = 0
+*ASH1
+*lcScale = SUBSTR(lcNonMjr,AT('-',lcNonMjr)+1,1)
+lcScale = SUBSTR(RIGHT(ALLTRIM(STYLE.STYLE),3),1,2)
+
+SELECT SCALE
+LOCATE
+=SEEK('S'+lcScale)
+SCAN REST WHILE type+scale+prepak = 'S' + lcScale  
+  lnCnt  = SCALE.cnt
+  *C200431,1 TMI [Start] 
+  *lcCnt  = STR(lnCnt,1)
+  lcCnt  = ALLT(STR(lnCnt))
+  *C200431,1 TMI [End  ] 
+  lnCont = lnCont + 1
+  *C200431,1 TMI [Start] 
+  *lcCont = STR(lnCont,1)
+  lcCont = ALLT(STR(lnCont))
+  *C200431,1 TMI [End  ] 
+  lcsZ&lcCont = ALLT(ALLT(SCALE.SZ1) + '-' + SCALE.SZ&lcCnt)
+  =lfRefresh('icprcls')
+  *C200431,1 TMI [Start] 
+  IF lnCont = 10
+    EXIT
+  ENDIF
+  *C200431,1 TMI [End  ] 
+ENDSCAN
+
+*!**************************************************************************
+*! Name      : lfvPrcCod
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Valid function of price code.
+*!**************************************************************************
+
+FUNCTION lfvPrcCod
+PARAMETERS lcPCode
+
+*IF llBrowse &&.OR. (!EMPTY(lcPrcCod) .AND. !SEEK(lcPrcCod,'CSTPRICH'))
+  IF llbrowse OR ATC('?',lcPrcCod) <> 0
+    llbrowse = .F.
+    =lfPCodBrow(@lcPCode)
+  ELSE
+    lcPCode = lcPrcCod
+  ENDIF
+  =lfvPCode()
+*ENDIF
+
+*!**************************************************************************
+*! Name      : lfDavMenu
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/16/2002
+*! Purpose   : Add a new entry to the Option Menu - "Enter Customer Prices".
+*!**************************************************************************
+
+FUNCTION lfPCodBrow
+PARAMETERS lcPCode
+
+DO CASE
+  CASE !EMPTY(lcPCode) .AND. SEEK(lcPCode,'CSTPRICH')
+    RETURN
+  OTHERWISE
+    SELECT CSTPRICH
+    lcOld = lcBrFields
+    llStyle = .F. 
+    lcBrFields = "Priccode:H='Price Code':R , ccurrcod:H='Currency Code':R"
+    =ARIABROW('',"Price Codes",gnBrFSRow1, gnBrFSCol1, gnBrFSRow2, gnBrFSCol2,'','','Priccode','laBrowArr')
+    lcPCode = laBrowArr[1]
+    lcBrFields = lcOld
+    lcPrcCod = lcPCode
+ENDCASE
+
+*!**************************************************************************
+*! Name      : lfCloseFil
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/16/2002
+*! Purpose   : Close all the open files.
+*!**************************************************************************
+
+FUNCTION lfCloseFil
+
+IF USED('CSTPRICE')
+  USE IN CSTPRICE
+ENDIF
+IF USED('CSTPRICH')
+  USE IN CSTPRICH
+ENDIF
+*ash1
+*IF USED('SycCurr')
+*  =gfCloseFile('SycCurr')
+*ENDIF
+IF USED(lcTempCst)
+  USE IN (lcTempCst)
+ENDIF
+ERASE (gcDef_Path+lcTempCst+".DBF")
+ERASE (gcDef_Path+lcTempCst+".CDX")
+ERASE (gcDef_Path+lcTempCst+".FPT")
+
+*!**************************************************************************
+*! Name      : lfvSave
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/16/2002
+*! Purpose   : Valid function of Save Buttom.
+*!**************************************************************************
+
+FUNCTION lfvSave
+
+PRIVATE lnSave , lcClrChng
+lcClrChng = SPACE(0)
+
+*-- Would you like to Update prices for all colors ?
+*-- 	Yes			No
+lnSave = gfModalGen("QRM42251B00006","DIALOG")
+
+llAllColor = IIF(lnSave = 1,.T.,.F.)
+
+lcStyRng = IIF(llAllColor,lcMajor,lcMajor+lcSepart+LEFT(lcNonMjr,LEN(ALLTRIM(lcNonMjr))-3))
+
+SELECT STYLE
+lnRecNo = RECNO()
+
+lnCont = 0
+SCAN FOR STYLE = lcStyRng
+  lcCurColor = STRTRAN(STYLE,lcMajor)
+  lcCurColor = LEFT(lcCurColor,LEN(ALLTRIM(lcCurColor))-3)
+  lnCont = lnCont + 1 
+  *C200431,1 TMI [Start] Ignore lines more than 10th 
+  *IF lnCont > 0
+  IF lnCont > 10  &&tmi
+    EXIT
+  ENDIF
+  *C200431,1 TMI [End  ]  
+  
+  IF lcClrChng # lcCurColor AND !EMPTY(lcClrChng)
+     lnCont = 1
+  ENDIF
+  lcClrChng = lcCurColor      
+  lcCont = ALLTRIM(STR(lnCont,2))
+
+  SELECT CSTPRICE
+  IF !SEEK(lcPrcCod+lcCurrCod+STYLE.Style,'CSTPRICE')    
+    APPEND BLANK
+    REPLACE Priccode  WITH lcPrcCod                                 ,;
+            CcurrCod  WITH lcCurrCod                                ,;
+            Stydv     WITH STYLE.Style                              ,;
+            DCrt_Date WITH gdSysDate                                ,;
+            Scaledv   WITH SUBSTR(STYLE.Style,17,3)                 ,;
+            Colordv   WITH SUBSTR(STYLE.Style,lnstylewid+2,lncolorwid-4),;
+            Pricedv   WITH IIF(!EMPTY(lcSz&lcCont),lnPrc&lcCont,0)  ,;
+            Commdv    WITH IIF(!EMPTY(lcSz&lcCont),lnComm&lcCont,0)
+  ELSE
+    REPLACE Priccode  WITH lcPrcCod                                 ,;
+            CcurrCod  WITH lcCurrCod                                ,;
+            Stydv     WITH STYLE.Style                              ,;
+            DCrt_Date WITH gdSysDate                                ,;
+            Scaledv   WITH SUBSTR(STYLE.Style,17,3)                 ,;
+            Colordv   WITH SUBSTR(STYLE.Style,lnstylewid+2,lncolorwid-4),;
+            Pricedv   WITH IIF(!EMPTY(lcSz&lcCont),lnPrc&lcCont,0)  ,;
+            Commdv    WITH IIF(!EMPTY(lcSz&lcCont),lnComm&lcCont,0)  
+  ENDIF
+  *C200431,4 TMI [START] Enable to save in style screen
+  llCUpdate = .T.
+  *C200431,4 TMI [END  ] 
+ENDSCAN
+GO lnRecNo
+=lfvClear()
+
+*!**************************************************************************
+*! Name      : lfvClear
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/16/2002
+*! Purpose   : Valid function of Clear Buttom.
+*!**************************************************************************
+
+FUNCTION lfvClear
+
+STORE '' TO lcCurrCod , lcPrcCod
+SHOW GET lcCurrCod ENABLE
+SHOW GET lcPrcCod ENABLE
+FOR lnI = 1 TO 10
+  lcI = ALLT(STR(lnI,2))
+  STORE 0 TO lnPrc&lcI
+  STORE 0 TO lnComm&lcI
+  SHOW GET lnComm&lcI DISABLE
+  SHOW GET lnPrc&lcI DISABLE
+ENDFOR
+SHOW GET lcPrcCod ENABLE
+SHOW GET lcCurrCod ENABLE
+
+SHOW GET pbSave DISABLE
+SHOW GET pbClr DISABLE
+
+_CUROBJ = _CUROBJ
+_CUROBJ = OBJNUM(lcPrcCod)
+
+*!**************************************************************************
+*! Name      : lfOpenFil
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/16/2002
+*! Purpose   : Open all the needed file.
+*!**************************************************************************
+
+FUNCTION lfOpenFil
+
+IF !USED('CSTPRICE')
+  =gfOpenFile(gcDataDir+'CSTPRICE','CSTPRICE','SH')
+ENDIF
+IF !USED('CSTPRICH')
+  =gfOpenFile(gcDataDir+'CSTPRICH','CSTPRICH','SH')
+ENDIF
+IF !USED('SycCurr')
+  =gfOpenFile(gcSysHome+'SycCurr',gcSysHome+'cCurrCode','SH')
+ENDIF
+
+*!**************************************************************************
+*! Name      : lfTempFil
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/16/2002
+*! Purpose   : Create temp. file.
+*!**************************************************************************
+
+FUNCTION lfTempFil
+
+SELECT CSTPRICE
+lnFileStru = AFIELDS(laFileStru)
+  
+CREATE TABLE (lcTempCst) FROM ARRAY laFileStru
+INDEX ON priccode+ccurrcod+colordv+scaledv TAG (lcTempCst)
+
+*!**************************************************************************
+*! Name      : lfvPCode
+*! Developer : Rania Abdel Razik (RAE)
+*! Date      : 12/12/2002
+*! Purpose   : Call the Customer Prices screen.
+*!**************************************************************************
+
+FUNCTION lfvPCode
+
+IF EMPTY(lcPrcCod) OR LEFT(lcPrcCod,1)="?"
+  RETURN
+ENDIF
+IF !SEEK(lcPrcCod,'CSTPRICH')
+  lcMessag2 = 'This Price Code'
+  lnOption = gfModalGen('QRM00001B00001','Dialog',lcMessag2)
+
+  DO CASE
+    CASE lnOption = 1
+      *-- Browse Case
+      llBrowse = .T.
+      =lfPCodBrow(@lcPCode)
+      llBrowse = .F.
+
+      =SEEK(lcPrcCod,'CSTPRICH')
+      lcCurrCod = CSTPRICH.cCurrCod
+      SHOW GET lcCurrCod
+*      FOR lnI = 1 TO 10
+*        lcI = ALLT(STR(lnI,2))
+*        lnPrc&lcI  = CSTPRICE.PriceDv
+*        lnComm&lcI = CSTPRICE.CommDv
+*        SHOW GET lnComm&lcI ENABLE
+*        SHOW GET lnPrc&lcI ENABLE
+*     ENDFOR
+*      _CUROBJ = OBJNUM(lnPrc1)
+*      SHOW GET pbSave ENABLE
+*      SHOW GET pbClr ENABLE  
+
+    CASE lnOption = 2
+      *-- Add Case
+      SELECT CSTPRICH
+      =SEEK(lcPrcCod)
+      APPEND BLANK
+      REPLACE Priccode WITH lcPrcCod
+      _CUROBJ = _CUROBJ
+      _CUROBJ = OBJNUM(lcCurrCod)
+            
+    CASE lnOption = 3
+      *-- Reenter Case
+      lcPrcCod = ''
+      _CUROBJ  = _CUROBJ
+  ENDCASE
+ELSE
+  lcCurrCod = CSTPRICH.cCurrCod
+  SHOW GET lcCurrCod
+ENDIF
+
+*!**************************************************************************
+*! Name      : lfSaveDate
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : To save default date in ordhdr field .
+*!**************************************************************************
+*! Example   : =lfSaveDate()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfSaveDate
+ldDavValue = ldDefInvDate
+SAVE ALL LIKE l?DavValu* TO (gcWorkDir+lcInvHdr)
+*-- End of lfSaveDate.
+
+*!**************************************************************************
+*! Name      : lfEarlyDat
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : To check for early date in ordhdr field.
+*!**************************************************************************
+*! Example   : =lfEarlyDat()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfEarlyDat
+RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)
+*C200500,1 ASH 02/17/2003 (Begin) Don't apply the Earliest Invoice Date on the Invoice Date and Posting Date,
+*C200500,1                and apply it only on the due date.
+*ldDefInvDate = ldDavValue 
+
+IF EMPTY(OrdHdr.dEarlyInvDt)
+  RETURN
+ENDIF
+
+IF OrdHdr.dEarlyInvDt > ldDavValue 
+  *STORE OrdHdr.dEarlyInvDt TO ldDefInvDate , ldDefPstDate 
+  ldOldShp = ShipDate 
+  REPLACE ShipDate WITH OrdHdr.dEarlyInvDt
+  m.ShipDate = OrdHdr.dEarlyInvDt
+  m.cTermCode = cTermCode
+  =lfGetDueDate()
+  REPLACE ShipDate WITH ldOldShp 
+  m.ShipDate = ldOldShp 
+ENDIF
+*C200500,1 ASH 02/17/2003 (End)
+*-- End of lfEarlyDat.
+
+*!**************************************************************************
+*! Name      : lfEraseMem
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : To erase lcInvHdr MEM file.
+*!**************************************************************************
+*! Example   : =lfEraseMem()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfEraseMem
+ERASE (gcWorkDir+lcInvHdr+".MEM")
+*-- End of lfEraseMem.
+
+*!**************************************************************************
+*! Name      : lfCollData
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Collect data for invoice charges.
+*!**************************************************************************
+*! Example   : =lfCollData()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfCollData
+IF llIsEngland
+  PRIVATE lnCustRec , lcAlias , lnStandChg
+  lcAlias = ALIAS()
+  DECLARE laStdShipV[1,2]
+  lnStandChg = 0
+  laStdShipV[1,1] = 'NSTANDCHRG'
+  laStdShipV[1,2] = 'lnStandChg'
+  =gfRltFld(&lcInvHdr..ShipVia,@laStdShipV,'SHIPVIA')
+  RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)
+  lnCustRec = RECNO('Customer')
+  =SEEK(IIF(EMPTY(OrdHdr.Store),'M'+OrdHdr.Account,'S'+OrdHdr.Account+OrdHdr.Store),'Customer')
+  SELECT (lcInvHdr)
+  REPLACE lCustCharg WITH .T.
+  IF Customer.lCharge
+    IF EVALUATE(lcInvHdr+'.TotalChg') > lnDavValue
+      REPLACE lCustCharg WITH .F. , nCustCharg WITH lnStandChg
+    ELSE
+      IF OrdHdr.lCarrgChrg
+        REPLACE lCustCharg WITH .F. , nCustCharg WITH lnStandChg
+      ELSE
+        REPLACE lCustCharg WITH .T. , nCustCharg WITH lnStandChg  
+        *-- We need to add a record in Charges screen.
+        PRIVATE lnCodRecNo , llCodExist
+        llCodExist = .T.
+        lnCodRecNo = RECNO('CODES')
+        m.cChrgCode = lcDavValue 
+        IF EMPTY(m.cChrgCode)
+          =gfModalGen("TRM000000B00000","DIALOG",'','','There is no Non Mechandise Tax code with description called Carriage.')
+          llCodExist = .F.
+        ENDIF
+        IF llCodExist
+          m.cFrgtAcnt = ''
+          PRIVATE laChRltFld
+          IF gfGetMemVar('M_TAX',gcAct_Comp)='Y'
+            PRIVATE lcTaxRate
+            DECLARE laChRltFld[1,2]
+            STORE '' TO lcTaxRate
+            laChRltFld[1,1] = 'CTAXCODE'
+            laChRltFld[1,2] = 'lcTaxRate'
+            =gfRltFld(m.cChrgCode,@laChRltFld,'CCHRGCODE')
+            IF !EMPTY(lcTaxRate)
+              laChRltFld[1,1] = 'NTAXRATE'
+              laChRltFld[1,2] = 'lcTaxRate'
+              =gfRltFld(ALLTRIM(lcTaxRate),@laChRltFld,'CTAXCODE')
+              m.nTaxRate = lcTaxRate
+            ENDIF            
+          ENDIF
+          IF gfGetMemVar('M_LINK_GL',gcAct_Comp)='Y'
+            PRIVATE lcFrgtAcnt
+            DECLARE laChRltFld[1,2]
+            STORE '' TO lcFrgtAcnt
+            laChRltFld[1,1] = 'CFRGTACNT'
+            laChRltFld[1,2] = 'lcFrgtAcnt'
+            =gfRltFld(m.cChrgCode,@laChRltFld,'CCHRGCODE')
+            m.cFrgtAcnt= lcFrgtAcnt
+          ENDIF
+          
+          *B606931,1 KHM 02/05/2003 (Begin) check if the existance of the record before insert.
+          IF !SEEK(m.Order+m.Store+m.PikTkt+lcDavValue,(lcEngChrg))
+          *B606931,1 KHM 02/05/2003 (End)
+          
+          INSERT INTO (lcEngChrg) (Order,PikTkt,cStore) ;
+          VALUES (m.Order,m.PikTkt,m.Store)
+
+          *B606931,1 KHM 02/05/2003 (Begin)
+          ENDIF
+          *B606931,1 KHM 02/05/2003 (End)
+          
+          =RLOCK()
+          SELECT (lcEngChrg)
+          REPLACE cChrgCode WITH m.cChrgCode ,;
+                  nTaxRate  WITH m.nTaxRate  ,;
+                  cFrgtAcnt WITH m.cFrgtAcnt ,;
+                  nChrgAmnt WITH lnStandChg
+          UNLOCK              
+          SELECT (lcInvHdr)
+          REPLACE nCariagTax WITH nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100 ,;
+                  nChrgTax   WITH nChrgTax + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100)
+        ELSE
+          REPLACE lCustCharg WITH .F. , nCustCharg WITH lnStandChg          
+        ENDIF  
+      ENDIF
+    ENDIF      
+  ELSE
+    REPLACE lCustCharg WITH .F. , nCustCharg WITH lnStandChg
+  ENDIF    
+  *B607077,1 KHM 03/24/2003 (Begin) Check if the total value of SO is greater than the
+  *B607077,1                minimum sales order value then replace OrdHdr.lCarrgChrg with .T.
+  IF OrdHdr.BookAmt >  lnDavValue
+    REPLACE OrdHdr.lCarrgChrg WITH .T.
+  ENDIF  
+  *B607077,1 KHM 03/24/2003 (End)
+
+  IF BETWEEN(lnCustRec,1,RECCOUNT('Customer'))
+    GOTO lnCustRec IN Customer
+  ENDIF
+  IF !EMPTY(lcAlias)
+    SELECT (lcAlias)
+  ENDIF
+ENDIF  
+*-- End of lfCollData.
+
+*!**************************************************************************
+*! Name      : lfUpdCharg
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Update charges for invoices.
+*!**************************************************************************
+*! Example   : =lfUpdCharg()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfUpdCharg
+IF llIsEngland
+  PRIVATE lcCurAlias , lcOldInvTg , lnOldInvRn , lcCurInKey , lnCustRec , ;
+          lnOrdHdRec , llSavCharg , lnStandChg , llOldCharg , lnOldCharg
+  RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)        
+  DECLARE laStdShipV[1,2]
+  lnStandChg = 0
+  laStdShipV[1,1] = 'NSTANDCHRG'
+  laStdShipV[1,2] = 'lnStandChg'        
+  lcCurAlias = ALIAS()
+  lnCustRec  = RECNO('Customer')
+  lnOrdHdRec = RECNO('OrdHdr')
+  lcOldInvTg = ORDER(lcInvHdr)
+  lnOldInvRn = RECNO(lcInvHdr)
+  SET ORDER TO TAG 'CONSOL' IN (lcInvHdr)
+  lcCurInKey = &lcInvHdr..Account + &lcInvHdr..cDivision + &lcInvHdr..cCurrCode
+  llSavCharg = .T.
+  IF SEEK('N'+lcCurInKey,(lcInvHdr))
+    SELECT (lcInvHdr)
+    SCAN REST WHILE Consol + Account + cDivision + cCurrCode = 'N' + &lcInvHdr..Account + &lcInvHdr..cDivision + &lcInvHdr..cCurrCode
+      =gfRltFld(&lcInvHdr..ShipVia,@laStdShipV,'SHIPVIA')  
+      =SEEK('O'+&lcInvHdr..Order,'OrdHdr')
+      =SEEK(IIF(EMPTY(OrdHdr.Store),'M'+OrdHdr.Account,'S'+OrdHdr.Account+OrdHdr.Store),'Customer')
+      IF Customer.lCharge
+        IF EVALUATE(lcInvHdr+'.TotalChg') - IIF(EVALUATE(lcInvHdr+'.lCustCharg'),nCustCharg+nCariagTax,0) > lnDavValue
+          llOldCharg = lCustCharg
+          lnOldCharg = nCustCharg
+          REPLACE lCustCharg WITH .F.
+          REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,lnOldCharg,0) ,;
+                  nCharges WITH nCharges - IIF(llOldCharg,lnOldCharg,0)
+          IF SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))          
+            REPLACE nChrgTax WITH nChrgTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+                    Tax_Amt WITH Tax_Amt - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+                    nCariagTax WITH nCariagTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)
+            REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)
+          ENDIF
+          REPLACE Cod_Amt WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)
+          IF llOldCharg AND SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+            SELECT (lcEngChrg)
+            DELETE
+            SELECT (lcInvHdr)
+          ENDIF
+          llSavCharg = .F.
+        ELSE
+          IF OrdHdr.lCarrgChrg
+            llOldCharg = lCustCharg
+            lnOldCharg = nCustCharg
+            REPLACE lCustCharg WITH .F.
+            REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,lnOldCharg,0) ,;
+                    nCharges WITH nCharges - IIF(llOldCharg,lnOldCharg,0)
+            IF SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))        
+              REPLACE nChrgTax WITH nChrgTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+                      Tax_Amt WITH Tax_Amt - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)   ,;
+                      nCariagTax WITH nCariagTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)
+              REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)
+            ENDIF
+            REPLACE Cod_Amt WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)
+            IF llOldCharg AND SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+              SELECT (lcEngChrg)
+              DELETE
+              SELECT (lcInvHdr)
+            ENDIF
+            llSavCharg = .F.
+          ELSE
+            *-- We need to add a record in Charges screen.
+            PRIVATE lnCodRecNo , llCodExist
+            llCodExist = .T.
+            lnCodRecNo = RECNO('CODES')
+            m.cChrgCode = lcDavValue 
+            IF EMPTY(m.cChrgCode)
+              =gfModalGen("TRM000000B00000","DIALOG",'','','There is no Non Mechandise Tax code with description called Carriage.')
+              llCodExist = .F.
+            ENDIF
+            IF llCodExist
+              m.cFrgtAcnt = ''
+              PRIVATE laChRltFld
+              IF gfGetMemVar('M_TAX',gcAct_Comp)='Y'
+                PRIVATE lcTaxRate
+                DECLARE laChRltFld[1,2]
+                STORE '' TO lcTaxRate
+                laChRltFld[1,1] = 'CTAXCODE'
+                laChRltFld[1,2] = 'lcTaxRate'
+                =gfRltFld(m.cChrgCode,@laChRltFld,'CCHRGCODE')
+                IF !EMPTY(lcTaxRate)
+                  laChRltFld[1,1] = 'NTAXRATE'
+                  laChRltFld[1,2] = 'lcTaxRate'
+                  =gfRltFld(ALLTRIM(lcTaxRate),@laChRltFld,'CTAXCODE')
+                  m.nTaxRate = lcTaxRate
+                ENDIF            
+              ENDIF
+              IF gfGetMemVar('M_LINK_GL',gcAct_Comp)='Y'
+                PRIVATE lcFrgtAcnt
+                DECLARE laChRltFld[1,2]
+                STORE '' TO lcFrgtAcnt
+                laChRltFld[1,1] = 'CFRGTACNT'
+                laChRltFld[1,2] = 'lcFrgtAcnt'
+                =gfRltFld(m.cChrgCode,@laChRltFld,'CCHRGCODE')
+                m.cFrgtAcnt= lcFrgtAcnt
+              ENDIF
+              IF !SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+                INSERT INTO (lcEngChrg) (Order,PikTkt,cStore) ;
+                VALUES (m.Order,m.PikTkt,m.Store)
+              ENDIF  
+              =RLOCK()
+              SELECT (lcEngChrg)
+              REPLACE cChrgCode WITH m.cChrgCode ,;
+                      nTaxRate  WITH m.nTaxRate  ,;
+                      cFrgtAcnt WITH m.cFrgtAcnt ,;
+                      nChrgAmnt WITH lnStandChg
+              UNLOCK            
+              SELECT (lcInvHdr)
+              llOldCharg = lCustCharg
+              lnOldCharg = nCustCharg
+              REPLACE lCustCharg WITH .T. , nCustCharg WITH lnStandChg
+              REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,lnOldCharg,0) + nCustCharg ,;
+                      nCharges WITH nCharges - IIF(llOldCharg,lnOldCharg,0) + nCustCharg
+              IF SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))        
+                REPLACE nChrgTax WITH nChrgTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ;
+                        + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100) ,;              
+                        Tax_Amt  WITH Tax_Amt - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ;
+                        + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100) ,;
+                        nCariagTax WITH nCariagTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ;
+                        + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100)
+                REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ;
+                        + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100)
+              ENDIF
+              REPLACE Cod_Amt WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)
+            ENDIF  
+          ENDIF
+        ENDIF        
+      ELSE
+        llOldCharg = lCustCharg
+        lnOldCharg = nCustCharg
+        REPLACE lCustCharg WITH .F.
+        REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,lnOldCharg,0) ,;
+                nCharges WITH nCharges - IIF(llOldCharg,lnOldCharg,0)
+        IF SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+          REPLACE nChrgTax WITH nChrgTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+                  Tax_Amt  WITH Tax_Amt - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)  ,;
+                  nCariagTax WITH nCariagTax - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)
+          REPLACE TotalChg WITH TotalChg - IIF(llOldCharg,(lnOldCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0)
+        ENDIF
+        REPLACE Cod_Amt WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)
+        IF llOldCharg AND SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+          SELECT (lcEngChrg)
+          DELETE
+          SELECT (lcInvHdr)
+        ENDIF      
+        llSavCharg = .F.
+      ENDIF
+    ENDSCAN  
+    IF llSavCharg
+      IF SEEK('Y'+lcCurInKey,(lcInvHdr))
+        SELECT (lcInvHdr)
+        REPLACE lCustCharg WITH .T. ,;
+                nCharges   WITH nCharges - nCustCharg ,;
+                TotalChg   WITH TotalChg - nCustCharg - nCariagTax ,;
+                nChrgTax WITH nChrgTax - nCariagTax ,;
+                Tax_Amt  WITH Tax_Amt  - nCariagTax ,;
+                nCariagTax WITH 0 ,;
+                Cod_Amt  WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)                  
+        PRIVATE lnChrgTax , lnTotCharg
+        STORE 0 TO lnChrgTax , lnTotCharg
+        =SEEK('N'+m.Account+m.cDivision+m.cCurrCode)
+        SCAN REST WHILE Consol+Account+cDivision+cCurrCode = 'N'+m.Account+m.cDivision+m.cCurrCode
+          =SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+          lnChrgTax = lnChrgTax + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100)
+          lnTotCharg = lnTotCharg + nCustCharg
+        ENDSCAN
+        IF SEEK('Y'+lcCurInKey,(lcInvHdr))
+          REPLACE nCharges WITH nCharges + lnTotCharg ,;
+                  TotalChg WITH TotalChg + lnTotCharg + lnChrgTax ,;
+                  nChrgTax WITH nChrgTax + lnChrgTax ,;
+                  Tax_Amt  WITH Tax_Amt  + lnChrgTax ,;
+                  nCariagTax WITH lnChrgTax ,;
+                  nCustCharg WITH lnTotCharg ,;
+                  Cod_Amt  WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)                  
+          m.nCharges = m.nCharges
+          m.TotalChg = TotalChg
+          m.Tax_Amt = Tax_Amt      
+        ENDIF
+      ENDIF
+    ELSE    && reject lines
+      IF SEEK('N'+lcCurInKey,(lcInvHdr))
+        SELECT (lcInvHdr)
+        PRIVATE lnChrgTax , lnTotCharg
+        STORE 0 TO lnChrgTax , lnTotCharg
+        *=SEEK('N'+m.Account+m.cDivision+m.cCurrCode)
+        SCAN REST WHILE Consol+Account+cDivision+cCurrCode = 'N'+m.Account+m.cDivision+m.cCurrCode
+          =SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+          m.TotalChg = TotalChg
+          m.nCharges = m.nCharges
+          m.Tax_Amt = Tax_Amt
+          lnChrgTax = lnChrgTax + (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100)
+          lnTotCharg = lnTotCharg + nCustCharg
+          IF lCustCharg
+            m.nCharges = nCharges - nCustCharg
+            REPLACE TotalChg   WITH TotalChg - nCustCharg - (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100) ,;
+                    nCharges   WITH nCharges - nCustCharg ,;
+                    nChrgTax   WITH nChrgTax - (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100) ,;
+                    Tax_Amt    WITH Tax_Amt  - (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100) ,;
+                    nCariagTax WITH nCariagTax - (nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100) ,;
+                    Cod_Amt    WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0) ,;
+                    lCustCharg WITH .F.
+            m.TotalChg = TotalChg
+            m.nCharges = m.nCharges
+            m.Tax_Amt = Tax_Amt
+          ENDIF          
+          IF SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+            SELECT (lcEngChrg)
+            DELETE
+          ENDIF          
+        ENDSCAN
+        IF SEEK('Y'+lcCurInKey,(lcInvHdr))
+          REPLACE lCustCharg WITH .F. ,;
+                  nCharges   WITH nCharges - nCustCharg ,;
+                  TotalChg WITH TotalChg - nCustCharg - nCariagTax ,;
+                  nChrgTax WITH nChrgTax - nCariagTax ,;
+                  Tax_Amt  WITH Tax_Amt  - nCariagTax ,;
+                  nCariagTax WITH 0 ,;
+                  Cod_Amt    WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0) ,;
+                  nCustCharg WITH lnTotCharg
+          m.nCharges = m.nCharges
+          m.TotalChg = TotalChg
+          m.Tax_Amt = Tax_Amt      
+        ENDIF
+      ENDIF  
+    ENDIF
+  ENDIF
+  SET ORDER TO TAG (lcOldInvTg) IN (lcInvHdr)
+  IF BETWEEN(lnOldInvRn,1,RECCOUNT(lcInvHdr))
+    GOTO lnOldInvRn IN (lcInvHdr)
+    m.TotalChg = TotalChg
+    
+    *B606931,1 KHM 02/05/2003 (Begin) Re-Initializing the memory variables.
+    m.Tax_Amt  = Tax_Amt
+    m.nCharges = nCharges
+    *B606931,1 KHM 02/05/2003 (End)
+
+  ENDIF
+  IF BETWEEN(lnCustRec,1,RECCOUNT('Customer'))
+    GOTO lnCustRec IN Customer
+  ENDIF
+  IF BETWEEN(lnOrdHdRec,1,RECCOUNT('OrdHdr'))
+    GOTO lnOrdHdRec IN OrdHdr
+  ENDIF
+  IF !EMPTY(lcCurAlias)
+    SELECT (lcCurAlias)
+  ENDIF
+ENDIF  
+*-- End of lfUpdCharg.
+
+*!**************************************************************************
+*! Name      : lfAddField
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Update charges for invoices.
+*!**************************************************************************
+*! Example   : =lfAddField()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfAddField
+IF llIsEngland
+  DIMENSION laFileStru[lnFileStru+17,4]
+  laFileStru[lnFileStru+15,1] = 'lCustCharg'
+  laFileStru[lnFileStru+15,2] = 'L'
+  laFileStru[lnFileStru+15,3] = 1
+  laFileStru[lnFileStru+15,4] = 0
+  laFileStru[lnFileStru+16,1] = 'nCustCharg'
+  laFileStru[lnFileStru+16,2] = 'N'
+  laFileStru[lnFileStru+16,3] = 20
+  laFileStru[lnFileStru+16,4] = 8
+  laFileStru[lnFileStru+17,1] = 'nCariagTax'
+  laFileStru[lnFileStru+17,2] = 'N'
+  laFileStru[lnFileStru+17,3] = 14
+  laFileStru[lnFileStru+17,4] = 2
+ENDIF  
+*-- End of lfAddField.
+
+*!**************************************************************************
+*! Name      : lfSingleIn
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Update Single invoice (not consolidated).
+*!**************************************************************************
+*! Example   : =lfSingleIn()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfSingleIn
+IF llIsEngland AND lnInvoices <= 1
+  RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)
+  PRIVATE lnOldAlias , lnChrgRec , lnOldRecNo 
+  lnOldAlias = ALIAS()
+  lnChrgRec = RECNO(lcEngChrg)
+  lnOldRecNo = RECNO(lcInvHdr)
+  SCAN REST WHILE Consol+Account+cDivision+cCurrCode = lcKey  
+    =SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+    REPLACE TotalChg   WITH TotalChg + IIF(lCustCharg,nCustCharg,0) + IIF(lCustCharg,(nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+            nCharges   WITH nCharges + IIF(lCustCharg,nCustCharg,0) ,;
+            nChrgTax   WITH nChrgTax + IIF(lCustCharg,(nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+            Tax_Amt    WITH Tax_Amt  + IIF(lCustCharg,(nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+            nCariagTax WITH IIF(lCustCharg,(nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+            Cod_Amt    WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)
+  ENDSCAN
+  IF BETWEEN(lnOldRecNo,1,RECCOUNT(lcInvHdr))
+    GOTO lnOldRecNo IN (lcInvHdr)
+  ENDIF    
+  IF BETWEEN(lnChrgRec,1,RECCOUNT(lcEngChrg))
+    GOTO lnChrgRec IN (lcEngChrg)
+  ENDIF  
+  IF !EMPTY(lnOldAlias)
+    SELECT (lnOldAlias)
+  ENDIF
+ENDIF
+*-- End of lfSingleIn.
+
+*!**************************************************************************
+*! Name      : lfAddConsl
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Add the charges when adding the consol. line in ConsInvH.
+*!**************************************************************************
+*! Example   : =lfAddConsl()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfAddConsl
+IF llIsEngland
+  RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)
+  =SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+  REPLACE lCustCharg WITH m.lCustCharg , nCustCharg WITH m.nCustCharg
+ENdIF  
+*-- End of lfAddConsl.
+
+*!**************************************************************************
+*! Name      : lfUpdConsl
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Update the charges when adding the consol. line in ConsInvH.
+*!**************************************************************************
+*! Example   : =lfUpdConsl()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfUpdConsl
+IF llIsEngland
+  REPLACE lCustCharg WITH IIF(lCustCharg,m.lCustCharg,.F.) , ;
+          nCustCharg WITH nCustCharg + m.nCustCharg , ;
+          nChrgTax   WITH nChrgTax + m.nChrgTax , ;
+          nCariagTax WITH nCariagTax + m.nCariagTax
+ENDIF
+*-- End of lfUpdConsl.
+
+*!**************************************************************************
+*! Name      : lfTotalChg
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Update the charges after finishing the consol. line in ConsInvH.
+*!**************************************************************************
+*! Example   : =lfTotalChg()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfTotalChg
+IF llIsEngland
+  REPLACE TotalChg WITH TotalChg + IIF(lCustCharg,nCustCharg,0) + IIF(lCustCharg,(nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+          nCharges WITH nCharges + IIF(lCustCharg,nCustCharg,0) ,;
+          Tax_Amt  WITH Tax_Amt  + IIF(lCustCharg,(nCustCharg*(1-Trde_Disc/100)*&lcEngChrg..nTaxRate/100),0) ,;
+          Cod_Amt  WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0)
+ENDIF          
+*-- End of lfTotalChg.
+
+*!**************************************************************************
+*! Name      : lfUpdAllIn
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Update all lines for all invoices.
+*!**************************************************************************
+*! Example   : =lfUpdAllIn()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfUpdAllIn
+IF llIsEngland
+  PRIVATE lnOldRecNo , llSavCharg , lcOldAlias
+  lcOldAlias = ALIAS()
+  lnOldRecNo = RECNO(lcInvHdr)
+  =SEEK('Y'+m.Account+m.cDivision+m.cCurrCode)
+  llSavCharg = EVALUATE(lcInvHdr+'.lCustCharg')
+  RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)
+  =SEEK('N'+m.Account+m.cDivision+m.cCurrCode)
+  SCAN REST WHILE Consol+Account+cDivision+cCurrCode = 'N'+m.Account+m.cDivision+m.cCurrCode
+    REPLACE TotalChg WITH TotalChg + IIF(llSavCharg,nCustCharg,0) ;
+                                   + IIF(llSavCharg,nCustCharg*(1-Trde_Disc/100)*(&lcEngChrg..nTaxRate/100),0) ,; 
+            nCharges WITH nCharges + IIF(llSavCharg,nCustCharg,0) ,;
+            nChrgTax WITH nChrgTax + IIF(llSavCharg,nCustCharg*(1-Trde_Disc/100)*(&lcEngChrg..nTaxRate/100),0) ,;   
+            Tax_Amt  WITH Tax_Amt  + IIF(llSavCharg,nCustCharg*(1-Trde_Disc/100)*(&lcEngChrg..nTaxRate/100),0) ,;
+            nCariagTax WITH IIF(llSavCharg,nCustCharg*(1-Trde_Disc/100)*(&lcEngChrg..nTaxRate/100),0) ,;
+            Cod_Amt  WITH IIF(Cod_Flag='Y',ShipAmt+nCharges+Tax_Amt+Discount,0) ,;
+            lCustCharg WITH llSavCharg
+    IF SEEK(&lcInvHdr..Order+&lcInvHdr..Store+&lcInvHdr..PikTkt+lcDavValue,(lcEngChrg))
+      SELECT (lcEngChrg)
+      IF !llSavCharg
+        DELETE
+      ENDIF  
+    ENDIF  
+  ENDSCAN
+  IF BETWEEN(lnOldRecNo,1,RECCOUNT(lcInvHdr))
+    GOTO lnOldRecNo IN (lcInvHdr)
+  ENDIF
+  IF !EMPTY(lcOldAlias)
+    SELECT (lcOldAlias)
+  ENDIF
+ENDIF  
+*-- End of lfUpdAllIn.
+
+*!**************************************************************************
+*! Name      : lfGetVar
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Get initial variables used in Sales Order Invoice.
+*!**************************************************************************
+*! Example   : =lfGetVar()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfGetVar
+IF llIsEngland
+  PRIVATE lcAlias , lnDavValue , laStdShipV , ldOldDate , ldDavValue
+  lcAlias = ALIAS()
+  ldDavValue = {}
+  RESTORE ADDITIVE FROM (gcWorkDir+lcInvHdr)
+  lnDavValue = 0
+  lnDavValue = gfGetMemVar('M_MINORDER' ,gcAct_Comp)
+  PRIVATE lnCodRecNo
+  lnCodRecNo = RECNO('CODES')
+  lcDavValue = ''
+  IF SEEK('N'+'CCHRGCODE','Codes')
+    SELECT Codes
+    SCAN REST WHILE cDefCode + cFld_Name + cCode_No + cDiscrep + cRltd_Nam = 'NCCHRGCODE'
+     IF UPPER(cDiscrep) = PADR('CARRIAGE',30,' ')
+        lcDavValue = cCode_No
+      ENDIF
+    ENDSCAN
+  ENDIF
+  IF BETWEEN(lnCodRecNo,1,RECCOUNT('Customer'))
+    GOTO lnCodRecNo IN Codes
+  ENDIF
+  SAVE ALL LIKE l?DavValu* TO (gcWorkDir+lcInvHdr)
+  IF !EMPTY(lcAlias)
+    SELECT (lcAlias)
+  ENDIF
+ENDIF  
+*-- End of lfGetVar.
+
+*!**************************************************************************
+*! Name      : lfSavLChrg
+*! Developer : Sameh Saiid Ezzat (SSE)
+*! Date      : 12/31/2002
+*! Purpose   : Save the charges flag in Order Header file.
+*!**************************************************************************
+*! Example   : =lfSavLChrg()
+*!**************************************************************************
+*!C200443,1
+FUNCTION lfSavLChrg
+IF llIsEngland
+  REPLACE lCarrgChrg WITH &lcHdrFile..lCustCharg
+ENDIF  
+*-- End of lfSavLChrg.
+
+*:***************************************************************************
+*:* Name        : lfQkOrd                                         
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Open Quick order entry screen
+*:***************************************************************************
+*:* Called from : soord
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfQkOrd()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfQkOrd
+PRIVATE laSize,laTot,m.Style,m.TotQty,m.Desc1,m.Gros_Price,m.Disc_Pcnt,m.Price,m.Comm1,;
+        lcScrTtl,lcDet_Ttl,lnClrLen,lnClrPos,lcClrSpr,lcTempCur,lcTempNote,lcAlias,lnMrk ,;
+        lcQkWin0,lcQkWin1,lcQkWin2,lcQkWin3,lcQkWin4,lcOldValue,lcSepart,lcItemPct,laExtSz,lcOrd,llEdit,;
+        llChang,laStyClQty,llDifPrice,llShw1,laOldVal,lcBrowFlds
+
+*-- laSize      : Array to Hold Sizes descriptions for the current style scale
+*-- laTot       : Array to hold Column sum and nTotal field sum
+*-- m.Style     : Style
+*-- m.TotQty    : Total qty - check qty
+*-- m.Desc1     : Description
+*-- m.Gros_Price: Gross price
+*-- m.Disc_Pcnt : Dicount percent
+*-- m.Price     : Style price
+*-- m.Comm1     : Sales rep commesion 
+*-- lcScrTtl    : Screen title
+*-- lcDet_Ttl   : Screen title
+*-- lnClrLen    : Color lenght in style structure
+*-- lnClrPos    : Color position in style structure
+*-- lcClrSpr    : Color separator 
+*-- lcTempCur   : Temp cursor name
+*-- lcTempNote  : Temp name for Notes Alias
+*-- lcAlias     : Alias Variable
+*-- lnMrk       : Marker used in browse
+*-- lcQkWin0..4 : Temp variables for screens
+*-- lcOldValue  : Variable to hold old value
+*-- lcSepart    : Variable to hold style separator
+*-- lcItemPct   : Variable to hold Style Picture
+*-- laExtSz     : Array to hold Sizes
+*-- lcOrd       : Variable to hold order
+*-- llEdit      : Edit mode
+*-- llChang     : if .T. then qtys are changed 
+*-- laStyClQty  : Array hold Style-Color Qty - usefull in edited styles, 0 in added ones
+*-- laOldVal    : Array to Hold old Values of the browse
+*-- lcBrowFlds  : Variable to hold browse fields for the main browse screen for colors and sizes
+*-- llUsePrFl   : if to use the special customer price file in standard sales order entry 
+*-- llCodPrice  : Variable to show If this customer has a price code and this stylemajor is linked to a price code for current customer
+*-- lnFldGrp    : No of group of fields that appear currently in browse
+*-- lcPhyStk    : String holds fields contains physical stock that displayed down in the screen
+*-- lcFreStk    : String holds fields contains Free stock that displayed down in the screen
+*-- lnBrFlCn    : Browse fields count (My design now is 10 fields )
+*-- lnCntSeen   : Count of fields seen in the totals screen
+*-- lcPRICCODE  : Variable holds the customer price code for main account
+*-- llShw1      : if all sizes has the same price call "lfQkPrice" only once , this case happen if
+*--               at least one style-color-size-scale has an entry in "CSTPRICE"
+*-- llDifPrice  : .T. if scales has diffrent prices
+
+SELECT (lcOrdLine)
+
+SCATTER MEMVAR BLANK
+DIMENSION laSize[1],laTot[1,2],laExtSz[1,2],laStyClQty[1,3],laOldVal[1]
+STORE '' TO laSize,lcOldValue,lcBrowFlds,lcClrSpr,lcPhyStk,lcFreStk,lcPRICCODE
+STORE 0 TO laTot,lnClrLen,lnClrPos,m.Gros_Price,m.Price,m.Disc_Pcnt,laOldVal
+STORE 1 TO lnMrk,lnFldGrp,lnCntSeen,lnSclNum
+STORE .F. TO llEdit,llChang,llDifPrice,llCodPrice
+STORE .T. TO llShw1
+lnBrFlCn = 10
+DIMENSION laPhyStk[lnBrFlCn+1],laFreStk[lnBrFlCn+1],laShowPen[11,2]
+STORE 0 TO laPhyStk,laFreStk
+laShowPen = 'RGB(192,192,192)'
+
+m.COMPLETE = laData[10]
+lcItemPct = gfItemMask('PI')
+lcSepart  = SUBSTR(lcItemPct,lnMajorLen+1,1)
+*-- Get color position and color length 
+=lfGetClrD()
+  
+lcScrTtl  = 'Quick Sales Order Entry Screen.'
+lcDet_Ttl = 'Quick Lines Entry Screen'
+
+lcQkWin0    = gftempname()     &&Temp name for Windows.
+lcQkWin1    = gftempname()     &&Temp name for Windows.
+lcQkWin2    = gftempname()     &&Temp name for Windows.
+lcQkWin3    = gftempname()     &&Temp name for Windows.
+lcQkWin4    = gftempname()     &&Temp name for Windows.
+lcTempCur   = gfTempName()     && Cursor holds qty /color/size
+lcTempNote  = gfTempName()     && Cursor holds Notes
+
+PUSH KEY
+ON KEY LABEL ALT+B ACTIVATE WINDOW (lcDet_Ttl) 
+ON KEY LABEL TAB
+ON KEY LABEL BACKTAB DO lpBacktab 
+*--Define keys to navigate throgh the browse by keys
+ON KEY LABEL CTRL+LEFTARROW  DO lfPrNxBrow WITH -1
+ON KEY LABEL CTRL+RIGHTARROW DO lfPrNxBrow WITH 1 
+ON KEY LABEL CTRL+UPARROW    DO lfGoTop
+ON KEY LABEL CTRL+DNARROW    DO lfGoBtm
+ON KEY LABEL ESC             DO lfvQkClose
+ON KEY LABEL CTRL+R          DO lfvqClear WITH .T.
+ON KEY LABEL CTRL+S          DO lfvQkSav
+
+
+lcAlias = SELECT(0)
+lcOrd = ORDER(lcOrdLine)   
+SET ORDER TO ORDLINST IN (lcOrdLine)
+*--CORDTYPE+ORDER+STORE+STYLE+STR(LINENO,6)
+
+*--Open files
+=lfOpnFls()
+*B606927,1 TMI [Start] Save order for Ordline file
+PRIVATE lcSvOrdLn
+lcSvOrdLn = ORDER('ORDLINE')
+SET ORDER TO ORDLINES IN ORDLINE
+*B606927,1 TMI [End  ] 
+
+*-- Create temp notepad file
+CREATE TABLE (gcWorkDir+lcTempNote) (NOTE_MEM M)
+APPEND BLANK
+*-- Create temp colors , sizes file
+=lfCrtTmp(1)   
+
+DO (gcScrDir+'SO\QuickOrd.SPX')
+POP KEY
+*B606927,1 TMI [Start] restore order for Ordline file
+SET ORDER TO &lcSvOrdLn IN ORDLINE
+*B606927,1 TMI [End  ] 
+
+SELECT (lcOrdLine)
+SET ORDER TO &lcOrd IN (lcOrdLine)
+GO BOTTOM
+ 
+SELECT (lcAlias)
+*-- end of lfQkOrd.
+
+*:**************************************************************************
+*:* Name        : lfOpnFls										
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/29/2002
+*:* Purpose     : Open files
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfOpnFls
+IF !USED("CSTPRICE")
+  =gfOpenFile(gcDataDir+"CSTPRICE","CSTPRICE","SH")
+ENDIF  
+IF !USED("CSTPRICH")
+  =gfOpenFile(gcDataDir+"CSTPRICH","CSTPRICH","SH")
+ENDIF  
+IF !USED("CUSTOMER")
+  =gfOpenFile(gcDataDir+"CUSTOMER","CUSTOMER","SH")
+ENDIF  
+*B606927,1 TMI [START] Open file styprice
+IF !USED('STYPRICE')
+  =gfOpenFile(gcDataDir+'STYPRICE','STYPRICE','SH')
+ENDIF
+*B606927,1 TMI [START] Open file styprice
+
+*-- end of lfOpnFls.
+
+*:**************************************************************************
+*:* Name        : lfCrtTmp                                     		
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/20/2002
+*:* Purpose     : Create temp file to browse
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfCrtTmp()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfCrtTmp
+PARAMETERS lnFlds
+
+PRIVATE lnFl,lnJ,lcJ,lcCrtTbl,laTblFld
+DIMENSION laTblFld[1,4]
+lnFl = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "LASTLINE"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = 1
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "STYMAJOR"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = lnMajorLen
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "COLOR"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = lnClrLen
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "COLORDSC"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = 20
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "NTOTAL"
+laTblFld[lnFl,2] = "N"
+laTblFld[lnFl,3] = 6
+laTblFld[lnFl,4] = 0
+
+*-- Separate each group of fields to ease trace
+FOR lnJ = 1 TO lnFlds
+  lcJ = ALLT(STR(lnJ))
+  lnFl = lnFl + 1
+  DIMENSION laTblFld[lnFl,4]
+  laTblFld[lnFl,1] = "S&lcJ"
+  laTblFld[lnFl,2] = "N"
+  laTblFld[lnFl,3] = 5
+  laTblFld[lnFl,4] = 0
+ENDFOR
+
+FOR lnJ = 1 TO lnFlds
+  lcJ = ALLT(STR(lnJ))
+  lnFl = lnFl + 1
+  DIMENSION laTblFld[lnFl,4]
+  laTblFld[lnFl,1] = "FreStk&lcJ"
+  laTblFld[lnFl,2] = "N"
+  laTblFld[lnFl,3] = 6
+  laTblFld[lnFl,4] = 0
+ENDFOR
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "TotFreStk"
+laTblFld[lnFl,2] = "N"
+laTblFld[lnFl,3] = 7
+laTblFld[lnFl,4] = 0
+
+FOR lnJ = 1 TO lnFlds
+  lcJ = ALLT(STR(lnJ))
+  lnFl = lnFl + 1
+  DIMENSION laTblFld[lnFl,4]
+  laTblFld[lnFl,1] = "PhyStk&lcJ"
+  laTblFld[lnFl,2] = "N"
+  laTblFld[lnFl,3] = 6
+  laTblFld[lnFl,4] = 0
+ENDFOR
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "TotPhyStk"
+laTblFld[lnFl,2] = "N"
+laTblFld[lnFl,3] = 7
+laTblFld[lnFl,4] = 0
+
+*B606927,1 TMI [Start] Add a memo field to hold prices
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "SCLPRC"
+laTblFld[lnFl,2] = "M"
+laTblFld[lnFl,3] = 10
+laTblFld[lnFl,4] = 0
+*B606927,1 TMI [End  ] 
+
+IF ALEN(laTblFld,1)<=256
+  CREATE TABLE &gcWorkDir.&lcTempCur FROM ARRAY laTblFld
+  INDEX ON LASTLINE+STYMAJOR+COLOR TAG (lcTempCur)
+ELSE
+  RETURN .F.  
+ENDIF   
+
+*-- end of lfCrtTmp.
+
+*:**************************************************************************
+*:* Name        : lfBrowLine                                      
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Browse Line fn
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfBrowLine()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfBrowLine
+PARAMETERS llGoTop
+
+SELECT (lcTempCur)
+IF llGoTop
+  GO TOP
+ENDIF  
+
+lnMrk  = RECNO()
+STORE '' TO lcPhyStk,lcFreStk
+lnCntSeen = 1
+laShowPen = 'RGB(192,192,192)'
+lcBrowFlds = "cMrk=IIF(RECNO()=lnMrk,'>',' '):H=' ':R:1:W=.F.,"+;
+             "COLORDSC:R:H=PADC('Colours',12):15:W=.F.,"
+PRIVATE lnSizeLen
+lnSizeLen = IIF(EMPTY(laSize[1]),0,ALEN(laSize,1))
+FOR lnX = 1+(lnFldGrp-1)*lnBrFlCn TO MIN(lnFldGrp*lnBrFlCn,lnSizeLen)
+  lcX = ALLT(STR(lnX))
+  *B606927,1 TMI [Start] Add a when function to the browse , it saves the current field number
+  *lcBrowFlds = lcBrowFlds + "S&lcX:H='"+laSize[lnX]+"':6:V=lfvBrFld(&lcX),"
+  lcBrowFlds = lcBrowFlds + "S&lcX:H='"+laSize[lnX]+"':6:V=lfvBrFld(&lcX):W=lfwBrFld(&lcX),"
+  *B606927,1 TMI [End  ] 
+  lcFreStk = lcFreStk + "FreStk&lcX,"
+  lcPhyStk = lcPhyStk + "PhyStk&lcX,"
+  
+  laShowPen[lnCntSeen,1] = "RGB(128,128,128,128,128,128)" && lcGray  
+  laShowPen[lnCntSeen,2] = "RGB(255,255,255,255,255,255)" && lcWhite   
+  lnCntSeen = lnCntSeen + 1
+
+ENDFOR
+lcBrowFlds = lcBrowFlds + "NTOTAL:H='Total':R:W=.F."
+
+laShowPen[lnCntSeen,1] = "RGB(128,128,128,128,128,128)" && lcGray  
+laShowPen[lnCntSeen,2] = "RGB(255,255,255,255,255,255)" && lcWhite   
+
+lcFreStk = lcFreStk + "TotFreStk"
+lcPhyStk = lcPhyStk + "TotPhyStk"
+
+*Nearly 26 Character per field, Allowed maximum lenght of the browse string is 1024 , apporximatly 36 fields
+SCATTER MEMVAR TO laOldVal
+
+BROWSE FIELDS &lcBrowFlds;
+       NOAPPEND ;
+       NOCLEAR  ;
+       NODELETE ;
+       NOMENU   ;
+       NOWAIT   ;
+       SAVE     ;
+       VALID :F lfvqBrow();       
+       WHEN lfwBrowUp();
+       TITLE lcDet_Ttl ;
+       WINDOW (lcQkWin2) IN WINDOW (lcQkWin0)
+
+=lfwBrowUp()
+=lfRefresh(lcQkWin0)
+=lfRefresh(lcDet_Ttl)
+
+*-- end of lfBrowLine.
+
+*:**************************************************************************
+*:* Name        : lfwBrFld
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 02/04/2003
+*:* Purpose     : When function for the browse to save the current field number
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfwBrFld()
+*:***************************************************************************
+*B606927,1 
+FUNCTION lfwBrFld
+PARAMETERS lnFldNo
+lnSclNum = lfSclPos(lnFldNo) 
+
+m.Gros_Price = VAL(SUBSTR(SCLPRC,(lnSclNum-1)*23+1        ,12))
+m.Comm1      = VAL(SUBSTR(SCLPRC,(lnSclNum-1)*23+1 +12    ,5 ))
+*m.Disc_Pcnt  = VAL(SUBSTR(SCLPRC,(lnSclNum-1)*23+1 +12 +5 ,6 ))
+m.Price      = ROUND( m.Gros_Price*(1-m.Disc_Pcnt/100) ,2 )
+SHOW GET m.Gros_Price
+SHOW GET m.Comm1     
+SHOW GET m.Price     
+SHOW GET m.Disc_Pcnt 
+
+*-- end of lfwBrFld.
+
+*:**************************************************************************
+*:* Name        : lfvBrFld											
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/24/2002
+*:* Purpose     : Valid fn. for fields in temp browse
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvBrFld()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvBrFld
+PARAMETERS lnIndex
+PRIVATE lnFPos
+lcIndex = ALLT(STR(lnIndex))
+
+PRIVATE lnLineTot,lnCount,lnRecno,m.AddSty,lnIncrm
+
+SELECT (lcTempCur)
+IF laOldVal[lnIndex+5] #  S&lcIndex
+  *-- Prevent update totals in total field
+  IF !EMPTY(LASTLINE)
+    REPLACE S&lcIndex WITH laOldVal[lnIndex+5]
+    RETURN
+  ENDIF
+
+  IF S&lcIndex < 0
+    *--Can not accept negative values
+    =gfModalGen('TRM42000B40011','DIALOG')
+    REPLACE S&lcIndex WITH laOldVal[lnIndex+5]
+    RETURN 
+  ENDIF
+  IF S&lcIndex > 999
+    *--Can not exceed 999
+    *-- 40171 : ð cannot exceeds ð  
+    =gfModalGen('TRM40171B00000','DIALOG','Size Quantity|999.')
+    REPLACE S&lcIndex WITH laOldVal[lnIndex+5]
+    RETURN
+  ENDIF
+
+  m.AddSty = STYMAJOR+lcSepart+SUBSTR(COLOR,1,lnClrLen)
+  SELECT (lcTempCur)
+  IF laSetups[5,2]='Y'
+
+    *-- Get scale Position 
+    lnSclPos = lfSclPos(lnIndex) 
+      
+    *-- Assign a style to a location if not Assigned befor
+    *C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+    *IF !SEEK(PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19)+laData[31]+SPACE(10),'StyDye')
+    IF !SEEK(PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19)+laWareHouse[lnWareHouse,2]+SPACE(10),'StyDye')
+      *C200431,4 TMI [End  ] 
+      *E300408,1 Message : 40012
+      *E300408,1 Style/color xxx is not assigned to warehouse xxx
+      *E300408,1 Button : 40002
+      *E300408,1 Add Reenter
+      *C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+      *IF gfModalGen('QRM40012B40002','ALERT',TRIM(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1])+'|'+TRIM(laData[31]))=1
+      *  DO gpAdStyWar WITH PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19),SPACE(10),laData[31]
+      IF gfModalGen('QRM40012B40002','ALERT',TRIM(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1])+'|'+TRIM(laWareHouse[lnWareHouse,2]))=1
+        DO gpAdStyWar WITH PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19),SPACE(10),laWareHouse[lnWareHouse,2]
+        *C200431,4 TMI [End  ] 
+      ELSE      
+        REPLACE S&lcIndex WITH 0
+        KEYBOARD '{LEFTARROW}'
+        SCATT MEMVAR TO laOldVal      
+        RETURN
+      ENDIF
+    ENDIF
+
+  ENDIF
+  
+  *--Sum total of the current line
+  lnLineTot = 0
+  *--Line Total
+  FOR lnCount = 1 TO ALEN(laSize)
+    lcCount = ALLTRIM(STR(lnCount))
+    lnLineTot = lnLineTot + S&lcCount
+  ENDFOR
+  REPLACE NTOTAL WITH lnLineTot
+  
+  *-- current Column and total columns sum 
+  SELECT SUM(S&lcIndex),SUM(NTOTAL) FROM (lcTempCur) WHERE EMPTY(LASTLINE) INTO ARRAY laTot
+  lnRecno = RECNO()
+  GO BOTTOM
+  *-- Update last line for these two columns
+  REPLACE S&lcIndex WITH laTot[1,1],;
+          NTOTAL    WITH laTot[1,2]
+
+  llChang = .T.
+  IF BETWEEN(lnRecno,1,RECCOUNT()-1)
+    GOTO (lnRecno)
+  ELSE
+    GO TOP
+  ENDIF  
+
+  lcSavStat = IIF(llEdit OR laTot[1,2]>0,'ENABLE','DISABLE')
+  SHOW GET pbSav &lcSavStat
+  SCATT MEMVAR TO laOldVal
+
+ENDIF  
+*-- end of lfvBrFld.
+
+*:**************************************************************************
+*:* Name        : lfPrNxBrow									
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/30/2002
+*:* Purpose     : Prev. or Next Browse 
+*:***************************************************************************
+*:* Called from : Screen - Prev,next button
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfPrNxBrow()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfPrNxBrow
+PARAMETERS lnPrNx
+
+PRIVATE lnFldGrpCn  && Field groups count
+lnFldGrpCn = CEILING(ALEN(laSize)/lnBrFlCn)
+
+IF !EMPTY(lnPrNx)
+  IF lnPrNx = -1
+    IF lnFldGrp = 1
+      RETURN
+    ENDIF
+    lnFldGrp = lnFldGrp - 1  
+  ENDIF  
+  IF lnPrNx = 1
+    IF lnFldGrp = lnFldGrpCn
+      RETURN
+    ENDIF
+    lnFldGrp = lnFldGrp + 1  
+  ENDIF
+ENDIF
+
+lcPrevStat = IIF(lnFldGrp = 1 , 'DISABLE' , 'ENABLE')
+lcNextStat = IIF(lnFldGrp = lnFldGrpCn , 'DISABLE' , 'ENABLE' )
+
+SHOW GET pbPrev &lcPrevStat
+SHOW GET pbNext &lcNextStat
+
+PRIVATE lnRecno
+lnRecno = RECNO(lcTempCur)
+*-- Rebrowse and refresh
+=lfBrowLine(.T.)
+IF BETWEEN(lnRecno,1,RECCOUNT(lcTempCur))
+  GOTO lnRecno IN &lcTempCur
+ENDIF
+=lfwBrowUp()
+ACTIVATE WINDOW (lcDet_Ttl)
+*-- end of lfPrNxBrow.
+
+*:**************************************************************************
+*:* Name        : lfSclPos
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Loop to get the scale number dependign on the size position in the list of all sizes
+*:***************************************************************************
+*:* Called from : lfv 
+*:***************************************************************************
+*:* Parameters : lnIndex
+*:***************************************************************************
+*:* Return      : Scale Position
+*:***************************************************************************
+*:* Example     :  = lfSclPos()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfSclPos
+PARAMETERS lnIndex
+PRIVATE lnIndex,lnIncrm,lnCount
+lnCount = 1  
+*-- Loop to get the scale number dependign on the size position in the list of all sizes
+lnIncrm = 0
+FOR lnCount = 1 TO ALEN(laExtSz,1)    
+  IF lnIncrm < lnIndex AND lnIndex <= lnIncrm+laExtSz[lnCount,2]
+    RETURN lnCount
+  ENDIF
+  lnIncrm = lnIncrm + laExtSz[lnCount,2]
+ENDFOR
+*-- end of lfSclPos.
+
+*:**************************************************************************
+*:* Name        : lfvqBrow                                      
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Valid function for browse
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqBrow()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqBrow
+IF WONTOP() # lcDet_Ttl
+  = gfStopBrow()
+ENDIF
+
+*:**************************************************************************
+*:* Name        : lfwBrowUp                                      
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : When function for browse
+*:***************************************************************************
+*:* Called from : lfBrowLine
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfwBrowUp()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfwBrowUp
+PRIVATE lnI
+lnMrk = RECNO(lcTempCur)
+*--Initiate the array used instead of lcOldVal when variable
+SCATTER MEMVAR TO laOldVal
+SHOW WINDOW (lcDet_Ttl) REFRESH
+
+*--Get current browse total fields values
+STORE 0 TO laFreStk,laPhyStk
+SCATTER FIELDS &lcFreStk TO laFreStk
+SCATTER FIELDS &lcPhyStk TO laPhyStk
+
+FOR lnI = 1 TO lnBrFlCn+1
+  SHOW GET laFreStk[lnI]
+  SHOW GET laPhyStk[lnI]
+ENDFOR
+=lfRefresh(lcQkWin4)
+
+*-- end of lfwBrowUp.
+
+*:**************************************************************************
+*:* Name        : lpTab                                      
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Tab fn.
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lpTab()
+*:***************************************************************************
+*C#200431,1
+PROCEDURE lpTab
+
+IF WONTOP() = lcDet_Ttl
+  ACTIVATE WINDOW (lcQkWin3)
+  _CUROBJ=OBJNUM(pbSav)  
+ELSE
+  _CUROBJ=_CUROBJ+1
+ENDIF
+
+*:**************************************************************************
+*:* Name        : lpBacktab                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Backtab Trap fn.
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lpBacktab ()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lpBacktab 
+IF RECCOUNT(lcTempCur) = 0
+  DO CASE
+    CASE WONTOP() = lcDet_Ttl
+      ACTIVATE WINDOW (lcQkWin1)
+    CASE WONTOP() = lcQkWin1
+      ACTIVATE WINDOW (lcQkWin3)             
+    CASE WONTOP() = lcQkWin3 
+      ACTIVATE WINDOW (lcDet_Ttl)
+  ENDCASE
+ELSE
+  IF WONTOP() = lcDet_Ttl
+    ACTIVATE WINDOW (lcQkWin1)
+    _CUROBJ=OBJNUM(m.Comm1)
+  ELSE
+    DO CASE
+      CASE WONTOP() = lcQkWin1
+        IF _CUROBJ = OBJNUM(m.TotQty)
+          ACTIVATE WINDOW (lcQkWin3)
+          _CUROBJ = OBJNUM(pbExit)
+        ELSE
+          IF llDifPrice
+            IF _CUROBJ = OBJNUM(m.Comm1)
+              _CUROBJ = OBJNUM(m.TotQty)
+            ENDIF
+            IF _CUROBJ = OBJNUM(m.TotQty)
+              ACTIVATE WINDOW (lcQkWin3)
+              _CUROBJ = OBJNUM(pbExit)             
+            ENDIF
+          ELSE
+            _CUROBJ=_CUROBJ - 1
+          ENDIF
+        ENDIF
+        
+      CASE WONTOP() = lcQkWin3
+        IF laTot[1,2]=0
+          IF _CUROBJ = OBJNUM(pbClear)
+            ACTIVATE WINDOW (lcDet_Ttl)
+          ELSE
+            _CUROBJ = OBJNUM(pbSav)
+          ENDIF
+        ELSE
+          IF _CUROBJ = OBJNUM(pbSav)
+            ACTIVATE WINDOW (lcDet_Ttl)
+          ELSE
+            _CUROBJ=_CUROBJ - 1
+          ENDIF
+        ENDIF
+        
+    ENDCASE
+  ENDIF
+ENDIF  
+*-- end of lpBacktab .
+
+*:**************************************************************************
+*:* Name        : lfvqClear                                      
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/26/2002
+*:* Purpose     : Clear valid fucntio for screen quickord
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqClear()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqClear
+PARAMETERS llFrmKeys
+
+IF llFrmKeys AND EMPTY(m.Style)
+  RETURN
+ENDIF
+
+DIME laSize[1]
+STORE ' ' TO m.Style,m.Desc1,laSize
+STORE 0  TO m.Price,m.TotQty,m.Disc_Pcnt,m.Gros_Price,m.Comm1,laTot
+STORE  .F. TO llEdit,llChang,llDifPrice
+STORE .T. TO llShw1
+STORE 1 TO lnFldGrp
+
+m.COMPLETE =  laData[10] 
+
+SHOW GET m.Style ENABLE 
+SHOW GET m.COMPLETE DISABLE
+SHOW GET m.Desc1 DISABLE
+SHOW GET m.Price DISABLE
+SHOW GET m.TotQty DISABLE
+SHOW GET m.Disc_Pcnt DISABLE
+SHOW GET m.Gros_Price DISABLE
+SHOW GET m.Comm1 DISABLE
+SHOW GET pbNote DISABLE
+SHOW GET pbClear DISABLE
+SHOW GET pbSav   DISABLE
+_CUROBJ = OBJNUM(m.Style)
+
+*--Clear notes
+SELECT (lcTempNote)
+REPLACE NOTE_MEM WITH ''
+
+*-- Update the free & Physical stock
+STORE 0 TO laFreStk  ,laPhyStk
+FOR lnI = 1 TO lnBrFlCn+1
+  SHOW GET laFreStk[lnI]
+  SHOW GET laPhyStk[lnI]
+ENDFOR
+=lfRefresh(lcQkWin4)
+
+SELECT (lcTempCur)
+ZAP  
+
+=lfPrNxBrow()
+
+*--If fields more than lnBrFlCn(=10) , enable next button - for next browse
+*IF CEILING(ALEN(laSize)/lnBrFlCn) > 1 
+*  SHOW GET pbNext  ENABLE 
+*ENDIF
+SHOW GET pbNext DISABLE
+SHOW GET pbPrev DISABLE
+IF llFrmKeys
+  ACTIVATE WINDOW (lcQkWin1)
+  _CUROBJ = OBJNUM(M.STYLE)
+ENDIF
+
+*-- end of lfvqClear.
+
+
+*:**************************************************************************
+*:* Name        : lfvQStyle                                      
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/18/2002
+*:* Purpose     : Valid funciton for m.QStyle field
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvQStyle()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvQStyle
+
+PRIVATE lcAlias,lcGetSty,lcStat,lnIncrmnt,lnClrs,lnCount,lnJ,lcSeekSty,laSum,laSavStat,lcStyle
+*--- Select
+lcAlias = ALIAS()
+
+IF MDOWN() .AND. !llBrowse
+  RETURN
+ENDIF
+
+STORE 0 TO laPhyStk,laFreStk
+m.Style = PADR(ALLT(m.Style),lnMajorLen)
+
+IF !EMPTY(m.Style) AND ('?' $ m.Style .OR. !SEEK(m.Style,'STYLE')))
+  SELECT STYLE  
+  lcGetSty = PADR(gfStyBrw("M" , m.Style , "" , .F.),lnMajorLen)
+  llBrowse = .F.
+  IF EMPTY(lcGetSty)
+    m.Style = lcOldvalue
+    _CUROBJ = OBJNUM(m.Style) 
+    RETURN
+  ELSE
+    m.Style = lcGetSty
+  ENDIF
+ENDIF  
+
+IF SEEK(m.Style,'Style')
+  *E300408,1 Message : 32017
+  *E300408,1 Style scale not found in the scale file. Cannot accept.
+  *E300408,1 Button : 00000 
+  *E300408,1 Ok
+
+  *E300408,1 Message : 32018
+  *E300408,1 This is a canceled style. Cannot accept.
+  *E300408,1 Button : 00000 
+  *E300408,1 Ok
+
+  *E300408,1 Message : 32019
+  *E300408,1 This style/color is on hold. 
+  *E300408,1 Button : 32003
+  *E300408,1 Accept Reenter
+
+  *E300408,1 Message : 32020
+  *E300408,1 Styles restricted to XXX!
+  *E300408,1 Button : 00000
+  *E300408,1 Ok
+
+  *E300408,1 Message : 32021
+  *E300408,1 Style XXX date is 
+  *E300408,1 Button : 32003
+  *E300408,1 Accept Reenter
+
+  IF (!SEEK('S'+Style.Scale,'Scale') .AND. ;
+        gfModalGen('TRM32017B00000','ALERT')=1) ;
+   .OR. (Style.Status='X' .AND. ;
+        gfModalGen('TRM32018B00000','ALERT')=1) ;
+   .OR. (Style.Status='H' .AND. ;
+        gfModalGen('QRM32019B32003','ALERT')=2) ;
+   .OR. (Style.cDivision <> laData[15] .AND. ;
+        gfModalGen('TRM32020B00000','ALERT','division '+ALLTRIM(laDivision[lnDivision,1]))=1) ;
+   .OR. (!EMPTY(Style.Start) .AND. Style.Start > laData[9] .AND. ;
+        gfModalGen('QRM32021B32003','ALERT','start|'+DTOC(Style.Start))=2) ;
+   .OR. (!EMPTY(Style.SoldOut) .AND. Style.SoldOut < laData[9] .AND. ;
+        gfModalGen('QRM40010B40001','ALERT','sold out|'+DTOC(Style.SoldOut))=2)  
+
+    STORE lcOldvalue TO m.Style
+    _CUROBJ = OBJNUM(m.Style)
+    RETURN
+  ENDIF
+  
+  *-* =>| *C200431,4 TMI [Start] Add a line for the current style to prevent the screen "STYPRIC" to appear  
+  *-* =>| IF llMulCurr .AND. laData[33]<>gcBaseCurr 
+  *-* =>|   IF !USED('STYPRICE')
+  *-* =>|     =gfOpenFile(gcDataDir+'STYPRICE','STYPRICE','SH')
+  *-* =>|   ENDIF
+  *-* =>|   IF !SEEK(STYLE.STYLE+laData[33],'STYPRICE')
+  *-* =>|     PRIVATE laPr
+  *-* =>|     DIMENSION laPr[1]
+  *-* =>|     laPr = 1
+  *-* =>|     *--If style has a line in "CSTPRICE" file get this price
+  *-* =>|     lcDvKey = STYLE.STYLE+laData[33]
+  *-* =>|     SELECT PRICEDV FROM CSTPRICE WHERE STYDV+CCURRCOD=lcDvKey INTO ARRAY laPr
+  *-* =>|     SELECT STYPRICE
+  *-* =>|     APPEND BLANK
+  *-* =>|     REPLACE STYLE     WITH STYLE.STYLE,;
+  *-* =>|             CCURRCODE WITH laData[33],;
+  *-* =>|             PRICEA    WITH laPr[1],;
+  *-* =>|             PRICEB    WITH laPr[1],;
+  *-* =>|             PRICEC    WITH laPr[1]
+  *-* =>|   ENDIF
+  *-* =>| ENDIF  
+  *-* =>| *C200431,4 TMI [End  ] 
+  
+  *B606927,1 TMI [Start] Comment all code of dealing with prices,it will be dealed other way
+  */*  *-- if Customer has no price code , or current selected style has no entry in the file cstprice then use the default case
+  */*  llCodPrice = .F.  && If this style is linked to a price code for current customer
+  */*  IF EMPTY(CUSTOMER.PRICCODE) .OR. !SEEK(CUSTOMER.PRICCODE+laData[33]+SUBSTR(m.Style,1,lnMajorLen),'CSTPRICE')
+  */*    *--Get style price according to ordered quantity - (Default case)
+  */*    PUSH KEY
+  */*    ON KEY
+  */*    m.lContract = lcOrdType<>'C' .AND. lfvContPri(m.Style,'m.Gros_Price','m.Price','m.Disc_Pcnt')
+  */*    IF !m.lContract
+  */*      lcStyle = STYLE.STYLE
+  */*      m.Gros_Price = MAX( lfGetprice(lcStyle,lcPriceLvl,m.TotQty) , 0 )
+  */*      ** To prevent the screen SOSTYPRI to appear user must enter price <> 0  for all sizes
+  */*    ENDIF
+  */*    POP KEY
+  */*  
+  */*    m.Price    = m.Gros_Price
+  */*    m.Desc1    = Style.Desc1
+  */*    m.Comm1    = IIF(Style.Commission,laData[28],0)   &&The first commession 
+  */*    *C200431 TMI [Start] 
+  */*    lcCommStat = 'ENABLE'
+  */*    *C200431 TMI [End  ] 
+  */*    
+  */*    *-- Get Style discount percent and Calculate net price  
+  */*    IF !m.lContract
+  */*      *-- get the cDiscCode From stydye in every case
+  */*      *C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+  */*      *lcDiscCode  = IIF(SEEK(m.Style+laData[31]+SPACE(10),'StyDye'),StyDye.cDiscCode,'')
+  */*      *m.Disc_Pcnt = 0     && We get this value from screen
+  */*      lcDiscCode  = IIF(SEEK(m.Style+laWareHouse[lnWareHouse,2]+SPACE(10),'StyDye'),StyDye.cDiscCode,'')
+  */*      *C200431,4 TMI [End  ] 
+  */*      IF !EMPTY(ALLTRIM(lcDiscCode))
+  */*        *-- Get the disecound related filed to now which 
+  */*        *-- type whole Sale Or Retail sale Or Both.
+  */*        DECLARE laDisType[1,2] , lastartDte[1,2] , laEndDate[1,2]
+  */*        STORE '' To lcDisType , ldstartDte ,ldEndDate
+  */*        *-- Array to get the Discount affect for DecCode.
+  */*        laDisType[1,1]  = 'CCOSTAFECT'
+  */*        laDisType[1,2]  = 'lcDisType'
+  */*        *-- Array to get the start date For DescCode.
+  */*        lastartDte[1,1] = 'START'
+  */*        lastartDte[1,2] = 'ldstartDte'
+  */*        *-- Array to get the end date For DescCode.
+  */*        laEndDate[1,1]  = 'DENDATE'
+  */*        laEndDate[1,2]  = 'ldEndDate'
+  */*        = gfRltFld(lcDiscCode , @laDisType, 'CDISCCODE')
+  */*        = gfRltFld(lcDiscCode, @lastartDte, 'CDISCCODE')
+  */*        = gfRltFld(lcDiscCode , @laEndDate, 'CDISCCODE')
+  */*        lnDisc_Pcnt = 0
+  */*        IF ALLTRIM(lcDisType) <> 'R' .AND. BETWEEN(laData[8],ldstartDte,ldEndDate)
+  */*          lnDisc_Pcnt = m.Disc_Pcnt
+  */*          =gfRltFld(lcDiscCode,@laDisRltFld,'CDISCCODE')
+  */*          m.Disc_Pcnt = lnDisc_Pcnt
+  */*        ENDIF
+  */*      ENDIF  
+  */*      m.Price     = m.Gros_Price*(100-m.Disc_Pcnt)/100  
+  */*    ENDIF 
+  */*  
+  */*    *-- Show if there are more than one price for each scale
+  */*    PRIVATE laPrices,lcStyClr
+  */*    SELECT STYLE  
+  */*    *C200431,4 TMI [Start] Compare prices for all colors-scales depending on Stylemajor
+  */*    *lcStyClr = SUBSTR(STYLE,1,lnMajorLen+1+lnClrLen)
+  */*    lcStyClr = SUBSTR(STYLE,1,lnMajorLen)
+  */*    *C200431,4 TMI [End  ] 
+  */*  
+  */*    IF !llMulCurr .OR. laData[33]=gcBaseCurr
+  */*      *--Single currency case
+  */*      SCATTER FIELDS PRICEA,PRICEB,PRICEC TO laPrices
+  */*      SCAN REST WHILE STYLE = lcStyClr
+  */*        llDifPrice = PRICEA <> laPrices[1] .OR. ;
+  */*                     PRICEB <> laPrices[2] .OR. ;
+  */*                     PRICEC <> laPrices[3]
+  */*        IF llDifPrice
+  */*          EXIT
+  */*        ENDIF             
+  */*        SCATTER FIELDS PRICEA,PRICEB,PRICEC TO laPrices             
+  */*      ENDSCAN
+  */*    ELSE
+  */*      *--Multipe currency case
+  */*      SELECT STYPRICE
+  */*      LOCATE FOR STYLE=lcStyClr .AND. CCURRCODE = laData[33]
+  */*      SCATTER FIELDS PRICEA,PRICEB,PRICEC TO laPrices
+  */*      SCAN REST WHILE STYLE = lcStyClr FOR CCURRCODE = laData[33]
+  */*        llDifPrice = PRICEA <> laPrices[1] .OR. ;
+  */*                     PRICEB <> laPrices[2] .OR. ;
+  */*                     PRICEC <> laPrices[3]
+  */*        IF llDifPrice
+  */*          EXIT
+  */*        ENDIF             
+  */*        SCATTER FIELDS PRICEA,PRICEB,PRICEC TO laPrices             
+  */*      ENDSCAN
+  */*    ENDIF
+  */*    *-- Show if there are more than one price for each scale 
+  */*  
+  */*  ELSE  
+  */*  
+  */*    llCodPrice = .T.  
+  */*    *C200431,4 TMI [Start] Get the first price in file CSTPRICE , assign it to m.Gros_Price
+  */*    STORE CSTPRICE.PRICEDV TO m.Gros_Price,m.Price
+  */*    
+  */*    *--Commesion State field
+  */*    PRIVA laComm
+  */*    DIMENSION laComm[1]
+  */*    laComm = 0
+  */*    lcPrCod = CUSTOMER.PRICCODE    
+  */*    SELECT DIST COMMDV ;
+  */*    FROM CSTPRICE ;
+  */*    WHERE CSTPRICE.PRICCODE+CSTPRICE.CCURRCOD+CSTPRICE.STYDV = lcPrCod+laData[33]+SUBSTR(m.Style,1,lnMajorLen) ;
+  */*    AND COMMDV<>0 ;
+  */*    INTO ARRAY laComm
+  */*    M.COMM1 = IIF(laComm[1]>0,0,laData[28])
+  */*    lcCommStat = IIF(laComm[1]>0,'DISABLE','ENABLE')
+  */*    *C200431,4 TMI [End  ]     
+  */*  ENDIF  
+  *B606927,1 TMI [End  ] Comment all code of dealing with prices,it will be dealed other way  
+  
+  lcStat = IIF(!EMPTY(m.Style),'ENABLE','DISABLE')
+  SHOW GET pbClear &lcStat  
+  
+  *--Get Sizes  
+  laSize = ''
+  =SEEK(m.Style,'STYLE')
+  lnScaleLen = gfGetMemVar('M_EXTWIDTH')     && Extended size Scale ID Length.
+  m.SCALE = STYLE.SCALE
+  *khm
+  m.Desc1 = Style.Desc1
+
+  SELECT Scale,CNT FROM SCALE WHERE Type+Scale='S'+SUBSTR(m.SCALE,1,lnScaleLen) ORDER BY 1 INTO ARRAY laExtSz
+  SELECT SCALE
+  =SEEK('S'+laExtSz[1],'SCALE')
+
+  *-- If style is entred befor , warn the user
+  IF SEEK(lcOrdType+laData[1]+laData[3]+m.Style,(lcOrdLine))
+    *--This Style has entred on this order
+    *--Button 02011 : \!\<OK;\?\<Cancel
+    lnResp = gfModalGen('QRM00000B02011',.F.,.F.,.F.,'This style has already been entred on this order '+;
+                                                    +'- do you wish to create new order lines ?')
+    IF lnResp = 2 
+      =lfvqClear() 
+      RETURN
+    ENDIF
+  ENDIF
+  
+  lnIncrmnt = 0
+  FOR lnCount = 1 TO ALEN(laExtSz,1)
+  *FOR lnCount = 1 TO MIN( ALEN(laExtSz,1) , 10 )
+    =SEEK('S'+laExtSz[lnCount,1],'SCALE')
+    FOR lnJ = 1 TO laExtSz[lnCount,2]
+      lcZ = STR(lnJ,1)
+      DIMENSION laSize[lnIncrmnt+lnJ]
+      laSize[lnIncrmnt+lnJ] = ALLTRIM(SCALE.SZ&lcZ)
+    ENDFOR
+    lnIncrmnt = lnIncrmnt + laExtSz[lnCount,2]
+  ENDFOR
+  PRIVATE lnFldCnt,lnSzCnt
+  lnFldCnt = ALEN(laSize)
+  
+  *--Clear Notes (if any)
+  SELECT (lcTempNote)
+  REPLACE NOTE_MEM WITH ''
+  
+  *--Create the temp file for colors , all sizes in one line   
+  IF !lfCrtTmp(lnFldCnt)
+    =gfModalGen('INM00000B00000',.F.,.F.,.F.,'Can not create the temp file!')
+    =lfvqClear() 
+    RETURN
+  ENDIF
+  
+  *--Create color array
+  SELECT DISTINCT SUBSTR(STYLE.STYLE,lnClrPos,lnClrLen) FROM STYLE ;
+    WHERE STYLE = PADR(m.Style,lnMajorLen) ;
+    INTO ARRAY laClr  
+  
+  *--Add a line for each color
+  PRIVATE lnMaxInd
+  FOR lnClrs = 1 TO ALEN(laClr,1)
+    *B606927,1 TMI [Start] populate the variable M.SCLPRC
+    M.SCLPRC = SPACE(23*ALEN(laExtSz,1))
+    *B606927,1 TMI [End  ] 
+  
+    SELECT (lcTempCur)
+    SCATTER MEMVAR BLANK
+    M.STYMAJOR = PADR(m.Style,lnMajorLen)
+    M.COLOR = laClr[lnClrs]
+    M.COLORDSC = PADR(gfCodDes(PADR(laClr[lnClrs],lnClrLen) , 'COLOR'),20)
+    lnIncrmnt = 0
+    *--Update Quantites from lcOrdLine if style is entred befor for the same store
+    FOR lnCount = 1 TO ALEN(laExtSz,1)
+    *FOR lnCount = 1 TO MIN( ALEN(laExtSz,1) , 10 )
+      lcSeekSty = M.STYMAJOR+lcSepart+PADR(M.COLOR,lnClrLen)+lcClrSpr+laExtSz[lnCount,1]
+      lcSeekSty = PADR(lcSeekSty,19)
+
+      *-- Fill the fields PhyStk and FreStk
+      *C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+      *=SEEK(lcSeekSty+laData[31],'STYDYE')
+      =SEEK(lcSeekSty+laWareHouse[lnWareHouse,2],'STYDYE')
+      *C200431,4 TMI [End  ] 
+      
+      PRIVATE laSoldQty
+      DIMENSION laSoldQty[8]
+      laSoldQty = 0
+      ldNxM1stDy = lfNxM1stDy()            && Get Next month first day
+      *C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+      *SELECT SUM(QTY1),SUM(QTY2),SUM(QTY3),SUM(QTY4),SUM(QTY5),SUM(QTY6),SUM(QTY7),SUM(QTY8) ;
+      *FROM ORDLINE,ORDHDR ;
+      *WHERE STYLE = lcSeekSty ;
+      *  AND ORDHDR.ORDER = ORDLINE.ORDER ;            
+      *  AND ORDHDR.STATUS $ 'OH' ;
+      *  AND ORDLINE.START < ldNxM1stDy ;          
+      *  AND ORDLINE.CWARECODE = laData[31] ;
+      *INTO ARRAY laSoldQty
+      *B606927,1 TMI [Start] Use Seek instead of select sql statement
+      *SELECT SUM(QTY1),SUM(QTY2),SUM(QTY3),SUM(QTY4),SUM(QTY5),SUM(QTY6),SUM(QTY7),SUM(QTY8) ;
+      FROM ORDLINE,ORDHDR ;
+      WHERE STYLE = lcSeekSty ;
+        AND ORDHDR.ORDER = ORDLINE.ORDER ;            
+        AND ORDHDR.STATUS $ 'OH' ;
+        AND ORDLINE.START < ldNxM1stDy ;          
+        AND ORDLINE.CWARECODE = laWareHouse[lnWareHouse,2] ;
+      INTO ARRAY laSoldQty
+      
+      SELECT ORDLINE
+      SEEK lcSeekSty
+      SCAN REST WHILE STYLE = lcSeekSty ;
+                  FOR ORDLINE.CWARECODE = laWareHouse[lnWareHouse,2] AND ORDLINE.START<ldNxM1stDy
+        IF SEEK(ORDLINE.CORDTYPE+ORDLINE.ORDER,'ORDHDR') AND ORDHDR.STATUS $ 'OH'
+          laSoldQty[1] = laSoldQty[1] + ORDLINE.QTY1
+          laSoldQty[2] = laSoldQty[2] + ORDLINE.QTY2
+          laSoldQty[3] = laSoldQty[3] + ORDLINE.QTY3
+          laSoldQty[4] = laSoldQty[4] + ORDLINE.QTY4
+          laSoldQty[5] = laSoldQty[5] + ORDLINE.QTY5
+          laSoldQty[6] = laSoldQty[6] + ORDLINE.QTY6
+          laSoldQty[7] = laSoldQty[7] + ORDLINE.QTY7
+          laSoldQty[8] = laSoldQty[8] + ORDLINE.QTY8
+        ENDIF
+      ENDSCAN
+      *B606927,1 TMI [End  ]       
+      *C200431,4 TMI [End  ] 
+      *B606927,1 TMI [Start] Get the price from CSTPRICE.dbf or from style.dbf file
+      =SEEK(lcSeekSty,'STYLE')
+      IF SEEK(lfPRICCODE()+laData[33]+lcSeekSty,'CSTPRICE')        
+      
+        lnStyComm = IIF(CSTPRICE.COMMDV=0,IIF(Style.Commission,laData[28],0),CSTPRICE.COMMDV)
+        
+               * GROS PRICE                COMMESION                dicount
+               *123456789,12              +12,45                   +123,56 
+        lcPri = STR(CSTPRICE.PRICEDV,12,2)+STR(lnStyComm,5,2)+STR(0,6,2)        
+      ELSE      
+        lcPri = STR(0,12,2) + STR(IIF(Style.Commission,laData[28],0),5,2) + STR(0,6,2)
+        IF llMulCurr .AND. laData[33]<>gcBaseCurr 
+          IF SEEK(lcSeekSty+laData[33],'STYPRICE')
+            lcPri = STR(STYPRICE.PRICEA,12,2) + STR(IIF(Style.Commission,laData[28],0),5,2) + STR(0,6,2)
+          ENDIF
+        ELSE     
+          IF SEEK(lcSeekSty,'STYLE')
+            lcPri = STR(STYLE.PRICEA,12,2) + STR(IIF(Style.Commission,laData[28],0),5,2) + STR(0,6,2)
+          ENDIF
+        ENDIF
+      ENDIF
+      M.SCLPRC = STUFF(M.SCLPRC,(lnCount-1)*23+1,23,lcPri)
+      *B606927,1 TMI [End  ] 
+      
+      FOR lnJ = 1 TO laExtSz[lnCount,2]      
+        lcZ = STR(lnJ,1)
+        lcX = ALLT(STR(lnIncrmnt+lnJ))
+        
+        *--Stock (free - physical)
+        *M.FreStk&lcX = STYDYE.Stk&lcZ - STYDYE.Ord&lcZ
+        M.FreStk&lcX = STYDYE.Stk&lcZ - laSoldQty[lnJ]
+        M.PhyStk&lcX = STYDYE.Stk&lcZ        
+
+        **--Total qty , Free stk , Phys stk
+        *m.nTotal = m.nTotal + &lcOrdLine..Qty&lcZ
+        m.TotFreStk = m.TotFreStk + M.FreStk&lcX
+        m.TotPhyStk = m.TotPhyStk + M.PhyStk&lcX
+
+      ENDFOR
+
+      lnIncrmnt = lnIncrmnt + laExtSz[lnCount,2]
+    ENDFOR     
+    INSERT INTO (lcTempCur) FROM MEMVAR
+  ENDFOR  
+ 
+  =SEEK(PADR(m.Style,lnMajorLen),'STYLE')
+  
+  SELECT (lcTempCur)
+  GO TOP
+  lcTempTot = gfTempName()
+  TOTAL ON .T. TO (gcWorkDir+lcTempTot)
+  SELECT 0
+  USE (gcWorkDir+lcTempTot) 
+  SCATTER MEMVAR
+  USE IN &lcTempTot
+  ERASE (gcWorkDir+lcTempTot+'.DBF') 
+  
+  *--Add total line
+  M.LASTLINE = CHR(255)
+  M.STYMAJOR = ''
+  M.COLOR    = ''
+  M.COLORDSC = 'Totals'   
+  INSERT INTO (lcTempCur) FROM MEMVAR
+  SELECT (lcTempCur)
+  GO TOP
+  
+  STORE M.NTOTAL TO laTot[1,2],m.TotQty
+  
+  llEdit = M.NTOTAL>0
+  
+  laSavStat = IIF(llEdit,'ENABLE','DISABLE')
+  SHOW GET pbSav &laSavStat
+
+  SHOW GET m.Style DISABLE
+  SHOW GET m.TotQty ENABLE
+  SHOW GET m.Comm1 ENABLE
+  SHOW GET pbNote ENABLE
+  SHOW GET m.Desc1 DISABLE
+
+  lcStat = IIF(llCodPrice .OR. llDifPrice ,'DISABLE','ENABLE')
+  SHOW GET m.Gros_Price &lcStat
+  *C200431,4 TMI [Start] The discount need to be always enabled as per Usama
+  *SHOW GET m.Disc_Pcnt &lcStat
+  SHOW GET m.Disc_Pcnt ENABLED
+  *C200431,4 TMI [End  ] 
+  SHOW GET m.Price &lcStat
+  *C200431,4 TMI [Start] Disable only if there is a price code for this style  
+  *SHOW GET m.Comm1 &lcStat       
+  *SHOW GET m.Comm1 &lcCommStat  *B606927,1 TMI
+  *C200431,4 TMI [End  ] 
+  SHOW GET m.COMPLETE ENABLE
+
+  *B606927,1 TMI [Start] Disable price , discount , gros price , commession 
+  SHOW GET m.Gros_Price DISABLE
+  SHOW GET m.Price      DISABLE
+  SHOW GET m.Comm1      DISABLE
+  *B606927,1 TMI [End  ] 
+
+  *--Next/Prev buttons
+  =lfPrNxBrow()
+  
+  _CUROBJ = OBJNUM(m.COMPLETE)
+ENDIF
+
+*-- end of lfvQStyle.
+
+*:**************************************************************************
+*:* Name        : lfNxM1stDy
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/18/2002
+*:* Purpose     : Get Next month first day
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfNxM1stDy()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfNxM1stDy
+lnMonth = IIF(MONTH(gdSysDate)=12,1,MONTH(gdSysDate)+1)
+lnYear  = IIF(MONTH(gdSysDate)=12,YEAR(gdSysDate)+1,YEAR(gdSysDate))
+ldFrstDay = CTOD('1/'+STR(lnMonth)+'/'+str(lnYear))
+RETURN ldFrstDay
+*-- end of lfNxM1stDy.
+*:**************************************************************************
+*:* Name        : lfvQkSav                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/18/2002
+*:* Purpose     : Save valid fucntio for screen quickord
+*:***************************************************************************
+*:* Called from : quickord.scx
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvQkSav()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvQkSav
+PRIVATE lcOrd,lnQkCnt,lnJ,lcJ,lcQ,lnIncrmnt,lnK,llDfChkQty
+
+IF laTot[1,2] = 0
+  RETURN
+ENDIF
+
+*-- Complete date can not be empty
+IF EMPTY(m.COMPLETE)
+  =gfModalGen('INM00001B00000',.F.,.F.,.F.,'Complete date can not be empty.')
+  _CUROBJ = OBJNUM(m.COMPLETE)
+  RETURN
+ENDIF
+
+*-- If the complete date has been used on a previous ORDLINE for that Style - 
+*-- then show a warning message with the option to change the Complete Date or Clear.
+*B606945,1 ASH 02/16/2003 (Begin) Check the completion date for the same order not all orders.
+*SELECT ORDLINE
+*GO TOP
+*IF SEEK(SUBSTR(m.STYLE,1,lnMajorLen))
+*  LOCATE REST WHILE STYLE = SUBSTR(m.STYLE,1,lnMajorLen) ;
+*              FOR COMPLETE = M.COMPLETE
+*ENDIF              
+
+SELECT (lcOrdLine)
+IF SEEK(lcOrdType+laData[1]+laData[3]+SUBSTR(m.STYLE,1,lnMajorLen))
+  LOCATE REST WHILE CORDTYPE+ORDER+STORE+STYLE = lcOrdType+laData[1]+laData[3]+SUBSTR(m.STYLE,1,lnMajorLen);
+              FOR COMPLETE = M.COMPLETE
+ENDIF
+*B606945,1 ASH 02/16/2003 (End)
+IF FOUND()
+  *--Button 32014 : Chan\<ge the Complete Date;\<Clear
+  lnResp = gfModalGen('QRM00000B32014',.F.,.F.,.F.,;
+                      'The selected complete date has been used on a previous ORDLINE for that Style')
+  IF lnResp = 1
+  ELSE
+    *B606945,1 ASH 02/16/2003 (Begin) Check the completion date for the same order not all orders.
+    IF lnResp = 2
+      _CUROBJ = OBJNUM(m.COMPLETE)  
+    ELSE
+      =lfvqClear() 
+    ENDIF
+    *B606945,1 ASH 02/16/2003 (End)
+    RETURN
+  ENDIF                      
+ENDIF
+
+*- Compare check qty with total qty  
+llDfChkQty = m.TotQty <> laTot[1,2]
+IF llDfChkQty AND gfModalGen('QRM32031B32000','ALERT',ALLTRIM(STR(laTot[1,2],8)))=2  
+  RETURN .F.
+ENDIF
+
+SELECT (lcTempNote)
+SCATTER MEMVAR MEMO
+
+*--Assign variables values
+m.CORDTYPE  = lcOrdType
+m.ORDER     = laData[1]
+m.ACCOUNT   = laData[2]
+m.STORE     = laData[3]
+m.CustPo    = IIF(!laData[7],&lcOrdHdr..CustPo,'')   &&Save Cust PO # in OrdLine if not Multi Store
+*C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+*m.cWareCode = laData[31]
+m.cWareCode = laWareHouse[lnWareHouse,2]
+*C200431,4 TMI [End  ] 
+m.Start     = laData[9]
+
+SELECT (lcTempCur)
+GO TOP
+SCAN FOR EMPTY(LASTLINE) AND NTOTAL>0
+  lnIncrmnt = 0
+  FOR lnQkCnt = 1 TO ALEN(laExtSz,1)    
+  *FOR lnQkCnt = 1 TO MIN( ALEN(laExtSz,1) , 10 )
+    SELECT (lcTempCur)
+    m.Style = STYMAJOR+lcSepart+SUBSTR(COLOR,1,lnClrLen)+lcClrSpr+laExtSz[lnQkCnt,1]
+    IF SEEK(m.Style,'STYLE')
+      STORE 0 TO m.Qty1,m.Qty2,m.Qty3,m.Qty4,m.Qty5,m.Qty6,m.Qty7,m.Qty8,m.TotQty,;
+                 m.Book1,m.Book2,m.Book3,m.Book4,m.Book5,m.Book6,m.Book7,m.Book8,m.TotBook
+      FOR lnJ = lnIncrmnt + 1 TO lnIncrmnt + laExtSz[lnQkCnt,2]
+        lcJ = ALLT(STR(lnJ))
+        lcQ = STR(lnJ - lnIncrmnt,1)
+        m.TotQty = m.TotQty +  S&lcJ
+        m.Qty&lcQ = S&lcJ
+        m.Book&lcQ = S&lcJ
+      ENDFOR    
+      m.TotBook  = m.TotQty
+      m.Scale    = STYLE.SCALE     
+      m.Desc1    = STYLE.Desc1 
+      m.PrePak   = Style.PrePak
+      m.Season   = Style.Season
+      m.Gl_Sales = ALLTRIM(laData[53])+Style.cSlsGlLink
+      m.Gl_Sales = IIF(laSetups[4,2]='Y' AND SEEK('02'+m.Gl_Sales,'Gl_Link'),m.Gl_Sales,'DEFDEF')
+      m.Flag     = 'N'      
+
+      *-- Get price for each line of scales has different prices , 
+      *-- or check qty differs from entred qty        
+            
+      IF m.TotQty > 0
+        *B606927,1 TMI [Start] get prices
+        *\* IF llCodPrice
+        *\*   =lfCodPrice(.T.)
+        *\* ELSE
+        *\*   IF llDifPrice
+        *\*     =lfQkPrice()
+        *\*   ENDIF
+        *\* ENDIF
+        m.Gros_Price = VAL(SUBSTR(SCLPRC,(lnQkCnt-1)*23+1        ,12))
+        m.Comm1      = VAL(SUBSTR(SCLPRC,(lnQkCnt-1)*23+1 +12    ,5 ))
+        *m.Disc_Pcnt = VAL(SUBSTR(SCLPRC,(lnQkCnt-1)*23+1 +12 +5 ,6 ))
+        m.Price      = ROUND( m.Gros_Price*(1-m.Disc_Pcnt/100) , 2 )
+        *B606927,1 TMI [End  ] 
+        
+        *IF m.TotQty>0
+        lnLines    = lnLines + 1
+        m.LineNo   = lnLines      
+        INSERT INTO (lcOrdLine) FROM MEMVAR
+        *--Update laData array 
+        laData[35] = laData[35] + m.TotBook
+        laData[36] = laData[36] + m.TotBook*m.Price
+        laData[41] = laData[41] + m.TotQty
+        laData[42] = laData[42] + m.TotQty*m.Price          
+        *ENDIF        
+      ENDIF      
+      lnIncrmnt = lnIncrmnt + laExtSz[lnQkCnt,2]
+    ENDIF
+  ENDFOR
+ENDSCAN
+
+*--Save NOTE_MEM
+SELECT (lcTempCur)
+LOCATE
+m.Style = STYMAJOR
+SELECT (lcOrdLine)
+IF SEEK(lcOrdType+laData[1]+laData[3]+m.Style,(lcOrdLine))
+  M.NOTE_MEM = &lcTempNote..NOTE_MEM
+  *--Clear field note_mem for colors other than the first color filled with qty>0
+  SCAN REST WHILE CORDTYPE+ORDER+STORE+STYLE+STR(LINENO,6) = lcOrdType+laData[1]+laData[3]+m.Style
+    REPLACE NOTE_MEM WITH m.Note_mem
+    m.Note_mem = ''      
+  ENDSCAN
+ENDIF 
+*-- Clear screen
+=lfvqClear(.T.)
+*-- end of lfvQkSav.
+
+*:**************************************************************************
+*:* Name        : lfvqTotQty                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/19/2002
+*:* Purpose     : Valid fn for total qty
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqTotQty()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqTotQty
+IF m.TotQty < 0 
+  *B603449,1 Message : 42000
+  *B603449,1 Negative values are not allowed.
+  *B603449,1 Button  : 40011
+  *B603449,1 Ok
+  = gfModalGen('TRM42000B40011','DIALOG')
+  m.TotQty = lcOldValue
+  _CUROBJ = OBJNUM(m.TotQty)
+  RETURN
+ENDIF
+IF LASTKEY()=15
+  ACTIVATE WINDOW (lcQkWin3)
+  _CUROBJ=OBJNUM(pbExit)  
+ENDIF
+=lfDoTab()
+
+*-- end of lfvqTotQty.
+
+*:**************************************************************************
+*:* Name        : lfvqStyDesc                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/19/2002
+*:* Purpose     : 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqStyDesc()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqStyDesc
+  
+*-- end of lfvqStyDesc.
+
+*:**************************************************************************
+*:* Name        : lfvNotes                                         
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/24/2002
+*:* Purpose     : Entering Line notes , that will be saved againest the first 
+*                 color that has quantity
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvNotes()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvNotes
+PRIVATE lnRecno,lcAlias
+SELECT (lcTempNote)
+DO (gcScrDir+"ARLNOTES.SPX")
+SELECT (lcTempCur)
+*-- end of lfvNotes.
+
+*:**************************************************************************
+*:* Name        : lfvqGPrice
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/23/2003
+*:* Purpose     : Gross price valid fn
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqGPrice()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqGPrice
+IF m.Gros_Price < 0 
+  *B603449,1 Message : 42000
+  *B603449,1 Negative values are not allowed.
+  *B603449,1 Button  : 40011
+  *B603449,1 Ok
+  = gfModalGen('TRM42000B40011','DIALOG')
+  m.Gros_Price = lcOldValue
+  _CUROBJ = OBJNUM(m.Gros_Price)
+  RETURN
+ENDIF
+m.Price = ROUND(m.Gros_Price*(100-m.Disc_Pcnt)/100,2)
+SHOW GET m.Price
+=lfDoTab()
+
+*-- end of lfvqGPrice.
+
+*:**************************************************************************
+*:* Name        : lfvqPrcDisc                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/19/2002
+*:* Purpose     : Discount on price valid fn.
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqPrcDisc()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqPrcDisc
+IF m.Disc_Pcnt < 0 
+  *B603449,1 Message : 42000
+  *B603449,1 Negative values are not allowed.
+  *B603449,1 Button  : 40011
+  *B603449,1 Ok
+  = gfModalGen('TRM42000B40011','DIALOG')
+  m.Disc_Pcnt = lcOldValue
+  _CUROBJ = OBJNUM(m.Disc_Pcnt)
+  RETURN
+ENDIF
+IF m.Disc_Pcnt > 99.99
+  *--Can not exceed 999
+  *-- 40171 : ð cannot exceeds ð  
+  =gfModalGen('TRM40171B00000','DIALOG','Percent Discount|99.99')
+  m.Disc_Pcnt = lcOldValue
+  _CUROBJ = OBJNUM(m.Disc_Pcnt)
+  RETURN
+ENDIF
+m.Price = ROUND(m.Gros_Price*(100-m.Disc_Pcnt)/100,2)
+SHOW GET m.Price
+=lfDoTab()
+*-- end of lfvqPrcDisc.
+
+*:**************************************************************************
+*:* Name        : lfvqNPrice
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/23/2003
+*:* Purpose     : Net  price valid fn
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqNPrice()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqNPrice
+
+IF m.Price < 0
+  *B603449,1 Message : 42000
+  *B603449,1 Negative values are not allowed.
+  *B603449,1 Button  : 40011
+  *B603449,1 Ok
+  = gfModalGen('TRM42000B40011','DIALOG')
+  m.Price = lcOldValue
+  _CUROBJ = OBJNUM(m.Price)
+  RETURN
+ENDIF
+
+m.Price = IIF(m.Price>m.Gros_Price,m.Gros_Price,m.Price)
+m.Disc_Pcnt = IIF(m.Gros_Price=0,0,100-m.Price*100/m.Gros_Price)
+
+SHOW GET m.Gros_Price
+SHOW GET m.Disc_Pcnt
+SHOW GET m.Price
+
+=lfDoTab()
+*-- end of lfvqNPrice.
+
+
+*:**************************************************************************
+*:* Name        : lfvqComm                                        
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/25/2002
+*:* Purpose     : Valid fn for commesion 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqComm()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvqComm
+
+*-- end of lfvqComm.
+
+*:**************************************************************************
+*:* Name        : lfGetClrD                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/20/2002
+*:* Purpose     : Get Color Position and Color length
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGetClrD()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfGetClrD
+DECLARE laItemSeg[1]
+PRIVATE lnCount &&Tmi 07/15/2002
+lcOldSelect=select()
+=gfItemMask(@laItemSeg)
+FOR lnCount = 1 TO ALEN(laItemSeg,1)
+  IF laItemSeg[lnCount,1]='C'
+    lnClrLen = LEN(laItemSeg[lnCount,3])
+    lnClrPos = laItemSeg[lnCount,4]
+    lcClrSpr = ALLT(laItemSeg[lnCount,6])
+    EXIT
+  ENDIF
+ENDFOR
+
+*C200452,1 TMI [Start] Get size position and size segment lenght 
+FOR lnCount = 1 TO ALEN(laItemSeg,1)
+  IF laItemSeg[lnCount,1]='S'
+    lnSizeLen = LEN(laItemSeg[lnCount,3])
+    lnSizePos = laItemSeg[lnCount,4]
+    EXIT
+  ENDIF
+ENDFOR
+*C200452,1 TMI [End  ] 
+
+SELECT(lcOldSelect)
+*--end function lfGetClrD
+
+*:**************************************************************************
+*:* Name        : lfvQkClose                                     
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 06/24/2002
+*:* Purpose     : Close fn. for quickord screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvQkClose()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvQkClose
+PRIVATE llClose
+llClose = .T.
+IF (llEdit AND llChang) OR (!llEdit AND laTot[1,2]>0)
+  *M38093   ð. Are you sure you want to proceed with closing ð?  
+  *B32005   \<Proceed;\?\<Cancel
+  llClose = (gfModalGen('QRM38093B32005','ALERT','Quantities have been '+IIF(llEdit,'changed','entered');
+                                                +'|The Quick Order Entry screen')=1)
+ENDIF
+IF llClose
+  ERASE (gcWorkDir+lcTempCur+'.*')
+  ERASE (gcWorkDir+lcTempNote+'.*')
+  CLEAR READ
+ELSE
+  ACTIVATE WINDOW (lcDet_Ttl)  
+ENDIF
+
+*-- end of lfvQkClose.
+
+*:**************************************************************************
+*:* Name        : lfCodPrice
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 12/29/2002
+*:* Purpose     : Get price from new customer code price file
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfCodPrice()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfCodPrice
+PARAMETERS lnFrmDav   && Variable means if .t. the fn. is called from within davmain.prg
+PRIVATE lnSlct,llSPCSTPRI,llCodFound
+llCodFound = .F.
+lnSlct = SELECT()
+IF !USED('CSTPRICE')
+  =gfOpenFile(gcDataDir+'CSTPRICE','CSTPRICE','SH')
+ENDIF
+
+llSPCSTPRI = gfGetMemVar('M_SPCSTPRI')
+IF lnFrmDav .OR. llSPCSTPRI
+  IF SEEK(lfPRICCODE()+laData[33]+m.Style,'CSTPRICE')
+    llCodFound = .T.
+    m.Gros_Price = CSTPRICE.PRICEDV
+    *C200431,4 TMI [Start] Get discount value from the screen and apply it to the price
+    *m.Price    = m.Gros_Price
+    *m.Disc_Pcnt = 0 
+    m.Price    = ROUND(m.Gros_Price*(100-m.Disc_Pcnt)/100,2)
+    *C200431,4 TMI [End  ] 
+    
+    IF CSTPRICE.COMMDV <> 0  
+      m.Comm1 = IIF(!EMPTY(laData[27]),CSTPRICE.COMMDV,0)
+      m.Comm2 = IIF(!EMPTY(laData[29]),CSTPRICE.COMMDV,0)
+    *ELSE  
+      *m.Comm1 = IIF(!EMPTY(laData[27]),laData[28],0)
+      *m.Comm2 = IIF(!EMPTY(laData[29]),laData[30],0)
+    ENDIF
+  ELSE  
+    IF lnFrmDav
+      IF llDifPrice .OR. llShw1
+        =lfQkPrice()    
+        llShw1 = .F.
+      ENDIF
+    ENDIF    
+  ENDIF
+ENDIF
+SELECT (lnSlct)
+
+RETURN llSPCSTPRI .AND. llCodFound
+*-- end of lfCodPrice.
+
+*:**************************************************************************
+*:* Name        : lfPRICCODE
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/02/2003
+*:* Purpose     : get Customer Price code 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfPRICCODE()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfPRICCODE
+IF TYPE('lcPRICCODE')#'C' .OR. EMPTY(lcPRICCODE)
+  PRIVATE lcSlct,lnRecno
+  lcSlct = SELECT()
+  SELECT CUSTOMER
+  lnRecno = RECNO()
+  =SEEK('M'+laData[2],'CUSTOMER')
+  lcPRICCODE = UPPER(CUSTOMER.PRICCODE)
+  IF BETWEEN(lnRecno,1,RECCOUNT('CUSTOMER'))
+    GOTO (lnRecno)
+  ENDIF
+  SELECT (lcSlct)
+ENDIF
+RETURN lcPRICCODE
+*-- end of lfPRICCODE.
+*:**************************************************************************
+*:* Name        : lfQkPrice                                       
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 07/15/2002
+*:* Purpose     : Get Prices in save case
+ *:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfQkPrice()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfQkPrice
+
+  *--Get style price according to ordered quantity
+  PUSH KEY
+  ON KEY
+  m.lContract = lcOrdType<>'C' .AND. lfvContPri(m.Style,'m.Gros_Price','m.Price','m.Disc_Pcnt')
+  IF !m.lContract
+    m.Gros_Price = MAX( lfGetprice(m.Style,lcPriceLvl,m.TotQty) , 0 )
+  ENDIF
+  POP KEY
+
+  m.Price    = m.Gros_Price
+  
+  *-- Get Style discount percent and Calculate net price  
+  IF !m.lContract
+    *-- get the cDiscCode From stydye in every case
+    *C200431,4 TMI [Start] use the value "laWareHouse[lnWareHouse,2]" instead of laData[31]
+    *lcDiscCode  = IIF(SEEK(m.Style+laData[31]+SPACE(10),'StyDye'),StyDye.cDiscCode,'')
+    *m.Disc_Pcnt = 0    && We get this value from the screen
+    lcDiscCode  = IIF(SEEK(m.Style+laWareHouse[lnWareHouse,2]+SPACE(10),'StyDye'),StyDye.cDiscCode,'')
+    *C200431,4 TMI [End  ] 
+    IF !EMPTY(ALLTRIM(lcDiscCode))
+      *-- Get the disecound related filed to now which 
+      *-- type whole Sale Or Retail sale Or Both.
+      DECLARE laDisType[1,2] , lastartDte[1,2] , laEndDate[1,2]
+      STORE '' To lcDisType , ldstartDte ,ldEndDate
+      *-- Array to get the Discount affect for DecCode.
+      laDisType[1,1]  = 'CCOSTAFECT'
+      laDisType[1,2]  = 'lcDisType'
+      *-- Array to get the start date For DescCode.
+      lastartDte[1,1] = 'START'
+      lastartDte[1,2] = 'ldstartDte'
+      *-- Array to get the end date For DescCode.
+      laEndDate[1,1]  = 'DENDATE'
+      laEndDate[1,2]  = 'ldEndDate'
+      = gfRltFld(lcDiscCode , @laDisType, 'CDISCCODE')
+      = gfRltFld(lcDiscCode, @lastartDte, 'CDISCCODE')
+      = gfRltFld(lcDiscCode , @laEndDate, 'CDISCCODE')
+      lnDisc_Pcnt = 0
+      IF ALLTRIM(lcDisType) <> 'R' .AND. BETWEEN(laData[8],ldstartDte,ldEndDate)
+        lnDisc_Pcnt = m.Disc_Pcnt
+        =gfRltFld(lcDiscCode,@laDisRltFld,'CDISCCODE')
+        m.Disc_Pcnt = lnDisc_Pcnt
+      ENDIF
+    ENDIF  
+    m.Price     = m.Gros_Price*(100-m.Disc_Pcnt)/100  
+  ENDIF 
+
+*-- end of lfQkPrice.
+
+*:**************************************************************************
+*:* Name        : lfQkWhen
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 07/15/2002
+*:* Purpose     : When Fn that disable tab
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfQkWhen()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfQkWhen
+lcOldValue = EVALUATE('m.' + SYS(18))
+ON KEY LABEL TAB
+ON KEY LABEL BACKTAB
+*-- end of lfQkWhen.
+
+*:**************************************************************************
+*:* Name        : lfDoTab
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 07/15/2002
+*:* Purpose     : ReDefine tab keys
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfDoTab()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfDoTab
+ON KEY LABEL BACKTAB DO lpBacktab 
+
+*-- end of lfDoTab.
+
+*:**************************************************************************
+*:* Name        : lfwGPrice
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 07/18/2002
+*! Purpose      : Disable When function for Style Gross price (Specialized for MBI)
+*               : This is to use only price level A
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfwGPrice()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfwGPrice
+RETURN .T.
+
+*:**************************************************************************
+*:* Name        : lfvStyInq
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/01/2003
+*:* Purpose     : Style inquery 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvStyInq()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfvStyInq
+PRIVATE lcParameter
+
+lcParameter = "'"+m.Style+"',''"
+DO gpDoProg WITH 'AWRICSTYLE',.F.,'IC',lcParameter
+*-- end of lfvStyInq.
+
+*:**************************************************************************
+*:* Name        : lfGrpNo
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/05/2003
+*:* Purpose     : GROUP size No/Total No of Size group , The return value is 
+*:*               displayed in the screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGrpNo()
+*:***************************************************************************
+*C#200431,1
+FUNCTION lfGrpNo
+PRIVATE lcRet
+lcRet = PADL(lnFldGrp,2)+'/'+PADR(CEILING(ALEN(laSize)/lnBrFlCn),2)
+RETURN lcRet
+*-- end of lfGrpNo.
+
+*:**************************************************************************
+*:* Name        : lfGoTop 
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Go top in temp file
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGoTop ()
+*:***************************************************************************
+FUNCTION lfGoTop 
+SELECT (lcTempCur)
+GO TOP
+=lfwBrowUp()
+*-- end of lfGoTop .
+
+*:**************************************************************************
+*:* Name        : lfGoBtm
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Go bottom in temp file
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGoBtm()
+*:***************************************************************************
+FUNCTION lfGoBtm
+SELECT (lcTempCur)
+GO BOTTOM
+=lfwBrowUp()
+
+*-- end of lfGoBtm.
+
+
+*:**************************************************************************
+*:* Name        : lfPoQOrdPD
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Define pad line for po order entry screen
+*:***************************************************************************
+*:* Called from : postyle.prg
+*:***************************************************************************
+*:* Example     :  = lfPoQOrdPD()
+*:***************************************************************************
+*C200452,1
+FUNCTION lfPoQOrdPD
+lnBarNo = CNTBAR('_OPTIONPOP') + 1
+DEFINE BAR lnBarNo OF _OPTIONPOP PROMPT 'Quic\<k Order Entry Screen'  ;
+             SKIP FOR (lnActFolder<>2) .OR. (laScrMode[2])
+ON SELECTION BAR lnBarNo OF _OPTIONPOP DO gfDoTriger WITH "POSTY",PADR("POQKORD",10)
+*-- end of lfPoQOrdPD.
+
+*:**************************************************************************
+*:* Name        : lfPOQKORD
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Quick PO order entry screen for David Luke
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfPOQKORD()
+*:***************************************************************************
+*C200452,1
+FUNCTION lfPOQKORD
+PRIVATE laSize,laTot,m.Style,m.Desc,m.Gros_Price,;
+        lcDet_Ttl,lnClrLen,lnClrPos,lcClrSpr,lcTempCur,lcAlias,lnMrk ,;
+        lcQkWin0,lcQkWin1,lcQkWin2,lcQkWin3,lcSepart,lcItemPct,laExtSz,lcOrd,llEdit,;
+        laOldVal,lcBrowFlds,lcSvStyOrd
+*vars
+*-- laSize      : Array to Hold Sizes descriptions for the current style scale
+*-- laTot       : Array to hold Column sum and nTotal field sum
+*-- m.Style     : Style
+*-- m.Desc      : Description
+*-- m.Gros_Price: Gross price
+*-- lcDet_Ttl   : Screen title
+*-- lnClrLen    : Color lenght in style structure
+*-- lnClrPos    : Color position in style structure
+*-- lcClrSpr    : Color separator 
+*-- lcTempCur   : Temp cursor name
+*-- lcAlias     : Alias Variable
+*-- lnMrk       : Marker used in browse
+*-- lcQkWin0..3 : Temp variables for screens
+*-- lcSepart    : Variable to hold style separator
+*-- lcItemPct   : Variable to hold Style Picture
+*-- laExtSz     : Array to hold Sizes
+*-- lcOrd       : Variable to hold order
+*-- llEdit      : Edit mode
+*-- laOldVal    : Array to Hold old Values of the browse
+*-- lcBrowFlds  : Variable to hold browse fields for the main browse screen for colors and sizes
+*-- lnFldGrp    : No of group of fields that appear currently in browse
+*-- lnBrFlCn    : Browse fields count (My design now is 10 fields )
+*-- lnSizeLen   : Size lenght
+*-- lnSizePos   : Size Position 
+*-- lnGPrice,lnDiscPcnt,lnCost1,lnLinTotQ : These variables are used in the screen to update Gross price
+*           Discount,Net Price Total Line Qty  when moving for each size , assign the appropriate group price
+*-- ln1stSz     : No of field that is the first size in block of sizes
+*-- lnPrNxTime  : Variable to save last time that the key is pressed
+*-- lcSvStyOrd  : Saves order of the style file
+
+SELECT (lcPOLine)
+
+SCATTER MEMVAR BLANK
+DIMENSION laSize[1],laTot[1,2],laExtSz[1,2],laOldVal[1]
+STORE '' TO laSize,lcBrowFlds,lcClrSpr,lcGrpNo
+STORE 0 TO laTot,lnClrLen,lnClrPos,m.Gros_Price,laOldVal,lnSizePos,lnSizeLen,ln1stSz
+STORE 0 TO lnGPrice,lnDiscPcnt,lnCost1,lnLinTotQ
+STORE 1 TO lnMrk,lnFldGrp
+STORE .F. TO llEdit
+STORE .T. TO llChang
+lnBrFlCn = 10
+lnPrNxTime = SECONDS()
+
+*C200452,4 TMI [Start] Save order of the style file
+lcSvStyOrd = ORDER('STYLE')
+*C200452,4 TMI [End  ] 
+
+STORE 0 TO laPhyStk,laFreStk
+lcKeyBmp   = gcBmpHome + "ExtKey.BMP"
+
+lcItemPct = gfItemMask('PI')
+lcSepart  = SUBSTR(lcItemPct,lnMjrWid+1,1)
+*-- Get color position and color length 
+=lfGetClrD()
+
+*--Open needed files
+=gfOpenFile(gcDataDir+'BOM','BOM','SH')
+
+lcDet_Ttl = 'Quick Lines Entry Screen'
+
+lcQkWin0    = gftempname()     &&Temp name for Windows.
+lcQkWin1    = gftempname()     &&Temp name for Windows.
+lcQkWin2    = gftempname()     &&Temp name for Windows.
+lcQkWin3    = gftempname()     &&Temp name for Windows.
+lcTempCur   = gfTempName()     && Cursor holds qty /color/size
+lcGrpCur   = gfTempName()     && Cursor holds qty /color/size
+
+PUSH KEY
+
+*--Define keys to navigate throgh the browse by keys
+ON KEY LABEL ALT+B ACTIVATE WINDOW (lcDet_Ttl) 
+ON KEY LABEL TAB
+ON KEY LABEL BACKTAB DO lpBktab 
+ON KEY LABEL CTRL+LEFTARROW  DO lfPrNxPoBr WITH -1
+ON KEY LABEL CTRL+RIGHTARROW DO lfPrNxPoBr WITH 1 
+ON KEY LABEL CTRL+UPARROW    DO lfpoGoTop
+ON KEY LABEL CTRL+DNARROW    DO lfpoGoBot
+ON KEY LABEL ESC             DO lfpoQkClos
+ON KEY LABEL CTRL+R          DO lfvqPoCler WITH .T.
+ON KEY LABEL CTRL+S          DO lfvQpoSav
+
+lcAlias = SELECT(0)
+lcOrd = ORDER(lcPoLine)   
+
+*-- Create temp colors , sizes file
+=lfpoCrtTmp(1)   
+
+DO (gcScrDir+'PO\PoQkOrd.SPX')
+POP KEY
+
+SELECT (lcAlias)
+SET ORDER TO &lcOrd IN &lcPoLine
+
+*--Refresh the detail screen in the postyle.spx
+SHOW WINDOW (lcBrTtl1) REFRESH SAME
+*C200452,4 TMI [Start] Restore order of the style file
+SET ORDER TO &lcSvStyOrd IN STYLE
+*C200452,4 TMI [End  ] 
+
+*-- end of lfPOQKORD.
+
+*:**************************************************************************
+*:* Name        : lfpoCrtTmp
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Create the temp file lcTempcur to used by qkordent screen in PO
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfpoCrtTmp()
+*:***************************************************************************
+*C200452,1
+FUNCTION lfpoCrtTmp
+PARAMETERS lnFlds
+
+PRIVATE lnFl,lnJ,lcJ,lcCrtTbl,laTblFld
+DIMENSION laTblFld[1,4]
+lnFl = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "LASTLINE"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = 1
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "STYMAJOR"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = lnMjrWid
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "COLOR"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = lnClrLen
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "COLORDSC"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = 20
+laTblFld[lnFl,4] = 0
+
+*-- Separate each group of fields to ease trace
+ln1stSz = lnFl
+*--Qty fields
+FOR lnJ = 1 TO lnFlds
+  lcJ = ALLT(STR(lnJ))
+  lnFl = lnFl + 1
+  DIMENSION laTblFld[lnFl,4]
+  laTblFld[lnFl,1] = "S&lcJ"
+  laTblFld[lnFl,2] = "N"
+  laTblFld[lnFl,3] = 7
+  laTblFld[lnFl,4] = 0
+ENDFOR
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "NTOTAL"
+laTblFld[lnFl,2] = "N"
+laTblFld[lnFl,3] = 9
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "OLDTOT"
+laTblFld[lnFl,2] = "M"
+laTblFld[lnFl,3] = 10
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "LCHANGED"
+laTblFld[lnFl,2] = "L"
+laTblFld[lnFl,3] = 1
+laTblFld[lnFl,4] = 0
+
+IF ALEN(laTblFld,1)<=256
+  CREATE TABLE &gcWorkDir.&lcTempCur FROM ARRAY laTblFld
+  INDEX ON LASTLINE+STYMAJOR+COLOR TAG (lcTempCur)
+ELSE
+  RETURN .F.  
+ENDIF   
+
+
+*===========< Create a temp file to store style with size groups >=============*
+lnFl = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "STYLE"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = 19
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "SIZES"
+laTblFld[lnFl,2] = "C"
+laTblFld[lnFl,3] = 8
+laTblFld[lnFl,4] = 0
+
+lnFl = lnFl + 1
+DIMENSION laTblFld[lnFl,4]
+laTblFld[lnFl,1] = "GROS_PRICE"
+laTblFld[lnFl,2] = "N"
+laTblFld[lnFl,3] = 12
+laTblFld[lnFl,4] = 2
+
+CREATE TABLE &gcWorkDir.&lcGrpCur FROM ARRAY laTblFld
+INDEX ON STYLE+SIZES+STR(LINENO,6) TAG &lcGrpCur
+
+*-- end of lfpoCrtTmp.
+
+*:**************************************************************************
+*:* Name        : lfvqPoCler
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Clear funtion for the PO quick order entry screen 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqPoCler()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfvqPoCler
+PARAMETERS llFrmKeys
+
+IF llFrmKeys AND EMPTY(m.Style)
+  RETURN
+ENDIF
+
+DIME laSize[1]
+STORE ' ' TO m.Style,m.Desc,laSize,m.Reference,m.cVenSty
+STORE 0  TO laTot
+STORE 0  TO lnGPrice,lnDiscPcnt,lnCost1,lnLinTotQ
+STORE .F. TO llEdit
+STORE 1 TO lnFldGrp
+
+*C200452,4 TMI [Start] refresh style desctiption field
+SHOW GET M.DESC
+*C200452,4 TMI [End  ] 
+
+SHOW GET m.Style ENABLE 
+
+SHOW GET m.Reference DISABLE
+SHOW GET m.cVenSty DISABLE
+
+SHOW GET pbNote DISABLE
+SHOW GET pbClear DISABLE
+SHOW GET pbSav   DISABLE
+
+_CUROBJ = OBJNUM(m.Style)
+
+SELECT (lcTempCur)
+ZAP  
+
+=lfPrNxPoBr()
+
+SHOW GET pbNext DISABLE
+SHOW GET pbPrev DISABLE
+IF llFrmKeys
+  ACTIVATE WINDOW (lcQkWin1)
+  _CUROBJ = OBJNUM(M.STYLE)
+ENDIF
+
+*-- end of lfvqPoCler.
+
+*:**************************************************************************
+*:* Name        : lfPrNxPoBr
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Previous/Next buttons for the browse
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfPrNxPoBr()
+*:***************************************************************************
+*C200452,1
+FUNCTION lfPrNxPoBr
+PARAMETERS lnPrNx
+PRIVATE lnFldGrpCn  && Field groups count
+lnFldGrpCn = CEILING(ALEN(laSize)/lnBrFlCn)
+*C200452,4 KHM [Start] Comment out , since the calling stack no of "lfPrNxPoBr" need not always be 17
+**C200452,4 TMI [Start] The number of the funtion "lfPrNxPoBr" in calling stack sequence when
+*C200452,4             called by pressing hot keys "CTRL+LEFTARROW/RIGHTARROW" is 17.
+*C200452,4             If user press the combination of hot keys and hold pressing the stack 
+*C200452,4             is increased , this cause an error and fox is terminate , so prevent the
+*C200452,4             funtion to run in this case.
+*PRIVATE lnCnt
+*lnCnt = 1
+*DO WHILE !EMPTY(PROGRAM(lnCnt))
+*  lnCnt = lnCnt + 1
+*ENDDO
+*lnCnt = lnCnt - 1
+*IF lnCnt > 17
+*  RETURN
+*ENDIF
+**C200452,4 TMI [End  ] 
+*C200452,4 KHM [End  ] 
+
+IF !EMPTY(lnPrNx)
+  IF lnPrNx = -1
+    IF lnFldGrp = 1
+      RETURN
+    ENDIF
+    lnFldGrp = lnFldGrp - 1  
+  ENDIF  
+  IF lnPrNx = 1
+    IF lnFldGrp = lnFldGrpCn
+      RETURN
+    ENDIF
+    lnFldGrp = lnFldGrp + 1  
+  ENDIF
+ENDIF
+
+lcPrevStat = IIF(lnFldGrp = 1 , 'DISABLE' , 'ENABLE')
+lcNextStat = IIF(lnFldGrp = lnFldGrpCn , 'DISABLE' , 'ENABLE' )
+
+SHOW GET pbPrev &lcPrevStat
+SHOW GET pbNext &lcNextStat
+
+PRIVATE lnRecno
+lnRecno = RECNO(lcTempCur)
+*-- Rebrowse and refresh
+=lfBrowPoLn(.T.)
+IF BETWEEN(lnRecno,1,RECCOUNT(lcTempCur))
+  GOTO lnRecno IN &lcTempCur
+ENDIF
+
+lcGrpNo = lfGrpNo()
+=lfRefresh(lcQkWin3)
+
+=lfwPoBrUp()
+ACTIVATE WINDOW (lcDet_Ttl)
+
+*-- end of lfPrNxPoBr.
+
+*:**************************************************************************
+*:* Name        : lfBrowPoLn
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Browse function for Po quick order entry screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfBrowPoLn()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfBrowPoLn
+PARAMETERS llGoTop
+
+SELECT (lcTempCur)
+IF llGoTop
+  GO TOP
+ENDIF  
+
+lnMrk  = RECNO()
+lcBrowFlds = "cMrk=IIF(RECNO()=lnMrk,'>',' '):H=' ':R:1:W=.F.,"+;
+             "COLORDSC:R:H=PADC('Colours',12):15:W=.F.,"
+PRIVATE lnSizeLn
+lnSizeLn = IIF(EMPTY(laSize[1]),0,ALEN(laSize,1))
+FOR lnX = 1+(lnFldGrp-1)*lnBrFlCn TO MIN(lnFldGrp*lnBrFlCn,lnSizeLn)
+  lcX = ALLT(STR(lnX))
+  lcBrowFlds = lcBrowFlds + "S&lcX:H='"+laSize[lnX]+"':6:V=lfvPoBrFld(&lcX):W=lfPoW(&lcX),"
+ENDFOR
+lcBrowFlds = lcBrowFlds + "NTOTAL:H='Total':R:W=.F."
+
+*Nearly 26 Character per field, Allowed maximum lenght of the browse string is 1024 , apporximatly 36 fields
+SCATTER MEMVAR TO laOldVal
+
+BROWSE FIELDS &lcBrowFlds;
+       NOAPPEND ;
+       NOCLEAR  ;
+       NODELETE ;
+       NOMENU   ;
+       NOWAIT   ;
+       SAVE     ;
+       VALID :F lfvqBrow();       
+       WHEN lfwPoBrUp();
+       TITLE lcDet_Ttl ;
+       WINDOW (lcQkWin2) IN WINDOW (lcQkWin0)
+
+*=lfwPoBrUp()
+*=lfRefresh(lcQkWin0)
+=lfRefresh(lcDet_Ttl)
+
+*-- end of lfBrowPoLn.
+
+*:**************************************************************************
+*:* Name        : lfwPoBrUp
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Browse update line fn for the po quick order entry screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfwPoBrUp()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfwPoBrUp
+PRIVATE lnI
+lnMrk = RECNO(lcTempCur)
+*--Initiate the array used instead of lcOldVal when variable
+SCATTER MEMVAR TO laOldVal
+SHOW WINDOW (lcDet_Ttl) REFRESH
+*-- end of lfwPoBrUp.
+
+*:**************************************************************************
+*:* Name        : lfvQpoSty
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/08/2003
+*:* Purpose     : Valid function for style field for the po quick order entry screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvQpoSty()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfvQpoSty
+
+PRIVATE lcAlias,lcGetSty,lcStat,lnIncrmnt,lnClrs,lnCount,lnJ,lcSeekSty,laSum,laSavStat,lcStyle
+*--- Select
+lcAlias = ALIAS()
+
+IF MDOWN() .AND. !llBrowse
+  RETURN
+ENDIF
+
+m.Style = PADR(ALLT(m.Style),lnMjrWid)
+SET ORDER TO STYLE IN STYLE
+IF !EMPTY(m.Style) AND ('?' $ m.Style .OR. !SEEK(m.Style,'STYLE')))
+  SELECT STYLE  
+  IF '?' $ m.Style
+    GO TOP IN STYLE
+    M.STYLE = ''
+  ENDIF
+  lcGetSty = PADR(gfStyBrw("M" , m.Style , "" , .F.),lnMjrWid)
+  llBrowse = .F.
+  IF EMPTY(lcGetSty)
+    m.Style = ' ' 
+    _CUROBJ = OBJNUM(m.Style) 
+    RETURN
+  ELSE
+    m.Style = lcGetSty
+  ENDIF
+ENDIF  
+
+*--If the po order is generated from a sales order , do not accept any style
+IF lfSOGen()
+  =gfModalGen('INM00000B00000',.F.,.F.,.F.,'This PO has been generated from a sales order. Cannot proceed.')
+  m.Style = ' ' 
+  _CUROBJ = OBJNUM(m.Style) 
+  RETURN
+ENDIF
+
+*C200452,4 TMI [Start] Ask about 1) vendor
+*C200452,4                       2) location if not found
+IF EMPTY(laData[2])
+  *-You have to select a xxx code.
+  =gfModalGen('TRM34020B34000','DIALOG','vendor'+'|'+' ')
+  m.style = ' '
+  _CUROBJ = OBJNUM(m.style)
+  RETURN
+ENDIF
+IF !llMultiWare AND EMPTY(laData[19]) AND EMPTY(laData[69])
+  *-You have to select a xxx code.
+  =gfModalGen('TRM34020B34000','DIALOG','ship to location or customer'+'|'+' ')
+  m.style = ' '
+  _CUROBJ = OBJNUM(m.style)
+  RETURN
+ENDIF
+*C200452,4 TMI [End  ] 
+lcQltyKey=laStyGrd[lnGrade,2]
+SELECT STYLE
+SET ORDER TO STYLE 
+IF SEEK(m.Style,'Style')
+  
+  llAbort = .F.
+  DO WHILE .T.
+    *-- Validation steps for the selected style
+    *--> 1- IF the style is cancelled
+    *--> 2- Style should be !Make
+    *--> 3- Style quality should be equal to the quality in the PO header 
+    *--> 4- IF the style division is different than the PO division.
+    *--> 5- IF the style group is different than the PO group.
+    *--> 6- IF PO status is NOT hold then the style should have a cost sheet
+    *--> 7- If not multi ship to    
+     
+    *--> 1- IF the style is cancelled
+    IF STYLE.Status='X'
+      *-This is a canceled style. Not allowed to enter here, Cannot proceed!
+      =gfModalGen('TRM34040B34000','DIALOG')        
+      llAbort=.T.
+      EXIT
+    ENDIF
+    
+    *--> 2- Style should be !Make
+    IF STYLE.Make
+      *-Only purchased styles can be selected. Cannot proceed.
+      =gfModalGen('TRM34039B34000','DIALOG')        
+      llAbort=.T.
+      EXIT
+    ENDIF
+    
+    *--> 3- Style quality should be equal to the quality in the PO header 
+    SET ORDER TO STYQLTY IN STYLE
+    IF !SEEK(lcQltyKey+ALLTRIM(m.Style),'STYLE')
+      =gfModalGen('TRM46014B00000','DIALOG',laStyGrd[lnGrade,1])
+      llAbort=.T.
+      EXIT
+    ENDIF
+  
+    *--> 4- IF the style division is different than the PO division.
+    IF Style.cDivision <> ALLTRIM(laData[4])
+      *-Conflict ! styles restricted to division XXXX, Cannot proceed!
+      =gfModalGen('TRM34041B34000','DIALOG',ALLTRIM(laDiv[lnDiv,1]) )        
+      llAbort=.T.
+      EXIT
+    ENDIF
+  
+    *--> 5- IF the style group is different than the PO group.
+    IF !EMPTY(Style.cPurCode) AND Style.cPurCode <> ALLTRIM(laData[67])
+      *-Conflict ! styles restricted to purchase XXXX, Cannot proceed!
+      =gfModalGen('TRM34110B34000','DIALOG',ALLTRIM(laPurCode[lnPurCode,1]) )
+      llAbort=.T.
+      EXIT
+    ENDIF
+    
+    *--> 6- IF PO status is NOT hold then the style should have a cost sheet
+    IF !(laData[3]$'HB')
+      IF !SEEK(SUBSTR(m.Style,1,lnMjrWid),'BOM')
+        *-No cost lines found in the cost sheet, Cannot proceed!
+        =gfModalGen('TRM34037B34000','DIALOG')        
+        llAbort=.T.        
+        EXIT
+      ENDIF
+    ELSE 
+      IF !SEEK(SUBSTR(m.Style,1,lnMjrWid),'BOM')
+        =gfModalGen('INM34038B34000','DIALOG')        
+      ENDIF
+    ENDIF
+  
+    *--> 7- If not multi ship to
+    IF !llMultiWare
+      *--If ship to customer the location will be the ship drop location.
+      m.cWareCode = IIF(lnShpLoc = 2,laData[69],laData[19])
+      lnLShpLoc   = lnShpLoc
+      m.Account   = IIF(lnShpLoc = 2,laData[69],'')
+      m.Store     = laData[70]
+    ELSE
+      *-- If multi ware house
+      IF llWareHous
+        m.cWareCode = IIF(lcAType$'NA' AND PADR(laData[2],6)=STYLE.CDefWare,SPACE(6),STYLE.CDefWare)
+      ELSE  
+        lnLShpLoc = 2
+        m.cWareCode = SPACE(5)
+      ENDIF
+    ENDIF  
+    
+    EXIT
+    
+  ENDDO
+  
+  IF llAbort
+    m.Style   = SPACE(lnStyleWid)
+    lcStyDesc = SPACE(0)
+    _CUROBJ = OBJNUM(m.Style)
+    SHOW GET m.Style ENABLE
+    RETURN
+  ENDIF
+
+  *-- If style is entred befor , warn the user
+  IF SEEK(m.Style,(lcPoLine))
+    *--This Style has entred on this order
+    *--Button 02011 : \!\<OK;\?\<Cancel
+    lnResp = gfModalGen('QRM00000B02011',.F.,.F.,.F.,'This style has already been entred on this order '+;
+                                                    +'- do you wish to reload quantities?')
+    IF lnResp = 2 
+      =lfvqPoCler() 
+      RETURN
+    ENDIF
+  ENDIF  
+  
+  ***** Style is Valid , now build its colors and sizes sets *****
+  PRIVATE laPrices,lcStyClr
+  SELECT STYLE  
+  lcStyOrd = ORDER('STYLE')
+  SET ORDER TO STYLE IN STYLE
+  lcStyClr = SUBSTR(STYLE,1,lnMjrWid+1+lnClrLen)
+
+  lcStat = IIF(!EMPTY(m.Style),'ENABLE','DISABLE')
+  SHOW GET pbClear &lcStat    
+  
+  *--Get style desctiption 
+  m.Desc = STYLE.DESC
+  *C200452,4 TMI [Start] Refresh style description
+  SHOW GET M.DESC
+  *C200452,4 TMI [End  ] 
+  
+  *--Get Sizes  
+  laSize = ''  
+  =SEEK(m.Style,'STYLE')
+  lnScaleLen = gfGetMemVar('M_EXTWIDTH')     && Extended size Scale ID Length.
+  m.SCALE = STYLE.SCALE
+  
+  *-- Fields meanings
+  *  -- 1st field : Scale id
+  *  -- 2nd field : Count of sizes in this scale
+
+  SELECT Scale,CNT ;
+  FROM SCALE ;
+  WHERE Type+Scale='S'+SUBSTR(m.SCALE,1,lnScaleLen) ;
+  ORDER BY 1 ;
+  INTO ARRAY laExtSz
+
+  SELECT SCALE
+  =SEEK('S'+laExtSz[1],'SCALE')
+  
+  lnIncrmnt = 0
+  FOR lnCount = 1 TO ALEN(laExtSz,1)
+    =SEEK('S'+laExtSz[lnCount,1],'SCALE')
+    FOR lnJ = 1 TO laExtSz[lnCount,2]
+      lcZ = STR(lnJ,1)
+      DIMENSION laSize[lnIncrmnt+lnJ]
+      laSize[lnIncrmnt+lnJ] = ALLTRIM(SCALE.SZ&lcZ)
+    ENDFOR
+    lnIncrmnt = lnIncrmnt + laExtSz[lnCount,2]
+  ENDFOR
+  PRIVATE lnFldCnt,lnSzCnt
+  lnFldCnt = ALEN(laSize)
+  
+  *--Create the temp file for colors , all sizes in one line   
+  IF !lfpoCrtTmp(lnFldCnt)
+    =gfModalGen('INM00000B00000',.F.,.F.,.F.,'Can not create the temp file!')
+    =lfvqPoCler() 
+    RETURN
+  ENDIF
+  
+  *--Get refrence if entred befor
+  IF SEEK(PADR(m.Style,lnMjrWid),lcPoLine)
+    m.Reference = &lcPoLine..Reference
+    m.cVenSty   = &lcPoLine..cVenSty
+  ENDIF
+
+  *--Create color array
+  SELECT DISTINCT SUBSTR(STYLE.STYLE,lnClrPos,lnClrLen) FROM STYLE ;
+    WHERE STYLE = PADR(m.Style,lnMjrWid) ;
+    INTO ARRAY laClr  
+  
+  *-- Fill the file lcGrpCur that holds price groups
+  =lfGetPriGp()
+
+  llClrIgnrd = .F.  
+  *--Add a line for each color
+  FOR lnClrs = 1 TO ALEN(laClr,1)
+    
+    *--If this color has no lines in BOM ignore it
+    IF !(laData[3]$'HB')
+      *C200452,4 TMI [Start] Fix the seek expression 
+      *IF !SEEK(SUBSTR(m.Style,1,lnMjrWid)+'1'+laClr[lnClrs,1],'BOM') .OR. ;
+      *   !SEEK(SUBSTR(m.Style,1,lnMjrWid)+'1'+REPL('*',lnClrLen),'BOM')
+      IF !SEEK(PADR(m.Style,19)+'1'+SUBSTR(m.Style,1,lnMjrWid)+lcSepart+REPL('*',lnClrLen),'BOM')
+        IF !SEEK(PADR(m.Style,19)+'1'+SUBSTR(m.Style,1,lnMjrWid)+lcSepart+laClr[lnClrs,1],'BOM')
+          *C200452,4 TMI [End  ]       
+          llClrIgnrd = .T.
+          LOOP
+          *C200452,4 TMI [Start] 
+        ENDIF
+        *C200452,4 TMI [End  ] 
+      ENDIF
+    ENDIF
+    
+    SELECT (lcTempCur)
+    SCATTER MEMVAR BLANK
+    M.STYMAJOR = PADR(m.Style,lnMjrWid)
+    M.COLOR = laClr[lnClrs,1]
+    M.COLORDSC = PADR(gfCodDes(PADR(laClr[lnClrs,1],lnClrLen) , 'COLOR'),20)
+    lnIncrmnt = 0   
+    m.OldTot = '0'+SPACE(lnFldCnt*6)
+    *--Update Quantites from lcPoLine if style is entred befor for the same store
+    FOR lnCount = 1 TO ALEN(laExtSz,1) 
+    
+      lcSeekSty = M.STYMAJOR+lcSepart+PADR(M.COLOR,lnClrLen)+lcClrSpr+laExtSz[lnCount,1]
+      lcSeekSty = PADR(lcSeekSty,19)
+      
+      IF SEEK(lcSeekSty,(lcPoLine))
+        SELECT &lcPoLine
+        *-- if style is entred in more than one line then each line is a separate price group
+        lcInclSz = ''
+        SCAN REST WHILE STYLE+STR(LINENO,6) = lcSeekSty FOR !EMPTY(PRIGRP)
+          FOR lnJ = 1 TO laExtSz[lnCount,2]
+            lcZ = STR(lnJ,1)
+            lcX = ALLT(STR(lnIncrmnt+lnJ))               
+            IF &lcPoLine..Qty&lcZ>0              
+              lcInclSz = lcInclSz + lcZ                     
+              M.S&lcX = &lcPoLine..Qty&lcZ
+              m.nTotal = m.nTotal + &lcPoLine..Qty&lcZ
+              m.OldTot = STUFF(m.OldTot,(lnIncrmnt+lnJ)*6-5,6,"+"+STR(&lcPoLine..Qty&lcZ,5))
+            ENDIF            
+          ENDFOR    
+        ENDSCAN
+        
+        SELECT (lcTempCur)
+      ENDIF      
+      
+      *FOR lnJ = 1 TO laExtSz[lnCount,2]
+      *  lcZ = STR(lnJ,1)
+      *  lcX = ALLT(STR(lnIncrmnt+lnJ))        
+      *--Total qty
+      *  m.nTotal = m.nTotal + &lcPoLine..Qty&lcZ
+      *ENDFOR
+
+      lnIncrmnt = lnIncrmnt + laExtSz[lnCount,2]
+    ENDFOR     
+    ******** m.OldTot = m.nTotal
+    INSERT INTO (lcTempCur) FROM MEMVAR
+  ENDFOR  
+ 
+  =SEEK(PADR(m.Style,lnMjrWid),'STYLE')
+  
+  SELECT (lcTempCur)
+  GO TOP
+  lcTempTot = gfTempName()
+  TOTAL ON .T. TO (gcWorkDir+lcTempTot)
+  SELECT 0
+  USE (gcWorkDir+lcTempTot) 
+  SCATTER MEMVAR
+  USE IN &lcTempTot
+  ERASE (gcWorkDir+lcTempTot+'.DBF') 
+  
+  *--Add total line
+  M.LASTLINE = CHR(255)
+  M.STYMAJOR = ''
+  M.COLOR    = ''
+  M.COLORDSC = 'Totals'   
+  INSERT INTO (lcTempCur) FROM MEMVAR
+  SELECT (lcTempCur)
+  GO TOP
+  
+  STORE M.NTOTAL TO laTot[1,2]
+  
+  SHOW GET pbSav DISABLE
+  SHOW GET m.Style DISABLE
+  
+  lcRefStat = IIF(EMPTY(m.Reference),'ENABLE','DISABLE')
+  SHOW GET m.Reference &lcRefStat
+  SHOW GET m.cVenSty &lcRefStat  
+
+  _CUROBJ = OBJNUM(m.Reference)
+
+  IF llClrIgnrd
+    =gfModalGen('INM00000B00000',.F.,.F.,.F.,'Some colours have no lines in BOM file , they are ignored')
+  ENDIF    
+  *--Next/Prev buttons
+  =lfPrNxPoBr()
+  
+  SET ORDER TO &lcStyOrd IN STYLE
+
+ENDIF
+*:***************************************************************************
+*-- end of lfvQpoSty.
+
+*:**************************************************************************
+*:* Name        : lfGetPriGp
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/13/2003
+*:* Purpose     : Get price code from BOM file
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGetPriGp()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfGetPriGp
+*BOM :: CITMMAJOR+TYP+CITMMASK+MFGCODE+ITEM+ICLR              
+
+PRIVATE lcSlct,lcSeek1,lcSeek2,lcSeek3,lcSclSz,lnI,lnK,laPriGrp,lcSlctdSz,lcAlSclSz
+lcSlct = SELECT()
+SELECT BOM
+
+M.STYMAJOR = PADR(m.Style,lnMjrWid)
+
+FOR lnClrs = 1 TO ALEN(laClr,1)
+  FOR lnCount = 1 TO ALEN(laExtSz,1)
+    lcSeekSty = M.STYMAJOR+lcSepart+PADR(laClr[lnClrs,1],lnClrLen)+lcClrSpr+laExtSz[lnCount,1]
+    lcSeekSty = PADR(lcSeekSty,19)
+    
+    lcSeek1 = STUFF(lcSeekSty,lnClrPos,lnClrLen,REPLICATE('*',lnClrLen))
+    lcSeek2 = STUFF(lcSeek1,lnSizePos,lnSizeLen,REPLICATE('*',lnSizeLen))
+    lcSeek3 = STUFF(lcSeekSty,lnSizePos,lnSizeLen,REPLICATE('*',lnSizeLen))
+    
+    lcAlSclSz = ''                        && All scale sizes
+    FOR lnI = 1 TO laExtSz[lnCount,2]
+      lcAlSclSz = lcAlSclSz + STR(lnI,1)
+    ENDFOR
+
+    DO CASE
+      *-- Case Stymajor-Color-Scl
+      CASE SEEK(PADR(M.STYMAJOR,19)+'1'+lcSeekSty,'BOM') 
+        =lfAddGp(LBASONSIZ,lcSeekSty)
+    
+      *-- Case Stymajor-*****-Scl
+      CASE SEEK(PADR(M.STYMAJOR,19)+'1'+lcSeek1,'BOM')
+        =lfAddGp(LBASONSIZ,lcSeek1)
+    
+      *-- Case Stymajor-*****-***
+      CASE SEEK(PADR(M.STYMAJOR,19)+'1'+lcSeek2,'BOM')        
+        =lfAddGp(LBASONSIZ,lcSeek2,.T.)
+        
+      *-- Case Stymajor-Color-***
+      CASE SEEK(PADR(M.STYMAJOR,19)+'1'+lcSeek3,'BOM')        
+        =lfAddGp(LBASONSIZ,lcSeek3,.T.)
+    
+    ENDCASE
+
+    IF !SEEK(lcSeekSty,lcGrpCur)
+      INSERT INTO &lcGrpCur ;
+             VALUES (lcSeekSty,lcAlSclSz,0)
+    ELSE
+      *--Add a new group for sizes with zero price  
+      SELECT STYLE, SIZES , GROS_PRICE ;
+      FROM &lcGrpCur ;
+      WHERE STYLE = lcSeekSty ;
+      INTO ARRAY laPriGrp
+      
+      lcSlctdSz = ''
+      FOR lnK = 1 TO ALEN(laPriGrp,1)
+        lcSlctdSz = lcSlctdSz + laPriGrp[lnK,2]
+      ENDFOR
+      lcAdSz = ''
+      FOR lnI = 1 TO laExtSz[lnCount,2]
+        IF !STR(lnI,1) $ lcSlctdSz
+          lcAdSz = lcAdSz + STR(lnI,1) 
+        ENDIF
+      ENDFOR
+      IF !EMPTY(lcAdSz)
+        INSERT INTO &lcGrpCur ;
+               VALUES (lcSeekSty,lcAdSz,0)
+      ENDIF
+    ENDIF
+  ENDFOR
+ENDFOR
+
+SELECT (lcSlct) 
+*-- end of lfGetPriGp.
+
+
+*:**************************************************************************
+*:* Name        : lfAddGp
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/14/2003
+*:* Purpose     : Add a line to price groups file lcGrpCur
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfAddGp()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfAddGp
+PARAMETERS lcBsonsz , lcSeek , llSz
+IF lcBsonsz
+  SCAN REST WHILE CITMMAJOR+TYP+CITMMASK+MFGCODE+ITEM+ICLR = PADR(M.STYMAJOR,19)+'1'+lcSeek
+    lcSz = IIF(llSz,MLINE(MSIZES,ATLINE(laExtSz[lnCount,1],MSIZES)),MSIZES)
+    lcSz = ALLT(STRTRAN(SUBSTR(lcSz,5),','))       
+    lcSz = STRTRAN(lcSz,CHR(13))
+    IF !SEEK(lcSeekSty+lcSz,lcGrpCur)
+      INSERT INTO &lcGrpCur ;
+             VALUES (lcSeekSty,lcSz,BOM.UNTCOST)
+    ENDIF
+  ENDSCAN        
+ELSE
+  IF !SEEK(lcSeekSty+lcAlSclSz,lcGrpCur)
+    INSERT INTO &lcGrpCur ;
+           VALUES (lcSeekSty,lcAlSclSz,BOM.UNTCOST)
+  ENDIF
+ENDIF
+
+*-- end of lfAddGp.
+
+*:**************************************************************************
+*:* Name        : lfvQpoSav
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/09/2003
+*:* Purpose     : Save function for the po quick order entry screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvQpoSav()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfvQpoSav
+*Save
+PRIVATE lcOrd,lnQkCnt,lnJ,lcJ,lcQ,lnIncrmnt,lnK,lcStyOrd
+
+lcStyOrd = ORDER('STYLE')
+SET ORDER TO STYLE IN STYLE
+
+*--Assign variables values
+m.CSTYTYPE  = 'P'
+m.PO        = laData[1]
+m.TRANCD    = '1'
+m.VENDOR    = laData[2]
+m.CWARECODE = laData[19]
+
+SELECT (lcTempCur)
+GO TOP
+SCAN FOR EMPTY(LASTLINE)
+  lnIncrmnt = 0  
+  FOR lnQkCnt = 1 TO ALEN(laExtSz,1)
+    SELECT (lcTempCur)
+    m.Style = STYMAJOR+lcSepart+SUBSTR(COLOR,1,lnClrLen)+lcClrSpr+laExtSz[lnQkCnt,1]
+    m.Style = PADR(m.Style,19)
+    *--KHM,TMI
+    =SEEK(m.Style,'Style')
+
+    *- Create an array that hold price groups
+    DIMENSION laPriGrp[1,2]
+    laPriGrp = ''
+    SELECT SIZES,GROS_PRICE ;
+    FROM &lcGrpCur ;
+    WHERE STYLE = M.STYLE ;
+    INTO ARRAY laPriGrp
+    
+    FOR lnSzGrps = 1 TO ALEN(laPriGrp,1)
+      SELECT (lcTempCur)
+      STORE 0 TO m.Qty1,m.Qty2,m.Qty3,m.Qty4,m.Qty5,m.Qty6,m.Qty7,m.Qty8,m.TotQty,;
+                 m.nCost1,m.nCost2,m.nCost3,m.nCost4,m.nCost5,;
+                 m.nECost1,m.nECost2,m.nECost3,m.nECost4,m.nECost5
+      lcFlds = ''
+      FOR lnJ = lnIncrmnt + 1 TO lnIncrmnt + laExtSz[lnQkCnt,2]        
+        lcJ = ALLT(STR(lnJ))
+        lcQ = STR(lnJ - lnIncrmnt,1)
+        IF lcQ $ laPriGrp[lnSzGrps,1]
+          m.TotQty = m.TotQty +  S&lcJ
+          m.Qty&lcQ = S&lcJ
+          lcFlds = lcFlds + 'QTY'+lcQ+','
+        ENDIF
+      ENDFOR    
+      lcFlds = lcFlds + 'TOTQTY'
+      
+      IF m.TotQty>0
+        m.PRIGRP      = laPriGrp[lnSzGrps,1]
+        *C200452,4 TMI [Start] Let Gross price depends on style.CPRICECUR field
+        *m.GROS_PRICE  = laPriGrp[lnSzGrps,2]        
+        m.GROS_PRICE  = IIF(!llMulCurr OR laData[26]=STYLE.CPRICECUR,laPriGrp[lnSzGrps,2],0)
+        *C200452,4 TMI [End  ] 
+        m.nCost1      = m.GROS_PRICE 
+  
+        m.Scale       = STYLE.SCALE     
+        m.PrePak      = Style.CbuyPrePk
+
+        m.nCost2 = IIF(!llMulCurr OR STYLE.cDutyCur =laData[27],Style.nICost2,0)
+        m.nCost3 = IIF(!llMulCurr OR STYLE.cDutyCur =laData[27],Style.nICost3,0)
+        m.nCost4 = IIF(!llMulCurr OR STYLE.cDutyCur =laData[27],Style.nICost4,0)
+        m.nCost5 = IIF(!llMulCurr OR STYLE.cDutyCur =laData[27],Style.nICost5,0)
+      
+        m.nECost1= lfvEquCost('1',m.nCost1,laData[28],lnCurrUnt1)
+        m.nECost2= lfvEquCost('2',m.nCost2,laData[29],lnCurrUnt2)
+        m.nECost3= lfvEquCost('3',m.nCost3,laData[29],lnCurrUnt2)
+        m.nECost4= lfvEquCost('4',m.nCost4,laData[29],lnCurrUnt2)
+        m.nECost5= lfvEquCost('5',m.nCost5,laData[29],lnCurrUnt2)
+
+        SELECT &lcPoLine
+        LOCATE FOR STYLE+PRIGRP = M.STYLE+m.PRIGRP
+        IF !FOUND()
+          lnLines  = lnLines + 1
+          m.LineNo = lnLines        
+          INSERT INTO (lcPoLine) FROM MEMVAR
+          laData[36] = laData[36] + m.TotQty
+          laData[40] = laData[40] + m.TotQty          
+        ELSE
+          *--Update laData array       
+          m.nCost1      = m.GROS_PRICE*( 1 - &lcPoLine..DISC_PCNT/100)
+          laData[36] = laData[36] + m.TotQty - &lcPoLine..TOTQTY    
+          laData[40] = laData[40] + m.TotQty - &lcPoLine..TOTQTY             
+          GATHER FIELDS &lcFlds MEMVAR
+        ENDIF
+      ENDIF
+    ENDFOR      
+    lnIncrmnt = lnIncrmnt + laExtSz[lnQkCnt,2]
+  ENDFOR
+ENDSCAN
+
+*-- Clear screen
+=lfvqpoCler(.T.)
+
+SET ORDER TO &lcStyOrd IN STYLE
+*-- end of lfvQpoSav.
+
+*:**************************************************************************
+*:* Name        : lfGtPriGrp
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/12/2003
+*:* Purpose     : Fill the array laPriGrp
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfGtPriGrp()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfGtPriGrp
+PARAMETERS lnScl,lcGrps
+PRIVATE lnSclPos,lnCnt,lnI,lnScl,lcGrps
+lnSclPos = AT(lnScl+';',lcGrps)
+lnCnt = VAL(SUBSTR(lcGrps,lnSclPos+4,1))
+
+DIMENSION laPriGrp[lnCnt,2]
+FOR lnI = 1 TO lnCnt
+  lnSclPos = AT(lnScl,lcGrps,lnI)    
+  laPriGrp[lnI,1] = SUBSTR(lcGrps,lnSclPos+4,16)
+  laPriGrp[lnI,2] = VAL(SUBSTR(lcGrps,lnSclPos+21,11))
+ENDFOR
+
+*-- end of lfGtPriGrp.
+
+*:**************************************************************************
+*:* Name        : lfvqPoGPri
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/09/2003
+*:* Purpose     : Gross 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvqPoGPri()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfvqPoGPri
+RETURN .T.
+*-- end of lfvqPoGPri.
+
+
+*:**************************************************************************
+*:* Name        : lfPoW
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/15/2003
+*:* Purpose     : When fn. for Po quick order entry screen fields
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfPoW()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfPoW
+PARAMETERS lnIndex
+PRIVATE laGrpArr,lcSty,lnSz,lcSz,lnCount
+
+SELECT (lcTempCur)
+IF !EMPTY(LASTLINE)
+  RETURN .T.
+ENDIF
+
+*-- Get scale Position 
+lnSclPos = lfSclPos(lnIndex) 
+
+*-- Get price , discount from lcGrpCur alias
+m.AddSty = STYMAJOR+lcSepart+SUBSTR(COLOR,1,lnClrLen)
+lcSty = PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19)
+  
+*--Get the position of the selected size in its scale
+lnSz = lnIndex
+lnPrevSz = 0
+FOR lnCount = 1 TO lnSclPos - 1
+  lnSz = lnSz - laExtSz[lnCount,2]
+  lnPrevSz = lnPrevSz + laExtSz[lnCount,2]
+ENDFOR
+lcSz = STR(lnSz,1)
+  
+SELECT SIZES , GROS_PRICE ;
+FROM &lcGrpCur ;
+WHERE STYLE = lcSty AND lcSz $ SIZES;
+INTO ARRAY laGrpArr  
+    
+lnGPrice = laGrpArr[2]
+lnDiscPcnt = 0
+lnCost1 = lnGPrice
+
+*--Get the total of the sizes of this group 
+lnLinTotQ = 0
+FOR lnCount = 1 TO 8
+  lcCount = STR(lnCount,1)
+  IF lcCount $ laGrpArr[1]
+    lcCurSz = ALLT(STR(lnPrevSz+lnCount))
+    lnLinTotQ = lnLinTotQ + S&lcCurSz
+  ENDIF
+ENDFOR  
+
+*-- If style is entred in lcPoLine , get gross price and discount from it
+SELECT &lcPoLine
+LOCATE FOR STYLE = lcSty AND lcSz $ PRIGRP
+IF FOUND()
+  lnGPrice = &lcPoLine..GROS_PRICE
+  lnDiscPcnt = &lcPoLine..DISC_PCNT 
+  lnCost1 = lnGPrice*(1-lnDiscPcnt/100)
+ENDIF
+
+SHOW GET lnGPrice
+SHOW GET lnDiscPcnt
+SHOW GET lnCost1
+SHOW GET lnLinTotQ
+=lfRefresh(lcQkWin1)
+  
+SELECT (lcTempCur)
+  
+
+*-- end of lfPoW.
+
+*:**************************************************************************
+*:* Name        : lfvPoBrFld
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/09/2003
+*:* Purpose     : Valid function for PO quick ordline entry screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfvPoBrFld()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfvPoBrFld
+PARAMETERS lnIndex
+PRIVATE lnFPos
+lcIndex = ALLT(STR(lnIndex))
+
+PRIVATE lnLineTot,lnCount,lnRecno,m.AddSty,lnIncrm
+
+SELECT (lcTempCur)
+IF laOldVal[lnIndex+ln1stSz] #  S&lcIndex
+  *-- Prevent update totals in total field
+  IF !EMPTY(LASTLINE)
+    REPLACE S&lcIndex WITH laOldVal[lnIndex+5]
+    RETURN
+  ENDIF
+
+  IF S&lcIndex < 0
+    *--Can not accept negative values
+    =gfModalGen('TRM42000B40011','DIALOG')
+    REPLACE S&lcIndex WITH laOldVal[lnIndex+5]
+    RETURN 
+  ENDIF
+  IF S&lcIndex > 99999
+    *--Can not exceed 999
+    *-- 40171 : ð cannot exceeds ð  
+    =gfModalGen('TRM40171B00000','DIALOG','Size Quantity|99999.')
+    REPLACE S&lcIndex WITH laOldVal[lnIndex+5]
+    RETURN
+  ENDIF
+
+  *-- Get scale Position 
+  lnSclPos = lfSclPos(lnIndex) 
+
+  m.AddSty = STYMAJOR+lcSepart+SUBSTR(COLOR,1,lnClrLen)
+  SELECT (lcTempCur)
+  IF llWareHous
+    *-- Assign a style to a location if not Assigned befor
+    IF !SEEK(PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19)+laData[19]+SPACE(10),'StyDye')
+      *E300408,1 Message : 40012
+      *E300408,1 Style/color xxx is not assigned to warehouse xxx
+      *E300408,1 Button : 40002
+      *E300408,1 Add Reenter
+      IF gfModalGen('QRM40012B40002','ALERT',TRIM(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1])+'|'+TRIM(laData[19]))=1
+        DO gpAdStyWar WITH PADR(m.AddSty+lcClrSpr+laExtSz[lnSclPos,1],19),SPACE(10),laData[19]
+      ELSE      
+        REPLACE S&lcIndex WITH 0
+        KEYBOARD '{LEFTARROW}'
+        SCATT MEMVAR TO laOldVal      
+        RETURN
+      ENDIF
+    ENDIF
+
+  ENDIF  
+  
+  *--Sum total of the current line
+  lnLineTot = 0
+  *--Line Total
+  FOR lnCount = 1 TO ALEN(laSize)
+    lcCount = ALLTRIM(STR(lnCount))
+    lnLineTot = lnLineTot + S&lcCount
+  ENDFOR
+  REPLACE NTOTAL WITH lnLineTot
+  
+  *-- Update Save Status button
+  llEdit = ( NTOTAL<>EVAL(OLDTOT) ) .OR. ( S&lcIndex <> VAL(SUBSTR(OldTot,lnIndex*6-5+1,5)) ) 
+  
+  *-- current Column and total columns sum 
+  SELECT SUM(S&lcIndex),SUM(NTOTAL) FROM (lcTempCur) WHERE EMPTY(LASTLINE) INTO ARRAY laTot
+  lnRecno = RECNO()
+  GO BOTTOM
+  *-- Update last line for these two columns
+  REPLACE S&lcIndex WITH laTot[1,1],;
+          NTOTAL    WITH laTot[1,2]
+  IF BETWEEN(lnRecno,1,RECCOUNT()-1)
+    GOTO (lnRecno)
+  ELSE
+    GO TOP
+  ENDIF  
+
+  lcSavStat = IIF(llEdit ,'ENABLE','DISABLE')
+  SHOW GET pbSav &lcSavStat
+  SCATT MEMVAR TO laOldVal
+  
+ENDIF  
+*-- end of lfvPoBrFld
+
+
+
+*:**************************************************************************
+*:* Name        : lfpoGoTop 
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/09/2003
+*:* Purpose     : Go top
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfpoGoTop ()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfpoGoTop 
+SELECT (lcTempCur)
+GO TOP
+=lfwPoBrUp()
+*-- end of lfpoGoTop .
+
+*:**************************************************************************
+*:* Name        : lfpoGoBot
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/09/2003
+*:* Purpose     : Go bottom 
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfpoGoBot()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfpoGoBot
+SELECT (lcTempCur)
+GO BOTTOM
+=lfwPoBrUp()
+*-- end of lfpoGoBot.
+
+
+
+*:**************************************************************************
+*:* Name        : lfADDGPFLD
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/14/2003
+*:* Purpose     : Add the field 'PRIGRP' to lcPoLine for David Luke
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfADDGPFLD()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfADDGPFLD
+
+DIMENSION laStrufile[ALEN(laStrufile,1)+1,4]
+laStrufile[ALEN(laStrufile,1),1] = 'PRIGRP'
+laStrufile[ALEN(laStrufile,1),2] = 'C'
+laStrufile[ALEN(laStrufile,1),3] = 8
+laStrufile[ALEN(laStrufile,1),4] = 0
+
+*-- end of lfADDGPFLD.
+
+
+*:**************************************************************************
+*:* Name        : lpBktab
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/14/2003
+*:* Purpose     : Backtab function
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lpBktab()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lpBktab
+IF RECCOUNT(lcTempCur) = 0
+  DO CASE
+    CASE WONTOP() = lcDet_Ttl
+      ACTIVATE WINDOW (lcQkWin1)
+    CASE WONTOP() = lcQkWin1
+      ACTIVATE WINDOW (lcQkWin3)             
+    CASE WONTOP() = lcQkWin3 
+      ACTIVATE WINDOW (lcDet_Ttl)
+  ENDCASE
+ELSE
+  IF WONTOP() = lcDet_Ttl
+    ACTIVATE WINDOW (lcQkWin1)
+  ELSE
+    DO CASE
+      CASE WONTOP() = lcQkWin1
+        IF _CUROBJ = OBJNUM(m.Reference)
+          ACTIVATE WINDOW (lcQkWin3)
+          _CUROBJ = OBJNUM(pbExit)
+        ELSE
+          _CUROBJ=_CUROBJ - 1
+        ENDIF
+        
+      CASE WONTOP() = lcQkWin3
+        IF laTot[1,2]=0
+          IF _CUROBJ = OBJNUM(pbClear)
+            ACTIVATE WINDOW (lcDet_Ttl)
+          ELSE
+            _CUROBJ = OBJNUM(pbSav)
+          ENDIF
+        ELSE
+          IF _CUROBJ = OBJNUM(pbSav)
+            ACTIVATE WINDOW (lcDet_Ttl)
+          ELSE
+            _CUROBJ=_CUROBJ - 1
+          ENDIF
+        ENDIF
+    ENDCASE
+  ENDIF
+ENDIF  
+*-- end of lpBktab.
+
+
+
+*:**************************************************************************
+*:* Name        : lfpoQkClos
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/15/2003
+*:* Purpose     : Close funtion for the PO quick order entry screen
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfpoQkClos()
+*:***************************************************************************
+*C200452,1 
+FUNCTION lfpoQkClos
+PRIVATE llClose
+llClose = .T.
+IF llEdit 
+  *M38093   ð. Are you sure you want to proceed with closing ð?  
+  *B32005   \<Proceed;\?\<Cancel
+  llClose = (gfModalGen('QRM38093B32005','ALERT','Quantities have been entered or changed';
+                                                +'|The Quick Order Entry screen')=1)
+ENDIF
+IF llClose
+  IF USED(lcTempCur)
+    USE IN &lcTempCur
+  ENDIF
+  IF USED(lcGrpCur)
+    USE IN &lcGrpCur
+  ENDIF  
+  ERASE (gcWorkDir+lcTempCur+'.*')
+  ERASE (gcWorkDir+lcGrpCur+'.*')
+  
+  *-- Enable recalculation in summary folder
+  llRecalTot = .T.
+  
+  CLEAR READ
+ELSE
+  ACTIVATE WINDOW (lcDet_Ttl)  
+ENDIF
+
+*-- end of lfpoQkClos.
+
+*:**************************************************************************
+*:* Name        : lfSOGen
+*:* Developer   : TMI - TAREK MOHAMED IBRAHIM
+*:* Date        : 01/15/2003
+*:* Purpose     : If the po order is generated from a sales order , do not accept any style
+*:***************************************************************************
+*:* Called from : 
+*:***************************************************************************
+*:* Parameters : None
+*:***************************************************************************
+*:* Return      : None
+*:***************************************************************************
+*:* Example     :  = lfSOGen()
+*:***************************************************************************
+*C200452,1 TMI 
+FUNCTION lfSOGen
+PRIVATE laCtktno
+*--If this PO is generated from SO then prevent the screen from appear
+_TALLY = 0
+SELECT CTKTNO FROM CUTPICK WHERE TRANCD+CTKTNO = '2'+laData[1] INTO ARRAY laCtktno
+RETURN _TALLY>0
+
+*-- end of lfSOGen.
+*:**************************************************************************
+*:* Name        : lfUpdCtChg
+*:* Developer   : Khalid Mohi El-Din Mohamed KHM
+*:* Date        : 03/24/2003
+*:* Purpose     : To zero the nCustCharg field when removing the charages.
+*:***************************************************************************
+*:* Example     :  = lfUpdCtChg()
+*:***************************************************************************
+*: B607077,1 KHM 03/24/2003
+*:***************************************************************************
+FUNCTION lfUpdCtChg
+PRIVATE lnAlias
+lnAlias = SELECT(0)
+
+SELECT (lcInvHdr)
+
+REPLACE nCustCharg WITH 0
+
+SELECT(lnAlias )

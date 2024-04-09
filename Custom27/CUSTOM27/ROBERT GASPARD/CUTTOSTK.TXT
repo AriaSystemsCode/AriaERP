@@ -1,0 +1,27 @@
+
+                        S T O C K   W O R K   O R D E R   F O R M
+
+
+Stock Order #:999999    Order Date: 99/99/9999    WO Status: XXXXXX    Page #: 99
+
+=============================== O R D E R   D E T A I L =========================
+   Quantity       Item #      Color #      Description
+=================================================================================
+   9999999        XXXXXXX     XXXXXX       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+   SIZE1     SIZE2     SIZE3     SIZE4      SIZE5      SIZE6      SIZE7     SIZE8
+   999999    999999    999999    999999     999999     999999     999999    999999  
+   SIZE9     SIZE10    SIZE11    SIZE12     SIZE13     SIZE14     SIZE15    SIZE16
+   999999    999999    999999    999999     999999     999999     999999    999999  
+   SIZE17    SIZE18    SIZE19    SIZE20     SIZE21     SIZE22     SIZE23    SIZE24
+   999999    999999    999999    999999     999999     999999     999999    999999
+   
+-----------------------------------------------------------------------------------
+   9999999        XXXXXXX     XXXXXX       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+   SIZE1     SIZE2     SIZE3     SIZE4      SIZE5      SIZE6      SIZE7     SIZE8
+   999999    999999    999999    999999     999999     999999     999999    999999  
+   SIZE9     SIZE10    SIZE11    SIZE12     SIZE13     SIZE14     SIZE15    SIZE16
+   999999    999999    999999    999999     999999     999999     999999    999999  
+
+-----------------------------------------------------------------------------------
