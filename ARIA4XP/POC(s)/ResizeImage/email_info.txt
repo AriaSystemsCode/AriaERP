@@ -1,0 +1,18 @@
+Carrier Label Resizing POC Source Code 
+Inbox
+x 
+
+Mahmoud Said
+AttachmentsFeb 18 (3 days ago)
+
+to Ashraf, Mariam, me 
+Hi Ashraf,
+
+Please find the source code and documentation for  Carrier Label Resizing POC
+1- https://docs.google.com/spreadsheets/d/11A-28cUSRd3xMtDDxHmPIVs85dzQmppWAVrDgGPk0BY/edit#gid=453646180
+2- Attached source code.
+3- How to use:
+3-1- Register the code using C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe /codebase d:\shared\aria4xp\Aria.Utility.ImageProcessor.dll
+3-2- Sample Code:
+oImageProc = createobject('Aria.Utility.ImageProcessor.AriaImageResizer')
+oImageProc.ReizeImage(currentImagePath, newImagePath, 4, 7,2, newWidth, newHeight) 

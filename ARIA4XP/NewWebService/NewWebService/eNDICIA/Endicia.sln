@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Endicia", "Endicia.csproj", "{44BAD507-4230-4DBE-ADC3-6A6FDDC343B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUSPS", "..\TestUSPS\TestUSPS.csproj", "{723F32AD-6244-4EEA-BB73-B21468638599}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44BAD507-4230-4DBE-ADC3-6A6FDDC343B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44BAD507-4230-4DBE-ADC3-6A6FDDC343B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44BAD507-4230-4DBE-ADC3-6A6FDDC343B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44BAD507-4230-4DBE-ADC3-6A6FDDC343B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723F32AD-6244-4EEA-BB73-B21468638599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723F32AD-6244-4EEA-BB73-B21468638599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723F32AD-6244-4EEA-BB73-B21468638599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723F32AD-6244-4EEA-BB73-B21468638599}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3145EFB-374F-4C70-B7E8-9C8F2EA19826}
+	EndGlobalSection
+EndGlobal
