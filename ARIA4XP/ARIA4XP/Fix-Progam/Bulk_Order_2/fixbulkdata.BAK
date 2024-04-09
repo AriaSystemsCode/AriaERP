@@ -1,0 +1,172 @@
+&& this fix, for gou10 only, Company 02
+&& this fix, will re-calculate booked qty in bulk orders header and lines, for open bulk orders
+&& T20121226.0001  - ARIA EDI : Received some edi release po’s for some edi bulk po’s and they are wrong in aria in the s/o .
+
+CLOSE ALL
+SET SAFETY OFF
+SET TALK OFF
+SET DELETED ON
+
+*------------------------------------------------------------------------------------*
+lcSysFilPath = GETDIR("","Select system files folder")
+IF !EMPTY(ALLTRIM(lcSysFilPath)) AND FILE(ADDBS(lcSysFilPath)+"SYCCOMP.DBF")
+
+  lcSysFilPath = ADDBS(lcSysFilPath)
+  CD (lcSysFilPath)
+
+  IF USED('SYCCOMP')
+    USE IN SYCCOMP
+  ENDIF
+  USE lcSysFilPath+'SycComp' IN 0 SHARED
+
+  SELECT SYCCOMP
+  SCAN FOR ALLTRIM(SYCCOMP.cComp_Id) = "02"
+    *SCAN
+    MESSAGEBOX( "Processing Bulk Orders of company: "+ ALLTRIM(SYCCOMP.cComp_Id))
+    lcCompPath = ADDBS(ALLTRIM(SYCCOMP.cCom_DDir))
+
+    IF USED('OrdHdr')
+      USE IN OrdHdr
+    ENDIF
+
+    IF USED('Ordline')
+      USE IN Ordline
+    ENDIF
+
+    IF USED('Ordcanln')
+      USE IN Ordcanln
+    ENDIF
+
+    IF !FILE(lcCompPath + 'OrdHdr_2.dbf')
+      COPY FILE (lcCompPath + 'OrdHdr.*') TO (lcCompPath + 'OrdHdr_2.*')
+    ELSE
+      EXIT
+    ENDIF
+
+    IF !FILE(lcCompPath + 'Ordline_2.dbf')
+      COPY FILE (lcCompPath + 'Ordline.*') TO (lcCompPath + 'Ordline_2.*')
+    ENDIF
+
+    USE lcCompPath + 'OrdHdr' IN 0 SHARED
+    SELECT OrdHdr
+    SET ORDER TO OrdHdr   && CORDTYPE+ORDER
+
+    USE lcCompPath + 'Ordline' IN 0 SHARED
+    SELECT Ordline
+    SET ORDER TO Ordline   && CORDTYPE+ORDER+STR(LINENO,6)
+
+    USE lcCompPath + 'Ordcanln' IN 0 AGAIN SHARED ALIAS Ordcanln
+    SELECT Ordcanln
+    SET ORDER TO Ordcanln   && CORDTYPE+ORDER+STR(LINENO,6)
+
+    SELECT OrdHdr
+    SCAN
+
+
+      && 1- Need to create fix program to loop on BULK order that has status not 'X' and has Book qty > 0,
+      IF OrdHdr.STATUS = 'O' AND OrdHdr.bulk = 'Y' AND ORDER = '131683'
+        DEBUG
+        SUSPEND
+        WAIT WINDOW "Processing Bulk Order : "+ ALLTRIM(OrdHdr.ORDER) NOWAIT
+        SELECT Ordline
+        lnTotBook = 0
+        lnTotBookAmt = 0
+
+        lnTotOpen = 0
+        lnTotOpenAmt = 0
+
+        lnTotCancel = 0
+        lnTotCancelAmt = 0
+
+        IF SEEK(OrdHdr.CORDTYPE+OrdHdr.ORDER )
+
+          SCAN REST WHILE CORDTYPE+ORDER+STR(LINENO,6) = OrdHdr.CORDTYPE + OrdHdr.ORDER
+            lnBookLn = 0
+            SELECT Ordcanln
+            IF SEEK(OrdHdr.CORDTYPE + OrdHdr.ORDER + STR(Ordline.LINENO,6) )
+              SELECT Ordline
+              FOR i = 1 TO 8
+                lcStr = ALLTRIM(STR(i))
+                REPLACE Ordline.Book&lcStr. WITH Ordline.Qty&lcStr. + Ordcanln.Qty&lcStr.
+                lnTotBook    = lnTotBook    + Ordline.Book&lcStr.
+                lnTotBookAmt = lnTotBookAmt + (Ordline.Book&lcStr. * Ordline.price)
+
+                lnTotOpen    = lnTotOpen    + Ordline.Qty&lcStr.
+                lnTotOpenAmt = lnTotOpenAmt + (Ordline.Qty&lcStr. * Ordline.price)
+
+
+                lnTotCancel    = lnTotCancel    +  Ordcanln.Qty&lcStr.
+                lnTotCancelAmt = lnTotCancelAmt + ( Ordcanln.Qty&lcStr. * Ordline.price)
+
+                lnBookLn = lnBookLn + Ordline.Book&lcStr.
+
+              ENDFOR
+
+            ELSE
+              SELECT Ordline
+              FOR i = 1 TO 8
+                lcStr = ALLTRIM(STR(i))
+                REPLACE Ordline.Book&lcStr. WITH Ordline.Qty&lcStr.
+                lnTotBook = lnTotBook + Ordline.Book&lcStr.
+                lnTotBookAmt = lnTotBookAmt + (Ordline.Book&lcStr. * Ordline.price)
+
+                lnTotOpen = lnTotOpen + Ordline.Qty&lcStr.
+                lnTotOpenAmt = lnTotOpenAmt + (Ordline.Qty&lcStr. * Ordline.price)
+
+                lnBookLn = lnBookLn + Ordline.Book&lcStr.
+
+              ENDFOR
+
+            ENDIF
+
+            REPLACE totbook WITH lnBookLn
+            SELECT Ordline
+
+          ENDSCAN
+
+          SET DELETED ON
+          *SELECT SUM(TotQTY) AS TotCan , SUM(TotQTY*Price) AS TotCanAmt FROM OrdCanLn WHERE CORDTYPE+ORDER+STR(LINENO,6) = OrdHdr.CORDTYPE+OrdHdr.ORDER AND NOT (CORDTYPE+ORDER+STR(LINENO,6) IN (SELECT CORDTYPE+ORDER+STR(LINENO,6)  FROM ordline WHERE CORDTYPE+ORDER+STR(LINENO,6) = OrdHdr.CORDTYPE+OrdHdr.ORDER)) INTO CURSOR Can1
+          Can1_TotCan    = 0
+          Can1_TotCanAmt = 0
+          SELECT Ordcanln
+          IF SEEK(OrdHdr.CORDTYPE + OrdHdr.ORDER  )
+            SCAN REST WHILE CORDTYPE+ORDER+STR(LINENO,6) = OrdHdr.CORDTYPE + OrdHdr.ORDER
+              SELECT Ordline
+              IF !SEEK(OrdHdr.CORDTYPE + OrdHdr.ORDER + STR(Ordcanln.LINENO,6) )
+                Can1_TotCan    = Can1_TotCan + Ordcanln.TotQTY
+                Can1_TotCanAmt = Can1_TotCanAmt + (Ordcanln.TotQTY * Ordcanln.Price)
+              ENDIF
+
+              SELECT Ordcanln
+            ENDSCAN
+          ENDIF
+
+          SELECT OrdHdr
+          REPLACE OrdHdr.OPEN    WITH lnTotOpen
+          REPLACE OrdHdr.openamt WITH lnTotOpenAmt
+
+          REPLACE OrdHdr.Book    WITH lnTotBook + NVL(Can1_TotCan,0)
+          REPLACE OrdHdr.bookamt WITH lnTotBookAmt + NVL(Can1_TotCanAmt,0)
+
+          REPLACE OrdHdr.CANCEL     WITH lnTotCancel + NVL(Can1_TotCan,0)
+          REPLACE OrdHdr.cancelamt  WITH lnTotCancelAmt + NVL(Can1_TotCanAmt,0)
+
+          IF lnTotOpen = 0
+            REPLACE OrdHdr.STATUS WITH 'X'
+          ENDIF
+          *USE IN Can1
+        ENDIF
+      ELSE
+        WAIT WINDOW "Processing Order : "+ ALLTRIM(OrdHdr.ORDER) NOWAIT
+      ENDIF
+    ENDSCAN
+    USE IN OrdHdr
+    USE IN Ordline
+    USE IN Ordcanln
+  ENDSCAN
+  MESSAGEBOX("Bulk Orders Processing is Completed",0,"Aria systems Inc.")
+ELSE
+  MESSAGEBOX("Can not find System files folder")
+ENDIF
+
+

@@ -1,0 +1,12 @@
+D:\AWS\Test\obj\Debug\ResolveAssemblyReference.cache
+D:\AWS\Test\obj\Debug\Test.Form1.resources
+D:\AWS\Test\obj\Debug\Test.Properties.Resources.resources
+D:\AWS\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+D:\AWS\Test\bin\Debug\Test.exe
+D:\AWS\Test\bin\Debug\Test.pdb
+D:\AWS\Test\bin\Debug\AWS.dll
+D:\AWS\Test\bin\Debug\MarketplaceWebService.dll
+D:\AWS\Test\bin\Debug\MarketplaceWebService.pdb
+D:\AWS\Test\bin\Debug\AWS.pdb
+D:\AWS\Test\obj\Debug\Test.exe
+D:\AWS\Test\obj\Debug\Test.pdb

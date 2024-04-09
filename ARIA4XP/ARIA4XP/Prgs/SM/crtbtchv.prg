@@ -1,0 +1,401 @@
+LPARAMETERS lcA27Sys
+USE ADDBS(lcA27Sys)+'SYCCOMP.DBF' SHAR ALIAS 'SYCCOMP_A' IN 0
+SELECT SYCCOMP_A
+lcOldComp = oAriaApplication.ActiveCompanyID
+SCAN FOR lRunFromA4
+  WAIT WINDOW 'Updating Scan Batch tables of company:'+SYCCOMP_A.ccomp_id NOWAIT 
+  SELECT SYCCOMP_A  
+  IF EMPTY(ALLTRIM(CCONSERVER)) OR EMPTY(ALLTRIM(CCONDBNAME))
+    LOOP
+  ENDIF
+  
+  oAriaApplication.ActiveCompanyID = SYCCOMP_A.cComp_ID
+  oAriaApplication.GetCompanyInformation(SYCCOMP_A.cComp_ID)
+  
+  SET STEP ON 
+  IF lfScan_BatchHeader()
+    IF lfScan_BatchDetails()
+      IF lfTablesConstraints()     
+        IF lfDropViews()
+          IF lfBtch_Hdr()
+            IF lfBtch_Hdr_InsteadOfInsert()
+              IF lfBtch_Hdr_InsteadOfUpdate()
+                IF lfBtch_Det()
+                  IF lfBtch_Det_InsteadOfInsert()
+                    IF lfBtch_Det_InsteadOfUpdate()
+                      *- Updated Succeded
+                    ENDIF
+                  ENDIF
+                ENDIF
+              ENDIF
+            ENDIF
+          ENDIF
+        ENDIF
+      ENDIF
+    ENDIF
+  ENDIF
+ENDSCAN 
+oAriaApplication.ActiveCompanyID = lcOldComp 
+oAriaApplication.GetCompanyInformation(lcOldComp)
+USE IN 'SYCCOMP_A'
+
+
+*******************************************************************************************************************************
+*-                                      Function to Create SCAN_BATCH_HEADER_T Table
+*******************************************************************************************************************************
+FUNCTION lfScan_BatchHeader
+
+*Create Scan Batch Header Table
+lcCreateState = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_HEADER_T]') AND type in (N'U')) "+;
+                "BEGIN "+;
+                    "CREATE TABLE [dbo].[SCAN_BATCH_HEADER_T]([SCAN_BATCH_HEADER_KEY] [bigint] IDENTITY(1,1) NOT NULL, "+;
+                    "[BATCH] [varchar](20) NULL,[DESCRIPTION] [varchar](60) NULL,[DATE] [datetime] NULL,[USER] [varchar](20) NULL,"+;
+                    "[STATUS] [varchar](20) NULL,[VENDOR] [varchar](20) NULL,[ACCOUNT] [varchar](5) NULL,[TRANSACTION_TYPE] [varchar](2) NULL, "+;
+                    "[TRANSACTION_NO] [varchar](6) NULL,[dadd_date] [datetime] NULL,[cadd_time] [char](11) NULL,[cadd_user] [char](10) NULL, "+;
+                    "[cadd_ver] [char](3) NULL,[dedit_date] [datetime] NULL,[cedit_time] [char](11) NULL,[cedit_user] [char](10) NULL, "+;
+                    "[cedt_ver] [char](3) NULL,[dlok_date] [datetime] NULL,[clok_time] [char](11) NULL,[clok_user] [char](10) NULL, "+;
+                    "[llok_stat] [bit] NULL,[REC_no] [uniqueidentifier] NOT NULL,CONSTRAINT [PK_SCAN_BATCH_HEADER_T] PRIMARY KEY CLUSTERED "+;
+                    "([SCAN_BATCH_HEADER_KEY] ASC)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, "+;
+                    "ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]) ON [PRIMARY] "+;
+                "END"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+lcCreateState = "IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_HEADER_T]') AND name = N'BTCH_HDRA') "+;
+                "CREATE UNIQUE NONCLUSTERED INDEX [BTCH_HDRA] ON [dbo].[SCAN_BATCH_HEADER_T] ([BATCH] ASC) "+;
+                "WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, "+;
+                "DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+
+*******************************************************************************************************************************
+*-                                      Function to Create SCAN_BATCH_DETAILS_T Table
+*******************************************************************************************************************************
+FUNCTION lfScan_BatchDetails
+
+*Create Scan Batch Details Table
+lcCreateState = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_DETAILS_T]') AND type in (N'U')) "+;
+                "BEGIN "+;
+                    "CREATE TABLE [dbo].[SCAN_BATCH_DETAILS_T]([SCAN_BATCH_DETAILS_KEY] [bigint] IDENTITY(1,1) NOT NULL,[SCAN_BATCH_HEADER_KEY] [bigint] NULL, "+;
+                    "[LINE_NO] [int] NULL,[ITEM_NUMBER] [varchar](13) NULL,[CARTON_NUMBER] [varchar](30) NULL,[PACK_NUMBER] [varchar](20) NULL, "+;
+                    "[CSTYMAJOR] [varchar](19) NULL,[STYLE] [varchar](19) NULL,[SCALE] [varchar](3) NULL,[SIZE] [varchar](10) NULL, "+;
+                    "[QUANTITY] [int] NULL,[STATUS] [varchar](20) NULL,[REJECTION_REASON] [varchar](40) NULL,[REC_no] [uniqueidentifier] NOT NULL, "+;
+                    "CONSTRAINT [PK_SCAN_BATCH_DETAILS_T] PRIMARY KEY CLUSTERED ([SCAN_BATCH_DETAILS_KEY] ASC)WITH (PAD_INDEX  = OFF, "+;
+                    "STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]) ON [PRIMARY] "+;
+                "END"                
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+lcCreateState = "IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_DETAILS_T]') AND name = N'BTCH_DETA')"+;
+                "CREATE UNIQUE NONCLUSTERED INDEX [BTCH_DETA] ON [dbo].[SCAN_BATCH_DETAILS_T] ([SCAN_BATCH_HEADER_KEY] ASC,[STYLE] ASC,[SCALE] ASC, "+;
+                "[SIZE] ASC)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, "+;
+                "DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+
+*******************************************************************************************************************************
+*-                                      Function to Add Constraints to header and details tables
+*******************************************************************************************************************************
+FUNCTION lfTablesConstraints
+
+*Create Scan Batch Constraints
+lcCreateState = "IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_SCAN_BATCH_DETAILS_T_REC_no]') AND parent_object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_DETAILS_T]')) "+;
+                "Begin "+;
+                    "IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_SCAN_BATCH_DETAILS_T_REC_no]') AND type = 'D') "+;
+                    "BEGIN "+;
+                        "ALTER TABLE [dbo].[SCAN_BATCH_DETAILS_T] ADD  CONSTRAINT [DF_SCAN_BATCH_DETAILS_T_REC_no]  DEFAULT (newid()) FOR [REC_no] "+;
+                    "END "+;
+                "End"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_SCAN_BATCH_HEADER_T_REC_no]') AND parent_object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_HEADER_T]')) "+;
+                "Begin "+;
+                    "IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_SCAN_BATCH_HEADER_T_REC_no]') AND type = 'D') "+;
+                    "BEGIN "+;
+                        "ALTER TABLE [dbo].[SCAN_BATCH_HEADER_T] ADD  CONSTRAINT [DF_SCAN_BATCH_HEADER_T_REC_no]  DEFAULT (newid()) FOR [REC_no] "+;
+                    "END "+;
+                "End"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_SCAN_BATCH_DETAILS_T_SCAN_BATCH_HEADER_T]') AND parent_object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_DETAILS_T]')) "+;
+                "ALTER TABLE [dbo].[SCAN_BATCH_DETAILS_T]  WITH CHECK ADD  CONSTRAINT [FK_SCAN_BATCH_DETAILS_T_SCAN_BATCH_HEADER_T] FOREIGN KEY([SCAN_BATCH_HEADER_KEY]) "+;
+                "REFERENCES [dbo].[SCAN_BATCH_HEADER_T] ([SCAN_BATCH_HEADER_KEY]) ON DELETE CASCADE"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_SCAN_BATCH_DETAILS_T_SCAN_BATCH_HEADER_T]') AND parent_object_id = OBJECT_ID(N'[dbo].[SCAN_BATCH_DETAILS_T]')) "+;
+                "ALTER TABLE [dbo].[SCAN_BATCH_DETAILS_T] CHECK CONSTRAINT [FK_SCAN_BATCH_DETAILS_T_SCAN_BATCH_HEADER_T]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+
+*******************************************************************************************************************************
+*-                                      Function to Drop views with its triggers
+*******************************************************************************************************************************
+FUNCTION lfDropViews
+
+*Create Batch Views and Triggers
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[btch_Hdr]')) DROP VIEW [dbo].[btch_Hdr]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[btch_Hdr_InsteadOfInsert]')) DROP TRIGGER [dbo].[btch_Hdr_InsteadOfInsert]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[btch_Hdr_InsteadOfUpdate]')) DROP TRIGGER [dbo].[btch_Hdr_InsteadOfUpdate]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[btch_Det]')) DROP VIEW [dbo].[btch_Det]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[btch_Det_InsteadOfInsert]')) DROP TRIGGER [dbo].[btch_Det_InsteadOfInsert]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+IF lnResult <= 0
+  RETURN .F.
+ENDIF
+
+lcCreateState = "IF  EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[dbo].[btch_Det_InsteadOfUpdate]')) DROP TRIGGER [dbo].[btch_Det_InsteadOfUpdate]"
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+
+*******************************************************************************************************************************
+*-                                      Function to Create Btch_Hdr View
+*******************************************************************************************************************************
+FUNCTION lfBtch_Hdr
+
+*Create Scan Batch Header View
+lcCreateState = "CREATE VIEW [dbo].[btch_Hdr] AS "+;
+                       "SELECT SCAN_BATCH_HEADER_KEY AS btchhkey, BATCH AS batch_no, DESCRIPTION AS btchdesc, DATE AS date, "+;
+                         "[USER] AS [user], STATUS AS btchstatus, VENDOR AS vendor, ACCOUNT AS account, TRANSACTION_TYPE AS transtyp, "+;
+                         "TRANSACTION_NO AS transno, dadd_date, cadd_time, cadd_user, cadd_ver, dedit_date, cedit_time, cedit_user, "+;
+                         "cedt_ver, dlok_date, clok_time, clok_user, llok_stat, REC_no "+;
+                         " FROM dbo.SCAN_BATCH_HEADER_T"
+
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+*******************************************************************************************************************************
+*-                             Function to Create Btch_Hdr_InsteadOfInsert Trigger
+*******************************************************************************************************************************
+FUNCTION lfBtch_Hdr_InsteadOfInsert
+
+*Create Batch Header Instead Of Insert Trigger
+lcCreateState = "CREATE TRIGGER [dbo].[btch_Hdr_InsteadOfInsert] ON [dbo].[btch_Hdr] INSTEAD OF INSERT AS "+;
+				"BEGIN "+;
+					"INSERT INTO [dbo].[SCAN_BATCH_HEADER_T] ([BATCH],[DESCRIPTION],[DATE],[USER],[STATUS],[VENDOR],[ACCOUNT]"+;
+						",[TRANSACTION_TYPE],[TRANSACTION_NO],[dadd_date],[cadd_time],[cadd_user],[cadd_ver],[dedit_date]"+;
+						",[cedit_time],[cedit_user],[cedt_ver],[dlok_date],[clok_time],[clok_user],[llok_stat])"+;
+						"SELECT i.[batch_no],i.[btchdesc],i.[DATE],i.[USER],i.[BTCHSTATUS],i.[VENDOR],i.[ACCOUNT]"+;
+						",i.[transtyp],i.[transno],i.[dadd_date],i.[cadd_time],i.[cadd_user],i.[cadd_ver],i.[dedit_date]"+;
+						",i.[cedit_time],i.[cedit_user],i.[cedt_ver],i.[dlok_date],i.[clok_time],i.[clok_user]"+;
+						",i.[llok_stat] FROM inserted i;"+;
+				"END"
+
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+*******************************************************************************************************************************
+*-                             Function to Create Btch_Hdr_InsteadOfUpdate Trigger
+*******************************************************************************************************************************
+FUNCTION lfBtch_Hdr_InsteadOfUpdate
+
+*Create Batch Header Instead Of Update Trigger
+lcCreateState = "CREATE TRIGGER [dbo].[btch_Hdr_InsteadOfUpdate] ON [dbo].[btch_Hdr] INSTEAD OF UPDATE AS "+;
+                "BEGIN "+;
+                    " DECLARE @btchhkey BIGINT; DECLARE @batch_no VARCHAR(20); DECLARE @btchdesc VARCHAR(60); "+;
+                    " DECLARE @date DATETIME; DECLARE @user VARCHAR(20); DECLARE @btchstatus VARCHAR(20); "+;
+                    " DECLARE @vendor VARCHAR(20); DECLARE @account    VARCHAR(5); DECLARE @transtyp   VARCHAR(2); "+;
+                    " DECLARE @transno    VARCHAR(6); DECLARE @dadd_date  DATETIME; DECLARE @cadd_time  CHAR(11); "+;
+                    " DECLARE @cadd_user  CHAR(10); DECLARE @cadd_ver   CHAR(3); DECLARE @dedit_date DATETIME; "+;
+                    " DECLARE @cedit_time CHAR(11); DECLARE @cedit_user CHAR(10); DECLARE @cedt_ver   CHAR(3); "+;
+                    " DECLARE @dlok_date  DATETIME; DECLARE @clok_time  CHAR(11); DECLARE @clok_user  CHAR(10); "+;
+                    " DECLARE @llok_stat  BIT "+;
+                    " SELECT  @btchhkey = i.btchhkey,@batch_no   = ISNULL(i.batch_no,'      '),@btchdesc = i.btchdesc"+;
+                           " ,@date = i.date,@user = i.[user],@btchstatus = i.btchstatus,@vendor = i.vendor,@account = i.account"+;
+                           " ,@transtyp = i.transtyp,@transno = i.transno,@dadd_date = i.dadd_date,@cadd_time = i.cadd_time"+;
+                           " ,@cadd_user = i.cadd_user,@cadd_ver = i.cadd_ver,@dedit_date = i.dedit_date,@cedit_time = i.cedit_time"+;
+                           " ,@cedit_user = i.cedit_user,@cedt_ver = i.cedt_ver,@dlok_date = i.dlok_date,@clok_time = i.clok_time"+;
+                           " ,@clok_user = i.clok_user,@llok_stat = i.llok_stat FROM inserted i;"+;
+                    " UPDATE [dbo].[SCAN_BATCH_HEADER_T] SET [batch] = @batch_no, [description] = @btchdesc ,[date] = @date"+;
+                           " ,[user] = @user,[status] = @btchstatus,[vendor] = @vendor,[account] = @account,[transaction_type] = @transtyp"+;
+                           " ,[transaction_no] = @transno,[dadd_date] = @dadd_date,[cadd_time] = @cadd_time,[cadd_user] = @cadd_user"+;
+                           " ,[cadd_ver] = @cadd_ver,[dedit_date] = @dedit_date,[cedit_time] = @cedit_time,[cedit_user] = @cedit_user"+;
+                           " ,[cedt_ver] = @cedt_ver,[dlok_date] = @dlok_date,[clok_time] = @clok_time,[clok_user] = @clok_user"+;
+                           " ,[llok_stat] = @llok_stat WHERE [SCAN_BATCH_HEADER_KEY] = @btchhkey "+;
+                "END"
+
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+*******************************************************************************************************************************
+*-                                      Function to Create Btch_Det View
+*******************************************************************************************************************************
+FUNCTION lfBtch_Det
+
+*Create Scan Batch Details View
+lcCreateState = "CREATE VIEW [dbo].[btch_Det] AS "+;
+                      "SELECT SCAN_BATCH_DETAILS_KEY AS btchdkey, SCAN_BATCH_HEADER_KEY AS btchhkey, LINE_NO AS line_no, "+;
+                          "ITEM_NUMBER AS item_no, CARTON_NUMBER AS crtn_no, PACK_NUMBER AS pack_no, CSTYMAJOR AS cstymajor, "+;
+                          "STYLE AS style, SCALE AS scale, SIZE AS size, QUANTITY AS qty, STATUS AS btchstatus, "+;
+                          "REJECTION_REASON AS rjct_rsn, REC_no AS rec_no, 0 AS nItmMjrFlt, 0 AS nItemFlt "+;
+                          " FROM dbo.SCAN_BATCH_DETAILS_T"
+
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+*******************************************************************************************************************************
+*-                             Function to Create Btch_Det_InsteadOfInsertTrigger
+*******************************************************************************************************************************
+FUNCTION lfBtch_Det_InsteadOfInsert
+
+*Create Batch Details Instead Of Insert Trigger
+lcCreateState = "CREATE TRIGGER [dbo].[btch_Det_InsteadOfInsert] ON [dbo].[btch_Det] INSTEAD OF INSERT AS "+;
+                "BEGIN "+;
+                    "DECLARE @BatchFound int; "+;
+                    "SELECT @BatchFound = COUNT(t.btchdkey) FROM btch_Det t , inserted i "+;
+                      "WHERE t.btchhkey = i.btchhkey AND t.item_no = i.item_no AND t.style = i.style "+;
+                      "AND t.scale = i.scale AND t.size = i.size "+;
+                    "IF @BatchFound = 0"+;
+                        "BEGIN "+;
+                            "INSERT INTO [dbo].[SCAN_BATCH_DETAILS_T] ([SCAN_BATCH_HEADER_KEY],[LINE_NO],[ITEM_NUMBER],"+;
+                            "[CARTON_NUMBER],[PACK_NUMBER],[CSTYMAJOR],[STYLE],[SCALE],[SIZE],[QUANTITY],[STATUS],[REJECTION_REASON])"+;
+                            "SELECT i.btchhkey,i.LINE_NO,i.item_no,i.crtn_no,i.pack_no,i.CSTYMAJOR,i.STYLE,i.SCALE,i.SIZE,i.qty,"+;
+                            "i.BTCHSTATUS,i.rjct_rsn FROM inserted i "+;
+                        "END "+;
+                "END"
+
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC
+
+
+*******************************************************************************************************************************
+*-                             Function to Create Btch_Det_InsteadOfUpdate Trigger
+*******************************************************************************************************************************
+FUNCTION lfBtch_Det_InsteadOfUpdate
+
+*Create Batch Details Instead Of Update Trigger
+lcCreateState = "CREATE TRIGGER [dbo].[btch_Det_InsteadOfUpdate] ON [dbo].[btch_Det] INSTEAD OF UPDATE AS "+;
+                "BEGIN "+;
+                    "DECLARE @btchdkey BIGINT; DECLARE @btchhkey BIGINT; DECLARE @line_no INT; DECLARE @item_no VARCHAR(13); "+;
+                    "DECLARE @crtn_no VARCHAR(30); DECLARE @pack_no VARCHAR(20); DECLARE @cstymajor VARCHAR(19); "+;
+                    "DECLARE @style VARCHAR(19); DECLARE @scale VARCHAR(3); DECLARE @size VARCHAR(10); DECLARE @qty INT; "+;
+                    "DECLARE @btchstatus VARCHAR(20); DECLARE @rjct_rsn VARCHAR(40); "+;
+                    "SELECT @btchdkey = i.btchdkey ,@btchhkey = i.btchhkey ,@line_no = i.line_no ,@item_no = i.item_no , "+;
+                        "@crtn_no = i.crtn_no ,@pack_no = i.pack_no ,@cstymajor = i.cstymajor ,@style = i.style ,@scale = i.scale , "+;
+                        "@size = i.size ,@qty = i.qty ,@btchstatus = i.btchstatus ,@rjct_rsn = i.rjct_rsn FROM inserted i; "+;
+                    "UPDATE [dbo].[SCAN_BATCH_DETAILS_T] SET [SCAN_BATCH_HEADER_KEY] = @btchhkey ,[LINE_NO] = @line_no , "+;
+                    "[ITEM_NUMBER] = @item_no ,[CARTON_NUMBER] = @crtn_no ,[PACK_NUMBER] = @pack_no ,[CSTYMAJOR] = @cstymajor , "+;
+                    "[STYLE] = @style ,[SCALE] = @scale,[SIZE] = @size ,[QUANTITY] = @qty ,[STATUS] = @btchstatus, "+;
+                    "[REJECTION_REASON] = @rjct_rsn WHERE SCAN_BATCH_DETAILS_KEY = @btchdkey "+;
+                "END"
+
+lnResult = oAriaApplication.RemoteCompanyData.Execute(lcCreateState, '', "RESULT","",oAriaApplication.ActiveCompanyConStr,3,"",SET("Datasession"))
+
+IF lnResult <= 0
+  RETURN .F.
+ELSE
+  RETURN .T.
+ENDIF
+
+ENDFUNC

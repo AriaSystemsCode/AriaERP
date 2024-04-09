@@ -1,0 +1,6 @@
+Line 37: Class vbalExplorerBarLib6.vbalExplorerBarCtl of control vbalExplorerBarCtl1 was not a loaded control class.
+Line 43: The property name _ExtentX in vbalExplorerBarCtl1 is invalid.
+Line 44: The property name _ExtentY in vbalExplorerBarCtl1 is invalid.
+Line 45: The property name BackColorEnd in vbalExplorerBarCtl1 is invalid.
+Line 46: The property name BackColorStart in vbalExplorerBarCtl1 is invalid.
+Line 48: Cannot load control ctlTitleBar1.

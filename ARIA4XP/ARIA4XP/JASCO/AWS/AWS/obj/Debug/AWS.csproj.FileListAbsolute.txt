@@ -1,0 +1,9 @@
+D:\AWS\AWS\bin\Debug\AWS.dll.config
+D:\AWS\AWS\bin\Debug\AWS.dll
+D:\AWS\AWS\bin\Debug\AWS.pdb
+D:\AWS\AWS\bin\Debug\AWS.tlb
+D:\AWS\AWS\obj\Debug\ResolveAssemblyReference.cache
+D:\AWS\AWS\obj\Debug\AWS.dll
+D:\AWS\AWS\obj\Debug\AWS.pdb
+D:\AWS\AWS\bin\Debug\MarketplaceWebService.dll
+D:\AWS\AWS\bin\Debug\MarketplaceWebService.pdb

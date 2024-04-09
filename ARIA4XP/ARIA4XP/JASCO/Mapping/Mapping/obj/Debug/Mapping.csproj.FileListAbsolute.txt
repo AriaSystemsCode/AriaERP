@@ -1,0 +1,9 @@
+D:\Mapping\Mapping\Mapping\bin\Debug\Mapping.exe
+D:\Mapping\Mapping\Mapping\bin\Debug\Mapping.pdb
+D:\Mapping\Mapping\Mapping\obj\Debug\ResolveAssemblyReference.cache
+D:\Mapping\Mapping\Mapping\obj\Debug\Mapping.Form1.resources
+D:\Mapping\Mapping\Mapping\obj\Debug\Mapping.Properties.Resources.resources
+D:\Mapping\Mapping\Mapping\obj\Debug\Mapping.csproj.GenerateResource.Cache
+D:\Mapping\Mapping\Mapping\obj\Debug\Mapping.exe
+D:\Mapping\Mapping\Mapping\obj\Debug\Mapping.pdb
+D:\Mapping\Mapping\Mapping\obj\Debug\Mapping.Form2.resources

@@ -1,0 +1,10 @@
+D:\amazon-mws-2009-01-01-csclient-2010-06-22\src\MarketplaceWebService\bin\Debug\MarketplaceWebService.dll
+D:\amazon-mws-2009-01-01-csclient-2010-06-22\src\MarketplaceWebService\bin\Debug\MarketplaceWebService.pdb
+D:\amazon-mws-2009-01-01-csclient-2010-06-22\src\MarketplaceWebService\obj\Debug\ResolveAssemblyReference.cache
+D:\amazon-mws-2009-01-01-csclient-2010-06-22\src\MarketplaceWebService\obj\Debug\MarketplaceWebService.dll
+D:\amazon-mws-2009-01-01-csclient-2010-06-22\src\MarketplaceWebService\obj\Debug\MarketplaceWebService.pdb
+D:\AWS\MarketplaceWebService\bin\Debug\MarketplaceWebService.dll
+D:\AWS\MarketplaceWebService\bin\Debug\MarketplaceWebService.pdb
+D:\AWS\MarketplaceWebService\obj\Debug\ResolveAssemblyReference.cache
+D:\AWS\MarketplaceWebService\obj\Debug\MarketplaceWebService.dll
+D:\AWS\MarketplaceWebService\obj\Debug\MarketplaceWebService.pdb

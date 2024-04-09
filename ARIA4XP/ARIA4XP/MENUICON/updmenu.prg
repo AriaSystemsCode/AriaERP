@@ -1,0 +1,204 @@
+*!*	Modifications
+*!*	E039319,1  05/16/2005 AKM  Enhance Menu icon prograam to stop programs in Aria 2.7
+*!*	T20060924.0001,1 09/24/2006 AKM Update menuicon db, fix multiple program records addition
+*========================================================================================
+LOCAL lnN
+
+CLEAR ALL
+SET DELETED ON
+SET EXCLUSIVE OFF
+
+_SCREEN.VISIBLE = .F.
+USE SYCMENU1 IN  0
+SET ORDER TO APPPOPBAR   && CAPP_ID+CPAD_POS+CPOP_POS+CPOP_LEVL+CBAR_POS
+LOCAL LCSYSFILES
+LCSYSFILES = ''
+DO WHILE EMPTY(LCSYSFILES)
+  LCSYSFILES = GETDIR(SET("Default"), 'Please Select Aria 2.7 System Files', 'Select Aria 2.7 System files')
+  LCSYSFILES = ALLTRIM(LCSYSFILES)
+  IF EMPTY(LCSYSFILES)
+    IF MESSAGEBOX('Invalid path. Do you want to retry.', 4 + 16) = 7
+      RETURN
+    ENDIF
+  ENDIF
+ENDDO
+
+LCSYSFILES = IIF(RIGHT(LCSYSFILES, 1) ='\', LCSYSFILES, LCSYSFILES + '\')
+
+USE (LCSYSFILES + 'SYCMENU.DBF') IN 0 ALIAS NEWMENU
+SELECT NEWMENU
+SET ORDER TO PROSS_ID
+
+LOCAL LCRESULT
+LCRESULT = ''
+* B038831 ,AKM 12/26/2004 add if condition for not to run under windows 2000 [start]
+*IF OS(4)<>'0' THEN
+SELECT SYCMENU1
+SCAN FOR !EMPTY(SYCMENU1.CICON)
+  IF SYCMENU1.CICON = 'xxx'
+    SET DEBUG ON
+    SET STEP ON
+  ENDIF
+  LCRESULT = LCRESULT + ALLTRIM(SYCMENU1.CICON) + ','
+
+  SELECT NEWMENU
+  LOCATE FOR CAPP_ID == SYCMENU1.CAPP_ID .AND. CPROSS_ID == SYCMENU1.CPROSS_ID .AND. CPROCTYPE == SYCMENU1.CPROCTYPE
+  IF !EOF()
+    SELECT NEWMENU
+    REPLACE ALL CICON WITH SYCMENU1.CICON FOR CAPP_ID == SYCMENU1.CAPP_ID .AND. CPROSS_ID == SYCMENU1.CPROSS_ID .AND. CPROCTYPE == SYCMENU1.CPROCTYPE
+  ENDIF
+  SELECT SYCMENU1
+ENDSCAN
+*ENDIF
+* B038831  ,AKM 12/26/2004 add if condition for not to run under windows 2000 [End]
+
+*ASM, FORCE THE OPTION OF VOIDING MULTIPLE INVOICES TO BE INSERTED IN THE AR TRANSACTIONS MENU [START]
+SELECT NEWMENU
+SET ORDER TO PROSS_ID   && CPROSS_ID
+SEEK 'ARVINV '
+
+*!*	T20060924.0001,1 09/24/2006 AKM Update menuicon db, fix multiple program records addition [START]
+ LOCATE ALL FOR ALLTRIM(CPROSS_ID)=='ARVINV' AND CAPP_ID=='AR'
+*!*	T20060924.0001,1 09/24/2006 AKM Update menuicon db, fix multiple program records addition [END]
+
+*IF EOF()
+IF !FOUND()
+  CALCULATE ALL MAX(VAL(cbar_pos)) FOR CAPP_ID+CPAD_POS='AR04' TO lnN
+  *  SEEK 'ARDINV '
+  LOCATE ALL FOR ALLTRIM(CPROSS_ID)='ARDINV' AND CAPP_ID='AR'
+  SCATTER MEMVAR MEMO
+  APPEND BLANK
+  GATHER MEMVAR MEMO
+  REPLACE CPROSS_ID WITH 'ARVINV', csub_prpt WITH 'Voiding Multiple Invoices', CAPP_ID WITH 'AR'
+  lnN=PADL(ALLTRIM(STR(lnN+1)),2,'0')
+  REPLACE cpop_pos WITH lnN, cbar_pos WITH lnN, csub_pos WITH lnN,  CICON WITH 'xpscreen.ico'
+  *, cmstr_nam WITH 'P04PU04', CPAD_POS WITH '04'
+  *REPLACE CUpGrdLvl WITH 'A', cSub_Ctg WITH 'A', Csub_typ WITH 'C', CprocType WITH 'P', cpop_levl WITH '01', cicon WITH 'ARDINV.ICO'
+ENDIF
+*ASM, FORCE THE OPTION OF VOIDING MULTIPLE INVOICES TO BE INSERTED IN THE AR TRANSACTIONS MENU [END]
+
+*MMT, FORCE THE OPTION OF Material Shipment Status Report TO BE INSERTED IN THE MA TRANSACTIONS MENU [START]
+SELECT NEWMENU
+SET ORDER TO PROSS_ID   && CPROSS_ID
+LOCATE ALL FOR ALLTRIM(CPROSS_ID)=='MASHPST' AND CAPP_ID=='MA'
+IF EOF()
+  CALCULATE ALL MAX(VAL(cbar_pos)) FOR CAPP_ID+CPAD_POS='MA05' TO lnN
+  SEEK 'POSHPST '
+  SCATTER MEMVAR MEMO
+  APPEND BLANK
+  GATHER MEMVAR MEMO
+  REPLACE CPROSS_ID WITH 'MASHPST', csub_prpt WITH 'Material Shipment Status', CAPP_ID WITH 'MA'
+  lnN=PADL(ALLTRIM(STR(lnN+1)),2,'0')
+  REPLACE cpop_pos WITH lnN, cbar_pos WITH lnN, csub_pos WITH lnN, cmstr_nam WITH 'P05PU0503'
+ENDIF
+*MMT, FORCE THE OPTION OF Material Shipment Status Report TO BE INSERTED IN THE MA TRANSACTIONS MENU [END]
+
+
+*AMH, FORCE THE OPTION OF Inter-location PO Cost Sheet TO BE INSERTED IN THE PO TRANSACTIONS MENU [START]
+SELECT NEWMENU
+SET ORDER TO PROSS_ID   && CPROSS_ID
+LOCATE ALL FOR ALLTRIM(CPROSS_ID)=='PONCSH' AND CAPP_ID=='PO'
+IF EOF()
+  CALCULATE ALL MAX(VAL(cbar_pos)) FOR CAPP_ID+CPAD_POS='PO04' TO lnN
+  SEEK 'POCSSH '
+  SCATTER MEMVAR MEMO
+  APPEND BLANK
+  GATHER MEMVAR MEMO
+  REPLACE CPROSS_ID WITH 'PONCSH', csub_prpt WITH 'Inter-location PO Cost Sheet', CAPP_ID WITH 'PO'
+  lnN=PADL(ALLTRIM(STR(lnN+1)),2,'0')
+  REPLACE cpop_pos WITH lnN, cbar_pos WITH lnN, csub_pos WITH lnN
+ENDIF
+*AMH, FORCE THE OPTION OF Inter-location PO Cost Sheet TO BE INSERTED IN THE PO TRANSACTIONS MENU [END]
+
+*AKM, FORCE THE OPTION OF Estimated vs Landed costs TO BE INSERTED IN THE PO Output MENU [START]
+SELECT NEWMENU
+SET ORDER TO PROSS_ID   && CPROSS_ID
+LOCATE ALL FOR ALLTRIM(CPROSS_ID)=='POESTLND' AND CAPP_ID=='PO'
+IF EOF()
+  CALCULATE ALL MAX(VAL(cbar_pos)) FOR CAPP_ID+CPAD_POS='PO05' TO lnN
+  SEEK 'POSTYHRE'
+  SCATTER MEMVAR MEMO
+  APPEND BLANK
+  GATHER MEMVAR MEMO
+  REPLACE CPROSS_ID WITH 'POESTLND', csub_prpt WITH 'Estimated vs Landed Costs' , CAPP_ID WITH 'PO'
+  lnN=PADL(ALLTRIM(STR(lnN+1)),2,'0')
+  REPLACE cpop_pos WITH lnN, cbar_pos WITH lnN, csub_pos WITH lnN
+ENDIF
+*AKM, FORCE THE OPTION OF Estimated vs Landed costs TO BE INSERTED IN THE AR Output MENU [END]
+
+*wael
+  SELECT NEWMENU
+  SET ORDER TO PROSS_ID && CPROSS_ID
+  LOCATE ALL FOR CPROSS_ID='MFGENPL   ' AND CAPP_ID='MF'
+  IF FOUND()
+    REPLACE cSub_Prpt WITH 'Master \<Production Schedule', CICON WITH 'xpscreen.ico'
+  ENDIF
+**wael
+
+
+*AKM, FORCE THE OPTION OF CutTkt/PO Allocation Report TO BE INSERTED IN THE AR Output  MENU [START]
+SELECT NEWMENU
+SET ORDER TO PROSS_ID && CPROSS_ID
+LOCATE ALL FOR ALLTRIM(CPROSS_ID)=='SOALOCP' AND CAPP_ID=='PO'
+IF EOF()
+  CALCULATE ALL MAX(VAL(cbar_pos)) FOR CAPP_ID+CPAD_POS='PO05' TO lnN
+  SEEK 'POSTYHRE'
+  SCATTER MEMVAR MEMO
+  APPEND BLANK
+  GATHER MEMVAR MEMO
+  REPLACE CPROSS_ID WITH 'SOALOCP', csub_prpt WITH 'CutTkt/PO Allocation Report' , CAPP_ID WITH 'PO'
+  lnN=PADL(ALLTRIM(STR(lnN+1)),2,'0')
+  REPLACE cpop_pos WITH lnN, cbar_pos WITH lnN, csub_pos WITH lnN, CICON WITH 'xpscreen.ico'
+ENDIF
+*AKM, FORCE THE OPTION OF CutTkt/PO Allocation Report TO BE INSERTED IN THE AR Output  MENU [End]
+
+*!*	T20060924.0001,1 09/24/2006 AKM Update menuicon db, fix multiple program records addition [Start]
+LOCATE ALL FOR ALLTRIM(cpross_id)=='MATIMREQ'
+IF !EOF()
+  DELETE ALL FOR ALLTRIM(cpross_id)=='MATIMREQ'
+ENDIF
+*!*	T20060924.0001,1 09/24/2006 AKM Update menuicon db, fix multiple program records addition [End]
+
+
+*!*	E039319,1  05/16/2005 AKM  Enhance Menu icon prograam to stop programs in Aria 2.7 [Start]
+
+*!*	REMOVE menu records in SYCMENU for programs
+SELECT NEWMENU
+*!*	DELETE ALL FOR CPROSS_ID='MFLBLWZ' AND CAPP_ID<> 'SO'    && Stop running Care Label & Hang Tag \<Designer   in PO,MA
+*!*	DELETE ALL FOR CPROSS_ID='SOMASCA' AND CAPP_ID<> 'SO'    && Stop running Mass PO Cancelation ,  Mass Cutting Ticket Cancellation
+
+*!*	SET LRunFromA4 to True in SYDOBJCT
+*!*	lcWorkArea = SELECT()
+*!*	USE (LCSYSFILES + 'sydobjct.DBF') IN 0 ALIAS SYDOBJCT
+*!*	SELECT SYDOBJCT
+*!*	SET ORDER TO CAPP_ID   && CAPP_ID+CAPOBJNAM
+
+*!*	REPLACE ALL LRunFromA4 WITH .T. FOR CAPP_ID='MA' OR CAPP_ID='PO' OR CAPP_ID='MF'
+
+*!*	DIMENSION  LaPrograms[4]  && Array to hold Module and programs name in  sydobjct to close
+*!*	LaPrograms[1] ='MA'+'ICINVLK'
+*!*	LaPrograms[2] ='SO'+'MFLBLWZ'
+*!*	LaPrograms[3] ='MF'+'MFLBLWZ'
+*!*	LaPrograms[4] ='IC'+'ICPACKG'
+
+*!*	FOR EACH Progrr IN LaPrograms
+*!*	  LOCATE
+*!*	  SEEK(Progrr)
+*!*	  IF FOUND()
+*!*	    REPLACE LRunFromA4 WITH .F.
+*!*	  ENDIF
+*!*	ENDFOR
+
+*!*	LOCATE
+*!*	SEEK ('MA'+'MAVMREF')
+*!*	REPLACE LRunFromA4 WITH .T.
+
+*!*	SELECT(lcWorkArea)
+
+*!*	E039319,1  05/16/2005 AKM  Enhance Menu icon prograam to stop programs in Aria 2.7 [End]
+
+MESSAGEBOX("Update Completed Successfully", 64)
+
+*STRTOFILE(lcResult, "d:\temp111.txt")
+
+RETURN

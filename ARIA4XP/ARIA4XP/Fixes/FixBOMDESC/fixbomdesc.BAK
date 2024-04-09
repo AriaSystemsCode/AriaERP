@@ -1,0 +1,58 @@
+
+_SCReen.Visible = .F. 
+SET CPDIALOG OFF
+SET DELETED ON 
+ 
+CLOSE ALL
+lcSysFiles = GETDIR('','Select Sysfiles folder')
+IF !DIRECTORY(lcSysFiles) OR (DIRECTORY(lcSysFiles) AND !FILE(ADDBS(lcSysFiles)+'SYCCOMP.DBF'))
+  MESSAGEBOX('Invalid Sysfiles folder')
+ENDIF
+lcSysFiles = ADDBS(lcSysFiles)
+USE (lcSysFiles+'SYCCOMP.DBF') SHARED  IN 0 ORDER 1
+SELECT SYCCOMP
+SCAN FOR lrunfroma4
+  lcDataDir = ADDBS(ALLTRIM(syccomp.ccom_ddir))
+  IF !DIRECTORY(lcDataDir)
+    LOOP
+  ENDIF
+  USE (lcDataDir +'STYLE.DBF') sHAR orde style IN 0
+  lcConnStr = "Driver={SQL Server};server="+ALLTRIM(CCONSERVER)+";DATABASE="+ALLTRIM(CCONDBNAME)+;
+                ";uid="+ALLTRIM(CCONUSERID)+";pwd="+ALLTRIM(CCONPASWRD)
+  lnConH = SQLSTRINGCONNECT(lcConnStr)
+  IF lnConH < 0
+    LOOP
+  ENDIF
+  lnBomRec = SQLEXEC(lnConH ,"Select * from BOM Where ccatgtyp in ('S','T','F') and NOT (ITEM LIKE '%*****%')",'BomDet')
+  IF lnBomRec > 0
+    SELECT BomDet
+    LOCATE
+    SCAN
+      lcDesc =''
+      DO CASE
+        CASE  BomDet.ccatgtyp ='S'
+          IF SEEK(BomDet.ITEM ,'Style','Style')
+            lcDesc = Style.Desc1
+          ENDIF 
+        CASE  BomDet.ccatgtyp $ 'FT'
+          lnITEMSel = SQLEXEC(lnConH ,"Select * from ITEM Where Style ='"+BomDet.ITEM+"'",'ITEMDet')
+          IF lnITEMSel > 0
+            SELECT ITEMDet
+            LOCATE 
+            IF !EOF()
+              lcDesc = ITEMDet.Desc1
+            ENDIF
+          ENDIF
+      ENDCASE 
+      IF !EMPTY(lcDesc)
+         lnBomUp =  SQLEXEC(lnConH ,"UPDATE BOM SET [DESC] = '"+lcDesc+"' WHERE "+;
+                    "CINVTYPE = '"+BomDet.CINVTYPE +"' AND CITMMAJOR = '"+ BomDet.CITMMAJOR +"' and CCSTSHTTYP = '"+;
+                    BomDet.CCSTSHTTYP +"' AND CCSTSHT_ID = '"+BomDet.CCSTSHT_ID +"' AND TYP = '"+BomDet.TYP +"' AND CITMMASK = '"+BomDet.CITMMASK +;
+                    "' AND MFGCODE = '"+BomDet.MFGCODE +"' and CINVTYPC = '"+BomDet.CINVTYPC+"' and ITEM = '"+BomDet.ITEM+"' AND NLINENO ="+STR(BomDet.NLINENO,4))
+      ENDIF
+    ENDSCAN 
+  ENDIF
+  USE IN STYLE 
+ENDSCAN
+CLOSE ALL
+MessageB("Updating BOM file is done")

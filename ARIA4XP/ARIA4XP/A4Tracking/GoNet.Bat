@@ -1,0 +1,1 @@
+\\ariafs\NETLOGON\KIX32.EXE \\ariafs\NETLOGON\Login.kix

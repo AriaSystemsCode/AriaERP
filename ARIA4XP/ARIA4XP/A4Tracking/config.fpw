@@ -1,0 +1,3 @@
+resource = off
+screen = off
+command =_screen.hide()

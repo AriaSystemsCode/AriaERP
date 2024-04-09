@@ -1,0 +1,10 @@
+D:\Mapping\Mapping\TestMap\obj\Debug\ResolveAssemblyReference.cache
+D:\Mapping\Mapping\TestMap\obj\Debug\TestMap.Form1.resources
+D:\Mapping\Mapping\TestMap\obj\Debug\TestMap.Properties.Resources.resources
+D:\Mapping\Mapping\TestMap\obj\Debug\TestMap.csproj.GenerateResource.Cache
+D:\Mapping\Mapping\TestMap\bin\Debug\TestMap.exe
+D:\Mapping\Mapping\TestMap\bin\Debug\TestMap.pdb
+D:\Mapping\Mapping\TestMap\bin\Debug\Map.dll
+D:\Mapping\Mapping\TestMap\obj\Debug\TestMap.exe
+D:\Mapping\Mapping\TestMap\obj\Debug\TestMap.pdb
+D:\Mapping\Mapping\TestMap\bin\Debug\Map.pdb

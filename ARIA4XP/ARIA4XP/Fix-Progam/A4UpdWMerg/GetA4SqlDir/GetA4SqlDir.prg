@@ -1,0 +1,24 @@
+_SCReen.Visible = .F. 
+CLOSE ALL
+SET CPDIALOG OFF 
+IF FILE(ADDBS(ALLTRIM(FULLPATH('')))+'A27sysfilesPath.txt')
+  lcA27Path = FILETOSTR((ADDBS(ALLTRIM(FULLPATH('')))+'A27sysfilesPath.txt'))
+  IF !DIRECTORY(lcA27Path) OR !FILE(ADDBS(lcA27Path)+'SYCINST.DBF')
+    IF FILE(ADDBS(ALLTRIM(FULLPATH('')))+'A4SqlDicPath.txt')
+      ERASE (ADDBS(ALLTRIM(FULLPATH('')))+'A4SqlDicPath.txt') 
+    ENDIF
+    RETURN .F.
+  ELSE
+    USE (ADDBS(lcA27Path)+'SYCINST.DBF') IN 0
+    SELECT SYCINST
+    lcA4Path = ALLTRIM(Sycinst.ca4sysdir)
+    IF !EMPTY(lcA4Path)
+      STRTOFILE(ADDBS(lcA4Path),(ADDBS(ALLTRIM(FULLPATH('')))+'A4SqlDicPath.txt'))
+    ENDIF
+  ENDIF
+ELSE
+  IF FILE(ADDBS(ALLTRIM(FULLPATH('')))+'A4SqlDicPath.txt')
+    ERASE (ADDBS(ALLTRIM(FULLPATH('')))+'A4SqlDicPath.txt') 
+  ENDIF
+  RETURN .F.
+ENDIF

@@ -1,0 +1,7 @@
+#DEFINE LANG_OTS          "O.T.S."
+#DEFINE LANG_Ordered      "Ordered"
+#DEFINE LANG_Division     "division"
+#DEFINE LANG_InWarehouse  " in warehouse"
+#DEFINE LANG_Start        "start"
+#DEFINE LANG_SoldOut      "sold out"
+#DEFINE LANG_Season       "season "

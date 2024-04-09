@@ -1,0 +1,1 @@
+#DEFINE LANG_CHART_OF_ACCOUNT 'Chart of Accounts'

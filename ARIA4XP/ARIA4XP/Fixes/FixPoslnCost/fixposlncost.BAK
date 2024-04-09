@@ -1,0 +1,49 @@
+CLOSE ALL 
+SET CPDIALOG OFF 
+SET CONFIRM OFF 
+lcSysFileDir = GETDIR('','Select SysFiles Folder')
+IF DIRECTORY(lcSysFileDir)
+  lcSysFileDir  = ADDBS(lcSysFileDir)
+ELSE
+  RETURN .F.
+ENDIF
+SET STEP ON 
+USE (lcSysFileDir+'SyCCOMP.DBF') in 0 SHARED orde 1
+SELECT SyCCOMP
+SCAN FOR lRunFromA4
+  lcBaseCur = SyCCOMP.ccurrcode
+  lcConnStr = "Driver={SQL Server};server="+ALLTRIM(CCONSERVER)+";DATABASE="+ALLTRIM(CCONDBNAME)+;
+              ";uid="+ALLTRIM(CCONUSERID)+";pwd="+ALLTRIM(CCONPASWRD)
+  lnConnSql = SQLSTRINGCONNECT(lcConnStr)
+  IF lnConnSql > 0
+    lcSelePos = "select POSLN.*,Poshdr.cpricecur , Bomline.unitcost  from posln inner join bomline on bomline.ctktno = posln.po and "+;
+				" bomline.style =  POsln.style inner join poshdr on  "+;
+				" posln.cstytype +posln.cbusdocu+posln.po =  Poshdr.cstytype +Poshdr.cbusdocu+Poshdr.po "+;
+			    " Where  bomline.cbomtyp = '1' and posln.cstytype +posln.cbusdocu = 'PP'  "+;
+				" and bomline.cImTyp = 'I' and bomline.ctype ='1' and posln.trancd = '1' and Poshdr.cpricecur = '"+lcBaseCur +"'"
+	lnSelPos = SQLEXEC(lnConnSql ,lcSelePos,'Tmp_Pos')			
+	IF lnSelPos > 0 
+	  SELECT 'Tmp_Pos'
+	  STRTOFILE('Lines To be Fixed:'+CHR(13)+CHR(10),'X:\Aria4xp\Work\TmpLines.txt',0)
+	  llDiffFound = .F.
+	  SCAN FOR Tmp_Pos.nfCost1 <> Tmp_Pos.unitcost  
+	    llDiffFound = .T.
+	    STRTOFILE('Company:'+SyCCOMP.ccomp_id +' PO: '+Tmp_Pos.PO+'   Style:'+Tmp_Pos.Style+" Line#:   "+STR(Tmp_Pos.LineNo,6)+CHR(13)+CHR(10),'X:\Aria4xp\Work\TmpLines.txt',1)
+	  ENDSCAN 
+	  IF llDiffFound 
+  	    IF MESSAGEBOX('Please check file '+'X:\Aria4xp\Work\TmpLines.txt'+ '. do you to update data',4)  = 6
+  	      SELECT 'Tmp_Pos'
+  	      
+		  SCAN FOR Tmp_Pos.nfCost1 <> Tmp_Pos.unitcost  
+  		    SCATTER MEMO MEMVAR  
+		    lnUpdPos = SQLEXEC(lnConnSql ,"UPDATE POSLN Set niCost1 =?m.unitcost ,nfcost1 = ?m.unitcost,Gros_price=?m.unitcost where "+;
+		    " PO =?m.PO and TRANCD = '1' and  [LineNo] = ?m.LineNo and cStytype = ?m.cStytype  and cbusdocu =?m.cbusdocu")
+		  ENDSCAN 
+		  MESSAGEBOX('Update is completed successfully')
+		  RETURN 
+	    ENDIF
+	  ENDIF  
+	ENDIF
+	=SQLDISCONNECT(lnConnSql)
+  ENDIF
+ENDSCAN

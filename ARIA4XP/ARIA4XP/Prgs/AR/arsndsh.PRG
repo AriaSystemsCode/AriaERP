@@ -1,0 +1,823 @@
+*:***************************************************************************
+*: PROGRAM FILE  : ARSNDSH
+*: Program desc. : Send Shipping Confirmation
+*: For screen    : 
+*:        System : Aria 4 XP
+*:        Module : AR
+*:     Developer : Mariam Mazhar (MMT)
+*B609592,1 MMT 05/31/2011 Don't open screen if EDI is not installed{media}
+*:***************************************************************************
+#INCLUDE R:\ARIA4XP\PRGS\AR\ARSNDSH.H
+*Call the form 
+*B609592,1 MMT 05/31/2011 Don't open screen if EDI is not installed{Start}
+IF !('AS' $ oAriaApplication.CompanyInstalledModules)
+  RETURN 
+ENDIF
+*B609592,1 MMT 05/31/2011 Don't open screen if EDI is not installed{End}
+llRPOWOT = .F.
+DO FORM (oAriaApplication.ScreenHome+"\AR\ARSNDSH.SCX")
+RETURN
+
+*!*************************************************************
+*! Name      : lfInit
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Init of the Screen
+*!*************************************************************
+FUNCTION lfInit
+LPARAMETERS loFrmSet
+SET MULTILOCKS ON
+loFrmSet.llCallScop = .F.   &&Flag to hold the first time of the session  
+loFrmSet.llFrstTime = .T.       && Flag to know if we are going to call lpShow for the first time
+=gfOpenTable('ORDHDR','ORDHDR','SH')
+=gfOpenTable('EDIACPRT','ACCFACT'  ,'SH')
+=gfOpenTable('EDIPH','PARTNER','SH')
+=gfOpenTable('EDITRANS','TYPEKEY'  ,'SH')
+=gfOpenTable('EDINET','NETWORKID'  ,'SH')
+=gfOpenTable('EDIPD','PARTTRANS'  ,'SH')
+=gfOpenTable('BOL_HDR','BOL_HDR'  ,'SH')
+=gfOpenTable('BOL_LIN','BOL_LIN'  ,'SH')
+=gfOpenTable('PACK_HDR','PACK_HDR'  ,'SH')
+WITH loFrmSet
+  .nWorkArea        = 'ORDHDR'
+  .DataEnvironment.InitialSelectedAlias = 'ORDHDR'
+  .cbrowsetabledbengine   = 'NATIVE'
+ENDWITH 
+loFrmSet.lcTmpOrdhdr = gfTempName()
+SELECT ORDHDR
+lnOrdHdrCnt = AFIELDS(laOrdhdrStr)
+DIMENSION laOrdhdrStr[lnOrdHdrCnt +2,18]
+laOrdhdrStr[lnOrdHdrCnt +1,1] = 'LLSEL'
+laOrdhdrStr[lnOrdHdrCnt +1,2] = 'L'
+laOrdhdrStr[lnOrdHdrCnt +1,3] = 1
+laOrdhdrStr[lnOrdHdrCnt +1,4] = 0
+
+laOrdhdrStr[lnOrdHdrCnt +2,1] = 'BOL_NO'
+laOrdhdrStr[lnOrdHdrCnt +2,2] = 'C'
+laOrdhdrStr[lnOrdHdrCnt +2,3] = 6
+laOrdhdrStr[lnOrdHdrCnt +2,4] = 0
+
+*
+STORE '' TO laOrdhdrStr[lnOrdHdrCnt +1,7],laOrdhdrStr[lnOrdHdrCnt +1,8],laOrdhdrStr[lnOrdHdrCnt +1,9],;
+            laOrdhdrStr[lnOrdHdrCnt +1,10],laOrdhdrStr[lnOrdHdrCnt +1,11],laOrdhdrStr[lnOrdHdrCnt +1,12],;
+            laOrdhdrStr[lnOrdHdrCnt +1,13],laOrdhdrStr[lnOrdHdrCnt +1,14],laOrdhdrStr[lnOrdHdrCnt +1,15],;
+            laOrdhdrStr[lnOrdHdrCnt +1,16]
+STORE 0 TO  laOrdhdrStr[lnOrdHdrCnt +1,17],laOrdhdrStr[lnOrdHdrCnt +1,18]
+
+STORE '' TO laOrdhdrStr[lnOrdHdrCnt +2,7],laOrdhdrStr[lnOrdHdrCnt +2,8],laOrdhdrStr[lnOrdHdrCnt +2,9],;
+            laOrdhdrStr[lnOrdHdrCnt +2,10],laOrdhdrStr[lnOrdHdrCnt +2,11],laOrdhdrStr[lnOrdHdrCnt +2,12],;
+            laOrdhdrStr[lnOrdHdrCnt +2,13],laOrdhdrStr[lnOrdHdrCnt +2,14],laOrdhdrStr[lnOrdHdrCnt +2,15],;
+            laOrdhdrStr[lnOrdHdrCnt +2,16]
+STORE 0 TO  laOrdhdrStr[lnOrdHdrCnt +2,17],laOrdhdrStr[lnOrdHdrCnt +2,18]
+
+=gfCrtTmp(loFrmSet.lcTmpOrdhdr,@laOrdhdrStr,"CORDTYPE+ORDER",loFrmSet.lcTmpOrdhdr)
+*lfAddGrdCntSrc(loFrmSet)
+loFrmSet.lcCaptionSel = ""
+
+*!*************************************************************
+*! Name      : lfvScope
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Calls the Scope Option grid
+*!*************************************************************
+FUNCTION lfvScope
+PARAMETERS loFormSet
+ lndataSessPre = SET("Datasession" )
+ IF loFormSet.llCalledFromOp
+   llCallOption = loFormSet.llCalledFromOp 
+   =ACOPY(This.loFormSet.laSeleCritria,laScopExpr) 
+ ENDIF 
+ loFormSet.llCallScop = .F.       
+ lcDataSessI = SET("Datasession" )
+ llShowTrck  = .F.
+ lcStatusVar = ''
+ DECLARE laScopExpr[1]
+ STORE "" TO laScopExpr
+
+ lcExpr = gfOpGrid('ARSNDSH' , .T.)&&,.F.,.F.,.T.,.T.)
+ SET DATASESSION TO lcDataSessI 
+
+ IF lcExpr <> ".F."
+   llRPOWOT =  llShowTrck  
+   lcRpStatus = lcStatusVar 
+   IF USED(loFormSet.lcTmpOrdhdr)
+     SELECT(loFormSet.lcTmpOrdhdr) 
+     ZAP 
+   ENDIF 
+   lfCollectData(loFormSet)
+   lfAddGrdCntSrc(loFormSet)
+   SELECT(loFormSet.lcTmpOrdhdr)
+   LOCATE 
+
+   IF !EOF()
+     loFormSet.llEnableInvert = .T.
+     loFormSet.llEnableSelect = .T.
+     loFormSet.llEnableSelectall = .T.
+     loFormSet.llEnableSelectnone = .F.
+   ELSE    && Else
+     loFormSet.llEnableInvert = .F.
+     loFormSet.llEnableSelect = .F.
+     loFormSet.llEnableSelectAll = .F.
+     loFormSet.llEnableSelectNone = .F.
+     =gfModalGen('TRM00052B00000','DIALOG')
+     RETURN      
+   ENDIF    && End of IF
+ ELSE
+   loFormSet.llEnableInvert = .F.
+   loFormSet.llEnableSelect = .F.
+   loFormSet.llEnableSelectAll = .F.
+   loFormSet.llEnableSelectNone = .F.
+   RETURN 
+ ENDIF
+
+*!*************************************************************
+*! Name      : lfvOStatus
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : the Validation function of the Status option
+*!*************************************************************
+FUNCTION lfvOStatus
+PRIVATE lcOldStat,lcCurrChr
+
+lcOldStat = lcRpStatus  && Save old status value.
+= lfOGMover(@laRpSource,@laRpTarget,LANG_ARSNDSH_SelectOrdStat,.T.,'')  && call mover function.
+lcRpStatus = ' '
+IF !EMPTY(laRpTarget[1])
+  FOR lnI = 1 TO ALEN(laRpTarget,1)
+    lcRpStatus = lcRpStatus + IIF(laRpTarget[lnI] = LANG_ARSNDSH_Open,'O',;
+                              IIF(laRpTarget[lnI] = LANG_ARSNDSH_Hold,'H',;
+                              IIF(laRpTarget[lnI] = LANG_ARSNDSH_Completed,'C','')))
+  ENDFOR
+ENDIF
+lcRpStatus = IIF(EMPTY(lcRpStatus),'OHC',ALLTRIM(lcRpStatus))
+
+*!*************************************************************
+*! Name      : lfAddGrdCntSrc
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Add Control Source of the grid
+*!*************************************************************
+FUNCTION lfAddGrdCntSrc
+PARAMETERS loFormSet
+WITH loFormSet.ariaform1.grdOrders.GrdMultiSelectionGrid 
+  .RecordSource = ''
+  .RecordSource = loFormSet.lcTmpOrdhdr
+  .Column1.Header1.Caption = ""
+  .Column1.CurrentControl = "AriaCheckBox1"
+  .colUMN1.ControlSource = loFormSet.lcTmpOrdhdr+'.LLSEL'
+  .colUMN2.ControlSource = loFormSet.lcTmpOrdhdr+'.ORDER'
+  .colUMN3.ControlSource = loFormSet.lcTmpOrdhdr+'.ACCOUNT'
+  .colUMN4.ControlSource = loFormSet.lcTmpOrdhdr+'.CUSTPO'
+  .colUMN5.ControlSource = loFormSet.lcTmpOrdhdr+'.START'
+  .colUMN6.ControlSource = loFormSet.lcTmpOrdhdr+'.Complete'
+  .colUMN7.ControlSource = loFormSet.lcTmpOrdhdr+'.BOL_NO'
+  IF !llRPOWOT
+    .colUMN8.Visible = .F.
+    loFormSet.ariaform1.grdOrders.txtTrack.Visible =.F.
+    loFormSet.ariaform1.grdOrders.lblTrk.Visible =.F.
+  ELSE
+    .colUMN8.Visible = .T.  
+    loFormSet.ariaform1.grdOrders.txtTrack.Visible =.T.    
+    loFormSet.ariaform1.grdOrders.lblTrk.Visible =.T.    
+  ENDIF 
+  .colUMN8.ControlSource = loFormSet.lcTmpOrdhdr+'.ccartrckno'
+  .colUMN9.ControlSource = loFormSet.lcTmpOrdhdr+'.OPen'
+  .Column1.Enabled = .T.
+  .SETALL('ReadOnly',.T.,'COLUMN')
+  .Column1.readonly = .F.
+  .Enabled = .T. 
+  .Column1.AriaCheckBox1.Enabled = .T.
+  .refresh()
+ENDWITH
+
+*loFormSet.lcTmpOrdhdr
+
+*!*************************************************************
+*! Name      : RefreshStatus
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Return the selected status in the ReadBox
+*!*************************************************************
+*! Passed Parameters  : 
+*!*************************************************************
+*! Returns            : 
+*!***************************************************************************
+*! Modification:
+*!***************************************************************************
+
+
+FUNCTION RefreshStatus
+  LOCAL lcStatusStr, lnTarget
+  lcStatusStr = ""
+  IF !EMPTY(laRpTarget)
+    FOR lnTarget = 1 TO ALEN(laRpTarget,1)
+      lcStatusStr = lcStatusStr + ", " + laRpTarget[lnTarget]
+    ENDFOR 
+    lcStatusStr = SUBSTR(lcStatusStr,3)
+  ENDIF   
+  RETURN lcStatusStr
+ENDFUNC 
+*!*************************************************************
+*! Name      : lfsrAcc
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Rise change account flag, in range browse screen.
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+*! Note      : S symbol is [S,Set]
+*!*************************************************************
+FUNCTION lfsrAcc
+PARAMETERS lcParm
+
+DO CASE
+  CASE lcParm = 'S'
+    GO TOP IN CUSTOMER
+  CASE lcParm = 'R'
+    llClearAcc = .F.
+ENDCASE
+
+*!*************************************************************
+*! Name      : lfsrOrder
+*! Developer : Mariam Mazhar(MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Rise change order flag, in range browse screen.
+*!*************************************************************
+*! Passed Parameters  : None
+*!*************************************************************
+*! Returns            : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+*! Note      : S symbol is [S,Set]
+*!*************************************************************
+FUNCTION lfsrOrder
+PARAMETERS lcParm
+SELECT ORDHDR
+SET RELATION TO IIF(EMPTY(STORE),"M","S") + ACCOUNT + STORE INTO CUSTOMER
+*!*  IF lcParm = 'S'
+*!*    *Start Date
+*!*    ldStStartDate = {}
+*!*    ldStEndDate   = {}
+*!*    llDateStSelect = .F.
+*!*    lnStDatePos = ASCAN(loOgScroll.laOGFxFlt,'ORDHDR.START')
+*!*    IF lnStDatePos > 0
+*!*      lnStDatePos= ASUBSCRIPT(loOgScroll.laOGFxFlt,lnStDatePos,1)
+*!*      llDateStSelect = !EMPTY(loOgScroll.laOGFxFlt[lnStDatePos,6])
+*!*      IF llDateStSelect 
+*!*        ldStStartDate = CTOD(SUBSTR(loOgScroll.laOGFxFlt[lnStDatePos,6],1,10))
+*!*        ldStEndDate   = CTOD(SUBSTR(loOgScroll.laOGFxFlt[lnStDatePos,6],12,21))
+*!*        IF SUBSTR(loOgScroll.laOgFxFlt[lnStDatePos,6],1,1) = "|"
+*!*          ldStStartDate = {}
+*!*          ldStEndDate   = CTOD(SUBSTR(loOgScroll.laOgFxFlt[lnStDatePos,6],2,11))
+*!*        ENDIF 
+*!*      ENDIF   
+*!*    ENDIF
+*!*    
+*!*    *Complete Date
+*!*    llDateCmSelect = .F.
+*!*    ldCmStartDate = {}
+*!*    ldCmEndDate   = {}
+*!*    lnCmDatePos = ASCAN(loOgScroll.laOGFxFlt,'ORDHDR.COMPLETE')
+*!*    IF lnCmDatePos > 0
+*!*      lnCmDatePos= ASUBSCRIPT(loOgScroll.laOGFxFlt,lnCMDatePos,1)
+*!*      llDateCmSelect = !EMPTY(loOgScroll.laOGFxFlt[lnCmDatePos,6])
+*!*      IF llDateCmSelect 
+*!*        ldCmStartDate = CTOD(SUBSTR(loOgScroll.laOGFxFlt[lnCMDatePos,6],1,10))
+*!*        ldCmEndDate   = CTOD(SUBSTR(loOgScroll.laOGFxFlt[lnCmDatePos,6],12,21))
+*!*        IF SUBSTR(loOgScroll.laOgFxFlt[lnCMDatePos,6],1,1) = "|"
+*!*          ldCmStartDate = {}
+*!*          ldCmEndDate   = CTOD(SUBSTR(loOgScroll.laOgFxFlt[lnCmDatePos,6],2,11))
+*!*        ENDIF 
+*!*      ENDIF   
+*!*    ENDIF
+*!*    
+*!*    *Entered Date
+*!*    ldEnStartDate = {}
+*!*    ldEnEndDate   = {}
+*!*    llDateEnSelect = .F.
+*!*    lnEnDatePos = ASCAN(loOgScroll.laOGFxFlt,'ORDHDR.ENTERED')
+*!*    IF lnEnDatePos > 0
+*!*      lnEnDatePos= ASUBSCRIPT(loOgScroll.laOGFxFlt,lnEnDatePos,1)
+*!*      llDateEnSelect = !EMPTY(loOgScroll.laOGFxFlt[lnEnDatePos,6])
+*!*      IF llDateEnSelect 
+*!*        ldEnStartDate = CTOD(SUBSTR(loOgScroll.laOGFxFlt[lnEnDatePos,6],1,10))
+*!*        ldEnEndDate   = CTOD(SUBSTR(loOgScroll.laOGFxFlt[lnEnDatePos,6],12,21))
+*!*        IF SUBSTR(loOgScroll.laOgFxFlt[lnEnDatePos,6],1,1) = "|"
+*!*          ldEnStartDate = {}
+*!*          ldEnEndDate   = CTOD(SUBSTR(loOgScroll.laOgFxFlt[lnEnDatePos,6],2,11))
+*!*        ENDIF 
+*!*      ENDIF   
+*!*    ENDIF
+*!*    
+*!*    * Account 
+*!*    llAccSelected = .F.
+*!*    lcAccSel = ''
+*!*    lnPosAcc = ASCAN(loOgScroll.laOgFXFlt,"ORDHDR.ACCOUNT")
+*!*    IF lnPosAcc > 0 
+*!*      lnPosAcc = ASUBSCRIPT(loOGScroll.laOgFxFlt,lnPosAcc,1)
+*!*      lcAccSel =IIF(!EMPTY(loOgScroll.laOgFxFlt[lnPosAcc,6]),loOgScroll.laOgFxFlt[lnPosAcc,6],'')
+*!*      IF !EMPTY(lcAccSel) AND USED(lcAccSel)
+*!*        SELECT(lcAccSel)
+*!*        LOCATE
+*!*        IF !EOF()
+*!*          llAccSelected = .T.      
+*!*        ENDIF 
+*!*      ENDIF 
+*!*    ENDIF       
+*!*    LOCAL lnCount   
+*!*    IF !EMPTY(laRpTarget[1])
+*!*      lcRpStatus = ' '
+*!*      FOR lnCount = 1 TO ALEN(laRpTarget,1)
+*!*        lcRpStatus = lcRpStatus + IIF(laRpTarget[lnCount] = LANG_ARSNDSH_Bid,'B',;
+*!*                                IIF(laRpTarget[lnCount] = LANG_ARSNDSH_Open,'O',;
+*!*                                IIF(laRpTarget[lnCount] = LANG_ARSNDSH_Hold,'H',;
+*!*                                IIF(laRpTarget[lnCount] = LANG_ARSNDSH_Completed,'C',;
+*!*                                IIF(laRpTarget[lnCount] = LANG_ARSNDSH_Canceled,'X','')))))
+
+*!*      ENDFOR
+*!*    ENDIF
+*!*    lcRpStatus = IIF(EMPTY(lcRpStatus),'BOHCX',ALLTRIM(lcRpStatus))
+*!*    SELECT Ordhdr 
+*!*    SET FILTER TO CORDTYPE+ORDER = 'O' AND IIF(llDateStSelect,BETWEEN(ORDHDR.START,ldStStartDate,ldStEndDate),.T.)  AND ;
+*!*                                           IIF(llDateCmSelect,BETWEEN(ORDHDR.COMPLETE,ldCmStartDate,ldCmEndDate),.T.) AND ;
+*!*                                           IIF(llDateEnSelect,BETWEEN(ORDHDR.ENTERED,ldEnStartDate,ldEnEndDate),.T.) AND ;
+*!*                                           IIF(llAccSelected ,SEEK(ORDHDR.ACCOUNT,lcAccSel),.T.) AND ;
+*!*                                           IIF(!EMPTY(lcRpStatus),ORDHDR.Status $ lcRpStatus,.T.) AND ;
+*!*                                           IIF(!llRPOWOT,EMPTY(Ordhdr.cCartrckNo),.T.)
+*!*                                            
+*!*  ELSE 
+*!*    SELECT ORDHDR
+*!*    SET FILTER TO
+*!*  ENDIF 
+*!*************************************************************
+*! Name      : lfwRepWhen
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : When function of OG
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*! Modification : ....
+*!*************************************************************
+*
+FUNCTION lfwRepWhen
+IF EMPTY(laRpSource)
+  DECLARE laRpSource[3],laRpTarget[3]  && Redeclare the source and target arrays.
+  STORE LANG_ARSNDSH_Open      TO laRpSource[1],laRpTarget[1]
+  STORE LANG_ARSNDSH_Hold      TO laRpSource[2],laRpTarget[2]
+  STORE LANG_ARSNDSH_Completed TO laRpSource[3],laRpTarget[3]
+ENDIF
+*!*************************************************************
+*! Name      : lfOrdExp
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Copy Option grid Criteria
+*!*************************************************************
+FUNCTION lfOrdExp
+=ACOPY(loOGScroll.laOGFxFlt , laScopExpr)
+lcRpStatus = ' '
+IF !EMPTY(laRpTarget[1])
+  FOR lnI = 1 TO ALEN(laRpTarget,1)
+    lcRpStatus = lcRpStatus + IIF(laRpTarget[lnI] = LANG_ARSNDSH_Open,'O',;
+                              IIF(laRpTarget[lnI] = LANG_ARSNDSH_Hold,'H',;
+                              IIF(laRpTarget[lnI] = LANG_ARSNDSH_Completed,'C','')))
+  ENDFOR
+ENDIF
+lcRpStatus = IIF(EMPTY(lcRpStatus),'OHC',ALLTRIM(lcRpStatus))
+llShowTrck  = llRPOWOT
+lcStatusVar = lcRpStatus
+*!*************************************************************
+*! Name      : lfCollectData
+*! Developer : Mariam Mazhar (MMT)
+*! Date      : 08/01/2010
+*! Purpose   : Collect Orders based on selected criteria
+*!*************************************************************
+FUNCTION lfCollectData
+PARAMETERS loFormSet
+  *Start Date
+  ldStStartDate = {}
+  ldStEndDate   = {}
+  llDateStSelect = .F.
+  lnStDatePos = ASCAN(laScopExpr,'ORDHDR.START')
+  IF lnStDatePos > 0
+    lnStDatePos= ASUBSCRIPT(laScopExpr,lnStDatePos,1)
+    llDateStSelect = !EMPTY(laScopExpr[lnStDatePos,6])
+    IF llDateStSelect 
+      ldStStartDate = CTOD(SUBSTR(laScopExpr[lnStDatePos,6],1,10))
+      ldStEndDate   = CTOD(SUBSTR(laScopExpr[lnStDatePos,6],12,21))
+      IF SUBSTR(laScopExpr[lnStDatePos,6],1,1) = "|"
+        ldStStartDate = {}
+        ldStEndDate   = CTOD(SUBSTR(laScopExpr[lnStDatePos,6],2,11))
+      ENDIF 
+    ENDIF   
+  ENDIF
+  
+  *Complete Date
+  llDateCmSelect = .F.
+  ldCmStartDate = {}
+  ldCmEndDate   = {}
+  lnCmDatePos = ASCAN(laScopExpr,'ORDHDR.COMPLETE')
+  IF lnCmDatePos > 0
+    lnCmDatePos= ASUBSCRIPT(laScopExpr,lnCMDatePos,1)
+    llDateCmSelect = !EMPTY(laScopExpr[lnCmDatePos,6])
+    IF llDateCmSelect 
+      ldCmStartDate = CTOD(SUBSTR(laScopExpr[lnCMDatePos,6],1,10))
+      ldCmEndDate   = CTOD(SUBSTR(laScopExpr[lnCmDatePos,6],12,21))
+      IF SUBSTR(laScopExpr[lnCMDatePos,6],1,1) = "|"
+        ldCmStartDate = {}
+        ldCmEndDate   = CTOD(SUBSTR(laScopExpr[lnCmDatePos,6],2,11))
+      ENDIF 
+    ENDIF   
+  ENDIF
+  
+  *Entered Date
+  ldEnStartDate = {}
+  ldEnEndDate   = {}
+  llDateEnSelect = .F.
+  lnEnDatePos = ASCAN(laScopExpr,'ORDHDR.ENTERED')
+  IF lnEnDatePos > 0
+    lnEnDatePos= ASUBSCRIPT(laScopExpr,lnEnDatePos,1)
+    llDateEnSelect = !EMPTY(laScopExpr[lnEnDatePos,6])
+    IF llDateEnSelect 
+      ldEnStartDate = CTOD(SUBSTR(laScopExpr[lnEnDatePos,6],1,10))
+      ldEnEndDate   = CTOD(SUBSTR(laScopExpr[lnEnDatePos,6],12,21))
+      IF SUBSTR(laScopExpr[lnEnDatePos,6],1,1) = "|"
+        ldEnStartDate = {}
+        ldEnEndDate   = CTOD(SUBSTR(laScopExpr[lnEnDatePos,6],2,11))
+      ENDIF 
+    ENDIF   
+  ENDIF
+  
+  * Account 
+  llAccSelected = .F.
+  lcAccSel = ''
+  lnPosAcc = ASCAN(laScopExpr,"ORDHDR.ACCOUNT")
+  IF lnPosAcc > 0 
+    lnPosAcc = ASUBSCRIPT(laScopExpr,lnPosAcc,1)
+    lcAccSel =IIF(!EMPTY(laScopExpr[lnPosAcc,6]),laScopExpr[lnPosAcc,6],'')
+    IF !EMPTY(lcAccSel) AND USED(lcAccSel)
+      SELECT(lcAccSel)
+      LOCATE
+      IF !EOF()
+        llAccSelected = .T.      
+      ENDIF 
+    ENDIF 
+  ENDIF       
+  
+  *ORder
+  llOrderSelected = .F.
+  lcOrderSel = ''
+  lnPosOrd = ASCAN(laScopExpr,"ORDHDR.ORDER")
+  IF lnPosOrd> 0 
+    lnPosOrd= ASUBSCRIPT(laScopExpr,lnPosOrd,1)
+    lcOrderSel=IIF(!EMPTY(laScopExpr[lnPosOrd,6]),laScopExpr[lnPosOrd,6],'')
+    IF !EMPTY(lcOrderSel) AND USED(lcOrderSel)
+      SELECT(lcOrderSel)
+      LOCATE
+      IF !EOF()
+        llOrderSelected = .T.      
+      ENDIF 
+    ENDIF 
+  ENDIF       
+
+  WAIT WINDOW LANG_ARSNDSH_CollectData NOWAIT 
+  SELECT Ordhdr 
+  IF llOrderSelected 
+    SELECT(lcOrderSel)
+    LOCATE 
+    SCAN
+      SELECT ORDHDR
+      =SEEK('O'+&lcOrderSel..Order)
+      SCAN REST WHILE CORDTYPE+ORDER = 'O'+&lcOrderSel..Order FOR IIF(llDateStSelect,BETWEEN(ORDHDR.START,ldStStartDate,ldStEndDate),.T.)  AND ;
+                                         IIF(llDateCmSelect,BETWEEN(ORDHDR.COMPLETE,ldCmStartDate,ldCmEndDate),.T.) AND ;
+                                         IIF(llDateEnSelect,BETWEEN(ORDHDR.ENTERED,ldEnStartDate,ldEnEndDate),.T.) AND ;
+                                         IIF(llAccSelected ,SEEK(ORDHDR.ACCOUNT,lcAccSel),.T.) AND ;
+                                         IIF(!EMPTY(lcRpStatus),ORDHDR.Status $ lcRpStatus,.T.) AND ;
+                                         IIF(!llRPOWOT,EMPTY(Ordhdr.cCartrckNo),.T.)
+      IF !(gfSEEK('A'+Ordhdr.Account,'EDIACPRT') AND gfSEEK(EDIACPRT.cPartCode+'856','EDIPD'))
+        LOOP
+      ENDIF 
+      SCATTER MEMO MEMVAR 
+      IF !SEEK(m.CORDTYPE+m.ORDER,loFormSet.lcTmpOrdhdr)  
+        IF gfSeek(m.ORDER,'BOL_LIN','ORD_BOL')
+           m.BOL_NO = BOL_LIN.BOL_NO
+        ELSE
+           m.BOL_NO = ''
+        ENDIF                                 
+        INSERT INTO (loFormSet.lcTmpOrdhdr) FROM MEMVAR 
+      ENDIF 
+      ENDSCAN 
+    ENDSCAN 
+  ELSE
+    SELECT ORDHDR  
+    =SEEK('O')
+    SCAN REST WHILE CORDTYPE+ORDER = 'O' FOR IIF(llDateStSelect,BETWEEN(ORDHDR.START,ldStStartDate,ldStEndDate),.T.)  AND ;
+                                         IIF(llDateCmSelect,BETWEEN(ORDHDR.COMPLETE,ldCmStartDate,ldCmEndDate),.T.) AND ;
+                                         IIF(llDateEnSelect,BETWEEN(ORDHDR.ENTERED,ldEnStartDate,ldEnEndDate),.T.) AND ;
+                                         IIF(llAccSelected ,SEEK(ORDHDR.ACCOUNT,lcAccSel),.T.) AND ;
+                                         IIF(!EMPTY(lcRpStatus),ORDHDR.Status $ lcRpStatus,.T.) AND ;
+                                         IIF(!llRPOWOT,EMPTY(Ordhdr.cCartrckNo),.T.)
+       IF !(gfSEEK('A'+Ordhdr.Account,'EDIACPRT') AND gfSEEK(EDIACPRT.cPartCode+'856','EDIPD'))
+         LOOP
+       ENDIF 
+       SCATTER MEMO MEMVAR 
+       IF !SEEK(m.CORDTYPE+m.ORDER,loFormSet.lcTmpOrdhdr)    
+         IF gfSeek(m.ORDER,'BOL_LIN','ORD_BOL')
+            m.BOL_NO = BOL_LIN.BOL_NO
+         ELSE
+            m.BOL_NO = ''
+         ENDIF                                             
+         INSERT INTO (loFormSet.lcTmpOrdhdr) FROM MEMVAR 
+       ENDIF 
+     ENDSCAN 
+  ENDIF 
+
+*!*************************************************************
+*! Name      : lfvpbSel
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Function to arange the push button select prompt
+*!*************************************************************
+*! Called from : lfvSelect() , lfvInvert() , The Browse [lcPickBrow]
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : .T.
+*!*************************************************************
+FUNCTION lfvpbSel
+PARAMETERS loFormSet
+IF LLSEL 
+  loFormSet.lcCaptionSel = LANG_ARSNDSH_unSelect
+ELSE 
+  loFormSet.lcCaptionSel = LANG_ARSNDSH_Select
+ENDIF
+RETURN .T.
+*!*************************************************************
+*! Name      : lfvSelect
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Valid function of push button Select
+*!*************************************************************
+*! Called from : Scrren ALRELPIK
+*!*************************************************************
+*! Calls       : lfvpbSel()
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+FUNCTION lfvSelect
+PARAMETERS loFormSet,llFromChkBox
+SELECT(loFormSet.lcTmpOrdhdr)
+IF !llFromChkBox
+  REPLACE LLSEL WITH !LLSEL
+ENDIF  
+lfvpbSel(loFormSet)
+llSelected = .F.
+llNotSelected = .F.
+lnRecNumb = RECNO(loFormSet.lcTmpOrdhdr)
+LOCATE FOR LLSEL
+IF FOUND()
+  llSelected = .T.
+ENDIF 
+LOCATE 
+LOCATE FOR !LLSEL
+IF FOUND()
+  llNotSelected = .T.
+ENDIF 
+
+IF BETWEEN(lnRecNumb,1,RECCOUNT())
+  GO RECORD lnRecNumb
+ENDIF 
+*No records was selected
+IF !llSelected
+  loFormSet.llenableinvert = .T.
+  loFormSet.llenableselect = .T.
+  loFormSet.llenableselectall = .T.
+  loFormSet.llenableselectnone = .F.
+ELSE    && Else
+  loFormSet.llenableselectnone = .T.
+  *-- All the records were selected
+  IF !llNotSelected
+    loFormSet.llenableselectall = .F.
+  ELSE
+    loFormSet.llenableselectall = .T.
+  ENDIF
+ENDIF  
+*!*************************************************************
+*! Name      : lfvSelAll
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Valid function of push button Select all
+*!*************************************************************
+*! Called from : Scrren ALRELPIK
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*
+FUNCTION lfvSelAll
+PARAMETERS loFormSet
+SELECT(loFormSet.lcTmpOrdhdr)
+lnRecCurrn = RECNO()
+REPLACE ALL LLSEL WITH .T.
+IF BETWEEN(lnRecCurrn,1,RECCOUNT())
+ GO RECORD lnRecCurrn
+ENDIF 
+loFormSet.lcCaptionSel = LANG_ARSNDSH_unSelect
+loFormSet.llenableselectall = .F.
+loFormSet.llenableselectnone = .T.
+
+*!*************************************************************
+*! Name      : lfvSelNon
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Valid function of push button Select none
+*!*************************************************************
+*! Called from : Scrren ALRELPIK
+*!*************************************************************
+*! Calls       : None
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*
+FUNCTION lfvSelNon
+PARAMETERS loFormSet
+SELECT(loFormSet.lcTmpOrdhdr)
+lnRecCurr = RECNO()
+REPLACE ALL LLSEL WITH .F.
+IF BETWEEN(lnRecCurr ,1,RECCOUNT())
+ GO RECORD lnRecCurr 
+ENDIF 
+
+loFormSet.lcCaptionSel = LANG_ARSNDSH_Select 
+loFormSet.llEnableSelectAll  = .T.
+loFormSet.llEnableSelectNone = .F.
+loFormSet.llEnableRel = .F.
+
+*!*************************************************************
+*! Name      : lfvInvert
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Valid function of push button Invert
+*!*************************************************************
+*! Called from : Scrren ALRELPIK
+*!*************************************************************
+*! Calls       : lfvpbSel()
+*!*************************************************************
+*! Passed Parameters : None
+*!*************************************************************
+*! Return      : None
+*!*************************************************************
+*
+FUNCTION lfvInvert
+PARAMETERS loFormSet
+SELECT(loFormSet.lcTmpOrdhdr)
+llSelected = .F.
+llNotSelected = .F.
+lnRecNOCurr = RECNO()
+REPLACE ALL LLSEL WITH !LLSEL
+LOCATE 
+LOCATE FOR LLSEL
+IF FOUND()
+  llSelected = .T.
+ENDIF 
+LOCATE 
+LOCATE FOR !LLSEL
+IF FOUND()
+  llNotSelected = .T.
+ENDIF 
+
+
+IF BETWEEN(lnRecNOCurr ,1,RECCOUNT())
+ GO RECORD lnRecNOCurr 
+ENDIF 
+lfvpbSel(loFormSet)
+*there is no selected records
+IF !llSelected 
+  loFormSet.llenableselectall = .T.
+  loFormSet.llenableselectnone = .F.
+ELSE 
+  loFormSet.llenableselectnone = .T.
+  *--All the records were selected
+  IF !llNotSelected 
+    loFormSet.llenableselectall = .F.
+  ENDIF
+ENDIF  
+*!*************************************************************
+*! Name      : lfvScanTrack
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Scan Track Number Validation
+*!*************************************************************
+FUNCTION lfvScanTrack
+PARAMETERS loFormSet
+SELECT(loFormSet.lcTmpOrdhdr)
+lcTrackNo = loFormSet.AriaForm1.grdOrders.txtTrack.Value
+IF EMPTY(lcTrackNo)
+  RETURN 
+ENDIF 
+LOCATE FOR ccartrckno = lcTrackNo
+IF FOUND() AND !llSel
+  lnCurRecNum = RECNO()
+  loFormSet.AriaForm1.grdOrders.CmdSelect.Click()
+  IF BETWEEN(lnCurRecNum,1,RECCOUNT(loFormSet.lcTmpOrdhdr))
+    SELECT(loFormSet.lcTmpOrdhdr)
+    GO RECORD lnCurRecNum
+  ENDIF
+ENDIF  
+loFormSet.AriaForm1.grdOrders.txtTrack.Value = ''
+loFormSet.ariaform1.grdOrders.GrdMultiSelectionGrid.Refresh() 
+*!*************************************************************
+*! Name      : lfvProceed
+*! Developer : Mariam Mazhar [MMT]
+*! Date      : 08/01/2010
+*! Purpose   : Proceed Validation
+*!*************************************************************
+FUNCTION lfvProceed
+PARAMETERS loFormSet
+SELECT(loFormSet.lcTmpOrdhdr)
+LOCATE 
+SCAN FOR llSel
+  *Check if Account is XML or not  
+*!*    WAIT WINDOW LANG_ARSNDSH_OrderProc +EVALUATE(loFormSet.lcTmpOrdhdr+'.order') NOWAIT
+*!*    llXmlAcc = .F.
+*!*    llEDIAcc = .F.
+*!*    IF gfSEEK('A'+EVALUATE(loFormSet.lcTmpOrdhdr+'.Account'),'EDIACPRT') AND gfSEEK(EDIACPRT.cPartCode,'EDIPh') AND ;
+*!*       gfSeek(EDIPh.CNETWORK,'EDINET') 
+*!*      lnChkTyp= oAriaApplication.RemoteCompanyData.execute("SELECT FILE_FORMAT FROM E_FILES_TYPES_T WHERE FILE_TYPE = '"+EDINET.CEDITYPS+"'",'',;
+*!*                                                               "E_FILE_TYPES_T","",oAriaApplication.activecompanyconstr,3,"",SET("Datasession"))  
+*!*      IF lnChkTyp  > 0                                                           
+*!*        SELECT E_FILE_TYPES_T
+*!*        LOCATE 
+*!*        IF !EOF()
+*!*          llXmlAcc = (E_FILE_TYPES_T.FILE_FORMAT = 'XML')
+*!*        ENDIF     
+*!*      ENDIF  
+*!*    ENDIF
+*!*    IF !llXmlAcc 
+*!*      IF gfSEEK('A'+EVALUATE(loFormSet.lcTmpOrdhdr+'.Account'),'EDIACPRT') AND gfSEEK(EDIACPRT.cPartCode+'856','EDIPD')
+*!*        llEDIAcc = .T.
+*!*      ENDIF 
+*!*    ENDIF  
+*!*    IF !llXmlAcc AND !llEDIAcc 
+*!*      LOOP 
+*!*    ENDIF 
+*!*    IF llXmlAcc
+*!*    ELSE
+*!*      IF llEDIAcc 
+      lcDateTime=oAriaApplication.SystemDate
+      IF !EMPTY(lcDateTime)
+        ldShipDate = lcDateTime
+        lcShipTime = gfGetTime()
+        SELECT BOL_HDR
+        =gfSeek(EVALUATE(loFormSet.lcTmpOrdhdr+'.BOL_NO'))
+        REPLACE SHIP_DATE WITH ldShipDate ,;
+                Cshiptime WITH lcShipTime ,;
+                STATUS    WITH 'C'
+        =gfReplace('')        
+        SELECT BOL_LIN
+        =gfSEEK(BOL_HDR.BOL_NO)        
+        SCAN REST WHILE Bol_No+Order+Pack_No = BOL_HDR.BOL_NO
+          SELECT PACK_HDR
+          =gfSEEK(BOL_LIN.pack_no,'PACK_HDR','PACK_HDR')
+          REPLACE SHIP_DATE WITH ldShipDate ,;
+                  Status    WITH 'C'
+        =gfReplace('')                  
+        ENDSCAN
+        SELECT  EDITRANS
+        IF gfSEEK('A'+BOL_HDR.Account,'EDIACPRT','ACCFACT') AND gfSEEK(EDIACPRT.cPartCode+'856','EDIPD','PARTTRANS')
+          IF !gfSEEK('856'+PADR(BOL_HDR.BOL_NO,40)+'A'+BOL_HDR.Account,'EDITRANS','TYPEKEY')
+            INSERT INTO 'EDITRANS' (cEdiTrnTyp,Key,Type,cPartner) VALUES ;
+                                   ('856',BOL_HDR.BOL_NO,'A',BOL_HDR.Account)
+          ENDIF
+          REPLACE cStatus   WITH 'N' ,;
+                  cAdd_User WITH oAriaApplication.User_ID    ,;
+                  dAdd_Date WITH oAriaApplication.SystemDate ,;
+                  cAdd_Time WITH TIME() IN 'EDITRANS'
+          =gfReplace('')                  
+        ENDIF
+      ENDIF  
+*!*      ENDIF 
+*!*    ENDIF 
+ENDSCAN
+SELECT  EDITRANS
+=gfTableUpdate()
+SELECT BOL_HDR
+=gfTableUpdate()
+SELECT  PACK_HDR
+=gfTableUpdate()

@@ -1,0 +1,1 @@
+#DEFINE LANG_ARIAEDITREGION_Shipped     'shipped'

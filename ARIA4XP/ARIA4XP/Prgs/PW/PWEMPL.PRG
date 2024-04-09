@@ -1,0 +1,1324 @@
+*:************************************************************************
+*:  Program File: ARIA4XP\PRGS\PW\PWEMPL.FXP
+*:  Module      : PIECE WORK
+*:  Desc.       : Employees Screen
+*:  System      : Aria 4XP
+*:  Developer   : TMI - Tarek Mohamed Ibrahim
+*:  Date        : 04/24/2012
+*:  Reference   : E303113,1   ( SQL system files : E303118.exe )
+*:              :             ( FOX system files : E303132.exe )
+*:************************************************************************
+*Modifications  :
+*B610136,1 [T20121021.0030] TMI 10/31/2012 [Start] Default the birth date to 18 year and one day from the current system date 
+*B610136,2 [T20121021.0030] TMI 11/22/2012 fix problems in the screen while the R13 test 
+*:************************************************************************
+
+lcProg = JUSTSTEM(SYS(16))
+
+*- Call the screen
+lcRunScx = lfGetScx("PW\&lcProg..scx")
+DO FORM (lcRunScx) 
+
+************************************************************
+*! Name      : lfGetScx
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/24/2012
+*! Purpose   : Get the scx path to run in SaaS environemt
+************************************************************
+FUNCTION lfGetScx
+PARAMETERS lcScx
+LOCAL lcRunScx
+IF oAriaApplication.Multiinst AND FILE(oAriaApplication.clientscreenhome+lcScx)
+  lcRunScx = oAriaApplication.clientscreenhome+lcScx
+ELSE
+  lcRunScx = oAriaApplication.screenhome+lcScx
+ENDIF   
+RETURN lcRunScx
+ *- End of lfGetScx.
+
+*!*************************************************************
+*! Name      : lfFormInit
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/24/2012
+*! Purpose   : called from the Screen init Method
+*!*************************************************************
+FUNCTION lfFormInit
+PARAMETERS loFormSet
+
+lcProg = JUSTSTEM(SYS(16))
+loFormSet.AddProperty('lcProgName',lcProg)
+loFormSet.AddProperty('CalendID',0)
+
+lcPath = oAriaapplication.ApplicationHome
+SET PROCEDURE TO (lcPath+'PW\PWGLB.FXP') ADDITIVE &&  all these functions will be copied to the ARIAGLB later
+
+*- Open tables 
+=lfOpenPRGFILES(loFormSet.lcProgName)
+
+
+*** Load program base file 
+loFormSet.AddProperty('lcBaseFile',ALLTRIM(sydObjct.cBaseFile))
+
+*- initializations
+WITH loFormSet
+  .cbrowsetabledbengine   = "SQL"
+  .nWorkArea              = .lcBaseFile 
+  .otoolbar.nWorkArea     = .lcBaseFile
+  .DataEnvironment.InitialSelectedAlias = .lcBaseFile
+  .cBrowseFileName        = .lcBaseFile
+  .cBrowseIndexExpression = "CPERSON_ID"
+  .cBrowseIndexFields     = "CPERSON_ID"
+  .cBrowseIndexName       = "PEPERSON"
+  .cBrowseAliasName       = .lcBaseFile
+  .cBrowseTableName       = .lcBaseFile
+  .cBrowseFilter          = ""
+  .BrowseTitle 		  	  = ALLTRIM(sydObjct.CPRGLNAME)  
+  *.AriaBrFields.edtBrowseFields.Value = gfDbfField(.nWorkArea,oAriaApplication.cAria4SysPath)
+  .AriaBrFields.edtBrowseFields.Value = "CPERSON_ID :H='Personnel ID',"+;
+                                        "CNAME :H='Employee name',"+;
+                                        "CFIRSTNAME :H='First name',"+;
+                                        "CLASTNAME :H='Last name',"+;
+                                        "CPLANT_ID :H='Plant Id',"+;
+                                        "CWORKCENT :H='Work center No.',"+;
+                                        "CCOSTCENT :H='Cost Center',"+;
+                                        "CDEPTID :H='Department No.',"+;
+                                        "PHONE1 :H='Phone 1',"+;
+                                        "PHONE2 :H='Phone 2',"+;
+                                        "NHOURRATE :H='Hour Rate',"+;
+                                        "NOVERTRATE :H='Over Time %',"+;
+                                        "CBASECODE :H='Base Code',"+;
+                                        "CCATEGORY :H='category',"+;
+                                        "CPAYFREQ :H='PAY FREQUENCY',"+;
+                                        "CPAY_TYPE :H='PAYROLL TYPE',"+;
+                                        "CSOCIALNO :H='Social no.'"
+ENDWITH 
+                                        
+*!*	                                        "CSPLITCODE :H='Split Code'"
+*!*	                                        "CSTATUS :H='Status',"+;
+*!*	                                        "NRATE :H='The hourly rate',"+;
+*!*	                                        "CTER_RES :H='Termenal Reason'"
+*!*	                                        "CADDRESS1 :H='Address 1',"+;
+*!*	                                        "CADDRESS3 :H='Address 3',"+;
+*!*	                                        "CADDRESS2 :H='Address 2',"+;
+*!*	                                        "CADDRESS4 :H='Address 4',"
+
+
+*- set the input mask of the keyfield 
+WITH loFormSet
+  .Ariaform1.AriaKeyField1.KeyTextbox.InputMask = REPLICATE('!',FSIZE(.cBrowseIndexFields,.lcBaseFile))
+  .Ariaform1.txtEmpName.MaxLength = FSIZE('CNAME',.lcBaseFile)  
+ENDWITH   
+
+WITH loFormset
+  DIMENSION .laPanelObj[1,6]
+  *--Object link & style picture.
+  .laPanelObj[1,1]= "cmdPicture"
+  .laPanelObj[1,2]= oAriaApplication.BitmapHome+"RELATE.BMP"
+  .laPanelObj[1,3]= "mvObjLink"
+  .laPanelObj[1,4]= "Object Links"
+  .laPanelObj[1,5]= "Object Links"
+  .laPanelObj[1,6]= "VAE"
+  .AddProperty('lcObjType',"E")
+ENDWITH
+*!*	"B" Plant
+*!*	"H" work center
+*!*	"E" Employee
+
+loFormset.HasMemo = .F.
+
+*WITH loFormset.Ariaform1.pf.pg1.Thumbnail1
+WITH loFormset.Ariaform1.cntThumbnail
+  .cType = "E"
+  .cObjectKey = ""  
+ENDWITH   
+
+=lfCalender(loFormSet,loFormset.Ariaform1.pf.pg6.Calendar1,'E')
+
+=lfDefinePopups_DataSource(loFormset)
+
+*- Define grids
+lfSetQulifyControlSource()
+lfSetShiftControlSource()
+
+
+** put phone format
+WITH loFormset.Ariaform1.pf.pg2
+  LOCAL lcPhneTem
+  lcPhneTem = gfPhoNeTem(.F., .Address1.cboCountry.Value)
+  .txtPhone1.Inputmask = lcPhneTem
+  .txtPhone2.Inputmask = lcPhneTem
+  .txtMobile.Inputmask = lcPhneTem
+ENDWITH 
+
+
+WITH loFormset.Ariaform1.pf.pg3
+  LOCAL lcPhneTem
+  lcPhneTem = gfPhoNeTem(.F., .EmgAddress.cboCountry.Value)
+  .txtPhone1.Inputmask = lcPhneTem
+  *E303116,4 TMI 05/31/2012 [Start] format the Phone2
+  .txtPhone2.Inputmask = lcPhneTem
+  *E303116,4 TMI 05/31/2012 [End  ] 
+  .txtMobile.Inputmask = lcPhneTem
+ENDWITH 
+
+=lfSetMaxLengh(loFormSet)
+
+
+loFormset.ChangeMode('S')
+
+*- End of lfFormInit.
+************************************************************
+*! Name      : lfDefinePopups_DataSource
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/05/2012
+*! Purpose   : lfDefinePopups_DataSource
+************************************************************
+FUNCTION lfDefinePopups_DataSource
+PARAMETERS loFormSet
+
+LOCAL o 
+*- Define the Plant popup source 
+loFormSet.AddProperty('laPlant[1,2]','')
+SELECT PEPLANT
+gfSeek('')
+SELECT CPNAME,CPLANT_ID FROM PEPLANT INTO ARRAY loFormSet.laPlant
+o = loFormset.Ariaform1.cboPlant
+o.RowSource = 'Thisformset.laPlant'
+lfColumnWidthes(o)
+
+*- Define the Department popup source 
+loFormSet.AddProperty('laDep[1,2]','')
+SELECT PEDEPART
+gfSeek('')
+SELECT CDEPTNAME,CDEPTID FROM PEDEPART INTO ARRAY loFormSet.laDep
+o = loFormset.Ariaform1.cboDep
+o.RowSource = 'Thisformset.laDep'
+lfColumnWidthes(o)
+
+WITH loFormSet
+*E303116,1 TMI 12/05/2012 [Start] 
+*o = .Ariaform1.pf.pg1.cboEmpStatus
+o = .Ariaform1.pf.pg5.cboEmpStatus
+*E303116,1 TMI 12/05/2012 [End  ] 
+.AddProperty('laEmpStatus[4,2]','')
+.laEmpStatus[1,1] = 'Full Time'
+.laEmpStatus[1,2] = 'F'
+.laEmpStatus[2,1] = 'Part Time'
+.laEmpStatus[2,2] = 'P'
+.laEmpStatus[3,1] = 'Leave of Absence'
+.laEmpStatus[3,2] = 'L'
+.laEmpStatus[4,1] = 'Terminated'
+.laEmpStatus[4,2] = 'T'
+lfDefineSource(o,'laEmpStatus')
+
+*E303116,1 TMI 12/05/2012 [Start] 
+*o = .Ariaform1.pf.pg1.cboCategory
+o = .Ariaform1.pf.pg5.cboCategory
+*E303116,1 TMI 12/05/2012 [End  ] 
+.AddProperty('laCategory[2,2]','')
+.laCategory[1,1] = 'Operator'
+.laCategory[1,2] = 'O'
+.laCategory[2,1] = 'Supervisor'
+.laCategory[2,2] = 'S'
+lfDefineSource(o,'laCategory')
+
+*E303116,1 TMI 12/05/2012 [Start] 
+*o = .Ariaform1.pf.pg1.cboType
+o = .Ariaform1.pf.pg5.cboType
+*E303116,1 TMI 12/05/2012 [End  ] 
+.AddProperty('laType[2,2]','')
+.laType[1,1] = 'Actual'
+.laType[1,2] = 'A'
+.laType[2,1] = 'Forecast'
+.laType[2,2] = 'F'
+lfDefineSource(o,'laType')
+
+*o = .Ariaform1.pf.pg4.cboQualfCode
+
+o = .Ariaform1.pf.pg5.cboPayType
+.AddProperty('laPayType[3,2]','')
+.laPayType[1,1] = 'Hours'
+.laPayType[1,2] = 'H'
+.laPayType[2,1] = 'Piece Work'
+.laPayType[2,2] = 'P'
+.laPayType[3,1] = 'Salary'
+.laPayType[3,2] = 'S'
+lfDefineSource(o,'laPayType')
+
+o = .Ariaform1.pf.pg5.cboPayFreq
+.AddProperty('laPayFreq[3,2]','')
+.laPayFreq[1,1] = 'Weekly'
+.laPayFreq[1,2] = 'W'
+.laPayFreq[2,1] = 'Monthly'
+.laPayFreq[2,2] = 'M'
+.laPayFreq[3,1] = 'Semi Monthly'
+.laPayFreq[3,2] = 'S'
+lfDefineSource(o,'laPayFreq')
+
+*o = .Ariaform1.pf.pg5.cboCostCenter
+
+.AddProperty('laWorkCenter[1,2]','')
+SELECT PEWCNTR 
+gfSeek('')
+SELECT CDESC,CWORKCENT FROM PEWCNTR INTO ARRAY loFormSet.laWorkCenter
+o = .Ariaform1.pf.pg5.cboWorkCenter
+lfDefineSource(o,'laWorkCenter')
+
+.AddProperty('laShift[1,2]','')
+SELECT PESHIFT 
+gfSeek('')
+o = .Ariaform1.pf.pg7.cboShiftID
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] filter shift on plant, move it to the valid of the plant combo
+*SELECT CDESC,CSHIFT_ID FROM PESHIFT INTO ARRAY loFormSet.laShift
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+lfDefineSource(o,'laShift')
+
+ENDWITH 
+
+*- End of lfDefinePopups_DataSource.
+************************************************************
+*! Name      : lfDefineSource
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/05/2012
+*! Purpose   : lfDefineSource
+************************************************************
+FUNCTION lfDefineSource
+PARAMETERS o,lcArray
+o.RowSource = 'Thisformset.'+lcArray
+lfColumnWidthes(o)
+
+*- End of lfDefineSource.
+
+************************************************************
+*! Name      : lfFormActivate
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/14/2012
+*! Purpose   : Form Activate
+************************************************************
+FUNCTION lfFormActivate
+PARAMETERS loFormSet
+
+*- End of lfFormActivate.
+
+************************************************************
+*! Name      : lfChangeMode
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/24/2012
+*! Purpose   : Change Mode
+************************************************************
+FUNCTION lfChangeMode
+PARAMETERS loFormSet
+LOCAL lnSlct
+lnSlct = SELECT(0)
+
+IF TYPE('loFormSet.lcBaseFile')='U'
+  RETURN 
+ENDIF   
+ 
+loFormSet.Ariaform1.AriaKeyField1.Enabled = .F.
+
+*- Set calender mode
+
+loFormset.Ariaform1.pf.pg6.Calendar1.formmode = IIF(loFormset.ActiveMode $ 'AE' , 'E' , 'V' )
+loFormset.Ariaform1.pf.pg6.Calendar1.grdCalendar.RecordSource = loFormSet.DataFile
+
+DO CASE 
+CASE loFormSet.ActiveMode = 'S'
+  loFormset.Ariaform1.pf.ActivePage = 1
+  loFormSet.Ariaform1.AriaKeyField1.Enabled = .T.
+  loFormSet.Ariaform1.AriaKeyField1.KeyTextbox.Setfocus()
+
+  *WITH loFormset.Ariaform1.pf.pg1.Thumbnail1
+  WITH loFormset.Ariaform1.cntThumbnail
+  .cType = loFormset.lcObjType
+  .cObjectKey = ""
+  ENDWITH 
+
+  SELECT (loFormSet.DataFile)
+  ZAP 
+
+CASE loFormSet.ActiveMode = 'V'
+  SELECT PEPERSON
+  lcID = PEPERSON.CPERSON_ID
+  =gfSeek(lcID,'PEPERSON')
+  loFormset.Ariaform1.AriaKeyField1.Keytextbox.Value = CPERSON_ID
+  SCATTER MEMVAR memo 
+
+  WITH loFormset.Ariaform1
+    .AriaKeyField1.KeyTextbox.Value =  m.CPERSON_ID    
+    .txtEmpName.Value  =  m.CNAME         
+    .cboPlant.Value  =  m.CPLANT_ID     
+    **CDEPTID   
+    .cboDep.Value = m.CDEPTID
+  ENDWITH 
+
+  WITH loFormset.Ariaform1.pf.pg1
+    .txtLastName.Value  =  m.CLASTNAME     
+    .txtMidName.Value    =  m.CMIDLENAME    
+    .txtPassNo.Value  =  m.CPASPORTNO    
+    *E303116,1 TMI 12/05/2012 [Start] 
+    *.txtHireDate.Text1.Value  =  m.DSERVDATE     
+    *.txtTerminalDate.Text1.Value    =  m.DTERMDATE     
+    *.txtTerminalReason.Value  =  m.CTER_RES      
+    *E303116,1 TMI 12/05/2012 [End  ] 
+    .txtNationality.Value  =  m.CNATIONLTY    
+    .txtNativeLang.Value    =  m.CLANGUAGE     
+    .txtFirstName.Value  =  m.CFIRSTNAME    
+    .txtBirthDate.Value  =  m.DBIRTHDATE    
+    .txtSSNo.Value  =  m.CSOCIALNO     
+    *.cboEmpStatus.Value  =  m.CSTATUS       
+    *.cboCategory.Value  =  m.CCATEGORY     
+    *.cboType.Value  =  m.CEMP_TYPE     
+  ENDWITH 
+    
+  WITH loFormset.Ariaform1.pf.pg2
+    .Address1.txtAdd1.Value  =  m.CADDRESS1     
+    .Address1.txtAdd2.Value  =  m.CADDRESS2     
+    .Address1.txtAdd3.Value  =  m.CADDRESS3     
+    .Address1.txtAdd4.Value  =  m.CADDRESS4     
+    .Address1.txtAdd5.Value  =  m.CADDRESS5     
+    .Address1.txtAdd6.Value  =  m.CADDRESS6     
+    .txtEmail.Value  =  m.CE_MAIL       
+    .txtPhone1.Value  =  m.PHONE1        
+    .txtPhone2.Value  =  m.PHONE2        
+    .txtMobile.Value  =  m.CMOBILE       
+  ENDWITH   
+          
+  WITH loFormset.Ariaform1.pf.pg3  && *- emergancy data
+    .txtEmgContactPerson.Value  =  m.CEMG_NAME     
+    .EmgAddress.txtAdd1.Value  =  m.CEMG_ADD1     
+    .EmgAddress.txtAdd2.Value  =  m.CEMG_ADD2     
+    .EmgAddress.txtAdd3.Value  =  m.CEMG_ADD3     
+    .EmgAddress.txtAdd4.Value  =  m.CEMG_ADD4     
+    .EmgAddress.txtAdd5.Value  =  m.CEMG_ADD5     
+    .EmgAddress.txtAdd6.Value  =  m.CEMG_ADD6     
+    .txtEmail.Value  =  m.CEMG_MAIL     
+    .txtPhone1.Value  =  m.CEMG_PHON1    
+    .txtPhone2.Value  =  m.CEMG_PHON2    
+    .txtMobile.Value  =  m.CEMG_MOBIL    
+  ENDWITH 
+  
+  *- this is to be saved in the QUALIFICATION table
+  =gfSeek(PEPERSON.CPERSON_ID,'QUALIFY')
+  =lfSetQulifyControlSource()
+  
+  *- Payroll
+  WITH loFormset.Ariaform1.pf.pg5
+    .cboPayType.Value  =  m.CPAY_TYPE     
+    .cboPayFreq.Value  =  m.CPAYFREQ      
+    .txtMinRate.Value = m.nrate
+    .txtSalary.Value  =  m.NSALARY       
+    .txtHourRate.Value  =  m.NHOURRATE     
+    .spnOvertimeRate.Value  =  m.NOVERTRATE    
+    *.txtOvertimeValue.Value
+    .cboCostCenter.Value  =  m.CCOSTCENT     
+    .cboWorkCenter.Value  =  m.CWORKCENT     
+    *E303116,1 TMI 12/05/2012 [Start] 
+    .txtHireDate.Text1.Value  =  m.DSERVDATE     
+    .txtTerminalDate.Text1.Value    =  m.DTERMDATE     
+    .txtTerminalReason.Value  =  m.CTER_RES  
+    .cboEmpStatus.Value  =  m.CSTATUS           
+    .cboCategory.Value  =  m.CCATEGORY     
+    .cboType.Value  =  m.CEMP_TYPE     
+    *E303116,1 TMI 12/05/2012 [End  ] 
+  ENDWITH 
+  
+  =gfSeek(PEPERSON.CPERSON_ID,'EMPSHIFT')
+  lfSetShiftControlSource()
+
+  *WITH loFormset.Ariaform1.pf.pg1.Thumbnail1
+  WITH loFormset.Ariaform1.cntThumbnail
+    .cType = loFormset.lcObjType  
+    .cObjectKey = PEPERSON.CPERSON_ID
+  ENDWITH 
+
+  SELECT (loFormSet.DataFile)
+  ZAP 
+  
+  lnW = 10
+   
+  gfSeek(PEPERSON.CPLANT_ID ,'PEPLANT')
+  =gfSeek(STR(PEPLANT.NCALID,lnW),'SCCALDTL')
+  SELECT SCCALDTL
+  SCAN
+    SCATTER MEMVAR MEMO
+    m.LLOCK = .T.
+    m.crectyp = 'E'
+    SELECT (loFormSet.DataFile)
+    APPEND BLANK
+    GATHER MEMVAR MEMO    
+  ENDSCAN   
+  
+*!*	  =gfSeek(PEPERSON.CWORKCENT,'PEWCNTR')
+*!*	  =gfSeek(STR(PEWCNTR.NCALID,lnW),'SCCALDTL')
+*!*	  SELECT SCCALDTL
+*!*	  SCAN
+*!*	    SCATTER MEMVAR MEMO
+*!*	    m.LLOCK = .T.
+*!*	    m.crectyp = 'E'
+*!*	    SELECT (loFormSet.DataFile)
+*!*	    APPEND BLANK
+*!*	    GATHER MEMVAR MEMO    
+*!*	  ENDSCAN 
+  
+  =gfSeek(STR(PEPERSON.NCALID,lnW),'SCCALDTL')
+  SELECT SCCALDTL
+  SCAN
+    SCATTER MEMVAR MEMO
+    m.LLOCK = .F.
+    m.crectyp = 'E'
+    SELECT (loFormSet.DataFile)
+    APPEND BLANK
+    GATHER MEMVAR MEMO    
+  ENDSCAN 
+ 
+  IF RECCOUNT(loFormSet.DataFile) > 0
+    loFormset.Ariaform1.pf.pg6.Calendar1.Create()  
+  ENDIF 
+  
+  *B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] define the source for the shift popup based on the plant
+  DIMENSION loFormSet.laShift[1,2]
+  loFormSet.laShift = ' '
+  o = loFormSet.Ariaform1.pf.pg7.cboShiftID
+  SELECT CDESC,CSHIFT_ID FROM PESHIFT ;
+    WHERE CPLANT_ID = loFormset.Ariaform1.cboPlant.Value ;
+    INTO ARRAY loFormSet.laShift
+  lfDefineSource(o,'laShift')
+  *B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+
+  loFormSet.CheckNavigation()
+  loFormSet.oToolBar.Navrefresh()
+
+CASE loFormSet.ActiveMode = 'E'
+  loFormset.Ariaform1.pf.pg6.Calendar1.Enabled = .T.
+  loFormset.Ariaform1.pf.pg6.Calendar1.Create()  
+
+CASE loFormSet.ActiveMode = 'A'
+  loFormset.Ariaform1.pf.pg6.Calendar1.Enabled = .T.
+  loFormset.Ariaform1.pf.pg6.Calendar1.Create()  
+  
+  *B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] reset the shift and qualify data source
+  =gfSeek(loFormset.Ariaform1.AriaKeyField1.Keytextbox.Value,'EMPSHIFT')
+  =gfSeek(loFormset.Ariaform1.AriaKeyField1.Keytextbox.Value,'QUALIFY')
+  *B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+  lfSetQulifyControlSource()
+  lfSetShiftControlSource()
+  
+  loFormset.Ariaform1.pf.pg1.txtBirthDate.value = {}
+  
+  WITH loFormset.Ariaform1.pf.pg5
+  .txtHireDate.value = {}
+  .txtTerminalDate.value = {}
+  .txtMinRate.Value = 00000.00
+  .txtSalary.Value  = 00000.00
+  .txtHourRate.Value  =  00000.00
+  .spnOvertimeRate.Value  =  000.00
+  
+  *E303116,4 TMI 05/31/2012 [Start] add default values for some controls
+  .cboPayType.Value = loFormSet.laPayType[1,2]
+  .cboPayFreq.Value = loFormSet.laPayFreq[1,2]
+  .cboCostCenter.Value = .cboCostCenter.CodeDefaultValue
+  .cboEmpStatus.Value = loFormSet.laEmpStatus[1,2]
+  .cboCategory.Value = loFormSet.laCategory[1,2]
+  .cboType.Value = loFormset.laType[1,2]
+  *E303116,4 TMI 05/31/2012 [End  ] 
+  ENDWITH 
+  
+ENDCASE 
+*loFormset.Ariaform1.Ariapageframe1.ActivePage = 1
+loFormset.Ariaform1.pf.pg6.Calendar1.grdCalendar.Refresh()
+
+SELECT (lnSlct)
+
+*- End of lfChangeMode.
+************************************************************
+*! Name      : lfQUALIFYAfterRowColChange
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/05/2012
+*! Purpose   : lfQUALIFYAfterRowColChange
+************************************************************
+FUNCTION lfQUALIFYAfterRowColChange
+PARAMETERS oGrid
+WITH oGrid
+  .parent.cboQualfCode.Value = QUALIFY.CQULFCODE
+  .parent.spnQValue.Value = QUALIFY.NPERCENT
+ENDWITH 
+*- End of lfQUALIFYAfterRowColChange.
+************************************************************
+*! Name      : lfSetQulifyControlSource
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/05/2012
+*! Purpose   : lfSetQulifyControlSource
+************************************************************
+FUNCTION lfSetQulifyControlSource
+WITH loFormset.Ariaform1.pf.pg4.grdQualify
+  .RecordSource = ''
+  .ColumnCount = 3
+  .RecordSource= 'QUALIFY'
+  .Column1.Header1.Caption = 'Qualification Code'
+  .Column1.ControlSource    = 'QUALIFY.CQULFCODE'
+  .Column1.WIDTH = 70
+  
+  .Column2.Header1.Caption = 'Description'
+  .Column2.ControlSource    = 'gfCodDes(QUALIFY.CQULFCODE,"CQULFCODE")'
+  .Column2.WIDTH = 250
+
+  .Column3.Header1.Caption = 'Value(%)'
+  .Column3.ControlSource    = 'QUALIFY.NPERCENT'
+  .Column3.WIDTH = 70
+  
+  .Refresh()
+  .AfterRowColChange() 
+  .ReadOnly = .T.
+ENDWITH   
+*- End of lfSetQulifyControlSource.
+
+************************************************************
+*! Name      : lfSetShiftControlSource
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 07/05/2012
+*! Purpose   : lfSetShiftControlSource
+************************************************************
+FUNCTION lfSetShiftControlSource
+
+WITH loFormset.Ariaform1.pf.pg7.grdShift
+  .RecordSource = ''
+  .ColumnCount = 3
+  .RecordSource= 'EMPSHIFT'
+  .Column1.Header1.Caption = 'Shift ID'
+  .Column1.ControlSource    = 'EMPSHIFT.CSHIFT_ID'
+  .Column1.WIDTH = 70
+
+  .Column2.Header1.Caption = 'Shift Start Time'
+  .Column2.ControlSource    = 'EMPSHIFT.CSHIFT_STR'
+  .Column2.WIDTH = 150
+
+  .Column3.Header1.Caption = 'Shift End Time'
+  .Column3.ControlSource    = 'EMPSHIFT.CSHIFT_FNS'
+  .Column3.WIDTH = 150
+
+  .Refresh()
+  .AfterRowColChange() 
+  .ReadOnly = .T.
+ENDWITH 
+
+
+*- End of lfSetShiftControlSource.
+
+************************************************************
+*! Name      : lfFormSavefiles
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/24/2012
+*! Purpose   : Save process
+************************************************************
+FUNCTION lfFormSavefiles
+PARAMETERS loFormSet
+LOCAL lnSlct
+lnSlct = SELECT(0)
+
+SELECT (loFormset.lcBaseFile)
+SCATTER MEMVAR 
+IF loFormSet.ActiveMode = 'A'
+  APPEND BLANK 
+  SCATTER MEMVAR blank
+ENDIF
+ 
+WITH loFormset.Ariaform1
+  m.CPERSON_ID  = .AriaKeyField1.KeyTextbox.Value
+  m.CNAME       = .txtEmpName.Value 
+  m.CPLANT_ID   = .cboPlant.Value 
+  m.CDEPTID     = .cboDep.Value
+ENDWITH 
+
+WITH loFormset.Ariaform1.pf.pg1
+  m.CLASTNAME   = .txtLastName.Value 
+  m.CMIDLENAME  = .txtMidName.Value   
+  m.CPASPORTNO  = .txtPassNo.Value 
+  *m.DSERVDATE   = .txtHireDate.Text1.Value 
+  *m.DTERMDATE   = .txtTerminalDate.Text1.Value   
+  *m.CTER_RES    = .txtTerminalReason.Value 
+  m.CNATIONLTY  = .txtNationality.Value 
+  m.CLANGUAGE   = .txtNativeLang.Value   
+  m.CFIRSTNAME  = .txtFirstName.Value 
+  m.DBIRTHDATE  = .txtBirthDate.Value 
+  m.CSOCIALNO   = .txtSSNo.Value 
+  *m.CSTATUS     = .cboEmpStatus.Value 
+  *m.CCATEGORY   = .cboCategory.Value 
+  *m.CEMP_TYPE   = .cboType.Value 
+ENDWITH 
+  
+WITH loFormset.Ariaform1.pf.pg2
+  m.CADDRESS1   = .Address1.txtAdd1.Value 
+  m.CADDRESS2   = .Address1.txtAdd2.Value 
+  m.CADDRESS3   = .Address1.txtAdd3.Value 
+  m.CADDRESS4   = .Address1.txtAdd4.Value 
+  m.CADDRESS5   = .Address1.txtAdd5.Value 
+  m.CADDRESS6   = .Address1.txtAdd6.Value 
+  m.CE_MAIL     = .txtEmail.Value 
+  m.PHONE1      = .txtPhone1.Value 
+  m.PHONE2      = .txtPhone2.Value 
+  m.CMOBILE     = .txtMobile.Value 
+ENDWITH   
+        
+WITH loFormset.Ariaform1.pf.pg3  && *- emergancy data
+  m.CEMG_NAME   = .txtEmgContactPerson.Value 
+  m.CEMG_ADD1   = .EmgAddress.txtAdd1.Value 
+  m.CEMG_ADD2   = .EmgAddress.txtAdd2.Value 
+  m.CEMG_ADD3   = .EmgAddress.txtAdd3.Value 
+  m.CEMG_ADD4   = .EmgAddress.txtAdd4.Value 
+  m.CEMG_ADD5   = .EmgAddress.txtAdd5.Value 
+  m.CEMG_ADD6   = .EmgAddress.txtAdd6.Value 
+  m.CEMG_MAIL   = .txtEmail.Value 
+  m.CEMG_PHON1  = .txtPhone1.Value 
+  m.CEMG_PHON2  = .txtPhone2.Value 
+  m.CEMG_MOBIL  = .txtMobile.Value 
+ENDWITH 
+
+*- this is to be saved in the QUALIFICATION table
+WITH loFormset.Ariaform1.pf.pg4
+*  cboQualfCode
+*  spnQValue
+ENDWITH   
+
+*- Payroll
+WITH loFormset.Ariaform1.pf.pg5
+  m.CPAY_TYPE   = .cboPayType.Value 
+  m.CPAYFREQ    = .cboPayFreq.Value 
+  m.nrate = .txtMinRate.Value
+  m.NSALARY     = .txtSalary.Value 
+  m.NHOURRATE   = .txtHourRate.Value 
+  m.NOVERTRATE  = .spnOvertimeRate.Value 
+  *.txtOvertimeValue.Value
+  m.CCOSTCENT   = .cboCostCenter.Value    
+  m.CWORKCENT   = .cboWorkCenter.Value 
+  *E303116,1 TMI 12/05/2012 [Start] 
+  m.DSERVDATE   = .txtHireDate.Text1.Value 
+  m.DTERMDATE   = .txtTerminalDate.Text1.Value   
+  m.CTER_RES    = .txtTerminalReason.Value 
+  m.CSTATUS     = .cboEmpStatus.Value 
+  m.CCATEGORY   = .cboCategory.Value 
+  m.CEMP_TYPE   = .cboType.Value 
+  *E303116,1 TMI 12/05/2012 [End  ] 
+ENDWITH 
+WITH loFormset.Ariaform1.pf.pg6
+  *NCALID    
+ENDWITH   
+WITH loFormset.Ariaform1.pf.pg7  
+  *.cboShiftID
+  *.spnStartTime
+  *.spnFinishTime
+ENDWITH 
+  *CACTFORCST
+  *CBASECODE 
+  *CDIRECT   
+  *CINITLNAME
+  *CMINCODE  
+  *CSPLITCODE
+  *NAVERAGE  
+  *NRATE     
+
+GATHER MEMVAR
+gfAdd_Info(loFormset.lcBaseFile)
+
+lnSeq = PEPERSON.NCALID
+SELECT (loFormSet.DataFile)
+SET FILTER TO 
+LOCATE
+LOCATE FOR !LLOCK
+IF FOUND() 
+  
+  IF lnSeq = 0
+
+    SELECT SCCALHDR
+    APPEND BLANK
+    *B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] in case that the NCALID does not exist in the SEQUENCE table
+    DO WHILE lnSeq = 0
+      *B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+      lnSeq = INT(VAL(gfSequence('NCALID')))
+      *B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] 
+    ENDDO 
+    *B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+    REPLACE NCALID WITH lnSeq
+    gfAdd_info('SCCALHDR')
+    =gfReplace('')
+  
+    SELECT SCCALHDR
+    =gfTableUpdate()
+  
+    SELECT (loFormset.lcBaseFile)
+    REPLACE NCALID WITH lnSeq
+    
+    M.NCALID = lnSeq 
+  
+  ELSE
+  
+    SELECT SCCALDTL
+    gfSeek(STR(lnSeq,10))
+    SCAN
+      gfDELETE()
+    ENDSCAN 
+    gfTableUpdate()
+    
+  ENDIF 
+
+  SELECT (loFormSet.DataFile)
+  LOCATE 
+  SCAN FOR !LLOCK
+    SCATTER MEMVAR MEMO
+    m.NCALID = lnSeq
+    *m.Rec_no = ''
+    SELECT SCCALDTL
+    APPEND BLANK
+    GATHER MEMVAR MEMO
+    REPLACE Rec_no WITH ''
+    gfAdd_info('SCCALDTL')
+  ENDSCAN
+  
+  SELECT SCCALDTL
+  SCAN   
+   =gfReplace('')
+  ENDSCAN
+
+  SELECT SCCALDTL
+  =gfTableUpdate()
+ENDIF   
+ 
+*- Update qualifications
+LOCAL lcDele
+lcDele = SET("Deleted")
+SET DELETED OFF
+
+SELECT QUALIFY 
+*E303116,4 TMI 05/31/2012 [Start] remove empty qualifications
+DELETE FOR EMPTY(cqulfcode)
+LOCATE 
+*E303116,4 TMI 05/31/2012 [End  ] 
+
+SCAN 
+  IF DELETED()
+    gfDelete()
+  ELSE   
+    gfReplace('')
+  ENDIF 
+ENDSCAN 
+gfTableUpdate()
+  
+*- Update EMPSHIFT
+SELECT EMPSHIFT
+LOCATE 
+SCAN 
+  IF DELETED()
+    gfDelete()
+  ELSE   
+    gfReplace('')
+  ENDIF 
+ENDSCAN 
+gfTableUpdate()
+
+SET DELETED &lcDele 
+
+ 
+SELECT (loFormset.lcBaseFile)
+=gfReplace('')
+=gfTableUpdate()
+
+SELECT (lnSlct)
+
+*- End of lfFormSavefiles.
+************************************************************
+*! Name      : lfFormDelete
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/24/2012
+*! Purpose   : lfFormDelete
+************************************************************
+FUNCTION lfFormDelete
+PARAMETERS loFormSet
+LOCAL lnSlct,llDel,lcEmp
+lnSlct = SELECT(0)
+llDel = .T.
+*E303116,4 TMI 05/31/2012 [Start] add validation not to delete the employee if found in other tables
+lcEmp = loFormset.Ariaform1.AriaKeyField1.KeyTextbox.value
+*E303116,4 TMI 06/06/2012 [Start] 
+*IF gfSeek(lcEmp,'PWBUNDL')
+*  gfModalGen('INM00000B00000',.F.,.F.,.F.,'This employee has records in the BUNDLE table, can not delete')
+*  llDel = .F.
+*ENDIF 
+*E303114,1 TMI 06/06/2012 [Start] check if key id in other tables
+lcFld = loFormSet.cBrowseIndexExpression
+IF !lfCheckifKeyUsed(lcEmp, lcFld , 'EMPSHIFT|QUALIFY |PEPERSON')
+  RETURN .F.
+ENDIF   
+*E303114,1 TMI 06/06/2012 [End  ] 
+
+*E303116,4 TMI 06/06/2012 [End  ] 
+*E303116,4 TMI 05/31/2012 [End  ] 
+
+*E303116,4 TMI 05/31/2012 [Start] 
+IF llDel
+  *E303116,4 TMI 05/31/2012 [End  ] 
+  SELECT (loFormset.lcBaseFile)
+  gfDelete()
+  gfTableUpdate()
+  *E303116,4 TMI 05/31/2012 [Start]   delete related lines if deletion was approved
+  SELECT QUALIFY
+  =gfSeek(lcEmp,'QUALIFY','QUALIFY')
+  SCAN
+    gfDelete()
+  ENDSCAN
+  gfTableUpdate()
+  
+  SELECT EMPSHIFT
+  =gfSeek(lcEmp,'EMPSHIFT','EMPSHIFT')
+  SCAN
+    gfDelete()
+  ENDSCAN
+  gfTableUpdate()
+  
+  *E303116,4 TMI 11/06/2012 [Start]   *- Delete the related Calenders
+  lcBaseFile = loFormSet.lcBaseFile
+  lfDelCalender(&lcBaseFile..NCALID)
+  *E303116,4 TMI 11/06/2012 [End  ] 
+
+ENDIF   
+*E303116,4 TMI 05/31/2012 [End  ] 
+
+SELECT(lnSlct)
+
+*E303116,4 TMI 04/06/2012 [Start] 
+RETURN llDel
+*E303116,4 TMI 04/06/2012 [End  ] 
+
+
+*- End of lfFormDelete.
+
+************************************************************
+*! Name      : lfFormBeforeSave
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 04/24/2012
+*! Purpose   : Before Save
+************************************************************
+FUNCTION lfFormBeforeSave
+PARAMETERS loFormSet
+LOCAL lnSlct,llRet
+lnSlct = SELECT(0)
+
+IF EMPTY(loFormset.Ariaform1.txtEmpName.Value)
+  =gfModalGen('INM38267B00000','DIALOG','Name field')
+  loFormset.Ariaform1.txtEmpName.SetFocus()
+  RETURN .F.
+ENDIF   
+IF EMPTY(loFormset.Ariaform1.cboPlant.Value)
+  =gfModalGen('INM38267B00000','DIALOG','Plant field')
+  loFormset.Ariaform1.cboPlant.SetFocus()
+  RETURN .F.
+ENDIF
+
+*B610136,1 [T20121021.0030] TMI 10/31/2012 [Start] do not save if the employee is less then 18 years old
+loBirth = loFormset.Ariaform1.pf.pg1.txtBirthDate.Text1
+lnAge = (oAriaApplication.SystemDate - loBirth.Value)/365.25
+IF lnAge < 18
+  =gfModalGen('INM00000B00000',.F.,.F.,.F.,'Employee age can not be less than 18 years') 
+  loFormset.Ariaform1.pf.ActivePage = 1
+  loBirth.Setfocus()
+  RETURN .F.
+ENDIF 
+*B610136,1 [T20121021.0030] TMI 10/31/2012 [End  ] 
+
+*!*	IF EMPTY(loFormset.Ariaform1.cboDep.Value)
+*!*	  =gfModalGen('INM38267B00000','DIALOG','Department field')
+*!*	  loFormset.Ariaform1.cboDep.SetFocus()
+*!*	  RETURN .F.
+*!*	ENDIF   
+
+*!*	IF EMPTY(loFormset.Ariaform1.pf.pg5.cboWorkCenter.Value)
+*!*	  =gfModalGen('INM38267B00000','DIALOG','Work Center field')
+*!*	  loFormset.Ariaform1.pf.pg5.cboWorkCenter.Setfocus()
+*!*	  RETURN .F.
+*!*	ENDIF   
+
+*!*	IF EMPTY(loFormset.Ariaform1.pf.pg5.cboCostCenter.Value)
+*!*	  =gfModalGen('INM38267B00000','DIALOG','Cost Center field')
+*!*	  loFormset.Ariaform1.pf.pg5.cboCostCenter.Setfocus()
+*!*	  RETURN .F.
+*!*	ENDIF 
+
+*E303116,4 TMI 04/06/2012 [Start] 
+SELECT QUALIFY
+GO TOP
+LOCAL lnCnt
+lnCnt = 0
+COUNT TO lnCnt
+IF lnCnt>0
+  LOCATE FOR EMPTY(CQULFCODE)
+  IF FOUND()
+    loFormset.Ariaform1.pf.ActivePage = 4
+    =gfModalGen('INM38267B00000','DIALOG','Qualification field')
+    RETURN .F.
+  ENDIF   
+ENDIF   
+*E303116,4 TMI 04/06/2012 [End  ] 
+
+SELECT EMPSHIFT
+LOCATE FOR !EMPTY(CSHIFT_ID)
+IF EOF()
+  *E303116,4 TMI 04/06/2012 [Start] 
+  loFormset.Ariaform1.pf.ActivePage = 7
+  *E303116,4 TMI 04/06/2012 [End  ] 
+  **44010  No record found in the ð file; cannot proceed.
+  =gfModalGen('INM44010B00000','DIALOG','Employee Shifts')
+  SELECT (lnSlct)
+  RETURN .F.
+ENDIF 
+
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] dele lines with empty shiftID
+DELETE FOR EMPTY(CSHIFT_ID)
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+
+*E303114,1 TMI 06/06/2012 [Start] check shift from/to
+SELECT EMPSHIFT
+LOCATE
+*B610136,1 [T20121021.0030] TMI 11/04/2012 [Start] 
+*LOCATE FOR CSHIFT_STR>=CSHIFT_FNS
+LOCATE FOR lfTimeCompare('CSHIFT_STR','CSHIFT_FNS')
+*B610136,1 [T20121021.0030] TMI 11/04/2012 [End  ] 
+IF FOUND()
+  loFormset.Ariaform1.pf.ActivePage = 7
+  =gfModalGen('INM38267B00000',.F.,.F.,.F.,'Shift finish can not preceeds Shift Start')
+  loFormset.Ariaform1.cboPlant.SetFocus()
+  RETURN .F.
+ENDIF   
+*E303114,1 TMI 06/06/2012 [End  ] 
+
+
+*E303116,4 TMI 06/06/2012 [Start] check terminate date vs hire date
+WITH loFormSet.Ariaform1.pf.pg5
+IF .txtTerminalDate.Text1.Value  < .txtHireDate.text1.Value 
+  loFormset.Ariaform1.pf.ActivePage = 5
+  =gfModalGen('INM00000B00000',.F.,.F.,.F.,'Terminate date can not preceeds hiring date')
+  RETURN .F.
+ENDIF 
+ENDWITH 
+*E303116,4 TMI 06/06/2012 [End  ] 
+
+*E303116,4 TMI 31/05/2012 [Start] change the calendar check call
+*llRet = lfCalChk(loFormSet) &&check upon editing calender , not in the saving process
+loCalGrd = loFormset.Ariaform1.pf.pg6
+llRet = lfCalChk(loFormSet,.T.,loCalGrd)
+*E303116,4 TMI 31/05/2012 [End  ] 
+
+SELECT (lnSlct)
+RETURN llRet
+*- End of lfFormBeforeSave.
+************************************************************
+*! Name      : lfGetShift
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 10/05/2012
+*! Purpose   : Get Shift
+************************************************************
+FUNCTION lfGetShift
+PARAMETERS loFormSet,loFld
+LOCAL lnSlct
+lnSlct = SELECT(0)
+
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] check if the shift id already exists
+IF EMPTY(loFormSet.laShift)
+  gfModalGen('INM00000B00000',.F.,.F.,.F.,'There are no shifts for the selected Plant')
+  RETURN 
+ENDIF 
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+
+SELECT EMPSHIFT
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] do not allow duplication
+LOCAL llContinue,lnRecno 
+lnRecno = RECNO()
+LOCATE FOR CSHIFT_ID = loFld.Value
+llContinue = FOUND()
+try
+GOTO lnRecno
+CATCH
+endtry
+IF llContinue
+  loFld.Value = loFld.OldValue
+  SELECT (lnSlct)
+  RETURN .F.
+ENDIF 
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+REPLACE CSHIFT_ID WITH loFld.Value
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [Start] use the seek instead to keep all the peshift records
+*=gfSeek(loFormset.Ariaform1.cboPlant.Value+loFld.Value,'PESHIFT')
+SELECT PESHIFT
+LOCATE FOR  CPLANT_ID+CSHIFT_ID = loFormset.Ariaform1.cboPlant.Value+loFld.Value
+SELECT EMPSHIFT
+*B610136,2 [T20121021.0030] TMI 11/22/2012 [End  ] 
+REPLACE CSHIFT_STR WITH PESHIFT.CSHIFT_STR ,;
+        CSHIFT_FNS WITH PESHIFT.CSHIFT_FNS
+*E303116,4 TMI 06/06/2012 [Start] 
+loFormset.Ariaform1.pf.pg7.grdShift.Refresh()
+*E303116,4 TMI 06/06/2012 [End  ]         
+loFormset.Ariaform1.pf.pg7.grdShift.AfterRowColChange()
+*!*	loFld.parent.spnStartTime.OLEcontrol1.ObJECT.Value = IIF(EMPTY(CTOT(PESHIFT.CSHIFT_STR)),DATE(),CTOT(PESHIFT.CSHIFT_STR))
+*!*	loFld.parent.spnFinishTime.OLEcontrol1.ObJECT.Value = IIF(EMPTY(CTOT(PESHIFT.CSHIFT_FNS)),DATE(),CTOT(PESHIFT.CSHIFT_FNS))
+
+SELECT(lnSlct)
+*- End of lfGetShift.
+************************************************************
+*! Name      : lfShiftAfterRowColChange
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 11/22/2012
+*! Purpose   : after row col change method function
+************************************************************
+*B610136,2 [T20121021.0030] TMI 11/22/2012 
+FUNCTION lfShiftAfterRowColChange
+PARAMETERS loFormSet,loGrd
+loGrd.parent.cboShiftID.Value    = EMPSHIFT.CSHIFT_ID
+loGrd.parent.txtStartTime.Value  = IIF(EMPTY(CTOT(EMPSHIFT.CSHIFT_STR)),'',EMPSHIFT.CSHIFT_STR)
+loGrd.parent.txtFinishTime.Value = IIF(EMPTY(CTOT(EMPSHIFT.CSHIFT_FNS)),'',EMPSHIFT.CSHIFT_FNS)
+*- End of lfShiftAfterRowColChange.
+
+
+************************************************************
+*! Name      : lfvEmployee
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 05/01/2012
+*! Purpose   : lfvEmployee
+************************************************************
+FUNCTION lfvEmployee
+PARAMETERS loFormSet,loFld
+LOCAL lnSlct
+
+lnSlct = SELECT(0)
+
+WITH loFld.Keytextbox
+.Value     = ALLTRIM(.Value)
+.Value     = PADR(.Value,LEN(.InputMask))
+ENDWITH 
+lcFile_Ttl = loFormSet.BrowseTitle
+lcBrFields = loFormSet.ariaBrFields.edtBrowseFields.Value 
+llView = .F.
+lcBaseFile = loFormSet.lcBaseFile
+llBrowse = loFld.Selectedfrombrowse 
+
+SELECT (lcBaseFile)
+IF llBrowse .OR. !gfSEEK(loFld.KeyTextBox.VALUE) .OR. ATC("?",loFld.KeyTextBox.VALUE) > 0  
+  IF llBrowse .OR. ATC("?",loFld.KeyTextBox.VALUE) > 0  
+    IF loFormSet.oToolBar.cmdFind.Click()
+      llView = .T.
+    ELSE
+      loFld.KeyTextBox.VALUE = loFld.KeyTextBox.OldValue
+    ENDIF
+  ELSE
+    lnOption  = gfModalGen('QRM00001B00001','Dialog',;
+                   +ALLTRIM(loFld.KeyTextBox.VALUE))  
+      
+    DO CASE
+      CASE lnOption = 1
+        IF loFormSet.oToolBar.cmdFind.Click()
+          llView = .T.
+        ELSE
+          loFld.KeyTextBox.VALUE = loFld.KeyTextBox.OldValue
+        ENDIF
+      CASE lnOption = 2
+        lfMode('A')
+        RETURN
+        
+      CASE lnOption = 3
+        loFld.KeyTextBox.VALUE = loFld.KeyTextBox.OldValue
+        RETURN .F.
+    ENDCASE
+  ENDIF
+ELSE
+  loFld.KeyTextBox.VALUE = &lcBaseFile..CPLANT_ID
+  *loFormSet.CHangeMode('V')
+  llView = .T.
+ENDIF
+
+IF llView = .T.
+  lfMode('V')
+  =lfChkNav()
+ENDIF 
+
+SELECT (lnSlct)
+
+*- End of lfvWorkCenter.
+
+
+
+************************************************************
+*! Name      : lfSetMaxLengh
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 06/05/2012
+*! Purpose   : lfSetMaxLengh
+************************************************************
+FUNCTION lfSetMaxLengh
+PARAMETERS loFormset
+
+loFormset.Ariaform1.pf.pg4.spnQValue.SpinnerHighValue = 100
+loFormset.Ariaform1.pf.pg4.spnQValue.SpinnerLowValue = 0
+loFormset.Ariaform1.pf.pg4.spnQValue.InputMask = '999.99'
+WITH loFormset.Ariaform1.pf.pg1
+.txtLastName.MaxLength=FSIZE('CLASTNAME',loFormSet.lcBasefile)
+.txtMidName.MaxLength=FSIZE('CMIDLENAME',loFormset.lcBasefile)
+.txtPassNo.MaxLength=FSIZE('CPASPORTNO',loFormset.lcBasefile)
+*.txtTerminalReason.MaxLength=FSIZE('CTER_RES',loFormset.lcBasefile)
+.txtNationality.MaxLength=FSIZE('CNATIONLTY',loFormset.lcBasefile)
+.txtNativeLang.MaxLength=FSIZE('CLANGUAGE',loFormset.lcBasefile)
+.txtFirstName.MaxLength=FSIZE('CFIRSTNAME',loFormset.lcBasefile)
+.txtSSNo.MaxLength=FSIZE('CSOCIALNO',loFormset.lcBasefile)
+ENDWITH
+
+WITH loFormset.Ariaform1.pf.pg2
+.Address1.txtAdd1.MaxLength=FSIZE('CADDRESS1',loFormset.lcBasefile)
+.Address1.txtAdd2.MaxLength=FSIZE('CADDRESS2',loFormset.lcBasefile)
+.Address1.txtAdd3.MaxLength=FSIZE('CADDRESS3',loFormset.lcBasefile)
+.Address1.txtAdd4.MaxLength=FSIZE('CADDRESS4',loFormset.lcBasefile)
+.Address1.txtAdd5.MaxLength=FSIZE('CADDRESS5',loFormset.lcBasefile)
+.Address1.txtAdd6.MaxLength=FSIZE('CADDRESS6',loFormset.lcBasefile)
+.txtEmail.MaxLength=FSIZE('CE_MAIL',loFormset.lcBasefile)
+.txtPhone1.MaxLength=FSIZE('PHONE1',loFormset.lcBasefile)
+.txtPhone2.MaxLength=FSIZE('PHONE2',loFormset.lcBasefile)
+.txtMobile.MaxLength=FSIZE('CMOBILE',loFormset.lcBasefile)
+ENDWITH
+
+WITH loFormset.Ariaform1.pf.pg3&&*-emergancydata
+.txtEmgContactPerson.MaxLength=FSIZE('CEMG_NAME',loFormset.lcBasefile)
+.EmgAddress.txtAdd1.MaxLength=FSIZE('CEMG_ADD1',loFormset.lcBasefile)
+.EmgAddress.txtAdd2.MaxLength=FSIZE('CEMG_ADD2',loFormset.lcBasefile)
+.EmgAddress.txtAdd3.MaxLength=FSIZE('CEMG_ADD3',loFormset.lcBasefile)
+.EmgAddress.txtAdd4.MaxLength=FSIZE('CEMG_ADD4',loFormset.lcBasefile)
+.EmgAddress.txtAdd5.MaxLength=FSIZE('CEMG_ADD5',loFormset.lcBasefile)
+.EmgAddress.txtAdd6.MaxLength=FSIZE('CEMG_ADD6',loFormset.lcBasefile)
+.txtEmail.MaxLength=FSIZE('CEMG_MAIL',loFormset.lcBasefile)
+.txtPhone1.MaxLength=FSIZE('CEMG_PHON1',loFormset.lcBasefile)
+.txtPhone2.MaxLength=FSIZE('CEMG_PHON2',loFormset.lcBasefile)
+.txtMobile.MaxLength=FSIZE('CEMG_MOBIL',loFormset.lcBasefile)
+ENDWITH
+
+*-Payroll
+WITH loFormset.Ariaform1.pf.pg5
+LOCAL lcCurSmbl
+lcCurSmbl = gfGetCurSmbl(oAriaApplication.BaseCurrency)
+
+.txtSalary.InputMask = '99999.99'
+.txtMinRate.InputMask = '99999.99'
+.txtHourRate.InputMask = '99999.99'
+.spnOvertimeRate.SpinnerHighValue=999.99
+.spnOvertimeRate.SpinnerLowValue=0
+.spnOvertimeRate.InputMask = '999.99'
+*.txtOvertimeValue.Value
+.txtTerminalReason.MaxLength=FSIZE('CTER_RES',loFormset.lcBasefile)
+
+ENDWITH
+*-EndoflfSetMaxLengh.
+
+************************************************************
+*! Name      : lfvBirthDate
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 06/06/2012
+*! Purpose   : Birth Date validation
+************************************************************
+FUNCTION lfvBirthDate
+PARAMETERS loFld
+LOCAL lnRet,lnAge
+
+lnRet = 1
+lnAge = (oAriaApplication.SystemDate - loFld.Value)/365.25
+IF lnAge < 18
+  lnRet = 0
+  *=gfModalGen('INM00000B00000',.F.,.F.,.F.,'Employee age can not be less than 18 years') 
+  WAIT WINDOW NOWAIT 'Employee age can not be less than 18 years'
+ENDIF 
+*B610136,1 [T20121021.0030] TMI 10/31/2012 [Start] move the validation to the before save
+*RETURN lnRet
+*B610136,1 [T20121021.0030] TMI 10/31/2012 [End  ] 
+*- End of lfvBirthDate.
+
+************************************************************
+*! Name      : lfvSetShift
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 11/22/2012
+*! Purpose   : Set the row source for the shift popup
+************************************************************
+*B610136,2 [T20121021.0030] TMI 11/22/2012 
+FUNCTION lfvSetShift
+PARAMETERS loFormSet,loFld
+LOCAL lnSlct,lnRecno,lnCnt
+lnSlct = SELECT(0)
+
+IF !loFld.Value == loFld.OldValue 
+  SELECT EMPSHIFT
+  IF EOF()
+    GO BOTTOM 
+  ENDIF 
+  lnRecno = RECNO()
+  LOCATE 
+  lnCnt = 0
+  COUNT TO lnCnt
+  IF !EOF()
+    GOTO lnRecno
+  ENDIF 
+  IF lnCnt>0
+    SELECT (lnSlct)
+    =gfModalGen('INM00000B00000',.F.,.F.,.F.,'Shifts are selected for this plant, can not change')
+    loFld.Value = loFld.OldValue 
+    RETURN .F.
+  ELSE
+    DIMENSION loFormSet.laShift[1,2]
+    loFormSet.laShift = ' '
+    o = loFormSet.Ariaform1.pf.pg7.cboShiftID
+    SELECT CDESC,CSHIFT_ID FROM PESHIFT ;      
+      WHERE CPLANT_ID = loFormset.Ariaform1.cboPlant.Value ;
+      INTO ARRAY loFormSet.laShift
+    lfDefineSource(o,'laShift')
+    o.Value = ' '
+  ENDIF 
+ENDIF 
+*- End of lfvSetShift.
+************************************************************
+*! Name      : lfvAddNewShift
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 11/22/2012
+*! Purpose   : Add New Shift valid fn
+************************************************************
+FUNCTION lfvAddNewShift
+PARAMETERS loFormSet,loBtn
+SELECT EMPSHIFT
+IF EMPTY(loFormSet.laShift)
+  gfModalGen('INM00000B00000',.F.,.F.,.F.,'There are no shifts for the selected Plant')
+  RETURN 
+ENDIF 
+LOCATE FOR EMPTY(CSHIFT_ID)
+IF !FOUND()
+  APPEND BLANK
+ENDIF   
+REPLACE CPERSON_ID WITH loFormSet.Ariaform1.AriaKeyField1.Keytextbox.Value 
+loBtn.parent.grdShift.Refresh()
+loBtn.parent.cboShiftID.Value = ' '
+loBtn.parent.cboShiftID.SetFocus()
+*- End of lfvAddNewShift.
+
+
+
+
+
+************************************************************
+*! Name      : MSG
+*! Developer : TMI - Tarek Mohamed Ibrahim
+*! Date      : 09/05/2012
+*! Purpose   : MSG, can run only on my PC
+************************************************************
+FUNCTION msg
+PARAMETERS llDoNotUseStep
+IF SYS(0)='DEV4 # tarek'
+  ON ERROR
+  _SCREEN.Visible=.T.
+  IF !llDoNotUseStep
+    IF FILE('C:\TEMP\X.X')
+      SET STEP ON
+    ENDIF 
+  ENDIF 
+ENDIF 
+*- End of MSG.
+
+
+
+
