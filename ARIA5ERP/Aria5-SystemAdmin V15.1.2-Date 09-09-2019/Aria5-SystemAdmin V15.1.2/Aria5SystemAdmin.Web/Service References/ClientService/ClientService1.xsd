@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Core.Utilites" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Core.Utilites" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:1361/ClientService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="Settings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivationKeyFilePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Aria27MappedPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Aria4SqlInfo" nillable="true" type="tns:SQLInfo" />
+      <xs:element minOccurs="0" name="AriaMasterSourceDirectoryPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AriaSourceDirectoryPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientMasterSqlInfo" nillable="true" type="tns:SQLInfo" />
+      <xs:element minOccurs="0" name="ClientName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientPhone" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ClientSelectedRoles" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="ClientUsers" nillable="true" type="tns:ArrayOfCredential" />
+      <xs:element minOccurs="0" name="Companies" nillable="true" type="tns:ArrayOfCompany" />
+      <xs:element minOccurs="0" name="DomainAdminPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DomainAdminUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NeededActions" nillable="true" type="tns:ArrayOfActions" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SelectedApps" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element minOccurs="0" name="SharedDirectoryPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SqlDBDirectoryPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SystemMasterSqlInfo" nillable="true" type="tns:SQLInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Settings" nillable="true" type="tns:Settings" />
+  <xs:complexType name="SQLInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Admin" nillable="true" type="tns:Credential" />
+      <xs:element minOccurs="0" name="Client" nillable="true" type="tns:Credential" />
+      <xs:element minOccurs="0" name="DataBaseName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SQLInfo" nillable="true" type="tns:SQLInfo" />
+  <xs:complexType name="Credential">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Credential" nillable="true" type="tns:Credential" />
+  <xs:complexType name="ArrayOfCredential">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Credential" nillable="true" type="tns:Credential" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCredential" nillable="true" type="tns:ArrayOfCredential" />
+  <xs:complexType name="ArrayOfCompany">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Company" nillable="true" type="tns:Company" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCompany" nillable="true" type="tns:ArrayOfCompany" />
+  <xs:complexType name="Company">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Company" nillable="true" type="tns:Company" />
+  <xs:complexType name="ArrayOfActions">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Actions" type="tns:Actions" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfActions" nillable="true" type="tns:ArrayOfActions" />
+  <xs:simpleType name="Actions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="CreateClientAriaFolder" />
+      <xs:enumeration value="CreateClientSQLFolder" />
+      <xs:enumeration value="Copy_AriaSource_ClientFolder" />
+      <xs:enumeration value="CreateClientUser" />
+      <xs:enumeration value="Copy_AriaMaster_ClientSQLFolder" />
+      <xs:enumeration value="AttachClientMasterDB" />
+      <xs:enumeration value="CreateAllA4Databases" />
+      <xs:enumeration value="AddAllSycCompanyInfo" />
+      <xs:enumeration value="UpdateSycinst" />
+      <xs:enumeration value="CreateClientGroup" />
+      <xs:enumeration value="CreateClientUsers" />
+      <xs:enumeration value="AdjustClientFolderSecurity" />
+      <xs:enumeration value="ShareClientSharedFolder" />
+      <xs:enumeration value="CreateClientSettingsXML" />
+      <xs:enumeration value="AddSystemMasterClientRow" />
+      <xs:enumeration value="AddSystemMasterAriaUsersRows" />
+      <xs:enumeration value="DeleteActKey" />
+      <xs:enumeration value="CopyActKey" />
+      <xs:enumeration value="UpdateSydAppl" />
+      <xs:enumeration value="AddSystemMasterAriaUsersRoles" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Actions" nillable="true" type="tns:Actions" />
+</xs:schema>

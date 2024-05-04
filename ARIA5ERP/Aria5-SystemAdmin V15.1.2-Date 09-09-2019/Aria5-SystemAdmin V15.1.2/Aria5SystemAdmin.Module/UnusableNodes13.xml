@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ActivationKey_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ActivationKey">
+              <LayoutGroup Id="ActivationKey_col1">
+                <LayoutItem Id="DeviceSignature" SizeConstraintsType="Default" Index="6" RelativeSize="3" ViewItem="DeviceSignature" />
+                <LayoutItem Id="ActivationKeyFile" SizeConstraintsType="Default" Index="15" RelativeSize="8" ViewItem="ActivationKeyFile" Removed="True" />
+                <LayoutItem Id="DigitalSignature" SizeConstraintsType="Default" RelativeSize="43" ViewItem="DigitalSignature" />
+              </LayoutGroup>
+              <LayoutGroup Id="ActivationKey_col2">
+                <LayoutItem Id="SendEmailAfterExpiration" SizeConstraintsType="Default" Index="1" RelativeSize="3" ViewItem="SendEmailAfterExpiration" />
+                <LayoutItem Id="ConfigurationItem" SizeConstraintsType="Default" RelativeSize="12.5" Index="9" ViewItem="ConfigurationItem" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

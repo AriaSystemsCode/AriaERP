@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Department_DOT" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="CreateDate" Caption="OTD Period Start Date" />
+        <Member Name="DeliveryOnTime" Caption="On Time Delivery" />
+        <Member Name="Department" Caption="Department Name" />
+        <Member Name="DOT" Caption="AVG (DOT)/Days" />
+        <Member Name="NumberofOTDTasks" Caption="Number of OTD Tasks" />
+        <Member Name="OTD" Caption="OTD %" />
+        <Member Name="Total" Caption="Total (DOT)/Days " />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="DeliveryOnTime_DepartmentsDOT_ListView">
+      <Columns>
+        <ColumnInfo Id="DeliveryOnTime" Index="-1" />
+        <ColumnInfo Id="DOT" Index="-1" />
+        <ColumnInfo Id="Total" Index="-1" />
+        <ColumnInfo Id="Department" Width="120" />
+        <ColumnInfo Id="NumberofOTDTasks" Index="1" Width="85" />
+        <ColumnInfo Id="NumberOfTasks" Index="2" Width="103" />
+        <ColumnInfo Id="OTD" Index="3" Width="79" />
+        <ColumnInfo Id="IsMaster" Index="4" Width="79" />
+        <ColumnInfo Id="CreateDate" Index="5" Width="118" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Department_DOT_DetailView">
+      <Items>
+        <PropertyEditor Id="CreateDate" AllowEdit="False" />
+        <PropertyEditor Id="DeliveryOnTime" AllowEdit="False" />
+        <PropertyEditor Id="Department" AllowEdit="False" />
+        <PropertyEditor Id="IsMaster" AllowEdit="False" />
+        <PropertyEditor Id="NumberofOTDTasks" AllowEdit="False" />
+        <PropertyEditor Id="NumberOfTasks" AllowEdit="False" />
+        <PropertyEditor Id="OTD" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Department_DOT" RelativeSize="100">
+              <LayoutGroup Id="Department_DOT_col1" RelativeSize="50.083472454090149">
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" ViewItem="Department" />
+                <LayoutItem Id="NumberOfTasks" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="NumberOfTasks" />
+                <LayoutItem Id="NumberofOTDTasks" SizeConstraintsType="Default" RelativeSize="88.259958071278831" ViewItem="NumberofOTDTasks" />
+                <LayoutItem Id="DOT" ViewItem="DOT" Removed="True" />
+                <LayoutItem Id="Total" SizeConstraintsType="Default" RelativeSize="88.455988455988461" ViewItem="Total" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Department_DOT_col2" RelativeSize="49.916527545909851">
+                <LayoutItem Id="OTD" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" ViewItem="OTD" />
+                <LayoutItem Id="DeliveryOnTime" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="DeliveryOnTime" />
+                <LayoutItem Id="IsMaster" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="IsMaster" />
+                <LayoutItem Id="CreateDate" SizeConstraintsType="Default" RelativeSize="83.228511530398322" ViewItem="CreateDate" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Department_DOT_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Department" SortIndex="0" SortOrder="Ascending" Caption="Department Name" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

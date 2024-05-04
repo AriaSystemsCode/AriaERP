@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectSetting" IsDesigned="True" DefaultListViewAllowEdit="True">
+      <AppearanceRules>
+        <AppearanceRule Id="Link" TargetItems="Link;Unlink" AppearanceItemType="Action" Visibility="Hide" Enabled="False" Index="1" IsNewNode="True" />
+        <AppearanceRule Id="New" TargetItems="New" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="Width" DisplayFormat="{-N0:N0}" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObject_AriaObjectSettings_ListView" AllowEdit="True" Caption="Aria Object Settings" AllowNew="False" AllowDelete="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectRevision" Index="-1" />
+        <ColumnInfo Id="Value" Index="1" />
+        <ColumnInfo Id="DataType" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObject_AriaObjectSettingsArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectRevision_AriaObjectSettings_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectSetting_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectSetting_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

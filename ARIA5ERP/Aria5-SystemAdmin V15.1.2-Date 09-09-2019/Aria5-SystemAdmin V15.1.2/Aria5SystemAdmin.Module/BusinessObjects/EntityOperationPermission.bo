@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityOperationPermission" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Application_T" ImmediatePostData="True" />
+        <Member Name="AriaObject" LookupEditorMode="AllItems" Caption="Entity" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaSecuritySystemRole_EntityOperationPermissions_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaSecuritySystemRole" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="EntityOperationPermission_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="EntityOperationPermission" RelativeSize="100">
+              <LayoutGroup Id="EntityOperationPermission_col1" RelativeSize="49.44" Direction="Vertical">
+                <LayoutItem Id="Application_T" ViewItem="Application_T" SizeConstraintsType="Default" Index="0" RelativeSize="10.921501706484643" IsNewNode="True" />
+                <LayoutItem Id="AllowAdd" ViewItem="AllowAdd" SizeConstraintsType="Default" Index="1" RelativeSize="40.866873065015483" Removed="True" />
+                <LayoutItem Id="AllowEdit" SizeConstraintsType="Default" Index="1" RelativeSize="7.5709779179810726" ViewItem="AllowEdit" Removed="True" />
+                <LayoutGroup Id="Autoeaca418c-f496-4885-8657-f4514487e80b" ShowCaption="False" Caption="Autoeaca418c-f496-4885-8657-f4514487e80b(273)" Direction="Horizontal" Index="1" RelativeSize="89.078498293515352" IsNewNode="True">
+                  <LayoutItem Id="AllowAdd" ViewItem="AllowAdd" SizeConstraintsType="Default" Index="0" RelativeSize="51.132686084142392" IsNewNode="True" />
+                  <LayoutItem Id="AllowEdit" ViewItem="AllowEdit" SizeConstraintsType="Default" Index="1" RelativeSize="48.867313915857608" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllowView" SizeConstraintsType="Default" Index="2" RelativeSize="90.40902679830748" ViewItem="AllowView" Removed="True" />
+                <LayoutItem Id="AllowDelete" SizeConstraintsType="Default" Index="3" RelativeSize="74.763406940063092" ViewItem="AllowDelete" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="EntityOperationPermission_col2" RelativeSize="47.04" Direction="Vertical">
+                <LayoutItem Id="AriaObject" ViewItem="AriaObject" SizeConstraintsType="Default" Index="0" RelativeSize="10.921501706484643" IsNewNode="True" Removed="True" />
+                <LayoutGroup Id="Autoade451ee-4e48-4585-b5ef-cc82b2f3766b" ShowCaption="False" Caption="Autoade451ee-4e48-4585-b5ef-cc82b2f3766b(278)" Direction="Horizontal" Index="1" RelativeSize="89.078498293515352" IsNewNode="True">
+                  <LayoutItem Id="AllowDelete" ViewItem="AllowDelete" SizeConstraintsType="Default" Index="0" RelativeSize="48.979591836734691" IsNewNode="True" />
+                  <LayoutItem Id="AllowView" ViewItem="AllowView" SizeConstraintsType="Default" Index="1" RelativeSize="51.020408163265309" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Application_T" ViewItem="Application_T" Removed="True" />
+                <LayoutItem Id="AriaSecuritySystemRole" ViewItem="AriaSecuritySystemRole" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

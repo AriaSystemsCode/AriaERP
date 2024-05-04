@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ProofOfConcept" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ApprovalDate" AllowEdit="False" />
+        <Member Name="ApprovedBy" AllowEdit="False" />
+        <Member Name="Project" AllowEdit="False" />
+        <Member Name="Refrence1" Caption="Reference 1" />
+        <Member Name="Refrence2" Caption="Reference 2" />
+        <Member Name="Status" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_POCs_ListView" GroupSummary="Empty" />
+    <DetailView Id="ProofOfConcept_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="42.940038684719539">
+            <LayoutGroup Id="ProofOfConcept" RelativeSize="54.054054054054056">
+              <LayoutGroup Id="ProofOfConcept_col1" RelativeSize="49.914529914529915" Caption="ProofOfConcept_col1">
+                <LayoutItem Id="Name" RelativeSize="36.363636363636367" ViewItem="Name" />
+                <LayoutItem Id="ApprovalDate" Index="1" RelativeSize="63.636363636363633" ViewItem="ApprovalDate" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Index="1" RelativeSize="27.272727272727273" IsNewNode="True" />
+                <LayoutItem Id="Project" ViewItem="Project" Index="2" RelativeSize="36.363636363636367" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProofOfConcept_col2" RelativeSize="50.085470085470085">
+                <LayoutItem Id="ApprovalDate" ViewItem="ApprovalDate" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" />
+                <LayoutItem Id="Project" RelativeSize="36.363636363636367" Index="2" ViewItem="Project" Removed="True" />
+                <LayoutItem Id="Status" RelativeSize="21.428571428571427" Index="2" ViewItem="Status" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Description" ViewItem="Description" Index="1" RelativeSize="10.810810810810811" IsNewNode="True" />
+            <LayoutItem Id="Refrence1" ViewItem="Refrence1" Index="2" RelativeSize="10.810810810810811" IsNewNode="True" />
+            <LayoutItem Id="Refrence2" ViewItem="Refrence2" Index="3" RelativeSize="10.810810810810811" IsNewNode="True" />
+            <LayoutItem Id="Conclusion" ViewItem="Conclusion" Index="4" RelativeSize="13.513513513513514" IsNewNode="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="10.831721470019343" IsNewNode="True">
+            <LayoutGroup Id="Questions_Group" ShowCaption="True" Caption="Questions" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Questions" ViewItem="Questions" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" Caption="SizeableEditors" Index="2" RelativeSize="46.228239845261122" Direction="Horizontal">
+            <LayoutItem Id="Refrence2" Index="0" RelativeSize="100" ViewItem="Refrence2" Removed="True" />
+            <LayoutItem Id="Refrence1" ViewItem="Refrence1" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Questions_Group" Direction="Vertical" RelativeSize="66.34429400386847" Removed="True">
+            <LayoutItem Id="Questions" RelativeSize="100" ViewItem="Questions" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

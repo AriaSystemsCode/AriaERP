@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.ClientEntityStatus" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="ClientEntityStatus_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Direction="Vertical" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ClientEntityStatus" RelativeSize="15.313653136531366">
+              <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="38.554216867469883" />
+              <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="28.91566265060241" />
+              <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="32.53012048192771" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

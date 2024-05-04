@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Country" IsDesigned="True" />
+  </BOModel>
+  <Views Id="Views">
+    <DetailView Id="Address_DetailView">
+      <Layout Id="Layout">
+        <LayoutItem Id="Regions" ViewItem="Regions" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="Currency_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11" ViewItem="Notes" />
+                <LayoutItem Id="ExtraData" SizeConstraintsType="Default" RelativeSize="15" ViewItem="ExtraData" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="Default">
+        <Items Id="Items">
+          <Item Id="Country_ListView" ViewId="Country_ListView" Caption="Country" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

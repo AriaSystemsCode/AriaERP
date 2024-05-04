@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectMethodParameterSettings" IsDesigned="True" DefaultListViewAllowEdit="True">
+      <AppearanceRules Id="AppearanceRules">
+        <AppearanceRule Id="New" TargetItems="New" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="1" />
+        <AppearanceRule Id="Delete" TargetItems="Delete" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="2" />
+        <AppearanceRule Id="Edit" TargetItems="Edit" AppearanceItemType="Action" Visibility="Hide" Criteria="[NowLocked] = True" Index="3" Enabled="False" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <Views Id="Views">
+    <DetailView Id="AriaObject_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Item2">
+            <LayoutGroup Id="AriaObjectPropertieses">
+              <LayoutItem Id="AriaObjectPropertieses" ViewItem="AriaObjectPropertieses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

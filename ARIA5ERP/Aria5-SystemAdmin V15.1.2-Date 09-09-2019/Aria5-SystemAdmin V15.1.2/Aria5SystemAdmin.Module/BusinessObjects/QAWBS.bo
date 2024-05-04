@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAWBS" IsDesigned="True" Caption="WBS">
+      <OwnMembers>
+        <Member Name="AvgEstValTot" Caption="Avg. Est. Val. Tot." AllowEdit="False" />
+        <Member Name="EstCurCapIndTot" Caption="Est. Cur. Cap. Ind. Tot." AllowEdit="False" />
+        <Member Name="EstTrgCapIndTot" Caption="Est. Trg. Cap. Ind. Tot." AllowEdit="False" />
+        <Member Name="MEffort" Caption="Month Effort" AllowEdit="False" />
+        <Member Name="MSharing" Caption="Month Sharing %" />
+        <Member Name="ProjEfrt" Caption="Project Effort" AllowEdit="False" />
+        <Member Name="ResAvaHrsTot" Caption="Res. Ava. Hrs. Tot." AllowEdit="False" />
+        <Member Name="UseCasePoints" AllowEdit="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="QAUseCasePoints_WBS_ListView">
+      <Columns>
+        <ColumnInfo Id="Month" SortIndex="0" SortOrder="Ascending" Index="0" />
+        <ColumnInfo Id="ProjEfrt" Index="1" />
+        <ColumnInfo Id="MSharing" Index="2" />
+        <ColumnInfo Id="MEffort" Index="3" />
+        <ColumnInfo Id="AvgEstValTot" Index="4" />
+        <ColumnInfo Id="EstCurCapIndTot" Index="5" />
+        <ColumnInfo Id="EstTrgCapIndTot" SortIndex="-1" SortOrder="None" Index="6" />
+        <ColumnInfo Id="ResAvaHrsTot" Index="7" />
+        <ColumnInfo Id="UseCasePoints" Index="8" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QAWBS_DetailView">
+      <Items>
+        <PropertyEditor Id="Autotaskactual" AllowEdit="False" />
+        <PropertyEditor Id="Autotaskestimaiton" AllowEdit="False" />
+        <PropertyEditor Id="AutoTaskID" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="26.4">
+            <LayoutGroup Id="QAWBS" RelativeSize="100" Caption="WBS">
+              <LayoutGroup Id="QAWBS_col1" RelativeSize="49.862637362637365">
+                <LayoutItem Id="Month" SizeConstraintsType="Default" RelativeSize="20" ViewItem="Month" />
+                <LayoutItem Id="UseCasePoints" ViewItem="UseCasePoints" SizeConstraintsType="Default" Index="1" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="ProjEfrt" SizeConstraintsType="Default" RelativeSize="15" Index="2" ViewItem="ProjEfrt" />
+                <LayoutItem Id="MSharing" SizeConstraintsType="Default" RelativeSize="15" Index="3" ViewItem="MSharing" />
+                <LayoutItem Id="MEffort" SizeConstraintsType="Default" RelativeSize="15" Index="4" ViewItem="MEffort" />
+                <LayoutItem Id="AutoTaskID" ViewItem="AutoTaskID" SizeConstraintsType="Default" Index="5" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="AvgEstValTot" SizeConstraintsType="Default" RelativeSize="43.478260869565219" ViewItem="AvgEstValTot" Removed="True" />
+                <LayoutItem Id="EstCurCapIndTot" ViewItem="EstCurCapIndTot" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAWBS_col2" RelativeSize="50.137362637362635">
+                <LayoutItem Id="AvgEstValTot" ViewItem="AvgEstValTot" SizeConstraintsType="Default" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="EstCurCapIndTot" ViewItem="EstCurCapIndTot" SizeConstraintsType="Default" Index="3" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="Autotaskestimaiton" SizeConstraintsType="Default" Index="4" RelativeSize="15" ViewItem="Autotaskestimaiton" />
+                <LayoutItem Id="AutoTaskID" SizeConstraintsType="Default" Index="4" RelativeSize="13.043478260869565" ViewItem="AutoTaskID" Removed="True" />
+                <LayoutItem Id="UseCasePoints" SizeConstraintsType="Default" Index="4" RelativeSize="11.538461538461538" ViewItem="UseCasePoints" Removed="True" />
+                <LayoutItem Id="Autotaskactual" SizeConstraintsType="Default" Index="5" RelativeSize="20" ViewItem="Autotaskactual" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="73.6" IsNewNode="True">
+            <LayoutGroup Id="QAActivities_Group" ShowCaption="True" Caption="Activities" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="QAActivities" ViewItem="QAActivities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="QAActivities_Group" Direction="Vertical" RelativeSize="73.6" Caption="Activities" Removed="True">
+            <LayoutItem Id="QAActivities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="QAActivities" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAWBS_ListView">
+      <Columns>
+        <ColumnInfo Id="Month" SortIndex="0" SortOrder="Ascending" Index="0" />
+        <ColumnInfo Id="ProjEfrt" Index="1" />
+        <ColumnInfo Id="MSharing" Index="2" />
+        <ColumnInfo Id="MEffort" Index="3" />
+        <ColumnInfo Id="AvgEstValTot" Index="4" />
+        <ColumnInfo Id="EstCurCapIndTot" Index="5" />
+        <ColumnInfo Id="EstTrgCapIndTot" Index="6" />
+        <ColumnInfo Id="ResAvaHrsTot" Index="7" />
+        <ColumnInfo Id="UseCasePoints" Index="8" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAWBS_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Month" SortIndex="0" SortOrder="Descending" Index="0" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectEventParameterSettings" IsDesigned="True" DefaultListViewAllowEdit="True">
+      <AppearanceRules>
+        <AppearanceRule Id="New" TargetItems="New" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="1" IsNewNode="True" />
+        <AppearanceRule Id="Delete" TargetItems="Delete" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="2" IsNewNode="True" />
+        <AppearanceRule Id="Edit" TargetItems="Edit" AppearanceItemType="Action" Visibility="Hide" Criteria="[NowLocked] = True" Index="3" Enabled="False" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectEventParameter_AriaObjectEventParameterSettingses_ListView" AllowEdit="True" AllowDelete="False" AllowNew="False" />
+    <DetailView Id="AriaObjectEventParameterSettings_DetailView" AllowNew="False" AllowDelete="False" />
+    <ListView Id="AriaObjectEventParameterSettings_ListView" AllowDelete="False" AllowNew="False" />
+  </Views>
+</Application>

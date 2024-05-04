@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUserInterfaceRules" IsDesigned="True" Caption="User Interface Rules">
+      <OwnMembers>
+        <Member Name="Notes" RowCount="20" />
+        <Member Name="UIMethod" RowCount="10" />
+        <Member Name="UIObject" RowCount="10" />
+        <Member Name="UIRole" RowCount="20" />
+        <Member Name="UserInterfaceDesignName" RowCount="20" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAUserInterfaceRules_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAUserInterfaceRules" Caption="User Interface Rules" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

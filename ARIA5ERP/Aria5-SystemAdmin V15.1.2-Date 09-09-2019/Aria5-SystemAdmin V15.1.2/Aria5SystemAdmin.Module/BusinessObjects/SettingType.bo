@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.SettingType" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ControlType" Caption="Setting Type" />
+        <Member Name="SettingTypesGroupKey" Caption="Grouping" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ObjectType_SettingTypes_ListView" DataAccessMode="Client">
+      <Columns>
+        <ColumnInfo Id="SettingTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="DataType" Index="4" />
+        <ColumnInfo Id="Width" Index="5" />
+        <ColumnInfo Id="Decimal" Index="6" />
+      </Columns>
+    </ListView>
+    <ListView Id="PropertyType_SettingTypes_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="SettingTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="SettingType_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="SettingType" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="SettingType_col1" RelativeSize="46" Caption="SettingType_col1" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="SettingTypeId" SizeConstraintsType="Default" RelativeSize="28" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="SettingTypeId" />
+                <LayoutItem Id="SettingTypesGroupKey" SizeConstraintsType="Default" Index="1" RelativeSize="21" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="SettingTypesGroupKey" />
+                <LayoutItem Id="DataType" ViewItem="DataType" SizeConstraintsType="Default" Index="2" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="Name" ViewItem="Name" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="SettingType_col2" RelativeSize="50" Caption="SettingType_col2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="28" IsNewNode="True" />
+                <LayoutItem Id="Width" SizeConstraintsType="Default" Index="2" RelativeSize="21" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Width" />
+                <LayoutItem Id="Decimal" SizeConstraintsType="Default" Index="3" RelativeSize="28" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Decimal" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="79" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True">
+            <LayoutGroup Id="ObjectTypes" RelativeSize="100" Caption="Object Types" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0">
+              <LayoutItem Id="ObjectTypes" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ObjectTypes" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="PropertyTypes" RelativeSize="100" Caption="Property Types" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True">
+              <LayoutItem Id="PropertyTypes" SizeConstraintsType="Default" RelativeSize="100" ViewItem="PropertyTypes" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="SettingType_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="SettingTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="DataType" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="SettingType_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="SettingTypeGroup_SettingTypes_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="SettingTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+        <ColumnInfo Id="DataType" Index="3" />
+        <ColumnInfo Id="Width" Index="4" />
+        <ColumnInfo Id="Decimal" Index="5" />
+        <ColumnInfo Id="SettingTypesGroupKey" Index="6" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

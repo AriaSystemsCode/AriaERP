@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace AriaDevExpress.Web.UserControls.WebSite
+{
+    public partial class SortAppModule : System.Web.UI.UserControl
+    {
+        protected void AllModuleDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            if (e.WhereParameters["ParentID"] == null)
+                e.Cancel = true;
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            int parentID = Convert.ToInt32(ddlApplicationModule.SelectedItem.Value);
+            AriaDevExpress.Module.DataContext.AriaOnlineDataContext db = new AriaDevExpress.Module.DataContext.AriaOnlineDataContext();
+            foreach (DevExpress.Web.ListEditItem item in lstSelected.Items)
+            {
+                var appModIlist = db.ApplicationModules.Where(i => i.AppModID == Convert.ToInt32(item.Value));
+                if (appModIlist.Count() > 0)
+                {
+                    AriaDevExpress.Module.DataContext.ApplicationModule appModItem = appModIlist.First();
+                    appModItem.AppRank = item.Index;
+                    appModItem.ParentID = parentID;
+                }
+            }
+
+            foreach (DevExpress.Web.ListEditItem item in lstNonSelected.Items)
+            {
+                var appModIlist = db.ApplicationModules.Where(i => i.AppModID == Convert.ToInt32(item.Value));
+                if (appModIlist.Count() > 0)
+                {
+                    var appModItem = appModIlist.First();
+                    appModItem.ParentID = null;
+                }
+            }
+            db.SubmitChanges();
+        }
+    }
+}

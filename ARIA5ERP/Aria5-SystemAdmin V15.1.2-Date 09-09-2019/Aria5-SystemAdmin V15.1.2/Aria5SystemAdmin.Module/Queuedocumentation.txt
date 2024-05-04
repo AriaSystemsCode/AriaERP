@@ -1,0 +1,24 @@
+﻿----------------------------29/5/2016------------------
+proplem : 
+    project Entity tracking Number Should Filter project Application Tracking Entries
+files check out: 
+ 1 - QAProjectEntity.bo modifiy tracking number datasource crieria 
+
+ proplem : 
+  if you open attached file details, you can find that the test cases and use cases filed under the changes history, Which suppose to be above it.
+  files checked out :
+  1 - QAAttachement.bo
+  ---------------------------29/5/2016----------------------------
+  ---------------------------7/6/2016---------------------------------
+  problem : 
+       usecasepoints wbs project effort don't effected while change usecasepoints project effort 
+ files check out:
+ 1- QAusecasepoints.
+ 2- QAWBS
+
+ problem:
+      Tracking entry attachement list View can't create new 
+files check out :
+1 - tracking entry 
+solution disappear this attachement tb cause it is not needed 
+---------------------------------------------------------------------------------------------

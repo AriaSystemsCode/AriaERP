@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AriaObjectShelveEventParameter_AriaObjectShelveEventParameterSettings_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveEventParameter" Index="-1" />
+        <ColumnInfo Id="SettingType" Index="0" />
+        <ColumnInfo Id="Value" Index="1" />
+        <ColumnInfo Id="DataType" Index="2" />
+        <ColumnInfo Id="Width" Index="3" />
+        <ColumnInfo Id="DecimalPlaces" Index="4" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObjectShelveEventParameterSetting_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectShelveEventParameterSetting" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectShelveEventParameterSetting_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="SettingType" SizeConstraintsType="Default" Index="0" RelativeSize="4.5133991537376588" />
+                <LayoutItem Id="Value" SizeConstraintsType="Default" Index="1" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="DataType" SizeConstraintsType="Default" Index="2" RelativeSize="92.1015514809591" />
+                <LayoutItem Id="AriaObjectShelveEventParameter" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelveEventParameterSetting_col2" RelativeSize="48.533333333333331">
+                <LayoutItem Id="Width" SizeConstraintsType="Default" RelativeSize="4.5133991537376588" />
+                <LayoutItem Id="DecimalPlaces" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="Modified" SizeConstraintsType="Default" RelativeSize="92.1015514809591" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelveEventParameterSetting_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveEventParameter" Index="-1" />
+        <ColumnInfo Id="SettingType" Index="0" />
+        <ColumnInfo Id="Value" Index="1" />
+        <ColumnInfo Id="DataType" Index="2" />
+        <ColumnInfo Id="Width" Index="3" />
+        <ColumnInfo Id="DecimalPlaces" Index="4" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectShelveEventParameterSetting_LookupListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveEventParameter" Index="-1" />
+        <ColumnInfo Id="SettingType" Index="0" />
+        <ColumnInfo Id="Value" Index="1" />
+        <ColumnInfo Id="DataType" Index="2" />
+        <ColumnInfo Id="Width" Index="3" />
+        <ColumnInfo Id="DecimalPlaces" Index="4" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCAsePointsCategory" IsDesigned="True" Caption="Use Case Points Category">
+      <OwnMembers>
+        <Member Name="Totalweight" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAUseCAsePointsCategory_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAUseCAsePointsCategory" RelativeSize="100">
+              <LayoutItem Id="Count" SizeConstraintsType="Default" RelativeSize="4.2666666666666666" ViewItem="Count" />
+              <LayoutItem Id="Totalweight" SizeConstraintsType="Default" RelativeSize="3.2" ViewItem="Totalweight" />
+              <LayoutItem Id="CategoryType" SizeConstraintsType="Default" RelativeSize="92.533333333333331" ViewItem="CategoryType" />
+              <LayoutItem Id="UseCasePoints" ViewItem="UseCasePoints" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

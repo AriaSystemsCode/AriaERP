@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.DataFilterColumn" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="DataFilterColumn_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="DataFilterColumn" RelativeSize="81.642512077294683">
+              <LayoutGroup Id="DataFilterColumn_col1" RelativeSize="47.010869565217391">
+                <LayoutItem Id="Filter" SizeConstraintsType="Default" RelativeSize="23.529411764705884" />
+                <LayoutItem Id="Order" SizeConstraintsType="Default" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="Operator" SizeConstraintsType="Default" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="NewProperty" SizeConstraintsType="Default" RelativeSize="23.529411764705884" />
+              </LayoutGroup>
+              <LayoutGroup Id="DataFilterColumn_col2" RelativeSize="47.010869565217391">
+                <LayoutItem Id="Is" SizeConstraintsType="Default" RelativeSize="23.529411764705884" />
+                <LayoutItem Id="ValueType" SizeConstraintsType="Default" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="Value1" SizeConstraintsType="Default" RelativeSize="17.647058823529413" />
+                <LayoutItem Id="Value2" SizeConstraintsType="Default" RelativeSize="41.1764705882353" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ClientBaseObject" RelativeSize="18.357487922705314">
+              <LayoutItem Id="ClientDataAuditOid" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

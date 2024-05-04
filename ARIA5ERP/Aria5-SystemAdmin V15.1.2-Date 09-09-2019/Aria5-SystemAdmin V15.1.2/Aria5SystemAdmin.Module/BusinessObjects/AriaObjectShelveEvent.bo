@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelveEvent" IsDesigned="True">
+      <AppearanceRules>
+        <AppearanceRule Id="DisableAriaObjectShelveEvent_EventName" TargetItems="EventName" Criteria="[IsNew] = False" Enabled="False" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="ModificationType" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectShelve_AriaObjectShelveEvents_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" Index="-1" />
+        <ColumnInfo Id="IsNew" Index="-1" />
+        <ColumnInfo Id="SaveObject" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObjectShelveEvent_DetailView">
+      <Items>
+        <PropertyEditor Id="ModificationType" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.933333333333334">
+            <LayoutGroup Id="AriaObjectShelveEvent" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectShelveEvent_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="EventName" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="EventName" />
+                <LayoutItem Id="EventDescription" SizeConstraintsType="Default" RelativeSize="27.272727272727273" Index="1" ViewItem="EventDescription" />
+                <LayoutItem Id="ModificationType" SizeConstraintsType="Default" RelativeSize="36.363636363636367" Index="2" ViewItem="ModificationType" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelveEvent_col2" RelativeSize="48.533333333333331">
+                <LayoutItem Id="UpdatedToActual" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="IsNew" SizeConstraintsType="Default" Index="1" RelativeSize="21.428571428571427" ViewItem="IsNew" Removed="True" />
+                <LayoutItem Id="AriaObjectShelve" ViewItem="AriaObjectShelve" Removed="True" />
+                <LayoutItem Id="SaveObject" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="SaveObject" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="AriaObjectShelveEventParameters_Group" Direction="Vertical" RelativeSize="83.066666666666663">
+            <LayoutItem Id="AriaObjectShelveEventParameters" SizeConstraintsType="Default" RelativeSize="94.703049759229529" ViewItem="AriaObjectShelveEventParameters" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelveEvent_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" Index="-1" />
+        <ColumnInfo Id="IsNew" Index="-1" />
+        <ColumnInfo Id="SaveObject" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectShelveEvent_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

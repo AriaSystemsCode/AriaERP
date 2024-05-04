@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="Base_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Base" RelativeSize="100">
+              <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" RelativeSize="7.8048780487804876" />
+              <LayoutItem Id="User" SizeConstraintsType="Default" RelativeSize="92.1951219512195" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8D5B207C-1228-4A8A-AA1D-4E8961840D23}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria5.DevExpress.OneTouchAway.Module</RootNamespace>
+    <AssemblyName>Aria5.DevExpress.OneTouchAway.Module</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Security.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v17.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v17.1.Export">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v17.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Azure.NotificationHubs, Version=2.16.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Azure.NotificationHubs.1.0.6\lib\net45-full\Microsoft.Azure.NotificationHubs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.1\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObjects\AccountLocalization.bo.cs">
+      <DependentUpon>AccountLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AccountLocalization.bo.designer.cs">
+      <DependentUpon>AccountLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ADS.bo.cs">
+      <DependentUpon>ADS.bo</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessObjects\ADS.bo.designer.cs">
+      <DependentUpon>ADS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Area.bo.cs">
+      <DependentUpon>Area.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Area.bo.designer.cs">
+      <DependentUpon>Area.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Business.bo.cs">
+      <DependentUpon>Business.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Business.bo.designer.cs">
+      <DependentUpon>Business.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientAccount.bo.cs">
+      <DependentUpon>ClientAccount.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientAccount.bo.designer.cs">
+      <DependentUpon>ClientAccount.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientAttachmentCategory.bo.cs">
+      <DependentUpon>ClientAttachmentCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientAttachmentCategory.bo.designer.cs">
+      <DependentUpon>ClientAttachmentCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientAttachments.bo.cs">
+      <DependentUpon>ClientAttachments.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientAttachments.bo.designer.cs">
+      <DependentUpon>ClientAttachments.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientBaseObject.cs" />
+    <Compile Include="BusinessObjects\ClientDataAudit.bo.cs">
+      <DependentUpon>ClientDataAudit.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientDataAudit.bo.designer.cs">
+      <DependentUpon>ClientDataAudit.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntitiesRelationship.bo.cs">
+      <DependentUpon>ClientEntitiesRelationship.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntitiesRelationship.bo.designer.cs">
+      <DependentUpon>ClientEntitiesRelationship.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntity.bo.cs">
+      <DependentUpon>ClientEntity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntity.bo.designer.cs">
+      <DependentUpon>ClientEntity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityAttachment.bo.cs">
+      <DependentUpon>ClientEntityAttachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityAttachment.bo.designer.cs">
+      <DependentUpon>ClientEntityAttachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityCategory.bo.cs">
+      <DependentUpon>ClientEntityCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityCategory.bo.designer.cs">
+      <DependentUpon>ClientEntityCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityClassification.bo.cs">
+      <DependentUpon>ClientEntityClassification.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityClassification.bo.designer.cs">
+      <DependentUpon>ClientEntityClassification.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityType.bo.cs">
+      <DependentUpon>ClientEntityType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityType.bo.designer.cs">
+      <DependentUpon>ClientEntityType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityStatus.bo.cs">
+      <DependentUpon>ClientEntityStatus.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityStatus.bo.designer.cs">
+      <DependentUpon>ClientEntityStatus.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityTypeSettings.bo.cs">
+      <DependentUpon>ClientEntityTypeSettings.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityTypeSettings.bo.designer.cs">
+      <DependentUpon>ClientEntityTypeSettings.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityTypesRelationship.bo.cs">
+      <DependentUpon>ClientEntityTypesRelationship.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientEntityTypesRelationship.bo.designer.cs">
+      <DependentUpon>ClientEntityTypesRelationship.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientLanguage.bo.cs">
+      <DependentUpon>ClientLanguage.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ClientLanguage.bo.designer.cs">
+      <DependentUpon>ClientLanguage.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Contact.bo.cs">
+      <DependentUpon>Contact.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Contact.bo.designer.cs">
+      <DependentUpon>Contact.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataFilter.bo.cs">
+      <DependentUpon>DataFilter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataFilter.bo.designer.cs">
+      <DependentUpon>DataFilter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataFilterColumn.bo.cs">
+      <DependentUpon>DataFilterColumn.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataFilterColumn.bo.designer.cs">
+      <DependentUpon>DataFilterColumn.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataSort.bo.cs">
+      <DependentUpon>DataSort.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataSort.bo.designer.cs">
+      <DependentUpon>DataSort.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataSortColumn.bo.cs">
+      <DependentUpon>DataSortColumn.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DataSortColumn.bo.designer.cs">
+      <DependentUpon>DataSortColumn.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityCategoryLocalization.bo.cs">
+      <DependentUpon>EntityCategoryLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityCategoryLocalization.bo.designer.cs">
+      <DependentUpon>EntityCategoryLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityClassificationLocalization.bo.cs">
+      <DependentUpon>EntityClassificationLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityClassificationLocalization.bo.designer.cs">
+      <DependentUpon>EntityClassificationLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityLocalization.bo.cs">
+      <DependentUpon>EntityLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityLocalization.bo.designer.cs">
+      <DependentUpon>EntityLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityStatusLocalization.bo.cs">
+      <DependentUpon>EntityStatusLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityStatusLocalization.bo.designer.cs">
+      <DependentUpon>EntityStatusLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityTypesRelationshipLocalization.bo.cs">
+      <DependentUpon>EntityTypesRelationshipLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityTypesRelationshipLocalization.bo.designer.cs">
+      <DependentUpon>EntityTypesRelationshipLocalization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Entry.bo.cs">
+      <DependentUpon>Entry.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Entry.bo.designer.cs">
+      <DependentUpon>Entry.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntryCategory.bo.cs">
+      <DependentUpon>EntryCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntryCategory.bo.designer.cs">
+      <DependentUpon>EntryCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntryType.bo.cs">
+      <DependentUpon>EntryType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntryType.bo.designer.cs">
+      <DependentUpon>EntryType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Event.bo.cs">
+      <DependentUpon>Event.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Event.bo.designer.cs">
+      <DependentUpon>Event.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Food.bo.cs">
+      <DependentUpon>Food.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Food.bo.designer.cs">
+      <DependentUpon>Food.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\GeneralSetting.bo.cs">
+      <DependentUpon>GeneralSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\GeneralSetting.bo.designer.cs">
+      <DependentUpon>GeneralSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\GuideType.bo.cs">
+      <DependentUpon>GuideType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\GuideType.bo.designer.cs">
+      <DependentUpon>GuideType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\GuideTypeEntityType.bo.cs">
+      <DependentUpon>GuideTypeEntityType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\GuideTypeEntityType.bo.designer.cs">
+      <DependentUpon>GuideTypeEntityType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\HubPage.bo.cs">
+      <DependentUpon>HubPage.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\HubPage.bo.designer.cs">
+      <DependentUpon>HubPage.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\InDoorMap.bo.cs">
+      <DependentUpon>InDoorMap.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\InDoorMap.bo.designer.cs">
+      <DependentUpon>InDoorMap.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\IndoorMapProvider.bo.cs">
+      <DependentUpon>IndoorMapProvider.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\IndoorMapProvider.bo.designer.cs">
+      <DependentUpon>IndoorMapProvider.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Information.bo.cs">
+      <DependentUpon>Information.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Information.bo.designer.cs">
+      <DependentUpon>Information.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Localization.bo.cs">
+      <DependentUpon>Localization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Localization.bo.designer.cs">
+      <DependentUpon>Localization.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Location.bo.cs">
+      <DependentUpon>ClientLocation.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Location.bo.designer.cs">
+      <DependentUpon>ClientLocation.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\LocationType.bo.cs">
+      <DependentUpon>ClientLocationType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\LocationType.bo.designer.cs">
+      <DependentUpon>ClientLocationType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Log.bo.cs">
+      <DependentUpon>Log.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Log.bo.designer.cs">
+      <DependentUpon>Log.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\News.bo.cs">
+      <DependentUpon>News.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\News.bo.designer.cs">
+      <DependentUpon>News.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\OnlineGame.bo.cs">
+      <DependentUpon>OnlineGame.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\OnlineGame.bo.designer.cs">
+      <DependentUpon>OnlineGame.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Person.bo.cs">
+      <DependentUpon>Person.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Person.bo.designer.cs">
+      <DependentUpon>Person.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Profile.bo.cs">
+      <DependentUpon>Profile.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Profile.bo.designer.cs">
+      <DependentUpon>Profile.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProfileGroup.bo.cs">
+      <DependentUpon>ProfileGroup.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProfileGroup.bo.designer.cs">
+      <DependentUpon>ProfileGroup.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProfileGroupTile.bo.cs">
+      <DependentUpon>ProfileGroupTile.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProfileGroupTile.bo.designer.cs">
+      <DependentUpon>ProfileGroupTile.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProfileSetting.bo.cs">
+      <DependentUpon>ProfileSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProfileSetting.bo.designer.cs">
+      <DependentUpon>ProfileSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TemporaryOrder.bo.cs">
+      <DependentUpon>TemporaryOrder.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TemporaryOrder.bo.designer.cs">
+      <DependentUpon>TemporaryOrder.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TempOrderHeader.bo.cs">
+      <DependentUpon>TempOrderHeader.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TempOrderHeader.bo.designer.cs">
+      <DependentUpon>TempOrderHeader.bo</DependentUpon>
+    </Compile>
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BusinessObjects\ADS.bo" />
+    <EmbeddedResource Include="Module.resx">
+      <DependentUpon>Module.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BusinessObjects\ClientEntity.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityType.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityStatus.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityClassification.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientAttachmentCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientAttachments.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityAttachment.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntitiesRelationship.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityTypesRelationship.bo" />
+    <EmbeddedResource Include="BusinessObjects\News.bo" />
+    <EmbeddedResource Include="BusinessObjects\Localization.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityCategoryLocalization.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityClassificationLocalization.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityLocalization.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityStatusLocalization.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientEntityTypeSettings.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityTypesRelationshipLocalization.bo" />
+    <EmbeddedResource Include="BusinessObjects\GeneralSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\GuideType.bo" />
+    <EmbeddedResource Include="BusinessObjects\GuideTypeEntityType.bo" />
+    <EmbeddedResource Include="BusinessObjects\Log.bo" />
+    <EmbeddedResource Include="BusinessObjects\ProfileSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\Event.bo" />
+    <EmbeddedResource Include="BusinessObjects\Food.bo" />
+    <EmbeddedResource Include="BusinessObjects\Information.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientLocationType.bo" />
+    <EmbeddedResource Include="BusinessObjects\OnlineGame.bo" />
+    <EmbeddedResource Include="BusinessObjects\Business.bo" />
+    <EmbeddedResource Include="BusinessObjects\Contact.bo" />
+    <EmbeddedResource Include="BusinessObjects\Person.bo" />
+    <EmbeddedResource Include="BusinessObjects\Area.bo" />
+    <EmbeddedResource Include="BusinessObjects\Entry.bo" />
+    <EmbeddedResource Include="BusinessObjects\HubPage.bo" />
+    <EmbeddedResource Include="BusinessObjects\DataSort.bo" />
+    <EmbeddedResource Include="BusinessObjects\DataSortColumn.bo" />
+    <EmbeddedResource Include="BusinessObjects\DataFilter.bo" />
+    <EmbeddedResource Include="BusinessObjects\DataFilterColumn.bo" />
+    <EmbeddedResource Include="BusinessObjects\Profile.bo" />
+    <EmbeddedResource Include="BusinessObjects\ProfileGroup.bo" />
+    <EmbeddedResource Include="BusinessObjects\ProfileGroupTile.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntryCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntryType.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientDataAudit.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientAccount.bo" />
+    <EmbeddedResource Include="BusinessObjects\AccountLocalization.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientLanguage.bo" />
+    <EmbeddedResource Include="BusinessObjects\InDoorMap.bo" />
+    <EmbeddedResource Include="BusinessObjects\IndoorMapProvider.bo" />
+    <EmbeddedResource Include="BusinessObjects\ClientLocation.bo" />
+    <None Include="app.config" />
+    <None Include="bin\Debug\Aria5.DevExpress.OneTouchAway.Module.dll.config" />
+    <None Include="BusinessObjects\ReadMe.txt" />
+    <EmbeddedResource Include="BusinessObjects\TemporaryOrder.bo" />
+    <EmbeddedResource Include="BusinessObjects\TempOrderHeader.bo" />
+    <None Include="Controllers\ReadMe.txt" />
+    <None Include="DatabaseUpdate\ReadMe.txt" />
+    <None Include="ModuleModule.Designer.log" />
+    <None Include="packages.config" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.Module\Aria5.DevExpress.MainSystem.Module.csproj">
+      <Project>{b9ef03ff-d05b-4fd4-a8e9-f90d819cb1dc}</Project>
+      <Name>Aria5.DevExpress.MainSystem.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module\Aria5SystemAdmin.Module.csproj">
+      <Project>{d28c293a-a455-47d5-8515-c9d019c1a538}</Project>
+      <Name>Aria5SystemAdmin.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Aria5.DevExpress.MainSystem.Module.dll" />
+    <Content Include="bin\Debug\Aria5.DevExpress.MainSystem.Module.pdb" />
+    <Content Include="bin\Debug\Aria5.DevExpress.OneTouchAway.Module.dll" />
+    <Content Include="bin\Debug\Aria5.DevExpress.OneTouchAway.Module.pdb" />
+    <Content Include="bin\Debug\Aria5SystemAdmin.Module.dll" />
+    <Content Include="bin\Debug\Aria5SystemAdmin.Module.pdb" />
+    <Content Include="bin\Debug\AriaDevExpress.Module.dll" />
+    <Content Include="bin\Debug\AriaDevExpress.Module.pdb" />
+    <Content Include="bin\Debug\ArrayToMemo.dll" />
+    <Content Include="bin\Debug\Connection.xml" />
+    <Content Include="bin\Debug\Microsoft.Azure.NotificationHubs.dll" />
+    <Content Include="bin\Debug\Microsoft.Azure.NotificationHubs.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.OData.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.OData.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\Debug\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStoreLoader.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Configuration.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Configuration.xml" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\Debug\Microsoft.WITDataStore.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\Debug\System.Spatial.dll" />
+    <Content Include="bin\Debug\System.Spatial.xml" />
+    <Content Include="bin\Debug\System.Web.Http.dll" />
+    <Content Include="bin\Debug\System.Web.Http.xml" />
+    <Content Include="bin\Release\Aria5.DevExpress.MainSystem.Module.dll" />
+    <Content Include="bin\Release\Aria5.DevExpress.MainSystem.Module.pdb" />
+    <Content Include="bin\Release\Aria5.DevExpress.OneTouchAway.Module.dll" />
+    <Content Include="bin\Release\Aria5.DevExpress.OneTouchAway.Module.pdb" />
+    <Content Include="bin\Release\Aria5SystemAdmin.Module.dll" />
+    <Content Include="bin\Release\Aria5SystemAdmin.Module.pdb" />
+    <Content Include="bin\Release\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\Release\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\Release\Microsoft.Data.OData.dll" />
+    <Content Include="bin\Release\Microsoft.Data.OData.xml" />
+    <Content Include="bin\Release\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\Release\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\Release\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\Release\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\System.Spatial.dll" />
+    <Content Include="bin\Release\System.Spatial.xml" />
+    <Content Include="bin\Staging\DevExpress.ExpressApp.Web.v14.1.dll" />
+    <Content Include="bin\Staging\DevExpress.ExpressApp.Web.v14.1.xml" />
+    <Content Include="bin\Staging\de\DevExpress.ExpressApp.Web.v14.1.resources.dll" />
+    <Content Include="bin\Staging\es\DevExpress.ExpressApp.Web.v14.1.resources.dll" />
+    <Content Include="bin\Staging\ja\DevExpress.ExpressApp.Web.v14.1.resources.dll" />
+    <Content Include="bin\Staging\ru\DevExpress.ExpressApp.Web.v14.1.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\de\" />
+    <Folder Include="bin\Debug\es\" />
+    <Folder Include="bin\Debug\ja\" />
+    <Folder Include="bin\Debug\ru\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

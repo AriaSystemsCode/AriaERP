@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObject">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AriaObjectPropertieses" DataSourceProperty="" DataSourceCriteria="" Caption="Aria Object Properties" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectRevision">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AriaObjectSettingses" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views Id="Views">
+    <ListView Id="AriaObjectMethodParameter_AriaObjectMethodParameterSettingses_ListView" AllowEdit="True" AllowNew="False" AllowDelete="False" />
+    <DetailView Id="AriaObject_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Item2">
+            <LayoutGroup Id="AriaObjectPropertieses">
+              <LayoutItem Id="AriaObjectPropertieses" ViewItem="AriaObjectPropertieses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="AriaObjectRevision_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AriaObjectSettingses" RelativeSize="100">
+              <LayoutItem Id="AriaObjectSettingses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectSettingses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

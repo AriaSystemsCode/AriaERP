@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="AriaObject_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="getchildren" RelativeSize="100">
+              <LayoutItem Id="getchildren" SizeConstraintsType="Default" RelativeSize="100" ViewItem="getchildren" />
+            </LayoutGroup>
+            <LayoutGroup Id="Applications" RelativeSize="100">
+              <LayoutItem Id="Applications" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Applications" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="AriaObjectRevision_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="AriaObjectPropertiess" RelativeSize="100">
+              <LayoutItem Id="AriaObjectPropertiess" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectPropertiess" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

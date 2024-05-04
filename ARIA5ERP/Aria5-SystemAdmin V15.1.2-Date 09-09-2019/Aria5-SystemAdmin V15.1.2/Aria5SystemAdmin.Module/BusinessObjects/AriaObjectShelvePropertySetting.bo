@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AriaObjectShelveProperty_AriaObjectShelvePropertySettings_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveProperty" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObjectShelvePropertySetting_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectShelvePropertySetting" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectShelvePropertySetting_col1" RelativeSize="48.200312989045386" Caption="AriaObjectShelvePropertySetting_col1">
+                <LayoutItem Id="SettingType" SizeConstraintsType="Default" RelativeSize="7.12694877505568" />
+                <LayoutItem Id="Value" SizeConstraintsType="Default" RelativeSize="5.3452115812917596" />
+                <LayoutItem Id="Width" SizeConstraintsType="Default" Index="2" RelativeSize="87.527839643652555" />
+                <LayoutItem Id="DataType" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelvePropertySetting_col2" RelativeSize="48.356807511737088" Caption="AriaObjectShelvePropertySetting_col2" Direction="Vertical">
+                <LayoutItem Id="Modified" SizeConstraintsType="Default" Index="0" RelativeSize="100" />
+                <LayoutItem Id="AriaObjectShelveProperty" Removed="True" />
+                <LayoutItem Id="DecimalPlaces" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelvePropertySetting_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveProperty" Index="-1" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectShelvePropertySetting_LookupListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveProperty" Index="-1" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

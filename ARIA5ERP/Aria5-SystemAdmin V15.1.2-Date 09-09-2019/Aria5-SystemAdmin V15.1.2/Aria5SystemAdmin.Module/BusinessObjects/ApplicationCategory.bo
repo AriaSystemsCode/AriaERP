@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ApplicationCategory" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="ApplicationCategory_ListView" DataAccessMode="DataView" />
+    <ListView Id="ApplicationCategory_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

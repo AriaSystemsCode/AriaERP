@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Currency" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="Currency_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="45" ImageName="">
+            <LayoutGroup Id="Entity" RelativeSize="100" ImageName="">
+              <LayoutGroup Id="Entity_col1" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="15" ViewItem="Id" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="11" ViewItem="Status" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="StatusId" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="11" ViewItem="Description" />
+                <LayoutItem Id="EnteredBy" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EnteredBy" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EnteredDate" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="47" ImageName="">
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="ClassificationId" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EntityCategory" />
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="CategoryId" />
+                <LayoutItem Id="IMAGE" SizeConstraintsType="Default" RelativeSize="15" ViewItem="IMAGE" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Currency_ListView" DataAccessMode="DataView" />
+    <ListView Id="Currency_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObject" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ObjectType" Index="0" />
+        <Member Name="ObjectID" Index="1" AllowEdit="False" />
+        <Member Name="ObjectName" Index="2" />
+        <Member Name="ActiveRevision" Caption="Current Revision" Index="3" AllowEdit="False" />
+        <Member Name="ParentObjectType" Index="4" />
+        <Member Name="ParentObjectID" Index="5" />
+        <Member Name="ObjectDescription" Index="7" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_AriaObjects_ListView" DataAccessMode="DataView" GroupSummary="Empty" />
+    <DetailView Id="AriaObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="29.733333333333334">
+            <LayoutGroup Id="AriaObject" RelativeSize="100">
+              <LayoutGroup Id="AriaObject_col1" RelativeSize="48.4">
+                <LayoutItem Id="ObjectID" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="ObjectID" />
+                <LayoutItem Id="ParentObjectType" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="ParentObjectType" />
+                <LayoutItem Id="ParentObjectID" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="ParentObjectID" />
+                <LayoutItem Id="ObjectName" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="ObjectName" />
+                <LayoutItem Id="ObjectDescription" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="ObjectDescription" />
+                <LayoutItem Id="ObjectType" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="ObjectType" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObject_col2" RelativeSize="48.666666666666664">
+                <LayoutItem Id="QAProjectEntity" SizeConstraintsType="Default" Index="5" RelativeSize="30.434782608695652" ViewItem="QAProjectEntity" Removed="True" />
+                <LayoutItem Id="QADefect" ViewItem="QADefect" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="70.266666666666666">
+            <LayoutGroup Id="GetChildren" RelativeSize="100">
+              <LayoutItem Id="GetChildren" SizeConstraintsType="Default" RelativeSize="100" ViewItem="GetChildren" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectRevisions" RelativeSize="100">
+              <LayoutItem Id="AriaObjectRevisions" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectRevisions" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectSettings" RelativeSize="100">
+              <LayoutItem Id="AriaObjectSettings" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectSettings" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectEvents" RelativeSize="100">
+              <LayoutItem Id="AriaObjectEvents" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectEvents" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectMethods" RelativeSize="100">
+              <LayoutItem Id="AriaObjectMethods" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectMethods" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectProperties" RelativeSize="100">
+              <LayoutItem Id="AriaObjectProperties" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectProperties" />
+            </LayoutGroup>
+            <LayoutGroup Id="TrackingEntries" RelativeSize="100">
+              <LayoutItem Id="TrackingEntries" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TrackingEntries" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObject_GetChildren_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObject_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ObjectType" Index="1" />
+        <ColumnInfo Id="ObjectID" Index="2" SortIndex="1" />
+        <ColumnInfo Id="ObjectName" Index="3" SortIndex="2" />
+        <ColumnInfo Id="ActiveRevision" Index="4" SortIndex="3" />
+        <ColumnInfo Id="ParentObjectID" Index="5" />
+        <ColumnInfo Id="ParentObjectType" Index="6" />
+        <ColumnInfo Id="ObjectDescription" Index="7" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObject_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="ObjectType_AriaObjects_ListView" DataAccessMode="Client" />
+  </Views>
+</Application>

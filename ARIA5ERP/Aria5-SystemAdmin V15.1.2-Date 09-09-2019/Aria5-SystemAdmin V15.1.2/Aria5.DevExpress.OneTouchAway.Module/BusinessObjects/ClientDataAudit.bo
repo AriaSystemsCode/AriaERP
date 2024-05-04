@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.ClientDataAudit" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="ClientDataAudit_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ClientDataAudit" RelativeSize="100">
+              <LayoutGroup Id="ClientDataAudit_col1" RelativeSize="48.302469135802468">
+                <LayoutItem Id="Oid" SizeConstraintsType="Default" RelativeSize="9.5238095238095237" />
+                <LayoutItem Id="Oguid" SizeConstraintsType="Default" RelativeSize="7.1428571428571432" />
+                <LayoutItem Id="AuditedObjectTypeName" SizeConstraintsType="Default" RelativeSize="83.333333333333329" />
+              </LayoutGroup>
+              <LayoutGroup Id="ClientDataAudit_col2" RelativeSize="48.302469135802468">
+                <LayoutItem Id="AuditedObject" SizeConstraintsType="Default" RelativeSize="9.5238095238095237" />
+                <LayoutItem Id="AuditOperationType" SizeConstraintsType="Default" RelativeSize="7.1428571428571432" />
+                <LayoutItem Id="AddDateTime" SizeConstraintsType="Default" RelativeSize="83.333333333333329" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

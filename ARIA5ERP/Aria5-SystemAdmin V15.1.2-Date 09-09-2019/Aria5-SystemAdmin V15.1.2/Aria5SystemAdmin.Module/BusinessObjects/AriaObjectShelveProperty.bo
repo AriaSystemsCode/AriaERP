@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AriaObjectShelve_AriaObjectShelveProperties_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="IsNew" Index="-1" />
+        <ColumnInfo Id="PropertyName" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObjectShelveProperty_DetailView">
+      <Items>
+        <PropertyEditor Id="ModificationType" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="33.481152993348118">
+            <LayoutGroup Id="AriaObjectShelveProperty" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectShelveProperty_col1" RelativeSize="47.884615384615387">
+                <LayoutItem Id="PropertyName" SizeConstraintsType="Default" RelativeSize="28.571428571428573" />
+                <LayoutItem Id="PropertyType" SizeConstraintsType="Default" RelativeSize="21.428571428571427" />
+                <LayoutItem Id="PropertyDescription" SizeConstraintsType="Default" RelativeSize="21.428571428571427" />
+                <LayoutItem Id="ModificationType" SizeConstraintsType="Default" RelativeSize="28.571428571428573" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelveProperty_col2" RelativeSize="47.884615384615387">
+                <LayoutItem Id="Required" SizeConstraintsType="Default" RelativeSize="100" />
+                <LayoutItem Id="AriaObjectShelve" ShowCaption="True" SizeConstraintsType="Default" RelativeSize="36.363636363636367" Removed="True" />
+                <LayoutItem Id="IsNew" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="AriaObjectShelvePropertySettings_Group" Direction="Vertical" RelativeSize="66.518847006651882">
+            <LayoutItem Id="AriaObjectShelvePropertySettings" SizeConstraintsType="Default" RelativeSize="89" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelveProperty_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" Index="-1" />
+        <ColumnInfo Id="IsNew" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

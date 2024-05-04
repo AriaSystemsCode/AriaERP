@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Aria5.DevExpress.SystemManager.WebServiceRole.Service1" CodeBehind="Service1.svc.cs" %>

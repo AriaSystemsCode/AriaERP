@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Employee" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="HistoryActivities" DataSourceCriteria="[Status] = 1" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="HR_Company_Employees_ListView">
+      <Columns>
+        <ColumnInfo Id="Company" Index="-1" Width="20" />
+        <ColumnInfo Id="Employee_IMAGE" Index="-1" Width="20" />
+        <ColumnInfo Id="MedicalInsuranceNo" Index="-1" Width="20" />
+        <ColumnInfo Id="MedicalInsuranceStartDate" Index="-1" Width="20" />
+        <ColumnInfo Id="MedicalInsuranceStatus" Index="-1" Width="20" />
+        <ColumnInfo Id="SocialInsuranceNo" Index="-1" Width="20" />
+        <ColumnInfo Id="SocialInsuranceStartDate" Index="-1" Width="20" />
+        <ColumnInfo Id="SocialInsuranceStatus" Index="-1" Width="20" />
+        <ColumnInfo Id="Code" Index="0" Width="20" />
+        <ColumnInfo Id="FirstName" Index="1" Width="30" />
+        <ColumnInfo Id="MiddleName" Index="2" Width="20" />
+        <ColumnInfo Id="LastName" Index="3" Width="20" />
+        <ColumnInfo Id="FullName" Index="4" Width="20" />
+        <ColumnInfo Id="Gender" Index="5" Width="20" />
+        <ColumnInfo Id="DateOfBirth" Index="6" Width="20" />
+        <ColumnInfo Id="Nationality" Index="7" Width="20" />
+        <ColumnInfo Id="SocialID" Index="8" Width="31" />
+        <ColumnInfo Id="MilitaryStatus" Index="9" Width="20" />
+        <ColumnInfo Id="MaritalStatus" Index="10" Width="20" />
+        <ColumnInfo Id="Email" Index="11" Width="29" />
+        <ColumnInfo Id="EmploymentStatus" Index="12" Width="20" />
+        <ColumnInfo Id="EmploymentDate" Index="13" Width="20" />
+        <ColumnInfo Id="EmploymentType" Index="14" Width="20" />
+        <ColumnInfo Id="JobPosition" Index="15" Width="20" />
+        <ColumnInfo Id="Department" Index="16" Width="20" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HR_Employee_DetailView">
+      <Items>
+        <PropertyEditor Id="Code" AllowEdit="False" />
+        <PropertyEditor Id="Employee_IMAGE" ImageSizeMode="Normal" ImageEditorFixedHeight="200" ImageEditorFixedWidth="160" />
+        <PropertyEditor Id="HistoryActivities" DataSourceCriteria="[Status] = 1 And [Employee] = 'This.Oid'" />
+        <PropertyEditor Id="JobPosition" DataSourceCriteria="[Department] = 'This.Department'" />
+        <PropertyEditor Id="PendingActivities" DataSourceCriteria="[Status] = '0'" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HR_Employee" RelativeSize="87.6923076923077" Caption="Employee">
+              <LayoutGroup Id="HR_Employee_col1" RelativeSize="49.897750511247445">
+                <LayoutItem Id="Code" ViewItem="Code" SizeConstraintsType="Default" Index="0" RelativeSize="7.5471698113207548" IsNewNode="True" />
+                <LayoutItem Id="FirstName" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="1" />
+                <LayoutItem Id="MiddleName" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="2" />
+                <LayoutItem Id="LastName" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="3" />
+                <LayoutItem Id="FullName" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="4" />
+                <LayoutItem Id="Gender" SizeConstraintsType="Default" Index="5" RelativeSize="5.6603773584905657" ViewItem="Gender" IsNewNode="True" />
+                <LayoutItem Id="DateOfBirth" ViewItem="DateOfBirth" SizeConstraintsType="Default" Index="6" RelativeSize="5.6603773584905657" IsNewNode="True" />
+                <LayoutItem Id="Nationality" SizeConstraintsType="Default" Index="7" RelativeSize="5.6603773584905657" />
+                <LayoutItem Id="SocialID" SizeConstraintsType="Default" Index="7" RelativeSize="5.3571428571428568" Removed="True" />
+                <LayoutItem Id="Email" ViewItem="Email" SizeConstraintsType="Default" Index="8" RelativeSize="5.6603773584905657" IsNewNode="True" />
+                <LayoutItem Id="Company" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="9" />
+                <LayoutItem Id="Department" ViewItem="Department" SizeConstraintsType="Default" Index="10" RelativeSize="5.6603773584905657" IsNewNode="True" />
+                <LayoutItem Id="JobPosition" SizeConstraintsType="Default" Index="11" RelativeSize="5.6603773584905657" />
+                <LayoutItem Id="MaritalStatus" ViewItem="MaritalStatus" SizeConstraintsType="Default" Index="12" RelativeSize="5.6603773584905657" IsNewNode="True" />
+                <LayoutItem Id="MilitaryStatus" ViewItem="MilitaryStatus" SizeConstraintsType="Default" Index="13" RelativeSize="5.6603773584905657" IsNewNode="True" />
+                <LayoutItem Id="EmploymentStatus" SizeConstraintsType="Default" Index="14" RelativeSize="5.6603773584905657" ViewItem="EmploymentStatus" IsNewNode="True" />
+                <LayoutItem Id="EmploymentType" SizeConstraintsType="Default" Index="15" RelativeSize="5.6603773584905657" />
+                <LayoutItem Id="EmploymentDate" SizeConstraintsType="Default" Index="16" RelativeSize="7.5471698113207548" />
+                <LayoutItem Id="Employee_IMAGE" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Employee_col2" RelativeSize="50.102249488752555">
+                <LayoutItem Id="Employee_IMAGE" ViewItem="Employee_IMAGE" SizeConstraintsType="Default" Index="0" RelativeSize="7.5471698113207548" IsNewNode="True" />
+                <LayoutItem Id="Gender" SizeConstraintsType="Default" Index="1" RelativeSize="6.75" Removed="True" />
+                <LayoutItem Id="Item1" ShowCaption="False" SizeConstraintsType="Default" Index="1" RelativeSize="40.566037735849058" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="DateOfBirth" SizeConstraintsType="Default" Index="2" RelativeSize="11.538461538461538" Removed="True" />
+                <LayoutItem Id="SocialID" ViewItem="SocialID" SizeConstraintsType="Default" Index="2" RelativeSize="5.6603773584905657" IsNewNode="True" />
+                <LayoutItem Id="MilitaryStatus" SizeConstraintsType="Default" Index="3" RelativeSize="71.428571428571431" Removed="True" />
+                <LayoutItem Id="SocialInsuranceStatus" SizeConstraintsType="Default" Index="3" RelativeSize="5.6603773584905657" />
+                <LayoutItem Id="MaritalStatus" SizeConstraintsType="Default" Index="4" RelativeSize="59.375" Removed="True" />
+                <LayoutItem Id="SocialInsuranceNo" SizeConstraintsType="Default" Index="4" RelativeSize="5.6603773584905657" />
+                <LayoutItem Id="SocialInsuranceStartDate" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="5" />
+                <LayoutItem Id="MedicalInsuranceStatus" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="6" />
+                <LayoutItem Id="MedicalInsuranceNo" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="7" />
+                <LayoutItem Id="MedicalInsuranceStartDate" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="8" />
+                <LayoutItem Id="Item2" ShowCaption="False" SizeConstraintsType="Default" Index="9" RelativeSize="2.358490566037736" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Item3" ShowCaption="False" SizeConstraintsType="Default" Index="10" RelativeSize="2.358490566037736" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Item4" ShowCaption="False" SizeConstraintsType="Default" Index="11" RelativeSize="2.358490566037736" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Item5" ShowCaption="False" SizeConstraintsType="Default" Index="12" RelativeSize="2.358490566037736" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Item6" ShowCaption="False" SizeConstraintsType="Default" Index="13" RelativeSize="2.8301886792452828" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="7.5471698113207548" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <TabbedGroup Id="Item8" CaptionLocation="Top" Index="1" RelativeSize="12.307692307692308" IsNewNode="True">
+              <LayoutGroup Id="Item7" ShowCaption="True" Caption="Pending Activities" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="PendingActivities" ViewItem="PendingActivities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item10" ShowCaption="True" Caption="History Activities" CaptionLocation="Top" Index="1" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="HistoryActivities" ViewItem="HistoryActivities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Attachments" ShowCaption="True" Index="2" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="HR_Attachments" ShowCaption="False" ViewItem="HR_Attachments" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Addresses" ShowCaption="True" Index="3" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Addresses" ShowCaption="False" ViewItem="Addresses" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Phones" ShowCaption="True" Index="4" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Phones" ShowCaption="False" ViewItem="Phones" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+            <LayoutGroup Id="HR_Entity" RelativeSize="15.418502202643172" Removed="True">
+              <LayoutGroup Id="HR_Entity_col1" RelativeSize="50.092764378478662" Caption="HR_Entity_col1">
+                <LayoutItem Id="Discription" SizeConstraintsType="Default" RelativeSize="50" Index="0" Removed="True" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="100" Index="0" />
+                <LayoutItem Id="Code" SizeConstraintsType="Default" RelativeSize="36.363636363636367" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Entity_col2" RelativeSize="49.907235621521338" Caption="HR_Entity_col2">
+                <LayoutItem Id="Email" SizeConstraintsType="Default" RelativeSize="50" Removed="True" />
+                <LayoutItem Id="Notes" Removed="True" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="100" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="9.3577981651376145" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Description" Removed="True" />
+            <LayoutItem Id="Notes" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="27.066666666666666" Removed="True">
+            <LayoutGroup Id="Phones" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Addresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Employee_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Employee_IMAGE" Index="-1" />
+        <ColumnInfo Id="MedicalInsuranceNo" Index="-1" />
+        <ColumnInfo Id="MedicalInsuranceStartDate" Index="-1" />
+        <ColumnInfo Id="MedicalInsuranceStatus" Index="-1" />
+        <ColumnInfo Id="SocialInsuranceNo" Index="-1" />
+        <ColumnInfo Id="SocialInsuranceStartDate" Index="-1" />
+        <ColumnInfo Id="SocialInsuranceStatus" Index="-1" />
+        <ColumnInfo Id="Code" Index="0" Width="29" />
+        <ColumnInfo Id="FirstName" SortIndex="-1" SortOrder="None" Index="1" Width="22" />
+        <ColumnInfo Id="MiddleName" Index="2" Width="20" />
+        <ColumnInfo Id="LastName" Index="3" Width="23" />
+        <ColumnInfo Id="FullName" Index="4" Width="41" />
+        <ColumnInfo Id="Gender" Index="5" Width="27" />
+        <ColumnInfo Id="DateOfBirth" Index="6" SortIndex="0" SortOrder="Ascending" Width="21" />
+        <ColumnInfo Id="Nationality" Index="7" Width="20" />
+        <ColumnInfo Id="SocialID" Width="40" Index="8" />
+        <ColumnInfo Id="Email" Index="9" Width="20" />
+        <ColumnInfo Id="EmploymentStatus" Index="10" Width="20" />
+        <ColumnInfo Id="EmploymentType" Width="38" Index="11" />
+        <ColumnInfo Id="EmploymentDate" Index="12" Width="25" />
+        <ColumnInfo Id="MilitaryStatus" Index="13" Width="27" />
+        <ColumnInfo Id="MaritalStatus" Index="14" Width="41" />
+        <ColumnInfo Id="JobPosition" Width="34" Index="15" />
+        <ColumnInfo Id="Department" Width="26" Index="16" />
+        <ColumnInfo Id="Company" Width="36" Index="17" />
+        <ColumnInfo Id="Oid" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Employee_LookupListView">
+      <Columns>
+        <ColumnInfo Id="EmploymentStatus" Index="-1" Caption="EmploymentStatus" PropertyName="EmploymentStatus" IsNewNode="True" />
+        <ColumnInfo Id="FirstName" SortOrder="Descending" Index="-1" />
+        <ColumnInfo Id="Gender" Index="-1" Caption="Gender" PropertyName="Gender" IsNewNode="True" />
+        <ColumnInfo Id="Code" Index="0" Caption="Code" PropertyName="Code" IsNewNode="True" />
+        <ColumnInfo Id="FullName" Index="1" Caption="FullName" PropertyName="FullName" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="JobPosition_Employees_ListView">
+      <Columns>
+        <ColumnInfo Id="Employee_IMAGE" Width="20" Index="-1" />
+        <ColumnInfo Id="JobPosition" Width="20" Index="-1" />
+        <ColumnInfo Id="MedicalInsuranceNo" Width="20" Index="-1" />
+        <ColumnInfo Id="MedicalInsuranceStartDate" Width="20" Index="-1" />
+        <ColumnInfo Id="MedicalInsuranceStatus" Width="20" Index="-1" />
+        <ColumnInfo Id="SocialInsuranceNo" Width="20" Index="-1" />
+        <ColumnInfo Id="SocialInsuranceStartDate" Width="20" Index="-1" />
+        <ColumnInfo Id="SocialInsuranceStatus" Width="20" Index="-1" />
+        <ColumnInfo Id="Code" Index="0" Width="31" />
+        <ColumnInfo Id="FirstName" Width="20" Index="1" />
+        <ColumnInfo Id="MiddleName" Width="20" Index="2" />
+        <ColumnInfo Id="LastName" Width="20" Index="3" />
+        <ColumnInfo Id="FullName" Width="31" Index="4" />
+        <ColumnInfo Id="Gender" Width="20" Index="5" />
+        <ColumnInfo Id="DateOfBirth" Width="20" Index="6" />
+        <ColumnInfo Id="Nationality" Width="20" Index="7" />
+        <ColumnInfo Id="SocialID" Width="20" Index="8" />
+        <ColumnInfo Id="Email" Index="9" Width="42" />
+        <ColumnInfo Id="MilitaryStatus" Width="20" Index="10" />
+        <ColumnInfo Id="MaritalStatus" Width="26" Index="11" />
+        <ColumnInfo Id="EmploymentStatus" Width="20" Index="12" />
+        <ColumnInfo Id="EmploymentDate" Width="20" Index="13" />
+        <ColumnInfo Id="EmploymentType" Width="20" Index="14" />
+        <ColumnInfo Id="Department" Width="20" Index="15" />
+        <ColumnInfo Id="Company" Width="20" Index="16" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectMethodParameter" IsDesigned="True">
+      <AppearanceRules>
+        <AppearanceRule Id="Link" TargetItems="Link;Unlink" AppearanceItemType="Action" Visibility="Hide" Enabled="False" Index="1" IsNewNode="True" />
+        <AppearanceRule Id="Delete" TargetItems="Delete" AppearanceItemType="Action" Criteria="Not IsNullOrEmpty([AriaObjectMethod.ObjectRevision])" Visibility="Hide" Enabled="False" Index="2" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="AriaObjectMethod" AllowEdit="False" />
+        <Member Name="ParameterNo" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectMethod_AriaObjectMethodParameters_ListView" IsFooterVisible="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethod_AriaObjectMethodParametersArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethodParameter_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethodParameter_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAMainFeature" IsDesigned="True" Caption="Main Feature">
+      <OwnMembers>
+        <Member Name="Enddate" AllowEdit="True" Caption="End Date" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAMainFeature_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="35.143769968051117">
+            <LayoutGroup Id="QAMainFeature" RelativeSize="100">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="29.09090909090909" ViewItem="Name" />
+              <LayoutItem Id="ProjectEntity" SizeConstraintsType="Default" RelativeSize="21.818181818181817" ViewItem="ProjectEntity" />
+              <LayoutItem Id="TrackingEntry" SizeConstraintsType="Default" RelativeSize="21.818181818181817" ViewItem="TrackingEntry" />
+              <LayoutItem Id="Enddate" SizeConstraintsType="Default" RelativeSize="27.272727272727273" ViewItem="Enddate" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="10.543130990415335">
+            <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Description" />
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="2" RelativeSize="54.313099041533548" IsNewNode="True">
+            <LayoutGroup Id="ChangeHistory_Group" ShowCaption="True" Caption="Change History" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="ChangeHistory" ViewItem="ChangeHistory" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TrackingEntry_EntityFeatures_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ProjectEntity" Width="77" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="106" Index="-1" />
+        <ColumnInfo Id="Name" Width="134" />
+        <ColumnInfo Id="Description" Index="1" Width="316" />
+        <ColumnInfo Id="Enddate" Width="89" Index="2" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

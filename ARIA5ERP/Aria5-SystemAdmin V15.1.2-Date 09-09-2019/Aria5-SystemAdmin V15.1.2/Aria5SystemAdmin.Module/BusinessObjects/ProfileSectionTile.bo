@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ProfileSectionTile" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="ProfileSection_ProfileSectionTiles_ListView" DataAccessMode="DataView" />
+    <DetailView Id="ProfileSectionTile_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ProfileSectionTile" RelativeSize="100" Direction="Horizontal">
+              <LayoutGroup Id="ProfileSectionTile_col1" ShowCaption="False" Index="0" RelativeSize="44" IsNewNode="True" Removed="True">
+                <LayoutItem Id="TileID" ViewItem="TileID" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="Entity" ViewItem="Entity" SizeConstraintsType="Default" Index="2" RelativeSize="92" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProfileSectionTile_col2" ShowCaption="False" Caption="Filter" Direction="Vertical" Index="1" RelativeSize="52" IsNewNode="True" Removed="True">
+                <LayoutItem Id="Filter" ViewItem="Filter" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
+                <LayoutItem Id="Section" ViewItem="Section" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83" Removed="True">
+            <LayoutGroup Id="Categories" RelativeSize="100" Index="0">
+              <LayoutItem Id="Categories" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Categories" />
+            </LayoutGroup>
+            <LayoutGroup Id="Entities" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Entities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Entities" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ProfileSectionTile_ListView" DataAccessMode="DataView" />
+    <ListView Id="ProfileSectionTile_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

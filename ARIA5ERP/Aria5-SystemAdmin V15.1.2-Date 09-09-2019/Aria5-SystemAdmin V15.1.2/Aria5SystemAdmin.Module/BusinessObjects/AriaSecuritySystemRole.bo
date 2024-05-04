@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaSecuritySystemRole" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="AriaSecuritySystemRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="15.466666666666667">
+            <LayoutGroup Id="AriaSecuritySystemRole" RelativeSize="30.172413793103448">
+              <LayoutItem Id="Account" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Account" />
+            </LayoutGroup>
+            <LayoutGroup Id="SecuritySystemRoleBase" Index="1" RelativeSize="69.827586206896555">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="33.333333333333336" ViewItem="Name" />
+              <LayoutItem Id="IsAdministrative" SizeConstraintsType="Default" RelativeSize="29.62962962962963" ViewItem="IsAdministrative" />
+              <LayoutItem Id="CanEditModel" SizeConstraintsType="Default" RelativeSize="37.037037037037038" ViewItem="CanEditModel" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="84.533333333333331">
+            <LayoutGroup Id="EntityOperationPermissions" RelativeSize="100">
+              <LayoutItem Id="EntityOperationPermissions" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityOperationPermissions" />
+            </LayoutGroup>
+            <LayoutGroup Id="Users" RelativeSize="100">
+              <LayoutItem Id="Users" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Users" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChildRoles" RelativeSize="100">
+              <LayoutItem Id="ChildRoles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChildRoles" />
+            </LayoutGroup>
+            <LayoutGroup Id="ParentRoles" RelativeSize="100">
+              <LayoutItem Id="ParentRoles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ParentRoles" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" RelativeSize="100" Removed="True">
+              <LayoutItem Id="TypePermissions" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TypePermissions" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaSecuritySystemRole_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaSecuritySystemRole_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

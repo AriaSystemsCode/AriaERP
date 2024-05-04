@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DataSort" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="DataSort_ListView" DataAccessMode="DataView" />
+    <ListView Id="DataSort_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="EntityType_DataSorts_ListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

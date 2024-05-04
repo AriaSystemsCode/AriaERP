@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ProjectTemplate" IsDesigned="True" Caption="Iteration Project ">
+      <OwnMembers>
+        <Member Name="Attachements" Caption="Attachments" />
+        <Member Name="Commentses" Caption="Comments" />
+        <Member Name="Completness" AllowEdit="False" Caption="Project Time Progress" />
+        <Member Name="Description" RowCount="10" />
+        <Member Name="EndDate" AllowEdit="True" />
+        <Member Name="IterationNumber" Caption="Iteration Number\Year" />
+        <Member Name="Name" AllowEdit="True" />
+        <Member Name="PhaseM0" Caption=" M0" />
+        <Member Name="PhaseM1" Caption=" M1" />
+        <Member Name="PhaseM2" Caption=" M2" />
+        <Member Name="PhaseM3" Caption=" M3" />
+        <Member Name="PrjctArchDision" Caption="Project Architecture Decisions" />
+        <Member Name="PrjctArchUMLDigrm" Caption="Project Architecture UML Diagrams" />
+        <Member Name="ProjectEntities" DataSourceProperty="" />
+        <Member Name="Requirements" DataSourceProperty="Application.Requirements" />
+        <Member Name="TestCases" DataSourceProperty="Application.TestCases" DataSourceCriteria="[TestRuns][].Count() = 0" />
+        <Member Name="TestRuns" DataSourceProperty="Application.TestRuns" />
+        <Member Name="UseCases" DataSourceProperty="" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Activity_ProjectTemplates_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="AutoTaskID" Width="22" Index="-1" />
+        <ColumnInfo Id="Completness" Width="45" Index="-1" />
+        <ColumnInfo Id="EntitySpecificationActual" Index="-1" Width="20" />
+        <ColumnInfo Id="EntitySpecificationEstimation" Index="-1" Width="20" />
+        <ColumnInfo Id="IterationNumber" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="PhaseM0" Index="-1" />
+        <ColumnInfo Id="PhaseM0_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM0_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM1" Index="-1" />
+        <ColumnInfo Id="PhaseM1_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM1_statues" Index="-1" Width="21" />
+        <ColumnInfo Id="PhaseM2" Index="-1" />
+        <ColumnInfo Id="PhaseM2_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM2_statues" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM3" Index="-1" />
+        <ColumnInfo Id="PhaseM3_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM3_statues" Index="-1" Width="22" />
+        <ColumnInfo Id="PrjctArchDision" Width="22" Index="-1" />
+        <ColumnInfo Id="PrjctArchUMLDigrm" Width="22" Index="-1" />
+        <ColumnInfo Id="TestCasePassRatio" Width="51" Index="-1" />
+        <ColumnInfo Id="Name" Width="120" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Application" Width="51" />
+        <ColumnInfo Id="Type" Width="51" Index="2" />
+        <ColumnInfo Id="Status" Index="3" Width="51" />
+        <ColumnInfo Id="StartDate" Width="51" Index="4" />
+        <ColumnInfo Id="EndDate" Width="51" Index="5" />
+        <ColumnInfo Id="UseCasePoints" Width="51" Index="6" />
+        <ColumnInfo Id="ProjectOwner" Index="7" Width="72" />
+        <ColumnInfo Id="Description" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="Application_T_ProjectTemplates_ListView">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="Application" Width="58" />
+        <ColumnInfo Id="Completness" Width="20" Index="-1" />
+        <ColumnInfo Id="EntitySpecificationActual" Index="-1" Width="20" />
+        <ColumnInfo Id="EntitySpecificationEstimation" Index="-1" Width="20" />
+        <ColumnInfo Id="IterationNumber" Index="-1" />
+        <ColumnInfo Id="PhaseM0" Index="-1" />
+        <ColumnInfo Id="PhaseM0_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM0_statues" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM1" Index="-1" />
+        <ColumnInfo Id="PhaseM1_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM1_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM2" Index="-1" Width="23" />
+        <ColumnInfo Id="PhaseM2_SPI" Index="-1" Width="22" />
+        <ColumnInfo Id="PhaseM2_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM3" Index="-1" />
+        <ColumnInfo Id="PhaseM3_SPI" Index="-1" Width="20" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="PhaseM3_statues" Index="-1" Width="22" />
+        <ColumnInfo Id="PrjctArchDision" Width="23" Index="-1" />
+        <ColumnInfo Id="PrjctArchUMLDigrm" Width="23" Index="-1" />
+        <ColumnInfo Id="TestCasePassRatio" Width="23" Index="-1" />
+        <ColumnInfo Id="Name" Width="128" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Type" Width="58" Index="2" />
+        <ColumnInfo Id="Status" Index="3" Width="51" />
+        <ColumnInfo Id="StartDate" Width="58" Index="4" />
+        <ColumnInfo Id="EndDate" Width="58" Index="5" />
+        <ColumnInfo Id="UseCasePoints" Width="58" Index="6" />
+        <ColumnInfo Id="ProjectOwner" Index="7" Width="55" />
+        <ColumnInfo Id="AutoTaskID" Width="70" Index="8" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ProjectTemplate_DetailView">
+      <Items>
+        <PropertyEditor Id="AutoTaskID" AllowEdit="False" />
+        <PropertyEditor Id="Completness" Caption="Project Time Progress" />
+        <PropertyEditor Id="PhaseM0_SPI" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM0_statues" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM1_SPI" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM1_statues" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM2_SPI" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM2_statues" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM3_SPI" AllowEdit="False" />
+        <PropertyEditor Id="PhaseM3_statues" AllowEdit="False" />
+        <PropertyEditor Id="ProjectOwner" DataSourceCriteria="" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="51.466666666666669">
+            <LayoutGroup Id="ProjectTemplate" RelativeSize="62.176165803108809">
+              <LayoutGroup Id="ProjectTemplate_col1" RelativeSize="37.774725274725277">
+                <LayoutItem Id="Type" SizeConstraintsType="Default" Index="0" RelativeSize="15.384615384615385" ViewItem="Type" IsNewNode="True" />
+                <LayoutItem Id="Application" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="1" ViewItem="Application" />
+                <LayoutItem Id="IterationNumber" ViewItem="IterationNumber" Index="2" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="3" ViewItem="Name" />
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="4" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="Completness" SizeConstraintsType="Default" RelativeSize="10.344827586206897" Index="5" ViewItem="Completness" Removed="True" />
+                <LayoutItem Id="StartDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="5" ViewItem="StartDate" />
+                <LayoutItem Id="TestCasePassRatio" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="5" ViewItem="TestCasePassRatio" Removed="True" />
+                <LayoutItem Id="EndDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="6" ViewItem="EndDate" />
+                <LayoutItem Id="PrjctArchUMLDigrm" SizeConstraintsType="Default" Index="6" RelativeSize="11.538461538461538" ViewItem="PrjctArchUMLDigrm" Removed="True" />
+                <LayoutItem Id="UseCasePoints" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="6" ViewItem="UseCasePoints" Removed="True" />
+                <LayoutItem Id="AutoTaskID" SizeConstraintsType="Default" Index="7" RelativeSize="15.384615384615385" ViewItem="AutoTaskID" IsNewNode="True" />
+                <LayoutItem Id="PhaseM0" SizeConstraintsType="Default" Index="8" RelativeSize="8.5714285714285712" ViewItem="PhaseM0" Removed="True" />
+                <LayoutItem Id="PhaseM1" SizeConstraintsType="Default" Index="8" RelativeSize="9.375" ViewItem="PhaseM1" Removed="True" />
+                <LayoutItem Id="PhaseM3" Index="8" RelativeSize="13.793103448275861" ViewItem="PhaseM3" Removed="True" />
+                <LayoutItem Id="PhaseM2" ViewItem="PhaseM2" Removed="True" />
+                <LayoutItem Id="PrjctArchDision" SizeConstraintsType="Default" RelativeSize="13.793103448275861" ViewItem="PrjctArchDision" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProjectTemplate_col2" RelativeSize="62.225274725274723">
+                <LayoutItem Id="Account" Index="0" RelativeSize="15.384615384615385" ViewItem="Account" />
+                <LayoutItem Id="UseCasePoints" ViewItem="UseCasePoints" SizeConstraintsType="Default" Index="1" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="TestCasePassRatio" ViewItem="TestCasePassRatio" SizeConstraintsType="Default" Index="2" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="EntitySpecificationEstimation" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="3" ViewItem="EntitySpecificationEstimation" />
+                <LayoutItem Id="EntitySpecificationActual" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="4" ViewItem="EntitySpecificationActual" />
+                <LayoutItem Id="PhaseM1_statues" SizeConstraintsType="Default" Index="4" RelativeSize="9.67741935483871" ViewItem="PhaseM1_statues" Removed="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" Index="4" RelativeSize="12" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="ProjectOwner" SizeConstraintsType="Default" Index="5" RelativeSize="11.538461538461538" ViewItem="ProjectOwner" />
+                <LayoutItem Id="Completness" ViewItem="Completness" CaptionLocation="Top" SizeConstraintsType="Default" Index="6" RelativeSize="26.923076923076923" IsNewNode="True" />
+                <LayoutItem Id="IterationNumber" Index="6" RelativeSize="10.714285714285714" ViewItem="IterationNumber" Removed="True" />
+                <LayoutItem Id="PhaseM0_SPI" SizeConstraintsType="Default" Index="6" RelativeSize="8.8235294117647065" ViewItem="PhaseM0_SPI" Removed="True" />
+                <LayoutItem Id="PhaseM1_SPI" SizeConstraintsType="Default" Index="6" RelativeSize="9.375" ViewItem="PhaseM1_SPI" Removed="True" />
+                <LayoutItem Id="PhaseM2_SPI" SizeConstraintsType="Default" Index="6" RelativeSize="9.375" ViewItem="PhaseM2_SPI" Removed="True" />
+                <LayoutItem Id="PhaseM2_statues" SizeConstraintsType="Default" Index="6" RelativeSize="10.714285714285714" ViewItem="PhaseM2_statues" Removed="True" />
+                <LayoutItem Id="PhaseM3_SPI" SizeConstraintsType="Default" Index="6" RelativeSize="34.375" ViewItem="PhaseM3_SPI" Removed="True" />
+                <LayoutItem Id="PhaseM3_statues" SizeConstraintsType="Default" Index="6" RelativeSize="19.23076923076923" ViewItem="PhaseM3_statues" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Autoffbf980c-dad7-49fe-bde3-2e2e38153972" ShowCaption="False" Caption="Autoffbf980c-dad7-49fe-bde3-2e2e38153972(18)" Direction="Vertical" Index="1" RelativeSize="37.823834196891191" IsNewNode="True">
+              <LayoutGroup Id="Item1" ShowCaption="True" Caption="Phases Time Progress" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="Auto5e53c85a-2752-4c10-a8ee-8dd2931cd593" ShowCaption="False" Caption="Auto5e53c85a-2752-4c10-a8ee-8dd2931cd593(28)" Index="0" RelativeSize="25.412087912087912" IsNewNode="True">
+                  <LayoutItem Id="PhaseM0" ViewItem="PhaseM0" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="43.636363636363633" IsNewNode="True" />
+                  <LayoutGroup Id="Autoebc98c82-2443-4803-8879-dc09c440603f" ShowCaption="False" Caption="Autoebc98c82-2443-4803-8879-dc09c440603f(26)" Direction="Vertical" Index="1" RelativeSize="54.545454545454547" IsNewNode="True">
+                    <LayoutItem Id="PhaseM0_statues" ShowCaption="False" ViewItem="PhaseM0_statues" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                    <LayoutItem Id="PhaseM0_SPI" ShowCaption="False" ViewItem="PhaseM0_SPI" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autof063c805-dc46-4c36-920f-16d20a1778fc" ShowCaption="False" Caption="Autof063c805-dc46-4c36-920f-16d20a1778fc(254)" Direction="Horizontal" Index="2" RelativeSize="1.8181818181818181" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto5ebd0018-e891-45e2-9be6-880bad123915" ShowCaption="False" Caption="Auto5ebd0018-e891-45e2-9be6-880bad123915(257)" Direction="Horizontal" Index="1" RelativeSize="74.587912087912088" IsNewNode="True">
+                  <LayoutGroup Id="Auto6ecd9fc4-6fef-48f3-a969-f25e6e2cde53" ShowCaption="False" Caption="Auto6ecd9fc4-6fef-48f3-a969-f25e6e2cde53(258)" Index="0" RelativeSize="32.965009208103133" IsNewNode="True">
+                    <LayoutItem Id="PhaseM1" ViewItem="PhaseM1" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="43.636363636363633" IsNewNode="True" />
+                    <LayoutGroup Id="Autoa5a5a7f2-442c-4d0a-a5c3-32e0c6202b7c" ShowCaption="False" Caption="Autoa5a5a7f2-442c-4d0a-a5c3-32e0c6202b7c(33)" Direction="Vertical" Index="1" RelativeSize="56.363636363636367" IsNewNode="True">
+                      <LayoutItem Id="PhaseM1_statues" ShowCaption="False" ViewItem="PhaseM1_statues" SizeConstraintsType="Default" Index="0" RelativeSize="48.387096774193552" IsNewNode="True" />
+                      <LayoutItem Id="PhaseM1_SPI" ShowCaption="False" ViewItem="PhaseM1_SPI" SizeConstraintsType="Default" Index="1" RelativeSize="51.612903225806448" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="Auto5eec65fd-dc89-48bc-8b84-dc5cb683b120" ShowCaption="False" Caption="Auto5eec65fd-dc89-48bc-8b84-dc5cb683b120(261)" Direction="Horizontal" Index="1" RelativeSize="67.034990791896874" IsNewNode="True">
+                    <LayoutGroup Id="Autoe83e31e5-dfb7-4bd0-b337-69623d67cb0d" ShowCaption="False" Caption="Autoe83e31e5-dfb7-4bd0-b337-69623d67cb0d(262)" Index="0" RelativeSize="49.175824175824175" IsNewNode="True">
+                      <LayoutItem Id="PhaseM2" ViewItem="PhaseM2" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="43.636363636363633" IsNewNode="True" />
+                      <LayoutGroup Id="Auto501044d3-0e59-4bc8-9d5c-292aeccc5fe8" ShowCaption="False" Caption="Auto501044d3-0e59-4bc8-9d5c-292aeccc5fe8(39)" Direction="Vertical" Index="1" RelativeSize="56.363636363636367" IsNewNode="True">
+                        <LayoutItem Id="PhaseM2_statues" ShowCaption="False" ViewItem="PhaseM2_statues" SizeConstraintsType="Default" Index="0" RelativeSize="48.387096774193552" IsNewNode="True" />
+                        <LayoutItem Id="PhaseM2_SPI" ShowCaption="False" ViewItem="PhaseM2_SPI" SizeConstraintsType="Default" Index="1" RelativeSize="51.612903225806448" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                    <LayoutGroup Id="Auto58677ab8-e0a2-4a28-9da8-5465cb010875" ShowCaption="False" Caption="Auto58677ab8-e0a2-4a28-9da8-5465cb010875(265)" Index="1" RelativeSize="50.824175824175825" IsNewNode="True">
+                      <LayoutItem Id="PhaseM3" ViewItem="PhaseM3" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="43.636363636363633" IsNewNode="True" />
+                      <LayoutGroup Id="Auto2a71f6eb-b2d0-4bae-967a-c9f1a04c37a1" ShowCaption="False" Caption="Auto2a71f6eb-b2d0-4bae-967a-c9f1a04c37a1(44)" Direction="Vertical" Index="1" RelativeSize="56.363636363636367" IsNewNode="True">
+                        <LayoutItem Id="PhaseM3_statues" ShowCaption="False" ViewItem="PhaseM3_statues" SizeConstraintsType="Default" Index="0" RelativeSize="48.387096774193552" IsNewNode="True" />
+                        <LayoutItem Id="PhaseM3_SPI" ShowCaption="False" ViewItem="PhaseM3_SPI" SizeConstraintsType="Default" Index="1" RelativeSize="51.612903225806448" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="48.533333333333331" Index="1">
+            <LayoutGroup Id="Scope" RelativeSize="100" Index="0">
+              <LayoutItem Id="Scope" RelativeSize="100" ViewItem="Scope" />
+            </LayoutGroup>
+            <LayoutGroup Id="Requirements" RelativeSize="100" Index="1">
+              <LayoutItem Id="Requirements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Requirements" />
+            </LayoutGroup>
+            <LayoutGroup Id="UseCases" RelativeSize="100" Index="2">
+              <LayoutItem Id="UseCases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UseCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="ProjectEntities" RelativeSize="100" Index="3">
+              <LayoutItem Id="ProjectEntities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ProjectEntities" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestCases" RelativeSize="100" Index="4">
+              <LayoutItem Id="TestCases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestPlans" RelativeSize="100" Index="5">
+              <LayoutItem Id="TestPlans" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestPlans" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestRuns" RelativeSize="100" Index="6">
+              <LayoutItem Id="TestRuns" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestRuns" />
+            </LayoutGroup>
+            <LayoutGroup Id="Activities" RelativeSize="100" Index="7" Removed="True">
+              <LayoutItem Id="Activities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Activities" />
+            </LayoutGroup>
+            <LayoutGroup Id="Environments" RelativeSize="100" Index="7">
+              <LayoutItem Id="Environments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Environments" />
+            </LayoutGroup>
+            <LayoutGroup Id="Defects" RelativeSize="100" Index="8">
+              <LayoutItem Id="Defects" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Defects" />
+            </LayoutGroup>
+            <LayoutGroup Id="Commentses" RelativeSize="100" Index="9">
+              <LayoutItem Id="Commentses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Commentses" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100" Index="10">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="ManagementIssues" RelativeSize="100" Index="11">
+              <LayoutItem Id="ManagementIssues" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ManagementIssues" />
+            </LayoutGroup>
+            <LayoutGroup Id="ResourceShares" RelativeSize="100" Index="12">
+              <LayoutItem Id="ResourceShares" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ResourceShares" />
+            </LayoutGroup>
+            <LayoutGroup Id="Risks" RelativeSize="100" Index="13">
+              <LayoutItem Id="Risks" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Risks" />
+            </LayoutGroup>
+            <LayoutGroup Id="POCs" RelativeSize="100" Index="14">
+              <LayoutItem Id="POCs" RelativeSize="100" ViewItem="POCs" />
+            </LayoutGroup>
+            <LayoutGroup Id="TrackignTasks" RelativeSize="100" Index="15" Caption="Tracking Tasks">
+              <LayoutItem Id="TrackignTasks" RelativeSize="100" ViewItem="TrackignTasks" />
+            </LayoutGroup>
+            <LayoutGroup Id="NonComplians" RelativeSize="100" Index="16">
+              <LayoutItem Id="NonComplians" RelativeSize="100" ViewItem="NonComplians" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100" Index="17">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" Caption="Description" Direction="Horizontal" RelativeSize="36.4" Removed="True">
+            <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ProjectTemplate_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="Completness" SortIndex="-1" SortOrder="None" Index="-1" Width="94" />
+        <ColumnInfo Id="EntitySpecificationActual" Width="32" Index="-1" />
+        <ColumnInfo Id="EntitySpecificationEstimation" Width="22" Index="-1" />
+        <ColumnInfo Id="IterationNumber" Index="-1" />
+        <ColumnInfo Id="PhaseM0" Index="-1" Width="37" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="PhaseM0_SPI" Index="-1" Width="72" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="PhaseM0_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM1" Index="-1" Width="37" />
+        <ColumnInfo Id="PhaseM1_SPI" Index="-1" Width="72" />
+        <ColumnInfo Id="PhaseM1_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM2" Index="-1" Width="37" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="PhaseM2_SPI" Index="-1" Width="72" />
+        <ColumnInfo Id="PhaseM2_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM3" Index="-1" Width="37" />
+        <ColumnInfo Id="PhaseM3_SPI" Index="-1" Width="78" />
+        <ColumnInfo Id="PhaseM3_statues" Index="-1" />
+        <ColumnInfo Id="PrjctArchDision" Index="-1" Width="28" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="PrjctArchUMLDigrm" Index="-1" Width="28" />
+        <ColumnInfo Id="ProjectOwner" Index="-1" />
+        <ColumnInfo Id="TestCasePassRatio" Index="-1" SortIndex="-1" SortOrder="None" Width="23" />
+        <ColumnInfo Id="Name" SortOrder="None" SortIndex="-1" Width="144" />
+        <ColumnInfo Id="Application" SortIndex="-1" SortOrder="None" Width="86" />
+        <ColumnInfo Id="Type" Index="2" Width="72" />
+        <ColumnInfo Id="StartDate" SortIndex="-1" SortOrder="None" Width="79" Index="3" />
+        <ColumnInfo Id="EndDate" Index="4" SortIndex="-1" SortOrder="None" Width="70" />
+        <ColumnInfo Id="Status" Index="5" Width="85" />
+        <ColumnInfo Id="UseCasePoints" Index="6" Width="81" />
+        <ColumnInfo Id="AutoTaskID" Index="7" Width="125" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="QADefect_ProjectTemplates_ListView">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="Completness" Width="28" Index="-1" />
+        <ColumnInfo Id="EntitySpecificationActual" Index="-1" />
+        <ColumnInfo Id="EntitySpecificationEstimation" Index="-1" Width="28" />
+        <ColumnInfo Id="IterationNumber" Index="-1" />
+        <ColumnInfo Id="PhaseM0" Index="-1" />
+        <ColumnInfo Id="PhaseM0_SPI" Index="-1" />
+        <ColumnInfo Id="PhaseM0_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM1" Index="-1" />
+        <ColumnInfo Id="PhaseM1_SPI" Index="-1" />
+        <ColumnInfo Id="PhaseM1_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM2" Index="-1" />
+        <ColumnInfo Id="PhaseM2_SPI" Index="-1" />
+        <ColumnInfo Id="PhaseM2_statues" Index="-1" />
+        <ColumnInfo Id="PhaseM3" Index="-1" />
+        <ColumnInfo Id="PhaseM3_SPI" Index="-1" />
+        <ColumnInfo Id="PhaseM3_statues" Index="-1" />
+        <ColumnInfo Id="PrjctArchDision" Width="38" Index="-1" />
+        <ColumnInfo Id="PrjctArchUMLDigrm" Width="38" Index="-1" />
+        <ColumnInfo Id="TestCasePassRatio" Width="38" Index="-1" />
+        <ColumnInfo Id="Name" Width="98" />
+        <ColumnInfo Id="Application" Width="38" />
+        <ColumnInfo Id="Type" Width="38" Index="2" />
+        <ColumnInfo Id="StartDate" Width="38" Index="3" />
+        <ColumnInfo Id="EndDate" Width="38" Index="4" />
+        <ColumnInfo Id="Status" Index="5" Width="38" />
+        <ColumnInfo Id="UseCasePoints" Width="38" Index="6" />
+        <ColumnInfo Id="ProjectOwner" Index="7" Width="60" />
+        <ColumnInfo Id="AutoTaskID" Width="38" Index="8" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

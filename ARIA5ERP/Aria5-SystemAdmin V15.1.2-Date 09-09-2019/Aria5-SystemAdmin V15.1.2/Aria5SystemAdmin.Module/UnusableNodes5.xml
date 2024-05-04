@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="AriaObjectMethodParameter_AriaObjectMethodParameterSettingses_ListView" AllowEdit="True" AllowNew="False" AllowDelete="False" />
+    <DetailView Id="AriaObject_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Item2">
+            <LayoutGroup Id="AriaObjectPropertieses">
+              <LayoutItem Id="AriaObjectPropertieses" ViewItem="AriaObjectPropertieses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

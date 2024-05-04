@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaSecuritySystemUser" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Account" LookupProperty="Name" />
+        <Member Name="Division" DataSourceProperty="Account.Divisions" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="AriaSecuritySystemUser_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="42.296072507552871">
+            <LayoutGroup Id="AriaSecuritySystemUser" RelativeSize="42.142857142857146">
+              <LayoutItem Id="Account" SizeConstraintsType="Default" RelativeSize="54.237288135593218" ViewItem="Account" />
+              <LayoutItem Id="Division" SizeConstraintsType="Default" RelativeSize="45.762711864406782" ViewItem="Division" />
+            </LayoutGroup>
+            <LayoutGroup Id="SecuritySystemUserBase" Index="1" RelativeSize="57.857142857142854">
+              <LayoutItem Id="ChangePasswordOnFirstLogon" SizeConstraintsType="Default" RelativeSize="33.333333333333336" ViewItem="ChangePasswordOnFirstLogon" />
+              <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="29.62962962962963" ViewItem="UserName" />
+              <LayoutItem Id="IsActive" SizeConstraintsType="Default" RelativeSize="37.037037037037038" ViewItem="IsActive" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="57.703927492447129" IsNewNode="True">
+            <LayoutGroup Id="Roles_Group" ShowCaption="True" Caption="Roles" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Roles" ViewItem="Roles" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="Roles_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaSecuritySystemUser_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaSecuritySystemUser_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

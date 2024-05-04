@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAManagementIssues" IsDesigned="True" Caption="Management Issues">
+      <OwnMembers>
+        <Member Name="AddDate" Caption="Reported Date" />
+        <Member Name="Issue" RowCount="1" />
+        <Member Name="OpenBy" Caption="Reported by" />
+        <Member Name="ProjectTemplate" Caption="Project" />
+        <Member Name="RiskRefrence" DataSourceProperty="ProjectTemplate.Risks" Caption="Risk Reference" />
+        <Member Name="RootCause" RowCount="3" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_ManagementIssues_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Description" Width="158" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="DueDate" Width="35" Index="-1" />
+        <ColumnInfo Id="ProjectTemplate" Width="35" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Resource" Width="35" Index="-1" />
+        <ColumnInfo Id="RootCause" Width="35" Index="-1" />
+        <ColumnInfo Id="Issue" Index="0" />
+        <ColumnInfo Id="OpenBy" Width="35" Index="1" />
+        <ColumnInfo Id="AddDate" Width="35" Index="2" />
+        <ColumnInfo Id="ClosedBy" Width="35" Index="3" />
+        <ColumnInfo Id="ClosureDate" Width="35" Index="4" />
+        <ColumnInfo Id="IssueType" Width="35" Index="5" />
+        <ColumnInfo Id="Priority" Width="35" Index="6" />
+        <ColumnInfo Id="Status" Width="35" Index="7" />
+        <ColumnInfo Id="RiskRefrence" Width="43" Index="8" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QAManagementIssues_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="42.359767891682786">
+            <LayoutGroup Id="QAManagementIssues" RelativeSize="100" Caption="Management Issue">
+              <LayoutGroup Id="QAManagementIssues_col1" RelativeSize="50.084602368866328">
+                <LayoutItem Id="Issue" ViewItem="Issue" SizeConstraintsType="Default" Index="0" RelativeSize="17.391304347826086" IsNewNode="True" />
+                <LayoutItem Id="OpenBy" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="1" ViewItem="OpenBy" />
+                <LayoutItem Id="AddDate" SizeConstraintsType="Default" Index="2" RelativeSize="13.043478260869565" ViewItem="AddDate" />
+                <LayoutItem Id="ClosedBy" SizeConstraintsType="Default" Index="3" RelativeSize="13.043478260869565" ViewItem="ClosedBy" />
+                <LayoutItem Id="ClosureDate" SizeConstraintsType="Default" Index="4" RelativeSize="13.043478260869565" ViewItem="ClosureDate" />
+                <LayoutItem Id="IssueType" SizeConstraintsType="Default" Index="5" RelativeSize="30.434782608695652" ViewItem="IssueType" />
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" Index="6" RelativeSize="17.391304347826086" ViewItem="ProjectTemplate" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAManagementIssues_col2" RelativeSize="49.915397631133672">
+                <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" SizeConstraintsType="Default" Index="0" RelativeSize="17.391304347826086" IsNewNode="True" />
+                <LayoutItem Id="Priority" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="1" ViewItem="Priority" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="2" ViewItem="Status" />
+                <LayoutItem Id="RootCause" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="3" ViewItem="RootCause" />
+                <LayoutItem Id="Resource" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="4" ViewItem="Resource" />
+                <LayoutItem Id="DueDate" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="5" ViewItem="DueDate" />
+                <LayoutItem Id="RiskRefrence" SizeConstraintsType="Default" RelativeSize="17.391304347826086" Index="6" ViewItem="RiskRefrence" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="11.02514506769826">
+            <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="47.368421052631582" ViewItem="Description" />
+            <LayoutItem Id="Resolution" SizeConstraintsType="Default" RelativeSize="52.631578947368418" ViewItem="Resolution" />
+            <LayoutItem Id="Issue" ViewItem="Issue" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="2" RelativeSize="46.615087040618953" IsNewNode="True">
+            <LayoutGroup Id="IssueFollowup_Group" ShowCaption="True" Caption="Issue Followup" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="IssueFollowup" ViewItem="IssueFollowup" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="IssueFollowup_Group" Direction="Vertical" RelativeSize="20.689655172413794" Removed="True">
+            <LayoutItem Id="IssueFollowup" SizeConstraintsType="Default" RelativeSize="100" ViewItem="IssueFollowup" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAManagementIssues_ListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="115" Index="-1" />
+        <ColumnInfo Id="DueDate" Width="39" Index="-1" />
+        <ColumnInfo Id="Resource" Width="39" Index="-1" />
+        <ColumnInfo Id="RootCause" Width="39" Index="-1" />
+        <ColumnInfo Id="Issue" Index="0" Width="279" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="OpenBy" Width="33" Index="1" />
+        <ColumnInfo Id="AddDate" Width="33" Index="2" />
+        <ColumnInfo Id="ClosedBy" Width="33" Index="3" />
+        <ColumnInfo Id="ClosureDate" Width="33" Index="4" />
+        <ColumnInfo Id="IssueType" Width="33" Index="5" />
+        <ColumnInfo Id="ProjectTemplate" Width="33" Index="6" />
+        <ColumnInfo Id="Priority" Width="33" Index="7" />
+        <ColumnInfo Id="Status" Width="33" Index="8" />
+        <ColumnInfo Id="RiskRefrence" Width="52" Index="9" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAManagementIssues_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Issue" Index="0" Caption="Issue" PropertyName="Issue" IsNewNode="True" />
+        <ColumnInfo Id="ProjectTemplate" Index="1" Caption="ProjectTemplate" PropertyName="ProjectTemplate" Width="243" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

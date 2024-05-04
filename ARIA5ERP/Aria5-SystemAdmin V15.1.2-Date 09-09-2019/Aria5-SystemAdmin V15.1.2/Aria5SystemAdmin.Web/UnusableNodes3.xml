@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DashboardView Id="EmailSetting">
+      <Layout Id="Layout">
+        <LayoutGroup Id="37049d24-759f-4f6c-9824-6917abd7a444">
+          <LayoutItem Id="EmailTemplate" ViewItem="EmailTemplate" />
+        </LayoutGroup>
+      </Layout>
+    </DashboardView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ConfigurationItem_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Autob9bc6b22-c29f-4e98-b8e3-5a2cc9da8843">
+            <LayoutGroup Id="Attachments">
+              <LayoutItem Id="Attachments" ViewItem="Attachments" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ConfigurationItem">
+              <LayoutGroup Id="ConfigurationItem_col1">
+                <LayoutGroup Id="Auto7d833f7a-1788-4555-8620-06c66cb69a49">
+                  <LayoutGroup Id="Auto0833c7c6-d287-4189-b3fa-8f88e4ff3f7f">
+                    <LayoutGroup Id="Autob3a710ec-2912-4e9e-b7c8-4b678effee95">
+                      <LayoutGroup Id="Auto098fcd8e-7e59-4ec5-9d5d-b696f54b2511">
+                        <LayoutGroup Id="Autob8f6ea37-ad07-4307-a9e3-3a29dffcd650">
+                          <LayoutGroup Id="Auto3a700de0-a30a-49fa-8973-ea92fc076b72">
+                            <LayoutItem Id="Attachment" ViewItem="Attachment" />
+                          </LayoutGroup>
+                          <LayoutItem Id="ClientContact" ViewItem="ClientContact" />
+                        </LayoutGroup>
+                      </LayoutGroup>
+                      <LayoutGroup Id="Auto6d326397-76ed-496c-ba90-456a683ff014">
+                        <LayoutItem Id="ReferenceNo" ViewItem="ReferenceNo" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Client" ViewItem="Client" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="News_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="Attachments" ViewItem="Attachments" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="Default_ID">
+        <Items Id="Items">
+          <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+          <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+          <Item Id="MyDetails" ViewId="SecurityUser_DetailView" />
+        </Items>
+      </Item>
+      <Item Id="Contacts">
+        <Items Id="Items">
+          <Item Id="Account">
+            <Items Id="Items">
+              <Item Id="Setup" ViewId="Setup_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="Test Node">
+        <Items Id="Items">
+          <Item Id="Client" ViewId="Client_ListView">
+            <Items Id="Items">
+              <Item Id="Setup" ViewId="Setup_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

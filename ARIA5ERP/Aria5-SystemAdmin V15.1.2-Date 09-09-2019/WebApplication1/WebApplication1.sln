@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1.csproj", "{AB7DDDC3-2430-44AF-8426-C93EFAC55261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "..\WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{DA03C540-E2CC-4117-8675-16294264D0C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB7DDDC3-2430-44AF-8426-C93EFAC55261} = {AB7DDDC3-2430-44AF-8426-C93EFAC55261}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB7DDDC3-2430-44AF-8426-C93EFAC55261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7DDDC3-2430-44AF-8426-C93EFAC55261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7DDDC3-2430-44AF-8426-C93EFAC55261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7DDDC3-2430-44AF-8426-C93EFAC55261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA03C540-E2CC-4117-8675-16294264D0C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA03C540-E2CC-4117-8675-16294264D0C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA03C540-E2CC-4117-8675-16294264D0C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA03C540-E2CC-4117-8675-16294264D0C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

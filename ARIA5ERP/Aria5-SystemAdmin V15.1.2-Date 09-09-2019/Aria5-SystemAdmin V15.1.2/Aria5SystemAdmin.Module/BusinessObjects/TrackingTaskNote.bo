@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TrackingTaskNote" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Describtion" Caption="Description" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="TrackingTask_Notes_ListView">
+      <Columns>
+        <ColumnInfo Id="AutoTaskID" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Describtion" Index="1" />
+        <ColumnInfo Id="Resource" Index="2" />
+        <ColumnInfo Id="CreateDate" Index="3" />
+        <ColumnInfo Id="Task" Index="4" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TrackingTaskNote_DetailView">
+      <Items>
+        <PropertyEditor Id="CreateDate" Caption="Created Date" />
+        <PropertyEditor Id="Describtion" Caption="Description" />
+      </Items>
+    </DetailView>
+    <ListView Id="TrackingTaskNote_ListView">
+      <Columns>
+        <ColumnInfo Id="AutoTaskID" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Title" Width="124" />
+        <ColumnInfo Id="Describtion" Index="1" Width="161" />
+        <ColumnInfo Id="Resource" Index="2" Width="111" />
+        <ColumnInfo Id="CreateDate" Index="3" Width="111" />
+        <ColumnInfo Id="Task" Index="4" Width="116" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingTaskNote_LookupListView">
+      <Columns>
+        <ColumnInfo Id="AutoTaskID" Index="-1" />
+        <ColumnInfo Id="Title" Width="99" />
+        <ColumnInfo Id="Describtion" Index="1" Width="194" />
+        <ColumnInfo Id="Resource" Index="2" Width="108" />
+        <ColumnInfo Id="CreateDate" Index="3" SortIndex="-1" SortOrder="None" Width="108" />
+        <ColumnInfo Id="Task" Index="4" SortIndex="0" SortOrder="Ascending" Width="114" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

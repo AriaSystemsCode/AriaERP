@@ -1,0 +1,1711 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5DA83B5D-8EAA-437D-ADFA-16BB9FE18747}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria5SystemAdmin.Web</RootNamespace>
+    <AssemblyName>Aria5SystemAdmin.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArrayToMemo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\ArrayToMemo.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyond-Pro Translator">
+      <HintPath>..\Lib\Beyond-Pro Translator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Docs.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.AuditTrail.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Chart.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.ExpressApp.Chart.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.Design.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Kpi.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Notifications.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.ExpressApp.Notifications.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Objects.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Security.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v17.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v17.1.Export">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v17.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Spreadsheet.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGauges.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v17.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v17.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.Bootstrap.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.Web, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v17.1.Presets, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.Resources.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.1.Web, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.NotificationHubs">
+      <HintPath>..\packages\Microsoft.Azure.NotificationHubs.1.0.6\lib\net45-full\Microsoft.Azure.NotificationHubs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Build.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=3.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.3.0.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Lib\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mobile">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Aria5SystemAdmin.Web.dll" />
+    <Content Include="bin\Aria5SystemAdmin.Web.pdb" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="ConfirmApplying.aspx" />
+    <Content Include="CSS\Aria logo.png" />
+    <Content Include="CSS\bootstrap.css" />
+    <Content Include="CSS\bootstrap.min.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Dialog.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\ActionContainerBarItem.png" />
+    <Content Include="Images\ActionContainerMenuBarItem.png" />
+    <Content Include="Images\ActionGroup_EasyTestRecorder.png" />
+    <Content Include="Images\ActionGroup_EasyTestRecorder_32x32.png" />
+    <Content Include="Images\ActionsInDetailView.png" />
+    <Content Include="Images\ActionsInDetailView_32x32.png" />
+    <Content Include="Images\Action_AboutInfo.png" />
+    <Content Include="Images\Action_AboutInfo_32x32.png" />
+    <Content Include="Images\Action_Bell.png" />
+    <Content Include="Images\Action_Cancel.png" />
+    <Content Include="Images\Action_Cancel_32x32.png" />
+    <Content Include="Images\Action_Change_State.png" />
+    <Content Include="Images\Action_Change_State_32x32.png" />
+    <Content Include="Images\Action_ChartDataVertical.png" />
+    <Content Include="Images\Action_ChartDataVertical_32x32.png" />
+    <Content Include="Images\Action_Chart_Options.png" />
+    <Content Include="Images\Action_Chart_Options_32x32.png" />
+    <Content Include="Images\Action_Chart_Printing_Preview.png" />
+    <Content Include="Images\Action_Chart_Printing_Preview_32x32.png" />
+    <Content Include="Images\Action_Chart_ShowDesigner.png" />
+    <Content Include="Images\Action_Chart_ShowDesigner_32x32.png" />
+    <Content Include="Images\Action_ChooseSkin.png" />
+    <Content Include="Images\Action_ChooseSkin_32x32.png" />
+    <Content Include="Images\Action_Clear.png" />
+    <Content Include="Images\Action_Clear_12x12.png" />
+    <Content Include="Images\Action_Clear_32x32.png" />
+    <Content Include="Images\Action_Clear_Settings.png" />
+    <Content Include="Images\Action_Clear_Settings_32x32.png" />
+    <Content Include="Images\Action_CloneMerge_Clone_Object.png" />
+    <Content Include="Images\Action_CloneMerge_Clone_Object_32x32.png" />
+    <Content Include="Images\Action_CloneMerge_Merge_Object.png" />
+    <Content Include="Images\Action_CloneMerge_Merge_Object_32x32.png" />
+    <Content Include="Images\Action_Close.png" />
+    <Content Include="Images\Action_CloseAllWindows.png" />
+    <Content Include="Images\Action_CloseAllWindows_32x32.png" />
+    <Content Include="Images\Action_Close_32x32.png" />
+    <Content Include="Images\Action_Copy.png" />
+    <Content Include="Images\Action_Copy_32x32.png" />
+    <Content Include="Images\Action_Copy_CellValue.png" />
+    <Content Include="Images\Action_Copy_CellValue_32x32.png" />
+    <Content Include="Images\Action_CreateDashboard.png" />
+    <Content Include="Images\Action_CreateDashboard_32x32.png" />
+    <Content Include="ApplyForJobVacancy.aspx" />
+    <EmbeddedResource Include="Images\logoAria.png" />
+    <Content Include="Images\ModelEditor_Action_Modules - Copy.png" />
+    <Content Include="Images\ModelEditor_Action_Schema_32x32.ico" />
+    <Content Include="Images\ModelEditor_Action_Schema.ico" />
+    <Content Include="Images\ModelEditor_Action_Schema.png" />
+    <Content Include="Images\Action_Cut_12x12.png" />
+    <Content Include="Images\Action_Debug_Breakpoint_Toggle.png" />
+    <Content Include="Images\Action_Debug_Breakpoint_Toggle_32x32.png" />
+    <Content Include="Images\Action_Debug_Start.png" />
+    <Content Include="Images\Action_Debug_Start_32x32.png" />
+    <Content Include="Images\Action_Debug_Step.png" />
+    <Content Include="Images\Action_Debug_Step_32x32.png" />
+    <Content Include="Images\Action_Debug_Stop.png" />
+    <Content Include="Images\Action_Debug_Stop_32x32.png" />
+    <Content Include="Images\Action_Delete.png" />
+    <Content Include="Images\Action_Delete_12x12.png" />
+    <Content Include="Images\Action_Delete_32x32.png" />
+    <Content Include="Images\Action_Deny.png" />
+    <Content Include="Images\Action_Deny_32x32.png" />
+    <Content Include="Images\Action_Deny_Set.png" />
+    <Content Include="Images\Action_Deny_Set_32x32.png" />
+    <Content Include="Images\Action_Edit.png" />
+    <Content Include="Images\Action_EditModel.png" />
+    <Content Include="Images\Action_EditModel_32x32.png" />
+    <Content Include="Images\Action_Edit_12x12.png" />
+    <Content Include="Images\Action_Edit_32x32.png" />
+    <Content Include="Images\Action_Exit.png" />
+    <Content Include="Images\Action_Exit_32x32.png" />
+    <Content Include="Images\Action_Export.png" />
+    <Content Include="Images\Action_Export_32x32.png" />
+    <Content Include="Images\Action_Export_Chart.png" />
+    <Content Include="Images\Action_Export_Chart_32x32.png" />
+    <Content Include="Images\Action_Export_Pivot.png" />
+    <Content Include="Images\Action_Export_Pivot_32x32.png" />
+    <Content Include="Images\Action_Export_ToCSV.png" />
+    <Content Include="Images\Action_Export_ToCSV_32x32.png" />
+    <Content Include="Images\Action_Export_ToExcel.png" />
+    <Content Include="Images\Action_Export_ToExcel_32x32.png" />
+    <Content Include="Images\Action_Export_ToHTML.png" />
+    <Content Include="Images\Action_Export_ToHTML_32x32.png" />
+    <Content Include="Images\Action_Export_ToImage.png" />
+    <Content Include="Images\Action_Export_ToImage_32x32.png" />
+    <Content Include="Images\Action_Export_ToMHT.png" />
+    <Content Include="Images\Action_Export_ToMHT_32x32.png" />
+    <Content Include="Images\Action_Export_ToPDF.png" />
+    <Content Include="Images\Action_Export_ToPDF_32x32.png" />
+    <Content Include="Images\Action_Export_ToRTF.png" />
+    <Content Include="Images\Action_Export_ToRTF_32x32.png" />
+    <Content Include="Images\Action_Export_ToText.png" />
+    <Content Include="Images\Action_Export_ToText_32x32.png" />
+    <Content Include="Images\Action_Export_ToXls.png" />
+    <Content Include="Images\Action_Export_ToXLSX.png" />
+    <Content Include="Images\Action_Export_ToXLSX_32x32.png" />
+    <Content Include="Images\Action_Export_ToXls_32x32.png" />
+    <Content Include="Images\Action_Export_ToXML.png" />
+    <Content Include="Images\Action_Export_ToXML_32x32.png" />
+    <Content Include="Images\Action_Grand_Totals_Column.png" />
+    <Content Include="Images\Action_Grand_Totals_Column_32x32.png" />
+    <Content Include="Images\Action_Grand_Totals_Row.png" />
+    <Content Include="Images\Action_Grand_Totals_Row_32x32.png" />
+    <Content Include="Images\Action_Grant.png" />
+    <Content Include="Images\Action_Grant_32x32.png" />
+    <Content Include="Images\Action_Grant_Set.png" />
+    <Content Include="Images\Action_Grant_Set_32x32.png" />
+    <Content Include="Images\Action_HideItemFromDashboard.png" />
+    <Content Include="Images\Action_HideItemFromDashboard_32x32.png" />
+    <Content Include="Images\Action_Hide_Chart.png" />
+    <Content Include="Images\Action_Hide_Chart_32x32.png" />
+    <Content Include="Images\Action_Inline_Edit.png" />
+    <Content Include="Images\Action_Inline_Edit_32x32.png" />
+    <Content Include="Images\Action_Inline_New.png" />
+    <Content Include="Images\Action_Inline_New_32x32.png" />
+    <Content Include="Images\Action_LinkUnlink_Link.png" />
+    <Content Include="Images\Action_LinkUnlink_Link_32x32.png" />
+    <Content Include="Images\Action_LinkUnlink_Unlink.png" />
+    <Content Include="Images\Action_LinkUnlink_Unlink_32x32.png" />
+    <Content Include="Images\Action_LocalizationExport.png" />
+    <Content Include="Images\Action_LocalizationImport.png" />
+    <Content Include="Images\Action_Logoff.png" />
+    <Content Include="Images\Action_Logoff_32x32.png" />
+    <Content Include="Images\Action_Navigation.png" />
+    <Content Include="Images\Action_NavigationBar.png" />
+    <Content Include="Images\Action_NavigationBar_32x32.png" />
+    <Content Include="Images\Action_Navigation_32x32.png" />
+    <Content Include="Images\Action_Navigation_History_Back.png" />
+    <Content Include="Images\Action_Navigation_History_Back_32x32.png" />
+    <Content Include="Images\Action_Navigation_History_Forward.png" />
+    <Content Include="Images\Action_Navigation_History_Forward_32x32.png" />
+    <Content Include="Images\Action_Navigation_Next_Object.png" />
+    <Content Include="Images\Action_Navigation_Next_Object_32x32.png" />
+    <Content Include="Images\Action_Navigation_Previous_Object.png" />
+    <Content Include="Images\Action_Navigation_Previous_Object_32x32.png" />
+    <Content Include="Images\Action_New.png" />
+    <Content Include="Images\Action_New_12x12.png" />
+    <Content Include="Images\Action_New_32x32.png" />
+    <Content Include="Images\Action_Open.png" />
+    <Content Include="Images\Action_Open_12x12.png" />
+    <Content Include="Images\Action_Open_32x32.png" />
+    <Content Include="Images\Action_Open_Object.png" />
+    <Content Include="Images\Action_Open_Object_32x32.png" />
+    <Content Include="Images\Action_OrganizeDashboard.png" />
+    <Content Include="Images\Action_OrganizeDashboard_32x32.png" />
+    <Content Include="Images\Action_ParametrizedAction.png" />
+    <Content Include="Images\Action_ParametrizedAction_32x32.png" />
+    <Content Include="Images\Action_ParametrizedAction_Clear_12x12.png" />
+    <Content Include="Images\Action_Paste.png" />
+    <Content Include="Images\Action_Paste_32x32.png" />
+    <Content Include="Images\Action_PauseRecording.png" />
+    <Content Include="Images\Action_PauseRecording_32x32.png" />
+    <Content Include="Images\Action_PivotChart_Data_Bind.png" />
+    <Content Include="Images\Action_PivotChart_Data_Bind_32x32.png" />
+    <Content Include="Images\Action_PivotChart_Data_Unbind.png" />
+    <Content Include="Images\Action_PivotChart_Data_Unbind_32x32.png" />
+    <Content Include="Images\Action_Pivot_Printing_Preview.png" />
+    <Content Include="Images\Action_Pivot_Printing_Preview_32x32.png" />
+    <Content Include="Images\Action_PopupWindowShowAction.png" />
+    <Content Include="Images\Action_PopupWindowShowAction_32x32.png" />
+    <Content Include="Images\Action_Printing_PageSetup.png" />
+    <Content Include="Images\Action_Printing_PageSetup_32x32.png" />
+    <Content Include="Images\Action_Printing_Preview.png" />
+    <Content Include="Images\Action_Printing_Preview_32x32.png" />
+    <Content Include="Images\Action_Printing_Print.png" />
+    <Content Include="Images\Action_Printing_Print_32x32.png" />
+    <Content Include="Images\Action_Refresh.png" />
+    <Content Include="Images\Action_Refresh_32x32.png" />
+    <Content Include="Images\Action_Reload.png" />
+    <Content Include="Images\Action_Reload_32x32.png" />
+    <Content Include="Images\Action_Report_Object_Inplace_Preview.png" />
+    <Content Include="Images\Action_Report_Object_Inplace_Preview_32x32.png" />
+    <Content Include="Images\Action_Report_ShowDesigner.png" />
+    <Content Include="Images\Action_Report_ShowDesigner_32x32.png" />
+    <Content Include="Images\Action_ResetPassword.png" />
+    <Content Include="Images\Action_ResetPassword_32x32.png" />
+    <Content Include="Images\Action_ResumeRecording.png" />
+    <Content Include="Images\Action_ResumeRecording_32x32.png" />
+    <Content Include="Images\Action_Save.png" />
+    <Content Include="Images\Action_SaveScript.png" />
+    <Content Include="Images\Action_SaveScript_32x32.png" />
+    <Content Include="Images\Action_Save_12x12.png" />
+    <Content Include="Images\Action_Save_32x32.png" />
+    <Content Include="Images\Action_Save_Close.png" />
+    <Content Include="Images\Action_Save_Close_32x32.png" />
+    <Content Include="Images\Action_Save_New.png" />
+    <Content Include="Images\Action_Save_New_32x32.png" />
+    <Content Include="Images\Action_Save_To.png" />
+    <Content Include="Images\Action_Save_To_32x32.png" />
+    <Content Include="Images\Action_Search.png" />
+    <Content Include="Images\Action_Search_12x12.png" />
+    <Content Include="Images\Action_Search_32x32.png" />
+    <Content Include="Images\Action_Search_Object_FindObjectByID.png" />
+    <Content Include="Images\Action_Search_Object_FindObjectByID_32x32.png" />
+    <Content Include="Images\Action_Security_ChangePassword.png" />
+    <Content Include="Images\Action_Security_ChangePassword_32x32.png" />
+    <Content Include="Images\Action_ShowItemOnDashboard.png" />
+    <Content Include="Images\Action_ShowItemOnDashboard_32x32.png" />
+    <Content Include="Images\Action_ShowScript.png" />
+    <Content Include="Images\Action_ShowScript_32x32.png" />
+    <Content Include="Images\Action_Show_PivotGrid_Designer.png" />
+    <Content Include="Images\Action_Show_PivotGrid_Designer_32x32.png" />
+    <Content Include="Images\Action_SimpleAction.png" />
+    <Content Include="Images\Action_SimpleAction_32x32.png" />
+    <Content Include="Images\Action_SingleChoiceAction.png" />
+    <Content Include="Images\Action_SingleChoiceAction_32x32.png" />
+    <Content Include="Images\Action_Sorting_Ascending.png" />
+    <Content Include="Images\Action_Sorting_Descending.png" />
+    <Content Include="Images\Action_StateMachine.png" />
+    <Content Include="Images\Action_StateMachine_32x32.png" />
+    <Content Include="Images\Action_Totals_Column.png" />
+    <Content Include="Images\Action_Totals_Column_32x32.png" />
+    <Content Include="Images\Action_Totals_Row.png" />
+    <Content Include="Images\Action_Totals_Row_32x32.png" />
+    <Content Include="Images\Action_Translate.png" />
+    <Content Include="Images\Action_Validation_Validate.png" />
+    <Content Include="Images\Action_Validation_Validate_32x32.png" />
+    <Content Include="Images\Action_View_Chart.png" />
+    <Content Include="Images\Action_View_Chart_32x32.png" />
+    <Content Include="Images\Action_WindowList.png" />
+    <Content Include="Images\Action_WindowList_32x32.png" />
+    <Content Include="Images\Action_Workflow_Activate.png" />
+    <Content Include="Images\Action_Workflow_Activate_32x32.png" />
+    <Content Include="Images\Action_Workflow_Deactivate.png" />
+    <Content Include="Images\Action_Workflow_Deactivate_32x32.png" />
+    <Content Include="Images\Action_Workflow_ShowWorkflowInstances.png" />
+    <Content Include="Images\Action_Workflow_ShowWorkflowInstances_32x32.png" />
+    <Content Include="Images\BO_Address.png" />
+    <Content Include="Images\BO_Address_32x32.png" />
+    <Content Include="Images\BO_Appearance.png" />
+    <Content Include="Images\BO_Appearance_32x32.png" />
+    <Content Include="Images\BO_Appointment.png" />
+    <Content Include="Images\BO_Appointment_32x32.png" />
+    <Content Include="Images\BO_Attention.png" />
+    <Content Include="Images\BO_Attention_32x32.png" />
+    <Content Include="Images\BO_Attention_72x72.png" />
+    <Content Include="Images\BO_Audit_ChangeHistory.png" />
+    <Content Include="Images\BO_Audit_ChangeHistory_32x32.png" />
+    <Content Include="Images\BO_Category.png" />
+    <Content Include="Images\BO_Category_32x32.png" />
+    <Content Include="Images\BO_Contact.png" />
+    <Content Include="Images\BO_Contact_32x32.png" />
+    <Content Include="Images\BO_Contract.png" />
+    <Content Include="Images\BO_Contract_32x32.png" />
+    <Content Include="Images\BO_Country.png" />
+    <Content Include="Images\BO_Country_32x32.png" />
+    <Content Include="Images\BO_Country_v92.png" />
+    <Content Include="Images\BO_Country_v92_32x32.png" />
+    <Content Include="Images\BO_Customer.png" />
+    <Content Include="Images\BO_Customer_32x32.png" />
+    <Content Include="Images\BO_Department.png" />
+    <Content Include="Images\BO_Department_32x32.png" />
+    <Content Include="Images\BO_Employee.png" />
+    <Content Include="Images\BO_Employee_32x32.png" />
+    <Content Include="Images\BO_FileAttachment.png" />
+    <Content Include="Images\BO_FileAttachment_32x32.png" />
+    <Content Include="Images\BO_Folder.png" />
+    <Content Include="Images\BO_Folder_32x32.png" />
+    <Content Include="Images\BO_Invoice.png" />
+    <Content Include="Images\BO_Invoice_32x32.png" />
+    <Content Include="Images\BO_Lead.png" />
+    <Content Include="Images\BO_Lead_32x32.png" />
+    <Content Include="Images\BO_List.png" />
+    <Content Include="Images\BO_List_32x32.png" />
+    <Content Include="Images\BO_Localization.png" />
+    <Content Include="Images\BO_Localization_32x32.png" />
+    <Content Include="Images\BO_MyDetails.png" />
+    <Content Include="Images\BO_MyDetails_32x32.png" />
+    <Content Include="Images\BO_Note.png" />
+    <Content Include="Images\BO_Note_32x32.png" />
+    <Content Include="Images\BO_Opportunity.png" />
+    <Content Include="Images\BO_Opportunity_32x32.png" />
+    <Content Include="Images\BO_Order.png" />
+    <Content Include="Images\BO_Order_32x32.png" />
+    <Content Include="Images\BO_Order_Item.png" />
+    <Content Include="Images\BO_Order_Item_32x32.png" />
+    <Content Include="Images\BO_Organization.png" />
+    <Content Include="Images\BO_Organization_32x32.png" />
+    <Content Include="Images\BO_Person.png" />
+    <Content Include="Images\BO_Person_32x32.png" />
+    <Content Include="Images\BO_Phone.png" />
+    <Content Include="Images\BO_Phone_32x32.png" />
+    <Content Include="Images\BO_PivotChart.png" />
+    <Content Include="Images\BO_PivotChart_32x32.png" />
+    <Content Include="Images\BO_Position.png" />
+    <Content Include="Images\BO_Position_32x32.png" />
+    <Content Include="Images\BO_Position_v92.png" />
+    <Content Include="Images\BO_Position_v92_32x32.png" />
+    <Content Include="Images\BO_Product.png" />
+    <Content Include="Images\BO_Product_32x32.png" />
+    <Content Include="Images\BO_Product_Group.png" />
+    <Content Include="Images\BO_Product_Group_32x32.png" />
+    <Content Include="Images\BO_Project.png" />
+    <Content Include="Images\BO_Project_Large.png" />
+    <Content Include="Images\BO_Quote.png" />
+    <Content Include="Images\BO_Quote_32x32.png" />
+    <Content Include="Images\BO_Report.png" />
+    <Content Include="Images\BO_Report_32x32.png" />
+    <Content Include="Images\BO_Resume.png" />
+    <Content Include="Images\BO_Resume_32x32.png" />
+    <Content Include="Images\BO_Role.png" />
+    <Content Include="Images\BO_Role_32x32.png" />
+    <Content Include="Images\BO_Rules.png" />
+    <Content Include="Images\BO_Rules_32x32.png" />
+    <Content Include="Images\BO_Sale.png" />
+    <Content Include="Images\BO_Sale_32x32.png" />
+    <Content Include="Images\BO_Sale_Item.png" />
+    <Content Include="Images\BO_Sale_Item_32x32.png" />
+    <Content Include="Images\BO_Sale_Item_v92.png" />
+    <Content Include="Images\BO_Sale_Item_v92_32x32.png" />
+    <Content Include="Images\BO_Sale_v92.png" />
+    <Content Include="Images\BO_Sale_v92_32x32.png" />
+    <Content Include="Images\BO_Scheduler.png" />
+    <Content Include="Images\BO_Scheduler_32x32.png" />
+    <Content Include="Images\BO_Security_Permission.png" />
+    <Content Include="Images\BO_Security_Permission_32x32.png" />
+    <Content Include="Images\BO_Security_Permission_72x72.png" />
+    <Content Include="Images\BO_Security_Permission_Member.png" />
+    <Content Include="Images\BO_Security_Permission_Member_32x32.png" />
+    <Content Include="Images\BO_Security_Permission_Model.png" />
+    <Content Include="Images\BO_Security_Permission_Model_32x32.png" />
+    <Content Include="Images\BO_Security_Permission_Object.png" />
+    <Content Include="Images\BO_Security_Permission_Object_32x32.png" />
+    <Content Include="Images\BO_Security_Permission_Type.png" />
+    <Content Include="Images\BO_Security_Permission_Type_32x32.png" />
+    <Content Include="Images\BO_Skull.png" />
+    <Content Include="Images\BO_Skull_32x32.png" />
+    <Content Include="Images\BO_State.png" />
+    <Content Include="Images\BO_StateMachine.png" />
+    <Content Include="Images\BO_StateMachine_32x32.png" />
+    <Content Include="Images\BO_State_32x32.png" />
+    <Content Include="Images\BO_Task.png" />
+    <Content Include="Images\BO_Task_32x32.png" />
+    <Content Include="Images\BO_Transition.png" />
+    <Content Include="Images\BO_Transition_32x32.png" />
+    <Content Include="Images\BO_Unknown.png" />
+    <Content Include="Images\BO_Unknown_32x32.png" />
+    <Content Include="Images\BO_User.png" />
+    <Content Include="Images\BO_User_32x32.png" />
+    <Content Include="Images\BO_Validation.png" />
+    <Content Include="Images\BO_Validation_32x32.png" />
+    <Content Include="Images\BO_Vendor.png" />
+    <Content Include="Images\BO_Vendor_32x32.png" />
+    <Content Include="Images\BO_WorkflowDefinition.png" />
+    <Content Include="Images\BO_WorkflowDefinition_32x32.png" />
+    <Content Include="Images\ExpressAppLogo.png" />
+    <Content Include="Images\ModelEditor_Action_Modules.png" />
+    <Content Include="Images\ModelEditor_Action_Modules_32x32.png" />
+    <Content Include="Images\ModelEditor_Action_Open_Object.png" />
+    <Content Include="Images\ModelEditor_Action_ResetDifferences_Xml.ico" />
+    <Content Include="Images\ModelEditor_Action_ShowDifferences_Xml.ico" />
+    <Content Include="Images\ModelEditor_Action_Xml.ico" />
+    <Content Include="Images\ModelEditor_Alphabetic.png" />
+    <Content Include="Images\ModelEditor_Alphabetic_32x32.png" />
+    <Content Include="Images\ModelEditor_Categorized.png" />
+    <Content Include="Images\ModelEditor_Categorized_32x32.png" />
+    <Content Include="Images\ModelEditor_EditModel_48x48.ico" />
+    <Content Include="Images\ModelEditor_GenerateContent.png" />
+    <Content Include="Images\ModelEditor_GoToObject.png" />
+    <Content Include="Images\ModelEditor_Group.png" />
+    <Content Include="Images\ModelEditor_Hyperlink.png" />
+    <Content Include="Images\ModelEditor_Hyperlink_32x32.png" />
+    <Content Include="Images\ModelEditor_IndexDown.png" />
+    <Content Include="Images\ModelEditor_IndexUp.png" />
+    <Content Include="Images\ModelEditor_KeyProperty.png" />
+    <Content Include="Images\ModelEditor_Links.png" />
+    <Content Include="Images\ModelEditor_ModelMerge.png" />
+    <Content Include="Images\ModelEditor_ModelMerge_32x32.png" />
+    <Content Include="Images\ModelEditor_ModelMerge_64x64.png" />
+    <Content Include="Images\ModelEditor_RequiredProperty.png" />
+    <Content Include="Images\ModelEditor_ShowUnusableNodes.png" />
+    <Content Include="Images\ModelEditor_ShowUnusableNodes_32x32.png" />
+    <Content Include="Images\Navigation_Item_Dashboard.png" />
+    <Content Include="Images\Navigation_Item_Dashboard_32x32.png" />
+    <Content Include="Images\Navigation_Item_PivotChart.png" />
+    <Content Include="Images\Navigation_Item_PivotChart_32x32.png" />
+    <Content Include="Images\Navigation_Item_Report.png" />
+    <Content Include="Images\Navigation_Item_Report_32x32.png" />
+    <Content Include="Images\Navigation_Item_View.png" />
+    <Content Include="Images\Navigation_Item_View_32x32.png" />
+    <Content Include="Images\State_ItemVisibility_Hide.png" />
+    <Content Include="Images\State_ItemVisibility_Show.png" />
+    <Content Include="Images\State_Priority_High.png" />
+    <Content Include="Images\State_Priority_Low.png" />
+    <Content Include="Images\State_Priority_Normal.png" />
+    <Content Include="Images\State_Task_Completed.png" />
+    <Content Include="Images\State_Task_Deferred.png" />
+    <Content Include="Images\State_Task_InProgress.png" />
+    <Content Include="Images\State_Task_NotStarted.png" />
+    <Content Include="Images\State_Task_WaitingForSomeoneElse.png" />
+    <Content Include="Images\State_Validation_Information.png" />
+    <Content Include="Images\State_Validation_Information_48x48.png" />
+    <Content Include="Images\State_Validation_Invalid.png" />
+    <Content Include="Images\State_Validation_Invalid_48x48.png" />
+    <Content Include="Images\State_Validation_Skipped.png" />
+    <Content Include="Images\State_Validation_Valid.png" />
+    <Content Include="Images\State_Validation_Valid_48x48.png" />
+    <Content Include="Images\State_Validation_Warning.png" />
+    <Content Include="Images\State_Validation_Warning_48x48.png" />
+    <Content Include="Images\XafBarLinkContainerItem.png" />
+    <Content Include="Login.aspx" />
+    <Content Include="MoveFooter.js" />
+    <Content Include="NestedFrameControl.ascx" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\ProductionFTPProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Staging.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Service References\ClientService\Aria5SystemAdmin.Web.ClientService.Response.datasource" />
+    <Content Include="Service References\DataService\configuration.svcinfo" />
+    <Content Include="Service References\DataService\configuration91.svcinfo" />
+    <Content Include="Service References\DataService\DataService.disco" />
+    <Content Include="Service References\DataService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\LogService\configuration.svcinfo" />
+    <Content Include="Service References\LogService\configuration91.svcinfo" />
+    <Content Include="Service References\LogService\LogService.disco" />
+    <Content Include="Service References\LogService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\ServiceReferenceClientService\Aria5SystemAdmin.Web.ServiceReferenceClientService.Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\Dev15Test - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Dev15Test - Web Deploy.pubxml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Service References\ClientService\ClientService.disco" />
+    <None Include="Service References\ClientService\ClientService.wsdl" />
+    <None Include="Service References\ClientService\ClientService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ClientService\ClientService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ClientService\ClientService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ClientService\ClientService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ClientService\ClientService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ClientService\configuration.svcinfo" />
+    <None Include="Service References\ClientService\configuration91.svcinfo" />
+    <None Include="Service References\ClientService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\LogService\Aria5SystemAdmin.Web.TFSMangerServiceReference.CommentCheckinResponse1.datasource">
+      <DependentUpon>Reference1.cs</DependentUpon>
+    </Content>
+    <Content Include="Service References\LogService\Aria5SystemAdmin.Web.TFSMangerServiceReference.DenyCheckoutFilePermissionResponse1.datasource">
+      <DependentUpon>Reference1.cs</DependentUpon>
+    </Content>
+    <Content Include="Service References\LogService\Aria5SystemAdmin.Web.TFSMangerServiceReference.GrantCheckoutFilePermissionResponse1.datasource">
+      <DependentUpon>Reference1.cs</DependentUpon>
+    </Content>
+    <Content Include="Service References\LogService\Aria5SystemAdmin.Web.TFSMangerServiceReference.HelloWorldResponse1.datasource">
+      <DependentUpon>Reference1.cs</DependentUpon>
+    </Content>
+    <Content Include="Service References\LogService\Aria5SystemAdmin.Web.TFSMangerServiceReference.SetParametersResponse1.datasource">
+      <DependentUpon>Reference1.cs</DependentUpon>
+    </Content>
+    <None Include="Service References\ServiceReferenceClientService\ClientService.wsdl" />
+    <None Include="Service References\ServiceReferenceClientService\ClientService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceClientService\ClientService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceClientService\ClientService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceClientService\ClientService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceClientService\ClientService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceClientService\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceClientService\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceClientService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceClientService\ClientService.disco" />
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CommentCheckinResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.DenyCheckoutFilePermissionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.GrantCheckoutFilePermissionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.HelloWorldResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.SetParametersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\AriaPortal - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\AriaPortal - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\AriaPortalTest - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\AriaPortalTest - Web Deploy.pubxml" />
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.BuildDeployResponse1.datasource" />
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreateWorkSpaceLabelResponse1.datasource" />
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreateWorkSpaceResponse1.datasource" />
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.GetSpecificChangesetResponse1.datasource" />
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.BuildDeployResponse11.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.ClearEntryfolderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreateattachmenttableResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreateenvironmentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.createfixResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreatesysfiletableResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreateWorkSpaceLabelResponse11.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.CreateWorkSpaceResponse11.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.GetSpecificChangesetResponse11.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Web.TFSMangerServiceReference.NotifyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\TFSMangerServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\TFSMangerServiceReference\configuration.svcinfo" />
+    <None Include="Service References\TFSMangerServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\TFSMangerServiceReference\webservice11.disco" />
+    <Content Include="SessionKeepAliveReconnect.aspx" />
+    <Content Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\DataService\DataService.wsdl" />
+    <None Include="Service References\DataService\DataService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataService\DataService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataService\DataService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataService\DataService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\LogService\Aria5SystemAdmin.Web.LogService.Response.datasource" />
+    <Content Include="Service References\LogService\LogService.wsdl" />
+    <None Include="Service References\LogService\LogService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LogService\LogService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LogService\LogService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LogService\LogService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="UnusableNodes.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes1.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes10.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes11.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes12.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes13.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes14.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes15.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes16.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes18.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes19.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes2.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes20.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes21.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes22.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes23.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes24.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes25.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes26.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes27.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes28.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes29.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes30.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes31.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes32.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes33.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes34.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes35.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes36.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes37.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes38.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes39.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes40.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes41.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes42.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes43.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes44.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes45.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes46.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes47.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes48.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes49.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes5.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes50.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes51.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes52.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes53.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes54.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes55.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes56.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes57.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes58.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes59.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes6.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes60.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes61.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes62.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes63.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes64.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes65.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes66.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes67.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes68.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes69.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes7.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes70.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes73.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes74.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes75.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes76.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes77.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes78.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes79.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes8.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes80.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes81.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes82.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes83.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes84.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes85.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes86.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UnusableNodes9.xml">
+      <DependentUpon>Model.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UserControls\ClientManager\Configration.ascx" />
+    <Content Include="UserControls\ClientManager\Filter.ascx" />
+    <Content Include="UserControls\ClientManager\NewClient.ascx" />
+    <Content Include="UserControls\ClientManager\NewClient.js" />
+    <Content Include="UserControls\ClientManager\Settings.xml" />
+    <Content Include="UserControls\Globalization\Globalization.ascx" />
+    <Content Include="UserControls\OneTouchAway\EmailSetting.ascx" />
+    <Content Include="UserControls\OneTouchAway\EmailTemplate.ascx" />
+    <Content Include="UserControls\OneTouchAway\SortApplicationModule.ascx" />
+    <Content Include="UserControls\OneTouchAway\SortApplicationModule.js" />
+    <Content Include="UserControls\OneTouchAway\SortAppModule.ascx" />
+    <Content Include="UserControls\OneTouchAway\SortAppModule.js" />
+    <Content Include="UserControls\OneTouchAway\SortCategory.ascx" />
+    <Content Include="UserControls\SysFiles\BrowseFields.ascx" />
+    <Content Include="UserControls\SysFiles\ExportUserControl.ascx" />
+    <Content Include="UserControls\SysFiles\Fields.ascx" />
+    <Content Include="UserControls\SysFiles\Files.ascx" />
+    <Content Include="UserControls\SysFiles\SortReportVariables.ascx" />
+    <Content Include="UserControls\WebSite\EmailSetting.ascx" />
+    <Content Include="UserControls\WebSite\EmailTemplate.ascx" />
+    <Content Include="UserControls\WebSite\SortApplicationModule.ascx" />
+    <Content Include="UserControls\WebSite\SortApplicationModule.js" />
+    <Content Include="UserControls\WebSite\SortAppModule.ascx" />
+    <Content Include="UserControls\WebSite\SortAppModule.js" />
+    <Content Include="UserControls\WebSite\SortCategory.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Service References\TFSMangerServiceReference\webservice11.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AriaSecurityStrategy.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConfirmApplying.aspx.cs">
+      <DependentUpon>ConfirmApplying.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfirmApplying.aspx.designer.cs">
+      <DependentUpon>ConfirmApplying.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultVertical.aspx.cs">
+      <DependentUpon>DefaultVertical.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultVertical.aspx.designer.cs">
+      <DependentUpon>DefaultVertical.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog.aspx.designer.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NestedFrameControl.ascx.designer.cs">
+      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ClientService\Reference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service References\ClientService\Reference1.cs">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Service References\DataService\Reference.cs" />
+    <Compile Include="Service References\DataService\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\LogService\Reference.cs" />
+    <Compile Include="Service References\LogService\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReferenceClientService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TFSMangerServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\Configration.ascx.cs">
+      <DependentUpon>Configration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\Configration.ascx.designer.cs">
+      <DependentUpon>Configration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\Filter.ascx.cs">
+      <DependentUpon>Filter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\Filter.ascx.designer.cs">
+      <DependentUpon>Filter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\NewClient.ascx.cs">
+      <DependentUpon>NewClient.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\NewClient.ascx.designer.cs">
+      <DependentUpon>NewClient.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClientManager\Settings.cs" />
+    <Compile Include="UserControls\Globalization\Globalization.ascx.cs">
+      <DependentUpon>Globalization.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Globalization\Globalization.ascx.designer.cs">
+      <DependentUpon>Globalization.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\EmailSetting.ascx.cs">
+      <DependentUpon>EmailSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\EmailSetting.ascx.designer.cs">
+      <DependentUpon>EmailSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\EmailTemplate.ascx.cs">
+      <DependentUpon>EmailTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\EmailTemplate.ascx.designer.cs">
+      <DependentUpon>EmailTemplate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\SortApplicationModule.ascx.cs">
+      <DependentUpon>SortApplicationModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\SortApplicationModule.ascx.designer.cs">
+      <DependentUpon>SortApplicationModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\SortAppModule.ascx.cs">
+      <DependentUpon>SortAppModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\SortAppModule.ascx.designer.cs">
+      <DependentUpon>SortAppModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\SortCategory.ascx.cs">
+      <DependentUpon>SortCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\OneTouchAway\SortCategory.ascx.designer.cs">
+      <DependentUpon>SortCategory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\BrowseFields.ascx.cs">
+      <DependentUpon>BrowseFields.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\BrowseFields.ascx.designer.cs">
+      <DependentUpon>BrowseFields.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\ExportUserControl.ascx.cs">
+      <DependentUpon>ExportUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\ExportUserControl.ascx.designer.cs">
+      <DependentUpon>ExportUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\Fields.ascx.cs">
+      <DependentUpon>Fields.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\Fields.ascx.designer.cs">
+      <DependentUpon>Fields.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\Files.ascx.cs">
+      <DependentUpon>Files.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\Files.ascx.designer.cs">
+      <DependentUpon>Files.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\SortReportVariables.ascx.cs">
+      <DependentUpon>SortReportVariables.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\SysFiles\SortReportVariables.ascx.designer.cs">
+      <DependentUpon>SortReportVariables.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WebSite\EmailSetting.ascx.cs">
+      <DependentUpon>EmailSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WebSite\EmailSetting.ascx.designer.cs">
+      <DependentUpon>EmailSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WebSite\EmailTemplate.ascx.cs">
+      <DependentUpon>EmailTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WebSite\EmailTemplate.ascx.designer.cs">
+      <DependentUpon>EmailTemplate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WebSite\SortApplicationModule.ascx.cs">
+      <DependentUpon>SortApplicationModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WebSite\SortApplicationModule.ascx.designer.cs">
+      <DependentUpon>SortApplicationModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WebSite\SortAppModule.ascx.cs">
+      <DependentUpon>SortAppModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WebSite\SortAppModule.ascx.designer.cs">
+      <DependentUpon>SortAppModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WebSite\SortCategory.ascx.cs">
+      <DependentUpon>SortCategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WebSite\SortCategory.ascx.designer.cs">
+      <DependentUpon>SortCategory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialog.aspx.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NestedFrameControl.ascx.cs">
+      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionKeepAliveReconnect.aspx.cs">
+      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SessionKeepAliveReconnect.aspx.designer.cs">
+      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ApplyForJobVacancy.aspx.cs">
+      <DependentUpon>ApplyForJobVacancy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ApplyForJobVacancy.aspx.designer.cs">
+      <DependentUpon>ApplyForJobVacancy.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="WebApplication.resx">
+      <DependentUpon>WebApplication.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model.xafml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.Module\Aria5.DevExpress.MainSystem.Module.csproj">
+      <Project>{b9ef03ff-d05b-4fd4-a8e9-f90d819cb1dc}</Project>
+      <Name>Aria5.DevExpress.MainSystem.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.OneTouchAway.Module\Aria5.DevExpress.OneTouchAway.Module.csproj">
+      <Project>{8d5b207c-1228-4a8a-aa1d-4e8961840d23}</Project>
+      <Name>Aria5.DevExpress.OneTouchAway.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module.Web\Aria5SystemAdmin.Module.Web.csproj">
+      <Project>{ef2c9e5c-2db0-45fc-b846-d6fcb9fe7bc6}</Project>
+      <Name>Aria5SystemAdmin.Module.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module\Aria5SystemAdmin.Module.csproj">
+      <Project>{d28c293a-a455-47d5-8515-c9d019c1a538}</Project>
+      <Name>Aria5SystemAdmin.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AriaDevExpress.Module\AriaDevExpress.Module.csproj">
+      <Project>{13df01cf-2fda-46be-8cd0-d95c93f72d6a}</Project>
+      <Name>AriaDevExpress.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClientManager\Core\Core.csproj">
+      <Project>{45e3153e-f70d-4875-9c53-cc2fdf998de8}</Project>
+      <Name>Core</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\GaugePropertyEditor.Web\Aria5Systemadmin.GaugePropertyEditor.Web.csproj">
+      <Project>{d7405fe5-4733-4700-8b8d-8ba1f61bb730}</Project>
+      <Name>Aria5Systemadmin.GaugePropertyEditor.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HyperLinkPropertyEditor.Web\HyperLinkPropertyEditor.Web.csproj">
+      <Project>{F189D07D-8172-410E-9C4E-82F1A583A72A}</Project>
+      <Name>HyperLinkPropertyEditor.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DefaultVertical.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <Content Include="TemplateScripts.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceClientService\" />
+    <WCFMetadataStorage Include="Service References\TFSMangerServiceReference\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;STAGING</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PRODUCTION</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>15740</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:15742/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

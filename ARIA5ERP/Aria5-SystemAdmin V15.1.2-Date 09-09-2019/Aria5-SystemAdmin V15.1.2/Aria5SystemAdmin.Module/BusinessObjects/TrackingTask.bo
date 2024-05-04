@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TrackingTask" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AutotaskID" AllowEdit="False" />
+        <Member Name="ID" AllowEdit="False" />
+        <Member Name="Project" AllowEdit="False" />
+        <Member Name="Tittle" Caption="Title" />
+        <Member Name="WBSActivity" Caption="WBS Activity" IsPassword="True" DataSourceProperty="WBSMonth.QAActivities" DataSourceCriteria="" />
+        <Member Name="WBSMonth" DataSourceProperty="Project.ProjectWBS" Caption="WBS Month" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="TrackingTask_DetailView">
+      <Items>
+        <PropertyEditor Id="Actuall" Caption="Actual" AllowEdit="False" />
+        <PropertyEditor Id="AutotaskID" AllowEdit="False" />
+        <PropertyEditor Id="Completedate" Caption="Completed Date" AllowEdit="False" />
+        <PropertyEditor Id="Remaining" AllowEdit="False" />
+        <PropertyEditor Id="Tittle" Caption="Title" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="36">
+            <LayoutGroup Id="TrackingTask" RelativeSize="88.888888888888886">
+              <LayoutGroup Id="TrackingTask_col1" RelativeSize="49.862637362637365">
+                <LayoutItem Id="Tittle" Index="0" RelativeSize="15.384615384615385" ViewItem="Tittle" IsNewNode="True" />
+                <LayoutItem Id="Task" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="1" ViewItem="Task" />
+                <LayoutItem Id="Duration" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="2" ViewItem="Duration" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="3" ViewItem="Status" />
+                <LayoutItem Id="Resources" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="4" ViewItem="Resources" />
+                <LayoutItem Id="StartDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="5" ViewItem="StartDate" />
+                <LayoutItem Id="EndDate" SizeConstraintsType="Default" Index="6" RelativeSize="26.923076923076923" ViewItem="EndDate" IsNewNode="True" />
+                <LayoutItem Id="WBSMonth" RelativeSize="16.666666666666668" Index="7" ViewItem="WBSMonth" Removed="True" />
+                <LayoutItem Id="TrackingEntry" SizeConstraintsType="Default" RelativeSize="15" ViewItem="TrackingEntry" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingTask_col2" RelativeSize="50.137362637362635">
+                <LayoutItem Id="Project" Index="0" RelativeSize="15.384615384615385" ViewItem="Project" />
+                <LayoutItem Id="TrackingEntry" ViewItem="TrackingEntry" SizeConstraintsType="Default" Index="1" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="ID" SizeConstraintsType="Default" RelativeSize="7.2507552870090635" Index="2" ViewItem="ID" Removed="True" />
+                <LayoutItem Id="WBSMonth" ViewItem="WBSMonth" Index="3" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="WBSActivity" SizeConstraintsType="Default" Index="4" RelativeSize="11.538461538461538" ViewItem="WBSActivity" IsNewNode="True" />
+                <LayoutItem Id="Remaining" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="5" ViewItem="Remaining" />
+                <LayoutItem Id="Actuall" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="6" ViewItem="Actuall" />
+                <LayoutItem Id="Completedate" SizeConstraintsType="Default" RelativeSize="15.384615384615385" Index="7" ViewItem="Completedate" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="11.111111111111111" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TrackingTask_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ID" Index="-1" Width="26" />
+        <ColumnInfo Id="Tittle" Index="0" Width="106" />
+        <ColumnInfo Id="Task" Index="1" Width="36" />
+        <ColumnInfo Id="StartDate" Index="2" Width="36" />
+        <ColumnInfo Id="EndDate" Index="3" Width="36" />
+        <ColumnInfo Id="Duration" Index="4" Width="26" />
+        <ColumnInfo Id="Status" Index="5" Width="36" />
+        <ColumnInfo Id="Resources" Index="6" Width="36" />
+        <ColumnInfo Id="TrackingEntry" Index="7" Width="36" />
+        <ColumnInfo Id="WBSMonth" Index="8" Width="36" />
+        <ColumnInfo Id="WBSActivity" Index="9" Width="36" />
+        <ColumnInfo Id="AutotaskID" Index="10" Width="36" />
+        <ColumnInfo Id="Remaining" Index="11" Width="26" />
+        <ColumnInfo Id="Actuall" Index="12" Width="26" />
+        <ColumnInfo Id="Completedate" Index="13" Width="52" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingTask_LookupListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Tittle" Width="205" />
+        <ColumnInfo Id="TrackingEntry" Index="1" Caption="TrackingEntry" PropertyName="TrackingEntry" Width="219" IsNewNode="True" />
+        <ColumnInfo Id="AutotaskID" Index="2" Caption="AutotaskID" PropertyName="AutotaskID" Width="162" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ProjectScope" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ApprovalDate" AllowEdit="False" />
+        <Member Name="ApprovedBy" AllowEdit="False" />
+        <Member Name="EndDate" AllowEdit="False" />
+        <Member Name="Status" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="ProjectScope_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ProjectScope" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="ProjectScope_col1" RelativeSize="100">
+                <LayoutItem Id="Project" ViewItem="Project" Index="0" RelativeSize="6.4128256513026054" IsNewNode="True" />
+                <LayoutItem Id="Status" Index="2" RelativeSize="4.8096192384769543" ViewItem="Status" />
+                <LayoutItem Id="ApprovedBy" Index="3" RelativeSize="4.8096192384769543" ViewItem="ApprovedBy" IsNewNode="True" />
+                <LayoutItem Id="ApprovalDate" Index="4" RelativeSize="4.8096192384769543" ViewItem="ApprovalDate" />
+                <LayoutItem Id="EndDate" ViewItem="EndDate" Index="5" RelativeSize="74.348697394789582" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProjectScope_col2" Caption="ProjectScope_col2" RelativeSize="50.085470085470085" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="ApprovedBy" RelativeSize="100" ViewItem="ApprovedBy" Removed="True" />
+                <LayoutItem Id="Project" ViewItem="Project" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ProjectScope_ListView">
+      <Columns>
+        <ColumnInfo Id="Project" Index="0" />
+        <ColumnInfo Id="Description" Index="1" />
+        <ColumnInfo Id="Status" Index="2" />
+        <ColumnInfo Id="ApprovalDate" Index="3" />
+        <ColumnInfo Id="ApprovedBy" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectScope_LookupListView">
+      <Columns>
+        <ColumnInfo Id="ApprovalDate" Index="-1" />
+        <ColumnInfo Id="ApprovedBy" Index="-1" />
+        <ColumnInfo Id="Project" Index="0" />
+        <ColumnInfo Id="Description" Index="1" />
+        <ColumnInfo Id="Status" Index="2" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectTemplate_Scope_ListView">
+      <Columns>
+        <ColumnInfo Id="Project" Index="-1" />
+        <ColumnInfo Id="Status" Index="0" Width="147" />
+        <ColumnInfo Id="ApprovalDate" Width="103" />
+        <ColumnInfo Id="Description" Index="1" Width="234" />
+        <ColumnInfo Id="ApprovedBy" Width="105" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

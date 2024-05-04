@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DesignDetailEstimate" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Activity" RowCount="6" />
+        <Member Name="Enddate" Caption="End Date" />
+        <Member Name="QAProjectEntity" Caption="Project Entity" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="DesignDetailEstimate_DetailView">
+      <Items>
+        <PropertyEditor Id="Activity" RowCount="20" />
+        <PropertyEditor Id="Enddate" AllowEdit="False" Caption="End Date" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="DesignDetailEstimate" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

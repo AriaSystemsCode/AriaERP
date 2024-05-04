@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Events" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="Events_DetailView">
+      <Items>
+        <PropertyEditor Id="Article" Caption="Event description" />
+        <PropertyEditor Id="EntityCategory" Caption="Category" />
+        <PropertyEditor Id="EntityClassification" Caption="Classification" />
+        <PropertyEditor Id="IMAGE" AllowEdit="False" Caption="Default Attachment" ImageEditorCustomHeight="150" ImageEditorFixedHeight="150" ImageEditorFixedWidth="150" />
+        <PropertyEditor Id="Subject" Caption="Title" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="37">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Direction="Vertical">
+            <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="15" IsNewNode="True" />
+            <LayoutItem Id="Subject" ViewItem="Subject" SizeConstraintsType="Default" Index="1" RelativeSize="11" IsNewNode="True" />
+            <LayoutGroup Id="Autob792752e-47c9-446f-bd08-f0bd7d29aaee" ShowCaption="False" Caption="Autob792752e-47c9-446f-bd08-f0bd7d29aaee(116)" Direction="Horizontal" Index="2" RelativeSize="53" IsNewNode="True">
+              <LayoutGroup Id="Autoad61f6de-651c-4dce-8acf-0da122677459" ShowCaption="False" Caption="Autoad61f6de-651c-4dce-8acf-0da122677459(117)" Index="0" RelativeSize="61" IsNewNode="True">
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="0" RelativeSize="27" IsNewNode="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" SizeConstraintsType="Default" Index="1" RelativeSize="22" IsNewNode="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" SizeConstraintsType="Default" Index="2" RelativeSize="22" IsNewNode="True" />
+                <LayoutItem Id="EntityType" ViewItem="EntityType" SizeConstraintsType="Default" Index="3" RelativeSize="27" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="IMAGE" ShowCaption="False" ViewItem="IMAGE" SizeConstraintsType="Custom" MinSize="334, 108" MaxSize="334, 108" Index="1" RelativeSize="38" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Autobd9532e1-4898-48bc-b43d-ae46e50d4edd" ShowCaption="False" Caption="Autobd9532e1-4898-48bc-b43d-ae46e50d4edd(321)" Direction="Horizontal" Index="3" RelativeSize="3" IsNewNode="True">
+              <LayoutGroup Id="Autod2ea143f-9f2a-4921-929d-51fdc8f43f56" ShowCaption="False" Caption="Autod2ea143f-9f2a-4921-929d-51fdc8f43f56(322)" Direction="Horizontal" Index="0" RelativeSize="26" IsNewNode="True" />
+              <LayoutGroup Id="Auto38ab24b6-4145-4636-8b39-a5029695b925" ShowCaption="False" Caption="Auto38ab24b6-4145-4636-8b39-a5029695b925(325)" Direction="Horizontal" Index="1" RelativeSize="73" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutItem Id="Article" ViewItem="Article" SizeConstraintsType="Default" Index="4" RelativeSize="14" IsNewNode="True" />
+            <LayoutGroup Id="Entity" Removed="True" />
+            <LayoutGroup Id="Events" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Caption="Article" Direction="Horizontal" Index="2" RelativeSize="67" Removed="True" />
+          <TabbedGroup Id="Tabs" RelativeSize="11" Removed="True">
+            <LayoutGroup Id="Attachments" RelativeSize="100" Index="0">
+              <LayoutItem Id="Attachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+        <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="12" Caption="Attachments" IsNewNode="True">
+          <LayoutItem Id="EntityAttachments" ViewItem="EntityAttachments" SizeConstraintsType="Default" Index="0" RelativeSize="61" IsNewNode="True" />
+        </LayoutGroup>
+        <LayoutItem Id="Attachments" ShowCaption="False" SizeConstraintsType="Default" Index="2" RelativeSize="50" ViewItem="" IsNewNode="True" />
+      </Layout>
+    </DetailView>
+    <ListView Id="Events_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Id" Index="0" />
+        <ColumnInfo Id="Subject" SortIndex="0" SortOrder="Ascending" Caption="Title" Index="1" />
+        <ColumnInfo Id="EventDate" Index="2" />
+        <ColumnInfo Id="StartTime" Index="3" />
+        <ColumnInfo Id="EntityCategory" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="Events_LookupListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Id" Index="0" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

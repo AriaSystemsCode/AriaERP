@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="TrackingEntry_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="EntityID" Index="2" Caption="EntityID" PropertyName="EntityID" />
+        <ColumnInfo Id="AccountOid" Index="-1" Caption="AccountOid" PropertyName="AccountOid" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

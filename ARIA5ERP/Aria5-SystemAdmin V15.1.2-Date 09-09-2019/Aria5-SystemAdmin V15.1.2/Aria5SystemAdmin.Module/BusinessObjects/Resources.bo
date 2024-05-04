@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Resources" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AutoTaskDepartementID" AllowEdit="False" />
+        <Member Name="AutoTaskDepartementName" AllowEdit="False" />
+        <Member Name="AutoTaskID" AllowEdit="False" />
+        <Member Name="AutoTaskName" AllowEdit="False" />
+        <Member Name="AutoTaskRoleID" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Department_Resourceses_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Department" Width="62" />
+        <ColumnInfo Id="Name" SortOrder="Descending" Width="134" />
+        <ColumnInfo Id="CurrentEmailAddress" Width="62" />
+        <ColumnInfo Id="AutoTaskName" Width="62" />
+        <ColumnInfo Id="AutoTaskRoleID" Width="62" />
+        <ColumnInfo Id="AutoTaskID" Width="62" />
+        <ColumnInfo Id="AutoTaskDepartementID" Width="62" />
+        <ColumnInfo Id="AutoTaskDepartementName" Width="77" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Resources_DetailView">
+      <Items>
+        <PropertyEditor Id="AutoTaskDepartementID" AllowEdit="False" />
+        <PropertyEditor Id="AutoTaskDepartementName" AllowEdit="False" />
+        <PropertyEditor Id="AutoTaskID" AllowEdit="False" />
+        <PropertyEditor Id="AutoTaskName" AllowEdit="False" />
+        <PropertyEditor Id="AutoTaskRoleID" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="44.341372912801482">
+            <LayoutGroup Id="Resources" RelativeSize="100">
+              <LayoutGroup Id="Resources_col1" RelativeSize="50.083472454090149">
+                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="Basic Information" IsNewNode="True">
+                  <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="19.875776397515526" IsNewNode="True" />
+                  <LayoutItem Id="Department" ViewItem="Department" SizeConstraintsType="Default" Index="1" RelativeSize="14.906832298136646" IsNewNode="True" />
+                  <LayoutItem Id="UserName" ViewItem="UserName" SizeConstraintsType="Default" Index="2" RelativeSize="14.906832298136646" IsNewNode="True" />
+                  <LayoutItem Id="CurrentEmailAddress" ViewItem="CurrentEmailAddress" SizeConstraintsType="Default" Index="3" RelativeSize="50.310559006211179" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AutoTaskRoleID" SizeConstraintsType="Default" Index="1" RelativeSize="18.181818181818183" ViewItem="AutoTaskRoleID" Removed="True" />
+                <LayoutItem Id="AutoTaskName" ViewItem="AutoTaskName" SizeConstraintsType="Default" Index="3" RelativeSize="28.571428571428573" Removed="True" />
+                <LayoutItem Id="CurrentEmailAddress" SizeConstraintsType="Default" RelativeSize="68.539325842696627" ViewItem="CurrentEmailAddress" Removed="True" />
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="13.48314606741573" ViewItem="Department" Removed="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="17.977528089887642" ViewItem="Name" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Autoc69a3d84-f2a3-420a-af12-9e3e1c5c71ae" ShowCaption="False" Caption="Autoc69a3d84-f2a3-420a-af12-9e3e1c5c71ae(234)" Index="1" RelativeSize="49.916527545909851" IsNewNode="True">
+                <LayoutGroup Id="Item1" ShowCaption="True" Caption="AutoTask Information" CaptionLocation="Top" Index="0" RelativeSize="99.50248756218906" IsNewNode="True">
+                  <LayoutItem Id="AutoTaskID" ViewItem="AutoTaskID" SizeConstraintsType="Default" Index="0" RelativeSize="20" IsNewNode="True" />
+                  <LayoutItem Id="AutoTaskRoleID" ViewItem="AutoTaskRoleID" SizeConstraintsType="Default" Index="1" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="AutoTaskName" ViewItem="AutoTaskName" SizeConstraintsType="Default" Index="2" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="AutoTaskDepartementName" ViewItem="AutoTaskDepartementName" SizeConstraintsType="Default" Index="3" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="AutoTaskDepartementID" ViewItem="AutoTaskDepartementID" SizeConstraintsType="Default" Index="4" RelativeSize="15" IsNewNode="True" />
+                  <LayoutItem Id="AllocationCode" ViewItem="AllocationCode" SizeConstraintsType="Default" Index="5" RelativeSize="20" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Resources_col2" ShowCaption="False" Direction="Horizontal" Index="1" RelativeSize="0.49751243781094528" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Resources_col2" RelativeSize="47.826086956521742" Caption="Resources_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="AutoTaskDepartementID" ViewItem="AutoTaskDepartementID" Removed="True" />
+                <LayoutItem Id="AutoTaskDepartementName" ViewItem="AutoTaskDepartementName" Removed="True" />
+                <LayoutItem Id="AutoTaskID" ViewItem="AutoTaskID" Removed="True" />
+                <LayoutItem Id="AutoTaskRoleID" ViewItem="AutoTaskRoleID" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="55.658627087198518">
+            <LayoutGroup Id="CompletedTraining" RelativeSize="100">
+              <LayoutItem Id="CompletedTraining" SizeConstraintsType="Default" RelativeSize="100" ViewItem="CompletedTraining" />
+            </LayoutGroup>
+            <LayoutGroup Id="ResourceDOT" RelativeSize="100">
+              <LayoutItem Id="ResourceDOT" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ResourceDOT" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Resources_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="AllocationCode" Index="8" />
+        <ColumnInfo Id="UserName" Index="9" />
+      </Columns>
+    </ListView>
+    <ListView Id="Resources_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRJobVacancy" Caption="Job Vacancy" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRSkill" Caption="Skill" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRSkillInstance" Caption="Skill Instance" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRSkillsCategory" Caption="Skills Category" />
+  </BOModel>
+  <Views Id="Views">
+    <ListView Id="HRJobVacancy_ListView" Caption="Job Vacancies" />
+    <ListView Id="HRJobVacancy_PendingActivities_ListView" Criteria="[Status] = ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ActivityStatus,Pending#">
+      <Columns Id="Columns">
+        <ColumnInfo Id="CompleteBy" Index="-1" />
+        <ColumnInfo Id="CompleteDate" Index="-1" />
+        <ColumnInfo Id="Fri" Index="-1" />
+        <ColumnInfo Id="Mon" Index="-1" />
+        <ColumnInfo Id="Sat" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Summry" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" />
+        <ColumnInfo Id="Thu" Index="-1" />
+        <ColumnInfo Id="Tue" Index="-1" />
+        <ColumnInfo Id="Wed" Index="-1" />
+        <ColumnInfo Id="ActivityName" SortIndex="-1" SortOrder="None" Width="130" />
+        <ColumnInfo Id="Entity" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="RepeatedEvery" Index="8" />
+        <ColumnInfo Id="StartDate" Index="9" />
+        <ColumnInfo Id="EndDate" Index="10" />
+        <ColumnInfo Id="Duration" Index="11" />
+        <ColumnInfo Id="User" Index="12" />
+        <ColumnInfo Id="Status" Index="13" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HREmployee_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <TabbedGroup Id="Item7">
+              <LayoutGroup Id="Item6">
+                <LayoutItem Id="Qualifications" ViewItem="Qualifications" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HRJobPosition_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="PendingJobVacancies" RelativeSize="100">
+              <LayoutItem Id="PendingJobVacancies" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Requirements" Index="5" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="TestCaseSteps_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SizeableEditors">
+            <LayoutItem Id="Test Case" ViewItem="Test Case" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+          <Item Id="QA">
+            <Items Id="Items">
+              <Item Id="Project">
+                <Items Id="Items">
+                  <Item Id="OriginalTestCases" ViewId="Original_testCases" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="HR">
+        <Items Id="Items">
+          <Item Id="Skills Categories" ViewId="HRSkillsCategory_ListView" />
+          <Item Id="Skills" ViewId="HRSkill_ListView" />
+          <Item Id="@71bf3626-7951-46ef-afd6-2f14a79bf2e7" ViewId="HRJobVacancy_ListView" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

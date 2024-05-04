@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_ActivityCategory" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Department_Categories_ListView" GroupSummary="Empty" />
+    <DetailView Id="HR_ActivityCategory_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="53.374233128834355">
+            <LayoutGroup Id="HR_ActivityCategory" RelativeSize="100" Direction="Vertical" Caption="ActivityCategory">
+              <LayoutGroup Id="HR_ActivityCategory_col1" RelativeSize="100">
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="23.529411764705884" ViewItem="Name" />
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="17.647058823529413" Index="2" ViewItem="Department" />
+                <LayoutItem Id="Role" Index="3" RelativeSize="17.647058823529413" ViewItem="Role" />
+                <LayoutItem Id="DepartmentName" ViewItem="DepartmentName" SizeConstraintsType="Default" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_ActivityCategory_col2" RelativeSize="50" Caption="HR_ActivityCategory_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="DepartmentName" ViewItem="DepartmentName" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="46.625766871165645" IsNewNode="True">
+            <LayoutGroup Id="Activities_Group" ShowCaption="True" Caption="Activities" Index="0" RelativeSize="100" Direction="Vertical" IsNewNode="True">
+              <LayoutItem Id="Activities" ViewItem="Activities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="Activities_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_ActivityCategory_ListView">
+      <Columns>
+        <ColumnInfo Id="Name" Width="150" />
+        <ColumnInfo Id="Department" Width="89" />
+        <ColumnInfo Id="DepartmentCode" Width="89" />
+        <ColumnInfo Id="DepartmentName" Width="89" />
+        <ColumnInfo Id="Description" Width="93" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

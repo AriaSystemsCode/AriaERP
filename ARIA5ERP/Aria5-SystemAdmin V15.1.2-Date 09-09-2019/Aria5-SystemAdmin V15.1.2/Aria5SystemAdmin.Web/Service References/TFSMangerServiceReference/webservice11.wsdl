@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="SetParameters">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tfsUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tfsCollection" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="checkInWorkspace" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="buildWorkSapce" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tfsWorkSpacePath" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetParametersResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GrantCheckoutFilePermission">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="filepath" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AssignedResource" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrantCheckoutFilePermissionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DenyCheckoutFilePermission">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="filepath" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AssignedResource" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DenyCheckoutFilePermissionResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CommentCheckin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectPath" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Shelvset" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AssignedResource" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CommentCheckinResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CommentCheckinResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateWorkSpace">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tfsMappingPathValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="initLabel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastLabel" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateWorkSpaceResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSpecificChangeset">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tfsMappingPathValue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="changeset" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="StorfgefilePath" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSpecificChangesetResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateWorkSpaceLabel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tfsMappingPathValue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="currentBuildLablestring" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateWorkSpaceLabelResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="BuildDeploy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="currentLabel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="buildDefinitionName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuildDeployResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Notify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="txt" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="account" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NotifyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NotifyResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Createenvironment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TNUM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ShelveUser" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CalltfsService" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateenvironmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateenvironmentResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Createsysfiletable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObjectData" type="tns:ArrayOfTestarray" />
+            <s:element minOccurs="0" maxOccurs="1" name="TNUM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tag" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="modificationtype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PNAME" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTestarray">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Testarray" nillable="true" type="tns:Testarray" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Testarray">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="columnname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="valuename" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreatesysfiletableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreatesysfiletableResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Createattachmenttable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="tns:ArrayOfAttachments" />
+            <s:element minOccurs="0" maxOccurs="1" name="TNUM" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAttachments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attachments" nillable="true" type="tns:Attachments" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Attachments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dest" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Transfer" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Verify" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ldontcomp" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lSysData" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="cObjType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateattachmenttableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateattachmenttableResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createfix">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TNUM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createfixResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="createfixResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addnewfile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ResourceName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="addnewfileResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ClearEntryfolder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="path" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClearEntryfolderResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateBuild">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrackingEntryNumbers" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="BuildType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="product" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Release" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="servc_pack" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="build" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateBuildResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateBuildEnvironment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BNUM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TNUMBERS" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateBuildEnvironmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateBuildEnvironmentResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createFOXBuild">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BUILD" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createFOXBuildResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="createFOXBuildResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateBuildattachmenttable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Attachments" type="tns:ArrayOfAttachments" />
+            <s:element minOccurs="0" maxOccurs="1" name="BNUM" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PNAME" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateBuildattachmenttableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateBuildattachmenttableResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SetParametersSoapIn">
+    <wsdl:part name="parameters" element="tns:SetParameters" />
+  </wsdl:message>
+  <wsdl:message name="SetParametersSoapOut">
+    <wsdl:part name="parameters" element="tns:SetParametersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GrantCheckoutFilePermissionSoapIn">
+    <wsdl:part name="parameters" element="tns:GrantCheckoutFilePermission" />
+  </wsdl:message>
+  <wsdl:message name="GrantCheckoutFilePermissionSoapOut">
+    <wsdl:part name="parameters" element="tns:GrantCheckoutFilePermissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="DenyCheckoutFilePermissionSoapIn">
+    <wsdl:part name="parameters" element="tns:DenyCheckoutFilePermission" />
+  </wsdl:message>
+  <wsdl:message name="DenyCheckoutFilePermissionSoapOut">
+    <wsdl:part name="parameters" element="tns:DenyCheckoutFilePermissionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CommentCheckinSoapIn">
+    <wsdl:part name="parameters" element="tns:CommentCheckin" />
+  </wsdl:message>
+  <wsdl:message name="CommentCheckinSoapOut">
+    <wsdl:part name="parameters" element="tns:CommentCheckinResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateWorkSpaceSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateWorkSpace" />
+  </wsdl:message>
+  <wsdl:message name="CreateWorkSpaceSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateWorkSpaceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecificChangesetSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSpecificChangeset" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecificChangesetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSpecificChangesetResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateWorkSpaceLabelSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateWorkSpaceLabel" />
+  </wsdl:message>
+  <wsdl:message name="CreateWorkSpaceLabelSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateWorkSpaceLabelResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuildDeploySoapIn">
+    <wsdl:part name="parameters" element="tns:BuildDeploy" />
+  </wsdl:message>
+  <wsdl:message name="BuildDeploySoapOut">
+    <wsdl:part name="parameters" element="tns:BuildDeployResponse" />
+  </wsdl:message>
+  <wsdl:message name="NotifySoapIn">
+    <wsdl:part name="parameters" element="tns:Notify" />
+  </wsdl:message>
+  <wsdl:message name="NotifySoapOut">
+    <wsdl:part name="parameters" element="tns:NotifyResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateenvironmentSoapIn">
+    <wsdl:part name="parameters" element="tns:Createenvironment" />
+  </wsdl:message>
+  <wsdl:message name="CreateenvironmentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateenvironmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreatesysfiletableSoapIn">
+    <wsdl:part name="parameters" element="tns:Createsysfiletable" />
+  </wsdl:message>
+  <wsdl:message name="CreatesysfiletableSoapOut">
+    <wsdl:part name="parameters" element="tns:CreatesysfiletableResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateattachmenttableSoapIn">
+    <wsdl:part name="parameters" element="tns:Createattachmenttable" />
+  </wsdl:message>
+  <wsdl:message name="CreateattachmenttableSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateattachmenttableResponse" />
+  </wsdl:message>
+  <wsdl:message name="createfixSoapIn">
+    <wsdl:part name="parameters" element="tns:createfix" />
+  </wsdl:message>
+  <wsdl:message name="createfixSoapOut">
+    <wsdl:part name="parameters" element="tns:createfixResponse" />
+  </wsdl:message>
+  <wsdl:message name="addnewfileSoapIn">
+    <wsdl:part name="parameters" element="tns:addnewfile" />
+  </wsdl:message>
+  <wsdl:message name="addnewfileSoapOut">
+    <wsdl:part name="parameters" element="tns:addnewfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClearEntryfolderSoapIn">
+    <wsdl:part name="parameters" element="tns:ClearEntryfolder" />
+  </wsdl:message>
+  <wsdl:message name="ClearEntryfolderSoapOut">
+    <wsdl:part name="parameters" element="tns:ClearEntryfolderResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateBuildSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateBuild" />
+  </wsdl:message>
+  <wsdl:message name="CreateBuildSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateBuildResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateBuildEnvironmentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateBuildEnvironment" />
+  </wsdl:message>
+  <wsdl:message name="CreateBuildEnvironmentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateBuildEnvironmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="createFOXBuildSoapIn">
+    <wsdl:part name="parameters" element="tns:createFOXBuild" />
+  </wsdl:message>
+  <wsdl:message name="createFOXBuildSoapOut">
+    <wsdl:part name="parameters" element="tns:createFOXBuildResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateBuildattachmenttableSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateBuildattachmenttable" />
+  </wsdl:message>
+  <wsdl:message name="CreateBuildattachmenttableSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateBuildattachmenttableResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebService1Soap">
+    <wsdl:operation name="SetParameters">
+      <wsdl:input message="tns:SetParametersSoapIn" />
+      <wsdl:output message="tns:SetParametersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GrantCheckoutFilePermission">
+      <wsdl:input message="tns:GrantCheckoutFilePermissionSoapIn" />
+      <wsdl:output message="tns:GrantCheckoutFilePermissionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DenyCheckoutFilePermission">
+      <wsdl:input message="tns:DenyCheckoutFilePermissionSoapIn" />
+      <wsdl:output message="tns:DenyCheckoutFilePermissionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CommentCheckin">
+      <wsdl:input message="tns:CommentCheckinSoapIn" />
+      <wsdl:output message="tns:CommentCheckinSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateWorkSpace">
+      <wsdl:input message="tns:CreateWorkSpaceSoapIn" />
+      <wsdl:output message="tns:CreateWorkSpaceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecificChangeset">
+      <wsdl:input message="tns:GetSpecificChangesetSoapIn" />
+      <wsdl:output message="tns:GetSpecificChangesetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateWorkSpaceLabel">
+      <wsdl:input message="tns:CreateWorkSpaceLabelSoapIn" />
+      <wsdl:output message="tns:CreateWorkSpaceLabelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuildDeploy">
+      <wsdl:input message="tns:BuildDeploySoapIn" />
+      <wsdl:output message="tns:BuildDeploySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <wsdl:input message="tns:NotifySoapIn" />
+      <wsdl:output message="tns:NotifySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Createenvironment">
+      <wsdl:input message="tns:CreateenvironmentSoapIn" />
+      <wsdl:output message="tns:CreateenvironmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Createsysfiletable">
+      <wsdl:input message="tns:CreatesysfiletableSoapIn" />
+      <wsdl:output message="tns:CreatesysfiletableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Createattachmenttable">
+      <wsdl:input message="tns:CreateattachmenttableSoapIn" />
+      <wsdl:output message="tns:CreateattachmenttableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createfix">
+      <wsdl:input message="tns:createfixSoapIn" />
+      <wsdl:output message="tns:createfixSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addnewfile">
+      <wsdl:input message="tns:addnewfileSoapIn" />
+      <wsdl:output message="tns:addnewfileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearEntryfolder">
+      <wsdl:input message="tns:ClearEntryfolderSoapIn" />
+      <wsdl:output message="tns:ClearEntryfolderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuild">
+      <wsdl:input message="tns:CreateBuildSoapIn" />
+      <wsdl:output message="tns:CreateBuildSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuildEnvironment">
+      <wsdl:input message="tns:CreateBuildEnvironmentSoapIn" />
+      <wsdl:output message="tns:CreateBuildEnvironmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createFOXBuild">
+      <wsdl:input message="tns:createFOXBuildSoapIn" />
+      <wsdl:output message="tns:createFOXBuildSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuildattachmenttable">
+      <wsdl:input message="tns:CreateBuildattachmenttableSoapIn" />
+      <wsdl:output message="tns:CreateBuildattachmenttableSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetParameters">
+      <soap:operation soapAction="http://tempuri.org/SetParameters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrantCheckoutFilePermission">
+      <soap:operation soapAction="http://tempuri.org/GrantCheckoutFilePermission" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DenyCheckoutFilePermission">
+      <soap:operation soapAction="http://tempuri.org/DenyCheckoutFilePermission" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommentCheckin">
+      <soap:operation soapAction="http://tempuri.org/CommentCheckin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateWorkSpace">
+      <soap:operation soapAction="http://tempuri.org/CreateWorkSpace" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecificChangeset">
+      <soap:operation soapAction="http://tempuri.org/GetSpecificChangeset" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateWorkSpaceLabel">
+      <soap:operation soapAction="http://tempuri.org/CreateWorkSpaceLabel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuildDeploy">
+      <soap:operation soapAction="http://tempuri.org/BuildDeploy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <soap:operation soapAction="http://tempuri.org/Notify" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Createenvironment">
+      <soap:operation soapAction="http://tempuri.org/Createenvironment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Createsysfiletable">
+      <soap:operation soapAction="http://tempuri.org/Createsysfiletable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Createattachmenttable">
+      <soap:operation soapAction="http://tempuri.org/Createattachmenttable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createfix">
+      <soap:operation soapAction="http://tempuri.org/createfix" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addnewfile">
+      <soap:operation soapAction="http://tempuri.org/addnewfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearEntryfolder">
+      <soap:operation soapAction="http://tempuri.org/ClearEntryfolder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuild">
+      <soap:operation soapAction="http://tempuri.org/CreateBuild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuildEnvironment">
+      <soap:operation soapAction="http://tempuri.org/CreateBuildEnvironment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createFOXBuild">
+      <soap:operation soapAction="http://tempuri.org/createFOXBuild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuildattachmenttable">
+      <soap:operation soapAction="http://tempuri.org/CreateBuildattachmenttable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetParameters">
+      <soap12:operation soapAction="http://tempuri.org/SetParameters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrantCheckoutFilePermission">
+      <soap12:operation soapAction="http://tempuri.org/GrantCheckoutFilePermission" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DenyCheckoutFilePermission">
+      <soap12:operation soapAction="http://tempuri.org/DenyCheckoutFilePermission" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommentCheckin">
+      <soap12:operation soapAction="http://tempuri.org/CommentCheckin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateWorkSpace">
+      <soap12:operation soapAction="http://tempuri.org/CreateWorkSpace" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecificChangeset">
+      <soap12:operation soapAction="http://tempuri.org/GetSpecificChangeset" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateWorkSpaceLabel">
+      <soap12:operation soapAction="http://tempuri.org/CreateWorkSpaceLabel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuildDeploy">
+      <soap12:operation soapAction="http://tempuri.org/BuildDeploy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <soap12:operation soapAction="http://tempuri.org/Notify" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Createenvironment">
+      <soap12:operation soapAction="http://tempuri.org/Createenvironment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Createsysfiletable">
+      <soap12:operation soapAction="http://tempuri.org/Createsysfiletable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Createattachmenttable">
+      <soap12:operation soapAction="http://tempuri.org/Createattachmenttable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createfix">
+      <soap12:operation soapAction="http://tempuri.org/createfix" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addnewfile">
+      <soap12:operation soapAction="http://tempuri.org/addnewfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearEntryfolder">
+      <soap12:operation soapAction="http://tempuri.org/ClearEntryfolder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuild">
+      <soap12:operation soapAction="http://tempuri.org/CreateBuild" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuildEnvironment">
+      <soap12:operation soapAction="http://tempuri.org/CreateBuildEnvironment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createFOXBuild">
+      <soap12:operation soapAction="http://tempuri.org/createFOXBuild" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBuildattachmenttable">
+      <soap12:operation soapAction="http://tempuri.org/CreateBuildattachmenttable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService1">
+    <wsdl:port name="WebService1Soap" binding="tns:WebService1Soap">
+      <soap:address location="http://192.168.1.171:4567/webservice1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12">
+      <soap12:address location="http://192.168.1.171:4567/webservice1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

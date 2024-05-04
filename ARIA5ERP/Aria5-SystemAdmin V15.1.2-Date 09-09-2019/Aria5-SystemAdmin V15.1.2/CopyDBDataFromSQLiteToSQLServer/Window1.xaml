@@ -1,0 +1,82 @@
+﻿<Window x:Class="CopyDBDataFromSQLiteToSQLServer.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Window1" Height="600" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <ListView x:Name="ListViewMatchedTables" Grid.Column="0" Grid.Row="0"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      ItemsSource="{Binding MatchedTableNames}" 
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                      Padding="20,2" FontSize="16" Margin="20"/>
+
+        <ListView x:Name="ListViewMissMatchedTables" Grid.Column="1" Grid.Row="0"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      ItemsSource="{Binding MissMatchedCapTableNames}" 
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                      Padding="20,2" FontSize="16" Margin="20"/>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1">
+                <ItemsControl x:Name="ItemsControlMissMatchedColumns" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          ItemsSource="{Binding MissMatchedCapColumnNames}" 
+                          HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                          Padding="20,2" FontSize="16" Margin="20"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Expander Header="{Binding Path=Key}" Foreground="Black" FontSize="18"  >
+                                <ItemsControl Background="AliceBlue" ItemsSource="{Binding Path=Value}"  Height="Auto"
+                                    HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ColumnName}" Foreground="Black" Margin="30,0,0,0" FontSize="14"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="1">
+            <ItemsControl x:Name="ItemsControlMissingColumns" 
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      ItemsSource="{Binding MissingColumnNames}" 
+                      HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
+                      Padding="20,2" FontSize="16" Margin="20"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Expander Header="{Binding Path=Key}" Foreground="Black" FontSize="18"  >
+                            <ItemsControl Background="AliceBlue" ItemsSource="{Binding Path=Value}"  Height="Auto"
+                                HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ColumnName}" Foreground="Black" Margin="30,0,0,0" FontSize="14"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

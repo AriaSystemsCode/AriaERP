@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Application_T">
+      <OwnMembers>
+        <Member Name="QAProjectEntities" Caption="QAProject Entities" DataSourceProperty="" />
+        <Member Name="QAUseCases" Caption="QAUse Cases" DataSourceProperty="" />
+        <Member Name="Requirements" Caption="Requirements" DataSourceProperty="" />
+        <Member Name="TestCases" Caption="Test Cases" DataSourceProperty="" />
+        <Member Name="TestRuns" Caption="Test Runs" DataSourceProperty="" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="Application_T_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="55.925925925925924" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Application_T" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="Application_T_col1" RelativeSize="33.015267175572518" ImageName="" Caption="Application_T_col1" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="1" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="ReleaseNo" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="BuildNo" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="3" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              </LayoutGroup>
+              <LayoutGroup Id="Application_T_col2" RelativeSize="62.786259541984734" ImageName="" Caption="Application_T_col2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="ServicePack" SizeConstraintsType="Default" RelativeSize="28.571428571428573" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+                <LayoutItem Id="ApplicationCategory" SizeConstraintsType="Default" RelativeSize="71.428571428571431" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="1" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="68" ImageName="" Direction="Horizontal" Removed="True">
+              <LayoutGroup Id="Entity_col1" Removed="True" />
+              <LayoutGroup Id="Entity_col2" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="44.074074074074076" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="AriaObjects" RelativeSize="100" ImageName="" Caption="Aria Objects" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="AriaObjects" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="ApplicationSettings" RelativeSize="100" ImageName="" Index="1" Caption="Settings" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="ApplicationSettings" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="Application_Ts" Index="2" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="Application_Ts" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="PreRequiste_Applications" Index="2" RelativeSize="100" ImageName="" Caption="Prerequiste Applications" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="PreRequiste_Applications" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+            </LayoutGroup>
+            <LayoutGroup Id="ADS" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100" ImageName="" Index="3" Removed="True">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ProjectTemplates" Index="3" RelativeSize="100">
+              <LayoutItem Id="ProjectTemplates" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Requirements" Index="4" RelativeSize="100">
+              <LayoutItem Id="Requirements" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="QAProjectEntities" Index="5" RelativeSize="100" Caption="Project Entities" Removed="True">
+              <LayoutItem Id="QAProjectEntities" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="QAUseCases" Index="5" RelativeSize="100" Caption="Use Cases" Removed="True">
+              <LayoutItem Id="QAUseCases" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestCases" Index="5" RelativeSize="100" Removed="True">
+              <LayoutItem Id="TestCases" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestRuns" Index="5" RelativeSize="100" Removed="True">
+              <LayoutItem Id="TestRuns" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ApplicationBuild_Ts" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="ApplicationBuild_Ts" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Application_T_ListView" IsFooterVisible="False">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObject_Applications_ListView" IsFooterVisible="False">
+      <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

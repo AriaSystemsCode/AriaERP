@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="News_ListView_Not_Related">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" PropertyName="Id" View="" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="Information_ListView_NotRelated">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" PropertyName="Id" View="" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="Events_ListView_NotRelated">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" PropertyName="Id" View="" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="ADS_ListView_NotRelated">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" PropertyName="Id" View="" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="ADS_ListView_Menu">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" PropertyName="Id" View="" Index="-1" Width="70" />
+      </Columns>
+    </ListView>
+    <ListView Id="Account_ConfigurationItems_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="8" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="AddressType_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Address Type" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AddressType_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="4" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Administration_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Person">
+              <LayoutGroup Id="Person_col1">
+                <LayoutGroup Id="Auto83d509b0-82fa-42bc-b3ef-978246672915">
+                  <LayoutGroup Id="Auto2950a9be-7e21-491b-abc4-5061b1f068a8">
+                    <LayoutItem Id="Id" ViewItem="Id" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Application_T_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Application_T">
+              <LayoutGroup Id="Application_T_col1">
+                <LayoutItem Id="Id" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ConfigurationItem_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Currency_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Currency" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Currency_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Department_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Department" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Department_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Events_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutItem Id="Id" ViewItem="Id" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Language_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Language" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Language_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="50" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="News_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="Attachments" ViewItem="Attachments" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Person_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Person">
+            <LayoutGroup Id="Person_col1">
+              <LayoutItem Id="Id" ViewItem="Id" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PhoneType_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Phone Type" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PhoneType_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="20" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Position_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Position" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Position_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProjectTemplate_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Activities" ImageName="Action_ParametrizedAction" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Region_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Id" Index="0" Caption="Region" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Region_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Id" ViewItem="Id" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SecuritySystemRole_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors1">
+            <LayoutItem Id="@692e0ae3-873e-4078-8d39-082bad451581" ViewItem="@692e0ae3-873e-4078-8d39-082bad451581" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

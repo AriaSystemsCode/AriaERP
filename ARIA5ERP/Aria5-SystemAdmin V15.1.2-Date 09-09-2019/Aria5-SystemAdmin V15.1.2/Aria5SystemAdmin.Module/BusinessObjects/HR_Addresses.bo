@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Addresses" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="HREntitiy" Caption="HREntitiy" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Addresses_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HR_Addresses" RelativeSize="100">
+              <LayoutGroup Id="HR_Addresses_col1" RelativeSize="50">
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" />
+                <LayoutItem Id="Country" SizeConstraintsType="Default" Index="1" RelativeSize="5.0314465408805029" />
+                <LayoutItem Id="CountryName" SizeConstraintsType="Default" Index="2" RelativeSize="5.0314465408805029" />
+                <LayoutItem Id="AddressLine1" SizeConstraintsType="Default" Index="3" RelativeSize="5.0314465408805029" />
+                <LayoutItem Id="AddressLine2" SizeConstraintsType="Default" Index="4" RelativeSize="78.197064989517813" />
+                <LayoutItem Id="HREntitiy" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Addresses_col2" RelativeSize="50">
+                <LayoutItem Id="AddressLine3" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" />
+                <LayoutItem Id="City" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" />
+                <LayoutItem Id="PostalCode" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" />
+                <LayoutItem Id="Region" SizeConstraintsType="Default" RelativeSize="78.197064989517813" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Projects_Delivery_on_Time" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="CreateDate" Caption="OTD Period Start Date" AllowEdit="False" />
+        <Member Name="Deliveryontime" Caption="AVG (DOT )/Days" />
+        <Member Name="Dot" AllowEdit="False" Caption="On Time Delivery" />
+        <Member Name="IsMaster" AllowEdit="False" />
+        <Member Name="NumberofOTDTasks" Caption="Number of OTD Tasks" AllowEdit="False" />
+        <Member Name="Numberoftasks" Caption="Number Of Tasks" AllowEdit="False" />
+        <Member Name="OTD" Caption="OTD %" AllowEdit="False" />
+        <Member Name="ProjectName" AllowEdit="False" />
+        <Member Name="Total" Caption="Total (DOT)/Days" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="Projects_Delivery_on_Time_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Projects_Delivery_on_Time" RelativeSize="100">
+              <LayoutGroup Id="Projects_Delivery_on_Time_col1" RelativeSize="50.083472454090149">
+                <LayoutItem Id="ProjectName" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" ViewItem="ProjectName" />
+                <LayoutItem Id="Numberoftasks" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="Numberoftasks" />
+                <LayoutItem Id="NumberofOTDTasks" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="NumberofOTDTasks" />
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="83.228511530398322" ViewItem="Id" />
+                <LayoutItem Id="Deliveryontime" ViewItem="Deliveryontime" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Projects_Delivery_on_Time_col2" RelativeSize="49.916527545909851">
+                <LayoutItem Id="OTD" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" ViewItem="OTD" />
+                <LayoutItem Id="Dot" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" Index="1" ViewItem="Dot" />
+                <LayoutItem Id="IsMaster" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" Index="2" ViewItem="IsMaster" />
+                <LayoutItem Id="CreateDate" SizeConstraintsType="Default" RelativeSize="83.228511530398322" Index="3" ViewItem="CreateDate" />
+                <LayoutItem Id="Total" SizeConstraintsType="Default" RelativeSize="3.380281690140845" ViewItem="Total" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

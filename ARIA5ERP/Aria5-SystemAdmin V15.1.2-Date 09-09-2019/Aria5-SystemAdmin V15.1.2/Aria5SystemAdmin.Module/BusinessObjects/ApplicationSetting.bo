@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ApplicationSetting" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_ApplicationSettings_ListView" DataAccessMode="DataView" />
+    <DetailView Id="ApplicationSetting_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="12.13307240704501">
+            <LayoutGroup Id="ApplicationSetting" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ApplicationSetting_ListView" DataAccessMode="DataView" />
+    <ListView Id="ApplicationSetting_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="SettingType_ApplicationSettings_ListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

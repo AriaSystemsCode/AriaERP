@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DashboardView Id="EmailSetting">
+      <Layout Id="Layout">
+        <LayoutGroup Id="37049d24-759f-4f6c-9824-6917abd7a444">
+          <LayoutItem Id="EmailTemplate" ViewItem="EmailTemplate" />
+        </LayoutGroup>
+      </Layout>
+    </DashboardView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="News_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="Attachments" ViewItem="Attachments" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="OTAWAYEmailSettingClass_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="@f374f18e-f1a8-4a4c-809f-f4988b3fcd02" ViewItem="EmailSetting" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="OTAWAYEmailTemplateClass_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="MailTemplate" ViewItem="MailTemplate" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="OTAWAYSortApp_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="SortApp" ViewItem="SortApplication" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="OTAWAYSortCategory_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="@8892155e-3757-45b3-9077-2be9ca88a14c" ViewItem="@8892155e-3757-45b3-9077-2be9ca88a14c" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="EmailSettingClass_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="EmailSetting" ViewItem="EmailSetting" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="EmailTemplateClass_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="MailTemplate" ViewItem="MailTemplate" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="MR_Application_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="Application Sort" ViewItem="Application Sort" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ReportVariablesSorterEmptyClass_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="ReportViewItem" ViewItem="ReportViewItem" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SecuritySystemRole_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors1">
+            <LayoutItem Id="@692e0ae3-873e-4078-8d39-082bad451581" ViewItem="@692e0ae3-873e-4078-8d39-082bad451581" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SortApp_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="sortApp" ViewItem="sortApp" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SortCategory_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="SortCate" ViewItem="SortCate" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

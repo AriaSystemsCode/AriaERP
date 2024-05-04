@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Attachment" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Attachment_DetailView">
+      <Items>
+        <PropertyEditor Id="AttachmentType" Caption="Type" />
+        <PropertyEditor Id="HrEntityType" Caption="Entity Type" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="26.4">
+            <LayoutGroup Id="HR_Attachment" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="HR_Attachment_col1" RelativeSize="100">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="20" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="HrEntityType" SizeConstraintsType="Default" RelativeSize="15" Index="2" />
+                <LayoutItem Id="AttachmentType" ViewItem="AttachmentType" SizeConstraintsType="Default" Index="3" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="link" ViewItem="link" SizeConstraintsType="Default" Index="4" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="File" ViewItem="File" SizeConstraintsType="Default" Index="5" RelativeSize="20" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Attachment_col2" Index="1" RelativeSize="74.703557312252968" Caption="HR_Attachment_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="AttachmentType" Removed="True" />
+                <LayoutItem Id="File" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="73.6" IsNewNode="True">
+            <LayoutGroup Id="HR_Entities_Group" ShowCaption="True" Caption="HREntities" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="HR_Entities" ViewItem="HR_Entities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="HR_Entities_Group" Direction="Vertical" RelativeSize="26.666666666666668" Removed="True">
+            <LayoutItem Id="HR_Entities" SizeConstraintsType="Default" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Attachment_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Id" Width="77" Index="0" />
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Width="120" Index="1" />
+        <ColumnInfo Id="HrEntityType" Width="77" />
+        <ColumnInfo Id="AttachmentType" Width="98" />
+        <ColumnInfo Id="link" SortIndex="-1" SortOrder="None" Width="66" />
+        <ColumnInfo Id="File" SortIndex="0" SortOrder="Ascending" Width="72" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Entity_HR_Attachments_ListView">
+      <Columns>
+        <ColumnInfo Id="Id" Index="0" Width="47" />
+        <ColumnInfo Id="Name" Index="1" Width="137" />
+        <ColumnInfo Id="HrEntityType" Width="80" />
+        <ColumnInfo Id="AttachmentType" Width="80" />
+        <ColumnInfo Id="link" Width="80" />
+        <ColumnInfo Id="File" Width="86" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

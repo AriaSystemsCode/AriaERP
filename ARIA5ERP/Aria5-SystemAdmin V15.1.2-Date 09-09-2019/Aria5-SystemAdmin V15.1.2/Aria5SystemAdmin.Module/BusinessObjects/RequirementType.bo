@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.RequirementType" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Description" RowCount="10" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="RequirementType_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="RequirementType" RelativeSize="100">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" Index="0" RelativeSize="13.852813852813853" ViewItem="Name" />
+              <LayoutItem Id="Requirement" ViewItem="Requirement" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

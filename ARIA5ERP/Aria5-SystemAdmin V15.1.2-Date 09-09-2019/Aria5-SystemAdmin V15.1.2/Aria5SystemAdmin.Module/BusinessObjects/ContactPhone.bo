@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ContactPhone" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Contact_ContactPhones_ListView" IsFooterVisible="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Branch" Index="-1" />
+        <ColumnInfo Id="PhoneTypeDescription" SortIndex="0" SortOrder="Descending" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ContactPhone_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ContactPhone" RelativeSize="100">
+              <LayoutGroup Id="ContactPhone_col1" RelativeSize="50">
+                <LayoutItem Id="PhoneType" RelativeSize="4.507042253521127" ViewItem="PhoneType" />
+                <LayoutItem Id="PhoneNumber" RelativeSize="3.380281690140845" ViewItem="PhoneNumber" />
+                <LayoutItem Id="Extension" RelativeSize="92.112676056338032" ViewItem="Extension" />
+              </LayoutGroup>
+              <LayoutGroup Id="ContactPhone_col2" RelativeSize="50">
+                <LayoutItem Id="PhoneTypeDescription" RelativeSize="95.492957746478879" ViewItem="PhoneTypeDescription" />
+                <LayoutItem Id="Branch" ViewItem="Branch" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ContactPhone_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Branch" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ContactPhone_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="HR_Branches_Phones_ListView">
+      <Columns>
+        <ColumnInfo Id="Branch" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

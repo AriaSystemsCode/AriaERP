@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRActivity" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="HR_ActivityCategory_Activities_ListView">
+      <Columns>
+        <ColumnInfo Id="Type" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Role_Activities_ListView">
+      <Columns>
+        <ColumnInfo Id="Fri" Index="-1" />
+        <ColumnInfo Id="Mon" Index="-1" />
+        <ColumnInfo Id="Sat" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" />
+        <ColumnInfo Id="Thu" Index="-1" />
+        <ColumnInfo Id="Tue" Index="-1" />
+        <ColumnInfo Id="Wed" Index="-1" />
+        <ColumnInfo Id="Duration" Index="4" />
+        <ColumnInfo Id="HRRole" Index="5" />
+        <ColumnInfo Id="Initiator" Index="6" />
+        <ColumnInfo Id="Type" Index="7" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HRActivity_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HRActivity" Caption="Activity" RelativeSize="73.19587628865979">
+              <LayoutGroup Id="HRActivity_col1" RelativeSize="61.702127659574465">
+                <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="9.9071207430340564" IsNewNode="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="7.4303405572755414" Index="1" ViewItem="Name" />
+                <LayoutItem Id="Category" SizeConstraintsType="Default" RelativeSize="7.4303405572755414" Index="2" ViewItem="Category" />
+                <LayoutItem Id="Frequency" SizeConstraintsType="Default" RelativeSize="7.4303405572755414" Index="3" ViewItem="Frequency" />
+                <LayoutItem Id="FrequencyType" SizeConstraintsType="Default" RelativeSize="7.4303405572755414" Index="4" ViewItem="FrequencyType" />
+                <LayoutGroup Id="Autocc268a6b-b967-44cb-b835-afa35af43f81" ShowCaption="False" Caption="Autocc268a6b-b967-44cb-b835-afa35af43f81(10)" Direction="Horizontal" Index="5" RelativeSize="15.170278637770897" IsNewNode="True">
+                  <LayoutItem Id="Sat" ViewItem="Sat" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="50.470219435736674" IsNewNode="True" />
+                  <LayoutItem Id="Sun" ViewItem="Sun" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="49.529780564263326" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Sat" SizeConstraintsType="Default" Index="5" RelativeSize="7.8947368421052628" ViewItem="Sat" Removed="True" />
+                <LayoutGroup Id="Autoa4ae6c30-0d77-4fb9-a40d-3eb8f14c0b64" ShowCaption="False" Caption="Autoa4ae6c30-0d77-4fb9-a40d-3eb8f14c0b64(13)" Index="6" RelativeSize="30.340557275541794" IsNewNode="True">
+                  <LayoutGroup Id="Auto3e3ce008-6139-49c8-b3b9-1e81b50fa416" ShowCaption="False" Caption="Auto3e3ce008-6139-49c8-b3b9-1e81b50fa416(14)" Direction="Horizontal" Index="0" RelativeSize="50" IsNewNode="True">
+                    <LayoutItem Id="Mon" ViewItem="Mon" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="50.470219435736674" IsNewNode="True" />
+                    <LayoutItem Id="Tue" ViewItem="Tue" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="49.529780564263326" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoa035169c-9cb4-4938-a2cf-3f1defdf6d83" ShowCaption="False" Caption="Autoa035169c-9cb4-4938-a2cf-3f1defdf6d83(17)" Direction="Horizontal" Index="1" RelativeSize="50" IsNewNode="True">
+                    <LayoutItem Id="Wed" ViewItem="Wed" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="50.470219435736674" IsNewNode="True" />
+                    <LayoutItem Id="Thu" ViewItem="Thu" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="49.529780564263326" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Mon" SizeConstraintsType="Default" Index="6" RelativeSize="8.0808080808080813" ViewItem="Mon" Removed="True" />
+                <LayoutItem Id="Sun" SizeConstraintsType="Default" Index="6" RelativeSize="7.8947368421052628" ViewItem="Sun" Removed="True" />
+                <LayoutItem Id="Fri" ViewItem="Fri" SizeConstraintsType="Default" Index="7" RelativeSize="14.860681114551083" CaptionLocation="Top" IsNewNode="True" />
+                <LayoutItem Id="Tue" SizeConstraintsType="Default" Index="7" RelativeSize="8.0808080808080813" ViewItem="Tue" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HRActivity_col2" RelativeSize="38.297872340425535">
+                <LayoutItem Id="Duration" ViewItem="Duration" SizeConstraintsType="Default" Index="0" RelativeSize="9.9071207430340564" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Fri" SizeConstraintsType="Default" Index="2" RelativeSize="8.5714285714285712" ViewItem="Fri" Removed="True" />
+                <LayoutItem Id="Initiator" SizeConstraintsType="Default" RelativeSize="7.4303405572755414" Index="2" ViewItem="Initiator" />
+                <LayoutItem Id="Thu" SizeConstraintsType="Default" Index="2" RelativeSize="9.375" ViewItem="Thu" Removed="True" />
+                <LayoutItem Id="DefaultAttachment" ViewItem="DefaultAttachment" SizeConstraintsType="Default" Index="4" RelativeSize="7.4303405572755414" IsNewNode="True" />
+                <LayoutItem Id="Type" Index="5" RelativeSize="60.371517027863774" ViewItem="Type" />
+                <LayoutItem Id="Wed" ViewItem="Wed" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="4.9484536082474229" IsNewNode="True" />
+            <LayoutGroup Id="Entity_col2" ShowCaption="False" Direction="Vertical" Index="2" RelativeSize="21.855670103092784" IsNewNode="True">
+              <TabbedGroup Id="Tabs" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="JobPositions" ShowCaption="True" Caption="Job Positions" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="JobPositions" ShowCaption="False" ViewItem="JobPositions" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="UserActivityList" ShowCaption="True" Caption="User Activity List" Index="1" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="UserActivityList" ShowCaption="False" ViewItem="UserActivityList" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="Notes" IsNewNode="True">
+                  <LayoutItem Id="NotesList" ViewItem="NotesList" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="EntityAttachments" ShowCaption="True" Caption="Attachments" Index="3" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="EntityAttachments" ShowCaption="False" ViewItem="EntityAttachments" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="58.620689655172413" Removed="True">
+              <LayoutGroup Id="Entity_col1" RelativeSize="50">
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="15.384615384615385" Index="0" ViewItem="Status" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="1" ViewItem="StatusId" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="2" ViewItem="Description" />
+                <LayoutItem Id="EnteredBy" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="3" ViewItem="EnteredBy" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="4" ViewItem="EnteredDate" />
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="5" ViewItem="Notes" />
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" RelativeSize="26.923076923076923" Index="6" ViewItem="DefaultAttachment" />
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="Id" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="50">
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="CategoryId" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="ClassificationId" />
+                <LayoutItem Id="Division" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="Division" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="EntityCategory" />
+                <LayoutItem Id="EntityClassification" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="EntityClassification" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="EntityType" />
+                <LayoutItem Id="IMAGE" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="IMAGE" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="TypeId" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="58.8126159554731" Removed="True">
+            <LayoutGroup Id="ADS" RelativeSize="100">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ADS" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAttachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityRelationships" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Events" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Information" />
+            </LayoutGroup>
+            <LayoutGroup Id="JobPositions" RelativeSize="100">
+              <LayoutItem Id="JobPositions" SizeConstraintsType="Default" RelativeSize="100" ViewItem="JobPositions" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" ViewItem="News" />
+            </LayoutGroup>
+            <LayoutGroup Id="UserActivityList" RelativeSize="100">
+              <LayoutItem Id="UserActivityList" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UserActivityList" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HRActivity_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Fri" Index="-1" />
+        <ColumnInfo Id="Mon" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Sat" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" />
+        <ColumnInfo Id="Thu" Index="-1" />
+        <ColumnInfo Id="Tue" Index="-1" />
+        <ColumnInfo Id="Type" Index="-1" />
+        <ColumnInfo Id="Wed" Index="-1" />
+        <ColumnInfo Id="Id" Index="0" Width="80" />
+        <ColumnInfo Id="Name" Width="55" Index="1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Category" Width="48" Index="2" />
+        <ColumnInfo Id="Frequency" Width="48" Index="3" />
+        <ColumnInfo Id="FrequencyType" Width="48" Index="4" />
+        <ColumnInfo Id="Duration" Width="32" Index="5" />
+        <ColumnInfo Id="Initiator" Width="48" Index="6" />
+        <ColumnInfo Id="DetailLink" Width="74" Index="7" />
+      </Columns>
+    </ListView>
+    <ListView Id="HRActivity_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Id" Index="0" Caption="Id" PropertyName="Id" Width="73" IsNewNode="True" />
+        <ColumnInfo Id="Name" Index="1" Width="231" />
+        <ColumnInfo Id="Category" Index="2" Caption="Category" PropertyName="Category" Width="177" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HREmployee_ActingAsActivities_ListView">
+      <Columns>
+        <ColumnInfo Id="Id" Index="0" Width="82" />
+        <ColumnInfo Id="Name" Width="83" Index="1" />
+        <ColumnInfo Id="Category" Width="45" Index="2" />
+        <ColumnInfo Id="Frequency" Width="45" Index="3" />
+        <ColumnInfo Id="FrequencyType" Width="45" Index="4" />
+        <ColumnInfo Id="Duration" Width="31" Index="5" />
+        <ColumnInfo Id="Initiator" Width="45" Index="6" />
+        <ColumnInfo Id="DetailLink" Width="60" Index="7" />
+      </Columns>
+    </ListView>
+    <ListView Id="HRJobPosition_Activities_ListView" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="Fri" Index="-1" />
+        <ColumnInfo Id="Mon" Index="-1" />
+        <ColumnInfo Id="Sat" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" />
+        <ColumnInfo Id="Thu" Index="-1" />
+        <ColumnInfo Id="Tue" Index="-1" />
+        <ColumnInfo Id="Type" Index="-1" />
+        <ColumnInfo Id="Wed" Index="-1" />
+        <ColumnInfo Id="Id" Index="0" Width="67" />
+        <ColumnInfo Id="Name" Width="83" Index="1" />
+        <ColumnInfo Id="Category" Width="60" Index="2" SortOrder="Ascending" GroupIndex="1" />
+        <ColumnInfo Id="Frequency" Width="60" Index="3" />
+        <ColumnInfo Id="FrequencyType" Width="60" Index="4" />
+        <ColumnInfo Id="Duration" Width="42" Index="5" />
+        <ColumnInfo Id="Initiator" Width="60" Index="6" />
+        <ColumnInfo Id="DetailLink" Width="106" Index="7" />
+        <ColumnInfo Id="HRRole" SortOrder="Ascending" GroupIndex="0" />
+      </Columns>
+    </ListView>
+    <ListView Id="HRJobPositionRevision_Activities_ListView">
+      <Columns>
+        <ColumnInfo Id="Type" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

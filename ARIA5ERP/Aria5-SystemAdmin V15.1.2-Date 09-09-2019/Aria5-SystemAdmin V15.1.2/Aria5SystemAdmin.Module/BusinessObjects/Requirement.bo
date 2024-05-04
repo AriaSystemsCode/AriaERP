@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Requirement" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Application_T" Caption="Application" />
+        <Member Name="ApproveStatus" AllowEdit="False" />
+        <Member Name="Attachements" Caption="Attachments" />
+        <Member Name="Description" RowCount="10" Size="1500" />
+        <Member Name="Enddate" AllowEdit="False" />
+        <Member Name="Needs" DataSourceCriteria="" />
+        <Member Name="PROJECTENTITY" AllowEdit="False" Caption="Project Entity Required" />
+        <Member Name="ProjectTemplate" Caption="Project" />
+        <Member Name="TESTCASE" AllowEdit="False" Caption="Test Case Required" />
+        <Member Name="USECASE" AllowEdit="False" Caption="Use Case Required " />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_Requirements_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="_QAProjectEntity" Width="35" Index="-1" />
+        <ColumnInfo Id="Application_T" Width="35" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="Needs" Width="35" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="NewProperty" Width="35" Index="-1" />
+        <ColumnInfo Id="Title" Width="76" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Refrence" Width="34" />
+        <ColumnInfo Id="ProjectTemplate" Width="34" Index="2" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="RequirementType" Width="34" Index="3" />
+        <ColumnInfo Id="RequirementMoscow" Width="34" Index="4" />
+        <ColumnInfo Id="RequirementStatus" Width="34" Index="5" />
+        <ColumnInfo Id="RequirementPriorty" Width="46" Index="6" />
+        <ColumnInfo Id="Account" Index="7" Width="65" />
+        <ColumnInfo Id="USECASE" Index="8" Width="46" />
+        <ColumnInfo Id="PROJECTENTITY" Index="9" Width="46" />
+        <ColumnInfo Id="TESTCASE" Index="10" Width="46" />
+        <ColumnInfo Id="Enddate" Width="51" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectTemplate_Requirements_ListView">
+      <Columns>
+        <ColumnInfo Id="_QAProjectEntity" Width="27" Index="-1" />
+        <ColumnInfo Id="Application_T" Width="27" Index="-1" />
+        <ColumnInfo Id="Description" Width="27" Index="-1" />
+        <ColumnInfo Id="ProjectTemplate" Width="27" Index="-1" />
+        <ColumnInfo Id="Title" Width="89" />
+        <ColumnInfo Id="Refrence" Width="27" />
+        <ColumnInfo Id="Needs" Width="27" Index="2" />
+        <ColumnInfo Id="RequirementType" Width="27" Index="3" />
+        <ColumnInfo Id="RequirementMoscow" Width="27" Index="4" />
+        <ColumnInfo Id="RequirementStatus" Width="27" Index="5" />
+        <ColumnInfo Id="RequirementPriorty" Width="27" Index="6" />
+        <ColumnInfo Id="NewProperty" Width="27" Index="7" />
+        <ColumnInfo Id="Account" Width="27" Index="8" />
+        <ColumnInfo Id="USECASE" Width="22" Index="9" />
+        <ColumnInfo Id="PROJECTENTITY" Width="22" Index="10" />
+        <ColumnInfo Id="TESTCASE" Width="35" Index="11" />
+        <ColumnInfo Id="Enddate" Width="27" Index="12" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Requirement_DetailView">
+      <Items>
+        <PropertyEditor Id="Application_T" AllowEdit="True" />
+        <PropertyEditor Id="Enddate" AllowEdit="True" Caption="End Date" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="29.2">
+            <LayoutGroup Id="Requirement" RelativeSize="100">
+              <LayoutGroup Id="Requirement_col1" RelativeSize="49.587912087912088">
+                <LayoutItem Id="Title" SizeConstraintsType="Default" RelativeSize="17.391304347826086" Index="0" ViewItem="Title" />
+                <LayoutItem Id="Refrence" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="1" ViewItem="Refrence" />
+                <LayoutItem Id="RequirementType" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="2" ViewItem="RequirementType" />
+                <LayoutItem Id="Needs" ViewItem="Needs" SizeConstraintsType="Default" Index="3" RelativeSize="13.043478260869565" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="3" ViewItem="ProjectTemplate" Removed="True" />
+                <LayoutItem Id="RequirementMoscow" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="4" ViewItem="RequirementMoscow" />
+                <LayoutItem Id="RequirementPriorty" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="5" ViewItem="RequirementPriorty" />
+                <LayoutItem Id="RequirementStatus" SizeConstraintsType="Default" RelativeSize="17.391304347826086" Index="6" ViewItem="RequirementStatus" />
+              </LayoutGroup>
+              <LayoutGroup Id="Requirement_col2" RelativeSize="50.412087912087912">
+                <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" SizeConstraintsType="Default" Index="0" RelativeSize="17.391304347826086" IsNewNode="True" />
+                <LayoutItem Id="Application_T" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="1" ViewItem="Application_T" />
+                <LayoutItem Id="Account" SizeConstraintsType="Default" Index="2" RelativeSize="13.043478260869565" ViewItem="Account" />
+                <LayoutItem Id="Enddate" SizeConstraintsType="Default" Index="3" RelativeSize="13.043478260869565" ViewItem="Enddate" />
+                <LayoutItem Id="NewProperty" SizeConstraintsType="Default" RelativeSize="50" Index="3" ViewItem="NewProperty" Removed="True" />
+                <LayoutItem Id="USECASE" SizeConstraintsType="Default" Index="4" RelativeSize="13.043478260869565" ViewItem="USECASE" />
+                <LayoutItem Id="PROJECTENTITY" SizeConstraintsType="Default" Index="5" RelativeSize="13.043478260869565" ViewItem="PROJECTENTITY" />
+                <LayoutItem Id="TESTCASE" SizeConstraintsType="Default" Index="6" RelativeSize="17.391304347826086" ViewItem="TESTCASE" />
+                <LayoutItem Id="_QAProjectEntity" SizeConstraintsType="Default" RelativeSize="15" ViewItem="_QAProjectEntity" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="61.866666666666667">
+            <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="49.78448275862069" ViewItem="Description" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="8.9333333333333336">
+            <LayoutGroup Id="TestCases" RelativeSize="100" Index="0">
+              <LayoutItem Id="TestCases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="Usecases" RelativeSize="100" Index="1">
+              <LayoutItem Id="Usecases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Usecases" />
+            </LayoutGroup>
+            <LayoutGroup Id="ProjectEntities" RelativeSize="100" Index="2">
+              <LayoutItem Id="ProjectEntities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ProjectEntities" />
+            </LayoutGroup>
+            <LayoutGroup Id="Comments" RelativeSize="100" Index="3">
+              <LayoutItem Id="Comments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Comments" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100" Index="4">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100" Index="5">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+            <LayoutGroup Id="QAProjectEntities" RelativeSize="100" Removed="True">
+              <LayoutItem Id="QAProjectEntities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="QAProjectEntities" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Requirement_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="_QAProjectEntity" SortIndex="-1" SortOrder="None" Index="-1" Width="30" />
+        <ColumnInfo Id="Description" Width="30" Index="-1" />
+        <ColumnInfo Id="Needs" Index="-1" />
+        <ColumnInfo Id="NewProperty" Index="-1" Width="30" />
+        <ColumnInfo Id="Title" SortIndex="-1" SortOrder="None" Width="108" />
+        <ColumnInfo Id="Refrence" Width="38" />
+        <ColumnInfo Id="ProjectTemplate" Index="2" Width="38" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="RequirementType" Index="3" Width="38" />
+        <ColumnInfo Id="RequirementMoscow" Index="4" Width="38" />
+        <ColumnInfo Id="RequirementStatus" Index="5" Width="38" />
+        <ColumnInfo Id="RequirementPriorty" Index="6" Width="38" />
+        <ColumnInfo Id="Application_T" Index="7" Width="38" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Account" Index="8" Width="38" />
+        <ColumnInfo Id="USECASE" Index="9" Width="24" />
+        <ColumnInfo Id="PROJECTENTITY" Index="10" Width="23" />
+        <ColumnInfo Id="TESTCASE" Index="11" Width="23" />
+        <ColumnInfo Id="Enddate" Index="12" Width="64" />
+      </Columns>
+    </ListView>
+    <ListView Id="Requirement_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Application_T" PropertyName="Application_T" Index="-1" Width="139" IsNewNode="True" />
+        <ColumnInfo Id="Description" PropertyName="Description" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Needs" PropertyName="Needs" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="RequirementMoscow" PropertyName="RequirementMoscow" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="RequirementPriorty" PropertyName="RequirementPriorty" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="RequirementStatus" PropertyName="RequirementStatus" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Title" SortOrder="None" Index="0" Width="208" SortIndex="-1" />
+        <ColumnInfo Id="Refrence" PropertyName="Refrence" Index="1" Width="112" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+        <ColumnInfo Id="ProjectTemplate" PropertyName="ProjectTemplate" Index="2" Width="92" IsNewNode="True" />
+        <ColumnInfo Id="RequirementType" PropertyName="RequirementType" Index="3" Width="134" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

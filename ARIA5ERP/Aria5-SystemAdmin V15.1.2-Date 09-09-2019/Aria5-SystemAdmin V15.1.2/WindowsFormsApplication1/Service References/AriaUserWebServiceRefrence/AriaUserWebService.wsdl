@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="AddNewUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="User" type="tns:AriaUserMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AriaUserMarshalling">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Account" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddNewUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddNewUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserAuthentication">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserAuthenticationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserAuthenticationResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateTemporaryPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateTemporaryPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateTemporaryPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateTemporaryPasswordAdmin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateTemporaryPasswordAdminResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateTemporaryPasswordAdminResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newTmpPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Reset" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPasswordResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SendFeedback">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="emailFrom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="emailFromPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="emailTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="body" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFeedbackResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="RestPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RestPasswordResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChangePasswordResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountUsers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="account" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountUsersResult" type="tns:ArrayOfAriaUserMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAriaUserMarshalling">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AriaUserMarshalling" nillable="true" type="tns:AriaUserMarshalling" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddNewUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AddNewUser" />
+  </wsdl:message>
+  <wsdl:message name="AddNewUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AddNewUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserAuthenticationSoapIn">
+    <wsdl:part name="parameters" element="tns:UserAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="UserAuthenticationSoapOut">
+    <wsdl:part name="parameters" element="tns:UserAuthenticationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateTemporaryPassword" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateTemporaryPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordAdminSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateTemporaryPasswordAdmin" />
+  </wsdl:message>
+  <wsdl:message name="GenerateTemporaryPasswordAdminSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateTemporaryPasswordAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPassword" />
+  </wsdl:message>
+  <wsdl:message name="SendPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFeedbackSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFeedback" />
+  </wsdl:message>
+  <wsdl:message name="SendFeedbackSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFeedbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="RestPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:RestPassword" />
+  </wsdl:message>
+  <wsdl:message name="RestPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:RestPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountUsersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountUsers" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountUsersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountUsersResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AriaUserWebServiceSoap">
+    <wsdl:operation name="AddNewUser">
+      <wsdl:input message="tns:AddNewUserSoapIn" />
+      <wsdl:output message="tns:AddNewUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserAuthentication">
+      <wsdl:input message="tns:UserAuthenticationSoapIn" />
+      <wsdl:output message="tns:UserAuthenticationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <wsdl:input message="tns:GenerateTemporaryPasswordSoapIn" />
+      <wsdl:output message="tns:GenerateTemporaryPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPasswordAdmin">
+      <wsdl:input message="tns:GenerateTemporaryPasswordAdminSoapIn" />
+      <wsdl:output message="tns:GenerateTemporaryPasswordAdminSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPassword">
+      <wsdl:input message="tns:SendPasswordSoapIn" />
+      <wsdl:output message="tns:SendPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFeedback">
+      <wsdl:input message="tns:SendFeedbackSoapIn" />
+      <wsdl:output message="tns:SendFeedbackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RestPassword">
+      <wsdl:input message="tns:RestPasswordSoapIn" />
+      <wsdl:output message="tns:RestPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input message="tns:ChangePasswordSoapIn" />
+      <wsdl:output message="tns:ChangePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountUsers">
+      <wsdl:input message="tns:GetAccountUsersSoapIn" />
+      <wsdl:output message="tns:GetAccountUsersSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AriaUserWebServiceSoap" type="tns:AriaUserWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewUser">
+      <soap:operation soapAction="http://tempuri.org/AddNewUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserAuthentication">
+      <soap:operation soapAction="http://tempuri.org/UserAuthentication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <soap:operation soapAction="http://tempuri.org/GenerateTemporaryPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPasswordAdmin">
+      <soap:operation soapAction="http://tempuri.org/GenerateTemporaryPasswordAdmin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPassword">
+      <soap:operation soapAction="http://tempuri.org/SendPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFeedback">
+      <soap:operation soapAction="http://tempuri.org/SendFeedback" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestPassword">
+      <soap:operation soapAction="http://tempuri.org/RestPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://tempuri.org/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountUsers">
+      <soap:operation soapAction="http://tempuri.org/GetAccountUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AriaUserWebServiceSoap12" type="tns:AriaUserWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewUser">
+      <soap12:operation soapAction="http://tempuri.org/AddNewUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserAuthentication">
+      <soap12:operation soapAction="http://tempuri.org/UserAuthentication" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPassword">
+      <soap12:operation soapAction="http://tempuri.org/GenerateTemporaryPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateTemporaryPasswordAdmin">
+      <soap12:operation soapAction="http://tempuri.org/GenerateTemporaryPasswordAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPassword">
+      <soap12:operation soapAction="http://tempuri.org/SendPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFeedback">
+      <soap12:operation soapAction="http://tempuri.org/SendFeedback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestPassword">
+      <soap12:operation soapAction="http://tempuri.org/RestPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap12:operation soapAction="http://tempuri.org/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountUsers">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AriaUserWebService">
+    <wsdl:port name="AriaUserWebServiceSoap" binding="tns:AriaUserWebServiceSoap">
+      <soap:address location="http://37d1af78366a42af9996e585bd6a3c04.cloudapp.net/WebServices/AriaUserWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AriaUserWebServiceSoap12" binding="tns:AriaUserWebServiceSoap12">
+      <soap12:address location="http://37d1af78366a42af9996e585bd6a3c04.cloudapp.net/WebServices/AriaUserWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

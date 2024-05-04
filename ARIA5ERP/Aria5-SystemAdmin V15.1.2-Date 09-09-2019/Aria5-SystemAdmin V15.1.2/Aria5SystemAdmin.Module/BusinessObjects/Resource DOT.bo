@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Resource_DOT" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="CreateDate" Caption="OTD Period Start Date" />
+        <Member Name="DOT" Caption="AVG (DOT) /Days" />
+        <Member Name="NumberofOTDTasks" Caption="Number of OTD Tasks" />
+        <Member Name="OTD" Caption="OTD %" />
+        <Member Name="Total" Caption="Total (DOT)/Days" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="DeliveryOnTime_ResourcesDOT_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="DeliveryOnTime" Index="-1" />
+        <ColumnInfo Id="DOT" Index="-1" />
+        <ColumnInfo Id="Total" Index="-1" />
+        <ColumnInfo Id="NumberofOTDTasks" Index="1" />
+        <ColumnInfo Id="NumberOfTasks" Index="2" />
+        <ColumnInfo Id="OTD" Index="3" />
+        <ColumnInfo Id="IsMaster" Index="4" />
+        <ColumnInfo Id="CreateDate" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Resource_DOT_DetailView">
+      <Items>
+        <PropertyEditor Id="CreateDate" AllowEdit="False" />
+        <PropertyEditor Id="DeliveryOnTime" AllowEdit="False" />
+        <PropertyEditor Id="IsMaster" AllowEdit="False" />
+        <PropertyEditor Id="NumberofOTDTasks" AllowEdit="False" />
+        <PropertyEditor Id="NumberOfTasks" AllowEdit="False" />
+        <PropertyEditor Id="OTD" AllowEdit="False" />
+        <PropertyEditor Id="ResourceName" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Resource_DOT" RelativeSize="100">
+              <LayoutGroup Id="Resource_DOT_col1" RelativeSize="50.083472454090149">
+                <LayoutItem Id="ResourceName" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" ViewItem="ResourceName" />
+                <LayoutItem Id="DeliveryOnTime" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="DeliveryOnTime" />
+                <LayoutItem Id="NumberOfTasks" SizeConstraintsType="Default" RelativeSize="5.0314465408805029" ViewItem="NumberOfTasks" />
+                <LayoutItem Id="NumberofOTDTasks" SizeConstraintsType="Default" RelativeSize="83.228511530398322" ViewItem="NumberofOTDTasks" />
+              </LayoutGroup>
+              <LayoutGroup Id="Resource_DOT_col2" RelativeSize="49.916527545909851">
+                <LayoutItem Id="IsMaster" SizeConstraintsType="Default" Index="1" RelativeSize="5.0314465408805029" ViewItem="IsMaster" />
+                <LayoutItem Id="OTD" SizeConstraintsType="Default" RelativeSize="6.7085953878406706" ViewItem="OTD" />
+                <LayoutItem Id="CreateDate" SizeConstraintsType="Default" Index="2" RelativeSize="88.259958071278831" ViewItem="CreateDate" />
+                <LayoutItem Id="Total" ViewItem="Total" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

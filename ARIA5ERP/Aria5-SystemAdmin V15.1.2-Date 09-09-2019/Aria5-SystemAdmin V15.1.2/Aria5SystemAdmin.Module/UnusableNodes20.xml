@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DeliveryOnTime">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="TicketsforDot" Caption="Tickets  Dot" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QATestPlan">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="Testers" Caption="Tester" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Requirement">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="proposalSolution" RowCount="10" Size="1500" Caption="Proposal Solution" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TestCase">
+      <OwnMembers Id="OwnMembers">
+        <Member Name="ProjectEntity" DataSourceProperty="ProjectTemplate.ProjectEntities" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views Id="Views">
+    <ListView Id="ProfileSectionTile_Entities_ListView" DataAccessMode="DataView" />
+    <DetailView Id="ApplicationBuild_T_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="ApplicationBuildEntries_Ts_Group" RelativeSize="58.070500927643785" Caption="ApplicationBuildEntries_Ts" Direction="Vertical" Removed="True">
+            <LayoutItem Id="Item6" ShowCaption="False" ViewItem="" SizeConstraintsType="Default" Index="0" RelativeSize="89.456869009584665" />
+            <LayoutItem Id="ApplicationBuildEntries_Ts" ViewItem="ApplicationBuildEntries_Ts" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Item3">
+            <LayoutGroup Id="Item6">
+              <LayoutItem Id="ApplicationBuildEntries_Ts" ViewItem="ApplicationBuildEntries_Ts" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Account_Tickets_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="BillingDisputes" Index="-1" />
+        <ColumnInfo Id="ConsultDispatch" Index="-1" />
+        <ColumnInfo Id="CustomerAcceptance" Index="-1" />
+        <ColumnInfo Id="CustomerCare" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="CWA" Index="-1" />
+        <ColumnInfo Id="Defectsindev" Index="-1" />
+        <ColumnInfo Id="DefectsWaitingSch" Index="-1" />
+        <ColumnInfo Id="Destribution" Index="-1" />
+        <ColumnInfo Id="EDI" Index="-1" />
+        <ColumnInfo Id="Helpdesk" Index="-1" />
+        <ColumnInfo Id="HoldEntries" Index="-1" />
+        <ColumnInfo Id="Html5" Index="-1" />
+        <ColumnInfo Id="IT" Index="-1" />
+        <ColumnInfo Id="P_C_Waiting" Index="-1" />
+        <ColumnInfo Id="PendingEnhanc" Index="-1" />
+        <ColumnInfo Id="PMO" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="PostalSale" Index="-1" />
+        <ColumnInfo Id="QERP" Index="-1" />
+        <ColumnInfo Id="Review" Index="-1" />
+        <ColumnInfo Id="Sales" Index="-1" />
+        <ColumnInfo Id="Validation" Index="-1" />
+        <ColumnInfo Id="Webbased" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="Application_T_Requirements_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="proposalSolution" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObject_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="AriaObject">
+              <LayoutGroup Id="AriaObject_col1">
+                <LayoutItem Id="ActiveRevision" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="ActiveRevision" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObject_col2">
+                <LayoutItem Id="AriaObjectEventsArray" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AriaObjectEventsArray" />
+                <LayoutItem Id="AriaObjectMethodsArray" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AriaObjectMethodsArray" />
+                <LayoutItem Id="AriaObjectPropertysArray" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="AriaObjectPropertysArray" />
+                <LayoutItem Id="AriaObjectSettingsArray" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AriaObjectSettingsArray" />
+                <LayoutItem Id="GetChildrenArray" SizeConstraintsType="Default" RelativeSize="43.478260869565219" ViewItem="GetChildrenArray" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="AriaObjectShelve_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="AriaObjectShelve">
+              <LayoutGroup Id="AriaObjectShelve_col2">
+                <LayoutItem Id="ObjectType" SizeConstraintsType="Default" RelativeSize="13.793103448275861" ViewItem="ObjectType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Resolution" SizeConstraintsType="Default" RelativeSize="28" ViewItem="Resolution" />
+                <LayoutItem Id="AttachmentFile" SizeConstraintsType="Default" RelativeSize="21" Index="1" ViewItem="AttachmentFile" />
+                <LayoutItem Id="Theme" SizeConstraintsType="Default" RelativeSize="50" Index="2" ViewItem="Theme" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AverageHandleTime_Tickets_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="BillingDisputes" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="ConsultDispatch" Index="-1" />
+        <ColumnInfo Id="CustomerAcceptance" Index="-1" />
+        <ColumnInfo Id="CustomerCare" Index="-1" />
+        <ColumnInfo Id="CWA" Index="-1" />
+        <ColumnInfo Id="Defectsindev" Index="-1" />
+        <ColumnInfo Id="DefectsWaitingSch" Index="-1" />
+        <ColumnInfo Id="Destribution" Index="-1" />
+        <ColumnInfo Id="EDI" Index="-1" />
+        <ColumnInfo Id="Helpdesk" Index="-1" />
+        <ColumnInfo Id="HoldEntries" Index="-1" />
+        <ColumnInfo Id="Html5" Index="-1" />
+        <ColumnInfo Id="IT" Index="-1" />
+        <ColumnInfo Id="P_C_Waiting" Index="-1" />
+        <ColumnInfo Id="PendingEnhanc" Index="-1" />
+        <ColumnInfo Id="PMO" Index="-1" />
+        <ColumnInfo Id="PostalSale" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="QERP" Index="-1" />
+        <ColumnInfo Id="Review" Index="-1" />
+        <ColumnInfo Id="Sales" Index="-1" />
+        <ColumnInfo Id="Validation" Index="-1" />
+        <ColumnInfo Id="Webbased" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Business_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EntityType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Comments_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Defect" Caption="Defect" PropertyName="Defect" />
+      </Items>
+    </DetailView>
+    <ListView Id="Contact_ContactPhones_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Contact" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Contact_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Contact">
+              <LayoutGroup Id="Contact_col1">
+                <LayoutItem Id="WebPageAddress" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="WebPageAddress" />
+              </LayoutGroup>
+              <LayoutGroup Id="Contact_col2">
+                <LayoutItem Id="ShareLevel" SizeConstraintsType="Default" Index="5" RelativeSize="30.434782608695652" ViewItem="ShareLevel" Removed="True" />
+                <LayoutItem Id="SchemaName" ViewItem="SchemaName" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="Notes" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="EntityType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="Notes" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityType" RelativeSize="15.384615384615385" ViewItem="EntityType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactPhone_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Contact" AllowEdit="True" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactPhone">
+              <LayoutGroup Id="ContactPhone_col2">
+                <LayoutItem Id="Contact" RelativeSize="4.507042253521127" ViewItem="Contact" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ContactPhone_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Branch" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="DeliveryOnTime_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="DotType" Caption="OTD Type" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="AverageHandleTime" RelativeSize="100" Caption="On Time Delivery" Index="0">
+              <LayoutGroup Id="AverageHandleTime_col1" RelativeSize="50.137362637362635">
+                <LayoutItem Id="Title" ViewItem="Title" SizeConstraintsType="Default" Index="0" RelativeSize="17.391304347826086" />
+                <LayoutItem Id="DotType" ViewItem="DotType" SizeConstraintsType="Default" Index="1" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Department" ViewItem="Department" SizeConstraintsType="Default" Index="2" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Resource" ViewItem="Resource" SizeConstraintsType="Default" Index="3" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="DateFrom" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="4" ViewItem="DateFrom" />
+                <LayoutItem Id="EDI" SizeConstraintsType="Default" RelativeSize="23.529411764705884" Index="4" ViewItem="EDI" Removed="True" />
+                <LayoutItem Id="ERP" SizeConstraintsType="Default" RelativeSize="15" Index="4" ViewItem="ERP" Removed="True" />
+                <LayoutItem Id="DateTO" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="5" ViewItem="DateTO" />
+                <LayoutItem Id="Penality" ViewItem="Penality" SizeConstraintsType="Default" Index="6" RelativeSize="17.391304347826086" />
+              </LayoutGroup>
+              <LayoutGroup Id="AverageHandleTime_col2" RelativeSize="49.862637362637365">
+                <LayoutItem Id="CRM" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="CRM" />
+                <LayoutItem Id="SD" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="SD" />
+                <LayoutItem Id="EDI" ViewItem="EDI" SizeConstraintsType="Default" Index="2" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="ERP" ViewItem="ERP" SizeConstraintsType="Default" Index="3" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="IT" SizeConstraintsType="Default" RelativeSize="43.478260869565219" Index="4" ViewItem="IT" />
+                <LayoutItem Id="Title" SizeConstraintsType="Default" RelativeSize="28.571428571428573" ViewItem="Title" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="QueuesValues" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="QueuesValues" SizeConstraintsType="Default" RelativeSize="100" ViewItem="QueuesValues" />
+            </LayoutGroup>
+            <LayoutGroup Id="TicketsforDot" RelativeSize="100" Caption="Tickets  DOT" Removed="True">
+              <LayoutItem Id="TicketsforDot" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TicketsforDot" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DeliveryOnTime_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Department" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="DotType" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="EntitySystemDesign_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="EntitySystemDesign">
+              <LayoutGroup Id="EntitySystemDesign_col1">
+                <LayoutItem Id="Project" RelativeSize="28.571428571428573" Index="0" ViewItem="Project" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="EntityType_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="EntityType">
+              <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="29" ViewItem="TypeId" />
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="21" ViewItem="Name" />
+              <LayoutItem Id="BusinessObject" SizeConstraintsType="Default" RelativeSize="21" ViewItem="BusinessObject" />
+              <LayoutItem Id="ParentType" SizeConstraintsType="Default" RelativeSize="27" ViewItem="ParentType" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HR_ActivityLog_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HR_ActivityLog">
+              <LayoutGroup Id="HR_ActivityLog_col1">
+                <LayoutItem Id="TargetEntity" SizeConstraintsType="Default" Index="3" RelativeSize="5.5299539170506913" ViewItem="TargetEntity" Removed="True" />
+                <LayoutGroup Id="Autoc824ff93-2b68-4bb6-b0bd-31d6f2b32eaf">
+                  <LayoutGroup Id="Auto97167d85-787e-4c42-aa8a-aeb33ecdc3b2">
+                    <LayoutGroup Id="Auto685a9742-100b-4901-8c29-30565dc354e8">
+                      <LayoutGroup Id="Auto8642106a-4f7e-4813-95ec-45e4d9fa36db">
+                        <LayoutGroup Id="Auto9e625b63-148b-4495-9191-d1811138cb0b">
+                          <LayoutItem Id="Employee" ViewItem="Employee" />
+                        </LayoutGroup>
+                        <LayoutGroup Id="Autoe6cccad6-af71-49e5-829f-7077a0efdf17">
+                          <LayoutItem Id="TargetEntity" ViewItem="TargetEntity" />
+                        </LayoutGroup>
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_ActivityLog_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Employee" Index="0" Caption="Employee" PropertyName="Employee" Width="78" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Branches_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="ContactPersonName.Name" Index="1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HRJobPosition_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HRJobPosition">
+              <LayoutGroup Id="HRJobPosition_col1">
+                <LayoutItem Id="YearsOfExperience" ViewItem="YearsOfExperience" />
+                <LayoutItem Id="ManagerialSkills" ViewItem="ManagerialSkills" />
+                <LayoutItem Id="Languages" ViewItem="Languages" />
+                <LayoutItem Id="PersonalAbilitiesSkills" ViewItem="PersonalAbilitiesSkills" />
+                <LayoutItem Id="Businessknowledge" ViewItem="Businessknowledge" />
+                <LayoutItem Id="TechnicalKnowledge" ViewItem="TechnicalKnowledge" />
+                <LayoutItem Id="EducationCertificates" ViewItem="EducationCertificates" />
+              </LayoutGroup>
+              <LayoutGroup Id="HRJobPosition_col2">
+                <LayoutItem Id="JobDescription" SizeConstraintsType="Default" RelativeSize="8.5714285714285712" Index="6" ViewItem="JobDescription" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HRSkillInstance_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HRSkillInstance">
+              <LayoutGroup Id="HRSkillInstance_col1">
+                <LayoutItem Id="DegreeType" RelativeSize="47.755102040816325" ViewItem="DegreeType" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HRSkillInstance_col2">
+                <LayoutItem Id="GraduationDate" RelativeSize="9.795918367346939" Index="4" ViewItem="GraduationDate" />
+                <LayoutItem Id="Degree" RelativeSize="37.95918367346939" Index="6" ViewItem="Degree" />
+                <LayoutItem Id="DegreeType" ViewItem="DegreeType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Person_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Notes" />
+                <LayoutItem Id="ExtraData" SizeConstraintsType="Default" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="ExtraData" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="DefaultAttachment" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="11" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="EntityType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PhoneType_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EntityType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="POCQuestions_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="POCQuestions">
+              <LayoutItem Id="Answer" Index="2" RelativeSize="34.883720930232556" ViewItem="Answer" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProjectScope_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ProjectScope">
+              <LayoutGroup Id="ProjectScope_col1">
+                <LayoutItem Id="Description" Index="1" RelativeSize="4.8096192384769543" ViewItem="Description" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ProjectTemplate_Requirements_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="proposalSolution" Width="27" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectTemplate_TestPlans_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Testers" Width="39" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ProofOfConcept_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ProofOfConcept">
+              <LayoutGroup Id="ProofOfConcept_col1">
+                <LayoutItem Id="Conclusion" ViewItem="Conclusion" Removed="True" />
+                <LayoutItem Id="Description" RelativeSize="27.272727272727273" ViewItem="Description" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProofOfConcept_col2">
+                <LayoutItem Id="ApprovedBy" RelativeSize="63.636363636363633" Index="1" ViewItem="ApprovedBy" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="QAAttachement_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="QAAttachement">
+              <LayoutGroup Id="QAAttachement_col1">
+                <LayoutItem Id="QAUseCase" Index="2" RelativeSize="66.9172932330827" ViewItem="QAUseCase" Removed="True" />
+                <LayoutItem Id="QADefect" ViewItem="QADefect" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAAttachement_col2">
+                <LayoutItem Id="TestCase" RelativeSize="0.88495575221238942" ViewItem="TestCase" />
+                <LayoutItem Id="TestRun" RelativeSize="21.238938053097346" ViewItem="TestRun" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="QAComplainActivity_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="QAComplainActivity">
+              <LayoutGroup Id="QAComplainActivity_col1" RelativeSize="48.735632183908045">
+                <LayoutItem Id="ActivityName" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="0" ViewItem="ActivityName" />
+                <LayoutItem Id="ProcessName" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="1" ViewItem="ProcessName" />
+                <LayoutItem Id="ProcessDescription" SizeConstraintsType="Default" Index="3" RelativeSize="28.571428571428573" ViewItem="ProcessDescription" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAComplainActivity_col2" RelativeSize="48.735632183908045">
+                <LayoutItem Id="Role" SizeConstraintsType="Default" RelativeSize="28.571428571428573" ViewItem="Role" />
+                <LayoutItem Id="Owner" SizeConstraintsType="Default" RelativeSize="71.428571428571431" ViewItem="Owner" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAComplainActivity_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Owner" Width="153" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QAMainFeature_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="ChangeHistory_Group" Direction="Vertical" RelativeSize="82.266666666666666" Removed="True">
+            <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="93.679092382495952" ViewItem="ChangeHistory" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="QARiskFollowup_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="QARiskFollowup">
+              <LayoutItem Id="ManagIssueFollowUp" ViewItem="ManagIssueFollowUp" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="QATestPlan_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Testers" Caption="Tester" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="QATestPlan">
+              <LayoutGroup Id="QATestPlan_col1">
+                <LayoutItem Id="Testers" SizeConstraintsType="Default" RelativeSize="12.5" Index="2" ViewItem="Testers" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QATestPlan_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Testers" Width="38" SortIndex="0" SortOrder="Ascending" Index="2" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QAUsecaseActors_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="QAUsecaseActors">
+              <LayoutGroup Id="QAUsecaseActors_col2">
+                <LayoutItem Id="Actors" SizeConstraintsType="Default" RelativeSize="93.574297188755025" ViewItem="Actors" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="QAWBS_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="QAWBS">
+              <LayoutGroup Id="QAWBS_col2">
+                <LayoutItem Id="ResAvaHrsTot" SizeConstraintsType="Default" RelativeSize="15" Index="1" ViewItem="ResAvaHrsTot" />
+                <LayoutItem Id="EstTrgCapIndTot" SizeConstraintsType="Default" RelativeSize="15" Index="2" ViewItem="EstTrgCapIndTot" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Region_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="36.363636363636367" Index="2" ViewItem="Notes" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityType" ViewItem="EntityType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Requirement_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SizeableEditors">
+            <LayoutItem Id="proposalSolution" SizeConstraintsType="Default" RelativeSize="50.21551724137931" ViewItem="proposalSolution" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Requirement_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="proposalSolution" Width="29" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="Requirement_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="QAProjectEntity" PropertyName="QAProjectEntity" Index="-1" Caption="QAProjectEntity" />
+        <ColumnInfo Id="proposalSolution" PropertyName="proposalSolution" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TestCase_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="ProjectEntity" Caption="Project Entity" PropertyName="ProjectEntity" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Autoa6e4da69-036a-4fe5-ac13-3cdabc76165f">
+          <LayoutGroup Id="Auto7f9522ce-85b9-4dfb-9127-34442efe21b2">
+            <LayoutGroup Id="Item1">
+              <LayoutGroup Id="Autod3933d80-b2c0-480e-8afe-5f2d60c2c53c">
+                <LayoutItem Id="ProjectEntity" ViewItem="ProjectEntity" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TestCase_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="ProjectEntity" Index="4" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="TestCase_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="ProjectEntity" Index="3" Caption="ProjectEntity" PropertyName="ProjectEntity" Width="161" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TicketAHT_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="QERP" Caption="ERP" />
+      </Items>
+    </DetailView>
+    <ListView Id="TicketAHT_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="BillingDisputes" Index="-1" />
+        <ColumnInfo Id="ConsultDispatch" Index="-1" />
+        <ColumnInfo Id="CustomerAcceptance" Index="-1" />
+        <ColumnInfo Id="CustomerCare" Index="-1" Removed="True" />
+        <ColumnInfo Id="CWA" Index="-1" />
+        <ColumnInfo Id="Defectsindev" Index="-1" />
+        <ColumnInfo Id="DefectsWaitingSch" Index="-1" />
+        <ColumnInfo Id="Destribution" Index="-1" />
+        <ColumnInfo Id="EDI" Index="-1" />
+        <ColumnInfo Id="Helpdesk" Index="-1" Removed="True" />
+        <ColumnInfo Id="HoldEntries" Index="-1" />
+        <ColumnInfo Id="Html5" Index="-1" />
+        <ColumnInfo Id="IT" Index="-1" />
+        <ColumnInfo Id="P_C_Waiting" Index="-1" />
+        <ColumnInfo Id="PendingEnhanc" Index="-1" />
+        <ColumnInfo Id="PMO" Index="-1" Removed="True" />
+        <ColumnInfo Id="PostalSale" Index="-1" />
+        <ColumnInfo Id="QERP" Index="-1" />
+        <ColumnInfo Id="Review" Index="-1" />
+        <ColumnInfo Id="Sales" Index="-1" Removed="True" />
+        <ColumnInfo Id="Validation" Index="-1" />
+        <ColumnInfo Id="Webbased" Index="-1" />
+        <ColumnInfo Id="Loading" Removed="True" />
+        <ColumnInfo Id="Oid" Removed="True" />
+        <ColumnInfo Id="This" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TrackingEntry_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="ApplicationBuildEntries_Ts" RelativeSize="100">
+              <LayoutItem Id="ApplicationBuildEntries_Ts" RelativeSize="100" ViewItem="ApplicationBuildEntries_Ts" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TrackingEntry_LookupListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="ProjectEntity" Index="3" Caption="ProjectEntity" PropertyName="ProjectEntity" Width="87" />
+      </Columns>
+    </ListView>
+  </Views>
+  <ActionDesign Id="ActionDesign">
+    <Actions Id="Actions">
+      <Action Id="ApproveController" CaptionFormat="{0}" ConfirmationMessage="Have you fully tested build# {ApplicationBuildId} before generating a production package?" />
+      <Action Id="CompleteBuildController" ConfirmationMessage="You will not be able to edit the build anymore " />
+      <Action Id="GenerateController" ConfirmationMessage="Have you reviewed all the tracking entries attached to the build?" />
+    </Actions>
+  </ActionDesign>
+</Application>

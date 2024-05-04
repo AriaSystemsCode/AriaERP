@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityOperationPermissionGenerator" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Entities" DataSourceProperty="" LookupProperty="" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="EntityOperationPermissionGenerator_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="EntityOperationPermissionGenerator" RelativeSize="100" Index="0" Direction="Vertical">
+              <LayoutGroup Id="EntityOperationPermissionGenerator_col1" Direction="Vertical" RelativeSize="87.797619047619051">
+                <LayoutItem Id="Application" SizeConstraintsType="Default" RelativeSize="10.847457627118644" ViewItem="Application" />
+                <LayoutItem Id="AllowAdd" SizeConstraintsType="Default" Index="1" RelativeSize="42.05298013245033" ViewItem="AllowAdd" Removed="True" />
+                <LayoutItem Id="Role" ViewItem="Role" SizeConstraintsType="Default" MinSize="132, 32" MaxSize="0, 0" Index="1" RelativeSize="8.1355932203389827" IsNewNode="True" />
+                <LayoutItem Id="AllowEdit" ViewItem="AllowEdit" SizeConstraintsType="Default" Index="2" RelativeSize="8.19112627986348" Removed="True" />
+                <LayoutGroup Id="Auto2e36d310-828e-47dc-ae96-a854af5812f8" ShowCaption="False" Caption="Auto2e36d310-828e-47dc-ae96-a854af5812f8(179)" Direction="Vertical" Index="2" RelativeSize="56.271186440677965" IsNewNode="True">
+                  <LayoutItem Id="Entities" ViewItem="Entities" SizeConstraintsType="Default" Index="0" RelativeSize="18.072289156626507" IsNewNode="True" />
+                  <LayoutGroup Id="Autoc15dea95-d9f7-4b22-b089-cb551f4d3d70" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="81.92771084337349" IsNewNode="True">
+                    <LayoutItem Id="Application" ShowCaption="False" ViewItem="Application" SizeConstraintsType="Default" Index="0" RelativeSize="48.29059829059829" IsNewNode="True" />
+                    <LayoutGroup Id="Auto4d171ea5-4fb2-4442-9213-964d489d71b3" ShowCaption="False" Caption="Auto4d171ea5-4fb2-4442-9213-964d489d71b3(8)" Direction="Horizontal" Index="1" RelativeSize="51.70940170940171" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="3" RelativeSize="24.745762711864408" Caption=" " IsNewNode="True">
+                  <LayoutItem Id="AllowAdd" ViewItem="AllowAdd" SizeConstraintsType="Default" Index="0" RelativeSize="24.643874643874643" IsNewNode="True" />
+                  <LayoutItem Id="AllowEdit" ViewItem="AllowEdit" SizeConstraintsType="Default" Index="1" RelativeSize="23.646723646723647" IsNewNode="True" />
+                  <LayoutItem Id="AllowDelete" ViewItem="AllowDelete" SizeConstraintsType="Default" Index="2" RelativeSize="23.646723646723647" IsNewNode="True" />
+                  <LayoutItem Id="AllowView" ViewItem="AllowView" SizeConstraintsType="Default" Index="3" RelativeSize="24.928774928774928" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="AllowDelete" ViewItem="AllowDelete" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="EntityOperationPermissionGenerator_col2" RelativeSize="19.337016574585636" Caption="EntityOperationPermissionGenerator_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="AllowView" ViewItem="AllowView" Removed="True" />
+                <LayoutItem Id="Entities" ViewItem="Entities" Removed="True" />
+                <LayoutItem Id="Key" ViewItem="Key" Removed="True" />
+                <LayoutItem Id="Role" ViewItem="Role" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

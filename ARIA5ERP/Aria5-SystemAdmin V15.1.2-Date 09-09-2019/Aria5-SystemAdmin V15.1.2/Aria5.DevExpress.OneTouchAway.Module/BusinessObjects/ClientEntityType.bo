@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.ClientEntityType" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="ClientEntityType_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Direction="Vertical" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ClientEntityType" RelativeSize="70.3883495145631">
+              <LayoutGroup Id="ClientEntityType_col1" RelativeSize="47.010869565217391">
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="28.571428571428573" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="21.428571428571427" />
+                <LayoutItem Id="ParentType" SizeConstraintsType="Default" RelativeSize="21.428571428571427" />
+                <LayoutItem Id="BusinessObject" SizeConstraintsType="Default" RelativeSize="28.571428571428573" />
+              </LayoutGroup>
+              <LayoutGroup Id="ClientEntityType_col2" RelativeSize="47.010869565217391">
+                <LayoutItem Id="DefaultDataSort" SizeConstraintsType="Default" RelativeSize="28.571428571428573" />
+                <LayoutItem Id="Image" SizeConstraintsType="Default" RelativeSize="21.428571428571427" />
+                <LayoutItem Id="ShowInFlyout" SizeConstraintsType="Default" RelativeSize="50" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ClientBaseObject" RelativeSize="29.611650485436893">
+              <LayoutItem Id="ClientDataAuditOid" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

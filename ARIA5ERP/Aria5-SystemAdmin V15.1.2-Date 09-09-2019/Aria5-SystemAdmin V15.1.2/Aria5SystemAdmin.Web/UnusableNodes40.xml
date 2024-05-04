@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="News_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="Attachments" ViewItem="Attachments" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SecuritySystemRole_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors1">
+            <LayoutItem Id="@692e0ae3-873e-4078-8d39-082bad451581" ViewItem="@692e0ae3-873e-4078-8d39-082bad451581" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

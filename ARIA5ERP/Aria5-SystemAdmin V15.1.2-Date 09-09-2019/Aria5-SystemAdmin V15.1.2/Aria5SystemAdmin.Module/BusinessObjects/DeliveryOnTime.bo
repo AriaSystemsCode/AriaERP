@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DeliveryOnTime" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="DeliveryOnTime_DetailView">
+      <Items>
+        <PropertyEditor Id="DateFrom" Removed="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Tickets" Removed="True" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DeliveryOnTime_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Penality" Index="-1" />
+        <ColumnInfo Id="Title" SortIndex="-1" SortOrder="None" Index="0" />
+        <ColumnInfo Id="DateFrom" Index="1" />
+        <ColumnInfo Id="DateTO" Index="2" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRJobPositionRevision" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="HRJobPositionRevision_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="64.242424242424249">
+            <LayoutGroup Id="HRJobPositionRevision" RelativeSize="100" Caption="Job Position Revision">
+              <LayoutGroup Id="HRJobPositionRevision_col1" RelativeSize="50">
+                <LayoutItem Id="JobPosition" RelativeSize="11.428571428571429" />
+                <LayoutItem Id="Name" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="RevisionNumber" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="Department" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="BackUp" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="ReportTo1" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="ReportTo2" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="WorkingHoursFrom" ViewItem="WorkingHoursFrom" Index="7" RelativeSize="8.5714285714285712" IsNewNode="True" />
+                <LayoutItem Id="Mon" Index="8" RelativeSize="28.571428571428573" Removed="True" />
+                <LayoutItem Id="SalaryFrom" ViewItem="SalaryFrom" Index="8" RelativeSize="8.5714285714285712" IsNewNode="True" />
+                <LayoutItem Id="Sat" Index="8" RelativeSize="8.5714285714285712" Removed="True" />
+                <LayoutItem Id="Sun" Index="8" RelativeSize="9.375" Removed="True" />
+                <LayoutItem Id="JobDescription" ViewItem="JobDescription" Index="9" RelativeSize="8.5714285714285712" IsNewNode="True" />
+                <LayoutItem Id="EnteredDate" ViewItem="EnteredDate" Index="10" RelativeSize="11.428571428571429" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HRJobPositionRevision_col2" RelativeSize="50">
+                <LayoutItem Id="Mon" ViewItem="Mon" Index="0" RelativeSize="11.428571428571429" IsNewNode="True" />
+                <LayoutItem Id="Sun" ViewItem="Sun" Index="1" RelativeSize="8.5714285714285712" IsNewNode="True" />
+                <LayoutItem Id="Sat" ViewItem="Sat" Index="2" RelativeSize="8.5714285714285712" IsNewNode="True" />
+                <LayoutItem Id="Tue" RelativeSize="8.5714285714285712" Index="3" />
+                <LayoutItem Id="Wed" RelativeSize="8.5714285714285712" Index="4" />
+                <LayoutItem Id="Thu" RelativeSize="8.5714285714285712" Index="5" />
+                <LayoutItem Id="Fri" RelativeSize="8.5714285714285712" Index="6" />
+                <LayoutItem Id="WorkingHoursTo" Index="7" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="SalaryFrom" Index="8" RelativeSize="7.8947368421052628" Removed="True" />
+                <LayoutItem Id="SalaryTo" Index="8" RelativeSize="8.5714285714285712" />
+                <LayoutItem Id="EnteredDate" Index="9" RelativeSize="12.5" Removed="True" />
+                <LayoutItem Id="Item1" Index="9" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="JobDescription" Index="9" RelativeSize="8.5714285714285712" Removed="True" />
+                <LayoutItem Id="WorkingHoursFrom" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="35.757575757575758">
+            <LayoutGroup Id="Employees" RelativeSize="100">
+              <LayoutItem Id="Employees" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Activities" RelativeSize="100">
+              <LayoutItem Id="Activities" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

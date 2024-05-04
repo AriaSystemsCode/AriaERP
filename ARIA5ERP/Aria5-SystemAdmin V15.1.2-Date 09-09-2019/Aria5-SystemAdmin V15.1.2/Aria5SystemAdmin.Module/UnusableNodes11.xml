@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="TrackingEntry_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="TrackingEntry">
+              <LayoutGroup Id="TrackingEntry_col1">
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" Index="2" RelativeSize="9.4861660079051386" ViewItem="EnteredDate" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingEntry_col2">
+                <LayoutItem Id="ReleaseNote" SizeConstraintsType="Default" RelativeSize="5.8394160583941606" Index="2" ViewItem="ReleaseNote" Removed="True" />
+                <LayoutItem Id="TechnicalInformation" SizeConstraintsType="Default" RelativeSize="7.785888077858881" Index="2" ViewItem="TechnicalInformation" Removed="True" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="5.8394160583941606" ViewItem="Description" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

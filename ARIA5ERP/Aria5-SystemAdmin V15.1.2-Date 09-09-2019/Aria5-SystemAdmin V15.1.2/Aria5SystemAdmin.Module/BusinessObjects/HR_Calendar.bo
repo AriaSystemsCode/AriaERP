@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Calendar" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Calendar_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="19.733333333333334">
+            <LayoutGroup Id="HR_Calendar" RelativeSize="100">
+              <LayoutGroup Id="HR_Calendar_col1" RelativeSize="57.005494505494504" Direction="Vertical">
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="RecurringType" ViewItem="RecurringType" SizeConstraintsType="Default" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Sun" SizeConstraintsType="Default" RelativeSize="65.914221218961629" Index="1" Removed="True" />
+                <LayoutGroup Id="Autobebcb137-e31f-4448-816e-f822cca999c2" ShowCaption="False" Caption="Autobebcb137-e31f-4448-816e-f822cca999c2(191)" Direction="Horizontal" Index="2" RelativeSize="49.090909090909093" IsNewNode="True">
+                  <LayoutItem Id="Sat" ViewItem="Sat" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="25.783132530120483" IsNewNode="True" />
+                  <LayoutItem Id="Sun" ViewItem="Sun" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="24.578313253012048" IsNewNode="True" />
+                  <LayoutItem Id="Mon" ViewItem="Mon" CaptionLocation="Top" SizeConstraintsType="Default" Index="2" RelativeSize="24.578313253012048" IsNewNode="True" />
+                  <LayoutItem Id="Tue" ViewItem="Tue" CaptionLocation="Top" SizeConstraintsType="Default" Index="3" RelativeSize="25.060240963855421" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Sat" SizeConstraintsType="Default" RelativeSize="15" Index="2" Removed="True" />
+                <LayoutItem Id="Mon" ViewItem="Mon" SizeConstraintsType="Default" Index="3" RelativeSize="41.1764705882353" Removed="True" />
+                <LayoutItem Id="Tue" ViewItem="Tue" SizeConstraintsType="Default" Index="3" RelativeSize="17.647058823529413" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Calendar_col2" RelativeSize="42.994505494505496">
+                <LayoutItem Id="RepeatedEvery" SizeConstraintsType="Default" Index="0" RelativeSize="29.09090909090909" />
+                <LayoutItem Id="Summry" ViewItem="Summry" SizeConstraintsType="Default" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" Removed="True" />
+                <LayoutGroup Id="Auto88e53c60-0672-4cf3-a9c2-8084e5eb5993" ShowCaption="False" Caption="Auto88e53c60-0672-4cf3-a9c2-8084e5eb5993(199)" Direction="Horizontal" Index="2" RelativeSize="49.090909090909093" IsNewNode="True">
+                  <LayoutItem Id="Wed" ViewItem="Wed" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="32.587859424920126" IsNewNode="True" />
+                  <LayoutItem Id="Thu" ViewItem="Thu" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="32.587859424920126" IsNewNode="True" />
+                  <LayoutItem Id="Fri" ViewItem="Fri" CaptionLocation="Top" SizeConstraintsType="Default" Index="2" RelativeSize="34.824281150159742" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Wed" SizeConstraintsType="Default" Index="2" RelativeSize="17.647058823529413" Removed="True" />
+                <LayoutItem Id="Fri" SizeConstraintsType="Default" Index="3" RelativeSize="28.571428571428573" Removed="True" />
+                <LayoutItem Id="Thu" SizeConstraintsType="Default" Index="3" RelativeSize="17.647058823529413" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="80.266666666666666" IsNewNode="True">
+            <LayoutGroup Id="Activities_Group" ShowCaption="True" Caption="Activities" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Activities" ViewItem="Activities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="Activities_Group" Direction="Vertical" RelativeSize="72.796934865900383" Removed="True">
+            <LayoutItem Id="Activities" SizeConstraintsType="Default" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Calendar_ListView">
+      <Columns>
+        <ColumnInfo Id="Fri" Index="-1" />
+        <ColumnInfo Id="Mon" Index="-1" />
+        <ColumnInfo Id="RecurringType" Index="-1" />
+        <ColumnInfo Id="RepeatedEvery" Index="-1" Width="158" />
+        <ColumnInfo Id="Sat" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" />
+        <ColumnInfo Id="Thu" Index="-1" />
+        <ColumnInfo Id="Tue" Index="-1" />
+        <ColumnInfo Id="Wed" Index="-1" />
+        <ColumnInfo Id="Name" Width="129" />
+        <ColumnInfo Id="Summry" Index="1" Width="223" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Calendar_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Name" Width="242" />
+        <ColumnInfo Id="Summry" Index="1" Caption="Summry" PropertyName="Summry" Width="268" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

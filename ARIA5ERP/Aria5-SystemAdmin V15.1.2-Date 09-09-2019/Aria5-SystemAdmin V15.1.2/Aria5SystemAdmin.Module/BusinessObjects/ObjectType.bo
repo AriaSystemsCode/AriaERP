@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ObjectType" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="SettingTypes" DataSourceCriteria="ControlType = 0" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="ObjectType_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="ObjectType" RelativeSize="100" Caption="ObjectType" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="Auto930cb476-8025-42f0-8734-dfc30e881dee" ShowCaption="False" Caption="Auto930cb476-8025-42f0-8734-dfc30e881dee(4)" Direction="Horizontal" Index="0" RelativeSize="51" IsNewNode="True">
+                <LayoutItem Id="ObjectTypeID" ViewItem="ObjectTypeID" SizeConstraintsType="Default" Index="0" RelativeSize="40" IsNewNode="True" />
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="1" RelativeSize="59" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Autoe4bd96ac-a806-4411-bc17-b3d1711d31cc" ShowCaption="False" Caption="Autoe4bd96ac-a806-4411-bc17-b3d1711d31cc(7)" Direction="Horizontal" Index="1" RelativeSize="48" IsNewNode="True">
+                <LayoutItem Id="SettingsClass" ViewItem="SettingsClass" SizeConstraintsType="Default" Index="0" RelativeSize="40" IsNewNode="True" />
+                <LayoutItem Id="ParentObjectType" ViewItem="ParentObjectType" SizeConstraintsType="Default" Index="1" RelativeSize="59" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="SettingsClass" ViewItem="SettingsClass" SizeConstraintsType="Default" Index="1" RelativeSize="27" Removed="True" />
+              <LayoutItem Id="ParentObjectType" ViewItem="ParentObjectType" SizeConstraintsType="Default" Index="2" RelativeSize="34" Removed="True" />
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="21" ViewItem="Name" Removed="True" />
+              <LayoutItem Id="ObjectTypeID" SizeConstraintsType="Default" RelativeSize="29" ViewItem="ObjectTypeID" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="86" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="SettingTypes" RelativeSize="100" Caption="Setting Types" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="SettingTypes" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="SettingTypes" />
+            </LayoutGroup>
+            <LayoutGroup Id="PropertyTypes" RelativeSize="100" Caption="Property Types" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="PropertyTypes" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="PropertyTypes" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ObjectType_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ObjectTypeID" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ObjectType_LookupListView" DataAccessMode="Client" />
+    <ListView Id="PropertyType_ObjectTypes_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ObjectTypeID" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <ListView Id="SettingType_ObjectTypes_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ObjectTypeID" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

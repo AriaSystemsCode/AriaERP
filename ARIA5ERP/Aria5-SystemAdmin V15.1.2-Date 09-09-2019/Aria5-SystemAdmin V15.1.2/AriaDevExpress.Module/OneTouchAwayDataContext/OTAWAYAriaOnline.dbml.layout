@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14.75, 18.75" name="OTAWAYAriaOnline">
+  <DataContextMoniker Name="/OTAWAYAriaOnlineDataContext" />
+  <nestedChildShapes>
+    <classShape Id="cf005846-970a-47bc-8e96-7b3131ba01e3" absoluteBounds="3.5, 11.25, 2, 4.0785139973958309">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYApplicationModule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6daa4bb5-fb81-4eee-b7a0-04b1c0e784f7" absoluteBounds="3.515, 11.71, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bad51a63-0b48-4298-a7b2-f7e23031c153" absoluteBounds="3.5, 4.375, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYSubject" />
+      <nestedChildShapes>
+        <elementListCompartment Id="03c33f93-ea5a-44aa-aaa7-36aeafce6fc5" absoluteBounds="3.515, 4.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1414dd49-c16d-4de6-8fc8-0d43d7965486" absoluteBounds="6.5, 8.625, 2, 4.0785139973958309">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYArticle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="de48c096-05dc-42c2-8d41-0ceaf92ea42d" absoluteBounds="6.515, 9.085, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c4fbe1be-a097-4b82-97cd-d3d7463e08ff" absoluteBounds="12.5, 8.375, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYASPNETCoursePeriod" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7f4fbb00-835c-47fe-b947-b5747e877d55" absoluteBounds="12.515, 8.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9a871e9c-c3d4-47cc-b4ae-e8be630fc00a" absoluteBounds="9.75, 8, 2, 2.9247054036458335">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYASPNETCourse" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4015fe24-cead-46d4-a617-f58b998260b3" absoluteBounds="9.765, 8.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c8dd8df5-5ed7-4f5a-97ab-ab95599b937e" absoluteBounds="3.75, 16.75, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c8ae2d6d-1a69-4a54-9d7b-478fe08363ab" absoluteBounds="3.765, 17.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3cdab45b-853d-45fa-9eb0-576d20511319" absoluteBounds="3.5, 7.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYDocument" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1b1cbc4f-ca90-4b67-8792-4e2f3bbfffae" absoluteBounds="3.515, 8.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fd63df47-1b54-4077-8c5b-31f2ef2b5869" absoluteBounds="0.75, 0.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYEmailTemplate" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d2378c09-e6bc-4094-bbd5-4a5e2ffbcabe" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bce92e14-6d54-40c8-b6a6-1218b9815a76" absoluteBounds="6.25, 4, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8e2144b1-d10c-4727-8685-4b7ad786e719" absoluteBounds="6.265, 4.46, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="874ba321-a831-4f07-8b01-bfee35008176" absoluteBounds="9, 4.125, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYEventAttendee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f57f557b-5d56-40cf-9b5c-f44ad5498688" absoluteBounds="9.015, 4.585, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="88948af8-df7a-411b-923d-65c2d64a0c03" absoluteBounds="0.75, 8.625, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b82020e2-71ce-40ce-bb9d-4f107bcf81eb" absoluteBounds="0.765, 9.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2f962866-cb6f-4b00-a80b-31ee8ed86291" absoluteBounds="11.75, 0.75, 2, 6.0015283203124987">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYForm" />
+      <nestedChildShapes>
+        <elementListCompartment Id="79ccfc91-1012-4391-82b8-15c5ca3798cb" absoluteBounds="11.765, 1.21, 1.9700000000000002, 5.4415283203125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a74da8d-7895-44d9-9be8-da10e705f2fb" absoluteBounds="3.75, 0.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYSEO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5e90cfba-f430-46ea-98d6-793acec2849a" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="15d01994-dd24-494b-801d-31c77d1c6f1a" absoluteBounds="6.75, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYSiteMap" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1142111a-0db3-4bfc-b0ef-8bc8fa907e16" absoluteBounds="6.765, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.20923076923077 : 15.3285139973958); (4.20923076923077 : 15.5785139973958); (4.80461538461539 : 15.5785139973958); (4.80461538461539 : 15.3285139973958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYApplicationModule/OTAWAYApplicationModule_OTAWAYApplicationModule" />
+      <nodes>
+        <classShapeMoniker Id="cf005846-970a-47bc-8e96-7b3131ba01e3" />
+        <classShapeMoniker Id="cf005846-970a-47bc-8e96-7b3131ba01e3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.75 : 9.45274983723958); (12.5 : 9.45274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYASPNETCourse/OTAWAYASPNETCourse_OTAWAYASPNETCoursePeriod" />
+      <nodes>
+        <classShapeMoniker Id="9a871e9c-c3d4-47cc-b4ae-e8be630fc00a" />
+        <classShapeMoniker Id="c4fbe1be-a097-4b82-97cd-d3d7463e08ff" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.65625 : 16.75); (5.65625 : 10.8662019856771); (6.5 : 10.8662019856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYCategory/OTAWAYCategory_OTAWAYArticle" />
+      <nodes>
+        <classShapeMoniker Id="c8dd8df5-5ed7-4f5a-97ab-ab95599b937e" />
+        <classShapeMoniker Id="1414dd49-c16d-4de6-8fc8-0d43d7965486" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 5.45274983723958); (6.25 : 5.45274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYSubject/OTAWAYSubject_OTAWAYEvent" />
+      <nodes>
+        <classShapeMoniker Id="bad51a63-0b48-4298-a7b2-f7e23031c153" />
+        <classShapeMoniker Id="bce92e14-6d54-40c8-b6a6-1218b9815a76" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 5.49120198567708); (9 : 5.49120198567708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYEvent/OTAWAYEvent_OTAWAYEventAttendee" />
+      <nodes>
+        <classShapeMoniker Id="bce92e14-6d54-40c8-b6a6-1218b9815a76" />
+        <classShapeMoniker Id="874ba321-a831-4f07-8b01-bfee35008176" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 10.7804996744792); (1.75 : 13.2892569986979); (3.5 : 13.2892569986979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYApplicationModule" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="cf005846-970a-47bc-8e96-7b3131ba01e3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.2812525 : 10.7804996744792); (2.2812525 : 12.238375999349); (3.5 : 12.238375999349)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYApplicationModule1" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="cf005846-970a-47bc-8e96-7b3131ba01e3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.2187475 : 10.7804996744792); (1.2187475 : 14.3401379980469); (3.5 : 14.3401379980469)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYApplicationModule2" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="cf005846-970a-47bc-8e96-7b3131ba01e3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.54687875 : 10.7804996744792); (2.54687875 : 11.7129354996745); (3.5 : 11.7129354996745)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYApplicationModule3" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="cf005846-970a-47bc-8e96-7b3131ba01e3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 8.625); (1.75 : 5.45274983723958); (3.5 : 5.45274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYSubject" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="bad51a63-0b48-4298-a7b2-f7e23031c153" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 10.6627018229167); (3.16666666666667 : 10.6627018229167 : JumpStart); (3.33333333333333 : 10.6627018229167 : JumpEnd); (6.5 : 10.6627018229167)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYArticle" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="1414dd49-c16d-4de6-8fc8-0d43d7965486" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.281252 : 8.625); (2.281252 : 8.375); (3.25 : 8.375); (3.25 : 11.0581034928385); (5.57291666666667 : 11.0581034928385 : JumpStart); (5.73958333333333 : 11.0581034928385 : JumpEnd); (6.5 : 11.0581034928385)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYArticle1" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="1414dd49-c16d-4de6-8fc8-0d43d7965486" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 9.55370198567708); (3.16666666666667 : 9.55370198567708 : JumpStart); (3.33333333333333 : 9.55370198567708 : JumpEnd); (3.5 : 9.55370198567708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/OTAWAYAriaOnlineDataContext/OTAWAYFileDataEx/OTAWAYFileDataEx_OTAWAYDocument" />
+      <nodes>
+        <classShapeMoniker Id="88948af8-df7a-411b-923d-65c2d64a0c03" />
+        <classShapeMoniker Id="3cdab45b-853d-45fa-9eb0-576d20511319" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AddressType" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="AddressType_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="70">
+            <LayoutGroup Id="Entity" RelativeSize="100">
+              <LayoutGroup Id="Entity_col1" RelativeSize="46">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="17" ViewItem="Id" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="17" ViewItem="Description" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="46" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AddressType_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="IMAGE" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="AddressType_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

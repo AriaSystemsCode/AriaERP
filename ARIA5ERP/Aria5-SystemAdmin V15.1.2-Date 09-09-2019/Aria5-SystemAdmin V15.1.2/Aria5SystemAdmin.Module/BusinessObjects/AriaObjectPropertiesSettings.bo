@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectPropertiesSettings" IsDesigned="True" DefaultListViewAllowEdit="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectProperties_AriaObjectPropertiesSettingses_ListView" AllowDelete="False" AllowNew="False" />
+    <DetailView Id="AriaObjectPropertiesSettings_DetailView" AllowDelete="False" AllowNew="False">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectPropertiesSettings" RelativeSize="100">
+              <LayoutItem Id="Value" SizeConstraintsType="Default" Index="0" RelativeSize="6.5306122448979593" ViewItem="Value" />
+              <LayoutItem Id="SettingType" SizeConstraintsType="Default" Index="1" RelativeSize="93.469387755102048" ViewItem="SettingType" />
+              <LayoutItem Id="AriaObjectProperties" ViewItem="AriaObjectProperties" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectPropertiesSettings_ListView" AllowDelete="False" AllowNew="False" />
+  </Views>
+</Application>

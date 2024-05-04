@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Phones" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="HR_Entity_Phones_ListView">
+      <Columns>
+        <ColumnInfo Id="Extension" Index="1" />
+        <ColumnInfo Id="PhoneNumber" Index="2" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HR_Phones_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.634429400386846">
+            <LayoutGroup Id="HR_Phones" RelativeSize="100">
+              <LayoutItem Id="PhoneType" SizeConstraintsType="Default" RelativeSize="37.2093023255814" />
+              <LayoutItem Id="Extension" SizeConstraintsType="Default" RelativeSize="27.906976744186046" Index="1" />
+              <LayoutItem Id="PhoneNumber" SizeConstraintsType="Default" RelativeSize="34.883720930232556" Index="2" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="6.3829787234042552">
+            <LayoutItem Id="PhoneTypeDescription" SizeConstraintsType="Default" RelativeSize="100" />
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="2" RelativeSize="76.9825918762089" IsNewNode="True">
+            <LayoutGroup Id="HREntities_Group" ShowCaption="True" Caption="HREntities" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="HREntities" ViewItem="HREntities" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="HREntities_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Phones_ListView">
+      <Columns>
+        <ColumnInfo Id="Extension" Index="1" />
+        <ColumnInfo Id="PhoneNumber" Index="2" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

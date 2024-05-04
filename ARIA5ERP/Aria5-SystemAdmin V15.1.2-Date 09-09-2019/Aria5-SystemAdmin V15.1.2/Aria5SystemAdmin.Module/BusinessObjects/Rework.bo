@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Rework" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="Rework_DetailView">
+      <Items>
+        <PropertyEditor Id="SeqNum" AllowEdit="False" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

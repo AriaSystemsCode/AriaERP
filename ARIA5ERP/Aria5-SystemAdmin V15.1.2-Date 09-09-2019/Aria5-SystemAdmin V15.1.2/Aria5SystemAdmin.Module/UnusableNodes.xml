@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ActivationKey_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ActivationKey">
+              <LayoutGroup Id="ActivationKey_col1">
+                <LayoutItem Id="DeviceSignature" SizeConstraintsType="Default" RelativeSize="8.5714285714285712" ViewItem="DeviceSignature" />
+              </LayoutGroup>
+              <LayoutGroup Id="ActivationKey_col2">
+                <LayoutItem Id="DigitalSignature" SizeConstraintsType="Default" RelativeSize="8.5714285714285712" ViewItem="DigitalSignature" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Activity_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Activity">
+              <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="10.762331838565023" ViewItem="Description" />
+              <LayoutItem Id="ProjectTemplates" SizeConstraintsType="Default" RelativeSize="10.762331838565023" ViewItem="ProjectTemplates" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Address_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Notes" />
+                <LayoutItem Id="ExtraData" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="ExtraData" />
+                <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityAddresses" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityType" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="TypeId" />
+                <LayoutItem Id="EntityClassification" SizeConstraintsType="Default" RelativeSize="9.75609756097561" ViewItem="EntityClassification" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityClassificationFiltered" />
+                <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityStatusFiltered" />
+                <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityCategoryFiltered" />
+                <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityAttachments" />
+                <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityRelationships" />
+                <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="ADS" />
+                <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Events" />
+                <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Information" />
+                <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="9.75609756097561" ViewItem="News" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Contact_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Contact">
+              <LayoutGroup Id="Contact_col1">
+                <LayoutItem Id="WebPageAddress" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="WebPageAddress" />
+              </LayoutGroup>
+              <LayoutGroup Id="Contact_col2">
+                <LayoutItem Id="ContactPhones" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="ContactPhones" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Notes" />
+                <LayoutItem Id="ExtraData" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="ExtraData" />
+                <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityAddresses" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityType" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="TypeId" />
+                <LayoutItem Id="EntityClassification" SizeConstraintsType="Default" RelativeSize="9.75609756097561" ViewItem="EntityClassification" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityClassificationFiltered" />
+                <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityStatusFiltered" />
+                <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityCategoryFiltered" />
+                <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityAttachments" />
+                <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="EntityRelationships" />
+                <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="ADS" />
+                <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Events" />
+                <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Information" />
+                <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="9.75609756097561" ViewItem="News" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

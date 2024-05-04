@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Activity" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="Activity_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Activity" RelativeSize="100">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="14.349775784753364" ViewItem="Name" />
+              <LayoutItem Id="CheckOut" SizeConstraintsType="Default" RelativeSize="64.125560538116588" ViewItem="CheckOut" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Activity_ListView" DataAccessMode="DataView" />
+    <ListView Id="Activity_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="ProjectTemplate_Activities_ListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

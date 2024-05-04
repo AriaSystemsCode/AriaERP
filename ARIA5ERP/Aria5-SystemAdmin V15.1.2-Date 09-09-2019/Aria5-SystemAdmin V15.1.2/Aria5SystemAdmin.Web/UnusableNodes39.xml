@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="KpiDefinition_DetailView">
+      <Layout Id="Layout">
+        <TabbedGroup Id="Tabs">
+          <LayoutGroup Id="Definition">
+            <LayoutGroup Id="SimpleEditors" ShowCaption="False" RelativeSize="32.404181184668992">
+              <LayoutGroup Id="61434787-29f4-487b-927f-4e94cd82f4e7" ShowCaption="False" Caption="61434787-29f4-487b-927f-4e94cd82f4e7(4)" RelativeSize="40.86021505376344">
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="60.655737704918032" />
+                <LayoutItem Id="Active" SizeConstraintsType="Default" RelativeSize="39.344262295081968" />
+              </LayoutGroup>
+              <LayoutItem Id="TargetObjectType" SizeConstraintsType="Default" RelativeSize="25.806451612903224" />
+              <LayoutItem Id="Criteria" ViewItem="Criteria" SizeConstraintsType="Default" Index="2" RelativeSize="32.258064516129032" />
+              <LayoutGroup Id="SizeableEditors" ShowCaption="False" Direction="Horizontal" RelativeSize="1.075268817204301" Index="3">
+                <LayoutItem Id="Criteria" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Direction" SizeConstraintsType="Default" RelativeSize="8.3623693379790947" />
+            <LayoutItem Id="Expression" SizeConstraintsType="Default" RelativeSize="8.3623693379790947" />
+            <LayoutGroup Id="Options" ShowCaption="False" RelativeSize="50.871080139372822">
+              <TabbedGroup Id="OptionsTabs">
+                <LayoutGroup Id="MeasurementOptions">
+                  <LayoutItem Id="Range" SizeConstraintsType="Default" RelativeSize="32" />
+                  <LayoutGroup Id="0315973a-52e5-4f23-bf1c-e1786e7cb2f7" ShowCaption="False" Caption="0315973a-52e5-4f23-bf1c-e1786e7cb2f7(16)" RelativeSize="36">
+                    <LayoutItem Id="Compare" SizeConstraintsType="Default" RelativeSize="41.558441558441558" />
+                    <LayoutItem Id="RangeToCompare" SizeConstraintsType="Default" RelativeSize="58.441558441558442" />
+                  </LayoutGroup>
+                  <LayoutItem Id="MeasurementFrequency" SizeConstraintsType="Default" RelativeSize="32" />
+                </LayoutGroup>
+                <LayoutGroup Id="Zones">
+                  <LayoutItem Id="GreenZone" SizeConstraintsType="Default" RelativeSize="32" />
+                  <LayoutItem Id="RedZone" SizeConstraintsType="Default" RelativeSize="68" />
+                </LayoutGroup>
+              </TabbedGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Preview">
+            <LayoutItem Id="Current" SizeConstraintsType="Default" RelativeSize="11.149825783972126" />
+            <LayoutGroup Id="Objects_Group" RelativeSize="88.850174216027881">
+              <LayoutItem Id="Objects" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </TabbedGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="KPI">
+        <Items Id="Items">
+          <Item Id="KPI Reports" Index="0">
+            <Items Id="Items">
+              <Item Id="Average_handle_time" Caption="Average Handling Time" ViewId="AverageHandleTime_ListView" Index="0" />
+              <Item Id="Deliveryontime" Caption="On Time Delivery " ViewId="DeliveryOnTime_ListView" Index="1" />
+              <Item Id="Defect Density Report" ViewId="DefectDensityReport_ListView" />
+            </Items>
+          </Item>
+          <Item Id="KPI Charts" Index="1">
+            <Items Id="Items">
+              <Item Id="KpiDefinition_ListView" ViewId="KpiDefinition_ListView" ObjectKey="" />
+              <Item Id="KpiScorecard_ListView" ViewId="KpiScorecard_ListView" ObjectKey="" />
+            </Items>
+          </Item>
+          <Item Id="KPI History" Index="2">
+            <Items Id="Items">
+              <Item Id="Defect Densityvalues " ViewId="DefectDensityvalues_ListView" Caption="Defect Density Values" />
+              <Item Id="Tasks DOT" ViewId="TasksDOT_ListView" Caption="Tasks OTD" />
+              <Item Id="Ticket_AHT" Caption="Tickets AHT" ViewId="TicketAHT_ListView" />
+            </Items>
+          </Item>
+          <Item Id="KPI Settings" Caption="KPI Settings">
+            <Items Id="Items">
+              <Item Id="QueueName" Caption="Queue Name" Index="2" ViewId="QueueName_ListView" />
+              <Item Id="Defect Density Files" ViewId="DefectDensityFiles_ListView" />
+            </Items>
+          </Item>
+          <Item Id="KpiDefinition_ListView" Removed="True" />
+          <Item Id="KpiScorecard_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+              <Item Id="InDoorMap_ListView" ViewId="InDoorMap_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ApplicationBuild_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ApplicationBuild">
+              <LayoutGroup Id="ApplicationBuild_col2">
+                <LayoutItem Id="ReleaseNotes" SizeConstraintsType="Default" Index="2" RelativeSize="25" ViewItem="ReleaseNotes" Removed="True" />
+                <LayoutItem Id="TechnicalConsiderations" SizeConstraintsType="Default" Index="3" RelativeSize="20" ViewItem="TechnicalConsiderations" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="D:\System Admin\Aria5SystemAdmin.Module\BusinessObjects\.Location" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Business_Locations_ListView">
+      <Columns>
+        <ColumnInfo Id="Business" Width="20" Index="-1" />
+        <ColumnInfo Id="Entity" Width="20" Index="-1" />
+        <ColumnInfo Id="EntityCategory" Width="20" Index="-1" />
+        <ColumnInfo Id="EntityType" Width="20" Index="-1" />
+        <ColumnInfo Id="Latitude" Width="20" Index="-1" Removed="True" />
+        <ColumnInfo Id="Longitude" Width="20" Index="-1" Removed="True" />
+        <ColumnInfo Id="ParentLocation" Width="119" Index="-1" Removed="True" />
+        <ColumnInfo Id="Profile" Width="20" Index="-1" Removed="True" />
+        <ColumnInfo Id="RelativeToLocation" Width="20" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="XCoordinate" Width="20" Index="-1" Removed="True" />
+        <ColumnInfo Id="YCoordinate" Width="20" Index="-1" />
+        <ColumnInfo Id="Name" Width="100" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="LocationID" Width="91" />
+        <ColumnInfo Id="LocationType" Width="72" />
+        <ColumnInfo Id="Address" Width="86" />
+        <ColumnInfo Id="Description" Width="68" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Location_DetailView">
+      <Items>
+        <PropertyEditor Id="Entity" Caption="Entity Occupying Location" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="32">
+            <LayoutGroup Id="Location" RelativeSize="100" Index="0">
+              <LayoutGroup Id="Location_col1" RelativeSize="46">
+                <LayoutItem Id="LocationID" SizeConstraintsType="Default" RelativeSize="15" ViewItem="LocationID" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="11" ViewItem="Name" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" Index="2" RelativeSize="11" ViewItem="Description" />
+                <LayoutItem Id="LocationType" SizeConstraintsType="Default" Index="3" RelativeSize="11" ViewItem="LocationType" />
+                <LayoutItem Id="Address" SizeConstraintsType="Default" Index="4" RelativeSize="11" ViewItem="Address" />
+                <LayoutItem Id="ParentLocation" SizeConstraintsType="Default" RelativeSize="11" ViewItem="ParentLocation" />
+                <LayoutItem Id="Profile" SizeConstraintsType="Default" RelativeSize="26" ViewItem="Profile" />
+                <LayoutItem Id="Longitude" SizeConstraintsType="Default" RelativeSize="15" ViewItem="Longitude" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Location_col2" RelativeSize="50">
+                <LayoutItem Id="Longitude" ViewItem="Longitude" SizeConstraintsType="Default" Index="0" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="Latitude" SizeConstraintsType="Default" RelativeSize="11" Index="1" ViewItem="Latitude" />
+                <LayoutItem Id="RelativeToLocation" SizeConstraintsType="Default" RelativeSize="11" Index="2" ViewItem="RelativeToLocation" />
+                <LayoutItem Id="XCoordinate" SizeConstraintsType="Default" RelativeSize="11" Index="3" ViewItem="XCoordinate" />
+                <LayoutItem Id="YCoordinate" SizeConstraintsType="Default" RelativeSize="11" Index="4" ViewItem="YCoordinate" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="11" Index="5" ViewItem="EntityType" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="11" Index="6" ViewItem="EntityCategory" />
+                <LayoutItem Id="Entity" SizeConstraintsType="Default" RelativeSize="15" Index="7" ViewItem="Entity" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Location_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Business" Index="-1" Width="40" />
+        <ColumnInfo Id="Entity" Index="-1" Width="28" />
+        <ColumnInfo Id="EntityCategory" Index="-1" Width="28" />
+        <ColumnInfo Id="EntityType" Index="-1" Width="28" />
+        <ColumnInfo Id="Latitude" Index="-1" Width="20" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Longitude" Index="-1" Width="20" />
+        <ColumnInfo Id="ParentLocation" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="Profile" Index="-1" Width="28" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="RelativeToLocation" Index="-1" Width="28" />
+        <ColumnInfo Id="XCoordinate" Index="-1" Width="20" />
+        <ColumnInfo Id="YCoordinate" Index="-1" Width="20" />
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Width="124" />
+        <ColumnInfo Id="LocationID" Width="95" />
+        <ColumnInfo Id="LocationType" Width="95" />
+        <ColumnInfo Id="Address" Width="95" />
+        <ColumnInfo Id="Description" Width="228" />
+      </Columns>
+    </ListView>
+    <ListView Id="Location_Locations_ListView" IsGroupPanelVisible="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Business" Width="54" Index="-1" />
+        <ColumnInfo Id="Entity" Width="29" Index="-1" />
+        <ColumnInfo Id="EntityCategory" Width="29" Index="-1" />
+        <ColumnInfo Id="EntityType" Width="29" Index="-1" />
+        <ColumnInfo Id="Latitude" Width="21" Index="-1" />
+        <ColumnInfo Id="Longitude" Width="21" Index="-1" />
+        <ColumnInfo Id="ParentLocation" Width="29" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="Profile" Width="29" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="RelativeToLocation" Width="29" Index="-1" />
+        <ColumnInfo Id="XCoordinate" Width="21" Index="-1" />
+        <ColumnInfo Id="YCoordinate" Width="21" Index="-1" />
+        <ColumnInfo Id="Name" Width="136" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="LocationID" Width="101" />
+        <ColumnInfo Id="LocationType" Width="101" />
+        <ColumnInfo Id="Address" Width="101" />
+        <ColumnInfo Id="Description" Width="198" />
+      </Columns>
+    </ListView>
+    <ListView Id="Location_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

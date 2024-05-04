@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ActivationKey" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Account_ActivationKeies_ListView" DataAccessMode="DataView" IsFooterVisible="False">
+      <Columns>
+        <ColumnInfo Id="Account" Width="68" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="AccountId" Width="42" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="AccountName" Width="114" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ActivationKeyFile" Width="42" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Application" Width="42" Index="-1" />
+        <ColumnInfo Id="ApplicationId" Width="42" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ConfigurationItem.Description" PropertyName="ConfigurationItem.Description" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Device" Width="42" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="SendEmailAfterExpiration" Width="22" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="SendEmailBeforeExpiration" Width="20" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ID" Width="55" Index="0" />
+        <ColumnInfo Id="ConfigurationItem" Width="140" Index="1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="ApplicationName" Width="51" Index="2" />
+        <ColumnInfo Id="DeviceName" Width="51" Index="3" />
+        <ColumnInfo Id="GenerateDate" Width="51" Index="4" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="InstallationType" Width="51" Index="5" />
+        <ColumnInfo Id="VersionType" Width="51" Index="6" />
+        <ColumnInfo Id="StartDate" Width="51" Index="7" />
+        <ColumnInfo Id="EndDate" Width="51" Index="8" />
+        <ColumnInfo Id="NumberOfUsers" Width="53" Index="9" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ActivationKey_DetailView" AllowNew="False" AllowEdit="False" AllowDelete="False">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="ActivationKey" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="ActivationKey_col1" RelativeSize="41" Caption="ActivationKey_col1" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="ID" SizeConstraintsType="Default" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="ID" />
+                <LayoutItem Id="GenerateDate" SizeConstraintsType="Default" RelativeSize="3" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="GenerateDate" />
+                <LayoutItem Id="ConfigurationItem" SizeConstraintsType="Default" Index="2" RelativeSize="3" ViewItem="ConfigurationItem" IsNewNode="True" />
+                <LayoutItem Id="AccountId" SizeConstraintsType="Default" RelativeSize="8.5714285714285712" Index="3" ViewItem="AccountId" Removed="True" />
+                <LayoutItem Id="AccountName" SizeConstraintsType="Default" RelativeSize="8.5714285714285712" Index="3" ViewItem="AccountName" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="3" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="4" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="Account" ViewItem="Account" SizeConstraintsType="Default" Index="5" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ApplicationId" SizeConstraintsType="Default" RelativeSize="6.5753424657534243" Index="5" ViewItem="ApplicationId" Removed="True" />
+                <LayoutItem Id="ApplicationName" SizeConstraintsType="Default" Index="5" RelativeSize="6.5753424657534243" ViewItem="ApplicationName" Removed="True" />
+                <LayoutItem Id="Application" SizeConstraintsType="Default" RelativeSize="3" Index="7" ViewItem="Application" />
+                <LayoutItem Id="InstallationType" SizeConstraintsType="Default" Index="8" RelativeSize="3" ViewItem="InstallationType" />
+                <LayoutItem Id="NumberOfUsers" SizeConstraintsType="Default" Index="9" RelativeSize="3" ViewItem="NumberOfUsers" />
+                <LayoutItem Id="Device" SizeConstraintsType="Default" RelativeSize="7.8947368421052628" Index="10" ViewItem="Device" Removed="True" />
+                <LayoutItem Id="DeviceName" SizeConstraintsType="Default" RelativeSize="11.428571428571429" Index="10" ViewItem="DeviceName" Removed="True" />
+                <LayoutItem Id="TrialDays" ViewItem="TrialDays" SizeConstraintsType="Default" Index="10" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ExpireDate" ViewItem="ExpireDate" SizeConstraintsType="Default" Index="11" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="SerialNo" ViewItem="SerialNo" SizeConstraintsType="Default" Index="12" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ReferenceNumber" ViewItem="ReferenceNumber" SizeConstraintsType="Default" Index="13" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ReferenceTitle" ViewItem="ReferenceTitle" SizeConstraintsType="Default" Index="14" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="VersionType" SizeConstraintsType="Default" Index="14" RelativeSize="5.3571428571428568" ViewItem="VersionType" Removed="True" />
+                <LayoutItem Id="Contact" ViewItem="Contact" SizeConstraintsType="Default" Index="15" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="EndDate" SizeConstraintsType="Default" Index="15" RelativeSize="5.6603773584905657" ViewItem="EndDate" Removed="True" />
+                <LayoutItem Id="StartDate" SizeConstraintsType="Default" Index="15" RelativeSize="5.3571428571428568" ViewItem="StartDate" Removed="True" />
+                <LayoutItem Id="SendEmailBeforeExpiration" SizeConstraintsType="Default" RelativeSize="5.3571428571428568" Index="16" ViewItem="SendEmailBeforeExpiration" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ActivationKey_col2" RelativeSize="55" Caption="ActivationKey_col2" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="Contact" ViewItem="Contact" SizeConstraintsType="Default" Index="0" RelativeSize="8.51063829787234" Removed="True" />
+                <LayoutItem Id="ContactName" ViewItem="ContactName" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="SerialNumber" ViewItem="SerialNumber" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ExpireDate" SizeConstraintsType="Default" Index="3" RelativeSize="6" ViewItem="ExpireDate" Removed="True" />
+                <LayoutItem Id="ServiceOrBundle" SizeConstraintsType="Default" Index="3" RelativeSize="3" ViewItem="ServiceOrBundle" />
+                <LayoutItem Id="ContractName" ViewItem="ContractName" SizeConstraintsType="Default" Index="4" RelativeSize="3" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Contract" ViewItem="Contract" SizeConstraintsType="Default" Index="5" RelativeSize="3" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ReferenceNumber" SizeConstraintsType="Default" Index="5" RelativeSize="6.8181818181818183" ViewItem="ReferenceNumber" Removed="True" />
+                <LayoutItem Id="ReferenceTitle" SizeConstraintsType="Default" Index="5" RelativeSize="6.3829787234042552" ViewItem="ReferenceTitle" Removed="True" />
+                <LayoutItem Id="Device" ViewItem="Device" SizeConstraintsType="Default" Index="6" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="DeviceName" ViewItem="DeviceName" SizeConstraintsType="Default" Index="7" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ApplicationId" ViewItem="ApplicationId" SizeConstraintsType="Default" Index="8" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ApplicationName" ViewItem="ApplicationName" SizeConstraintsType="Default" Index="9" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="VersionType" ViewItem="VersionType" SizeConstraintsType="Default" Index="10" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="StartDate" ViewItem="StartDate" SizeConstraintsType="Default" Index="11" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="EndDate" ViewItem="EndDate" SizeConstraintsType="Default" Index="12" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="DemoAccount" SizeConstraintsType="Default" Index="13" RelativeSize="53" ViewItem="DemoAccount" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" Index="13" RelativeSize="24.528301886792452" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" Index="14" RelativeSize="14" ViewItem="StatusId" Removed="True" />
+                <LayoutItem Id="Account" ViewItem="Account" Removed="True" />
+                <LayoutItem Id="SerialNo" ViewItem="SerialNo" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="TrialDays" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" ViewItem="TrialDays" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ActivationKey_ListView" AllowNew="False" AllowDelete="False" DataAccessMode="DataView" />
+    <ListView Id="ActivationKey_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="ConfigurationItem_ActivationKeies_ListView" AllowDelete="False" AllowNew="False" DataAccessMode="DataView" IsGroupPanelVisible="True">
+      <Columns>
+        <ColumnInfo Id="AccountId" Width="62" Index="-1" />
+        <ColumnInfo Id="AccountName" SortIndex="-1" SortOrder="None" Index="-1" Width="43" />
+        <ColumnInfo Id="ActivationKeyFile" Width="33" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Contact" Index="-1" />
+        <ColumnInfo Id="ContactName" Index="-1" />
+        <ColumnInfo Id="Contract" Index="-1" />
+        <ColumnInfo Id="ContractName" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="DemoAccount" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="ExpireDate" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="ReferenceNumber" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ReferenceTitle" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="SendEmailAfterExpiration" Width="32" Index="-1" />
+        <ColumnInfo Id="SendEmailBeforeExpiration" Width="32" Index="-1" />
+        <ColumnInfo Id="SerialNumber" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ServiceOrBundle" Index="-1" />
+        <ColumnInfo Id="Status" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="StatusId" Index="-1" />
+        <ColumnInfo Id="TrialDays" Index="-1" />
+        <ColumnInfo Id="ID" SortIndex="-1" SortOrder="None" Index="0" Width="52" />
+        <ColumnInfo Id="GenerateDate" Width="58" Index="1" />
+        <ColumnInfo Id="ConfigurationItem" Width="81" Index="2" />
+        <ColumnInfo Id="ConfigurationItem.Description" PropertyName="ConfigurationItem.Description" Index="3" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="Account.Status" PropertyName="Account.Status" Index="4" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="Account" Width="83" SortIndex="-1" SortOrder="None" Index="5" />
+        <ColumnInfo Id="Application" Width="62" Index="6" />
+        <ColumnInfo Id="InstallationType" Width="62" Index="7" />
+        <ColumnInfo Id="NumberOfUsers" Width="0" Index="8" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="ConfigurationItem.TrialDays" PropertyName="ConfigurationItem.TrialDays" Index="9" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.ExpireDate" PropertyName="ConfigurationItem.ExpireDate" Index="10" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="SerialNo" Index="11" />
+        <ColumnInfo Id="ConfigurationItem.ReferenceNumber" PropertyName="ConfigurationItem.ReferenceNumber" Index="12" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.ReferenceTitle" PropertyName="ConfigurationItem.ReferenceTitle" Index="13" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.Contact" PropertyName="ConfigurationItem.Contact" Index="14" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.ContactName" PropertyName="ConfigurationItem.ContactName" Index="15" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.SerialNumber" PropertyName="ConfigurationItem.SerialNumber" Index="16" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.ServiceOrBundle" PropertyName="ConfigurationItem.ServiceOrBundle" Index="17" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.Contract" PropertyName="ConfigurationItem.Contract" Index="18" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="ConfigurationItem.ContractName" PropertyName="ConfigurationItem.ContractName" Index="19" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+        <ColumnInfo Id="Device" Width="72" Index="20" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DeviceSignature" Index="21" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DeviceName" Width="62" Index="22" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ApplicationId" Width="62" Index="23" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ApplicationName" Width="62" Index="24" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="VersionType" Width="62" Index="25" />
+        <ColumnInfo Id="StartDate" Width="62" Index="26" />
+        <ColumnInfo Id="EndDate" Width="62" Index="27" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ConfigurationItem.DemoAccount" PropertyName="ConfigurationItem.DemoAccount" Index="28" SortIndex="-1" SortOrder="None" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

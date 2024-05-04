@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Entity" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="HR_Attachments" DataSourceCriteria="[HrEntityType] = 'This.Type'" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Entity_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="21.276595744680851">
+            <LayoutGroup Id="HR_Entity" RelativeSize="100">
+              <LayoutItem Id="Code" SizeConstraintsType="Default" RelativeSize="29.09090909090909" />
+              <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="21.818181818181817" />
+              <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="21.818181818181817" />
+              <LayoutItem Id="Email" SizeConstraintsType="Default" RelativeSize="27.272727272727273" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="11.02514506769826">
+            <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="47.368421052631582" />
+            <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="52.631578947368418" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="67.698259187620891">
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Addresses" RelativeSize="100">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Phones" RelativeSize="100">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

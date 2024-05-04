@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCaseSteps" IsDesigned="True" Caption="Use Case Steps">
+      <OwnMembers>
+        <Member Name="Number" AllowEdit="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="QAUseCaseFlow_QAUseCaseSteps_ListView">
+      <Columns>
+        <ColumnInfo Id="UseCaseFlow" Width="188" />
+        <ColumnInfo Id="Number" Width="77" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Description" Index="1" Width="283" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAUseCaseSteps_ListView">
+      <Columns>
+        <ColumnInfo Id="Number" Width="68" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Description" Index="1" Width="301" />
+        <ColumnInfo Id="UseCaseFlow" Width="179" SortIndex="0" SortOrder="Ascending" Index="2" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAUseCaseSteps_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Number" Width="125" />
+        <ColumnInfo Id="Description" PropertyName="Description" Index="1" Width="330" IsNewNode="True" />
+        <ColumnInfo Id="UseCaseFlow" PropertyName="UseCaseFlow" Index="2" Width="93" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

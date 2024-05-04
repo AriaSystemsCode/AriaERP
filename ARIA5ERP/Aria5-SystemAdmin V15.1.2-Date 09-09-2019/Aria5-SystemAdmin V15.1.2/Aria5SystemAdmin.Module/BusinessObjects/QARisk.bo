@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QARisk" IsDesigned="True" Caption="Risk">
+      <OwnMembers>
+        <Member Name="AddDate" AllowEdit="False" />
+        <Member Name="Contingency" RowCount="4" Size="4000" />
+        <Member Name="Impact" DisplayFormat="" EditMask="[0-3]" />
+        <Member Name="Mitigation" RowCount="4" />
+        <Member Name="Name" RowCount="1" />
+        <Member Name="Probability" DisplayFormat="" Size="1" PredefinedValues="5" EditMask="[0-3]" />
+        <Member Name="ProjectTemplate" Caption="Project" />
+        <Member Name="Weight" DataSourceProperty="" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_Risks_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Contingency" Width="36" />
+        <ColumnInfo Id="Description" Width="36" />
+        <ColumnInfo Id="Mitigation" Width="36" />
+        <ColumnInfo Id="ProjectTemplate" Width="36" Index="-1" />
+        <ColumnInfo Id="Name" Width="119" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Owner" Width="36" Index="1" />
+        <ColumnInfo Id="AddDate" Width="36" Index="2" />
+        <ColumnInfo Id="ClosureDate" Width="36" Index="3" />
+        <ColumnInfo Id="Probability" Width="36" SortIndex="-1" SortOrder="None" Index="4" />
+        <ColumnInfo Id="Impact" Width="36" SortIndex="0" SortOrder="Ascending" Index="5" />
+        <ColumnInfo Id="Weight" Width="36" Index="6" />
+        <ColumnInfo Id="Status" Width="36" Index="7" />
+        <ColumnInfo Id="RiskSource" Width="36" Index="8" />
+        <ColumnInfo Id="RiskCategory" Width="70" Index="9" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QARisk_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22.8">
+            <LayoutGroup Id="QARisk" Caption="Risk" RelativeSize="100">
+              <LayoutGroup Id="QARisk_col1" RelativeSize="50">
+                <LayoutItem Id="Owner" SizeConstraintsType="Default" RelativeSize="23.529411764705884" ViewItem="Owner" />
+                <LayoutItem Id="AddDate" SizeConstraintsType="Default" RelativeSize="17.647058823529413" ViewItem="AddDate" />
+                <LayoutItem Id="ClosureDate" SizeConstraintsType="Default" RelativeSize="17.647058823529413" ViewItem="ClosureDate" />
+                <LayoutItem Id="Probability" SizeConstraintsType="Default" RelativeSize="17.647058823529413" ViewItem="Probability" />
+                <LayoutItem Id="Impact" SizeConstraintsType="Default" RelativeSize="23.529411764705884" ViewItem="Impact" />
+              </LayoutGroup>
+              <LayoutGroup Id="QARisk_col2" RelativeSize="50">
+                <LayoutItem Id="Weight" SizeConstraintsType="Default" RelativeSize="23.529411764705884" ViewItem="Weight" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="17.647058823529413" ViewItem="Status" />
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" RelativeSize="17.647058823529413" ViewItem="ProjectTemplate" />
+                <LayoutItem Id="RiskSource" SizeConstraintsType="Default" RelativeSize="17.647058823529413" ViewItem="RiskSource" />
+                <LayoutItem Id="RiskCategory" SizeConstraintsType="Default" RelativeSize="23.529411764705884" ViewItem="RiskCategory" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="77.2">
+            <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="4.66321243523316" ViewItem="Name" />
+            <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="4.1450777202072535" ViewItem="Description" />
+            <LayoutItem Id="Mitigation" SizeConstraintsType="Default" RelativeSize="4.1450777202072535" ViewItem="Mitigation" />
+            <LayoutItem Id="Contingency" SizeConstraintsType="Default" RelativeSize="87.046632124352328" ViewItem="Contingency" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QARisk_ListView">
+      <Columns>
+        <ColumnInfo Id="Name" Width="97" SortIndex="-1" SortOrder="None" Index="0" />
+        <ColumnInfo Id="ProjectTemplate" Width="72" SortIndex="0" SortOrder="Ascending" Index="1" />
+        <ColumnInfo Id="Owner" Width="54" Index="2" />
+        <ColumnInfo Id="AddDate" Width="54" Index="3" />
+        <ColumnInfo Id="ClosureDate" Width="54" Index="4" />
+        <ColumnInfo Id="Probability" Width="54" Index="5" />
+        <ColumnInfo Id="Impact" Width="54" Index="6" />
+        <ColumnInfo Id="Weight" Width="54" Index="7" />
+        <ColumnInfo Id="Status" Width="54" Index="8" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

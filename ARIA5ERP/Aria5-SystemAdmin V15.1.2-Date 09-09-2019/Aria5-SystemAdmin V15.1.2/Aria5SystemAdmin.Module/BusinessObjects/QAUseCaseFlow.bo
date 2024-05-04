@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCaseFlow" IsDesigned="True" Caption="Use Case Flow">
+      <OwnMembers>
+        <Member Name="QAUseCase" Caption="Use Case" />
+        <Member Name="QAUseCaseSteps" Caption="Use Case Steps" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAUseCaseFlow_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <TabbedGroup Id="Tabs" RelativeSize="100">
+            <LayoutGroup Id="QAUseCaseSteps" RelativeSize="100" Caption="Flow Steps">
+              <LayoutItem Id="QAUseCaseSteps" SizeConstraintsType="Default" RelativeSize="100" ViewItem="QAUseCaseSteps" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100" Index="1">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="Comments" RelativeSize="100" Index="2">
+              <LayoutItem Id="Comments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Comments" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

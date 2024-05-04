@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TrackingEntryAttachment" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="TrackingEntry_TrackingEntryAttachments_ListView" IsFooterVisible="False" DataAccessMode="Client" GroupSummary="Empty" />
+    <DetailView Id="TrackingEntryAttachment_DetailView">
+      <Items>
+        <PropertyEditor Id="AriaObject" Caption="Object" DataSourceProperty="TrackingEntry.Id.getchildren" DataSourceCriteria="" ImmediatePostData="True" />
+        <PropertyEditor Id="ObjectID" AllowEdit="False" />
+        <PropertyEditor Id="ObjectName" AllowEdit="False" />
+        <PropertyEditor Id="ObjectRevision" AllowEdit="False" />
+        <PropertyEditor Id="ObjectType" AllowEdit="False" />
+        <PropertyEditor Id="TrackingEntry" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.4">
+            <LayoutGroup Id="TrackingEntryAttachment" RelativeSize="100">
+              <LayoutGroup Id="TrackingEntryAttachment_col1" RelativeSize="50">
+                <LayoutItem Id="ObjectID" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="ObjectID" />
+                <LayoutItem Id="ObjectName" SizeConstraintsType="Default" RelativeSize="27.272727272727273" ViewItem="ObjectName" />
+                <LayoutItem Id="ObjectRevision" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="ObjectRevision" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingEntryAttachment_col2" RelativeSize="50">
+                <LayoutItem Id="AriaObject" SizeConstraintsType="Default" RelativeSize="27.272727272727273" ViewItem="AriaObject" />
+                <LayoutItem Id="TrackingEntry" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="TrackingEntry" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TrackingEntryAttachment_ListView" DataAccessMode="Client">
+      <Columns>
+        <ColumnInfo Id="ObjectName" AllowEdit="False" />
+        <ColumnInfo Id="ObjectID" AllowEdit="False" />
+        <ColumnInfo Id="ObjectRevision" AllowEdit="False" />
+        <ColumnInfo Id="ObjectType" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingEntryAttachment_LookupListView" DataAccessMode="Client" />
+  </Views>
+</Application>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AverageHandleTime" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="AverageHandleTime_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="33.65570599613153">
+            <LayoutGroup Id="AverageHandleTime" RelativeSize="100" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="66.34429400386847" Index="1">
+            <LayoutGroup Id="Tickets" ShowCaption="True" Index="0" RelativeSize="100" IsNewNode="True" Removed="True">
+              <LayoutItem Id="Tickets" ShowCaption="False" ViewItem="Tickets" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="QueuesValues" RelativeSize="100" Index="1" Caption="Queues Values">
+              <LayoutItem Id="QueuesValues" SizeConstraintsType="Default" RelativeSize="100" Index="0" ViewItem="QueuesValues" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AverageHandleTime_ListView">
+      <Columns>
+        <ColumnInfo Id="CRM" Index="-1" />
+        <ColumnInfo Id="EDI" Index="-1" />
+        <ColumnInfo Id="ERP" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="SD" Index="-1" />
+        <ColumnInfo Id="Title" Index="0" SortIndex="-1" SortOrder="None" Width="250" />
+        <ColumnInfo Id="DateFrom" Index="1" Width="172" />
+        <ColumnInfo Id="DateTO" Index="2" Width="172" />
+      </Columns>
+    </ListView>
+    <ListView Id="TicketAHT_Averge_handle_time_ListView">
+      <Columns>
+        <ColumnInfo Id="Title" Index="0" />
+        <ColumnInfo Id="DateFrom" Index="1" />
+        <ColumnInfo Id="DateTO" Index="2" />
+        <ColumnInfo Id="ERP" Index="3" />
+        <ColumnInfo Id="EDI" Index="4" />
+        <ColumnInfo Id="CRM" Index="5" />
+        <ColumnInfo Id="SD" Index="6" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

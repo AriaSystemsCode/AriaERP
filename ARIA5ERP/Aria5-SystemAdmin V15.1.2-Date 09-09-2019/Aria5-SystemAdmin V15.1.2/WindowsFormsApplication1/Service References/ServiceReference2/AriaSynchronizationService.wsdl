@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="PullData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fromVersion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="toVersion" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="accountOid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PullDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PullDataResult" type="tns:ArrayOfSyncDataObject" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSyncDataObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SyncDataObject" nillable="true" type="tns:SyncDataObject" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SyncDataObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Properties" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfAnyType" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountOID" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="EntityOID" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecordStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PushData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountOid" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="dataToUpdate" type="tns:ArrayOfSyncDataObject" />
+            <s:element minOccurs="0" maxOccurs="1" name="DeviceSignature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PushDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PushDataResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDBVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountOid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDBVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDBVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Register">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="account" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="deviceSeginture" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RegisterResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Notify">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="txt" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="accountOid" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NotifyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NotifyResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMinFrontEndVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMinFrontEndVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMinFrontEndVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PullDataSoapIn">
+    <wsdl:part name="parameters" element="tns:PullData" />
+  </wsdl:message>
+  <wsdl:message name="PullDataSoapOut">
+    <wsdl:part name="parameters" element="tns:PullDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="PushDataSoapIn">
+    <wsdl:part name="parameters" element="tns:PushData" />
+  </wsdl:message>
+  <wsdl:message name="PushDataSoapOut">
+    <wsdl:part name="parameters" element="tns:PushDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDBVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDBVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetDBVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDBVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSoapIn">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="RegisterSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="NotifySoapIn">
+    <wsdl:part name="parameters" element="tns:Notify" />
+  </wsdl:message>
+  <wsdl:message name="NotifySoapOut">
+    <wsdl:part name="parameters" element="tns:NotifyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMinFrontEndVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMinFrontEndVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetMinFrontEndVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMinFrontEndVersionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AriaSynchronizationServiceSoap">
+    <wsdl:operation name="PullData">
+      <wsdl:input message="tns:PullDataSoapIn" />
+      <wsdl:output message="tns:PullDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PushData">
+      <wsdl:input message="tns:PushDataSoapIn" />
+      <wsdl:output message="tns:PushDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDBVersion">
+      <wsdl:input message="tns:GetDBVersionSoapIn" />
+      <wsdl:output message="tns:GetDBVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input message="tns:RegisterSoapIn" />
+      <wsdl:output message="tns:RegisterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <wsdl:input message="tns:NotifySoapIn" />
+      <wsdl:output message="tns:NotifySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMinFrontEndVersion">
+      <wsdl:input message="tns:GetMinFrontEndVersionSoapIn" />
+      <wsdl:output message="tns:GetMinFrontEndVersionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AriaSynchronizationServiceSoap" type="tns:AriaSynchronizationServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PullData">
+      <soap:operation soapAction="http://tempuri.org/PullData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PushData">
+      <soap:operation soapAction="http://tempuri.org/PushData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDBVersion">
+      <soap:operation soapAction="http://tempuri.org/GetDBVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap:operation soapAction="http://tempuri.org/Register" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <soap:operation soapAction="http://tempuri.org/Notify" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMinFrontEndVersion">
+      <soap:operation soapAction="http://tempuri.org/GetMinFrontEndVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AriaSynchronizationServiceSoap12" type="tns:AriaSynchronizationServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PullData">
+      <soap12:operation soapAction="http://tempuri.org/PullData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PushData">
+      <soap12:operation soapAction="http://tempuri.org/PushData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDBVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetDBVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap12:operation soapAction="http://tempuri.org/Register" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <soap12:operation soapAction="http://tempuri.org/Notify" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMinFrontEndVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetMinFrontEndVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AriaSynchronizationService">
+    <wsdl:port name="AriaSynchronizationServiceSoap" binding="tns:AriaSynchronizationServiceSoap">
+      <soap:address location="http://c79e6a86dcc047dd9775a8a7379c35b6.cloudapp.net/WebServices/AriaSynchronizationService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AriaSynchronizationServiceSoap12" binding="tns:AriaSynchronizationServiceSoap12">
+      <soap12:address location="http://c79e6a86dcc047dd9775a8a7379c35b6.cloudapp.net/WebServices/AriaSynchronizationService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

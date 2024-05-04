@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TasksDOT" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="BaselineDueDate" Caption="Task Due Date" />
+        <Member Name="DeliveryOnTime" Caption="Sch.Var." />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="TasksDOT_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ProjectName" SortIndex="-1" SortOrder="None" Width="233" />
+        <ColumnInfo Id="ProjectNumber" Width="55" />
+        <ColumnInfo Id="ProjectCompleteDate" Width="60" />
+        <ColumnInfo Id="DepName" Width="60" />
+        <ColumnInfo Id="ResourceName" Width="60" />
+        <ColumnInfo Id="ResourceId" Width="44" />
+        <ColumnInfo Id="TaskTitle" Width="60" />
+        <ColumnInfo Id="TaskId" Width="60" />
+        <ColumnInfo Id="TaskCompleteDate" Width="60" />
+        <ColumnInfo Id="BaselineDueDate" Width="60" SortIndex="0" SortOrder="Descending" />
+        <ColumnInfo Id="DeliveryOnTime" SortIndex="-1" SortOrder="None" Width="80" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

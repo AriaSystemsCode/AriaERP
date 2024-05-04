@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AccountDevice" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Account_AccountDevices_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="AccountName" Index="-1" Width="199" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="ID" Index="0" Width="86" />
+        <ColumnInfo Id="Name" Index="1" Width="150" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DeviceSignature" Index="2" Width="199" />
+        <ColumnInfo Id="MACAddress" Index="3" Width="202" />
+        <ColumnInfo Id="ASHWID" Index="4" Removed="True" />
+        <ColumnInfo Id="OperatingSystem" Index="7" Removed="True" />
+        <ColumnInfo Id="Location" Index="8" Removed="True" />
+        <ColumnInfo Id="Account" Removed="True" />
+        <ColumnInfo Id="AccountId" Removed="True" />
+        <ColumnInfo Id="ScreenSize" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="AccountDevice_ListView" DataAccessMode="DataView" />
+    <ListView Id="AccountDevice_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

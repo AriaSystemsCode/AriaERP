@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectSettings" IsDesigned="True" DefaultListViewAllowEdit="True">
+      <AppearanceRules>
+        <AppearanceRule Id="Link" TargetItems="Link;Unlink" AppearanceItemType="Action" Visibility="Hide" Enabled="False" Index="1" IsNewNode="True" />
+        <AppearanceRule Id="New" TargetItems="New" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="AriaObjectRevision" AllowEdit="False" />
+        <Member Name="DataType" AllowEdit="False" />
+        <Member Name="DecimalPlaces" AllowEdit="False" />
+        <Member Name="Format" AllowEdit="False" />
+        <Member Name="SettingType" AllowEdit="False" />
+        <Member Name="Validvalues" AllowEdit="False" />
+        <Member Name="Width" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObject_AriaObjectSettings_ListView" AllowEdit="True" Caption="Aria Object Settings" AllowNew="False" AllowDelete="False">
+      <Columns>
+        <ColumnInfo Id="AriaObjectRevision" Index="-1" />
+        <ColumnInfo Id="Value" Index="1" />
+        <ColumnInfo Id="DataType" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectRevision_AriaObjectSettingses_ListView" AllowDelete="False" AllowNew="False" />
+    <DetailView Id="AriaObjectSettings_DetailView" AllowDelete="False" AllowNew="False" />
+    <ListView Id="AriaObjectSettings_ListView" AllowEdit="True" AllowDelete="False" AllowNew="False" />
+  </Views>
+</Application>

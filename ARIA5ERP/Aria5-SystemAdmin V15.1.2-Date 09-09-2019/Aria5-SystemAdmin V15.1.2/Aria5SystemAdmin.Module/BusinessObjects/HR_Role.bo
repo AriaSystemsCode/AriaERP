@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Role" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Role_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8.2666666666666675">
+            <LayoutGroup Id="HR_Role" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="51.612903225806448" ViewItem="Name" />
+              <LayoutItem Id="Description" RelativeSize="48.387096774193552" ViewItem="Description" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="91.733333333333334">
+            <LayoutGroup Id="Activities" RelativeSize="100">
+              <LayoutItem Id="Activities" RelativeSize="100" ViewItem="Activities" />
+            </LayoutGroup>
+            <LayoutGroup Id="Categories" RelativeSize="100">
+              <LayoutItem Id="Categories" RelativeSize="100" ViewItem="Categories" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

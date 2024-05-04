@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EF2C9E5C-2DB0-45FC-B846-D6FCB9FE7BC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria5SystemAdmin.Module.Web</RootNamespace>
+    <AssemblyName>Aria5SystemAdmin.Module.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Beyond-Pro Translator">
+      <HintPath>..\Lib\Beyond-Pro Translator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.WindowsAzure.ServiceRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\OneTouchAway\SiteMap\Sitemap.cs" />
+    <Compile Include="Classes\OneTouchAway\SiteMap\Url.cs" />
+    <Compile Include="Classes\WebSite\MessageBox\GenericMessageBox.cs" />
+    <Compile Include="Classes\WebSite\MessageBox\MessageBoxTextMessage.cs" />
+    <Compile Include="Classes\WebSite\SiteMap\Sitemap.cs" />
+    <Compile Include="Classes\WebSite\SiteMap\Url.cs" />
+    <Compile Include="Controllers\ClientManager\ViewItems\ClientManagerViewItem.cs" />
+    <Compile Include="Controllers\Globalization\ViewItems\GlobalizationViewItem.cs" />
+    <Compile Include="Controllers\JavaScriptHandlerViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\ViewController\PingSearchEngine_Button_ToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\ViewController\PingSearchEngine_Button_ToolBar.Designer.cs">
+      <DependentUpon>PingSearchEngine_Button_ToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\ViewController\RefreshSiteMap_Button_ToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\ViewController\RefreshSiteMap_Button_ToolBar.Designer.cs">
+      <DependentUpon>RefreshSiteMap_Button_ToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\ViewItems\ApplicationSort.cs" />
+    <Compile Include="Controllers\OneTouchAway\ViewItems\ButtonDetailViewItemWeb.cs" />
+    <Compile Include="Controllers\OneTouchAway\ViewItems\MailSetting.cs" />
+    <Compile Include="Controllers\OneTouchAway\ViewItems\MailTemplate.cs" />
+    <Compile Include="Controllers\OneTouchAway\ViewItems\ResortAppcs.cs" />
+    <Compile Include="Controllers\OneTouchAway\ViewItems\SortCategory.cs" />
+    <Compile Include="Controllers\OneTouchAway\WindowController\Applications.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\Applications.designer.cs">
+      <DependentUpon>Applications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\EmailSettingWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\EmailSettingWindow.designer.cs">
+      <DependentUpon>EmailSettingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\EmailTemplateWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\EmailTemplateWindow.designer.cs">
+      <DependentUpon>EmailTemplateWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\RsortApplications.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\RsortApplications.designer.cs">
+      <DependentUpon>RsortApplications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\SortCategoryWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\OneTouchAway\WindowController\SortCategoryWindow.designer.cs">
+      <DependentUpon>SortCategoryWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SetupViewController.cs" />
+    <Compile Include="Controllers\SetupViewController.Designer.cs">
+      <DependentUpon>SetupViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ViewItems\BrowseFieldsViewItem.cs" />
+    <Compile Include="Controllers\SysFiles\ViewItems\ExportViewItem.cs" />
+    <Compile Include="Controllers\SysFiles\ViewItems\ReportVariableSortViewItem.cs" />
+    <Compile Include="Controllers\WebSite\ViewController\PingSearchEngine_Button_ToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\ViewController\PingSearchEngine_Button_ToolBar.Designer.cs">
+      <DependentUpon>PingSearchEngine_Button_ToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WebSite\ViewController\RefreshSiteMap_Button_ToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\ViewController\RefreshSiteMap_Button_ToolBar.Designer.cs">
+      <DependentUpon>RefreshSiteMap_Button_ToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WebSite\ViewItems\ApplicationSort.cs" />
+    <Compile Include="Controllers\WebSite\ViewItems\ButtonDetailViewItemWeb.cs" />
+    <Compile Include="Controllers\WebSite\ViewItems\MailSetting.cs" />
+    <Compile Include="Controllers\WebSite\ViewItems\MailTemplate.cs" />
+    <Compile Include="Controllers\WebSite\ViewItems\ResortAppcs.cs" />
+    <Compile Include="Controllers\WebSite\ViewItems\SortCategory.cs" />
+    <Compile Include="Controllers\WebSite\WindowController\Applications.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\Applications.designer.cs">
+      <DependentUpon>Applications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\EmailSettingWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\EmailSettingWindow.designer.cs">
+      <DependentUpon>EmailSettingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\EmailTemplateWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\EmailTemplateWindow.designer.cs">
+      <DependentUpon>EmailTemplateWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\RsortApplications.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\RsortApplications.designer.cs">
+      <DependentUpon>RsortApplications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\SortCategoryWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebSite\WindowController\SortCategoryWindow.designer.cs">
+      <DependentUpon>SortCategoryWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebModule.Designer.cs">
+      <DependentUpon>WebModule.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controllers\OneTouchAway\ViewController\PingSearchEngine_Button_ToolBar.resx">
+      <DependentUpon>PingSearchEngine_Button_ToolBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\OneTouchAway\ViewController\RefreshSiteMap_Button_ToolBar.resx">
+      <DependentUpon>RefreshSiteMap_Button_ToolBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\SetupViewController.resx">
+      <DependentUpon>SetupViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\WebSite\ViewController\PingSearchEngine_Button_ToolBar.resx">
+      <DependentUpon>PingSearchEngine_Button_ToolBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\WebSite\ViewController\RefreshSiteMap_Button_ToolBar.resx">
+      <DependentUpon>RefreshSiteMap_Button_ToolBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebModule.resx">
+      <DependentUpon>WebModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module\Aria5SystemAdmin.Module.csproj">
+      <Project>{d28c293a-a455-47d5-8515-c9d019c1a538}</Project>
+      <Name>Aria5SystemAdmin.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AriaDevExpress.Module\AriaDevExpress.Module.csproj">
+      <Project>{13DF01CF-2FDA-46BE-8CD0-D95C93F72D6A}</Project>
+      <Name>AriaDevExpress.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Editors\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

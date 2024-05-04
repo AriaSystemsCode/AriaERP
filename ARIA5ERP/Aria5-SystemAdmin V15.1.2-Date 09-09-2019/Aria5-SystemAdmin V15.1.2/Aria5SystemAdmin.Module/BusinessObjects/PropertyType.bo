@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.PropertyType" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="SettingTypes" DataSourceCriteria="[ControlType] = '1'" DataSourcePropertyIsNullMode="CustomCriteria" LookupEditorMode="Search" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ObjectType_PropertyTypes_ListView" IsFooterVisible="False" DataAccessMode="Client" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="PropertyTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="PropertyType_DetailView">
+      <Items>
+        <PropertyEditor Id="AriaObjectPropertieses" Index="-1" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8.2666666666666675">
+            <LayoutGroup Id="PropertyType" RelativeSize="100">
+              <LayoutItem Id="PropertyTypeId" SizeConstraintsType="Default" RelativeSize="51.612903225806448" ViewItem="PropertyTypeId" />
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="48.387096774193552" ViewItem="Name" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="91.733333333333334">
+            <LayoutGroup Id="AriaObjectPropertieses" Index="-1" Removed="True" />
+            <LayoutGroup Id="SettingTypes" RelativeSize="100">
+              <LayoutItem Id="SettingTypes" SizeConstraintsType="Default" RelativeSize="100" ViewItem="SettingTypes" />
+            </LayoutGroup>
+            <LayoutGroup Id="ObjectTypes" RelativeSize="100" Removed="True">
+              <LayoutItem Id="ObjectTypes" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ObjectTypes" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="PropertyType_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="PropertyTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <ListView Id="PropertyType_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="SettingType_PropertyTypes_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="PropertyTypeId" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

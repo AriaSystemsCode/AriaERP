@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAActivity" IsDesigned="True" Caption="Activity">
+      <OwnMembers>
+        <Member Name="AvgEstVal" Caption="Average Estimated Value&#x9;" />
+        <Member Name="CrntCapInd" Caption="Current Capability Index %" />
+        <Member Name="EstCurCapInd" Caption="Average Estimated Value After Current Capability Index" AllowEdit="False" />
+        <Member Name="EstTrgCapInd" Caption="Average Estimated Value After Taregt Capability Index" AllowEdit="False" />
+        <Member Name="QAWBS" AllowEdit="False" Caption="WBS" />
+        <Member Name="ResAvaHrs" Caption="Resource Available Hours" />
+        <Member Name="TrgCapInd" Caption="Target Capability Index %" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAActivity_DetailView">
+      <Items>
+        <PropertyEditor Id="AutoTaskID" AllowEdit="False" />
+        <PropertyEditor Id="Phase" Caption="Is Phase" />
+        <PropertyEditor Id="Resource" DataSourceProperty="Department.Resourceses" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAActivity" RelativeSize="100" Direction="Vertical" Caption="Activity">
+              <LayoutGroup Id="QAActivity_col1" RelativeSize="100">
+                <LayoutItem Id="Activity" SizeConstraintsType="Default" RelativeSize="4.507042253521127" ViewItem="Activity" />
+                <LayoutItem Id="QAWBS" SizeConstraintsType="Default" Index="1" RelativeSize="3.380281690140845" ViewItem="QAWBS" IsNewNode="True" />
+                <LayoutItem Id="AvgEstVal" SizeConstraintsType="Default" RelativeSize="3.380281690140845" Index="2" ViewItem="AvgEstVal" />
+                <LayoutItem Id="Department" ViewItem="Department" SizeConstraintsType="Default" Index="3" RelativeSize="3.380281690140845" IsNewNode="True" />
+                <LayoutItem Id="Resource" ViewItem="Resource" SizeConstraintsType="Default" Index="4" RelativeSize="3.380281690140845" IsNewNode="True" />
+                <LayoutItem Id="CrntCapInd" SizeConstraintsType="Default" RelativeSize="3.380281690140845" Index="5" ViewItem="CrntCapInd" />
+                <LayoutItem Id="EstCurCapInd" SizeConstraintsType="Default" RelativeSize="3.380281690140845" Index="6" ViewItem="EstCurCapInd" />
+                <LayoutItem Id="ResAvaHrs" SizeConstraintsType="Default" RelativeSize="3.380281690140845" Index="7" ViewItem="ResAvaHrs" />
+                <LayoutItem Id="EstTrgCapInd" SizeConstraintsType="Default" Index="8" RelativeSize="3.380281690140845" ViewItem="EstTrgCapInd" IsNewNode="True" />
+                <LayoutItem Id="AutoTaskID" ViewItem="AutoTaskID" SizeConstraintsType="Default" Index="9" RelativeSize="3.380281690140845" IsNewNode="True" />
+                <LayoutItem Id="TrgCapInd" SizeConstraintsType="Default" RelativeSize="3.380281690140845" Index="10" ViewItem="TrgCapInd" />
+                <LayoutItem Id="Phase" ViewItem="Phase" SizeConstraintsType="Default" Index="11" RelativeSize="61.690140845070424" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAActivity_col2" RelativeSize="41.337907375643226" Caption="QAActivity_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="AutoTaskID" ViewItem="AutoTaskID" Removed="True" />
+                <LayoutItem Id="Department" ViewItem="Department" Removed="True" />
+                <LayoutItem Id="EstTrgCapInd" ViewItem="EstTrgCapInd" Removed="True" />
+                <LayoutItem Id="Phase" ViewItem="Phase" Removed="True" />
+                <LayoutItem Id="QAWBS" ViewItem="QAWBS" Removed="True" />
+                <LayoutItem Id="Resource" ViewItem="Resource" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

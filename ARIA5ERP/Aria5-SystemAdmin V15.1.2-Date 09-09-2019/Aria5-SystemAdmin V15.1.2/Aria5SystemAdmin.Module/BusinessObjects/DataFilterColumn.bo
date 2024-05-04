@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DataFilterColumn" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="DataFilter_DataFilterColumns_ListView" DataAccessMode="DataView" />
+    <DetailView Id="DataFilterColumn_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="DataFilterColumn" RelativeSize="100">
+              <LayoutGroup Id="DataFilterColumn_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="Operator" SizeConstraintsType="Default" RelativeSize="4.5133991537376588" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="Value" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="ValueType" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="Filter" SizeConstraintsType="Default" RelativeSize="85.331452750352611" />
+              </LayoutGroup>
+              <LayoutGroup Id="DataFilterColumn_col2" RelativeSize="48.533333333333331" Caption="DataFilterColumn_col2" Direction="Horizontal">
+                <LayoutItem Id="Conjunction" Removed="True" />
+                <LayoutItem Id="Is" Removed="True" />
+                <LayoutItem Id="Order" Removed="True" />
+                <LayoutItem Id="Value1" Removed="True" />
+                <LayoutItem Id="Value2" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DataFilterColumn_ListView" DataAccessMode="DataView" />
+    <ListView Id="DataFilterColumn_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

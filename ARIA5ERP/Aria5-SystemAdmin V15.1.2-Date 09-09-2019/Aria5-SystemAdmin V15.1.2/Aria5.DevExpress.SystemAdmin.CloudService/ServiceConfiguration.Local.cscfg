@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Aria5.DevExpress.SystemAdmin.CloudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Aria5.DevExpress.SystemAdmin.WebServiceRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=ariaftp;AccountKey=OFtTaMXef67OwHa06zqI2MBVlBzq5D8tMMHG69Zcf1dzJ+RZGVO4OkvvsYjY88O/h2CCEJepNWFt3MH4pCMt9A==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="Mahmoud" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBjwYJKoZIhvcNAQcDoIIBgDCCAXwCAQAxggFAMIIBPAIBADAkMBAxDjAMBgNVBAMTBVNhcmFoAhA9QfwIsFAEqUOwUUl5/6tVMA0GCSqGSIb3DQEBAQUABIIBANnyr0IrCWrBJ0NRtu0/2/oHOHFMrvSZi/FYAyv1nM50HBqMx0FQWLuSF0a+lt9sjOjdhHMeHbES5FdsVAuF6zw1D/HKDFMB2aGQ+I0eW/9Bby7sOUr0lM8h8NIax1kEPLaCIorxQJ0A0lLTY/anddL3zSIMf/tDLgBBG9nK2VIJLJHB+v22XhUxZuk8BVQrqbvrqI6hu+xHVtLs6c0OHzHGGnHsXm3By6U2yrGoO/WXetIikgTUgJTYWLJtniytR03olShprSUH2KTbEg+S8ZQLVcXqI4kCbjwDT4g4v+7xVLtnkBt7RTElnrEbWZjICEYCsk/szXb8mLWlnKLpWuIwMwYJKoZIhvcNAQcBMBQGCCqGSIb3DQMHBAhAaTyGU15waYAQZKpZnqY0EdYqHlHB4vKjbg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-01-31T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="9DDFEE4376751B2407F534E63A9F007EDB653872" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

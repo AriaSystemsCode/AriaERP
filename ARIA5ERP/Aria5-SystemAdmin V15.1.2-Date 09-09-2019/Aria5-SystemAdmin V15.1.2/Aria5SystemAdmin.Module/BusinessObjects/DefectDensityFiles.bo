@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DefectDensityFiles" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="DefectDensityFiles_DetailView">
+      <Items>
+        <PropertyEditor Id="Application" DataSourceCriteria="[Id] = 'Aria3EDI' Or [Id] = 'Aria4XP'" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

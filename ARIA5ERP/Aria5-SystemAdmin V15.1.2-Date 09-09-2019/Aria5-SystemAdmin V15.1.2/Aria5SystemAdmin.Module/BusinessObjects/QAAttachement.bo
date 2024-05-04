@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAAttachement" IsDesigned="True" Caption="Attachment">
+      <OwnMembers>
+        <Member Name="AddDate" AllowEdit="False" />
+        <Member Name="ProjectTemplate" Caption="Project " />
+        <Member Name="QADefect" Caption="Defect" DataSourceProperty="ProjectTemplate.Defects" />
+        <Member Name="QAProjectEntity" Caption="Project Entity" DataSourceProperty="ProjectTemplate.ProjectEntities" />
+        <Member Name="QAUseCase" Caption="Use Case" DataSourceProperty="ProjectTemplate.UseCases" />
+        <Member Name="QAUseCaseFlow" Caption="Use Case Flow" DataSourceProperty="QAUseCase.UseCaseFlows" />
+        <Member Name="Requirement" DataSourceProperty="ProjectTemplate.Requirements" />
+        <Member Name="TestCase" DataSourceProperty="ProjectTemplate.TestCases" />
+        <Member Name="TestCaseSteps" DataSourceProperty="TestCase.TestCaseSteps" />
+        <Member Name="TestRun" DataSourceProperty="ProjectTemplate.TestRuns" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_Attachements_ListView" GroupSummary="Empty" />
+    <DetailView Id="QAAttachement_DetailView">
+      <Items>
+        <PropertyEditor Id="AddDate" Caption="AddDate" PropertyName="AddDate" IsNewNode="True" />
+        <PropertyEditor Id="ProjectTemplate" Caption="ProjectTemplate" PropertyName="ProjectTemplate" IsNewNode="True" />
+        <PropertyEditor Id="QADefect" Caption="Defect" PropertyName="QADefect" IsNewNode="True" />
+        <PropertyEditor Id="QAUseCase" Caption="Use Case" PropertyName="QAUseCase" IsNewNode="True" />
+        <PropertyEditor Id="TestCase" Caption="Test Case" PropertyName="TestCase" IsNewNode="True" />
+        <PropertyEditor Id="TestRun" Caption="TestRun" PropertyName="TestRun" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="53.488372093023258">
+            <LayoutGroup Id="FileAttachmentBase" Index="0" RelativeSize="43.478260869565219" Caption="File">
+              <LayoutItem Id="File" SizeConstraintsType="Default" RelativeSize="29.09090909090909" ViewItem="File" />
+              <LayoutItem Id="QAUseCase" ViewItem="QAUseCase" SizeConstraintsType="Default" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" />
+              <LayoutItem Id="TestCase" ViewItem="TestCase" SizeConstraintsType="Default" Index="2" RelativeSize="21.818181818181817" IsNewNode="True" />
+              <LayoutItem Id="QADefect" ViewItem="QADefect" Index="3" RelativeSize="27.272727272727273" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="QAAttachement" Index="1" RelativeSize="56.521739130434781">
+              <LayoutGroup Id="QAAttachement_col1" RelativeSize="49.917898193760266">
+                <LayoutItem Id="ProjectTemplate" RelativeSize="28.318584070796462" ViewItem="ProjectTemplate" />
+                <LayoutItem Id="QAProjectEntity" Index="1" RelativeSize="21.238938053097346" ViewItem="QAProjectEntity" />
+                <LayoutItem Id="QAUseCaseFlow" Index="2" RelativeSize="50.442477876106196" ViewItem="QAUseCaseFlow" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAAttachement_col2" RelativeSize="50.082101806239734">
+                <LayoutItem Id="Requirement" RelativeSize="28.318584070796462" ViewItem="Requirement" />
+                <LayoutItem Id="TestCaseSteps" RelativeSize="21.238938053097346" ViewItem="TestCaseSteps" />
+                <LayoutItem Id="AddDate" RelativeSize="28.318584070796462" ViewItem="AddDate" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="46.511627906976742" IsNewNode="True">
+            <LayoutGroup Id="ChangeHistory_Group" ShowCaption="True" Caption="Change History" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="ChangeHistory" ViewItem="ChangeHistory" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="ChangeHistory_Group" Direction="Vertical" RelativeSize="71.803278688524586" Removed="True">
+            <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

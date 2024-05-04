@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Reworkfeedback" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AddedBy" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Rework_DiscussionBoard_ListView">
+      <Columns>
+        <ColumnInfo Id="Comment" Index="0" Width="458" />
+        <ColumnInfo Id="AddedBy" Index="1" Width="66" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

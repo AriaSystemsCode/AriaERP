@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectRevision" IsDesigned="True">
+      <AppearanceRules>
+        <AppearanceRule Id="Link" TargetItems="Link;Unlink" AppearanceItemType="Action" Visibility="Hide" Enabled="False" Index="0" IsNewNode="True" />
+        <AppearanceRule Id="Delete" TargetItems="Delete" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="1" IsNewNode="True" />
+        <AppearanceRule Id="New" TargetItems="New" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="2" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="AriaObject" AllowEdit="False" />
+        <Member Name="ObjectRevision" AllowEdit="False" />
+        <Member Name="ObjectRevisionSettings" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObject_AriaObjectRevisions_ListView" DataAccessMode="DataView" />
+    <DetailView Id="AriaObjectRevision_DetailView">
+      <Items>
+        <PropertyEditor Id="ObjectRevisionSettings" Index="-1" />
+        <PropertyEditor Id="TrackingNo" LookupEditorMode="AllItemsWithSearch" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="23">
+            <LayoutGroup Id="AriaObjectRevision" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectRevision_col1" RelativeSize="48">
+                <LayoutItem Id="AriaObject" SizeConstraintsType="Default" RelativeSize="23" ViewItem="AriaObject" />
+                <LayoutItem Id="ObjectRevision" SizeConstraintsType="Default" RelativeSize="17" ViewItem="ObjectRevision" />
+                <LayoutItem Id="BuildNo" SizeConstraintsType="Default" RelativeSize="17" ViewItem="BuildNo" />
+                <LayoutItem Id="TrackingNo" SizeConstraintsType="Default" RelativeSize="23" ViewItem="TrackingNo" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectRevision_col2" RelativeSize="48">
+                <LayoutItem Id="ServicePack" SizeConstraintsType="Default" RelativeSize="23" ViewItem="ServicePack" />
+                <LayoutItem Id="ReleaseNo" SizeConstraintsType="Default" RelativeSize="17" ViewItem="ReleaseNo" />
+                <LayoutItem Id="AutoTaskTicket" SizeConstraintsType="Default" RelativeSize="17" ViewItem="AutoTaskTicket" />
+                <LayoutItem Id="ShortDescription" SizeConstraintsType="Default" RelativeSize="17" ViewItem="ShortDescription" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="76">
+            <LayoutGroup Id="AriaObjectEvents" RelativeSize="100">
+              <LayoutItem Id="AriaObjectEvents" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectEvents" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectMethods" RelativeSize="100">
+              <LayoutItem Id="AriaObjectMethods" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectMethods" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectRevision_ListView" AllowDelete="False" AllowNew="False" AllowEdit="True" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ObjectRevision" SortIndex="0" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectRevision_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

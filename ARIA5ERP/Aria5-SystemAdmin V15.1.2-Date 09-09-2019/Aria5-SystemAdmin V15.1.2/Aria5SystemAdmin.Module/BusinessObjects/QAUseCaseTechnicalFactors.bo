@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCaseTechnicalFactors" IsDesigned="True" Caption="Use Case Technical Factors">
+      <OwnMembers>
+        <Member Name="Score" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAUseCaseTechnicalFactors_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAUseCaseTechnicalFactors" RelativeSize="100" Direction="Vertical" Caption="Use Case Technical Factors">
+              <LayoutGroup Id="QAUseCaseTechnicalFactors_col1" RelativeSize="94.533333333333331">
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="0" RelativeSize="4.5133991537376588" IsNewNode="True" />
+                <LayoutItem Id="Weight" SizeConstraintsType="Default" Index="1" RelativeSize="3.3850493653032441" ViewItem="Weight" />
+                <LayoutItem Id="Score" ViewItem="Score" SizeConstraintsType="Default" Index="2" RelativeSize="3.3850493653032441" IsNewNode="True" />
+                <LayoutItem Id="Relivance" SizeConstraintsType="Default" Index="3" RelativeSize="88.716502115655857" ViewItem="Relivance" />
+                <LayoutItem Id="UseCasePoints" SizeConstraintsType="Default" Index="4" RelativeSize="70.028818443804028" ViewItem="UseCasePoints" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAUseCaseTechnicalFactors_col2" RelativeSize="48.28125" Caption="QAUseCaseTechnicalFactors_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="Score" ViewItem="Score" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Branches" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ContactPersonName" Caption="Contact Person" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Branches_DetailView">
+      <Items>
+        <PropertyEditor Id="Company" Caption="Division" />
+        <PropertyEditor Id="Description" Caption="Name" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HR_Branches" Caption="Branches" RelativeSize="20.408163265306122">
+              <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
+              <LayoutItem Id="ContactPersonName" SizeConstraintsType="Default" Index="1" RelativeSize="21.818181818181817" ViewItem="ContactPersonName" />
+              <LayoutItem Id="ContactPersonEmail" SizeConstraintsType="Default" Index="2" RelativeSize="21.818181818181817" ViewItem="ContactPersonEmail" />
+              <LayoutItem Id="Company" SizeConstraintsType="Default" Index="3" RelativeSize="27.272727272727273" ViewItem="Company" />
+            </LayoutGroup>
+            <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="79.591836734693871" IsNewNode="True">
+              <LayoutGroup Id="Addresses" ShowCaption="True" Index="0" RelativeSize="100" Caption="Addresses" IsNewNode="True">
+                <LayoutItem Id="EntityAddresses" ViewItem="EntityAddresses" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item4" ShowCaption="True" Caption="Phones" CaptionLocation="Top" Index="1" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Phones" ShowCaption="False" ViewItem="Phones" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item2" ShowCaption="True" Caption="Attachments" CaptionLocation="Top" Index="2" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="EntityAttachments" ViewItem="EntityAttachments" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" Caption="Notes " RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="NotesList" ViewItem="NotesList" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+            <LayoutGroup Id="Entity" RelativeSize="43.042671614100186" Direction="Vertical" Removed="True">
+              <LayoutGroup Id="Entity_col2" RelativeSize="100" Index="0" Caption="Entity_col2" Direction="Horizontal">
+                <LayoutItem Id="CategoryId" ViewItem="CategoryId" Removed="True" />
+                <LayoutItem Id="ClassificationId" ViewItem="ClassificationId" Removed="True" />
+                <LayoutItem Id="Division" ViewItem="Division" Removed="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" Removed="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" Removed="True" />
+                <LayoutItem Id="EntityType" ViewItem="EntityType" Removed="True" />
+                <LayoutItem Id="IMAGE" ViewItem="IMAGE" Removed="True" />
+                <LayoutItem Id="TypeId" ViewItem="TypeId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col1" RelativeSize="50" Caption="Entity_col1" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="DefaultAttachment" ViewItem="DefaultAttachment" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="EnteredBy" ViewItem="EnteredBy" Removed="True" />
+                <LayoutItem Id="EnteredDate" ViewItem="EnteredDate" Removed="True" />
+                <LayoutItem Id="Id" ViewItem="Id" Removed="True" />
+                <LayoutItem Id="Notes" ViewItem="Notes" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="StatusId" ViewItem="StatusId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="55.512572533849131" Index="1" Removed="True">
+            <LayoutGroup Id="Addresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Addresses" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="HR_Attachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="Phones" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Phones" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Branches_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Description" Index="0" Width="163" Caption="Name" />
+        <ColumnInfo Id="Company" Index="1" Width="138" />
+        <ColumnInfo Id="ContactPersonName" Index="2" Width="110" />
+        <ColumnInfo Id="ContactPersonEmail" Index="3" Width="127" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Branches_LookupListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Description" Index="0" Caption="Name" PropertyName="Description" Width="209" SortIndex="1" SortOrder="Ascending" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

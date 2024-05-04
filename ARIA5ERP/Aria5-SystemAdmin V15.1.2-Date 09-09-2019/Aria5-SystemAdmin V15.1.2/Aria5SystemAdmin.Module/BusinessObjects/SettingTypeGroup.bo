@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.SettingTypeGroup" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="SettingTypeGroup_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="SettingTypeGroupID" Index="0" />
+        <ColumnInfo Id="Name" Index="1" />
+      </Columns>
+    </ListView>
+    <ListView Id="SettingTypeGroup_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

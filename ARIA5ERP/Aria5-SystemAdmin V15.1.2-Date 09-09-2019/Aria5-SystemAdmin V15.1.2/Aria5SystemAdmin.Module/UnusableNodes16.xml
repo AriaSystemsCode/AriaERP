@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.PrerequisiteApplication" IsDesigned="True" />
+  </BOModel>
+  <Views Id="Views">
+    <DetailView Id="Address_DetailView">
+      <Layout Id="Layout">
+        <LayoutItem Id="Regions" ViewItem="Regions" />
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Notes" />
+                <LayoutItem Id="ExtraData" SizeConstraintsType="Default" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="ExtraData" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2">
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="DefaultAttachment" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

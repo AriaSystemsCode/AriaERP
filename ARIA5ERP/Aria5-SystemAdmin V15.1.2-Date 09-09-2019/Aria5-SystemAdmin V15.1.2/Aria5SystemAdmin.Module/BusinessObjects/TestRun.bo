@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TestRun" IsDesigned="True" DefaultListViewAllowEdit="False">
+      <OwnMembers>
+        <Member Name="Application" DataSourceProperty="ProjectTemplate.Application" />
+        <Member Name="AssignedUser" DataSourceCriteria="[Account.Id] = 'Aria'" />
+        <Member Name="Attachements" DataSourceProperty="" Caption="Attachments" />
+        <Member Name="Description" Caption="Test Criteria " />
+        <Member Name="Enddate" AllowEdit="True" Caption="End Date" />
+        <Member Name="ProjectTemplate" Caption="Project " />
+        <Member Name="QADefect" DataSourceProperty="ProjectTemplate.Defects" Caption="Defect" />
+        <Member Name="TestCases" DataSourceProperty="ProjectTemplate.TestCases" DataSourceCriteria="[IsOriginal] = False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_TestRuns_ListView">
+      <Columns>
+        <ColumnInfo Id="Application" Width="47" Index="-1" />
+        <ColumnInfo Id="AssignedUser" Width="47" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="QADefect" Width="0" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="47" Index="-1" />
+        <ColumnInfo Id="Name" Width="78" />
+        <ColumnInfo Id="ProjectTemplate" Width="47" Index="1" />
+        <ColumnInfo Id="TestPlan" Width="63" Index="2" />
+        <ColumnInfo Id="Enddate" Width="47" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="Environment_TestRuns_ListView">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Width="58" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="QADefect" Width="58" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="58" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Name" Width="128" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="58" Index="1" />
+        <ColumnInfo Id="Application" Width="58" Index="2" />
+        <ColumnInfo Id="TestPlan" Index="3" />
+        <ColumnInfo Id="Enddate" Width="58" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectTemplate_TestRuns_ListView">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Width="58" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="ProjectTemplate" Width="58" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="QADefect" Width="58" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="58" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Name" Width="130" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Application" Width="58" Index="1" />
+        <ColumnInfo Id="TestPlan" Width="68" Index="2" />
+        <ColumnInfo Id="Enddate" Width="58" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="QATestPlan_TestRuns_ListView">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Width="59" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="QADefect" Width="59" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="59" Index="-1" />
+        <ColumnInfo Id="Name" Width="122" />
+        <ColumnInfo Id="ProjectTemplate" Width="59" Index="1" />
+        <ColumnInfo Id="Application" Width="59" Index="2" />
+        <ColumnInfo Id="TestPlan" Index="3" />
+        <ColumnInfo Id="Enddate" Width="59" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="TestCase_TestRuns_ListView">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Width="57" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="QADefect" Width="57" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="57" Index="-1" />
+        <ColumnInfo Id="Name" Width="133" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="57" Index="1" />
+        <ColumnInfo Id="Application" Width="57" Index="2" />
+        <ColumnInfo Id="TestPlan" Width="71" Index="3" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Enddate" Width="57" Index="4" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TestRun_DetailView">
+      <Items>
+        <PropertyEditor Id="Application" DataSourceProperty="" AllowEdit="False" />
+        <PropertyEditor Id="Enddate" AllowEdit="True" Caption="End Date" />
+        <PropertyEditor Id="ProjectTemplate" Caption="Project" />
+        <PropertyEditor Id="QADefect" Caption="Defect" />
+        <PropertyEditor Id="TestPlan" DataSourceProperty="ProjectTemplate.TestPlans" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22.8">
+            <LayoutGroup Id="TestRun" RelativeSize="100" Direction="Vertical">
+              <LayoutGroup Id="TestRun_col1" RelativeSize="100">
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" Index="0" RelativeSize="23.529411764705884" ViewItem="ProjectTemplate" />
+                <LayoutItem Id="Application" ViewItem="Application" SizeConstraintsType="Default" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="17.647058823529413" Index="2" ViewItem="Name" />
+                <LayoutItem Id="QADefect" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="2" ViewItem="QADefect" Removed="True" />
+                <LayoutItem Id="TestPlan" ViewItem="TestPlan" SizeConstraintsType="Default" Index="3" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="Enddate" SizeConstraintsType="Default" RelativeSize="23.529411764705884" Index="4" ViewItem="Enddate" />
+              </LayoutGroup>
+              <LayoutGroup Id="TestRun_col2" RelativeSize="48.381601362862007" Caption="TestRun_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Application" ViewItem="Application" Removed="True" />
+                <LayoutItem Id="TestPlan" ViewItem="TestPlan" Removed="True" />
+                <LayoutItem Id="TrackingEntry" ViewItem="TrackingEntry" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="72.8">
+            <LayoutGroup Id="Environments" RelativeSize="100">
+              <LayoutItem Id="Environments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Environments" />
+            </LayoutGroup>
+            <LayoutGroup Id="Comments" RelativeSize="100">
+              <LayoutItem Id="Comments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Comments" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestCases" RelativeSize="100">
+              <LayoutItem Id="TestCases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+            <LayoutGroup Id="Defects" RelativeSize="100">
+              <LayoutItem Id="Defects" RelativeSize="100" ViewItem="Defects" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TestRun_ListView" GroupSummary="Empty" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Width="60" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="QADefect" Width="60" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="60" Index="-1" />
+        <ColumnInfo Id="Name" Width="115" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="60" Index="1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Application" Width="60" Index="2" />
+        <ColumnInfo Id="TestPlan" Width="71" Index="3" />
+        <ColumnInfo Id="Enddate" Width="60" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="TestRun_LookupListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Name" Width="240" />
+        <ColumnInfo Id="ProjectTemplate" Index="1" Caption="ProjectTemplate" PropertyName="ProjectTemplate" Width="219" IsNewNode="True" />
+        <ColumnInfo Id="Enddate" Index="2" Caption="Enddate" PropertyName="Enddate" Width="87" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingEntry_TestRuns_ListView">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Width="57" Index="-1" />
+        <ColumnInfo Id="Description" Index="-1" />
+        <ColumnInfo Id="QADefect" Width="57" Index="-1" />
+        <ColumnInfo Id="TrackingEntry" Width="57" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Name" Width="136" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="57" Index="1" />
+        <ColumnInfo Id="Application" Width="57" Index="2" />
+        <ColumnInfo Id="TestPlan" Width="68" Index="3" />
+        <ColumnInfo Id="Enddate" Width="57" Index="4" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

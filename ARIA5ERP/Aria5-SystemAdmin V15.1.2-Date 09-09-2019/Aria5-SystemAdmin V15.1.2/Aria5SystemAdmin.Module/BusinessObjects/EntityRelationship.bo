@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityRelationship" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Entity_ADS_ListView" DataAccessMode="DataView" />
+    <ListView Id="Entity_EntityRelationships_ListView" DataAccessMode="DataView" />
+    <ListView Id="Entity_Events_ListView" DataAccessMode="DataView" />
+    <ListView Id="Entity_Information_ListView" DataAccessMode="DataView" />
+    <ListView Id="Entity_News_ListView" DataAccessMode="DataView" />
+    <DetailView Id="EntityRelationship_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="EntityRelationship" RelativeSize="100">
+              <LayoutGroup Id="EntityRelationship_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="4.5133991537376588" ViewItem="EntityType" />
+                <LayoutItem Id="RelatedEntityType" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" ViewItem="RelatedEntityType" />
+                <LayoutItem Id="RelatedEntity" SizeConstraintsType="Default" RelativeSize="92.1015514809591" ViewItem="RelatedEntity" />
+              </LayoutGroup>
+              <LayoutGroup Id="EntityRelationship_col2" RelativeSize="48.533333333333331">
+                <LayoutItem Id="Entity" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Entity" />
+                <LayoutItem Id="RelatedDescription" SizeConstraintsType="Default" Index="1" RelativeSize="95.486600846262348" ViewItem="RelatedDescription" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityRelationship_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityRelationship_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

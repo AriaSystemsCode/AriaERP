@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QATestPlan" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Description" Caption="Title" />
+        <Member Name="Environments" DataSourceProperty="ProjectTemplate.Environments" AllowEdit="False" DataSourceCriteria="" />
+        <Member Name="ProjectEntities" AllowEdit="False" DataSourceProperty="ProjectTemplate.ProjectEntities" DataSourceCriteria="" />
+        <Member Name="ProjectTemplate" Caption="Project" />
+        <Member Name="TrainingNeeds" Caption="Testing Needs" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_TestPlans_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ProjectTemplate" Width="39" />
+        <ColumnInfo Id="Testlevel" Width="39" Index="-1" />
+        <ColumnInfo Id="TestRun" Width="65" Index="-1" />
+        <ColumnInfo Id="TestType" Width="39" Index="-1" />
+        <ColumnInfo Id="Description" Width="109" SortOrder="Descending" />
+        <ColumnInfo Id="ComponentTest" Width="27" />
+        <ColumnInfo Id="AcceptanceTest" Width="27" />
+        <ColumnInfo Id="SystemTest" Width="27" />
+        <ColumnInfo Id="IntegrationTest" Width="27" />
+        <ColumnInfo Id="FunctionTesting" Width="27" />
+        <ColumnInfo Id="UsabilityTesting" Width="27" />
+        <ColumnInfo Id="PerformanceTesting" Width="27" />
+        <ColumnInfo Id="PortabilityTesting" Width="27" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QATestPlan_DetailView">
+      <Items>
+        <PropertyEditor Id="Description" Caption="Title" />
+        <PropertyEditor Id="Testlevel" Caption="Test level" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="40.266666666666666">
+            <LayoutGroup Id="QATestPlan" RelativeSize="74.172185430463571" Caption="Test Plan">
+              <LayoutGroup Id="QATestPlan_col1" RelativeSize="32.280219780219781">
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="0" RelativeSize="16.666666666666668" IsNewNode="True" />
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" RelativeSize="12.5" Index="1" ViewItem="ProjectTemplate" />
+                <LayoutItem Id="AcceptanceTest" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="2" ViewItem="AcceptanceTest" Removed="True" />
+                <LayoutGroup Id="Autoad4d1429-6bdc-447d-aaeb-78221892d79c" ShowCaption="False" Caption="Autoad4d1429-6bdc-447d-aaeb-78221892d79c(120)" Direction="Horizontal" Index="3" RelativeSize="58.333333333333336" IsNewNode="True">
+                  <LayoutGroup Id="Auto9557965a-f222-4fc8-b672-42f10dada13f" ShowCaption="False" Caption="Auto9557965a-f222-4fc8-b672-42f10dada13f(57)" Index="0" RelativeSize="99.148936170212764" IsNewNode="True">
+                    <LayoutGroup Id="Autoe372c218-672f-4db9-bb03-24c4f448c6cc" ShowCaption="False" Caption="Autoe372c218-672f-4db9-bb03-24c4f448c6cc(121)" Index="0" RelativeSize="100" Direction="Horizontal" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoa85674fa-1689-414e-8718-a8ada4cfb6a4" ShowCaption="False" Caption="Autoa85674fa-1689-414e-8718-a8ada4cfb6a4(124)" Index="1" RelativeSize="0.851063829787234" Direction="Horizontal" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="IntegrationTest" SizeConstraintsType="Default" Index="3" RelativeSize="17.647058823529413" ViewItem="IntegrationTest" Removed="True" />
+                <LayoutItem Id="SystemTest" SizeConstraintsType="Default" Index="3" RelativeSize="15" ViewItem="SystemTest" Removed="True" />
+                <LayoutItem Id="ComponentTest" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="ComponentTest" Removed="True" />
+                <LayoutItem Id="FunctionTesting" ViewItem="FunctionTesting" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto25aa7775-edf1-46c1-bcfa-04d466cc6966" ShowCaption="False" Caption="Auto25aa7775-edf1-46c1-bcfa-04d466cc6966(93)" Index="1" RelativeSize="67.719780219780219" IsNewNode="True">
+                <LayoutGroup Id="Autof88ceebd-12f7-4224-b4c4-da2aa78fbfbf" ShowCaption="False" Caption="Autof88ceebd-12f7-4224-b4c4-da2aa78fbfbf(130)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutGroup Id="Auto8ad761f0-5ba1-4f73-a628-090387b29b74" ShowCaption="False" Caption="Auto8ad761f0-5ba1-4f73-a628-090387b29b74(131)" Index="0" RelativeSize="99.59432048681542" IsNewNode="True">
+                    <LayoutGroup Id="Item2" ShowCaption="True" Caption="Test Type" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="50" IsNewNode="True">
+                      <LayoutGroup Id="Auto1e5e4129-a093-4918-aaab-48d25687ff3e" ShowCaption="False" Caption="Auto1e5e4129-a093-4918-aaab-48d25687ff3e(208)" Index="0" RelativeSize="50" IsNewNode="True">
+                        <LayoutItem Id="PerformanceTesting" ViewItem="PerformanceTesting" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                        <LayoutItem Id="FunctionTesting" ViewItem="FunctionTesting" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Auto1e1ed142-f4cc-4f40-b01c-638ee02aca97" ShowCaption="False" Caption="Auto1e1ed142-f4cc-4f40-b01c-638ee02aca97(211)" Index="1" RelativeSize="50" IsNewNode="True">
+                        <LayoutItem Id="PortabilityTesting" ViewItem="PortabilityTesting" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                        <LayoutItem Id="UsabilityTesting" ViewItem="UsabilityTesting" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                    <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="50" Caption="Test Level" Direction="Horizontal" IsNewNode="True">
+                      <LayoutGroup Id="Auto33eb45ce-074b-4893-914d-ebc070204361" ShowCaption="False" Caption="Auto33eb45ce-074b-4893-914d-ebc070204361(223)" Index="0" RelativeSize="50" IsNewNode="True">
+                        <LayoutItem Id="SystemTest" ViewItem="SystemTest" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                        <LayoutItem Id="AcceptanceTest" ViewItem="AcceptanceTest" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Auto63355658-702c-4a72-88e9-ad87f86aed80" ShowCaption="False" Caption="Auto63355658-702c-4a72-88e9-ad87f86aed80(226)" Index="1" RelativeSize="50" IsNewNode="True">
+                        <LayoutItem Id="ComponentTest" ViewItem="ComponentTest" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                        <LayoutItem Id="IntegrationTest" ViewItem="IntegrationTest" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="Auto027f782d-2808-4abb-be12-41e09f5b3eb1" ShowCaption="False" Caption="Auto027f782d-2808-4abb-be12-41e09f5b3eb1(134)" Index="1" RelativeSize="0.40567951318458417" Direction="Horizontal" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="QATestPlan_col2" RelativeSize="47.817460317460316" Direction="Horizontal" Caption="Test Type" Removed="True">
+                <LayoutItem Id="TestRun" ViewItem="TestRun" Removed="True" />
+                <LayoutItem Id="TestType" ViewItem="TestType" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="TrainingNeeds" ViewItem="TrainingNeeds" SizeConstraintsType="Default" Index="1" RelativeSize="7.9470198675496686" IsNewNode="True" />
+            <LayoutItem Id="PassFailCriteria" ViewItem="PassFailCriteria" SizeConstraintsType="Default" Index="2" RelativeSize="7.9470198675496686" IsNewNode="True" />
+            <LayoutItem Id="TestDeliverables" ViewItem="TestDeliverables" SizeConstraintsType="Default" Index="3" RelativeSize="9.9337748344370862" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="51.2" Caption="SizeableEditors" Direction="Horizontal">
+            <LayoutItem Id="PassFailCriteria" ViewItem="PassFailCriteria" Removed="True" />
+            <LayoutItem Id="TestDeliverables" ViewItem="TestDeliverables" Removed="True" />
+            <LayoutItem Id="TrainingNeeds" ViewItem="TrainingNeeds" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="8.5333333333333332">
+            <LayoutGroup Id="Environments" RelativeSize="100">
+              <LayoutItem Id="Environments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Environments" />
+            </LayoutGroup>
+            <LayoutGroup Id="ProjectEntities" RelativeSize="100">
+              <LayoutItem Id="ProjectEntities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ProjectEntities" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestRuns" RelativeSize="100">
+              <LayoutItem Id="TestRuns" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestRuns" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QATestPlan_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Testlevel" Width="38" Index="-1" />
+        <ColumnInfo Id="TestRun" Width="52" Index="-1" />
+        <ColumnInfo Id="TestType" Width="38" Index="-1" />
+        <ColumnInfo Id="Description" Width="134" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="38" SortIndex="-1" SortOrder="None" Index="1" />
+        <ColumnInfo Id="ComponentTest" Width="26" />
+        <ColumnInfo Id="AcceptanceTest" Width="26" />
+        <ColumnInfo Id="SystemTest" Width="26" />
+        <ColumnInfo Id="IntegrationTest" Width="26" />
+        <ColumnInfo Id="FunctionTesting" Width="26" />
+        <ColumnInfo Id="UsabilityTesting" Width="26" />
+        <ColumnInfo Id="PerformanceTesting" Width="26" />
+        <ColumnInfo Id="PortabilityTesting" Width="26" />
+      </Columns>
+    </ListView>
+    <ListView Id="QATestPlan_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="307" />
+        <ColumnInfo Id="ProjectTemplate" Index="1" Caption="ProjectTemplate" PropertyName="ProjectTemplate" Width="239" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

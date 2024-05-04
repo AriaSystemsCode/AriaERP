@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Address_DetailView">
+      <Layout Id="Layout">
+        <LayoutItem Id="Regions" ViewItem="Regions" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13DF01CF-2FDA-46BE-8CD0-D95C93F72D6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AriaDevExpress.Module</RootNamespace>
+    <AssemblyName>AriaDevExpress.Module</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;RELEASE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArrayToMemo">
+      <HintPath>..\Lib\ArrayToMemo.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Reports.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Security.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.Base.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v17.1.Export, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObjects\ClientManager\CustomUIContainer.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\CustomUIContainer.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\EnumValues.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\FileDataEx.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_ApplicationModule.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_Article.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_ASPNETCoursePeriod.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_ASPNETCourses.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_Category.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_Document.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_EmailTemplate.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_Event.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_EventAttendee.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_Forms.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_SEO.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_SiteMap.cs" />
+    <Compile Include="BusinessObjects\OneTouchAway\OTAWAY_Subject.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Fields.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Files.cs" />
+    <Compile Include="BusinessObjects\TimePicker.cs" />
+    <Compile Include="BusinessObjects\Globalization\CustomUIContainer.cs" />
+    <Compile Include="BusinessObjects\Globalization\SycLang.cs" />
+    <Compile Include="BusinessObjects\Globalization\SydEnString.cs" />
+    <Compile Include="BusinessObjects\Globalization\SydLangObject.cs" />
+    <Compile Include="BusinessObjects\HR\HR_Address1.cs" />
+    <Compile Include="BusinessObjects\HR\Applicants.cs" />
+    <Compile Include="BusinessObjects\HR\ApplicantsCertificates.cs" />
+    <Compile Include="BusinessObjects\HR\ApplicantsEmploymentHistory.cs" />
+    <Compile Include="BusinessObjects\HR\ApplicantVacancies.cs" />
+    <Compile Include="BusinessObjects\HR\HR_Attachment1.cs" />
+    <Compile Include="BusinessObjects\HR\Branch.cs" />
+    <Compile Include="BusinessObjects\HR\HR_Contact.cs" />
+    <Compile Include="BusinessObjects\HR\Country1.cs" />
+    <Compile Include="BusinessObjects\HR\HR_Department1.cs" />
+    <Compile Include="BusinessObjects\HR\Employee.cs" />
+    <Compile Include="BusinessObjects\HR\enum.cs" />
+    <Compile Include="BusinessObjects\HR\Jobs.cs" />
+    <Compile Include="BusinessObjects\HR\Positions.cs" />
+    <Compile Include="BusinessObjects\SysFiles\AppearanceRules.cs" />
+    <Compile Include="BusinessObjects\SysFiles\AriaAudit.cs" />
+    <Compile Include="BusinessObjects\SysFiles\AriaAuditDataPersistent.cs" />
+    <Compile Include="BusinessObjects\SysFiles\BO.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Sys_Client.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Enum.cs" />
+    <Compile Include="BusinessObjects\SysFiles\ExpressionBuilder.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Field.cs" />
+    <Compile Include="BusinessObjects\SysFiles\FieldValidEntry.cs" />
+    <Compile Include="BusinessObjects\SysFiles\File.cs" />
+    <Compile Include="BusinessObjects\SysFiles\FileField.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Filter.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Index.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Menu.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Module.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Object.cs" />
+    <Compile Include="BusinessObjects\SysFiles\ObjectFilters.cs" />
+    <Compile Include="BusinessObjects\SysFiles\RankObject.cs" />
+    <Compile Include="BusinessObjects\SysFiles\RelatedField.cs" />
+    <Compile Include="BusinessObjects\SysFiles\Report.cs" />
+    <Compile Include="BusinessObjects\SysFiles\ReportVariable.cs" />
+    <Compile Include="BusinessObjects\SysFiles\ReportVariableBrowseFieldSelector.cs" />
+    <Compile Include="BusinessObjects\SysFiles\ReportVariableValidEntry.cs" />
+    <Compile Include="BusinessObjects\SysFiles\CustomUIContainer.cs" />
+    <Compile Include="BusinessObjects\WebSite\ApplicationModule.cs" />
+    <Compile Include="BusinessObjects\WebSite\Article.cs" />
+    <Compile Include="BusinessObjects\WebSite\ASPNETCoursePeriod.cs" />
+    <Compile Include="BusinessObjects\WebSite\ASPNETCourses.cs" />
+    <Compile Include="BusinessObjects\WebSite\Category.cs" />
+    <Compile Include="BusinessObjects\WebSite\CustomUIContainer.cs" />
+    <Compile Include="BusinessObjects\WebSite\Document.cs" />
+    <Compile Include="BusinessObjects\WebSite\EmailTemplate.cs" />
+    <Compile Include="BusinessObjects\WebSite\EnumValues.cs" />
+    <Compile Include="BusinessObjects\WebSite\Event.cs" />
+    <Compile Include="BusinessObjects\WebSite\EventAttendee.cs" />
+    <Compile Include="BusinessObjects\WebSite\FileDataEx.cs" />
+    <Compile Include="BusinessObjects\WebSite\Forms.cs" />
+    <Compile Include="BusinessObjects\WebSite\Register.cs" />
+    <Compile Include="BusinessObjects\WebSite\Registeration.cs" />
+    <Compile Include="BusinessObjects\WebSite\SEO.cs" />
+    <Compile Include="BusinessObjects\WebSite\SiteMap.cs" />
+    <Compile Include="BusinessObjects\WebSite\Subject.cs" />
+    <Compile Include="BusinessObjects\WebSite\TradingPartnerDetail.cs" />
+    <Compile Include="BusinessObjects\WebSite\TradingPartnerHeader.cs" />
+    <Compile Include="BusinessObjects\WebSite\TradingPartnerMainInfo.cs" />
+    <Compile Include="BusinessObjects\WebSite\TradingPartnerTransaction.cs" />
+    <Compile Include="Controllers\SysFiles\AuditController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\AuditController.designer.cs">
+      <DependentUpon>AuditController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\BrowseFieldsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\BrowseFieldsController.designer.cs">
+      <DependentUpon>BrowseFieldsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ExpressionBuilderController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ExpressionBuilderController.designer.cs">
+      <DependentUpon>ExpressionBuilderController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\LinkUnlinkController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\LinkUnlinkController.Designer.cs">
+      <DependentUpon>LinkUnlinkController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ReportVariableBrowseFieldsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ReportVariableBrowseFieldsController.designer.cs">
+      <DependentUpon>ReportVariableBrowseFieldsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ReportVariablesSortController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SysFiles\ReportVariablesSortController.designer.cs">
+      <DependentUpon>ReportVariablesSortController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AriaOnline.cs">
+      <DependentUpon>AriaOnline.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AriaOnline1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AriaOnline.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\AriaOnlineDataContext.cs" />
+    <Compile Include="DataContext\ConnectionString.cs" />
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OneTouchAwayDataContext\OTAWAYAriaOnline.cs">
+      <DependentUpon>OTAWAYAriaOnline.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="OneTouchAwayDataContext\OTAWAYAriaOnline.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OTAWAYAriaOnline.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="WindowControlerMenuCustomization.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <None Include="OneTouchAwayDataContext\OTAWAYAriaOnline.dbml.layout">
+      <DependentUpon>OTAWAYAriaOnline.dbml</DependentUpon>
+    </None>
+    <None Include="app.config" />
+    <None Include="DataContext\AriaOnline.dbml.layout">
+      <DependentUpon>AriaOnline.dbml</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Module.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Module.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DatabaseUpdate\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataContext\AriaOnline.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>AriaOnline1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ReadMe.txt" />
+    <None Include="OneTouchAwayDataContext\OTAWAYAriaOnline.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>OTAWAYAriaOnline.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Connection.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

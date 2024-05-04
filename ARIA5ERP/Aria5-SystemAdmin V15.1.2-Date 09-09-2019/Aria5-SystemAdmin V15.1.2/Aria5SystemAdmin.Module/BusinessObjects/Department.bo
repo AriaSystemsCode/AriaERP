@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaDepartment">
+      <OwnMembers>
+        <Member Name="QAResourceShare" Caption="Resource Share" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="AriaDepartment_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="25.918762088974855">
+            <LayoutGroup Id="AriaDepartment" RelativeSize="100">
+              <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="23.880597014925375" IsNewNode="True" />
+              <LayoutItem Id="Company" SizeConstraintsType="Default" Index="1" RelativeSize="17.910447761194028" />
+              <LayoutItem Id="HeadOfDepartment" SizeConstraintsType="Default" Index="2" RelativeSize="17.910447761194028" />
+              <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="3" RelativeSize="17.910447761194028" IsNewNode="True" />
+              <LayoutItem Id="QAResourceShare" SizeConstraintsType="Default" Index="4" RelativeSize="22.388059701492537" />
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="70.419426048565128" Removed="True">
+              <LayoutGroup Id="Entity_col1" RelativeSize="50" Caption="Entity_col1" Direction="Horizontal">
+                <LayoutItem Id="DefaultAttachment" Removed="True" />
+                <LayoutItem Id="Description" Removed="True" />
+                <LayoutItem Id="EnteredBy" Removed="True" />
+                <LayoutItem Id="EnteredDate" Removed="True" />
+                <LayoutItem Id="Id" Removed="True" />
+                <LayoutItem Id="Notes" Removed="True" />
+                <LayoutItem Id="Status" Removed="True" />
+                <LayoutItem Id="StatusId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="50" Caption="Entity_col2" Direction="Horizontal">
+                <LayoutItem Id="CategoryId" Removed="True" />
+                <LayoutItem Id="ClassificationId" Removed="True" />
+                <LayoutItem Id="Division" Removed="True" />
+                <LayoutItem Id="EntityCategory" Removed="True" />
+                <LayoutItem Id="EntityClassification" Removed="True" />
+                <LayoutItem Id="EntityType" Removed="True" />
+                <LayoutItem Id="IMAGE" Removed="True" />
+                <LayoutItem Id="TypeId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="74.081237911025141">
+            <LayoutGroup Id="Resourceses" RelativeSize="100">
+              <LayoutItem Id="Resourceses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentDOT" RelativeSize="100">
+              <LayoutItem Id="DepartmentDOT" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Employees" RelativeSize="100">
+              <LayoutItem Id="Employees" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="JobPositions" RelativeSize="100">
+              <LayoutItem Id="JobPositions" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Categories" RelativeSize="100">
+              <LayoutItem Id="Categories" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Activities" RelativeSize="100">
+              <LayoutItem Id="Activities" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ADS" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100" Index="6" Removed="True">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaDepartment_ListView">
+      <Columns>
+        <ColumnInfo Id="Id" Width="94" />
+        <ColumnInfo Id="Company" Width="73" Index="1" />
+        <ColumnInfo Id="Description" Index="2" Width="128" />
+        <ColumnInfo Id="HeadOfDepartment" Width="131" Index="3" />
+        <ColumnInfo Id="QAResourceShare" Width="84" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaDepartment_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Id" Width="243" />
+        <ColumnInfo Id="Description" Index="1" Caption="Description" PropertyName="Description" Width="267" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Company_CompanyDepartments_ListView">
+      <Columns>
+        <ColumnInfo Id="Company" Width="126" Index="-1" />
+        <ColumnInfo Id="Id" Width="141" />
+        <ColumnInfo Id="HeadOfDepartment" Width="93" />
+        <ColumnInfo Id="Description" Index="2" Width="170" />
+        <ColumnInfo Id="QAResourceShare" Width="106" Index="3" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

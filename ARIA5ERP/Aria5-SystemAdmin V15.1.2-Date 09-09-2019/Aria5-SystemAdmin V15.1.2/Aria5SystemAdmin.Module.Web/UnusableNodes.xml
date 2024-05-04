@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Application_T_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Pre_Request_Application" ToolTip="3" Caption="Pre_requist_Application" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

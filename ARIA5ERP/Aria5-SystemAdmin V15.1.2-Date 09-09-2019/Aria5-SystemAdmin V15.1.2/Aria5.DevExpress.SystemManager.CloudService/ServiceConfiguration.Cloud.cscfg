@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Aria5.DevExpress.SystemManager.CloudService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Aria5.DevExpress.SystemManager.WorkerRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=ariaftp;AccountKey=OFtTaMXef67OwHa06zqI2MBVlBzq5D8tMMHG69Zcf1dzJ+RZGVO4OkvvsYjY88O/h2CCEJepNWFt3MH4pCMt9A==" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="Aria5.DevExpress.SystemManager.WebServiceRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=ariaftp;AccountKey=OFtTaMXef67OwHa06zqI2MBVlBzq5D8tMMHG69Zcf1dzJ+RZGVO4OkvvsYjY88O/h2CCEJepNWFt3MH4pCMt9A==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

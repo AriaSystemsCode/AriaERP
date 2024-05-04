@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SystemMasterModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SystemMasterModelStoreContainer">
+          <EntitySet Name="AriaClientProduct" EntityType="SystemMasterModel.Store.AriaClientProduct" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaFavorite" EntityType="SystemMasterModel.Store.AriaFavorite" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaMenu" EntityType="SystemMasterModel.Store.AriaMenu" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaProduct" EntityType="SystemMasterModel.Store.AriaProduct" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaRole" EntityType="SystemMasterModel.Store.AriaRole" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaRoleObjectSecurityPrivilege" EntityType="SystemMasterModel.Store.AriaRoleObjectSecurityPrivilege" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaSetting" EntityType="SystemMasterModel.Store.AriaSetting" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaSettingCategory" EntityType="SystemMasterModel.Store.AriaSettingCategory" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaUser" EntityType="SystemMasterModel.Store.AriaUser" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaUserRole" EntityType="SystemMasterModel.Store.AriaUserRole" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AriaUserSetting" EntityType="SystemMasterModel.Store.AriaUserSetting" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CLIENTS" EntityType="SystemMasterModel.Store.CLIENTS" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="HostingServers" EntityType="SystemMasterModel.Store.HostingServers" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+        </EntityContainer>
+        <EntityType Name="AriaClientProduct">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ClientId" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="ProductId" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="ProductSettings" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="AriaFavorite">
+          <Key>
+            <PropertyRef Name="FavoriteID" />
+          </Key>
+          <Property Name="FavoriteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="nchar" Nullable="false" MaxLength="25" />
+          <Property Name="Rank" Type="int" />
+          <Property Name="ParentFavoriteID" Type="int" />
+          <Property Name="FavoriteName" Type="nchar" Nullable="false" MaxLength="50" />
+          <Property Name="URL" Type="int" />
+          <Property Name="FolderOrNot" Type="bit" />
+        </EntityType>
+        <EntityType Name="AriaMenu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="ProductId" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="MenuType" Type="nchar" MaxLength="25" />
+          <Property Name="MenuPosition" Type="int" />
+          <Property Name="Title" Type="nchar" MaxLength="100" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Shortcut" Type="nchar" MaxLength="100" />
+          <Property Name="Icon" Type="text" />
+          <Property Name="MenuSettings" Type="varchar(max)" />
+          <Property Name="ShowInListView" Type="bit" />
+          <Property Name="ObjectID" Type="int" />
+        </EntityType>
+        <EntityType Name="AriaProduct">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="nchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="AriaRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="nchar" Nullable="false" MaxLength="15" />
+          <Property Name="ParentRoleId" Type="nchar" MaxLength="10" />
+          <Property Name="RoleName" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AriaRoleObjectSecurityPrivilege">
+          <Key>
+            <PropertyRef Name="ObjectId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ObjectId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="nchar" Nullable="false" MaxLength="15" />
+          <Property Name="Privilege" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="AriaSetting">
+          <Key>
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="AriaSettingCategoryId" Type="nchar" Nullable="false" MaxLength="100" />
+          <Property Name="SettingPosition" Type="int" Nullable="false" />
+          <Property Name="SettingID" Type="nchar" Nullable="false" MaxLength="100" />
+          <Property Name="SettingType" Type="nchar" Nullable="false" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="AriaSettingCategory">
+          <Key>
+            <PropertyRef Name="SettingCategoryId" />
+          </Key>
+          <Property Name="SettingCategoryId" Type="nchar" Nullable="false" MaxLength="100" />
+          <Property Name="CategoryPosition" Type="int" />
+        </EntityType>
+        <EntityType Name="AriaUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nchar" Nullable="false" MaxLength="25" />
+          <Property Name="ParentUserId" Type="nchar" MaxLength="25" />
+          <Property Name="UserType" Type="nchar" MaxLength="10" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="nchar" MaxLength="50" />
+          <Property Name="Location" Type="nchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="50" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="UserLevel" Type="nchar" MaxLength="25" />
+          <Property Name="DefaultCompany" Type="nchar" MaxLength="2" />
+          <Property Name="ProductId" Type="nchar" MaxLength="10" />
+          <Property Name="MenuId" Type="int" />
+          <Property Name="ManagerId" Type="nchar" MaxLength="25" />
+          <Property Name="ClientID" Type="nchar" MaxLength="5" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="SMTPServer" Type="varchar" MaxLength="20" />
+          <Property Name="SMTPPort" Type="int" />
+          <Property Name="EmailUsername" Type="varchar" MaxLength="50" />
+          <Property Name="EmailPass" Type="varchar" MaxLength="50" />
+          <Property Name="SenderName" Type="varchar" MaxLength="50" />
+          <Property Name="EnableSsl" Type="bit" />
+        </EntityType>
+        <EntityType Name="AriaUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nchar" Nullable="false" MaxLength="25" />
+          <Property Name="RoleId" Type="nchar" Nullable="false" MaxLength="15" />
+          <Property Name="Removed" Type="char" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="AriaUserSetting">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="UserID" Type="nchar" Nullable="false" MaxLength="25" />
+          <Property Name="SettingID" Type="nchar" Nullable="false" MaxLength="100" />
+          <Property Name="XML" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CLIENTS">
+          <Key>
+            <PropertyRef Name="CCLIENTID" />
+          </Key>
+          <Property Name="CCLIENTID" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="CCLIENTNAME" Type="nchar" MaxLength="50" />
+          <Property Name="CDATAPATH" Type="nchar" Nullable="false" MaxLength="50" />
+          <Property Name="LLOCKSYS" Type="bit" Nullable="false" />
+          <Property Name="CINSDFCOM" Type="nchar" MaxLength="2" />
+          <Property Name="CCONSERVER" Type="varchar" MaxLength="64" />
+          <Property Name="CCONDBNAME" Type="varchar" MaxLength="128" />
+          <Property Name="CCONUSERID" Type="varchar" MaxLength="50" />
+          <Property Name="CCONPASWRD" Type="varchar" MaxLength="50" />
+          <Property Name="ARIA27SYS" Type="varchar" MaxLength="250" />
+          <Property Name="ARIA40SYS" Type="varchar" MaxLength="250" />
+          <Property Name="CTDATAPATH" Type="char" MaxLength="50" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="REQSERVER" Type="nchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="HostingServers">
+          <Key>
+            <PropertyRef Name="ServerID" />
+          </Key>
+          <Property Name="ServerID" Type="int" Nullable="false" />
+          <Property Name="ServerIP" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="ServerName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view '180SystemMaster.dbo.Users' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="Users">
+        <Property Name="UserId" Type="varchar" MaxLength="50" />
+        <Property Name="Description" Type="varchar" MaxLength="200" />
+      </EntityType>-->
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SystemMasterModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="SystemMaster" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="AriaClientProducts" EntityType="SystemMasterModel.AriaClientProduct" />
+          <EntitySet Name="AriaFavorites" EntityType="SystemMasterModel.AriaFavorite" />
+          <EntitySet Name="AriaMenus" EntityType="SystemMasterModel.AriaMenu" />
+          <EntitySet Name="AriaProducts" EntityType="SystemMasterModel.AriaProduct" />
+          <EntitySet Name="AriaRoles" EntityType="SystemMasterModel.AriaRole" />
+          <EntitySet Name="AriaRoleObjectSecurityPrivileges" EntityType="SystemMasterModel.AriaRoleObjectSecurityPrivilege" />
+          <EntitySet Name="AriaSettings" EntityType="SystemMasterModel.AriaSetting" />
+          <EntitySet Name="AriaSettingCategories" EntityType="SystemMasterModel.AriaSettingCategory" />
+          <EntitySet Name="AriaUsers" EntityType="SystemMasterModel.AriaUser" />
+          <EntitySet Name="AriaUserRoles" EntityType="SystemMasterModel.AriaUserRole" />
+          <EntitySet Name="AriaUserSettings" EntityType="SystemMasterModel.AriaUserSetting" />
+          <EntitySet Name="CLIENTS" EntityType="SystemMasterModel.Client" />
+          <EntitySet Name="HostingServers" EntityType="SystemMasterModel.HostingServer" />
+        </EntityContainer>
+        <EntityType Name="AriaClientProduct">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ClientId" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="ProductId" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="ProductSettings" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AriaFavorite">
+          <Key>
+            <PropertyRef Name="FavoriteID" />
+          </Key>
+          <Property Name="FavoriteID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="Rank" Type="Int32" />
+          <Property Name="ParentFavoriteID" Type="Int32" />
+          <Property Name="FavoriteName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="URL" Type="Int32" />
+          <Property Name="FolderOrNot" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="AriaMenu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="ProductId" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="MenuType" Type="String" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="MenuPosition" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Shortcut" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="Icon" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="MenuSettings" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ShowInListView" Type="Boolean" />
+          <Property Name="ObjectID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AriaProduct">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="AriaRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="true" />
+          <Property Name="ParentRoleId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="RoleName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="AriaRoleObjectSecurityPrivilege">
+          <Key>
+            <PropertyRef Name="ObjectId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ObjectId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="true" />
+          <Property Name="Privilege" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AriaSetting">
+          <Key>
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="AriaSettingCategoryId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="SettingPosition" Type="Int32" Nullable="false" />
+          <Property Name="SettingID" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="SettingType" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="AriaSettingCategory">
+          <Key>
+            <PropertyRef Name="SettingCategoryId" />
+          </Key>
+          <Property Name="SettingCategoryId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="CategoryPosition" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AriaUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="ParentUserId" Type="String" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="UserType" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Location" Type="String" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="UserLevel" Type="String" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="DefaultCompany" Type="String" MaxLength="2" Unicode="true" FixedLength="true" />
+          <Property Name="ProductId" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="MenuId" Type="Int32" />
+          <Property Name="ManagerId" Type="String" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="ClientID" Type="String" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="Description" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="SMTPServer" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="SMTPPort" Type="Int32" />
+          <Property Name="EmailUsername" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="EmailPass" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="SenderName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="EnableSsl" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="AriaUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="true" />
+          <Property Name="Removed" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="AriaUserSetting">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="SettingID" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+          <Property Name="XML" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="CCLIENTID" />
+          </Key>
+          <Property Name="CCLIENTID" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="CCLIENTNAME" Type="String" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="CDATAPATH" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="true" />
+          <Property Name="LLOCKSYS" Type="Boolean" Nullable="false" />
+          <Property Name="CINSDFCOM" Type="String" MaxLength="2" Unicode="true" FixedLength="true" />
+          <Property Name="CCONSERVER" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="CCONDBNAME" Type="String" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="CCONUSERID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CCONPASWRD" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ARIA27SYS" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="ARIA40SYS" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="CTDATAPATH" Type="String" MaxLength="50" Unicode="false" FixedLength="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="REQSERVER" Type="String" MaxLength="128" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="HostingServer">
+          <Key>
+            <PropertyRef Name="ServerID" />
+          </Key>
+          <Property Name="ServerID" Type="Int32" Nullable="false" />
+          <Property Name="ServerIP" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="ServerName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SystemMasterModelStoreContainer" CdmEntityContainer="SystemMaster">
+          <EntitySetMapping Name="AriaClientProducts">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaClientProduct">
+              <MappingFragment StoreEntitySet="AriaClientProduct">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductSettings" ColumnName="ProductSettings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaFavorites">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaFavorite">
+              <MappingFragment StoreEntitySet="AriaFavorite">
+                <ScalarProperty Name="FavoriteID" ColumnName="FavoriteID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="ParentFavoriteID" ColumnName="ParentFavoriteID" />
+                <ScalarProperty Name="FavoriteName" ColumnName="FavoriteName" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="FolderOrNot" ColumnName="FolderOrNot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaMenus">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaMenu">
+              <MappingFragment StoreEntitySet="AriaMenu">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="MenuType" ColumnName="MenuType" />
+                <ScalarProperty Name="MenuPosition" ColumnName="MenuPosition" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Shortcut" ColumnName="Shortcut" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="MenuSettings" ColumnName="MenuSettings" />
+                <ScalarProperty Name="ShowInListView" ColumnName="ShowInListView" />
+                <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaProducts">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaProduct">
+              <MappingFragment StoreEntitySet="AriaProduct">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaRoles">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaRole">
+              <MappingFragment StoreEntitySet="AriaRole">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ParentRoleId" ColumnName="ParentRoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaRoleObjectSecurityPrivileges">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaRoleObjectSecurityPrivilege">
+              <MappingFragment StoreEntitySet="AriaRoleObjectSecurityPrivilege">
+                <ScalarProperty Name="ObjectId" ColumnName="ObjectId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Privilege" ColumnName="Privilege" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaSettings">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaSetting">
+              <MappingFragment StoreEntitySet="AriaSetting">
+                <ScalarProperty Name="AriaSettingCategoryId" ColumnName="AriaSettingCategoryId" />
+                <ScalarProperty Name="SettingPosition" ColumnName="SettingPosition" />
+                <ScalarProperty Name="SettingID" ColumnName="SettingID" />
+                <ScalarProperty Name="SettingType" ColumnName="SettingType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaSettingCategories">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaSettingCategory">
+              <MappingFragment StoreEntitySet="AriaSettingCategory">
+                <ScalarProperty Name="SettingCategoryId" ColumnName="SettingCategoryId" />
+                <ScalarProperty Name="CategoryPosition" ColumnName="CategoryPosition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaUsers">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaUser">
+              <MappingFragment StoreEntitySet="AriaUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ParentUserId" ColumnName="ParentUserId" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+                <ScalarProperty Name="DefaultCompany" ColumnName="DefaultCompany" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SMTPServer" ColumnName="SMTPServer" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="EmailUsername" ColumnName="EmailUsername" />
+                <ScalarProperty Name="EmailPass" ColumnName="EmailPass" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="EnableSsl" ColumnName="EnableSsl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaUserRoles">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaUserRole">
+              <MappingFragment StoreEntitySet="AriaUserRole">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Removed" ColumnName="Removed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AriaUserSettings">
+            <EntityTypeMapping TypeName="SystemMasterModel.AriaUserSetting">
+              <MappingFragment StoreEntitySet="AriaUserSetting">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SettingID" ColumnName="SettingID" />
+                <ScalarProperty Name="XML" ColumnName="XML" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTS">
+            <EntityTypeMapping TypeName="SystemMasterModel.Client">
+              <MappingFragment StoreEntitySet="CLIENTS">
+                <ScalarProperty Name="CCLIENTID" ColumnName="CCLIENTID" />
+                <ScalarProperty Name="CCLIENTNAME" ColumnName="CCLIENTNAME" />
+                <ScalarProperty Name="CDATAPATH" ColumnName="CDATAPATH" />
+                <ScalarProperty Name="LLOCKSYS" ColumnName="LLOCKSYS" />
+                <ScalarProperty Name="CINSDFCOM" ColumnName="CINSDFCOM" />
+                <ScalarProperty Name="CCONSERVER" ColumnName="CCONSERVER" />
+                <ScalarProperty Name="CCONDBNAME" ColumnName="CCONDBNAME" />
+                <ScalarProperty Name="CCONUSERID" ColumnName="CCONUSERID" />
+                <ScalarProperty Name="CCONPASWRD" ColumnName="CCONPASWRD" />
+                <ScalarProperty Name="ARIA27SYS" ColumnName="ARIA27SYS" />
+                <ScalarProperty Name="ARIA40SYS" ColumnName="ARIA40SYS" />
+                <ScalarProperty Name="CTDATAPATH" ColumnName="CTDATAPATH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="REQSERVER" ColumnName="REQSERVER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HostingServers">
+            <EntityTypeMapping TypeName="SystemMasterModel.HostingServer">
+              <MappingFragment StoreEntitySet="HostingServers">
+                <ScalarProperty Name="ServerID" ColumnName="ServerID" />
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

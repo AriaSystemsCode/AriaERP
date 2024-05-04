@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="TestCase_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Autoa6e4da69-036a-4fe5-ac13-3cdabc76165f">
+          <LayoutGroup Id="Auto7f9522ce-85b9-4dfb-9127-34442efe21b2">
+            <LayoutGroup Id="Item1">
+              <LayoutGroup Id="Autod3933d80-b2c0-480e-8afe-5f2d60c2c53c">
+                <LayoutItem Id="ProjectEntity" ViewItem="ProjectEntity" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ApplicationBuild_T_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Item3">
+            <LayoutGroup Id="Item6">
+              <LayoutItem Id="ApplicationBuildEntries_Ts" ViewItem="ApplicationBuildEntries_Ts" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HR_ActivityLog_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HR_ActivityLog">
+              <LayoutGroup Id="HR_ActivityLog_col1">
+                <LayoutGroup Id="Autoc824ff93-2b68-4bb6-b0bd-31d6f2b32eaf">
+                  <LayoutGroup Id="Auto97167d85-787e-4c42-aa8a-aeb33ecdc3b2">
+                    <LayoutGroup Id="Auto685a9742-100b-4901-8c29-30565dc354e8">
+                      <LayoutGroup Id="Auto8642106a-4f7e-4813-95ec-45e4d9fa36db">
+                        <LayoutGroup Id="Auto9e625b63-148b-4495-9191-d1811138cb0b">
+                          <LayoutItem Id="Employee" ViewItem="Employee" />
+                        </LayoutGroup>
+                        <LayoutGroup Id="Autoe6cccad6-af71-49e5-829f-7077a0efdf17">
+                          <LayoutItem Id="TargetEntity" ViewItem="TargetEntity" />
+                        </LayoutGroup>
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HRJobPosition_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HRJobPosition">
+              <LayoutGroup Id="HRJobPosition_col1">
+                <LayoutItem Id="YearsOfExperience" ViewItem="YearsOfExperience" />
+                <LayoutItem Id="ManagerialSkills" ViewItem="ManagerialSkills" />
+                <LayoutItem Id="Languages" ViewItem="Languages" />
+                <LayoutItem Id="PersonalAbilitiesSkills" ViewItem="PersonalAbilitiesSkills" />
+                <LayoutItem Id="Businessknowledge" ViewItem="Businessknowledge" />
+                <LayoutItem Id="TechnicalKnowledge" ViewItem="TechnicalKnowledge" />
+                <LayoutItem Id="EducationCertificates" ViewItem="EducationCertificates" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="HRSkillInstance_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="HRSkillInstance">
+              <LayoutGroup Id="HRSkillInstance_col2">
+                <LayoutItem Id="DegreeType" ViewItem="DegreeType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

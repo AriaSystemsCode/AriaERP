@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Address_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="NewProperty2" Caption="Contry Code" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Address">
+              <LayoutGroup Id="Address_col1">
+                <LayoutItem Id="PostalCode" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="PostalCode" />
+              </LayoutGroup>
+              <LayoutGroup Id="Address_col2">
+                <LayoutItem Id="NewProperty1" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="4" ViewItem="NewProperty1" Removed="True" />
+                <LayoutItem Id="NewProperty" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="NewProperty" Removed="True" />
+                <LayoutItem Id="NewProperty2" ViewItem="NewProperty2" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="Notes" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Contact_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="Notes" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Person_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Entity">
+              <LayoutGroup Id="Entity_col1">
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" ViewItem="Notes" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

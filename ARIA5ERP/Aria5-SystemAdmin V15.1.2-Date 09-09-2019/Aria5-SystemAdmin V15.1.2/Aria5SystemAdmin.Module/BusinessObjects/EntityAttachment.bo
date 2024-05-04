@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityAttachment" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Image" Size="50" ListViewImageEditorCustomHeight="50" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="EntityAttachment_DetailView">
+      <Items>
+        <PropertyEditor Id="Image" ImageEditorCustomHeight="50" ImageEditorFixedHeight="50" ImageEditorMode="PictureEdit" ImageEditorFixedWidth="50" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="EntityAttachment" RelativeSize="100">
+              <LayoutGroup Id="EntityAttachment_col1" RelativeSize="49.282296650717704">
+                <LayoutItem Id="Attachment" SizeConstraintsType="Default" Index="0" RelativeSize="13.061224489795919" ViewItem="Attachment" />
+                <LayoutItem Id="AttachmentID" ViewItem="AttachmentID" Index="1" RelativeSize="9.795918367346939" IsNewNode="True" />
+                <LayoutItem Id="Category" SizeConstraintsType="Default" Index="1" RelativeSize="93" ViewItem="Category" Removed="True" />
+                <LayoutItem Id="Name" ViewItem="Name" Index="2" RelativeSize="77.142857142857139" IsNewNode="True" />
+                <LayoutItem Id="Entity" Index="3" RelativeSize="67.34693877551021" ViewItem="Entity" Removed="True" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="EntityAttachment_col2" RelativeSize="50.717703349282296" Caption="EntityAttachment_col2">
+                <LayoutItem Id="Category" ViewItem="Category" Index="0" RelativeSize="13.061224489795919" IsNewNode="True" />
+                <LayoutItem Id="CategoryId" Index="1" RelativeSize="86.938775510204081" ViewItem="CategoryId" />
+                <LayoutItem Id="Image" SizeConstraintsType="Default" RelativeSize="9.795918367346939" Index="1" ViewItem="Image" Removed="True" />
+                <LayoutItem Id="AttachmentID" Index="3" RelativeSize="67.34693877551021" ViewItem="AttachmentID" Removed="True" />
+                <LayoutItem Id="Name" Index="3" RelativeSize="9.795918367346939" ViewItem="Name" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityAttachment_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Attachment" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Image" Index="3" ImageEditorCustomHeight="50" ImageEditorFixedHeight="50" ImageEditorFixedWidth="50" />
+        <ColumnInfo Id="Entity" SortIndex="-1" SortOrder="None" Index="4" />
+      </Columns>
+    </ListView>
+    <ListView Id="EntityAttachment_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

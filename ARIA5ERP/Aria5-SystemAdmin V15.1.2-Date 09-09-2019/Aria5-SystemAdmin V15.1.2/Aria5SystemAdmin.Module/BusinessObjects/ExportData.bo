@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ExportData" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="ExportData_ListView" DataAccessMode="DataView" />
+    <ListView Id="ExportData_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

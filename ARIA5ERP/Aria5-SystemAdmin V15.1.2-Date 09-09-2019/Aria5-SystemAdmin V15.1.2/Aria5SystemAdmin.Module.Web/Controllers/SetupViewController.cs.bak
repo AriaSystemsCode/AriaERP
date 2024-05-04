@@ -1,0 +1,451 @@
+//using System;
+//using System.ComponentModel;
+//using System.Collections.Generic;
+//using System.Diagnostics;
+//using System.Text;
+//using Aria5SystemAdmin.Module.BusinessObjects;
+//using DevExpress.ExpressApp;
+//using DevExpress.ExpressApp.Actions;
+//using DevExpress.Persistent.Base;
+//using System.IO;
+//using DevExpress.Data.Filtering;
+//using DevExpress.Xpo.DB;
+//using DevExpress.ExpressApp.Web;
+//using DevExpress.ExpressApp.Editors;
+//using DevExpress.ExpressApp.Web.Editors.ASPx;
+//using DevExpress.Web.ASPxGridView;
+//using DevExpress.Web.ASPxEditors;
+////using System.Web.UI.WebControls;
+
+//namespace Aria5SystemAdmin.Module.Web.Controllers
+
+//{
+//    public partial class SetupViewController : ViewController
+//    {
+
+//       private Boolean NotCommit = false ;
+
+//       public SetupViewController()
+//        {
+//            InitializeComponent();
+//            RegisterActions(components);
+            
+//        }
+       
+//       void SetupViewController_Init(object sender, EventArgs e)
+//       {
+//           int Count = ((DevExpress.Web.ASPxGridView.ASPxGridView)(((ListView)View).Editor.Control)).Columns.Count;
+
+//           ((DevExpress.Web.ASPxGridView.ASPxGridView)(((ListView)View).Editor.Control)).Columns[Count-2].Visible = false;
+
+//       }
+
+//       protected override void OnActivated()
+//        {
+//            base.OnActivated();
+//            this.TargetViewType = ViewType.ListView;
+//            ((ListView)this.View).ControlsCreated += new EventHandler(SetupViewController_ControlsCreated);
+//           ((ListView)this.View).ObjectSpace.ObjectChanged +=new EventHandler<ObjectChangedEventArgs>(ObjectSpace_ObjectChanged); 
+                        
+           
+//            NotCommit = true;
+//            View.ObjectSpace.Committing += new EventHandler<CancelEventArgs>(ObjectSpace_Committing);
+//            #region Add Can be Viewed on Entity level 
+              
+//            string ss2 = " SELECT  newid() as id, Companies.Oid as CompanyOid, Companies.Name as CompanyName ,a.Id as entid,B.* FROM         (SELECT DISTINCT Application, Company, Id " +
+//                      " FROM         Setup WHERE    GCrecord is null  and (NOT (Id IS NULL)) and ((Company IS NULL))) AS A CROSS JOIN " +
+//                      " (SELECT      Oid, Application, Company, Id, DisplayOrder, SetupID, SetupName, Value, DataType, Width, DecimalPlaces, Format, Validvalues, CanBeReadAtEntityLevel, OptimisticLockField, GCRecord " +
+//                      " FROM         Setup AS Setup_1 WHERE   GCrecord is null  and (CanBeReadAtEntityLevel = 1) AND (Id IS NULL) AND (Company IS NULL)) AS B," +
+//                      " (SELECT     Oid, Name, OptimisticLockField, GCRecord FROM Contact where ObjectType = 24  UNION SELECT  TOP (1) NEWID() AS Oid, NULL AS Name, OptimisticLockField, GCRecord "+
+//                      " FROM         Contact AS Client_1 where  GCrecord is null  ORDER BY Name) As Companies WHERE     (UPPER(ISNULL(CONVERT(nvarchar(36), A.Company), '                                    ') + CONVERT(nvarchar(36),  " +
+//                      " A.Id) + CONVERT(nvarchar(36), B.SetupID)) NOT IN (SELECT     UPPER(ISNULL(CONVERT(nvarchar(36), Company), '                                    ') "+
+//                      " + CONVERT(nvarchar(36), Id) + CONVERT(nvarchar(36), SetupID)) AS exp1 FROM  Setup AS Setup_2 WHERE  GCrecord is null  and   (NOT (Id IS NULL)) AND (CanBeReadAtEntityLevel = 1))) " +
+//                      " Order by CompanyName  ";
+
+
+//          SelectedData CanselectedData = ((Setup)((ListView)View).CollectionSource.List[0]).Session.ExecuteQuery(ss2);
+//          Setup[] CanSetup = new Setup[CanselectedData.ResultSet[0].Rows.Length + 1];
+
+//          int canisetup = 0;
+//          foreach (SelectStatementResultRow row in CanselectedData.ResultSet[0].Rows)
+//          {
+
+//              canisetup = canisetup + 1;
+//              Setup.AutoSaveOnEndEdit = false;
+//              CanSetup[canisetup] = View.ObjectSpace.CreateObject<Setup>();
+//              Setup.AutoSaveOnEndEdit = false;
+
+//              CanSetup[canisetup].SetMemberValue("Oid", row.Values[0]);
+//              CanSetup[canisetup].Application = ObjectSpace.FindObject<Application>(CriteriaOperator.Parse("Oid='" + row.Values[5].ToString() + "'"));
+//              if (row.Values[2] != null)
+//              {
+//                  CanSetup[canisetup].Company = ObjectSpace.FindObject<Company>(CriteriaOperator.Parse("Oid='" + row.Values[1].ToString() + "'"));
+//              }
+
+//              if (row.Values[3] != null)
+//              { CanSetup[canisetup].Id = ObjectSpace.FindObject<AriaObject>(CriteriaOperator.Parse("Oid='" + row.Values[3].ToString() + "'")); }
+
+//              CanSetup[canisetup].DisplayOrder = int.Parse(row.Values[8].ToString());
+//              CanSetup[canisetup].SetupID = ObjectSpace.FindObject<AriaObjectProperties>(CriteriaOperator.Parse("Oid='" + row.Values[9].ToString() + "'"));
+//              CanSetup[canisetup].SetupName = row.Values[10].ToString();
+//              CanSetup[canisetup].Value = row.Values[11].ToString();
+
+//              CanSetup[canisetup].DataType = row.Values[12].ToString();
+//              CanSetup[canisetup].Width = int.Parse(row.Values[13].ToString());
+//              CanSetup[canisetup].DecimalPlaces = int.Parse(row.Values[14].ToString());
+
+//              if (row.Values[15] != null)
+//              { CanSetup[canisetup].Format = row.Values[15].ToString(); };
+
+//              if (row.Values[16] != null)
+//              { CanSetup[canisetup].Validvalues = row.Values[16].ToString(); }
+
+//              if (row.Values[17] != null)
+//              {
+//                  if (row.Values[17].ToString().ToUpper() == "TRUE") { CanSetup[canisetup].CanBeReadAtEntityLevel = true; } else { CanSetup[canisetup].CanBeReadAtEntityLevel = false; };
+//              }
+//              CanSetup[canisetup].Temp = 1;
+//              CanSetup[canisetup].Save();
+
+//              ((ListView)View).CollectionSource.Add(CanSetup[canisetup]);
+//              CanSetup[canisetup] = null;
+
+
+//          }
+
+
+//            #endregion 
+
+//            #region Add copmany data
+//          foreach (Company cl in View.ObjectSpace.GetObjects<Company>())
+//            {
+//                //if (cl.Type == Contact.ClientType.Company  )
+//                //{
+//                    String OidKey = cl.Oid.ToString().TrimEnd();
+//                    String ss1 = " SELECT     newid() as Oid, Application, '" + OidKey + "' as Company, Id, DisplayOrder, SetupID, SetupName, Value, DataType, Width, DecimalPlaces, Format, Validvalues, CanBeReadAtEntityLevel " +
+//                                 " FROM         Setup AS Setup_2 WHERE     (Company IS NULL) AND (upper('" + OidKey + "' + isnull(CONVERT(nvarchar(36), Id),'                                    ') + CONVERT(nvarchar(36), SetupID)    ) NOT IN " +
+//                                 " (SELECT     upper(CONVERT(nvarchar(36), Company) + isnull(CONVERT(nvarchar(36), Id),'                                    ') + CONVERT(nvarchar(36), SetupID)) AS Expr1 " +
+//                                 " FROM         Setup AS Setup_1 WHERE     (Company = '" + OidKey + "')))";
+
+
+//                    SelectedData selectedData = ((Setup)((ListView)View).CollectionSource.List[0]).Session.ExecuteQuery(ss1);
+//                    Setup[] NewSetup = new Setup[selectedData.ResultSet[0].Rows.Length + 1];
+
+//                    int isetup = 0;
+//                    foreach (SelectStatementResultRow row in selectedData.ResultSet[0].Rows)
+//                    {
+
+//                        isetup = isetup + 1;
+//                        Setup.AutoSaveOnEndEdit = false;
+//                        NewSetup[isetup] = ObjectSpace.CreateObject<Setup>();
+//                        Setup.AutoSaveOnEndEdit = false;
+
+//                        NewSetup[isetup].SetMemberValue("Oid", row.Values[0]);
+//                        NewSetup[isetup].Application = ObjectSpace.FindObject<Application>(CriteriaOperator.Parse("Oid='" + row.Values[1].ToString() + "'"));
+//                        NewSetup[isetup].Company = cl;
+
+//                        if (row.Values[3] != null)
+//                        { NewSetup[isetup].Id = ObjectSpace.FindObject<AriaObject>(CriteriaOperator.Parse("Oid='" + row.Values[3].ToString() + "'")); }
+
+//                        NewSetup[isetup].DisplayOrder = int.Parse(row.Values[4].ToString());
+//                        NewSetup[isetup].SetupID = ObjectSpace.FindObject<AriaObjectProperties>(CriteriaOperator.Parse("Oid='" + row.Values[5].ToString() + "'"));
+//                        NewSetup[isetup].SetupName = row.Values[6].ToString();
+//                        NewSetup[isetup].Value = row.Values[7].ToString();
+
+//                        NewSetup[isetup].DataType = row.Values[8].ToString();
+//                        NewSetup[isetup].Width = int.Parse(row.Values[9].ToString());
+//                        NewSetup[isetup].DecimalPlaces = int.Parse(row.Values[10].ToString());
+
+//                        if (row.Values[11] != null)
+//                        { NewSetup[isetup].Format = row.Values[11].ToString(); };
+
+//                        if (row.Values[12] != null)
+//                        { NewSetup[isetup].Validvalues = row.Values[12].ToString(); }
+//                        if (row.Values[13] != null)
+//                        {
+//                            if (row.Values[13].ToString().ToUpper() == "TRUE") { NewSetup[isetup].CanBeReadAtEntityLevel = true; } else { NewSetup[isetup].CanBeReadAtEntityLevel = false; };
+//                        }
+//                        NewSetup[isetup].Temp = 1;
+//                        NewSetup[isetup].Save();
+
+//                        ((ListView)View).CollectionSource.Add(NewSetup[isetup]);
+//                        NewSetup[isetup] = null;
+
+//                    }
+
+//                }
+                
+
+//            //}
+//           ;
+
+//            NotCommit = false;
+           
+//            #endregion
+
+//            #region Read XML Commented
+//            //System.Data.DataSet thisDataSet = new System.Data.DataSet();
+//            //try
+//            //{
+//            //    string XMLFileNameParameter = @"D:\AriaObjectProperties.XML";
+//            //    System.IO.FileStream myFileStream = new System.IO.FileStream(XMLFileNameParameter, System.IO.FileMode.Open);
+
+//            //    System.Xml.XmlTextReader myXmlTextReader = new System.Xml.XmlTextReader(myFileStream);
+
+//            //    thisDataSet.ReadXml(myXmlTextReader);
+//            //    myXmlTextReader.Close();
+
+
+
+//            //}
+//            //catch (Exception ex)
+//            //{ };
+
+//            #endregion
+
+//            #region Fill group columns
+
+
+//            for (int i = 0; i < ((ListView)View).CollectionSource.List.Count; i++)
+//            {
+//                //dt.Select() 
+
+//                #region Prepare Data
+//                String Application = ((Setup)((ListView)View).CollectionSource.List[i]).Application.Name.ToString().TrimEnd();
+
+//                Company ClientBiz = ((Setup)((ListView)View).CollectionSource.List[i]).Company;
+//                String Company = "";
+//                if (ClientBiz != null) { Company = " - " + ClientBiz.Name.TrimEnd(); } else { Company = " "; };
+
+//                AriaObject AriaObjectBiz = ((Setup)((ListView)View).CollectionSource.List[i]).Id;
+//                String AriaObject = "";
+//                if (AriaObjectBiz != null)
+//                {
+//                    AriaObject = AriaObjectBiz.ObjectName .ToString().TrimEnd();
+
+//                    AriaObject = " - " + AriaObject;
+//                };
+
+//                AriaObjectProperties AriaObjectPropertiesBiz = ((Setup)((ListView)View).CollectionSource.List[i]).SetupID;
+//                String AriaObjectProperties = "";
+//                if (AriaObjectPropertiesBiz != null)
+//                {
+//                    AriaObjectProperties = AriaObjectPropertiesBiz.PropertyName.ToString().TrimEnd();
+//                    ((Setup)((ListView)View).CollectionSource.List[i]).SetupName = AriaObjectProperties;
+//                };
+
+//                #endregion
+
+//                #region Fill Group1
+//                ((Setup)((ListView)View).CollectionSource.List[i]).Group1 = Application + Company + AriaObject;
+//                #endregion
+
+//                #region fill group21
+//                if (ClientBiz != null) { ((Setup)((ListView)View).CollectionSource.List[i]).Group21 = ClientBiz.Name.TrimEnd(); } else { ((Setup)((ListView)View).CollectionSource.List[i]).Group21 = Application; }
+//                #endregion
+
+//                #region fill group22
+//                if (ClientBiz == null && AriaObjectBiz == null)
+//                { ((Setup)((ListView)View).CollectionSource.List[i]).Group22 = Application.TrimEnd() + " Setups"; }
+//                else
+//                {
+//                    if (AriaObjectBiz != null)
+//                    { ((Setup)((ListView)View).CollectionSource.List[i]).Group22 = AriaObjectBiz.ObjectName .TrimEnd() + " Setups"; }
+//                    else
+//                    {
+//                        if (ClientBiz != null && AriaObjectBiz == null)
+//                        { ((Setup)((ListView)View).CollectionSource.List[i]).Group22 = ClientBiz.Name.TrimEnd() + " Setups"; }
+
+
+//                    }
+
+//                }
+
+//                #endregion
+
+//                #region fill dictionary data Commented
+//                //try
+//                //{
+//                //    ((Setup)View.CollectionSource.List[i]).NotInDictionary = false;
+//                //    System.Data.DataRow[] rows = null;
+//                //    int intFrom = 0;
+
+//                //    rows = thisDataSet.Tables[0].Select("Oid='" + ((Setup)View.CollectionSource.List[i]).SetupID.Oid.ToString().TrimEnd() + "'");
+
+//                //    //Title='Use Multiple Currencies';DefultValue='False';DataType=Logic;CanBeReadAtEntity=True;
+//                //    string PropertySettings = rows[0]["PropertySettings"].ToString();
+//                //    string PropertySettingsSub = "";
+
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("Title") + 6);
+//                //        if (intFrom < 6) { throw new Exception(); };
+
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+//                //        ((Setup)View.CollectionSource.List[i]).SetupName = PropertySettingsSub;
+
+//                //    }
+//                //    catch (Exception ex)
+//                //    { ((Setup)View.CollectionSource.List[i]).NotInDictionary = true; }
+
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("DataType") + 9);
+//                //        if (intFrom < 9) { throw new Exception(); };
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+//                //        ((Setup)View.CollectionSource.List[i]).DataType = PropertySettingsSub;
+
+
+//                //    }
+//                //    catch (Exception ex)
+//                //    { ((Setup)View.CollectionSource.List[i]).NotInDictionary = true; }
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("Width") + 6);
+//                //        if (intFrom < 6) { throw new Exception(); };
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+//                //        ((Setup)View.CollectionSource.List[i]).Width = int.Parse(PropertySettingsSub);
+//                //    }
+//                //    catch (Exception ex)
+//                //    {
+//                //        ((Setup)View.CollectionSource.List[i]).Width = 0;
+//                //        if (((Setup)View.CollectionSource.List[i]).DataType != "Date" && ((Setup)View.CollectionSource.List[i]).DataType != "ValidEntries" && ((Setup)View.CollectionSource.List[i]).DataType != "Logic")
+//                //        {
+//                //            ((Setup)View.CollectionSource.List[i]).NotInDictionary = true;
+//                //        }
+//                //    }
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("DecimalPlaces") + 14);
+//                //        if (intFrom < 14) { throw new Exception(); };
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+//                //        ((Setup)View.CollectionSource.List[i]).DecimalPlaces = int.Parse(PropertySettingsSub);
+
+//                //    }
+//                //    catch (Exception ex)
+//                //    {
+//                //        ((Setup)View.CollectionSource.List[i]).DecimalPlaces = 0;
+//                //        if (((Setup)View.CollectionSource.List[i]).DataType == "Decimal")
+//                //        {
+//                //            ((Setup)View.CollectionSource.List[i]).NotInDictionary = true;
+//                //        }
+//                //    }
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("ValidValues") + 12);
+//                //        if (intFrom < 12) { throw new Exception(); };
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+//                //        ((Setup)View.CollectionSource.List[i]).Validvalues = PropertySettingsSub;
+
+//                //    }
+//                //    catch (Exception ex)
+//                //    {
+//                //        if (((Setup)View.CollectionSource.List[i]).DataType == "ValidEntries")
+//                //        {
+//                //            ((Setup)View.CollectionSource.List[i]).NotInDictionary = true;
+//                //        }
+//                //    }
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("CanBeReadAtEntityLevel") + 23);
+//                //        if (intFrom < 23) { throw new Exception(); };
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+
+//                //        if (PropertySettingsSub == "Yes") { ((Setup)View.CollectionSource.List[i]).CanBeReadAtEntityLevel = true; } else { ((Setup)View.CollectionSource.List[i]).CanBeReadAtEntityLevel = false; };
+//                //    }
+//                //    catch (Exception ex)
+//                //    { //((Setup)View.CollectionSource.List[i]).NotInDictionary = true; 
+//                //        ((Setup)View.CollectionSource.List[i]).CanBeReadAtEntityLevel = false;
+//                //    }
+//                //    try
+//                //    {
+//                //        intFrom = (PropertySettings.IndexOf("Format") + 7);
+//                //        if (intFrom < 7) { throw new Exception(); };
+//                //        PropertySettingsSub = PropertySettings.Substring(intFrom);
+//                //        PropertySettingsSub = PropertySettingsSub.Substring(0, PropertySettingsSub.IndexOf(';'));
+//                //        PropertySettingsSub = PropertySettingsSub.Replace(";", "");
+//                //        PropertySettingsSub = PropertySettingsSub.Replace("'", "");
+//                //        ((Setup)View.CollectionSource.List[i]).Format = PropertySettingsSub;
+//                //    }
+//                //    catch (Exception ex)
+//                //    {
+//                //        ((Setup)View.CollectionSource.List[i]).Format = "";
+//                //    }
+//                //}
+//                //catch (Exception ex)
+//                //{ ((Setup)View.CollectionSource.List[i]).NotInDictionary = true; }
+
+
+
+//                #endregion
+
+//                #region save data
+//                ((Setup)((ListView)View).CollectionSource.List[i]).Save();
+//                #endregion
+
+//            }
+//            #endregion
+//        }
+
+//       void SetupViewController_ControlsCreated(object sender, EventArgs e)
+//       {
+//           ((DevExpress.Web.ASPxGridView.ASPxGridView)(((ListView)View).Editor.Control)).Init += new EventHandler(SetupViewController_Init);
+
+//           ((DevExpress.Web.ASPxGridView.ASPxGridView)(((ListView)View).Editor.Control)).ClientSideEvents.Init = "function(s,e){s.RowClick.ClearHandlers();}";
+//       }
+          
+//       void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)
+//       {
+           
+//           if (e.OldValue != null && e.PropertyName != "Temp" && NotCommit == false)
+//           {
+//               ((Setup)e.Object).CustomSave();
+
+//           }
+//       }
+
+//       void ObjectSpace_Committing(object sender, CancelEventArgs e)
+//       {
+          
+//           e.Cancel=true;
+           
+//       }
+
+//       protected override void OnDeactivated()
+//        {
+//            View.ObjectSpace.Committing -= new EventHandler<CancelEventArgs>(ObjectSpace_Committing);
+            
+//            for (int i = 0; i < ((ListView)View).CollectionSource.List.Count; i++)
+//            {
+//                if (((Setup)((ListView)View).CollectionSource.List[i]).Temp == 1)
+//                {
+//                    ((ListView)View).CollectionSource.Remove(((Setup)((ListView)View).CollectionSource.List[i]));
+//                }
+//            }
+
+//            base.OnDeactivated();
+//        }
+
+//    }
+//}
+

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityStatus" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Entity_EntityStatusFiltered_ListView" DataAccessMode="DataView" />
+    <DetailView Id="EntityStatus_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="EntityStatus" RelativeSize="100">
+              <LayoutItem Id="StatusID" SizeConstraintsType="Default" RelativeSize="4" ViewItem="StatusID" />
+              <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="95" ViewItem="Description" />
+              <LayoutItem Id="EntityType" ViewItem="EntityType" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityStatus_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityStatus_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="EntityType_EntityStatuses_ListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

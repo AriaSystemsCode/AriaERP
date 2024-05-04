@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.ClientAttachments" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="ClientAttachments_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Direction="Vertical" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ClientAttachments" RelativeSize="83.549783549783555">
+              <LayoutGroup Id="ClientAttachments_col1" RelativeSize="47.010869565217391">
+                <LayoutItem Id="AttachmentID" SizeConstraintsType="Default" RelativeSize="20" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="Attachment" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="View" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="DPI" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="Theme" SizeConstraintsType="Default" RelativeSize="20" />
+              </LayoutGroup>
+              <LayoutGroup Id="ClientAttachments_col2" RelativeSize="47.010869565217391">
+                <LayoutItem Id="Width" SizeConstraintsType="Default" RelativeSize="20" />
+                <LayoutItem Id="Height" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="Machine" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="Path" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="LastModified" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="IsCached" SizeConstraintsType="Default" RelativeSize="20" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ClientBaseObject" RelativeSize="16.450216450216452">
+              <LayoutItem Id="ClientDataAuditOid" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAProjectEntity" IsDesigned="True" Caption="Project Entity">
+      <OwnMembers>
+        <Member Name="ApproveStatus" AllowEdit="False" />
+        <Member Name="AriaObject" DataSourceProperty="" AllowEdit="False" />
+        <Member Name="Attachements" Caption="Attachments" />
+        <Member Name="DetailDesignTime" Caption="Detail Design estimate Time" />
+        <Member Name="Enddate" AllowEdit="True" Caption="End Date" />
+        <Member Name="MainFeatures" Caption="Entity Features" />
+        <Member Name="ProfOfConceptLink" EditMaskType="RegEx" EditMask="(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})" />
+        <Member Name="ProgrammingTime" Caption="Programming estimate Time" />
+        <Member Name="ProjectTemplate" Caption="Project " />
+        <Member Name="QAUseCases" Caption="Use Cases" DataSourceProperty="ProjectTemplate.UseCases" />
+        <Member Name="Requirement" DataSourceProperty="Application.Requirements" />
+        <Member Name="Requirements" DataSourceProperty="Application.Requirements" />
+        <Member Name="SpecificationsLink" EditMask="(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})" EditMaskType="RegEx" />
+        <Member Name="TotalActualDetaildesign" Caption="Detail Design Actual Time" />
+        <Member Name="TotalActualProgramming" Caption="Programming actual time " />
+        <Member Name="TotalEstimate" AllowEdit="False" DataSourceProperty="DetailDesignTime+ProgrammingTime+TestingTime" />
+        <Member Name="TrackingNumber" DataSourceCriteria="[ProjectEntity] Is Null" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_QAProjectEntities_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Application" Width="29" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="EntityEstimationTime" Width="22" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProfOfConceptLink" Width="29" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Requirement" Width="29" Index="-1" />
+        <ColumnInfo Id="SpecificationsLink" Width="29" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TestingTime" Width="22" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TestPlan" Width="29" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Name" Width="95" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="29" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="AriaObject" Width="29" />
+        <ColumnInfo Id="TrackingNumber" Width="29" Index="3" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="22" Index="4" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DetailDesignTime" Width="22" Index="5" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProgrammingTime" Width="22" Index="6" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TotalEstimate" Width="22" Index="7" />
+        <ColumnInfo Id="TotalActualDetaildesign" Width="22" Index="8" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TotalActualProgramming" Width="36" Index="9" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Enddate" Width="29" Index="10" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectTemplate_ProjectEntities_ListView">
+      <Columns>
+        <ColumnInfo Id="Application" Width="29" Index="-1" />
+        <ColumnInfo Id="ProfOfConceptLink" Width="29" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="ProjectTemplate" Width="29" Index="-1" />
+        <ColumnInfo Id="Requirement" Width="29" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="SpecificationsLink" Width="29" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TestingTime" Width="22" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TestPlan" Width="29" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Name" Width="98" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="AriaObject" Width="29" Index="1" />
+        <ColumnInfo Id="TrackingNumber" Width="29" Index="2" />
+        <ColumnInfo Id="EntityEstimationTime" Width="22" Index="3" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="22" Index="4" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DetailDesignTime" Width="22" Index="5" />
+        <ColumnInfo Id="ProgrammingTime" Width="22" Index="6" />
+        <ColumnInfo Id="TotalEstimate" Width="22" Index="7" />
+        <ColumnInfo Id="TotalActualDetaildesign" Width="22" Index="8" />
+        <ColumnInfo Id="TotalActualProgramming" Width="33" Index="9" />
+        <ColumnInfo Id="Enddate" Width="29" Index="10" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QAProjectEntity_DetailView">
+      <Items>
+        <PropertyEditor Id="DetailDesignTime" AllowEdit="False" DataSourceProperty="" Caption="Detail Design estimate Time" />
+        <PropertyEditor Id="ProgrammingTime" AllowEdit="False" DataSourceProperty="" Caption="Programming estimate  Time" />
+        <PropertyEditor Id="Requirement" DataSourceCriteria="" DataSourceProperty="Application.Requirements" />
+        <PropertyEditor Id="TestingTime" AllowEdit="False" DataSourceProperty="" />
+        <PropertyEditor Id="TotalActualDetaildesign" Caption=" Detaildesign actual time" AllowEdit="False" />
+        <PropertyEditor Id="TotalActualProgramming" Caption=" Programming actual time " AllowEdit="False" />
+        <PropertyEditor Id="TotalEstimate" DataSourceProperty="" />
+        <PropertyEditor Id="TrackingNumber" DataSourceCriteria="" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="70.085470085470092">
+            <LayoutGroup Id="QAProjectEntity" RelativeSize="100" Caption="Project Entity">
+              <LayoutGroup Id="QAProjectEntity_col1" RelativeSize="50.099403578528829">
+                <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="15.384615384615385" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="1" ViewItem="ProjectTemplate" />
+                <LayoutItem Id="Application" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="2" ViewItem="Application" />
+                <LayoutItem Id="AriaObject" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="3" ViewItem="AriaObject" />
+                <LayoutItem Id="TrackingNumber" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="4" ViewItem="TrackingNumber" />
+                <LayoutItem Id="Requirement" ViewItem="Requirement" SizeConstraintsType="Default" Index="5" RelativeSize="11.538461538461538" IsNewNode="True" />
+                <LayoutItem Id="SpecificationsLink" SizeConstraintsType="Default" RelativeSize="13.043478260869565" Index="5" ViewItem="SpecificationsLink" Removed="True" />
+                <LayoutItem Id="EntityEstimationTime" SizeConstraintsType="Default" Index="6" RelativeSize="17.391304347826086" ViewItem="EntityEstimationTime" Removed="True" />
+                <LayoutItem Id="ProfOfConceptLink" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="6" ViewItem="ProfOfConceptLink" />
+                <LayoutItem Id="DetailDesignTime" SizeConstraintsType="Default" Index="7" RelativeSize="15.384615384615385" ViewItem="DetailDesignTime" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAProjectEntity_col2" RelativeSize="49.900596421471171">
+                <LayoutItem Id="TotalEstimate" SizeConstraintsType="Default" RelativeSize="15.384615384615385" Index="0" ViewItem="TotalEstimate" />
+                <LayoutItem Id="TotalActualDetaildesign" SizeConstraintsType="Default" Index="1" RelativeSize="11.538461538461538" ViewItem="TotalActualDetaildesign" />
+                <LayoutItem Id="ProgrammingTime" SizeConstraintsType="Default" RelativeSize="11.538461538461538" Index="2" ViewItem="ProgrammingTime" />
+                <LayoutItem Id="TotalActualProgramming" SizeConstraintsType="Default" Index="3" RelativeSize="11.538461538461538" ViewItem="TotalActualProgramming" />
+                <LayoutItem Id="Enddate" SizeConstraintsType="Default" Index="4" RelativeSize="11.538461538461538" ViewItem="Enddate" />
+                <LayoutItem Id="ProjectEntity_Statues" SizeConstraintsType="Default" Index="5" RelativeSize="11.538461538461538" ViewItem="ProjectEntity_Statues" />
+                <LayoutItem Id="Requirement" SizeConstraintsType="Default" Index="5" RelativeSize="13.043478260869565" ViewItem="Requirement" Removed="True" />
+                <LayoutItem Id="ApproveStatus" Index="6" RelativeSize="26.923076923076923" ViewItem="ApproveStatus" />
+                <LayoutItem Id="TestPlan" ViewItem="TestPlan" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="29.914529914529915">
+            <LayoutGroup Id="QAUseCases" RelativeSize="100">
+              <LayoutItem Id="QAUseCases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="QAUseCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestCases" RelativeSize="100" Index="1">
+              <LayoutItem Id="TestCases" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100" Index="2">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntitySystemDesign" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="EntitySystemDesign" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntitySystemDesign" />
+            </LayoutGroup>
+            <LayoutGroup Id="UserInterfaceRules" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="UserInterfaceRules" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UserInterfaceRules" />
+            </LayoutGroup>
+            <LayoutGroup Id="DetailDesignEstimates" RelativeSize="100" Index="3" Removed="True">
+              <LayoutItem Id="DetailDesignEstimates" SizeConstraintsType="Default" RelativeSize="100" ViewItem="DetailDesignEstimates" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" Caption="Entity Features" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="MainFeatures" ViewItem="MainFeatures" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100" Index="4">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+            <LayoutGroup Id="MainFeatures" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="MainFeatures" SizeConstraintsType="Default" RelativeSize="100" ViewItem="MainFeatures" />
+            </LayoutGroup>
+            <LayoutGroup Id="Requirements" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Requirements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Requirements" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAProjectEntity_ListView">
+      <Columns>
+        <ColumnInfo Id="EntityEstimationTime" Width="39" Index="-1" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="39" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="ProfOfConceptLink" Width="54" Index="-1" />
+        <ColumnInfo Id="Requirement" Index="-1" />
+        <ColumnInfo Id="SpecificationsLink" Width="54" Index="-1" />
+        <ColumnInfo Id="TestingTime" Width="39" Index="-1" />
+        <ColumnInfo Id="TestPlan" Index="-1" />
+        <ColumnInfo Id="Name" Width="110" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="54" />
+        <ColumnInfo Id="AriaObject" Width="54" />
+        <ColumnInfo Id="Application" Width="54" />
+        <ColumnInfo Id="TrackingNumber" Width="54" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="DetailDesignTime" Width="39" Index="5" />
+        <ColumnInfo Id="ProgrammingTime" Width="39" Index="6" />
+        <ColumnInfo Id="TotalEstimate" Width="47" Index="7" />
+        <ColumnInfo Id="TotalActualDetaildesign" Index="8" />
+        <ColumnInfo Id="TotalActualProgramming" Index="9" />
+        <ColumnInfo Id="Enddate" Index="10" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAProjectEntity_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Application" PropertyName="Application" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Name" Width="139" />
+        <ColumnInfo Id="TrackingNumber" PropertyName="TrackingNumber" Index="1" Width="126" IsNewNode="True" />
+        <ColumnInfo Id="ProjectTemplate" PropertyName="ProjectTemplate" Index="2" Width="124" IsNewNode="True" />
+        <ColumnInfo Id="AriaObject" PropertyName="AriaObject" Index="3" Width="157" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="QATestPlan_ProjectEntities_ListView">
+      <Columns>
+        <ColumnInfo Id="EntityEstimationTime" Width="22" Index="-1" />
+        <ColumnInfo Id="ProfOfConceptLink" Width="29" Index="-1" />
+        <ColumnInfo Id="Requirement" Width="29" Index="-1" />
+        <ColumnInfo Id="SpecificationsLink" Width="29" Index="-1" />
+        <ColumnInfo Id="TestingTime" Width="22" Index="-1" />
+        <ColumnInfo Id="TestPlan" Width="29" Index="-1" />
+        <ColumnInfo Id="Name" Width="98" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Width="29" />
+        <ColumnInfo Id="AriaObject" Width="29" />
+        <ColumnInfo Id="Application" Width="29" />
+        <ColumnInfo Id="TrackingNumber" Width="29" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="22" Index="5" />
+        <ColumnInfo Id="DetailDesignTime" Width="22" Index="6" />
+        <ColumnInfo Id="ProgrammingTime" Width="22" Index="7" />
+        <ColumnInfo Id="TotalEstimate" Width="22" Index="8" />
+        <ColumnInfo Id="TotalActualDetaildesign" Width="22" Index="9" />
+        <ColumnInfo Id="TotalActualProgramming" Width="33" Index="10" />
+        <ColumnInfo Id="Enddate" Width="29" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAUseCase_ProjectEntities_ListView">
+      <Columns>
+        <ColumnInfo Id="EntityEstimationTime" Width="22" Index="-1" />
+        <ColumnInfo Id="ProfOfConceptLink" Width="29" Index="-1" />
+        <ColumnInfo Id="Requirement" Width="29" Index="-1" />
+        <ColumnInfo Id="SpecificationsLink" Width="29" Index="-1" />
+        <ColumnInfo Id="TestingTime" Width="22" Index="-1" />
+        <ColumnInfo Id="TestPlan" Width="29" Index="-1" />
+        <ColumnInfo Id="Name" Width="93" />
+        <ColumnInfo Id="ProjectTemplate" Width="29" />
+        <ColumnInfo Id="AriaObject" Width="29" />
+        <ColumnInfo Id="Application" Width="29" />
+        <ColumnInfo Id="TrackingNumber" Width="29" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="22" Index="5" />
+        <ColumnInfo Id="DetailDesignTime" Width="22" Index="6" />
+        <ColumnInfo Id="ProgrammingTime" Width="22" Index="7" />
+        <ColumnInfo Id="TotalEstimate" Width="22" Index="8" />
+        <ColumnInfo Id="TotalActualDetaildesign" Width="22" Index="9" />
+        <ColumnInfo Id="TotalActualProgramming" Width="38" Index="10" />
+        <ColumnInfo Id="Enddate" Width="29" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="Requirement_ProjectEntities_ListView">
+      <Columns>
+        <ColumnInfo Id="EntityEstimationTime" Width="22" Index="-1" />
+        <ColumnInfo Id="ProfOfConceptLink" Width="28" Index="-1" />
+        <ColumnInfo Id="Requirement" Width="28" Index="-1" />
+        <ColumnInfo Id="SpecificationsLink" Width="28" Index="-1" />
+        <ColumnInfo Id="TestingTime" Width="22" Index="-1" />
+        <ColumnInfo Id="TestPlan" Width="28" Index="-1" />
+        <ColumnInfo Id="Name" Width="109" />
+        <ColumnInfo Id="ProjectTemplate" Width="42" />
+        <ColumnInfo Id="AriaObject" Width="42" />
+        <ColumnInfo Id="Application" Width="42" />
+        <ColumnInfo Id="TrackingNumber" Width="42" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="33" Index="5" />
+        <ColumnInfo Id="DetailDesignTime" Width="33" Index="6" />
+        <ColumnInfo Id="ProgrammingTime" Width="33" Index="7" />
+        <ColumnInfo Id="TotalEstimate" Width="33" Index="8" />
+        <ColumnInfo Id="TotalActualDetaildesign" Width="33" Index="9" />
+        <ColumnInfo Id="TotalActualProgramming" Width="50" Index="10" />
+        <ColumnInfo Id="Enddate" Width="54" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="Requirement_QAProjectEntities_ListView">
+      <Columns>
+        <ColumnInfo Id="ProfOfConceptLink" Width="29" Index="-1" />
+        <ColumnInfo Id="Requirement" Width="29" Index="-1" />
+        <ColumnInfo Id="SpecificationsLink" Width="29" Index="-1" />
+        <ColumnInfo Id="TestingTime" Width="22" Index="-1" />
+        <ColumnInfo Id="TestPlan" Width="29" Index="-1" />
+        <ColumnInfo Id="Name" Width="97" />
+        <ColumnInfo Id="ProjectTemplate" Width="29" />
+        <ColumnInfo Id="AriaObject" Width="29" />
+        <ColumnInfo Id="Application" Width="29" />
+        <ColumnInfo Id="TrackingNumber" Width="29" />
+        <ColumnInfo Id="EntityEstimationTime" Width="22" Index="5" />
+        <ColumnInfo Id="ProfOfConceptEstimationTime" Width="22" Index="6" />
+        <ColumnInfo Id="DetailDesignTime" Width="22" Index="7" />
+        <ColumnInfo Id="ProgrammingTime" Width="22" Index="8" />
+        <ColumnInfo Id="TotalEstimate" Width="22" Index="9" />
+        <ColumnInfo Id="TotalActualDetaildesign" Width="22" Index="10" />
+        <ColumnInfo Id="TotalActualProgramming" Width="34" Index="11" />
+        <ColumnInfo Id="Enddate" Width="29" Index="12" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

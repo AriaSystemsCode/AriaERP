@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Comments" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="CommentDetails" RowCount="5" />
+        <Member Name="QADefect" Caption="Defect" />
+        <Member Name="QAUseCase" DataSourceProperty="ProjectTemplate.QAUseCase" Caption="Use Case" />
+        <Member Name="QAUseCaseFlow" DataSourceProperty="QAUseCase.UseCaseFlows" Caption="Use Case Flow" />
+        <Member Name="QAUseCaseSteps" Caption="Use Case Steps" DataSourceProperty="QAUseCaseFlow.QAUseCaseSteps" />
+        <Member Name="Requirement" DataSourceProperty="ProjectTemplate.Requirements" />
+        <Member Name="TestCase" DataSourceProperty="ProjectTemplate.TestCases" />
+        <Member Name="TestCaseSteps" DataSourceProperty="TestCase.TestCaseSteps" />
+        <Member Name="TestRun" DataSourceProperty="ProjectTemplate.TestRuns" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="Comments_DetailView">
+      <Items>
+        <PropertyEditor Id="CommentDetails" Caption="CommentDetails" PropertyName="CommentDetails" IsNewNode="True" />
+        <PropertyEditor Id="ProjectTemplate" Caption="ProjectTemplate" PropertyName="ProjectTemplate" IsNewNode="True" />
+        <PropertyEditor Id="QADefect" Caption="Defect" PropertyName="QADefect" IsNewNode="True" />
+        <PropertyEditor Id="QAUseCase" Caption="UseCase" PropertyName="QAUseCase" DataSourceProperty="ProjectTemplate.UseCases" IsNewNode="True" />
+        <PropertyEditor Id="QAUseCaseFlow" Caption="UseCaseFlow" PropertyName="QAUseCaseFlow" IsNewNode="True" />
+        <PropertyEditor Id="QAUseCaseSteps" Caption="UseCaseSteps" PropertyName="QAUseCaseSteps" IsNewNode="True" />
+        <PropertyEditor Id="Requirement" Caption="Requirement" PropertyName="Requirement" IsNewNode="True" />
+        <PropertyEditor Id="RequirementType" Caption="RequirementType" PropertyName="RequirementType" IsNewNode="True" />
+        <PropertyEditor Id="TeamLeaderDailyFollowUp" Caption="TeamLeaderDailyFollowUp" PropertyName="TeamLeaderDailyFollowUp" IsNewNode="True" />
+        <PropertyEditor Id="TestCase" Caption="TestCase" PropertyName="TestCase" IsNewNode="True" />
+        <PropertyEditor Id="TestCaseSteps" Caption="TestCaseSteps" PropertyName="TestCaseSteps" IsNewNode="True" />
+        <PropertyEditor Id="TestRun" Caption="TestRun" PropertyName="TestRun" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Auto47f2f4d7-24df-435a-b4b5-2a5a75a51db8" ShowCaption="False" Caption="Auto47f2f4d7-24df-435a-b4b5-2a5a75a51db8(476)" Direction="Horizontal" Index="0" RelativeSize="17.866666666666667" IsNewNode="True">
+          <LayoutGroup Id="Auto36229a75-5533-48c8-a490-0daa15a2a0e5" ShowCaption="False" Caption="Auto36229a75-5533-48c8-a490-0daa15a2a0e5(477)" Index="0" RelativeSize="69.066666666666663" IsNewNode="True">
+            <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" SizeConstraintsType="Default" Index="0" RelativeSize="23.880597014925375" IsNewNode="True" />
+            <LayoutItem Id="Requirement" ViewItem="Requirement" SizeConstraintsType="Default" Index="1" RelativeSize="17.910447761194028" IsNewNode="True" />
+            <LayoutItem Id="QAUseCase" ViewItem="QAUseCase" SizeConstraintsType="Default" Index="2" RelativeSize="17.910447761194028" IsNewNode="True" />
+            <LayoutItem Id="QAUseCaseFlow" ViewItem="QAUseCaseFlow" SizeConstraintsType="Default" Index="3" RelativeSize="17.910447761194028" IsNewNode="True" />
+            <LayoutItem Id="QAUseCaseSteps" ViewItem="QAUseCaseSteps" SizeConstraintsType="Default" Index="4" RelativeSize="22.388059701492537" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Auto5decdad4-8131-4b4c-8ccc-95febacc0c1a" ShowCaption="False" Caption="Auto5decdad4-8131-4b4c-8ccc-95febacc0c1a(484)" Index="1" RelativeSize="30.933333333333334" IsNewNode="True">
+            <LayoutItem Id="TestRun" ViewItem="TestRun" SizeConstraintsType="Default" Index="0" RelativeSize="23.880597014925375" IsNewNode="True" />
+            <LayoutItem Id="TestCase" ViewItem="TestCase" SizeConstraintsType="Default" Index="1" RelativeSize="17.910447761194028" IsNewNode="True" />
+            <LayoutItem Id="TestCaseSteps" ViewItem="TestCaseSteps" SizeConstraintsType="Default" Index="2" RelativeSize="17.910447761194028" IsNewNode="True" />
+            <LayoutItem Id="QADefect" ViewItem="QADefect" SizeConstraintsType="Default" Index="3" RelativeSize="40.298507462686565" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutItem Id="CommentDetails" ViewItem="CommentDetails" Index="1" RelativeSize="82.13333333333334" IsNewNode="True" />
+        <LayoutGroup Id="Main" Direction="Horizontal" Index="1" RelativeSize="91.578947368421055" Removed="True" />
+      </Layout>
+    </DetailView>
+    <ListView Id="Comments_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="CommentDetails" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="QADefect" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

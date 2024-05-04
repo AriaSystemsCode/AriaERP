@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="734fb037-ea21-4124-ad5e-a55b57e1caf0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://c79e6a86dcc047dd9775a8a7379c35b6.cloudapp.net/WebServices/AriaSynchronizationService.asmx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AriaSynchronizationService.disco" MetadataType="Disco" ID="869347fc-5242-4dd3-9658-fa9f560d60d8" SourceId="1" SourceUrl="http://c79e6a86dcc047dd9775a8a7379c35b6.cloudapp.net/WebServices/AriaSynchronizationService.asmx?disco" />
+    <MetadataFile FileName="AriaSynchronizationService.wsdl" MetadataType="Wsdl" ID="60f59c54-4a70-4c95-ab7e-bac1195085a3" SourceId="1" SourceUrl="http://c79e6a86dcc047dd9775a8a7379c35b6.cloudapp.net/WebServices/AriaSynchronizationService.asmx?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

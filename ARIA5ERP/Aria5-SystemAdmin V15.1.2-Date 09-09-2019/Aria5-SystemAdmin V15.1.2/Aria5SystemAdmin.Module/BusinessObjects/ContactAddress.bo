@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ContactAddress" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Contact_ContactAddresses_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="AddressTypeDescription" Index="-1" />
+        <ColumnInfo Id="Name" Index="-1" />
+        <ColumnInfo Id="AddressLine2" Index="2" />
+        <ColumnInfo Id="AddressLine3" Index="3" />
+        <ColumnInfo Id="City" Index="4" />
+        <ColumnInfo Id="State" Index="5" />
+        <ColumnInfo Id="PostalCode" Index="6" />
+        <ColumnInfo Id="Region" Index="7" />
+        <ColumnInfo Id="CountryCode" Index="8" />
+        <ColumnInfo Id="RegionName" Index="9" />
+        <ColumnInfo Id="Country" Index="10" />
+        <ColumnInfo Id="Contact" Index="11" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="87.644787644787641">
+            <LayoutGroup Id="ContactAddress" RelativeSize="47.577092511013213">
+              <LayoutGroup Id="ContactAddress_col1" RelativeSize="49.83606557377049">
+                <LayoutItem Id="Addresstype" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="Addresstype" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="Name" />
+                <LayoutItem Id="AddressTypeDescription" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AddressTypeDescription" />
+                <LayoutItem Id="AddressLine1" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AddressLine1" />
+                <LayoutItem Id="AddressLine2" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AddressLine2" />
+                <LayoutItem Id="AddressLine3" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="AddressLine3" />
+                <LayoutItem Id="City" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="City" />
+              </LayoutGroup>
+              <LayoutGroup Id="ContactAddress_col2" RelativeSize="50.16393442622951">
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="State" />
+                <LayoutItem Id="PostalCode" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="PostalCode" />
+                <LayoutItem Id="Region" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="Region" />
+                <LayoutItem Id="CountryCode" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="CountryCode" />
+                <LayoutItem Id="RegionName" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="RegionName" />
+                <LayoutItem Id="Country" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ViewItem="Country" />
+                <LayoutItem Id="Contact" SizeConstraintsType="Default" RelativeSize="17.391304347826086" ViewItem="Contact" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="52.422907488986787">
+              <LayoutGroup Id="Entity_col1" RelativeSize="49.83606557377049">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="Id" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="Status" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="StatusId" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="Description" />
+                <LayoutItem Id="EnteredBy" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="EnteredBy" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="EnteredDate" />
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="DefaultAttachment" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="50.16393442622951">
+                <LayoutItem Id="TypeId" RelativeSize="11.538461538461538" ViewItem="TypeId" />
+                <LayoutItem Id="EntityClassification" RelativeSize="11.538461538461538" ViewItem="EntityClassification" />
+                <LayoutItem Id="ClassificationId" RelativeSize="11.538461538461538" ViewItem="ClassificationId" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="EntityCategory" />
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="CategoryId" />
+                <LayoutItem Id="IMAGE" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="IMAGE" />
+                <LayoutItem Id="Division" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="Division" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="12.355212355212355">
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100">
+              <LayoutItem Id="EntityAddresses" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100">
+              <LayoutItem Id="EntityClassificationFiltered" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100">
+              <LayoutItem Id="EntityStatusFiltered" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100">
+              <LayoutItem Id="EntityCategoryFiltered" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100">
+              <LayoutItem Id="EntityAttachments" RelativeSize="100" ViewItem="EntityAttachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100">
+              <LayoutItem Id="EntityRelationships" RelativeSize="100" ViewItem="EntityRelationships" />
+            </LayoutGroup>
+            <LayoutGroup Id="ADS" RelativeSize="100">
+              <LayoutItem Id="ADS" RelativeSize="100" ViewItem="ADS" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100">
+              <LayoutItem Id="Events" RelativeSize="100" ViewItem="Events" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100">
+              <LayoutItem Id="Information" RelativeSize="100" ViewItem="Information" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100">
+              <LayoutItem Id="News" RelativeSize="100" ViewItem="News" />
+            </LayoutGroup>
+            <LayoutGroup Id="NotesList" RelativeSize="100">
+              <LayoutItem Id="NotesList" RelativeSize="100" ViewItem="NotesList" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ContactAddress_ListView" DataAccessMode="DataView" />
+    <ListView Id="ContactAddress_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ConfigurationItem" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AccountId" Caption="Account ID" Size="30" />
+        <Member Name="AccountName" Size="100" />
+        <Member Name="ActivationKeyID" Size="30" AllowEdit="False" />
+        <Member Name="ApplicationId" Size="30" />
+        <Member Name="ApplicationName" Size="100" />
+        <Member Name="ContactName" Size="100" />
+        <Member Name="ContractName" Size="100" />
+        <Member Name="Device" ImmediatePostData="True" />
+        <Member Name="DeviceName" Size="100" />
+        <Member Name="DeviceSignature" Size="100" />
+        <Member Name="ReferenceNumber" Size="30" />
+        <Member Name="ReferenceTitle" Size="100" />
+        <Member Name="SerialNumber" Size="100" />
+        <Member Name="ServiceOrBundle" Size="100" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Account_ConfigurationItems_ListView" DataAccessMode="DataView" IsFooterVisible="False">
+      <Columns>
+        <ColumnInfo Id="Account" Width="122" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="AccountId" Width="80" Index="-1" />
+        <ColumnInfo Id="AccountName" Width="98" Index="-1" SortIndex="1" SortOrder="Ascending" />
+        <ColumnInfo Id="Application" Width="101" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ApplicationId" Width="85" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Contact" Width="92" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ContactName" Width="84" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Contract" Width="86" Index="-1" />
+        <ColumnInfo Id="ContractName" Width="107" Index="-1" />
+        <ColumnInfo Id="DemoAccount" Width="77" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Device" Width="73" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DeviceSignature" Width="89" Index="-1" />
+        <ColumnInfo Id="ExpireDate" Width="72" Index="-1" />
+        <ColumnInfo Id="Id" Width="42" SortOrder="None" Index="-1" SortIndex="-1" />
+        <ColumnInfo Id="InstallationDate" Width="94" Index="-1" />
+        <ColumnInfo Id="InstalledBy" Width="85" Index="-1" />
+        <ColumnInfo Id="ProductionType" Width="100" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ReferenceNumber" Width="82" Index="-1" />
+        <ColumnInfo Id="ReferenceTitle" Width="66" Index="-1" />
+        <ColumnInfo Id="SerialNo" Width="59" Index="-1" />
+        <ColumnInfo Id="SerialNumber" Width="125" Index="-1" />
+        <ColumnInfo Id="ServiceOrBundle" Width="98" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Status" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="TrialDays" Width="107" Index="-1" />
+        <ColumnInfo Id="Description" Index="0" SortIndex="0" SortOrder="Ascending" Width="146" Caption="Configuration Item Name" />
+        <ColumnInfo Id="ApplicationName" Width="88" Index="1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="InstallationType" Width="128" Index="2" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="VersionType" Width="67" Index="3" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="StartDate" Width="64" Index="4" />
+        <ColumnInfo Id="EndDate" Width="76" Index="5" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DeviceName" Width="91" Index="6" />
+        <ColumnInfo Id="NumberOfUsers" Width="176" Index="7" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ActivationKeyID" Width="124" Index="8" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="AccountDevice_ConfigurationItems_ListView" IsFooterVisible="False" DataAccessMode="DataView" />
+    <DetailView Id="ConfigurationItem_DetailView">
+      <Items>
+        <PropertyEditor Id="Account" ImmediatePostData="True" />
+        <PropertyEditor Id="AccountId" ImmediatePostData="True" />
+        <PropertyEditor Id="Application" ImmediatePostData="True" />
+        <PropertyEditor Id="ApplicationId" AllowEdit="False" />
+        <PropertyEditor Id="ApplicationName" AllowEdit="False" />
+        <PropertyEditor Id="Contact" ImmediatePostData="True" />
+        <PropertyEditor Id="DeviceName" AllowEdit="False" />
+        <PropertyEditor Id="DeviceSignature" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="84.54106280193237" Direction="Horizontal">
+            <LayoutGroup Id="ConfigurationItem_col1" ShowCaption="False" Index="0" RelativeSize="39.658119658119659" IsNewNode="True">
+              <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="9.1428571428571424" IsNewNode="True" />
+              <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="2" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="Account" ViewItem="Account" SizeConstraintsType="Default" Index="3" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="Application" ViewItem="Application" SizeConstraintsType="Default" Index="4" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="InstallationType" ViewItem="InstallationType" SizeConstraintsType="Default" Index="5" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="NumberOfUsers" ViewItem="NumberOfUsers" SizeConstraintsType="Default" Index="6" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="TrialDays" ViewItem="TrialDays" SizeConstraintsType="Default" Index="7" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ExpireDate" ViewItem="ExpireDate" SizeConstraintsType="Default" Index="8" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="SerialNo" ViewItem="SerialNo" SizeConstraintsType="Default" Index="9" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ReferenceNumber" ViewItem="ReferenceNumber" SizeConstraintsType="Default" Index="10" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ReferenceTitle" ViewItem="ReferenceTitle" SizeConstraintsType="Default" Index="11" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="Contact" ViewItem="Contact" SizeConstraintsType="Default" Index="12" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ContactName" ViewItem="ContactName" SizeConstraintsType="Default" Index="13" RelativeSize="8.5714285714285712" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ConfigurationItem_col2" ShowCaption="False" Index="1" RelativeSize="60.341880341880341" Direction="Vertical" IsNewNode="True">
+              <LayoutItem Id="ActivationKeyID" ViewItem="ActivationKeyID" SizeConstraintsType="Default" Index="0" RelativeSize="9.1428571428571424" IsNewNode="True" />
+              <LayoutItem Id="SerialNumber" ViewItem="SerialNumber" SizeConstraintsType="Default" Index="1" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ServiceOrBundle" ViewItem="ServiceOrBundle" SizeConstraintsType="Default" Index="2" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ContractName" ViewItem="ContractName" SizeConstraintsType="Default" Index="3" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="Contract" ViewItem="Contract" SizeConstraintsType="Default" Index="4" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="Device" ViewItem="Device" SizeConstraintsType="Default" Index="5" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="DeviceSignature" ViewItem="DeviceSignature" SizeConstraintsType="Default" Index="6" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="DeviceName" ViewItem="DeviceName" SizeConstraintsType="Default" Index="7" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ApplicationId" ViewItem="ApplicationId" SizeConstraintsType="Default" Index="8" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="ApplicationName" ViewItem="ApplicationName" SizeConstraintsType="Default" Index="9" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="VersionType" ViewItem="VersionType" SizeConstraintsType="Default" Index="10" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="StartDate" ViewItem="StartDate" SizeConstraintsType="Default" Index="11" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="EndDate" ViewItem="EndDate" SizeConstraintsType="Default" Index="12" RelativeSize="6.8571428571428568" IsNewNode="True" />
+              <LayoutItem Id="DemoAccount" ViewItem="DemoAccount" SizeConstraintsType="Default" Index="13" RelativeSize="8.5714285714285712" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ConfigurationItem" RelativeSize="100" Removed="True">
+              <LayoutGroup Id="ConfigurationItem_col1" RelativeSize="48.977505112474439">
+                <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="8.51063829787234" IsNewNode="True" />
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="6.3829787234042552" IsNewNode="True" />
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="2" RelativeSize="6.3829787234042552" IsNewNode="True" />
+                <LayoutItem Id="AccountId" ViewItem="AccountId" SizeConstraintsType="Default" Index="3" RelativeSize="6.3829787234042552" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="AccountName" ViewItem="AccountName" SizeConstraintsType="Default" Index="4" RelativeSize="6.3829787234042552" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Application" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="5" ViewItem="Application" />
+                <LayoutItem Id="InstallationType" ViewItem="InstallationType" SizeConstraintsType="Default" Index="6" RelativeSize="6.3829787234042552" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="NumberOfUsers" ViewItem="NumberOfUsers" SizeConstraintsType="Default" Index="7" RelativeSize="6.3829787234042552" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ProductionType" ViewItem="ProductionType" SizeConstraintsType="Default" Index="7" RelativeSize="5.3571428571428568" Removed="True" />
+                <LayoutItem Id="TrialDays" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="8" ViewItem="TrialDays" />
+                <LayoutItem Id="ExpireDate" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="9" ViewItem="ExpireDate" />
+                <LayoutItem Id="InstallationDate" SizeConstraintsType="Default" RelativeSize="6" Index="9" ViewItem="InstallationDate" Removed="True" />
+                <LayoutItem Id="InstalledBy" ViewItem="InstalledBy" SizeConstraintsType="Default" Index="9" RelativeSize="5.6603773584905657" Removed="True" />
+                <LayoutItem Id="SerialNo" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="10" ViewItem="SerialNo" />
+                <LayoutItem Id="ReferenceNumber" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="11" ViewItem="ReferenceNumber" />
+                <LayoutItem Id="ReferenceTitle" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="12" ViewItem="ReferenceTitle" />
+                <LayoutItem Id="Contact" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="13" ViewItem="Contact" />
+                <LayoutItem Id="ContactName" SizeConstraintsType="Default" RelativeSize="8.51063829787234" Index="14" ViewItem="ContactName" />
+              </LayoutGroup>
+              <LayoutGroup Id="ConfigurationItem_col2" RelativeSize="48.773006134969329">
+                <LayoutItem Id="DemoAccount" SizeConstraintsType="Default" RelativeSize="14.893617021276596" Index="13" ViewItem="DemoAccount" />
+                <LayoutItem Id="ActivationKeyID" SizeConstraintsType="Default" RelativeSize="8.51063829787234" ViewItem="ActivationKeyID" />
+                <LayoutItem Id="ApplicationId" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="ApplicationId" />
+                <LayoutItem Id="ApplicationName" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="ApplicationName" />
+                <LayoutItem Id="Contract" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="Contract" />
+                <LayoutItem Id="ContractName" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="ContractName" />
+                <LayoutItem Id="Device" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="Device" />
+                <LayoutItem Id="DeviceName" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="DeviceName" />
+                <LayoutItem Id="DeviceSignature" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="DeviceSignature" />
+                <LayoutItem Id="EndDate" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="EndDate" />
+                <LayoutItem Id="SerialNumber" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="SerialNumber" />
+                <LayoutItem Id="ServiceOrBundle" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="ServiceOrBundle" />
+                <LayoutItem Id="StartDate" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="StartDate" />
+                <LayoutItem Id="VersionType" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="VersionType" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="30.890804597701148" Removed="True">
+              <LayoutGroup Id="Entity_col1" RelativeSize="48.907388137356918" Caption="Entity_col1" Direction="Horizontal">
+                <LayoutItem Id="DefaultAttachment" ViewItem="DefaultAttachment" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="EnteredBy" ViewItem="EnteredBy" Removed="True" />
+                <LayoutItem Id="EnteredDate" ViewItem="EnteredDate" Removed="True" />
+                <LayoutItem Id="Id" ViewItem="Id" Removed="True" />
+                <LayoutItem Id="Notes" ViewItem="Notes" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="StatusId" ViewItem="StatusId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="48.803329864724248" Caption="Entity_col2" Direction="Horizontal">
+                <LayoutItem Id="CategoryId" ViewItem="CategoryId" Removed="True" />
+                <LayoutItem Id="ClassificationId" ViewItem="ClassificationId" Removed="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" Removed="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" Removed="True" />
+                <LayoutItem Id="EntityType" ViewItem="EntityType" Removed="True" />
+                <LayoutItem Id="IMAGE" ViewItem="IMAGE" Removed="True" />
+                <LayoutItem Id="TypeId" ViewItem="TypeId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="15.458937198067632">
+            <LayoutGroup Id="ActivationKeies" RelativeSize="100" Caption="Activation Keys">
+              <LayoutItem Id="ActivationKeies" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ActivationKeies" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100" Index="1" Caption="Attachments">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAttachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="ADS" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ADS" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityRelationships" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Events" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Information" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100" Index="2" Removed="True">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" ViewItem="News" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ConfigurationItem_ListView" DataAccessMode="DataView" />
+    <ListView Id="ConfigurationItem_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.OnlineGame" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="OnlineGame_DetailView">
+      <Items>
+        <PropertyEditor Id="CategoryId" AllowEdit="False" />
+        <PropertyEditor Id="ClassificationId" AllowEdit="False" />
+        <PropertyEditor Id="EntityCategory" Caption="Category" />
+        <PropertyEditor Id="EntityClassification" Caption=" Classification" />
+        <PropertyEditor Id="EntityType" Caption=" Type" />
+        <PropertyEditor Id="StatusId" AllowEdit="False" />
+        <PropertyEditor Id="TypeId" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="OnlineGame" RelativeSize="15.955473098330241">
+              <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="37.2093023255814" IsNewNode="True" />
+              <LayoutItem Id="URL" SizeConstraintsType="Default" RelativeSize="27.906976744186046" Index="1" />
+              <LayoutItem Id="UnitCost" SizeConstraintsType="Default" RelativeSize="34.883720930232556" Index="2" />
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="84.044526901669755" Caption="Online Game">
+              <LayoutGroup Id="Entity_col1" RelativeSize="48.769050410316531">
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="7.6190476190476186" Index="0" />
+                <LayoutItem Id="EntityType" ViewItem="EntityType" SizeConstraintsType="Default" Index="1" RelativeSize="5.7142857142857144" IsNewNode="True" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="1" Removed="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" SizeConstraintsType="Default" Index="2" RelativeSize="5.7142857142857144" IsNewNode="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" SizeConstraintsType="Default" Index="3" RelativeSize="5.7142857142857144" IsNewNode="True" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="75.238095238095241" Index="4" />
+                <LayoutItem Id="EnteredBy" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="5" Removed="True" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="5" Removed="True" />
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="69.523809523809518" Index="5" Removed="True" />
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" RelativeSize="60.36036036036036" Removed="True" />
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="7.2072072072072073" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="48.651817116060961">
+                <LayoutItem Id="StatusId" ViewItem="StatusId" SizeConstraintsType="Default" Index="0" RelativeSize="7.6190476190476186" IsNewNode="True" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="1" Removed="True" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="1" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="2" />
+                <LayoutItem Id="EntityClassification" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="2" Removed="True" />
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="3" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="5.7142857142857144" Index="3" Removed="True" />
+                <LayoutItem Id="Notes" ViewItem="Notes" SizeConstraintsType="Default" Index="4" RelativeSize="75.238095238095241" IsNewNode="True" />
+                <LayoutItem Id="Division" SizeConstraintsType="Default" RelativeSize="65.765765765765764" Index="6" Removed="True" />
+                <LayoutItem Id="IMAGE" SizeConstraintsType="Default" RelativeSize="5.4054054054054053" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="44.155844155844157" Removed="True">
+            <LayoutGroup Id="ADS" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100" Index="0">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

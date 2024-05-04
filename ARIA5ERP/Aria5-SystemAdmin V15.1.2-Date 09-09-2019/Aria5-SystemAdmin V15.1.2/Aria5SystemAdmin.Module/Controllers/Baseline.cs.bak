@@ -1,0 +1,694 @@
+using System;
+using System.Linq;
+using System.Text;
+using DevExpress.ExpressApp;
+using DevExpress.Data.Filtering;
+using System.Collections.Generic;
+using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Layout;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Model.NodeGenerators;
+using Aria5SystemAdmin.Module.BusinessObjects;
+using DevExpress.ExpressApp.Security;
+using DevExpress.Xpo;
+using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Web.ASPxGridView;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Web;
+using System.Collections;
+using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Model;
+using DevExpress.Xpo.Metadata;
+using DevExpress.Web;
+namespace Aria5SystemAdmin.Module.Controllers
+{
+    /*
+    ATA,1,21/3/2016 add a new controller to Check base line in specific business object views and disable or enable edit and delete actions ,
+     according to end date propperty  
+    */
+     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppViewControllertopic.
+    public partial class Baseline : ViewController
+    {
+        private AriaSecuritySystemUser user;
+        private string userName;
+              
+        
+        public Baseline()
+        {
+            InitializeComponent();
+            RegisterActions(components);
+            // Target required Views (via the TargetXXX properties) and create their Actions.
+            //View.SelectionChanged += View_SelectionChanged;
+
+        }
+
+      #region "Commented"
+
+//        protected override void OnActivated()
+//        {
+//            base.OnActivated();
+//            // Perform various tasks depending on the target View.
+
+//            WebWindow.CurrentRequestWindow.PagePreRender += CurrentRequestWindow_PagePreRender;
+
+
+
+//        }
+
+
+
+
+//        void CurrentRequestWindow_PagePreRender(object sender, EventArgs e)
+//        {
+//            if (View is ListView)
+//            {
+
+//                if (View.ObjectTypeInfo.Type == typeof(QAUseCase) || View.ObjectTypeInfo.Type == typeof(QAMainFeature) || View.ObjectTypeInfo.Type == typeof(TestCase)
+//                          || View.ObjectTypeInfo.Type == typeof(TestRun) || View.ObjectTypeInfo.Type == typeof(DesignDetailEstimate))
+//                {
+//                    ASPxGridListEditor gridListEditor = ((ListView)View).Editor as ASPxGridListEditor;
+//                    if (gridListEditor.Grid != null)
+//                    {
+//                        foreach (GridViewColumn column in gridListEditor.Grid.Columns)
+//                        {
+
+//                            if (column is GridViewDataActionColumn && ((GridViewDataActionColumn)column).Action.Id == "Edit")
+//                            {
+//                                column.Visible = false;
+
+//                            }
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    ASPxGridListEditor gridListEditor = ((ListView)View).Editor as ASPxGridListEditor;
+//                    if (gridListEditor.Grid != null)
+//                    {
+//                        foreach (GridViewColumn column in gridListEditor.Grid.Columns)
+//                        {
+
+//                            if (column is GridViewDataActionColumn && ((GridViewDataActionColumn)column).Action.Id == "Edit")
+//                            {
+//                                column.Visible = true;
+
+//                            }
+//                        }
+//                    }
+
+
+//                }
+//            }
+
+//        }
+//        protected override void OnViewControlsCreated()
+//        {
+//            base.OnViewControlsCreated();
+//            // Access and customize the target View control.
+//        }
+//        protected override void OnDeactivated()
+//        {
+//            // Unsubscribe from previously subscribed events and release other references and resources.
+//            base.OnDeactivated();
+//            WebWindow.CurrentRequestWindow.PagePreRender -= CurrentRequestWindow_PagePreRender;
+
+//        }
+
+//        private void Baseline_Activated(object sender, EventArgs e)
+//        {
+//            userName = ((AuthenticationStandardLogonParameters)SecuritySystem.LogonParameters).UserName;
+//            CriteriaOperator criteriaUser = CriteriaOperator.Parse("UserName = '" + userName + "'");
+//            user = ObjectSpace.FindObject<AriaSecuritySystemUser>(criteriaUser);
+
+
+
+//            if (user != null && userName.ToUpper().Trim() != "ADMIN" && user.Account.Id == "Aria")
+//            {
+//                var currentobject = View.CurrentObject;
+
+//                if (View is DetailView)
+//                {
+//                    action(currentobject, View);
+//                    //if (View.CurrentObject is QAUseCase)
+//                    //{
+//                    //   ITypeInfo ahmed = this.Application.TypesInfo.FindTypeInfo(View.ObjectTypeInfo.Type.ToString());
+//                    //  // DevExpress.Xpo.Metadata.XPClassInfo ahmed = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(View.ObjectTypeInfo.Type);
+//                    //   Attribute newatt = new DevExpress.ExpressApp.Model.ModelDefaultAttribute("AllowEdit", "false");
+//                    //   IMemberInfo property = ahmed.FindMember("Enddate");
+//                    //   if (property != null)
+//                    //   {
+//                    ////   ((QAUseCase)( View.CurrentObject)).Enddate.
+//                    //       ModelDefaultAttribute x= new ModelDefaultAttribute("AllowEdit", "false");
+
+//                    //  //     Attribute newatt1 =x((ModelDefaultAttribute).GetAttributeInfo(typeof(ModelDefaultAttribute)) 
+//                    //           //new DevExpress.Xpo.CustomAttribute("AllowEdit", "false");
+
+//                    //    //   IList<Attribute> attcollection = new List<Attribute>(property.FindAttributes<Attribute>(true));
+
+//                    //       property.AddAttribute(x);
+
+
+//                    //   }
+//                    //   ((XafMemberInfo)property).Refresh();
+//                    //}
+//                }
+//                else
+//                {
+//                    ListViewController controller = Frame.GetController<ListViewController>();
+//                    if (View.ObjectTypeInfo.Type == typeof(QAUseCase) || View.ObjectTypeInfo.Type == typeof(QAMainFeature) || View.ObjectTypeInfo.Type == typeof(TestCase)
+//                               || View.ObjectTypeInfo.Type == typeof(TestRun) || View.ObjectTypeInfo.Type == typeof(DesignDetailEstimate) || View.ObjectTypeInfo.Type == typeof(QAUseCasePoints))
+//                    {
+//                        if (View.Model.AllowEdit == false)
+//                        {
+//                            ((ListView)View).AllowDelete["1"] = false;
+//                            //((ListView)View).AllowEdit["1"] = false;
+
+//                            controller.EditAction.Active.SetItemValue("EditableListView", false);
+//                        }
+//                    }
+//                    else
+//                    {
+//                        ((ListView)View).AllowDelete["1"] = true;
+//                        controller.EditAction.Active.SetItemValue("EditableListView", true);
+//                    }
+
+//                }
+
+//            }
+//            else
+//            {
+
+
+
+//            }
+
+//        }
+
+//        public static void permission(DateTime date, View currentView)
+//        {
+//            if (DateTime.Today > date)
+//            {
+//                currentView.AllowEdit["1"] = false;
+//                currentView.AllowDelete["1"] = false;
+//            }
+//            else
+//            {
+//                currentView.AllowEdit["1"] = true;
+//                currentView.AllowDelete["1"] = true;
+//            }
+//        }
+//        public static void action(object new_object, View CurrentView)
+//        {
+//            if (new_object is QAUseCase)
+//            {
+//                permission(((QAUseCase)new_object).Enddate, CurrentView);
+//            }
+//            else if (new_object is QAMainFeature)
+//            {
+//                permission(((QAMainFeature)new_object).Enddate, CurrentView);
+//            }
+//            else if (new_object is DesignDetailEstimate)
+//            {
+//                permission(((DesignDetailEstimate)new_object).Enddate, CurrentView);
+//            }
+//            else if (new_object is TestCase)
+//            {
+//                permission(((TestCase)new_object).Enddate, CurrentView);
+//            }
+//            else if (new_object is TestRun)
+//            {
+//                permission(((TestRun)new_object).Enddate, CurrentView);
+//            }
+//            else if (new_object is QAUseCasePoints)
+//            {
+//                permission(((QAUseCasePoints)new_object).Enddate, CurrentView);
+//            }
+//            else
+//            {
+//                CurrentView.AllowEdit["1"] = true;
+//                CurrentView.AllowDelete["1"] = true;
+//            }
+
+//        }
+
+//        private void Baseline_AfterConstruction(object sender, EventArgs e)
+//        {
+//        }
+
+//        private void Baseline_ViewControlsCreated(object sender, EventArgs e)
+//        {
+//            if (View is ListView)
+//            {
+//                ASPxGridListEditor listeditor = ((ListView)View).Editor as ASPxGridListEditor;
+
+
+//                //listeditor.AllowEditChanged += listeditor_AllowEditChanged;
+
+//                //listeditor.SelectionChanged +=listeditor_SelectionChanged;
+//                //IList collection = listeditor.GetSelectedObjects();
+
+//                // listeditor.Grid.StartRowEditing += Grid_StartRowEditing;
+
+//                //int coun = listeditor.Grid.Selection.Count;
+
+//                //geta(collection);
+
+
+//                //}
+//            }
+
+
+
+
+//            /*
+//            void processCurrentObjectController_CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e)
+//            {
+//                if (View.SelectedObjects.Count > 1)
+//                {
+//                    e.Handled = false;
+//                }
+//                e.Handled = true;
+//                foreach (object  item in View.SelectedObjects)
+//                {
+//                    action(item , View);
+//                }
+            
+//            }
+//        */
+
+//        }
+
+            
+
+       
+        
+       
+
+
+# endregion
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            // Perform various tasks depending on the target View.
+                            
+                WebWindow.CurrentRequestWindow.PagePreRender += CurrentRequestWindow_PagePreRender;
+        }
+
+        void CurrentRequestWindow_PagePreRender(object sender, EventArgs e)
+        {
+            if (View is ListView)
+            {
+                if (View.ObjectTypeInfo.Type == typeof(DesignDetailEstimate))
+                {
+                    View.AllowNew["0"] = false;
+                }
+              
+                if (View.ObjectTypeInfo.Type == typeof(QAUseCase) || View.ObjectTypeInfo.Type == typeof(QAMainFeature) || View.ObjectTypeInfo.Type == typeof(TestCase)
+                          || View.ObjectTypeInfo.Type == typeof(TestRun) || View.ObjectTypeInfo.Type == typeof(DesignDetailEstimate) || View.ObjectTypeInfo.Type == typeof(QAUseCasePoints)
+                    || View.ObjectTypeInfo.Type == typeof(QAProjectEntity) || View.ObjectTypeInfo.Type == typeof(Requirement) || View.ObjectTypeInfo.Type == typeof(EntitySystemDesign))
+                {
+                    ASPxGridListEditor gridListEditor = ((ListView)View).Editor as ASPxGridListEditor;
+                    if (gridListEditor.Grid != null)
+                    {
+                        foreach (GridViewColumn column in gridListEditor.Grid.Columns)
+                        {
+
+                            if (column is GridViewDataActionColumn && ((GridViewDataActionColumn)column).Action.Id == "Edit")
+                            {
+                                column.Visible = false;
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ASPxGridListEditor gridListEditor = ((ListView)View).Editor as ASPxGridListEditor;
+                    if (gridListEditor.Grid != null)
+                    {
+                        foreach (GridViewColumn column in gridListEditor.Grid.Columns)
+                        {
+
+                            if (column is GridViewDataActionColumn && ((GridViewDataActionColumn)column).Action.Id == "Edit")
+                            {
+                                column.Visible = true;
+
+                            }
+                        }
+                    }
+                }
+            }
+           
+        }
+        protected override void OnViewControlsCreated()
+        {
+            base.OnViewControlsCreated();
+            // Access and customize the target View control.
+        }
+        protected override void OnDeactivated()
+        {
+            // Unsubscribe from previously subscribed events and release other references and resources.
+            base.OnDeactivated();
+            WebWindow.CurrentRequestWindow.PagePreRender -= CurrentRequestWindow_PagePreRender;
+        }
+
+        private void Baseline_Activated(object sender, EventArgs e)
+        {
+            //ATA,1,enhance [start]
+            if ( View.ObjectTypeInfo.Type == typeof(DesignDetailEstimate))
+            {
+                View.AllowNew["0"] = false;
+            }
+            else
+            {
+                View.AllowNew["0"] = true;
+            }
+            //ATA,1,enhance [end]
+            userName = ((AuthenticationStandardLogonParameters)SecuritySystem.LogonParameters).UserName;
+            CriteriaOperator criteriaUser = CriteriaOperator.Parse("UserName = '" + userName + "'");
+            user = ObjectSpace.FindObject<AriaSecuritySystemUser>(criteriaUser);
+            if (user != null && userName.ToUpper().Trim() != "ADMIN" && user.Account.Id == "Aria")
+            {
+                var currentobject = View.CurrentObject;
+         
+                if (View is DetailView)
+                {
+                 
+                    Permissions(currentobject, View);
+                }
+                else
+                {
+                    ListViewController controller = Frame.GetController<ListViewController>();
+                    if (View.ObjectTypeInfo.Type == typeof(QAUseCase) || View.ObjectTypeInfo.Type == typeof(QAMainFeature) || View.ObjectTypeInfo.Type == typeof(TestCase)
+                               || View.ObjectTypeInfo.Type == typeof(TestRun) || View.ObjectTypeInfo.Type == typeof(DesignDetailEstimate) || View.ObjectTypeInfo.Type == typeof(QAUseCasePoints)
+                        || View.ObjectTypeInfo.Type == typeof(QAProjectEntity) || View.ObjectTypeInfo.Type == typeof(Requirement)||View.ObjectTypeInfo.Type == typeof(EntitySystemDesign))
+                    {
+                        if (View.Model.AllowEdit == false)
+                        {
+                            ((ListView)View).AllowDelete["1"] = false;                          
+                            controller.EditAction.Active.SetItemValue("EditableListView", false);
+                        }
+                    }
+                    else
+                    {
+                        ((ListView)View).AllowDelete["1"] = true;
+                        controller.EditAction.Active.SetItemValue("EditableListView", true);
+                    }
+                }
+
+            }
+        }    
+        public static void Check_date(DateTime date, View currentView)
+        {
+            if ( DateTime.Today > date)
+            {
+                currentView.AllowEdit["1"] = false;
+                currentView.AllowDelete["1"] = false;
+                currentView.Refresh();
+            }
+            else
+            {
+                currentView.AllowEdit["1"] = true;
+                currentView.AllowDelete["1"] = true;
+                currentView.Refresh();
+
+            }
+        }
+        public static void Permissions(object new_object, View CurrentView)
+        {
+            if (new_object is QAUseCase)
+            {
+                if (((QAUseCase)new_object).Oid != Guid.Empty )
+                {
+ 
+                    if (((QAUseCase)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((QAUseCase)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((QAUseCase)new_object).ProjectTemplate != null)
+                        {
+                            if (((QAUseCase)new_object).ProjectTemplate.Type.ToString() == "Key")
+                            {
+                                ((QAUseCase)new_object).Enddate = CalcEndate.CalcEnddate(((QAUseCase)new_object).ProjectTemplate.StartDate, 2);
+                            }
+                            else
+                            {
+                                ((QAUseCase)new_object).Enddate = ((QAUseCase)new_object).ProjectTemplate.EndDate;
+                            }
+
+                            Check_date(((QAUseCase)new_object).Enddate, CurrentView);
+                        }
+                    }
+                }
+            }
+            else if (new_object is QAMainFeature)
+            {
+                if (((QAMainFeature)new_object).Oid != Guid.Empty)
+                {
+                    if (((QAMainFeature)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((QAMainFeature)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((QAMainFeature)new_object).ProjectEntity != null)
+                        {
+                            if (((QAMainFeature)new_object).ProjectEntity.ProjectTemplate != null)
+                            {
+                                if (((QAMainFeature)new_object).ProjectEntity.ProjectTemplate.Type.ToString() == "Key")
+                                {
+                                    ((QAMainFeature)new_object).Enddate = CalcEndate.CalcEnddate(((QAMainFeature)new_object).ProjectEntity.ProjectTemplate.StartDate, 2);
+                                }
+                                else
+                                {
+                                    ((QAMainFeature)new_object).Enddate = ((QAMainFeature)new_object).ProjectEntity.ProjectTemplate.EndDate;
+                                }
+
+                                Check_date(((QAMainFeature)new_object).Enddate, CurrentView);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (new_object is DesignDetailEstimate)
+            {
+                if (((DesignDetailEstimate)new_object).Oid != Guid.Empty)
+                {
+                    if (((DesignDetailEstimate)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((DesignDetailEstimate)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((DesignDetailEstimate)new_object).QAProjectEntity != null)
+                        {
+                            if (((DesignDetailEstimate)new_object).QAProjectEntity.ProjectTemplate != null)
+                            {
+                                if (((DesignDetailEstimate)new_object).QAProjectEntity.ProjectTemplate.Type.ToString() == "Key")
+                                {
+                                    ((DesignDetailEstimate)new_object).Enddate = CalcEndate.CalcEnddate(((DesignDetailEstimate)new_object).QAProjectEntity.ProjectTemplate.StartDate, 3);
+                                }
+                                else
+                                {
+                                    ((DesignDetailEstimate)new_object).Enddate = ((DesignDetailEstimate)new_object).QAProjectEntity.ProjectTemplate.EndDate;
+                                }
+
+                                Check_date(((DesignDetailEstimate)new_object).Enddate, CurrentView);
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            else if (new_object is TestCase)
+            {
+                if (!((TestCase)new_object).IsOriginal && ((TestCase)new_object).Oid != Guid.Empty)
+                {
+                    if (((TestCase)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((TestCase)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((TestCase)new_object).ProjectTemplate != null)
+                        {
+                            if (((TestCase)new_object).ProjectTemplate.Type.ToString() == "Key")
+                            {
+                                ((TestCase)new_object).Enddate = CalcEndate.CalcEnddate(((TestCase)new_object).ProjectTemplate.StartDate, 3);
+                            }
+                            else
+                            {
+                                ((TestCase)new_object).Enddate = ((TestCase)new_object).ProjectTemplate.EndDate;
+                            }
+
+                            Check_date(((TestCase)new_object).Enddate, CurrentView);
+                        }
+                    }
+                  
+                }
+            }
+            else if (new_object is TestRun)
+            {
+                if (((TestRun)new_object).Oid != Guid.Empty)
+                {
+                    if (((TestRun)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((TestRun)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((TestRun)new_object).ProjectTemplate != null)
+                        {
+                            if (((TestRun)new_object).ProjectTemplate.Type.ToString() == "Key")
+                            {
+                                ((TestRun)new_object).Enddate = CalcEndate.CalcEnddate(((TestRun)new_object).ProjectTemplate.StartDate, 4);
+                            }
+                            else
+                            {
+                                ((TestRun)new_object).Enddate = ((TestRun)new_object).ProjectTemplate.EndDate;
+                            }
+
+                            Check_date(((TestRun)new_object).Enddate, CurrentView);
+                        }
+                    }
+                }
+            }
+            else if (new_object is QAUseCasePoints)
+            {
+                if (((QAUseCasePoints)new_object).Oid != Guid.Empty)
+                {
+                    if (((QAUseCasePoints)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((QAUseCasePoints)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((QAUseCasePoints)new_object).Project != null)
+                        {
+                            if (((QAUseCasePoints)new_object).Project.Type.ToString() == "Key")
+                            {
+                                ((QAUseCasePoints)new_object).Enddate = CalcEndate.CalcEnddate(((QAUseCasePoints)new_object).Project.StartDate, 1);
+                            }
+                            else
+                            {
+                                ((QAUseCasePoints)new_object).Enddate = ((QAUseCasePoints)new_object).Project.EndDate;
+                            }
+
+                            Check_date(((QAUseCasePoints)new_object).Enddate, CurrentView);
+                        }
+                    }
+                }
+            }
+            else if (new_object is QAProjectEntity)
+            {
+                if (((QAProjectEntity)new_object).Oid != Guid.Empty)
+                {
+                    if (((QAProjectEntity)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((QAProjectEntity)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((QAProjectEntity)new_object).ProjectTemplate != null)
+                        {
+                            if (((QAProjectEntity)new_object).ProjectTemplate.Type.ToString() == "Key")
+                            {
+                                ((QAProjectEntity)new_object).Enddate = CalcEndate.CalcEnddate(((QAProjectEntity)new_object).ProjectTemplate.StartDate, 2);
+                            }
+                            else
+                            {
+                                ((QAProjectEntity)new_object).Enddate = ((QAProjectEntity)new_object).ProjectTemplate.EndDate;
+                            }
+
+                            Check_date(((QAProjectEntity)new_object).Enddate, CurrentView);
+                        }
+                    }
+                }
+            }
+            else if (new_object is Requirement)
+            {
+                if (((Requirement)new_object).Oid != Guid.Empty)
+                {
+                    if (((Requirement)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((Requirement)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((Requirement)new_object).ProjectTemplate != null)
+                        {
+                            if (((Requirement)new_object).ProjectTemplate.Type.ToString() == "Key")
+                            {
+                                ((Requirement)new_object).Enddate = CalcEndate.CalcEnddate(((Requirement)new_object).ProjectTemplate.StartDate, 1);
+                            }
+                            else
+                            {
+                                ((Requirement)new_object).Enddate = ((Requirement)new_object).ProjectTemplate.EndDate;
+                            }
+
+                            Check_date(((Requirement)new_object).Enddate, CurrentView);
+                        }
+                    }
+                  
+                }
+            }
+            else if (new_object is EntitySystemDesign)
+            {
+                if (((EntitySystemDesign)new_object).Oid != Guid.Empty)
+                {
+                    if (((EntitySystemDesign)new_object).Enddate != DateTime.MinValue)
+                    {
+                        Check_date(((EntitySystemDesign)new_object).Enddate, CurrentView);
+                    }
+                    else
+                    {
+                        if (((EntitySystemDesign)new_object).QAProjectEntity != null)
+                        {
+                            if (((EntitySystemDesign)new_object).QAProjectEntity.ProjectTemplate != null)
+                            {
+                                if (((EntitySystemDesign)new_object).QAProjectEntity.ProjectTemplate.Type.ToString() == "Key")
+                                {
+                                    ((EntitySystemDesign)new_object).Enddate = CalcEndate.CalcEnddate(((EntitySystemDesign)new_object).QAProjectEntity.ProjectTemplate.StartDate, 3);
+                                }
+                                else
+                                {
+                                    ((EntitySystemDesign)new_object).Enddate = ((EntitySystemDesign)new_object).QAProjectEntity.ProjectTemplate.EndDate;
+                                }
+
+                                Check_date(((EntitySystemDesign)new_object).Enddate, CurrentView);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                CurrentView.AllowEdit["1"] = true;
+                CurrentView.AllowDelete["1"] = true;
+                CurrentView.Refresh();
+
+            }
+
+        }
+
+        private void Baseline_AfterConstruction(object sender, EventArgs e)
+        {
+        }
+
+        private void Baseline_ViewControlsCreated(object sender, EventArgs e)
+        {
+            //if (View is ListView)
+            //{
+            //     ASPxGridListEditor listeditor = ((ListView)View).Editor as ASPxGridListEditor;
+            //}   
+        }
+    }
+    //ATA, end 22/3/2016
+}

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityAddress" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="CountryTS_EntityAddresses_ListView" GroupSummary="Empty" />
+    <DetailView Id="EntityAddress_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+            <LayoutGroup Id="EntityAddress" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+              <LayoutGroup Id="EntityAddress_col1" RelativeSize="44.780219780219781" Caption="EntityAddress_col1" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+                <LayoutItem Id="Entity" SizeConstraintsType="Default" RelativeSize="4.507042253521127" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Entity" />
+                <LayoutItem Id="AddressType" SizeConstraintsType="Default" RelativeSize="3.380281690140845" ViewItem="AddressType" />
+                <LayoutItem Id="Address" SizeConstraintsType="Default" RelativeSize="3.380281690140845" ViewItem="Address" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="3.380281690140845" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Name" />
+                <LayoutItem Id="AddressLine1" SizeConstraintsType="Default" RelativeSize="3.380281690140845" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="AddressLine1" />
+                <LayoutItem Id="AddressLine2" SizeConstraintsType="Default" RelativeSize="3.380281690140845" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="AddressLine2" />
+                <LayoutItem Id="AddressLine3" RelativeSize="78.591549295774641" ViewItem="AddressLine3" />
+              </LayoutGroup>
+              <LayoutGroup Id="EntityAddress_col2" RelativeSize="55.219780219780219" Caption="EntityAddress_col2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+                <LayoutItem Id="City" SizeConstraintsType="Default" RelativeSize="4" Index="0" ViewItem="City" Removed="True" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="4.507042253521127" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="0" ViewItem="State" />
+                <LayoutItem Id="PostalCode" SizeConstraintsType="Default" RelativeSize="3.380281690140845" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="1" ViewItem="PostalCode" />
+                <LayoutItem Id="Country" SizeConstraintsType="Default" RelativeSize="3.380281690140845" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="2" ViewItem="Country" />
+                <LayoutItem Id="Region" SizeConstraintsType="Default" RelativeSize="3.380281690140845" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="3" ViewItem="Region" />
+                <LayoutItem Id="CountryTS" Index="4" RelativeSize="85.352112676056336" ViewItem="CountryTS" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityAddress_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityAddress_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,12 @@
+﻿<ProductSetting>
+  <Product>
+    <IPAddress>174.143.166.182</IPAddress>
+    <Username>AIC10</Username>
+    <Password></Password>
+    <remoteapplicationcmdline>X:\\ARIA27\\SYSFILES\\</remoteapplicationcmdline>
+    <remoteapplicationname>ARIA4XP</remoteapplicationname>
+    <remoteapplicationprogram>ARIA4XP</remoteapplicationprogram>
+    <remoteapplicationmode>1</remoteapplicationmode>
+    <alternateshell>Aria4XP</alternateshell>
+  </Product>
+</ProductSetting>

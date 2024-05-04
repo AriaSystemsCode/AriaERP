@@ -1,0 +1,12 @@
+﻿<ProductSetting>
+  <Product>
+    <IPAddress>174.143.166.178</IPAddress>
+    <Username>AIC10</Username>
+    <Password></Password>
+    <remoteapplicationcmdline></remoteapplicationcmdline>
+    <remoteapplicationname></remoteapplicationname>
+    <remoteapplicationprogram></remoteapplicationprogram>
+    <remoteapplicationmode>0</remoteapplicationmode>
+    <alternateshell></alternateshell>
+  </Product>
+</ProductSetting>

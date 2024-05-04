@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Region" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="Region_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.933333333333334">
+            <LayoutGroup Id="Entity" Index="0" RelativeSize="100">
+              <LayoutGroup Id="Entity_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="Id" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="27.272727272727273" Index="1" ViewItem="Description" />
+                <LayoutItem Id="EnteredBy" SizeConstraintsType="Default" RelativeSize="15" Index="2" ViewItem="EnteredBy" Removed="True" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" RelativeSize="17.647058823529413" Index="2" ViewItem="EnteredDate" Removed="True" />
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="3" ViewItem="DefaultAttachment" Removed="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="13.043478260869565" ShowCaption="False" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="StatusId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="48.533333333333331" Caption="Entity_col2" Direction="Horizontal">
+                <LayoutItem Id="CategoryId" ViewItem="CategoryId" Removed="True" />
+                <LayoutItem Id="ClassificationId" ViewItem="ClassificationId" Removed="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" Removed="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" Removed="True" />
+                <LayoutItem Id="IMAGE" ViewItem="IMAGE" Removed="True" />
+                <LayoutItem Id="TypeId" ViewItem="TypeId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83.066666666666663">
+            <LayoutGroup Id="CountryTSs" RelativeSize="100" Caption="Country">
+              <LayoutItem Id="CountryTSs" SizeConstraintsType="Default" RelativeSize="100" ViewItem="CountryTSs" />
+            </LayoutGroup>
+            <LayoutGroup Id="ADS" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ADS" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAttachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityRelationships" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="1" ShowCaption="False" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Events" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Information" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" RelativeSize="100" Index="1" Removed="True">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" ViewItem="News" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Region_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="IMAGE" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="Region_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

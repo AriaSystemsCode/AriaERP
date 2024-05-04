@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="TrackingEntry_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="TrackingEntry">
+              <LayoutGroup Id="TrackingEntry_col1">
+                <LayoutItem Id="Account" SizeConstraintsType="Default" Index="2" RelativeSize="7.0631970260223049" ViewItem="Account" Removed="True" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" Index="2" RelativeSize="14.12639405204461" ViewItem="EnteredDate" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingEntry_col2">
+                <LayoutItem Id="ReleaseNote" SizeConstraintsType="Default" Index="2" RelativeSize="8.921933085501859" ViewItem="ReleaseNote" Removed="True" />
+                <LayoutItem Id="TechnicalInformation" SizeConstraintsType="Default" Index="2" RelativeSize="11.895910780669144" ViewItem="TechnicalInformation" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="TrackingTask_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="TrackingTask">
+              <LayoutGroup Id="TrackingTask_col1">
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="6.7988668555240794" ViewItem="Description" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingTask_col2">
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="9.06515580736544" ViewItem="Status" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

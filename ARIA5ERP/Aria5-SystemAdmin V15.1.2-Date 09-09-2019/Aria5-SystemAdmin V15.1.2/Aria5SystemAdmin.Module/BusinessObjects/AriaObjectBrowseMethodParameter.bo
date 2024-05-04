@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectBrowseMethodParameter" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="AriaObjectBrowseMethodParameter_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectBrowseMethodParameter" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectBrowseMethodParameter_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="ParameterName" SizeConstraintsType="Default" RelativeSize="4.5133991537376588" ViewItem="ParameterName" />
+                <LayoutItem Id="ParameterNo" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" ViewItem="ParameterNo" />
+                <LayoutItem Id="ParameterType" SizeConstraintsType="Default" RelativeSize="92.1015514809591" ViewItem="ParameterType" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectBrowseMethodParameter_col2" RelativeSize="48.533333333333331" Caption="AriaObjectBrowseMethodParameter_col2" Direction="Horizontal">
+                <LayoutItem Id="KeyProperty" ViewItem="KeyProperty" Removed="True" />
+                <LayoutItem Id="MethodParameterOid" ViewItem="MethodParameterOid" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectBrowseMethodParameter_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="KeyProperty" Index="-1" />
+        <ColumnInfo Id="MethodParameterOid" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectBrowseMethodParameter_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

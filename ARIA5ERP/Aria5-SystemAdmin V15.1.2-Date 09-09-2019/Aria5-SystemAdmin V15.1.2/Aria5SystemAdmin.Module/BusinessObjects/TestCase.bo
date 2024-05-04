@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TestCase" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ApproveStatus" AllowEdit="False" />
+        <Member Name="Attachements" Caption="Attachments" />
+        <Member Name="Enddate" AllowEdit="True" Caption="End Date" />
+        <Member Name="Entity" DataSourceProperty="" />
+        <Member Name="IsOriginal" Caption="Is Master" />
+        <Member Name="ProjectTemplate" Caption="Project" />
+        <Member Name="QADefect" Caption="Defect" />
+        <Member Name="QAUseCase" Caption="Use Case" />
+        <Member Name="TestCaselevel" Caption="Test Case Level" />
+        <Member Name="TestcaseType" Caption="Test Case Type" />
+        <Member Name="Title" AllowEdit="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_TestCases_ListView" GroupSummary="Empty" />
+    <DetailView Id="TestCase_DetailView">
+      <Items>
+        <PropertyEditor Id="Application" Caption="Application" PropertyName="Application" IsNewNode="True" />
+        <PropertyEditor Id="ApproveStatus" Caption="ApproveStatus" PropertyName="ApproveStatus" IsNewNode="True" />
+        <PropertyEditor Id="AssignedUser" Caption="AssignedUser" PropertyName="AssignedUser" IsNewNode="True" />
+        <PropertyEditor Id="Description" Caption="Description" PropertyName="Description" IsNewNode="True" />
+        <PropertyEditor Id="Enddate" Caption="End Date" PropertyName="Enddate" IsNewNode="True" />
+        <PropertyEditor Id="Entity" Caption="Entity" PropertyName="Entity" AllowEdit="False" IsNewNode="True" />
+        <PropertyEditor Id="IsOriginal" Caption="IsOriginal" PropertyName="IsOriginal" IsNewNode="True" />
+        <PropertyEditor Id="ProjectTemplate" Caption="Project" PropertyName="ProjectTemplate" IsNewNode="True" />
+        <PropertyEditor Id="QADefect" Caption="Defect" PropertyName="QADefect" IsNewNode="True" />
+        <PropertyEditor Id="QAUseCase" Caption="UseCase" PropertyName="QAUseCase" IsNewNode="True" />
+        <PropertyEditor Id="Refrence" Caption="Refrence" PropertyName="Refrence" IsNewNode="True" />
+        <PropertyEditor Id="Requirement" Caption="Requirement" PropertyName="Requirement" DataSourceProperty="ProjectTemplate.Requirements" IsNewNode="True" />
+        <PropertyEditor Id="Status" Caption="Status" PropertyName="Status" IsNewNode="True" />
+        <PropertyEditor Id="TestCaselevel" Caption="Test Case Level" PropertyName="TestCaselevel" IsNewNode="True" />
+        <PropertyEditor Id="TestcaseType" Caption="Test Case Type" PropertyName="TestcaseType" IsNewNode="True" />
+        <PropertyEditor Id="Title" Caption="Title" PropertyName="Title" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Autoa6e4da69-036a-4fe5-ac13-3cdabc76165f" ShowCaption="False" Caption="Autoa6e4da69-036a-4fe5-ac13-3cdabc76165f(136)" Direction="Vertical" Index="0" RelativeSize="36" IsNewNode="True">
+          <LayoutGroup Id="Auto7f9522ce-85b9-4dfb-9127-34442efe21b2" ShowCaption="False" Caption="Auto7f9522ce-85b9-4dfb-9127-34442efe21b2(137)" Index="0" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption=" " Direction="Horizontal" IsNewNode="True">
+              <LayoutGroup Id="Auto3293e3cd-0c06-4af0-8c64-f2171acfbf9b" ShowCaption="False" Caption="Auto3293e3cd-0c06-4af0-8c64-f2171acfbf9b(44)" Index="0" RelativeSize="49.862637362637365" IsNewNode="True">
+                <LayoutItem Id="Title" ViewItem="Title" SizeConstraintsType="Default" Index="0" RelativeSize="13.793103448275861" IsNewNode="True" />
+                <LayoutItem Id="Refrence" ViewItem="Refrence" SizeConstraintsType="Default" Index="1" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="Requirement" ViewItem="Requirement" SizeConstraintsType="Default" Index="2" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="QAUseCase" ViewItem="QAUseCase" Index="3" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="Entity" ViewItem="Entity" SizeConstraintsType="Default" Index="4" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="QADefect" ViewItem="QADefect" SizeConstraintsType="Default" Index="5" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Index="6" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="ApproveStatus" ViewItem="ApproveStatus" Index="7" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="AssignedUser" ViewItem="AssignedUser" SizeConstraintsType="Default" Index="8" RelativeSize="13.793103448275861" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Autod3933d80-b2c0-480e-8afe-5f2d60c2c53c" ShowCaption="False" Caption="Autod3933d80-b2c0-480e-8afe-5f2d60c2c53c(52)" Index="1" RelativeSize="50.137362637362635" IsNewNode="True">
+                <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" SizeConstraintsType="Default" Index="0" RelativeSize="13.793103448275861" IsNewNode="True" />
+                <LayoutItem Id="Application" ViewItem="Application" SizeConstraintsType="Default" Index="1" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="ProjectEntity" ViewItem="ProjectEntity" SizeConstraintsType="Default" Index="2" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="TestCaselevel" ViewItem="TestCaselevel" SizeConstraintsType="Default" Index="3" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="TestcaseType" ViewItem="TestcaseType" SizeConstraintsType="Default" Index="4" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="Enddate" ViewItem="Enddate" SizeConstraintsType="Default" Index="5" RelativeSize="10.344827586206897" IsNewNode="True" />
+                <LayoutItem Id="IsOriginal" ViewItem="IsOriginal" SizeConstraintsType="Default" Index="6" RelativeSize="34.482758620689658" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutGroup Id="Autob4f9b7da-44dd-44b4-ae55-f36a5fdb70fa" ShowCaption="False" Caption="Autob4f9b7da-44dd-44b4-ae55-f36a5fdb70fa(172)" Direction="Horizontal" Index="1" RelativeSize="0.53333333333333333" IsNewNode="True" />
+        <LayoutGroup Id="Auto4c0a92fc-3584-4a11-8d11-803687096a99" ShowCaption="False" Caption="Auto4c0a92fc-3584-4a11-8d11-803687096a99(206)" Direction="Horizontal" Index="2" RelativeSize="0.53333333333333333" IsNewNode="True" />
+        <LayoutGroup Id="Auto192641b4-0515-429c-8dbc-d6389fc78d34" ShowCaption="False" Caption="Auto192641b4-0515-429c-8dbc-d6389fc78d34(242)" Direction="Horizontal" Index="3" RelativeSize="0.53333333333333333" IsNewNode="True">
+          <LayoutGroup Id="Autoce7dfc9d-ac68-4081-9668-95b4068e379f" ShowCaption="False" Caption="Autoce7dfc9d-ac68-4081-9668-95b4068e379f(243)" Index="0" RelativeSize="50" Direction="Horizontal" IsNewNode="True" />
+          <LayoutGroup Id="Auto0fd4f571-9deb-47d3-9644-30f667401f81" ShowCaption="False" Caption="Auto0fd4f571-9deb-47d3-9644-30f667401f81(246)" Index="1" RelativeSize="50" Direction="Horizontal" IsNewNode="True" />
+        </LayoutGroup>
+        <LayoutGroup Id="Autoe2b392a6-e432-4166-91e1-f8ae7fa30064" ShowCaption="False" Caption="Autoe2b392a6-e432-4166-91e1-f8ae7fa30064(156)" Direction="Horizontal" Index="4" RelativeSize="49.466666666666669" IsNewNode="True" />
+        <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="5" RelativeSize="3.2" IsNewNode="True" />
+        <LayoutGroup Id="Main" RelativeSize="9.7333333333333325" Index="6">
+          <TabbedGroup Id="Tabs" RelativeSize="100">
+            <LayoutGroup Id="TestCaseSteps" RelativeSize="100">
+              <LayoutItem Id="TestCaseSteps" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestCaseSteps" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestRuns" RelativeSize="100">
+              <LayoutItem Id="TestRuns" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestRuns" />
+            </LayoutGroup>
+            <LayoutGroup Id="Comments" RelativeSize="100">
+              <LayoutItem Id="Comments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Comments" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TestCase_ListView" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="AssignedUser" Index="-1" SortIndex="0" SortOrder="Ascending" Width="49" />
+        <ColumnInfo Id="Entity" Index="-1" SortIndex="-1" SortOrder="None" Width="49" />
+        <ColumnInfo Id="QADefect" Index="-1" Width="49" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="QAUseCase" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Requirement" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Status" Index="-1" Width="49" />
+        <ColumnInfo Id="TestCaselevel" Index="-1" />
+        <ColumnInfo Id="TestcaseType" Index="-1" />
+        <ColumnInfo Id="Title" SortIndex="-1" SortOrder="None" Width="104" Index="0" />
+        <ColumnInfo Id="Refrence" SortIndex="-1" SortOrder="None" Index="1" Width="49" />
+        <ColumnInfo Id="ProjectTemplate" Index="2" SortIndex="-1" SortOrder="None" Width="49" />
+        <ColumnInfo Id="Application" Index="3" SortIndex="-1" SortOrder="None" Width="49" />
+        <ColumnInfo Id="IsOriginal" Index="6" Width="35" />
+        <ColumnInfo Id="Enddate" Index="7" Width="63" />
+      </Columns>
+    </ListView>
+    <ListView Id="TestCase_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Title" Width="76" />
+        <ColumnInfo Id="Refrence" Index="1" Caption="Refrence" PropertyName="Refrence" Width="147" IsNewNode="True" />
+        <ColumnInfo Id="ProjectTemplate" Index="2" Caption="ProjectTemplate" PropertyName="ProjectTemplate" Width="162" IsNewNode="True" />
+        <ColumnInfo Id="IsOriginal" Index="4" Caption="IsOriginal" PropertyName="IsOriginal" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingEntry_TestCases_ListView" AllowEdit="True" />
+  </Views>
+</Application>

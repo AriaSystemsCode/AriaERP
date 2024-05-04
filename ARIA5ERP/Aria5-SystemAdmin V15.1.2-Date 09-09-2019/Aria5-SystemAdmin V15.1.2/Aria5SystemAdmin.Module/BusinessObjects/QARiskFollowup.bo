@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QARiskFollowup" IsDesigned="True" Caption="Risk Follow up">
+      <OwnMembers>
+        <Member Name="Notes" RowCount="10" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QARiskFollowup_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QARiskFollowup" RelativeSize="100">
+              <LayoutItem Id="ResourceName" SizeConstraintsType="Default" RelativeSize="6.1895551257253381" ViewItem="ResourceName" />
+              <LayoutItem Id="FollowUpDate" SizeConstraintsType="Default" RelativeSize="4.6421663442940035" Index="1" ViewItem="FollowUpDate" />
+              <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="89.168278529980654" Index="2" ViewItem="Notes" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

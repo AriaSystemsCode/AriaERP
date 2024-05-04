@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAResourseTrainingNeeds" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="QAResourseTrainingNeeds_DetailView">
+      <Items>
+        <PropertyEditor Id="MaterialLink" EditMaskType="Simple" />
+        <PropertyEditor Id="Name" Caption="Course Name" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAResourseTrainingNeeds" RelativeSize="100" Caption="Resourse Training Needs">
+              <LayoutGroup Id="QAResourseTrainingNeeds_col1" RelativeSize="47.794117647058826">
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="6.6805845511482254" ViewItem="Name" />
+                <LayoutItem Id="Instructor" SizeConstraintsType="Default" RelativeSize="5.010438413361169" ViewItem="Instructor" />
+                <LayoutItem Id="Duration" SizeConstraintsType="Default" RelativeSize="5.010438413361169" ViewItem="Duration" />
+                <LayoutItem Id="MaterialLink" SizeConstraintsType="Default" RelativeSize="5.010438413361169" ViewItem="MaterialLink" />
+                <LayoutItem Id="StartDate" SizeConstraintsType="Default" RelativeSize="78.28810020876827" ViewItem="StartDate" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAResourseTrainingNeeds_col2" RelativeSize="48.161764705882355">
+                <LayoutItem Id="EndtDate" SizeConstraintsType="Default" RelativeSize="6.6805845511482254" ViewItem="EndtDate" />
+                <LayoutItem Id="TrainingStatus" SizeConstraintsType="Default" RelativeSize="5.010438413361169" ViewItem="TrainingStatus" />
+                <LayoutItem Id="ResourceShare" SizeConstraintsType="Default" RelativeSize="88.3089770354906" ViewItem="ResourceShare" />
+                <LayoutItem Id="Resources" ViewItem="Resources" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

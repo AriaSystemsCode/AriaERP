@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="DataFilter_DataFilterColumns_ListView" DataAccessMode="Client" />
+    <ListView Id="DataSort_DataSortColumns_ListView" DataAccessMode="Client" />
+    <ListView Id="EntityType_DataFilters_ListView" DataAccessMode="Client" />
+    <ListView Id="EntityType_DataSorts_ListView" DataAccessMode="Client" />
+    <DetailView Id="News_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="EntityCategory" PropertyEditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxLookupPropertyEditor" LookupEditorMode="AllItems" View="EntityType_EntityCategories_ListView" />
+        <PropertyEditor Id="Status" DataSourceProperty="EntityStatusFiltered" />
+        <PropertyEditor Id="Subject" Caption="Subject" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="News" Caption="News" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="17">
+              <LayoutGroup Id="Autof0bcfd66-96f0-41b7-987c-8b564e4083c6" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="AddDate" RelativeSize="53" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="AddDate" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Auto5de49fab-ace8-44b8-8965-e29a40317df0" RelativeSize="21" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="Auto2db311ed-2b67-49e2-b6f5-1fdbb054f8b7" RelativeSize="48" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical" />
+              <LayoutGroup Id="Auto68b5c424-836b-4293-bd0c-1220f0ec195f" RelativeSize="51" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="IMAGE" MinSize="332, 108" MaxSize="332, 108" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="IMAGE" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Article" RelativeSize="4" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Article" />
+            <LayoutGroup Id="Entity" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Index="3" RelativeSize="55">
+              <LayoutGroup Id="Entity_col2" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical">
+                <LayoutItem Id="Attachments" ViewItem="Attachments" SizeConstraintsType="Default" Index="0" RelativeSize="100" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Attachments" ViewItem="Attachments" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="News_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="IMAGE" ImageEditorCustomHeight="50" ImageEditorFixedHeight="50" ImageEditorFixedWidth="50" />
+        <ColumnInfo Id="Subject" Caption="Subject" />
+      </Columns>
+    </ListView>
+    <ListView Id="Profile_ProfileSections_ListView" DataAccessMode="Client" />
+    <ListView Id="ProfileSection_Categories_ListView" DataAccessMode="Client" />
+    <ListView Id="ProfileSection_ProfileSectionTiles_ListView" DataAccessMode="Client" />
+    <ListView Id="ProfileSectionTile_Categories_ListView" DataAccessMode="Client" />
+    <ListView Id="ProfileSectionTile_Entities_ListView" DataAccessMode="Client" />
+    <ListView Id="News_ListView_Not_Related" ClassName="Aria5SystemAdmin.Module.BusinessObjects.News" Criteria="[Entities][].Count() = 0">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Article" PropertyName="Article" Width="70" Index="-1" />
+        <ColumnInfo Id="CategoryId" PropertyName="CategoryId" Width="70" Index="-1" />
+        <ColumnInfo Id="ClassificationId" PropertyName="ClassificationId" Width="70" Index="-1" />
+        <ColumnInfo Id="DefaultAttachment" PropertyName="DefaultAttachment" Width="70" Index="-1" />
+        <ColumnInfo Id="Description" PropertyName="Description" Width="70" Index="-1" />
+        <ColumnInfo Id="EnteredBy" PropertyName="EnteredBy" Width="70" Index="-1" />
+        <ColumnInfo Id="EnteredDate" PropertyName="EnteredDate" Width="70" Index="-1" />
+        <ColumnInfo Id="EntityCategory" PropertyName="EntityCategory" View="" Index="-1" Width="70" SortIndex="0" SortOrder="Ascending" Caption="Category" />
+        <ColumnInfo Id="EntityClassification" PropertyName="EntityClassification" Width="70" Index="-1" />
+        <ColumnInfo Id="EntityType" PropertyName="EntityType" Width="70" Index="-1" />
+        <ColumnInfo Id="ExtraData" PropertyName="ExtraData" Width="70" Index="-1" />
+        <ColumnInfo Id="IMAGE" PropertyName="IMAGE" Width="70" Index="-1" View="" ImageEditorCustomHeight="50" ImageEditorFixedHeight="50" ImageEditorFixedWidth="50" />
+        <ColumnInfo Id="Notes" PropertyName="Notes" Width="70" Index="-1" />
+        <ColumnInfo Id="Status" PropertyName="Status" Width="70" Index="-1" />
+        <ColumnInfo Id="StatusId" PropertyName="StatusId" Width="70" Index="-1" />
+        <ColumnInfo Id="TypeId" PropertyName="TypeId" Width="70" Index="-1" />
+        <ColumnInfo Id="Subject" PropertyName="Subject" Width="70" Index="1" View="" />
+        <ColumnInfo Id="AddDate" PropertyName="AddDate" View="" Index="2" Width="70" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Location_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Location">
+              <LayoutGroup Id="Location_col1">
+                <LayoutItem Id="LocationType" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="10" ViewItem="LocationType" />
+                <LayoutItem Id="Profile" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="34" ViewItem="Profile" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="SecuritySystemRole_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors1">
+            <LayoutItem Id="@692e0ae3-873e-4078-8d39-082bad451581" ViewItem="@692e0ae3-873e-4078-8d39-082bad451581" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="QADepartement">
+            <Items Id="Items">
+              <Item Id="NonComplainActivity" ViewId="QAComplainActivity_ListView" />
+            </Items>
+          </Item>
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+              <Item Id="DataSortColumn_ListView" ViewId="DataSortColumn_ListView" />
+              <Item Id="DataSort_ListView" ViewId="DataSort_ListView" />
+              <Item Id="DataFilterColumn_ListView" ViewId="DataFilterColumn_ListView" />
+              <Item Id="DataFilter_ListView" ViewId="DataFilter_ListView" />
+              <Item Id="News_ListView" ViewId="News_ListView_Not_Related" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

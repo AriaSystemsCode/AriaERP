@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.AccountLocalization" ImageName="BO_Localization" />
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.ClientDataAudit" ImageName="BO_Audit_ChangeHistory" />
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.Information" Caption="ClientInformation" />
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.Localization" ImageName="BO_Localization" />
+  </BOModel>
+  <Views Id="Views">
+    <DetailView Id="ClientEvents_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="39.733333333333334">
+            <LayoutGroup Id="Event" RelativeSize="28.859060402684563">
+              <LayoutItem Id="Subject" SizeConstraintsType="Default" RelativeSize="37.2093023255814" />
+              <LayoutItem Id="EventDate" SizeConstraintsType="Default" RelativeSize="27.906976744186046" />
+              <LayoutItem Id="StartTime" SizeConstraintsType="Default" RelativeSize="34.883720930232556" />
+            </LayoutGroup>
+            <LayoutGroup Id="ClientEntity" RelativeSize="70.805369127516784">
+              <LayoutGroup Id="ClientEntity_col1" RelativeSize="50">
+                <LayoutItem Id="Division" SizeConstraintsType="Default" RelativeSize="17.391304347826086" />
+                <LayoutItem Id="EntityId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="17.391304347826086" />
+              </LayoutGroup>
+              <LayoutGroup Id="ClientEntity_col2" RelativeSize="50">
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Classification" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="AddDate" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="GUID" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Account" SizeConstraintsType="Default" RelativeSize="17.391304347826086" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ClientBaseObject" RelativeSize="0.33557046979865773" Direction="Horizontal" Caption="Client Data Audit Oid">
+              <LayoutItem Id="ClientDataAuditOid" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="7.6">
+            <LayoutItem Id="Article" SizeConstraintsType="Default" RelativeSize="47.368421052631582" />
+            <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="52.631578947368418" />
+            <LayoutItem Id="ExtraData" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Entities_Group" Direction="Vertical" RelativeSize="52.666666666666664">
+            <LayoutItem Id="Entities" SizeConstraintsType="Default" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ClientInformation_ListView" Caption="Clientnformation" ClassName="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.Information" />
+    <DetailView Id="ClientNews_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="92.4">
+            <LayoutGroup Id="News" RelativeSize="5.4834054834054831">
+              <LayoutItem Id="Subject" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ClientEntity" RelativeSize="30.014430014430015">
+              <LayoutGroup Id="ClientEntity_col1" RelativeSize="50">
+                <LayoutItem Id="Division" SizeConstraintsType="Default" RelativeSize="17.391304347826086" />
+                <LayoutItem Id="EntityId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="17.391304347826086" />
+              </LayoutGroup>
+              <LayoutGroup Id="ClientEntity_col2" RelativeSize="50">
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Classification" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="AddDate" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="GUID" SizeConstraintsType="Default" RelativeSize="13.043478260869565" />
+                <LayoutItem Id="Account" SizeConstraintsType="Default" RelativeSize="17.391304347826086" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ClientBaseObject" RelativeSize="64.5021645021645" Direction="Horizontal" Caption="Client Data Audit Oid">
+              <LayoutItem Id="ClientDataAuditOid" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="7.6">
+            <LayoutItem Id="Article" SizeConstraintsType="Default" RelativeSize="43.859649122807021" />
+            <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="56.140350877192979" />
+            <LayoutItem Id="ExtraData" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProjectTemplate_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Autoffbf980c-dad7-49fe-bde3-2e2e38153972">
+              <LayoutGroup Id="Item1">
+                <LayoutItem Id="PhaseM0" RelativeSize="11.3918495297806" />
+                <LayoutItem Id="PhaseM1" RelativeSize="11.6081504702194" />
+                <LayoutItem Id="PhaseM2" RelativeSize="11.6081504702194" />
+                <LayoutItem Id="PhaseM3" RelativeSize="40.3918495297806" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="@3f596f34-a42e-49b4-9979-7b165173a5cc" ViewId="ClientOnlineGame_ListView" />
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+              <Item Id="EntityClassification_ListView" ViewId="ClientEntityClassification_ListView" />
+              <Item Id="EntityCategory_ListView" ViewId="ClientEntityCategory_ListView" />
+              <Item Id="DataSortColumn_ListView" ViewId="DataSortColumnFilter_ListView" />
+              <Item Id="DataSort_ListView" ViewId="DataSortColumnFilter_ListView" />
+              <Item Id="DataFilterColumn_ListView" ViewId="DataFilterColumnFilter_ListView" />
+              <Item Id="DataFilter_ListView" ViewId="ClientDataFilter_ListView" />
+              <Item Id="ClientEntityType_ListView" ViewId="ClientEntityType_ListView" />
+              <Item Id="AttachmentCategory_ListView" ViewId="ClientAttachmentCategory_ListView" />
+              <Item Id="Attachment_ListView" ViewId="ClientAttachments_ListView" />
+              <Item Id="ADS_ListView" ViewId="ClienADS_ListView" />
+              <Item Id="Events_ListView" ViewId="ClientEvents_ListView" />
+              <Item Id="News_ListView" ViewId="ClientNews_ListView" />
+              <Item Id="ClientInformation_ListView" ViewId="ClientInformation_ListView" />
+              <Item Id="LocationType_ListView" ViewId="ClientLocationType_ListView" />
+              <Item Id="Location_ListView" ViewId="Localization_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

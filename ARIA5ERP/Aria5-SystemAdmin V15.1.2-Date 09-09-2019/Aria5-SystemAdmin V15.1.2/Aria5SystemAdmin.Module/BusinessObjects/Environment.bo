@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Environment" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="PlateForm" Caption="Platform" />
+        <Member Name="ProjectTemplate" Caption="Project" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="Environment_DetailView">
+      <Items>
+        <PropertyEditor Id="PlateForm" Caption="Platform" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="55.762081784386616">
+            <LayoutGroup Id="Environment" RelativeSize="100">
+              <LayoutGroup Id="Environment_col1" RelativeSize="50">
+                <LayoutItem Id="Title" SizeConstraintsType="Default" RelativeSize="28.571428571428573" ViewItem="Title" />
+                <LayoutItem Id="Browser" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="1" ViewItem="Browser" Removed="True" />
+                <LayoutItem Id="Hardware" SizeConstraintsType="Default" RelativeSize="21.428571428571427" Index="1" ViewItem="Hardware" />
+                <LayoutItem Id="Software" ViewItem="Software" SizeConstraintsType="Default" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="3" ViewItem="Description" />
+              </LayoutGroup>
+              <LayoutGroup Id="Environment_col2" RelativeSize="50">
+                <LayoutItem Id="ProjectTemplate" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="0" ViewItem="ProjectTemplate" />
+                <LayoutItem Id="Browser" ViewItem="Browser" SizeConstraintsType="Default" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="PlateForm" SizeConstraintsType="Default" RelativeSize="50" Index="2" ViewItem="PlateForm" />
+                <LayoutItem Id="Software" SizeConstraintsType="Default" RelativeSize="28.571428571428573" Index="3" ViewItem="Software" Removed="True" />
+                <LayoutItem Id="TestPlan" ViewItem="TestPlan" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="44.237918215613384" IsNewNode="True">
+            <LayoutGroup Id="TestRuns_Group" ShowCaption="True" Caption="Test Runs" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="TestRuns" ViewItem="TestRuns" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="TestRuns_Group" Direction="Vertical" RelativeSize="44.237918215613384" Removed="True">
+            <LayoutItem Id="TestRuns" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TestRuns" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Environment_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ProjectTemplate_Environments_ListView">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="QABrowser_Environments_ListView">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAHardware_Environments_ListView">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAPlateForm_Environments_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="QASoftware_Environments_ListView">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="QATestPlan_Environments_ListView">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="TestRun_Environments_ListView">
+      <Columns>
+        <ColumnInfo Id="TestPlan" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

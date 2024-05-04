@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AriaObjectShelve_AriaObjectShelveSettings_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObjectShelveSetting_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectShelveSetting" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectShelveSetting_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="SettingType" SizeConstraintsType="Default" RelativeSize="4.5133991537376588" />
+                <LayoutItem Id="Value" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="DataType" SizeConstraintsType="Default" RelativeSize="3.3850493653032441" />
+                <LayoutItem Id="Width" SizeConstraintsType="Default" RelativeSize="88.716502115655857" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelveSetting_col2" RelativeSize="48.533333333333331">
+                <LayoutItem Id="DecimalPlaces" SizeConstraintsType="Default" RelativeSize="4.5133991537376588" />
+                <LayoutItem Id="Modified" SizeConstraintsType="Default" Index="1" RelativeSize="95.486600846262348" />
+                <LayoutItem Id="AriaObjectShelve" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelveSetting_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" Index="-1" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectShelveSetting_LookupListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelve" Index="-1" />
+        <ColumnInfo Id="Modified" Index="5" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

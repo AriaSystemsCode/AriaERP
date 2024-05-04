@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCaseEnvironmentalFactors" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="QAUseCaseEnvironmentalFactors_DetailView">
+      <Items>
+        <PropertyEditor Id="Score" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAUseCaseTechnicalFactors" RelativeSize="100" Index="0" Caption="Use Case Environmental  Factors" Direction="Vertical">
+              <LayoutGroup Id="QAUseCaseTechnicalFactors_col1" RelativeSize="91.067538126361654">
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="0" RelativeSize="7.6555023923444976" IsNewNode="True" />
+                <LayoutItem Id="UseCasePoints" SizeConstraintsType="Default" RelativeSize="5.741626794258373" Index="1" ViewItem="UseCasePoints" />
+                <LayoutItem Id="Weight" SizeConstraintsType="Default" RelativeSize="5.741626794258373" Index="2" ViewItem="Weight" />
+                <LayoutItem Id="Relivance" SizeConstraintsType="Default" RelativeSize="5.741626794258373" Index="3" ViewItem="Relivance" />
+                <LayoutItem Id="Score" ViewItem="Score" SizeConstraintsType="Default" Index="4" RelativeSize="75.119617224880386" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAUseCaseTechnicalFactors_col2" RelativeSize="47.393364928909953" Caption="QAUseCaseTechnicalFactors_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="Score" ViewItem="Score" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="QAUseCaseEnvironmentalFactors" Direction="Horizontal" RelativeSize="83.86666666666666" Removed="True">
+              <LayoutItem Id="UseCasePoint" ViewItem="UseCasePoint" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,12 @@
+﻿<ProductSetting>
+  <Product>
+    <IPAddress>174.143.166.182</IPAddress>
+    <Username>AIC10</Username>
+    <Password></Password>
+    <remoteapplicationcmdline>X:\\ARIA27\\SYSFILES\\</remoteapplicationcmdline>
+    <remoteapplicationname>Aria_EDI</remoteapplicationname>
+    <remoteapplicationprogram>Aria_EDI</remoteapplicationprogram>
+    <remoteapplicationmode>1</remoteapplicationmode>
+    <alternateshell>Aria_EDI</alternateshell>
+  </Product>
+</ProductSetting>

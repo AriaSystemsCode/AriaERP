@@ -1,0 +1,356 @@
+_Screen.Visible =.f.
+lcDef = ADDBS(FULLPATH(""))
+IF FILE(lcDef +'Log.DBF')
+  ERASE (lcDef +'Log.DBF')  
+ENDIF
+IF FILE(lcDef+"Log.XLS") 
+  ERASE (lcDef+"Log.XLS") RECYCLE  
+ENDIF
+CREATE TABLE (lcDef+"Log.DBF") ( Client_ID C(5),Company_ID C(2),File C(30),issue C(200))
+SET STEP ON 
+LOCAL lcReServer
+lcReServer = ALLTRIM(SUBSTR(SYS(0), 1, AT('#', SYS(0))-1))
+loActivator = CREATEOBJECT("Aria.Utilities.RemoteCall.AriaActivator")
+TRY 
+  loA5ariaEnvironment = loActivator.GetRemoteObject("Aria.Environment.AriaEnviromentVariables" , lcReServer, 1500)
+Catch  
+*!*	 loA5ariaEnvironment = CreateObject("Aria.Environment.AriaEnviromentVariables" , lcReServer, 1500)
+ENDTRY
+IF TYPE('loA5ariaEnvironment') <> 'O'
+  *HMS begin
+  *=STRTOFILE('Could not create Object from Aria.Environment.AriaEnviromentVariables'+CHR(13)+CHR(10),lcDef +'Log.txt',0) 
+   INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES ("","","",'Could not create Object from Aria.Environment.AriaEnviromentVariables')
+  *HMS end
+   SELECT LOg
+   IF RECCOUNT()>0
+     COPY TO (lcDef+"Log.XLS") TYPE XLS
+   ENDIF
+  IF FILE(lcDef +'Log.XLS')
+    Do SYMAILER With 'Aria.Apps.Notifications@ariany.com','Aria@notifications','','Hesham.e@ariasystems.biz,heba.m@ariany.com,hytham.m@ariany.com,mariam.m@ariany.com',;
+                      'SAAS Monitoring Tool Result',"Hi All,"+CHR(13)+CHR(10)+" Please find attached the result of monitoring SAAS: "+CHR(13)+CHR(10)+FILETOSTR(lcDef +'Log.XLS') 
+   *Do SYMAILER With 'Aria.Apps.Notifications@ariany.com','Aria@notifications','','mariam.m@ariany.com','SAAS Monitoring Tool Result',"Hi All,"+CHR(13)+CHR(10)+" Please find attached the result of monitoring SAAS: "+CHR(13)+CHR(10)+FILETOSTR(lcDef +'Log.txt')                       
+  ENDIF
+  CLOSE all  
+  RETURN 
+ENDIF
+= SQLSETPROP(0, "DispLogin", 3)
+lcSysFlConnect = loA5ariaEnvironment.Aria50SystemFilesConnectionStringODBC
+lnconnecthandle = SQLSTRINGCONNECT(lcsysflconnect)
+lnsqlget = SQLEXEC(lnconnecthandle, "Select * From Clients  Order by CClientID", "CLIENTS")
+IF lnsqlget > 0
+  SELECT CLIENTS
+  SCAN
+    lcClient = ALLTRIM(CLIENTS.CCONUSERID)
+    lcClientMasterConn = "Driver={SQL Server};server=" + ALLTRIM(CLIENTS.CCONSERVER) +;
+                         ";DATABASE=" + ALLTRIM(CLIENTS.CCONDBNAME) + ";uid=" + ALLTRIM(CLIENTS.CCONUSERID) + ";pwd=" + ALLTRIM(CLIENTS.CCONPASWRD)
+                         
+    lnSqlClientConnection = SQLSTRINGCONNECT(lcClientMasterConn)
+    IF lnSqlClientConnection  < 0
+      *=STRTOFILE('Client: '+lcClient+'  Master SQL DB is Inaccessible'+CHR(13)+CHR(10),lcDef +'Log.txt',1) 
+      INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"","",'Master SQL DB is inaccessible')
+    ELSE
+      lnSqlRes = SQLEXEC(lnSqlClientConnection ,"Select Top 1 * from SecuritySystemUser",'SqlRes')
+      IF lnSqlRes < 0
+        lnerr = AERROR(laError)
+        *HMS
+       * =STRTOFILE('Client: '+lcClient+' Could not open users file from Master SQL Database due to error: '+laError[1,2]+CHR(13)+CHR(10),lcDef +'Log.txt',1)       
+      INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"","",'Could not open users file from Master SQL Database due to error'+laError[1,2])
+      *HMS
+      ELSE
+        USE IN 'SqlRes'
+      ENDIF   
+    ENDIF
+    
+    lcMapPath = ALLTRIM(CLIENTS.CDATAPATH)
+    IF RIGHT(ALLTRIM(CLIENTS.CDATAPATH),1) = '\'
+      lcMapPath  = SUBSTR(ALLTRIM(CLIENTS.CDATAPATH),1,LEN(ALLTRIM(CLIENTS.CDATAPATH))-1)
+    ENDIF 
+    IF DIRECTORY(lcMapPath)
+       oNet = CreateObject("WScript.Network")
+       TRY 
+         oNet.RemoveNetworkDrive ("X:",.T.)
+       CATCH
+       ENDTRY   
+       TRY  
+		 oNet.MapNetworkDrive("X:", lcMapPath)
+   	   CATCH
+	   ENDTRY 
+    ELSE
+    *HMS
+	  *=STRTOFILE('Client: '+CLIENTS.CClient_ID+' Folder: '+lcMapPath+' is not found'+CHR(13)+CHR(10),lcDef +'Log.txt',0)    
+    INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"",lcMapPath,' is not found')
+    ENDIF 
+    
+    lfCheckClient(CLIENTS.ARIA27SYS,CLIENTS.CClientID)
+  ENDSCAN  
+ELSE
+*HMS
+ *=STRTOFILE('Cannot get the clients list from System.Matser'+CHR(13)+CHR(10),lcDef +'Log.txt',0)
+   INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"","",'Cannot get the clients list from System.Matser')
+ENDIF
+   SELECT LOg
+   IF RECCOUNT()>0
+     COPY TO (lcDef+"Log.XLS") TYPE XLS
+   ENDIF
+IF FILE(lcDef +'Log.XLS')
+  Do SYMAILER With 'Aria.Apps.Notifications@ariany.com','Aria@notifications',lcDef +'Log.XLS','Hesham.e@ariasystems.biz,heba.m@ariany.com,hytham.m@ariany.com,mariam.m@ariany.com','SAAS Monitoring Tool Result',"Hi All,"+CHR(13)+CHR(10)+" Please find attached the result of monitoring SAAS" 
+ELSE
+  Do SYMAILER With 'Aria.Apps.Notifications@ariany.com','Aria@notifications','','Hesham.e@ariasystems.biz,heba.m@ariany.com,hytham.m@ariany.com,mariam.m@ariany.com','SAAS Monitoring Tool Result',"Hi All,"+CHR(13)+CHR(10)+" Please note that there is no issues found on SAAS environment."   
+*  Do SYMAILER With 'Aria.Apps.Notifications@ariany.com','Aria@notifications','','mariam.m@ariany.com','SAAS Monitoring Tool Result',"Hi All,"+CHR(13)+CHR(10)+" Please find attached the result of monitoring SAAS: "+CHR(13)+CHR(10)+FILETOSTR(lcDef +'Log.txt') 
+ENDIF
+
+CLOSE all
+
+FUNCTION lfCheckClient
+LPARAMETERS lcSYSFILES,lcClient 
+
+IF !DIRECTORY(lcSYSFILES)
+*HMS
+  *=STRTOFILE('Client: '+lcClient+'  SYSFILES folder: '+lcSYSFILES+" is not found or inaccessible"+CHR(13)+CHR(10),lcDef +'Log.txt',1)
+  INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"",lcSYSFILES,' is not found or inaccessible ')  
+  RETURN 
+ENDIF
+lnOldSel = SELECT(0)
+lcSYSFILES = ADDBS(lcSYSFILES)
+IF !FILE(lcSYSFILES+"SYDFILES.DBF")
+*HMS
+  *=STRTOFILE('Client: '+lcClient+' SYDFILES file is missing from folder: '+lcSYSFILES+CHR(13)+CHR(10),lcDef +'Log.txt',1)  
+  INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"","",'SYDFILES file is missing from folder'+lcSYSFILES)
+  RETURN
+ENDIF
+IF !FILE(lcSYSFILES+"SYCCOMP.DBF")
+*HMS
+  *=STRTOFILE('Client: '+lcClient+' SYCCOMP file is missing from folder: '+lcSYSFILES+CHR(13)+CHR(10),lcDef +'Log.txt',1)  
+   INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"","",' SYCCOMP file is missing from folder: '+lcSYSFILES)
+  RETURN
+ENDIF
+USE (lcSYSFILES+"SYDFILES.DBF") SHARED order CFILE_NAM IN 0&& CFILE_NAM
+
+SELECT SYDFILES
+LOCATE 
+SCAN FOR !DELETED() AND LEFT(CFILE_NAM ,2)= 'SY' AND  ALLTRIM(SYDFILES.CFILE_NAM)<>'SYDFILES' AND cVer = 'A27'
+  IF !FILE(lcSYSFILES+ALLTRIM(SYDFILES.CFILE_NAM)+".DBF")
+  *HMS
+    *=STRTOFILE('Client: '+lcClient+' '+ALLTRIM(SYDFILES.CFILE_NAM)+' file is missing from folder: '+lcSYSFILES+CHR(13)+CHR(10),lcDef +'Log.txt',1)  
+    INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"",ALLTRIM(SYDFILES.CFILE_NAM),' file is missing from folder: '+lcSYSFILES)
+    LOOP  
+  ENDIF
+  TRY 
+    USE (lcSYSFILES+ALLTRIM(SYDFILES.CFILE_NAM)+".DBF") SHARED IN 0
+    SELECT (ALLTRIM(SYDFILES.CFILE_NAM)) 
+    LOCATE
+    USE IN (ALLTRIM(SYDFILES.CFILE_NAM)) 
+  CATCH
+  *HMS
+    *=STRTOFILE('Client: '+lcClient+' '+lcSYSFILES+ALLTRIM(SYDFILES.CFILE_NAM)+".DBF"+' file could not be used'+CHR(13)+CHR(10),lcDef +'Log.txt',1)
+      INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,"",ALLTRIM(SYDFILES.CFILE_NAM),' file is missing from folder: '+lcSYSFILES) 
+  ENDTRY  
+ENDSCAN
+
+USE (lcSYSFILES+"SYCCOMP.DBF") SHARED ORDER 1 IN 0
+SELECT SYCCOMP
+SCAN FOR !DELETED()
+  lcDataDir =  ADDBS(ALLTRIM(syccomp.ccom_ddir))
+  IF !DIRECTORY(lcDataDir)
+  *HMS
+    *=STRTOFILE('Client: '+lcClient+' Company ID: '+syccomp.ccomp_id +' DBFs folder: '+lcDataDir +" is not found or inaccessible"+CHR(13)+CHR(10),lcDef +'Log.txt',1)  
+    INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,syccomp.ccomp_id,lcDataDir," is not found or inaccessible") 
+    LOOP 
+  ENDIF
+  
+ 
+  SELECT SYDFILES
+  LOCATE 
+  SCAN FOR !DELETED() AND cVer = 'A27' AND LEFT(CFILE_NAM ,2)<> 'SY' &&AND !'SP' $  mfilE_app AND !MFILE_APP ==',,,,,' and !'CR' $ MFILE_APP 
+    *XXXXX
+    llFound = .F.
+    IF ',' $ MFILE_APP
+      DIMENSION laOutArray[1]
+      = GFSUBSTR(ALLTRIM(MFILE_APP),@laOutArray,',')
+     * IF !EMPTY(laOutArray[1])
+        FOR lnA = 1 TO ALEN(laOutArray,1)
+          IF EMPTY(laOutArray[lnA])
+            LOOP
+          ELSE
+            IF !laOutArray[lnA] $ SYCCOMP.mmodlset
+              LOOP 
+            ELSE
+              llFound = .T.  
+              EXIT 
+            ENDIF
+          ENDIF
+        ENDFOR
+     * ENDIF
+    ELSE
+      IF !EMPTY(ALLTRIM(SYDFILES.MFILE_APP)) AND ALLTRIM(SYDFILES.MFILE_APP) $ SYCCOMP.mmodlset 
+        llFound = .T.  
+      ENDIF
+    ENDIF
+    IF !llFound
+      LOOP 
+    ENDIF
+    *XXXXX
+  
+    IF !FILE(lcDataDir+ALLTRIM(SYDFILES.CFILE_NAM)+".DBF")
+    *HMS
+      *=STRTOFILE('Client: '+lcClient+' Company ID: '+syccomp.ccomp_id +' File: '+ALLTRIM(SYDFILES.CFILE_NAM)+' is missing from DBFs: '+lcDataDir+CHR(13)+CHR(10) ,lcDef +'Log.txt',1)  
+      INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,syccomp.ccomp_id,ALLTRIM(SYDFILES.CFILE_NAM),' is missing from DBFs: '+lcDataDir) 
+      LOOP  
+     ENDIF  
+     TRY
+       USE (lcDataDir+ALLTRIM(SYDFILES.CFILE_NAM)+".DBF") SHARED IN 0
+       SELECT (ALLTRIM(SYDFILES.CFILE_NAM)) 
+       LOCATE
+       USE IN (ALLTRIM(SYDFILES.CFILE_NAM))  
+     CATCH
+     *HMS
+      * =STRTOFILE('Client: '+lcClient+' Company ID: '+syccomp.ccomp_id +' File: '+ALLTRIM(SYDFILES.CFILE_NAM)+' could not be used'+CHR(13)+CHR(10),lcDef +'Log.txt',1)       
+     INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,syccomp.ccomp_id,ALLTRIM(SYDFILES.CFILE_NAM),' could not be used') 
+     ENDTRY
+  ENDSCAN 
+  lcSqlConnectionString = "Driver={SQL Server};server="+ALLTRIM(SYCCOMP.CCONSERVER)+";DATABASE="+ALLTRIM(SYCCOMP.CCONDBNAME)+;
+                ";uid="+ALLTRIM(SYCCOMP.CCONUSERID)+";pwd="+ALLTRIM(SYCCOMP.CCONPASWRD)
+                
+  lnSqlConnection = SQLSTRINGCONNECT(lcSqlConnectionString)
+  IF lnSqlConnection <= 0
+  *HMS
+    *=STRTOFILE('Client: '+lcClient+' Company ID: '+syccomp.ccomp_id +' SQL Database is not found or inaccessible'+CHR(13)+CHR(10),lcDef +'Log.txt',1)  
+    INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,syccomp.ccomp_id,"",' SQL Database is not found or inaccessible')
+    LOOP 
+  ELSE
+    SELECT SYDFILES
+    LOCATE 
+    SCAN FOR !DELETED() AND cVer = 'A40'
+       *XXXXX
+    llFound = .F.
+    IF ',' $ MFILE_APP
+      DIMENSION laOutArray[1]
+      = GFSUBSTR(ALLTRIM(MFILE_APP),@laOutArray,',')
+     * IF !EMPTY(laOutArray[1])
+        FOR lnA = 1 TO ALEN(laOutArray,1)
+          IF EMPTY(laOutArray[lnA])
+            LOOP
+          ELSE
+            IF !laOutArray[lnA] $ SYCCOMP.mmodlset
+              LOOP 
+            ELSE
+              llFound = .T.  
+              EXIT 
+            ENDIF
+          ENDIF
+        ENDFOR
+     * ENDIF
+    ELSE
+      IF !EMPTY(ALLTRIM(SYDFILES.MFILE_APP)) AND ALLTRIM(SYDFILES.MFILE_APP) $ SYCCOMP.mmodlset 
+        llFound = .T.  
+      ENDIF
+    ENDIF
+    IF !llFound
+      LOOP 
+    ENDIF
+    *XXXXX
+    
+      lnSqlRes = SQLEXEC(lnSqlConnection ,"Select Top 1 * from "+ALLTRIM(SYDFILES.CFILE_NAM),'SqlRes')
+      IF lnSqlRes < 0
+        lnerr = AERROR(laError)
+        *HMS
+        *=STRTOFILE('Client: '+lcClient+' Company ID: '+syccomp.ccomp_id +' File: '+ALLTRIM(SYDFILES.CFILE_NAM)+' could not be opened from SQL DB due to Error: '+laError[1,2]+CHR(13)+CHR(10),lcDef +'Log.txt',1)       
+      INSERT INTO LOG(Client_ID ,Company_ID ,File,issue ) VALUES (lcClient,syccomp.ccomp_id ,ALLTRIM(SYDFILES.CFILE_NAM),' could not be opened from SQL DB due to Error: '+laError[1,2])
+      ELSE
+        USE IN 'SqlRes'
+      ENDIF   
+    ENDSCAN   
+  ENDIF
+ENDSCAN 
+USE IN SYCCOMP
+USE IN SYDFILES
+SELECT(lnOldSel)
+
+FUNCTION GFSUBSTR
+PARAMETERS LCSTRING,LNARYORPOS,LCSEPTA
+
+LCSUBSTR  =' '
+LNARYDIM  = 1
+LNARYROWS = 1
+LNARYCOLS = 1
+LCSEPTA   = IIF(TYPE('lcSepta')='C',LCSEPTA,',')
+
+IF LEN(ALLTRIM(LCSEPTA))>1
+  LCCOLSEP  = SUBSTR(LCSEPTA,2,1)
+  LCSEPTA   = LEFT(LCSEPTA,1)
+  LNARYDIM  = IIF(OCCURS(LCSEPTA,LCSTRING)>0,;
+    OCCURS(LCSEPTA,LCSTRING)+;
+    IIF(RIGHT(LCSTRING,1)<>LCSEPTA,1,0),;
+    LNARYDIM)
+  LNARYCOLS = IIF(OCCURS(LCCOLSEP,LCSTRING)>0,;
+    OCCURS(LCCOLSEP,LCSTRING)+;
+    IIF(RIGHT(LCSTRING,1)<>LCCOLSEP,1,0),;
+    LNARYDIM)
+  LNARYROWS = (LNARYDIM+(LNARYCOLS-1)) / LNARYCOLS
+  LNARYDIM  = LNARYDIM +(LNARYCOLS-1)
+  LCSTRING  = STRTRAN(LCSTRING,LCCOLSEP,LCSEPTA)
+ELSE
+  LNARYDIM = IIF(OCCURS(LCSEPTA,LCSTRING)>0,;
+    OCCURS(LCSEPTA,LCSTRING)+;
+    IIF(RIGHT(LCSTRING,1)<>LCSEPTA,1,0),;
+    LNARYDIM)
+ENDIF
+
+*** Chek if second parameter array or numeric
+DO CASE
+  *** If no parameter found assume firest part of string
+CASE TYPE ('lnAryOrPos')='U'
+  LNARYORPOS = 1
+
+  *** If array strich it to hold all string parts
+CASE TYPE ('lnAryOrPos') $ 'C,L'
+  IF LNARYCOLS > 1
+    DIMENSION LNARYORPOS[lnAryRows,lnAryCols]
+  ELSE
+    IF ALEN(LNARYORPOS,2) > 0
+      DIMENSION LNARYORPOS[lnAryDim,ALEN(lnAryOrPos,2)]
+    ELSE
+      DIMENSION LNARYORPOS[lnAryDim]
+    ENDIF
+
+  ENDIF
+  LNARYORPOS  = ' '
+
+ENDCASE
+
+FOR LNARELEM  = 1 TO LNARYDIM
+  IF TYPE ('lnAryOrPos')='N'
+    LNARELEM = LNARYORPOS
+  ENDIF
+
+  DO CASE
+    *** In case of firest string part
+  CASE LNARELEM = 1
+    LCSUBSTR = SUBSTR(LCSTRING,1,;
+      IIF(LCSEPTA $ LCSTRING,AT(LCSEPTA,LCSTRING)-1,LEN(LCSTRING)))
+
+    *** In case of last string part
+  CASE LNARELEM = LNARYDIM
+    LCSUBSTR = SUBSTR(LCSTRING,AT(LCSEPTA,LCSTRING,LNARELEM-1)+1)
+    LCSUBSTR = IIF(RIGHT(LCSUBSTR,1)=LCSEPTA,;
+      SUBSTR(LCSUBSTR,1,LEN(LCSUBSTR)-1),LCSUBSTR)
+    *** In case of any string part from the meddel
+  CASE LNARELEM > 1
+    LCSUBSTR = SUBSTR(LCSTRING,AT(LCSEPTA,LCSTRING,LNARELEM-1)+1,;
+      AT(LCSEPTA,LCSTRING,LNARELEM)-;
+      AT(LCSEPTA,LCSTRING,LNARELEM-1)-1)
+  ENDCAS
+
+  IF TYPE ('lnAryOrPos')='N'
+    RETURN LCSUBSTR
+  ENDIF
+
+  IF LNARYCOLS > 1
+    LNARYORPOS[((lnArElem-1)%lnAryRows)+1,INT((lnArElem-1)/lnAryRows)+1] = LCSUBSTR
+  ELSE
+    LNARYORPOS[lnArElem] = LCSUBSTR
+  ENDIF
+ENDFOR
+
+
+

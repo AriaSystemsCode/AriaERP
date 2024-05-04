@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectEventParameter" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AriaObjectEvent" AllowEdit="False" />
+        <Member Name="ParameterNo" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectEvent_AriaObjectEventParameters_ListView" IsFooterVisible="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEvent_AriaObjectEventParametersArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEventParameter_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEventParameter_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

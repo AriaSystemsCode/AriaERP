@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ADS" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="ADS_DetailView">
+      <Items>
+        <PropertyEditor Id="EntityCategory" Caption="Category" />
+        <PropertyEditor Id="EntityClassification" Caption="Classification" />
+        <PropertyEditor Id="Id" Caption="ID" />
+        <PropertyEditor Id="IMAGE" ImageSizeMode="Zoom" AllowEdit="False" ImageEditorCustomHeight="150" ImageEditorFixedHeight="150" ImageEditorFixedWidth="150" Caption="IMAGE(88)" />
+        <PropertyEditor Id="Subject" Caption="Title" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="ADS" RelativeSize="63" Caption="ADS" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="Auto94984f9d-b3e2-4886-8503-bdc9482c68eb" ShowCaption="False" Caption="Auto94984f9d-b3e2-4886-8503-bdc9482c68eb(4)" Direction="Horizontal" Index="0" RelativeSize="93" IsNewNode="True">
+                <LayoutGroup Id="Auto0f2aa29c-4485-4865-8240-8a43110fb3a8" ShowCaption="False" Caption="Auto0f2aa29c-4485-4865-8240-8a43110fb3a8(116)" Index="0" RelativeSize="27" IsNewNode="True">
+                  <LayoutItem Id="Id" ViewItem="Id" SizeConstraintsType="Default" Index="0" RelativeSize="23" IsNewNode="True" />
+                  <LayoutItem Id="Subject" ViewItem="Subject" SizeConstraintsType="Default" Index="1" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="2" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" SizeConstraintsType="Default" Index="3" RelativeSize="17" IsNewNode="True" />
+                  <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" SizeConstraintsType="Default" Index="4" RelativeSize="22" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="IMAGE" ShowCaption="False" ViewItem="IMAGE" SizeConstraintsType="Custom" MinSize="350, 108" MaxSize="350, 108" Index="1" RelativeSize="72" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="Business" ShowCaption="False" SizeConstraintsType="Default" Index="1" RelativeSize="6" ViewItem="" IsNewNode="True" />
+              <LayoutItem Id="Subject" SizeConstraintsType="Default" Index="1" RelativeSize="21" ViewItem="Subject" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Auto464564bb-0c46-4289-aa93-62c8dde30654" ShowCaption="False" Caption="Auto464564bb-0c46-4289-aa93-62c8dde30654(9)" Direction="Horizontal" Index="1" RelativeSize="33" IsNewNode="True">
+              <LayoutGroup Id="Autod59a97f6-64a7-408a-94c7-46aa716cd866" ShowCaption="False" Caption="Autod59a97f6-64a7-408a-94c7-46aa716cd866(10)" Index="0" RelativeSize="96" Direction="Vertical" IsNewNode="True">
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="Attachments " IsNewNode="True">
+                  <LayoutItem Id="EntityAttachments" ViewItem="EntityAttachments" SizeConstraintsType="Default" Index="0" RelativeSize="51" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Autofec2a583-16b5-4bda-a540-d2d73e5831e2" ShowCaption="False" Caption="Autofec2a583-16b5-4bda-a540-d2d73e5831e2(13)" Index="1" RelativeSize="3" Direction="Horizontal" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="71" Index="2" Removed="True">
+              <LayoutGroup Id="Entity_col1" RelativeSize="48" Caption="Entity_col1" Direction="Horizontal">
+                <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="EnteredBy" ViewItem="EnteredBy" Removed="True" />
+                <LayoutItem Id="EnteredDate" ViewItem="EnteredDate" Removed="True" />
+                <LayoutItem Id="ExtraData" ViewItem="ExtraData" Removed="True" />
+                <LayoutItem Id="Id" ViewItem="Id" Removed="True" />
+                <LayoutItem Id="Notes" ViewItem="Notes" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="StatusId" ViewItem="StatusId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="48" Caption="Entity_col2" Direction="Horizontal">
+                <LayoutItem Id="CategoryId" ViewItem="CategoryId" Removed="True" />
+                <LayoutItem Id="ClassificationId" ViewItem="ClassificationId" Removed="True" />
+                <LayoutItem Id="DefaultAttachment" ViewItem="DefaultAttachment" Removed="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" Removed="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" Removed="True" />
+                <LayoutItem Id="EntityType" ViewItem="EntityType" Removed="True" />
+                <LayoutItem Id="TypeId" ViewItem="TypeId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity_col2" ShowCaption="False" Direction="Vertical" Index="2" RelativeSize="3" IsNewNode="True">
+              <LayoutGroup Id="Attachments" ShowCaption="False" Index="0" RelativeSize="100" Direction="Horizontal" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="60" Removed="True">
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="0">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachments" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Attachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ADS_ListView">
+      <Columns>
+        <ColumnInfo Id="Id" Index="0" />
+        <ColumnInfo Id="Subject" Index="1" SortIndex="-1" SortOrder="None" Caption="Title" />
+        <ColumnInfo Id="EntityCategory" Index="2" SortIndex="0" SortOrder="Ascending" Caption="Category" />
+      </Columns>
+    </ListView>
+    <ListView Id="ADS_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

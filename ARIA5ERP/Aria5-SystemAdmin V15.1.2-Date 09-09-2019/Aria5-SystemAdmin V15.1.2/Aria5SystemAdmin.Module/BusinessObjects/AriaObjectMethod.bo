@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectMethod" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AriaObject" AllowEdit="False" />
+        <Member Name="ObjectRevision" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObject_AriaObjectMethods_ListView" IsFooterVisible="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObject_AriaObjectMethodsArray_ListView" DataAccessMode="DataView" />
+    <DetailView Id="AriaObjectMethod_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.933333333333334">
+            <LayoutGroup Id="AriaObjectMethod" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectMethod_col1" RelativeSize="48.533333333333331">
+                <LayoutItem Id="ObjectRevision" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="ObjectRevision" />
+                <LayoutItem Id="AriaObject" SizeConstraintsType="Default" RelativeSize="27.272727272727273" ViewItem="AriaObject" />
+                <LayoutItem Id="MethodName" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="MethodName" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectMethod_col2" RelativeSize="48.533333333333331">
+                <LayoutItem Id="MethodDescription" SizeConstraintsType="Default" RelativeSize="36.363636363636367" ViewItem="MethodDescription" />
+                <LayoutItem Id="ModificationType" SizeConstraintsType="Default" RelativeSize="63.636363636363633" ViewItem="ModificationType" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectMethod_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethod_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectRevision_AriaObjectMethods_ListView" AllowDelete="False" AllowNew="False" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,1637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D28C293A-A455-47D5-8515-C9D019C1A538}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aria5SystemAdmin.Module</RootNamespace>
+    <AssemblyName>Aria5SystemAdmin.Module</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.EF.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v14.1.UI, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxTreeList.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Core, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Reporting.Extensions, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=2.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=3.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.Storage.3.0.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aria5Globals.cs" />
+    <Compile Include="AriaDataStore.cs" />
+    <Compile Include="AriaDataStoreProvider.cs" />
+    <Compile Include="BaseObject.cs" />
+    <Compile Include="BusinessObjects\AccountDevice.bo.cs">
+      <DependentUpon>AccountDevice.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AccountDevice.bo.designer.cs">
+      <DependentUpon>AccountDevice.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ActivationKey.bo.cs">
+      <DependentUpon>ActivationKey.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ActivationKey.bo.designer.cs">
+      <DependentUpon>ActivationKey.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Activity.bo.cs">
+      <DependentUpon>Activity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Activity.bo.designer.cs">
+      <DependentUpon>Activity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Address.bo.cs">
+      <DependentUpon>Address.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Address.bo.designer.cs">
+      <DependentUpon>Address.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AddressType.bo.cs">
+      <DependentUpon>AddressType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AddressType.bo.designer.cs">
+      <DependentUpon>AddressType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Administration.bo.cs">
+      <DependentUpon>Administration.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Administration.bo.designer.cs">
+      <DependentUpon>Administration.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ADS.bo.cs">
+      <DependentUpon>ADS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ADS.bo.designer.cs">
+      <DependentUpon>ADS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Application.bo.cs">
+      <DependentUpon>Application_T.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Application.bo.designer.cs">
+      <DependentUpon>Application_T.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationBuildEntries_T.bo.cs">
+      <DependentUpon>ApplicationBuildEntries_T.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationBuildEntries_T.bo.designer.cs">
+      <DependentUpon>ApplicationBuildEntries_T.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationBuild_T.bo.cs">
+      <DependentUpon>ApplicationBuild_T.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationBuild_T.bo.designer.cs">
+      <DependentUpon>ApplicationBuild_T.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationSetting.bo.cs">
+      <DependentUpon>ApplicationSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationSetting.bo.designer.cs">
+      <DependentUpon>ApplicationSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowse.bo.cs">
+      <DependentUpon>AriaObjectBrowse.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowse.bo.designer.cs">
+      <DependentUpon>AriaObjectBrowse.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseEvent.bo.cs">
+      <DependentUpon>AriaObjectBrowseEvent.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseEvent.bo.designer.cs">
+      <DependentUpon>AriaObjectBrowseEvent.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseEventParameter.bo.cs">
+      <DependentUpon>AriaObjectBrowseEventParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseEventParameter.bo.designer.cs">
+      <DependentUpon>AriaObjectBrowseEventParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseMethod.bo.cs">
+      <DependentUpon>AriaObjectBrowseMethod.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseMethod.bo.designer.cs">
+      <DependentUpon>AriaObjectBrowseMethod.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseMethodParameter.bo.cs">
+      <DependentUpon>AriaObjectBrowseMethodParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseMethodParameter.bo.designer.cs">
+      <DependentUpon>AriaObjectBrowseMethodParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseProperty.bo.cs">
+      <DependentUpon>AriaObjectBrowseProperty.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectBrowseProperty.bo.designer.cs">
+      <DependentUpon>AriaObjectBrowseProperty.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelve.bo.cs">
+      <DependentUpon>AriaObjectShelve.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelve.bo.designer.cs">
+      <DependentUpon>AriaObjectShelve.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveEvent.bo.cs">
+      <DependentUpon>AriaObjectShelveEvent.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveEvent.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveEvent.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveEventParameter.bo.cs">
+      <DependentUpon>AriaObjectShelveEventParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveEventParameter.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveEventParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveEventParameterSetting.bo.cs">
+      <DependentUpon>AriaObjectShelveEventParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveEventParameterSetting.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveEventParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveMethod.bo.cs">
+      <DependentUpon>AriaObjectShelveMethod.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveMethod.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveMethod.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveMethodParameter.bo.cs">
+      <DependentUpon>AriaObjectShelveMethodParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveMethodParameter.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveMethodParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveMethodParameterSetting.bo.cs">
+      <DependentUpon>AriaObjectShelveMethodParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveMethodParameterSetting.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveMethodParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveProperty.bo.cs">
+      <DependentUpon>AriaObjectShelveProperty.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveProperty.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveProperty.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelvePropertySetting.bo.cs">
+      <DependentUpon>AriaObjectShelvePropertySetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelvePropertySetting.bo.designer.cs">
+      <DependentUpon>AriaObjectShelvePropertySetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveSetting.bo.cs">
+      <DependentUpon>AriaObjectShelveSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectShelveSetting.bo.designer.cs">
+      <DependentUpon>AriaObjectShelveSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaSecuritySystemRole.bo.cs">
+      <DependentUpon>AriaSecuritySystemRole.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaSecuritySystemRole.bo.designer.cs">
+      <DependentUpon>AriaSecuritySystemRole.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaSecuritySystemUser.bo.cs">
+      <DependentUpon>AriaSecuritySystemUser.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaSecuritySystemUser.bo.designer.cs">
+      <DependentUpon>AriaSecuritySystemUser.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Attachment.bo.cs">
+      <DependentUpon>Attachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Attachment.bo.designer.cs">
+      <DependentUpon>Attachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AttachmentCategory.bo.cs">
+      <DependentUpon>AttachmentCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AttachmentCategory.bo.designer.cs">
+      <DependentUpon>AttachmentCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Audit.bo.cs">
+      <DependentUpon>Audit.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Audit.bo.designer.cs">
+      <DependentUpon>Audit.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Browser.bo.cs">
+      <DependentUpon>QABrowser.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Browser.bo.designer.cs">
+      <DependentUpon>QABrowser.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Business.bo.cs">
+      <DependentUpon>Business.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Business.bo.designer.cs">
+      <DependentUpon>Business.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Account.bo.cs">
+      <DependentUpon>Account.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Account.bo.designer.cs">
+      <DependentUpon>Account.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Comments.bo.cs">
+      <DependentUpon>Comments.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Comments.bo.designer.cs">
+      <DependentUpon>Comments.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ConfigurationItem.bo.cs">
+      <DependentUpon>ConfigurationItem.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ConfigurationItem.bo.designer.cs">
+      <DependentUpon>ConfigurationItem.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Contact.bo.cs">
+      <DependentUpon>Contact.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Contact.bo.designer.cs">
+      <DependentUpon>Contact.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ContactAddress.bo.cs">
+      <DependentUpon>ContactAddress.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ContactAddress.bo.designer.cs">
+      <DependentUpon>ContactAddress.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ContactPhone.bo.cs">
+      <DependentUpon>ContactPhone.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ContactPhone.bo.designer.cs">
+      <DependentUpon>ContactPhone.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\CountryTS.bo.cs">
+      <DependentUpon>CountryTS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\CountryTS.bo.designer.cs">
+      <DependentUpon>CountryTS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Currency.bo.cs">
+      <DependentUpon>Currency.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Currency.bo.designer.cs">
+      <DependentUpon>Currency.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Department.bo.cs">
+      <DependentUpon>Department.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Department.bo.designer.cs">
+      <DependentUpon>Department.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DesignDetailEstimate.bo.cs">
+   <DependentUpon>DesignDetailEstimate.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\DesignDetailEstimate.bo.designer.cs">
+      <DependentUpon>DesignDetailEstimate.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Division.bo.cs">
+      <DependentUpon>Division.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Division.bo.designer.cs">
+      <DependentUpon>Division.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Entity.bo.cs">
+      <DependentUpon>Entity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Entity.bo.designer.cs">
+      <DependentUpon>Entity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityAddress.bo.cs">
+      <DependentUpon>EntityAddress.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityAddress.bo.designer.cs">
+      <DependentUpon>EntityAddress.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityAttachment.bo.cs">
+      <DependentUpon>EntityAttachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityAttachment.bo.designer.cs">
+      <DependentUpon>EntityAttachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityCategory.bo.cs">
+      <DependentUpon>EntityCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityCategory.bo.designer.cs">
+      <DependentUpon>EntityCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityClassification.bo.cs">
+      <DependentUpon>EntityClassification.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityClassification.bo.designer.cs">
+      <DependentUpon>EntityClassification.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityOperationPermission.bo.cs">
+      <DependentUpon>EntityOperationPermission.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityOperationPermission.bo.designer.cs">
+      <DependentUpon>EntityOperationPermission.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityOperationPermissionGenerator.bo.cs">
+      <DependentUpon>EntityOperationPermissionGenerator.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityOperationPermissionGenerator.bo.designer.cs">
+      <DependentUpon>EntityOperationPermissionGenerator.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityRelationship.bo.cs">
+      <DependentUpon>EntityRelationship.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityRelationship.bo.designer.cs">
+      <DependentUpon>EntityRelationship.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityStatus.bo.cs">
+      <DependentUpon>EntityStatus.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityStatus.bo.designer.cs">
+      <DependentUpon>EntityStatus.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntitySystemDesign.bo.cs">
+      <DependentUpon>EntitySystemDesign.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntitySystemDesign.bo.designer.cs">
+      <DependentUpon>EntitySystemDesign.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityType.bo.cs">
+      <DependentUpon>EntityType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\EntityType.bo.designer.cs">
+      <DependentUpon>EntityType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Environment.bo.cs">
+      <DependentUpon>Environment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Environment.bo.designer.cs">
+      <DependentUpon>Environment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Events.bo.cs">
+      <DependentUpon>Events.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Events.bo.designer.cs">
+      <DependentUpon>Events.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ExportData.bo.cs">
+      <DependentUpon>ExportData.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ExportData.bo.designer.cs">
+      <DependentUpon>ExportData.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\InDoorMap.bo.cs">
+      <DependentUpon>InDoorMap.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\InDoorMap.bo.designer.cs">
+      <DependentUpon>InDoorMap.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\IndoorMapProvider.bo.cs">
+      <DependentUpon>IndoorMapProvider.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\IndoorMapProvider.bo.designer.cs">
+      <DependentUpon>IndoorMapProvider.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\IndustryId.bo.cs">
+      <DependentUpon>Industry.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\IndustryId.bo.designer.cs">
+      <DependentUpon>Industry.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Information.bo.cs">
+      <DependentUpon>Information.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Information.bo.designer.cs">
+      <DependentUpon>Information.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Language.bo.cs">
+      <DependentUpon>Language.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Language.bo.designer.cs">
+      <DependentUpon>Language.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Location.bo.cs">
+      <DependentUpon>Location.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Location.bo.designer.cs">
+      <DependentUpon>Location.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\LocationType.bo.cs">
+      <DependentUpon>LocationType.bo</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessObjects\LocationType.bo.designer.cs">
+      <DependentUpon>LocationType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Person.bo.cs">
+      <DependentUpon>Person.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Person.bo.designer.cs">
+      <DependentUpon>Person.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\PhoneType.bo.cs">
+      <DependentUpon>PhoneType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\PhoneType.bo.designer.cs">
+      <DependentUpon>PhoneType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Position.bo.cs">
+      <DependentUpon>Position.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Position.bo.designer.cs">
+      <DependentUpon>Position.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAActivity.bo.cs">
+      <DependentUpon>QAActivity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAActivity.bo.designer.cs">
+      <DependentUpon>QAActivity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAAttachement.bo.cs">
+      <DependentUpon>QAAttachement.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAAttachement.bo.designer.cs">
+      <DependentUpon>QAAttachement.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAComplainActivity.bo.cs" />
+    <Compile Include="BusinessObjects\QAComplainActivity.bo.designer.cs">
+      <DependentUpon>QAComplainActivity.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAComplainType.bo.cs" />
+    <Compile Include="BusinessObjects\QAComplainType.bo.designer.cs">
+      <DependentUpon>QAComplainType.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QADefect.bo.cs">
+      <DependentUpon>QADefect.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QADefect.bo.designer.cs">
+      <DependentUpon>QADefect.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QADefectChild.bo.cs" />
+    <Compile Include="BusinessObjects\QADefectChild.bo.designer.cs">
+      <DependentUpon>QADefectChild.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAEntityFeatures.bo.cs" />
+    <Compile Include="BusinessObjects\QAEntityFeatures.bo.designer.cs">
+      <DependentUpon>QAEntityFeatures.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAHardware.bo.cs">
+      <DependentUpon>QAHardware.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAHardware.bo.designer.cs">
+      <DependentUpon>QAHardware.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAMainFeature.bo.cs">
+      <DependentUpon>QAMainFeature.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAMainFeature.bo.designer.cs">
+      <DependentUpon>QAMainFeature.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAManagementIssues.bo.cs">
+      <DependentUpon>QAManagementIssues.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAManagementIssues.bo.designer.cs">
+      <DependentUpon>QAManagementIssues.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QANonComplains.bo.cs">
+      <DependentUpon>QANonComplains.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QANonComplains.bo.designer.cs">
+      <DependentUpon>QANonComplains.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAPlateForm.bo.cs">
+      <DependentUpon>QAPlateForm.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAPlateForm.bo.designer.cs">
+      <DependentUpon>QAPlateForm.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAProjectEntity.bo.cs">
+      <DependentUpon>QAProjectEntity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAProjectEntity.bo.designer.cs">
+      <DependentUpon>QAProjectEntity.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAResourceRoles.bo.cs" />
+    <Compile Include="BusinessObjects\QAResourceRoles.bo.designer.cs">
+      <DependentUpon>QAResourceRoles.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAResourceShare.bo.cs">
+      <DependentUpon>QAResourceShare.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAResourceShare.bo.designer.cs">
+      <DependentUpon>QAResourceShare.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAResourseTrainingNeeds.bo.cs" />
+    <Compile Include="BusinessObjects\QAResourseTrainingNeeds.bo.designer.cs">
+      <DependentUpon>QAResourseTrainingNeeds.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QARisk.bo.cs">
+      <DependentUpon>QARisk.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QARisk.bo.designer.cs">
+      <DependentUpon>QARisk.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QARiskFollowup.bo.cs" />
+    <Compile Include="BusinessObjects\QARiskFollowup.bo.designer.cs">
+      <DependentUpon>QARiskFollowup.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QASoftware.bo.cs">
+      <DependentUpon>QASoftware.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QASoftware.bo.designer.cs">
+      <DependentUpon>QASoftware.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QATestCaseChild.bo.cs">
+      <DependentUpon>QATestCaseChild.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QATestCaseChild.bo.designer.cs">
+      <DependentUpon>QATestCaseChild.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QATestPlan.bo.cs">
+      <DependentUpon>QATestPlan.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QATestPlan.bo.designer.cs">
+      <DependentUpon>QATestPlan.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QATestRunChild.bo.cs" />
+    <Compile Include="BusinessObjects\QATestRunChild.bo.designer.cs">
+      <DependentUpon>QATestRunChild.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAType.bo.cs" />
+    <Compile Include="BusinessObjects\QAType.bo.designer.cs">
+      <DependentUpon>QAType.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCase.bo.cs">
+      <DependentUpon>QAUseCase.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCase.bo.designer.cs">
+      <DependentUpon>QAUseCase.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseActorCategory.bo.cs">
+      <DependentUpon>QAUseCaseActorCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseActorCategory.bo.designer.cs">
+      <DependentUpon>QAUseCaseActorCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUsecaseActors.bo.cs">
+      <DependentUpon>QAUsecaseActors.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUsecaseActors.bo.designer.cs">
+      <DependentUpon>QAUsecaseActors.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseChild.bo.cs" />
+    <Compile Include="BusinessObjects\QAUseCaseChild.bo.designer.cs">
+      <DependentUpon>QAUseCaseChild.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseEnvironmentalFactors.bo.cs">
+      <DependentUpon>QAUseCaseEnvironmentalFactors.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseEnvironmentalFactors.bo.designer.cs">
+      <DependentUpon>QAUseCaseEnvironmentalFactors.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseFlow.bo.cs">
+      <DependentUpon>QAUseCaseFlow.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseFlow.bo.designer.cs">
+      <DependentUpon>QAUseCaseFlow.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCasePoint.bo.cs" />
+    <Compile Include="BusinessObjects\QAUseCasePoint.bo.designer.cs">
+      <DependentUpon>QAUseCasePoint.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCasePoints.bo.cs">
+      <DependentUpon>QAUseCasePoints.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCasePoints.bo.designer.cs">
+      <DependentUpon>QAUseCasePoints.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCAsePointsCategory.bo.cs">
+      <DependentUpon>QAUseCAsePointsCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCAsePointsCategory.bo.designer.cs">
+      <DependentUpon>QAUseCAsePointsCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseSteps.bo.cs">
+      <DependentUpon>QAUseCaseSteps.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseSteps.bo.designer.cs">
+      <DependentUpon>QAUseCaseSteps.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseTechnicalFactors.bo.cs">
+      <DependentUpon>QAUseCaseTechnicalFactors.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUseCaseTechnicalFactors.bo.designer.cs">
+      <DependentUpon>QAUseCaseTechnicalFactors.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUserInterfaceRules.bo.cs">
+      <DependentUpon>QAUserInterfaceRules.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAUserInterfaceRules.bo.designer.cs">
+      <DependentUpon>QAUserInterfaceRules.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAWBS.bo.cs">
+      <DependentUpon>QAWBS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\QAWBS.bo.designer.cs">
+      <DependentUpon>QAWBS.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Region.bo.cs">
+      <DependentUpon>Region.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Region.bo.designer.cs">
+      <DependentUpon>Region.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Requirement.bo.cs">
+      <DependentUpon>Requirement.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Requirement.bo.designer.cs">
+      <DependentUpon>Requirement.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\RequirementType.bo.cs">
+      <DependentUpon>RequirementType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\RequirementType.bo.designer.cs">
+      <DependentUpon>RequirementType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Resource.bo.cs" />
+    <Compile Include="BusinessObjects\Resource.bo.designer.cs">
+      <DependentUpon>Resource.bo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Resources.bo.cs">
+      <DependentUpon>Resources.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Resources.bo.designer.cs">
+      <DependentUpon>Resources.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Resturant.bo.cs">
+      <DependentUpon>Resturant.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Resturant.bo.designer.cs">
+      <DependentUpon>Resturant.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Shopping.bo.cs">
+      <DependentUpon>Shopping.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Shopping.bo.designer.cs">
+      <DependentUpon>Shopping.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TeamLeaderDailyFollowUp.bo.cs">
+      <DependentUpon>TeamLeaderDailyFollowUp.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TeamLeaderDailyFollowUp.bo.designer.cs">
+      <DependentUpon>TeamLeaderDailyFollowUp.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TestCase.bo.cs">
+      <DependentUpon>TestCase.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TestCase.bo.designer.cs">
+      <DependentUpon>TestCase.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TestCaseSteps.bo.cs">
+      <DependentUpon>TestCaseSteps.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TestCaseSteps.bo.designer.cs">
+      <DependentUpon>TestCaseSteps.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TestRun.bo.cs">
+      <DependentUpon>TestRun.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TestRun.bo.designer.cs">
+      <DependentUpon>TestRun.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingEntryBrowse.bo.cs">
+      <DependentUpon>TrackingEntryBrowse.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingEntryBrowse.bo.designer.cs">
+      <DependentUpon>TrackingEntryBrowse.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingTask.bo.cs">
+      <DependentUpon>TrackingTask.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingTask.bo.designer.cs">
+      <DependentUpon>TrackingTask.bo</DependentUpon>
+    </Compile>
+    <Compile Include="CalcEndate.cs" />
+    <Compile Include="ConnectionManager.cs" />
+    <Compile Include="Controllers\ActivationKeyViewControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ActivationKeyViewControl.Designer.cs">
+      <DependentUpon>ActivationKeyViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ApplicationBuildEntriesViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ApplicationBuildEntriesViewController.Designer.cs">
+      <DependentUpon>ApplicationBuildEntriesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ApplicationBuildViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ApplicationBuildViewController.Designer.cs">
+      <DependentUpon>ApplicationBuildViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveEventParameterViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveEventParameterViewController.Designer.cs">
+      <DependentUpon>AriaObjectShelveEventParameterViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveEventViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveEventViewController.Designer.cs">
+      <DependentUpon>AriaObjectShelveEventViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveMethodParameterViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveMethodParameterViewController.Designer.cs">
+      <DependentUpon>AriaObjectShelveMethodParameterViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveMethodViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveMethodViewController.Designer.cs">
+      <DependentUpon>AriaObjectShelveMethodViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelvePropertyViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelvePropertyViewController.Designer.cs">
+      <DependentUpon>AriaObjectShelvePropertyViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectShelveViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="BusinessObjects\LocationType.bo" />
+    <EmbeddedResource Include="Controllers\ActivationKeyViewControl.resx">
+      <DependentUpon>ActivationKeyViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ApplicationBuildEntriesViewController.resx">
+      <DependentUpon>ApplicationBuildEntriesViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ApplicationBuildViewController.resx">
+      <DependentUpon>ApplicationBuildViewController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaObjectShelveEventParameterViewController.resx">
+      <DependentUpon>AriaObjectShelveEventParameterViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaObjectShelveEventViewController.resx">
+      <DependentUpon>AriaObjectShelveEventViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaObjectShelveMethodParameterViewController.resx">
+      <DependentUpon>AriaObjectShelveMethodParameterViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaObjectShelveMethodViewController.resx">
+      <DependentUpon>AriaObjectShelveMethodViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaObjectShelvePropertyViewController.resx">
+      <DependentUpon>AriaObjectShelvePropertyViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaObjectShelveViewController.resx">
+      <DependentUpon>AriaObjectShelveViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Controllers\AriaObjectShelveViewController.Designer.cs">
+      <DependentUpon>AriaObjectShelveViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaSecuritySystemRoleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaSecuritySystemRoleController.Designer.cs">
+      <DependentUpon>AriaSecuritySystemRoleController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaSecuritySystemUserController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaSecuritySystemUserController.Designer.cs">
+      <DependentUpon>AriaSecuritySystemUserController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AutoTask_Integration.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AutoTask_Integration.Designer.cs">
+      <DependentUpon>AutoTask_Integration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Baseline.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\Baseline.Designer.cs">
+      <DependentUpon>Baseline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CheckCompleted.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CheckCompleted.Designer.cs">
+      <DependentUpon>CheckCompleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CloneTestCase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CloneTestCase.Designer.cs">
+      <DependentUpon>CloneTestCase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CloneUseCasePoints.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CloneUseCasePoints.Designer.cs">
+      <DependentUpon>CloneUseCasePoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CustomClone.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CustomClone.Designer.cs">
+      <DependentUpon>CustomClone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ConfigurationItemViewControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ConfigurationItemViewControl.Designer.cs">
+      <DependentUpon>ConfigurationItemViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CreateTestRun.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CreateTestRun.Designer.cs">
+      <DependentUpon>CreateTestRun.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DivisionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\DivisionController.Designer.cs">
+      <DependentUpon>DivisionController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\EntityOperationPermissionGeneratorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\EntityOperationPermissionGeneratorController.Designer.cs">
+      <DependentUpon>EntityOperationPermissionGeneratorController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\EntityOperatiPermissionWindowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\EntityOperatiPermissionWindowController.Designer.cs">
+      <DependentUpon>EntityOperatiPermissionWindowController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\HideObjectBasedOnItsRelatedEntityController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\HideObjectBasedOnItsRelatedEntityController.Designer.cs">
+      <DependentUpon>HideObjectBasedOnItsRelatedEntityController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\QACreateIssue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\QACreateIssue.Designer.cs">
+      <DependentUpon>QACreateIssue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SecuritySystemUserController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SecuritySystemUserController.Designer.cs">
+      <DependentUpon>SecuritySystemUserController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SystemSecurityRoleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\SystemSecurityRoleController.Designer.cs">
+      <DependentUpon>SystemSecurityRoleController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\TrackingEntryViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\TrackingEntryViewController.Designer.cs">
+      <DependentUpon>TrackingEntryViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\TrackingTaskViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\TrackingTaskViewController.Designer.cs">
+      <DependentUpon>TrackingTaskViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomEditorAriaObjectMehtodParameterSettings.cs" />
+    <Compile Include="BusinessObjects\ApplicationCategory.bo.cs">
+      <DependentUpon>ApplicationCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ApplicationCategory.bo.designer.cs">
+      <DependentUpon>ApplicationCategory.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObject.bo.cs">
+      <DependentUpon>AriaObject.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObject.bo.designer.cs">
+      <DependentUpon>AriaObject.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectEvent.bo.cs">
+      <DependentUpon>AriaObjectEvent.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectEvent.bo.designer.cs">
+      <DependentUpon>AriaObjectEvent.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectEventParameter.bo.cs">
+      <DependentUpon>AriaObjectEventParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectEventParameter.bo.designer.cs">
+      <DependentUpon>AriaObjectEventParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectEventParameterSetting.bo.cs">
+      <DependentUpon>AriaObjectEventParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectEventParameterSetting.bo.designer.cs">
+      <DependentUpon>AriaObjectEventParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="CustomEditorAriaObjectEventParameterSettings.cs" />
+    <Compile Include="BusinessObjects\AriaObjectMethod.bo.cs">
+      <DependentUpon>AriaObjectMethod.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectMethod.bo.designer.cs">
+      <DependentUpon>AriaObjectMethod.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectMethodParameter.bo.cs">
+      <DependentUpon>AriaObjectMethodParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectMethodParameter.bo.designer.cs">
+      <DependentUpon>AriaObjectMethodParameter.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectMethodParameterSetting.bo.cs">
+      <DependentUpon>AriaObjectMethodParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectMethodParameterSetting.bo.designer.cs">
+      <DependentUpon>AriaObjectMethodParameterSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectProperty.bo.cs">
+      <DependentUpon>AriaObjectProperty.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectProperty.bo.designer.cs">
+      <DependentUpon>AriaObjectProperty.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectPropertySetting.bo.cs">
+      <DependentUpon>AriaObjectPropertySetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectPropertySetting.bo.designer.cs">
+      <DependentUpon>AriaObjectPropertySetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectRevision.bo.cs">
+      <DependentUpon>AriaObjectRevision.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectRevision.bo.designer.cs">
+      <DependentUpon>AriaObjectRevision.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectSetting.bo.cs">
+      <DependentUpon>AriaObjectSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\AriaObjectSetting.bo.designer.cs">
+      <DependentUpon>AriaObjectSetting.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ObjectType.bo.cs">
+      <DependentUpon>ObjectType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ObjectType.bo.designer.cs">
+      <DependentUpon>ObjectType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProjectTemplate.bo.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ProjectTemplate.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\ProjectTemplate.bo.designer.cs">
+      <DependentUpon>ProjectTemplate.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\PropertyType.bo.cs">
+      <DependentUpon>PropertyType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\PropertyType.bo.designer.cs">
+      <DependentUpon>PropertyType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\SettingType.bo.cs">
+      <DependentUpon>SettingType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\SettingType.bo.designer.cs">
+      <DependentUpon>SettingType.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\SettingTypeGroup.bo.cs">
+      <DependentUpon>SettingTypeGroup.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\SettingTypeGroup.bo.designer.cs">
+      <DependentUpon>SettingTypeGroup.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingEntry.bo.cs">
+      <DependentUpon>TrackingEntry.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingEntry.bo.designer.cs">
+      <DependentUpon>TrackingEntry.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingEntryAttachment.bo.cs">
+      <DependentUpon>TrackingEntryAttachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\TrackingEntryAttachment.bo.designer.cs">
+      <DependentUpon>TrackingEntryAttachment.bo</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AriaObjectViewController.Designer.cs">
+      <DependentUpon>AriaObjectViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomEditorPropertySettings.cs" />
+    <Compile Include="CustomEditorSettings.cs" />
+    <Compile Include="DataTypes\ActivationDataType.cs" />
+    <Compile Include="DataTypes\AriaMethodPermission.cs" />
+    <Compile Include="DataTypes\AriaPropertyPermission.cs" />
+    <Compile Include="DataTypes\AriaUserObjectPermissions.cs" />
+    <Compile Include="DataTypes\AriaUserPermissions.cs" />
+    <Compile Include="DataTypes\AriaUserTypePermissions.cs" />
+    <Compile Include="DataTypes\CategoriesDataType.cs" />
+    <Compile Include="DataTypes\NewAccount.cs" />
+    <Compile Include="Division.cs" />
+    <Compile Include="IsClient.cs" />
+    <Compile Include="Managers\AccountDeviceManager.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Managers\ActivationManager.cs" />
+    <Compile Include="Managers\ApplicationPackageManager.cs" />
+    <Compile Include="Managers\AriaRoleManager.cs" />
+    <Compile Include="Managers\AriaUserManager.cs" />
+    <Compile Include="Managers\AutoTaskIntegrationManger.cs" />
+    <Compile Include="Managers\ConfigurationItemManager.cs" />
+    <Compile Include="Managers\DataManger.cs" />
+    <Compile Include="Managers\Email.cs" />
+    <Compile Include="Managers\LockingManager.cs" />
+    <Compile Include="Managers\TfsManager.cs" />
+    <Compile Include="RelatedEntity.cs" />
+    <Compile Include="SequenceGenerator.cs" />
+    <Compile Include="Service References\ServiceReferenceTfsManager\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SubAutoTask\Reference.cs" />
+    <Compile Include="Service References\SubAutoTask\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TFSMangerServiceReference\Reference.cs" />
+    <Compile Include="Service References\TFSMangerServiceReference\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SQLite.cs" />
+    <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="Tree.cs" />
+    <Compile Include="CustomPropertyEditor.cs" />
+    <Compile Include="CustomListEditor.cs" />
+    <Compile Include="WebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebModule.Designer.cs">
+      <DependentUpon>WebModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controllers\AriaObjectViewController.resx">
+      <DependentUpon>AriaObjectViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaSecuritySystemRoleController.resx">
+      <DependentUpon>AriaSecuritySystemRoleController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AriaSecuritySystemUserController.resx">
+      <DependentUpon>AriaSecuritySystemUserController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\AutoTask_Integration.resx">
+      <DependentUpon>AutoTask_Integration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Baseline.resx">
+      <DependentUpon>Baseline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CheckCompleted.resx">
+      <DependentUpon>CheckCompleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CloneTestCase.resx">
+      <DependentUpon>CloneTestCase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CloneUseCasePoints.resx">
+      <DependentUpon>CloneUseCasePoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CustomClone.resx">
+      <DependentUpon>CustomClone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ConfigurationItemViewControl.resx">
+      <DependentUpon>ConfigurationItemViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CreateTestRun.resx">
+      <DependentUpon>CreateTestRun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\DivisionController.resx">
+      <DependentUpon>DivisionController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\EntityOperationPermissionGeneratorController.resx">
+      <DependentUpon>EntityOperationPermissionGeneratorController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\EntityOperatiPermissionWindowController.resx">
+      <DependentUpon>EntityOperatiPermissionWindowController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\QACreateIssue.resx">
+      <DependentUpon>QACreateIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\SecuritySystemUserController.resx">
+      <DependentUpon>SecuritySystemUserController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\SystemSecurityRoleController.resx">
+      <DependentUpon>SystemSecurityRoleController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\TrackingEntryViewController.resx">
+      <DependentUpon>TrackingEntryViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\TrackingTaskViewController.resx">
+      <DependentUpon>TrackingTaskViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="WebModule.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WebModule.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BusinessObjects\SettingTypeGroup.bo" />
+    <EmbeddedResource Include="BusinessObjects\SettingType.bo" />
+    <EmbeddedResource Include="BusinessObjects\PropertyType.bo" />
+    <EmbeddedResource Include="BusinessObjects\ObjectType.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObject.bo">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusinessObjects\AriaObjectProperty.bo" />
+    <EmbeddedResource Include="BusinessObjects\ProjectTemplate.bo" />
+    <EmbeddedResource Include="BusinessObjects\TrackingEntry.bo" />
+    <EmbeddedResource Include="BusinessObjects\TrackingEntryAttachment.bo" />
+    <EmbeddedResource Include="BusinessObjects\ApplicationCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectRevision.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectEvent.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectEventParameter.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectMethod.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectMethodParameter.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectPropertySetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectMethodParameterSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectEventParameterSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\Address.bo" />
+    <EmbeddedResource Include="BusinessObjects\AddressType.bo" />
+    <EmbeddedResource Include="BusinessObjects\Application_T.bo" />
+    <EmbeddedResource Include="BusinessObjects\Attachment.bo" />
+    <EmbeddedResource Include="BusinessObjects\Business.bo" />
+    <EmbeddedResource Include="BusinessObjects\Account.bo" />
+    <EmbeddedResource Include="BusinessObjects\ConfigurationItem.bo" />
+    <EmbeddedResource Include="BusinessObjects\Contact.bo" />
+    <EmbeddedResource Include="BusinessObjects\ContactPhone.bo" />
+    <EmbeddedResource Include="BusinessObjects\Currency.bo" />
+    <EmbeddedResource Include="BusinessObjects\Department.bo" />
+    <EmbeddedResource Include="BusinessObjects\Division.bo" />
+    <EmbeddedResource Include="BusinessObjects\Entity.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityAddress.bo" />
+    <EmbeddedResource Include="BusinessObjects\Language.bo" />
+    <EmbeddedResource Include="BusinessObjects\Person.bo" />
+    <EmbeddedResource Include="BusinessObjects\PhoneType.bo" />
+    <EmbeddedResource Include="BusinessObjects\Position.bo" />
+    <EmbeddedResource Include="BusinessObjects\Region.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityType.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityClassification.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityStatus.bo" />
+    <EmbeddedResource Include="BusinessObjects\AttachmentCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\ADS.bo" />
+    <EmbeddedResource Include="BusinessObjects\Events.bo" />
+    <EmbeddedResource Include="BusinessObjects\Information.bo" />
+    <EmbeddedResource Include="BusinessObjects\Shopping.bo" />
+    <EmbeddedResource Include="BusinessObjects\Resturant.bo" />
+    <EmbeddedResource Include="BusinessObjects\Administration.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityRelationship.bo" />
+    <EmbeddedResource Include="BusinessObjects\ExportData.bo" />
+    <EmbeddedResource Include="BusinessObjects\InDoorMap.bo" />
+    <EmbeddedResource Include="BusinessObjects\IndoorMapProvider.bo" />
+    <EmbeddedResource Include="BusinessObjects\Industry.bo" />
+    <EmbeddedResource Include="BusinessObjects\Location.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityAttachment.bo" />
+    <EmbeddedResource Include="BusinessObjects\AccountDevice.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaSecuritySystemUser.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaSecuritySystemRole.bo" />
+    <EmbeddedResource Include="BusinessObjects\ActivationKey.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectBrowseProperty.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelve.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveProperty.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelvePropertySetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\ContactAddress.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectBrowse.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectBrowseEvent.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectBrowseEventParameter.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectBrowseMethod.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectBrowseMethodParameter.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveEvent.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveEventParameter.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveEventParameterSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveMethod.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveMethodParameter.bo" />
+    <EmbeddedResource Include="BusinessObjects\AriaObjectShelveMethodParameterSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\Activity.bo" />
+    <EmbeddedResource Include="BusinessObjects\TrackingTask.bo" />
+    <EmbeddedResource Include="BusinessObjects\Resources.bo" />
+    <EmbeddedResource Include="BusinessObjects\ApplicationBuildEntries_T.bo" />
+    <EmbeddedResource Include="BusinessObjects\ApplicationBuild_T.bo">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusinessObjects\ApplicationSetting.bo" />
+    <EmbeddedResource Include="BusinessObjects\TrackingEntryBrowse.bo" />
+    <EmbeddedResource Include="BusinessObjects\CountryTS.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityOperationPermission.bo" />
+    <EmbeddedResource Include="BusinessObjects\EntityOperationPermissionGenerator.bo" />
+    <EmbeddedResource Include="BusinessObjects\Requirement.bo" />
+    <EmbeddedResource Include="BusinessObjects\Comments.bo" />
+    <EmbeddedResource Include="BusinessObjects\TestCase.bo" />
+    <EmbeddedResource Include="BusinessObjects\RequirementType.bo" />
+    <EmbeddedResource Include="BusinessObjects\TestCaseSteps.bo" />
+    <EmbeddedResource Include="BusinessObjects\TestRun.bo" />
+    <EmbeddedResource Include="BusinessObjects\Environment.bo" />
+    <EmbeddedResource Include="BusinessObjects\QABrowser.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAPlateForm.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAHardware.bo" />
+    <EmbeddedResource Include="BusinessObjects\QASoftware.bo" />
+    <EmbeddedResource Include="BusinessObjects\QADefect.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAProjectEntity.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCase.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCaseFlow.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCaseSteps.bo" />
+    <EmbeddedResource Include="BusinessObjects\Audit.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAAttachement.bo" />
+    <EmbeddedResource Include="BusinessObjects\QATestCaseChild.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAMainFeature.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAManagementIssues.bo" />
+    <EmbeddedResource Include="BusinessObjects\QARisk.bo" />
+    <EmbeddedResource Include="BusinessObjects\QATestPlan.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAActivity.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAWBS.bo" />
+    <EmbeddedResource Include="BusinessObjects\Resource.bo" />
+    <None Include="app.config" />
+    <None Include="BusinessObjects\DesignDetailEstimate.bo" />
+    <None Include="BusinessObjects\EntitySystemDesign.bo" />
+    <None Include="BusinessObjects\QAComplainActivity.bo" />
+    <None Include="BusinessObjects\QAComplainType.bo" />
+    <None Include="BusinessObjects\QADefectChild.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAResourceShare.bo" />
+    <EmbeddedResource Include="BusinessObjects\QANonComplains.bo" />
+    <None Include="BusinessObjects\QAEntityFeatures.bo" />
+    <None Include="BusinessObjects\QAResourceRoles.bo" />
+    <None Include="BusinessObjects\QAResourseTrainingNeeds.bo" />
+    <None Include="BusinessObjects\QARiskFollowup.bo" />
+    <None Include="BusinessObjects\QATestRunChild.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUsecaseActors.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCaseActorCategory.bo" />
+    <None Include="BusinessObjects\QAType.bo" />
+    <None Include="BusinessObjects\QAUseCaseChild.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCasePoints.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCAsePointsCategory.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCaseTechnicalFactors.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUseCaseEnvironmentalFactors.bo" />
+    <None Include="BusinessObjects\QAUseCasePoint.bo" />
+    <EmbeddedResource Include="BusinessObjects\QAUserInterfaceRules.bo" />
+    <EmbeddedResource Include="BusinessObjects\TeamLeaderDailyFollowUp.bo" />
+    <None Include="DatabaseUpdate\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BusinessObjects\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\WebSample.ets" />
+    <None Include="Images\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\EasyTest\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="Fakes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Aria5SystemAdmin.Module.dll" />
+    <Content Include="bin\Debug\Aria5SystemAdmin.Module.pdb" />
+    <Content Include="bin\Staging\Aria5SystemAdmin.Module.dll" />
+    <Content Include="bin\Staging\Aria5SystemAdmin.Module.pdb" />
+    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="Script Folder\TextFile1.txt" />
+    <Content Include="Service References\SubAutoTask\configuration.svcinfo" />
+    <Content Include="Service References\SubAutoTask\configuration91.svcinfo" />
+    <Content Include="Service References\SubAutoTask\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\configuration.svcinfo" />
+    <Content Include="Service References\TFSMangerServiceReference\configuration91.svcinfo" />
+    <Content Include="Service References\TFSMangerServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\TFSMangerServiceReference\webService1.disco" />
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.BuildDeployResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.CommentCheckinResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.CreateWorkSpaceLabelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.CreateWorkSpaceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.DenyCheckoutFilePermissionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.GetSpecificChangesetResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.GrantCheckoutFilePermissionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.HelloWorldResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Aria5SystemAdmin.Module.ServiceReferenceTfsManager.SetParametersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceReferenceTfsManager\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceTfsManager\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceTfsManager\webService1.disco" />
+    <None Include="Service References\ServiceReferenceTfsManager\webService1.wsdl" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.Attachment1.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.ATWSResponse1.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.ATWSZoneInfo1.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.CreateAttachmentResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.createResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.DeleteAttachmentResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.deleteResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.EntityInfo1.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.Field1.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.GetAttachmentResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.GetEntityInfo1.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.GetFieldInfoResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.GetInvoiceMarkupResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.getThresholdAndUsageInfoResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.getUDFInfoResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.GetWsdlVersionResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.queryResponse.datasource" />
+    <None Include="Service References\SubAutoTask\Aria5SystemAdmin.Module.SubAutoTask.updateResponse.datasource" />
+    <None Include="Service References\SubAutoTask\atws.wsdl" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.BuildDeployResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.CommentCheckinResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.CreateWorkSpaceLabelResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.CreateWorkSpaceResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.DenyCheckoutFilePermissionResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.GetSpecificChangesetResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.GrantCheckoutFilePermissionResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.HelloWorldResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\Aria5SystemAdmin.Module.TFSMangerServiceReference.SetParametersResponse.datasource" />
+    <None Include="Service References\TFSMangerServiceReference\webService1.wsdl" />
+    <None Include="UnusableNodes19.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes18.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes17.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes16.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes15.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes14.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes13.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes3.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes1.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.Module\Aria5.DevExpress.MainSystem.Module.csproj">
+      <Project>{b9ef03ff-d05b-4fd4-a8e9-f90d819cb1dc}</Project>
+      <Name>Aria5.DevExpress.MainSystem.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReferenceTfsManager\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

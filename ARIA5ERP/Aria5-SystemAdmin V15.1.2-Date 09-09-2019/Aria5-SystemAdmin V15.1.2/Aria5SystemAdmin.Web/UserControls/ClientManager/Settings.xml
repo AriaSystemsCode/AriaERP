@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <AriaSourcePath>\\Ariasql\Dist</AriaSourcePath>
+  <AriaMasterPath>\\Ariasql\Dist\ClientDB</AriaMasterPath>
+  <AriaSharedPath>\\Ariasql\Shared</AriaSharedPath>
+  <AriaSQLDBPath>\\Ariasql\SQL_DATABASES</AriaSQLDBPath>
+  <AriaMappedPath>X:\\Aria4xp</AriaMappedPath>
+  <Aria4>
+    <ServerName>\\Ariasql\ARIASQLSERVER</ServerName>
+    <UserName>sa</UserName>
+    <Password>aria_123</Password>
+  </Aria4>
+  <SystemMaster>
+    <ServerName>\\Ariasql\ARIASQLSERVER</ServerName>
+    <DataBaseName>system.master</DataBaseName>
+    <UserName>sa</UserName>
+    <Password>aria_123</Password>
+  </SystemMaster>
+  <ClientMaster>
+    <ServerName>\\Ariasql\ARIASQLSERVER</ServerName>
+    <UserName>sa</UserName>
+    <Password>aria_123</Password>
+  </ClientMaster>
+  <DomainName>Aria</DomainName>
+  <DomainAdminUserName>Aria2</DomainAdminUserName>
+  <DomainAdminUserPassword>Aria@azure</DomainAdminUserPassword>
+  <AriaSharedServerName>Ariasql</AriaSharedServerName>
+  <AriaSharedLocalPath>F:\Shared</AriaSharedLocalPath>
+</Settings>

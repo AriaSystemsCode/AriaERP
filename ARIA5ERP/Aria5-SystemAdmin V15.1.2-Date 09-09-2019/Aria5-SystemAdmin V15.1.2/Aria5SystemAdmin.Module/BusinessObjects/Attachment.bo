@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Attachment" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Resolution" PredefinedValues="1366*768;1920*1080;2560*1440;1280*800;1920*1080;2260*1440" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="Attachment_DetailView">
+      <Items>
+        <PropertyEditor Id="AttachmentFile" ImageEditorCustomHeight="50" ImageEditorFixedHeight="50" ImageEditorFixedWidth="50" />
+        <PropertyEditor Id="Theme" PredefinedValues="Default;Dark;Light;High Contrast" />
+        <PropertyEditor Id="View" PredefinedValues="Landscape;Portrait;Filled;Snapped" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="27">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="Attachment" RelativeSize="100">
+              <LayoutGroup Id="Attachment_col1" RelativeSize="39">
+                <LayoutItem Id="AttachmentID" SizeConstraintsType="Default" RelativeSize="28" ViewItem="AttachmentID" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="21" ViewItem="Name" />
+                <LayoutItem Id="Location" SizeConstraintsType="Default" RelativeSize="21" ViewItem="Location" />
+                <LayoutItem Id="View" SizeConstraintsType="Default" Index="3" RelativeSize="28" ViewItem="View" />
+              </LayoutGroup>
+              <LayoutGroup Id="Attachment_col2" RelativeSize="57" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="EntityAttachments_Group" Direction="Vertical" RelativeSize="76" Removed="True">
+            <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="94" ViewItem="EntityAttachments" />
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="72" IsNewNode="True">
+          <LayoutItem Id="EntityAttachments" ViewItem="EntityAttachments" SizeConstraintsType="Default" Index="0" RelativeSize="91" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Attachment_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Location" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="Resolution" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Theme" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="View" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="AttachmentID" SortIndex="-1" SortOrder="None" Index="0" Width="92" />
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Index="1" Width="277" />
+        <ColumnInfo Id="AttachmentFile" ImageEditorFixedHeight="50" ImageEditorCustomHeight="50" ImageEditorFixedWidth="50" Index="2" Width="485" />
+      </Columns>
+    </ListView>
+    <ListView Id="Attachment_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

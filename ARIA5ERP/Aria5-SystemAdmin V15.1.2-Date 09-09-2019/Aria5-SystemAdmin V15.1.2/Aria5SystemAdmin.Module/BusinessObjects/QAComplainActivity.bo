@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAComplainActivity" IsDesigned="True" Caption="Complain Activity">
+      <OwnMembers>
+        <Member Name="ProcessDescription" Caption="Activity Description" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAComplainActivity_DetailView">
+      <Items>
+        <PropertyEditor Id="Role" DataSourceCriteria="[Account.Id] = 'Aria'" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="29.434697855750489">
+            <LayoutGroup Id="QAComplainActivity" Caption="Complain Activity" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAComplainActivity_ListView">
+      <Columns>
+        <ColumnInfo Id="ActivityName" Width="261" />
+        <ColumnInfo Id="ProcessName" Width="146" />
+        <ColumnInfo Id="ResbosabileDepartement" Width="146" />
+        <ColumnInfo Id="Role" Width="146" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

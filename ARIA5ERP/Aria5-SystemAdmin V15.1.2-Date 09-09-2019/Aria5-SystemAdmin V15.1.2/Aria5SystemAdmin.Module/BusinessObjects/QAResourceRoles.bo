@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAResourceRoles" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="QAResourceRoles_DetailView">
+      <Items>
+        <PropertyEditor Id="QAResourceShare" Caption="Resource Share" />
+        <PropertyEditor Id="Rolename" Caption="Role name" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="QAResourceRoles" RelativeSize="100" Caption="Resource Roles">
+              <LayoutGroup Id="QAResourceRoles_col1" RelativeSize="47.977941176470587">
+                <LayoutItem Id="QAResourceShare" ViewItem="QAResourceShare" SizeConstraintsType="Default" Index="0" RelativeSize="9.4674556213017755" IsNewNode="True" />
+                <LayoutItem Id="Rolename" SizeConstraintsType="Default" RelativeSize="7.1005917159763312" Index="1" ViewItem="Rolename" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="83.4319526627219" Index="2" ViewItem="Description" />
+                <LayoutItem Id="StartDate" SizeConstraintsType="Default" RelativeSize="92.1015514809591" ViewItem="StartDate" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAResourceRoles_col2" RelativeSize="47.977941176470587">
+                <LayoutItem Id="StartDate" ViewItem="StartDate" SizeConstraintsType="Default" Index="0" RelativeSize="9.4674556213017755" IsNewNode="True" />
+                <LayoutItem Id="EndtDate" SizeConstraintsType="Default" RelativeSize="90.532544378698219" Index="1" ViewItem="EndtDate" />
+                <LayoutItem Id="QAResourceShare" SizeConstraintsType="Default" RelativeSize="83.4319526627219" Index="2" ViewItem="QAResourceShare" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

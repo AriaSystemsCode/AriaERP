@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectBrowseEventParameter" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectBrowseEventParameter_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectBrowseEventParameter_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="AriaObjectBrowseProperty_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectBrowseProperty" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectBrowseProperty_col1" RelativeSize="47.773279352226723">
+                <LayoutItem Id="PropertyName" SizeConstraintsType="Default" RelativeSize="6.7510548523206753" />
+                <LayoutItem Id="PropertyType" SizeConstraintsType="Default" RelativeSize="5.0632911392405067" />
+                <LayoutItem Id="PropertyDescription" SizeConstraintsType="Default" RelativeSize="88.185654008438817" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectBrowseProperty_col2" RelativeSize="47.773279352226723">
+                <LayoutItem Id="PropertyOid" SizeConstraintsType="Default" RelativeSize="100" />
+                <LayoutItem Id="KeyProperty" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectBrowseProperty_ListView">
+      <Columns>
+        <ColumnInfo Id="KeyProperty" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="PropertyOid" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="PropertyName" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

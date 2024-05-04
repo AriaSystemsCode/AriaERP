@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AverageHandleTime_DepartmentsAHT_ListView">
+      <Columns>
+        <ColumnInfo Id="AverageHandleTime" Index="-1" />
+        <ColumnInfo Id="Ticket" Index="-1" />
+        <ColumnInfo Id="Department" Width="455" />
+        <ColumnInfo Id="Value" Width="381" />
+      </Columns>
+    </ListView>
+    <ListView Id="TicketAHT_DepartmentsAHT_ListView">
+      <Columns>
+        <ColumnInfo Id="AverageHandleTime" Index="-1" />
+        <ColumnInfo Id="Ticket" Index="-1" />
+        <ColumnInfo Id="Department" SortIndex="0" SortOrder="Ascending" Width="392" />
+        <ColumnInfo Id="Value" Width="444" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

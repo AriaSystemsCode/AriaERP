@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectMethodParameterSettings" IsDesigned="True" DefaultListViewAllowEdit="True">
+      <AppearanceRules>
+        <AppearanceRule Id="New" TargetItems="New" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="1" IsNewNode="True" />
+        <AppearanceRule Id="Delete" TargetItems="Delete" AppearanceItemType="Action" Criteria="" Visibility="Hide" Enabled="False" Index="2" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectMethodParameter_AriaObjectMethodParameterSettingses_ListView" AllowEdit="True" AllowNew="False" AllowDelete="False" />
+  </Views>
+</Application>

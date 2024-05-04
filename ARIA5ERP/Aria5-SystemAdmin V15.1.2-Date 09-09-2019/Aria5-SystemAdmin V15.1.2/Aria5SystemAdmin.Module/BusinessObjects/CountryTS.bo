@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.CountryTS" IsDesigned="True" Caption="Country" />
+  </BOModel>
+  <Views>
+    <DetailView Id="CountryTS_DetailView" Caption="Country">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="CountryTS" RelativeSize="100" ImageName="" Caption="CountryTS" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="CountryTS_col1" RelativeSize="48.769050410316531">
+                <LayoutItem Id="ID" SizeConstraintsType="Default" RelativeSize="14.096916299559471" ViewItem="ID" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="10.572687224669604" ViewItem="Name" />
+                <LayoutItem Id="Region" ViewItem="Region" SizeConstraintsType="Default" Index="2" RelativeSize="10.572687224669604" IsNewNode="True" />
+                <LayoutItem Id="Language" SizeConstraintsType="Default" RelativeSize="10.572687224669604" Index="3" ViewItem="Language" />
+                <LayoutItem Id="Currency" ViewItem="Currency" SizeConstraintsType="Default" Index="4" RelativeSize="54.185022026431717" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="CountryTS_col2" RelativeSize="48.651817116060961" Caption="CountryTS_col2" Direction="Horizontal">
+                <LayoutItem Id="Currency" ViewItem="Currency" Removed="True" />
+                <LayoutItem Id="Region" ViewItem="Region" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="78" Removed="True">
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" ImageName="" Index="0">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+            <LayoutGroup Id="Addresses" RelativeSize="100" ImageName="" Removed="True">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Addresses" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="CountryTS_ListView" Caption="Country " IsFooterVisible="False" />
+    <ListView Id="CountryTS_LookupListView" Caption="Country" />
+  </Views>
+</Application>

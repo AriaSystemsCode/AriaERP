@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connection>
+  <Release>
+     Data Source=u4hfi3e5h9.database.windows.net;Initial Catalog=Aria5SystemAdmin_staging;User ID=SystemAdminTestingUser1;Password=aria_123 
+    <!--Data Source=TR_MINA\SQLEXPRESS;Initial Catalog=SystemAdminTestDB;User ID=sa;Password=aria_123-->
+  </Release>
+  <Debug>
+    Data Source=u4hfi3e5h9.database.windows.net;Initial Catalog=Aria5SystemAdmin_Staging;User ID=azuresqladmin;Password=aria_123
+    <!--Data Source=TR_MINA\SQLEXPRESS;Initial Catalog=SystemAdminTestDB;User ID=sa;Password=aria_123-->
+  </Debug>
+  <Debug2>
+    Data Source=u4hfi3e5h9.database.windows.net;Initial Catalog=Aria5SystemAdmin_Staging;User ID=azuresqladmin;Password=aria_123
+    <!--Data Source=TR_MINA\SQLEXPRESS;Initial Catalog=SystemAdminTestDB;User ID=sa;Password=aria_123-->
+  </Debug2>
+</Connection>

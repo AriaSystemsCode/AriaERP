@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TicketAHT" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Account_profile" Caption="Account" />
+        <Member Name="Completedate" Caption="Complete Date" />
+        <Member Name="DeliveryOnTime" Caption="Sch.Var" />
+        <Member Name="Ticketage" Caption="Ticket AHT" />
+        <Member Name="UDF" Caption="Type" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Account_Tickets_ListView">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="TiecketNum" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Title" Index="1" />
+        <ColumnInfo Id="UDF" Index="2" />
+        <ColumnInfo Id="Account_profile" Index="3" />
+        <ColumnInfo Id="PrimaryResource" Index="4" />
+        <ColumnInfo Id="Completedate" Index="5" />
+        <ColumnInfo Id="CreateDate" Index="6" />
+        <ColumnInfo Id="Ticketage" Index="7" />
+      </Columns>
+    </ListView>
+    <ListView Id="AverageHandleTime_Tickets_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Account" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="Title" Index="1" />
+        <ColumnInfo Id="UDF" Index="2" />
+        <ColumnInfo Id="Account_profile" SortIndex="-1" SortOrder="None" Index="3" />
+        <ColumnInfo Id="PrimaryResource" Index="4" />
+        <ColumnInfo Id="Completedate" Index="5" />
+        <ColumnInfo Id="CreateDate" Index="6" />
+        <ColumnInfo Id="Ticketage" Index="7" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TicketAHT_DetailView">
+      <Items>
+        <PropertyEditor Id="UDF" Caption="User Defined Field" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="81.3953488372093">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="51.428571428571431" Caption="Ticket" Direction="Horizontal" IsNewNode="True">
+              <LayoutGroup Id="Auto2acfb9ef-b459-46f6-9c7d-f28aa478ac9a" ShowCaption="False" Caption="Auto2acfb9ef-b459-46f6-9c7d-f28aa478ac9a(4)" Index="0" RelativeSize="49.728752260397833" IsNewNode="True">
+                <LayoutItem Id="TiecketNum" ViewItem="TiecketNum" SizeConstraintsType="Default" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+                <LayoutItem Id="Account" ViewItem="Account" SizeConstraintsType="Default" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="Ticketage" ViewItem="Ticketage" SizeConstraintsType="Default" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="PrimaryResource" ViewItem="PrimaryResource" SizeConstraintsType="Default" Index="3" RelativeSize="28.571428571428573" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto47dd1db6-8cdf-41b1-83b7-9dff2b3f9e8a" ShowCaption="False" Caption="Auto47dd1db6-8cdf-41b1-83b7-9dff2b3f9e8a(8)" Index="1" RelativeSize="50.271247739602167" IsNewNode="True">
+                <LayoutItem Id="UDF" ViewItem="UDF" SizeConstraintsType="Default" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+                <LayoutItem Id="Account_profile" ViewItem="Account_profile" SizeConstraintsType="Default" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="Completedate" ViewItem="Completedate" SizeConstraintsType="Default" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="CreateDate" ViewItem="CreateDate" SizeConstraintsType="Default" Index="3" RelativeSize="28.571428571428573" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Title" ViewItem="Title" SizeConstraintsType="Default" Index="1" RelativeSize="48.571428571428569" IsNewNode="True" />
+            <LayoutGroup Id="TicketAHT" RelativeSize="78.148710166919571" Index="2" Caption="Queues" Removed="True">
+              <LayoutGroup Id="TicketAHT_col1" RelativeSize="50" Caption="TicketAHT_col1" Direction="Horizontal">
+                <LayoutItem Id="ConsultDispatch" ViewItem="ConsultDispatch" Removed="True" />
+                <LayoutItem Id="CustomerAcceptance" ViewItem="CustomerAcceptance" Removed="True" />
+                <LayoutItem Id="CustomerCare" ViewItem="CustomerCare" Removed="True" />
+                <LayoutItem Id="CWA" ViewItem="CWA" Removed="True" />
+                <LayoutItem Id="EDI" ViewItem="EDI" Removed="True" />
+                <LayoutItem Id="Helpdesk" ViewItem="Helpdesk" Removed="True" />
+                <LayoutItem Id="Html5" ViewItem="Html5" Removed="True" />
+                <LayoutItem Id="P_C_Waiting" ViewItem="P_C_Waiting" Removed="True" />
+                <LayoutItem Id="PMO" ViewItem="PMO" Removed="True" />
+                <LayoutItem Id="QERP" ViewItem="QERP" Removed="True" />
+                <LayoutItem Id="Review" ViewItem="Review" Removed="True" />
+                <LayoutItem Id="Sales" ViewItem="Sales" Removed="True" />
+                <LayoutItem Id="TiecketNum" ViewItem="TiecketNum" Removed="True" />
+                <LayoutItem Id="Validation" ViewItem="Validation" Removed="True" />
+                <LayoutItem Id="Webbased" ViewItem="Webbased" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TicketAHT_col2" RelativeSize="50" Direction="Horizontal">
+                <LayoutItem Id="Account" ViewItem="Account" Removed="True" />
+                <LayoutItem Id="Account_profile" ViewItem="Account_profile" Removed="True" />
+                <LayoutItem Id="BillingDisputes" ViewItem="BillingDisputes" Removed="True" />
+                <LayoutItem Id="Completedate" ViewItem="Completedate" Removed="True" />
+                <LayoutItem Id="Defectsindev" ViewItem="Defectsindev" Removed="True" />
+                <LayoutItem Id="DefectsWaitingSch" ViewItem="DefectsWaitingSch" Removed="True" />
+                <LayoutItem Id="DeliveryOnTime" ViewItem="DeliveryOnTime" Removed="True" />
+                <LayoutItem Id="Destribution" ViewItem="Destribution" Removed="True" />
+                <LayoutItem Id="HoldEntries" ViewItem="HoldEntries" Removed="True" />
+                <LayoutItem Id="IT" ViewItem="IT" Removed="True" />
+                <LayoutItem Id="PendingEnhanc" ViewItem="PendingEnhanc" Removed="True" />
+                <LayoutItem Id="PostalSale" ViewItem="PostalSale" Removed="True" />
+                <LayoutItem Id="Ticketage" ViewItem="Ticketage" Removed="True" />
+                <LayoutItem Id="UDF" ViewItem="UDF" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="18.6046511627907" Index="1">
+            <LayoutGroup Id="QueuesValues" RelativeSize="100">
+              <LayoutItem Id="QueuesValues" SizeConstraintsType="Default" RelativeSize="100" ViewItem="QueuesValues" />
+            </LayoutGroup>
+            <LayoutGroup Id="DepartmentsAHT" RelativeSize="100">
+              <LayoutItem Id="DepartmentsAHT" SizeConstraintsType="Default" RelativeSize="100" ViewItem="DepartmentsAHT" />
+            </LayoutGroup>
+            <LayoutGroup Id="TicketDetail" RelativeSize="100">
+              <LayoutItem Id="TicketDetail" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TicketDetail" />
+            </LayoutGroup>
+            <LayoutGroup Id="Averge_handle_time" RelativeSize="100">
+              <LayoutItem Id="Averge_handle_time" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Averge_handle_time" />
+            </LayoutGroup>
+            <LayoutGroup Id="DeliveryOnTimes" RelativeSize="100">
+              <LayoutItem Id="DeliveryOnTimes" SizeConstraintsType="Default" RelativeSize="100" ViewItem="DeliveryOnTimes" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="26.4797507788162" Direction="Horizontal" Caption="Title" Removed="True">
+            <LayoutItem Id="Title" ViewItem="Title" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TicketAHT_ListView">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="TiecketNum" Index="0" Caption="TiecketNum" PropertyName="TiecketNum" IsNewNode="True" Removed="True" />
+        <ColumnInfo Id="Title" Index="1" Caption="Title" PropertyName="Title" IsNewNode="True" Removed="True" />
+        <ColumnInfo Id="UDF" Index="2" />
+        <ColumnInfo Id="Account_profile" Index="3" />
+        <ColumnInfo Id="PrimaryResource" SortIndex="0" SortOrder="Ascending" Index="4" />
+        <ColumnInfo Id="Completedate" Index="5" />
+        <ColumnInfo Id="CreateDate" Index="6" />
+        <ColumnInfo Id="Ticketage" Index="7" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="DeliveryOnTime" Index="8" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

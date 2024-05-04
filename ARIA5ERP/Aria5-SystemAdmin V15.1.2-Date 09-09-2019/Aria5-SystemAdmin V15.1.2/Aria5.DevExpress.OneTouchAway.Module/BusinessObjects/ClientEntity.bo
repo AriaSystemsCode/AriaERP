@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="ClientEntity_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Direction="Vertical" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ClientEntity" RelativeSize="100">
+              <LayoutGroup Id="ClientEntity_col1" RelativeSize="47.876447876447877">
+                <LayoutItem Id="EntityId" SizeConstraintsType="Default" RelativeSize="6.1185468451242828" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="Notes" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="70.936902485659658" />
+              </LayoutGroup>
+              <LayoutGroup Id="ClientEntity_col2" RelativeSize="47.876447876447877">
+                <LayoutItem Id="Category" SizeConstraintsType="Default" RelativeSize="6.1185468451242828" />
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="Classification" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="ExtraData" SizeConstraintsType="Default" RelativeSize="4.5889101338432123" />
+                <LayoutItem Id="AddDate" SizeConstraintsType="Default" RelativeSize="75.525812619502872" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

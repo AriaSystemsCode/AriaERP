@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TrackingEntryBrowse" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="ID" Caption="Tracking Entry" />
+        <Member Name="ReferenceNo" Caption="Autotask Ticket#" />
+        <Member Name="Type" Caption="Tracking Entry Type" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="TrackingEntryBrowse_DetailView" AllowNew="False" AllowEdit="False" AllowDelete="False">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="TrackingEntryBrowse" RelativeSize="100" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutGroup Id="TrackingEntryBrowse_col1" RelativeSize="46" Caption="TrackingEntryBrowse_col1" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="TrackingOid" SizeConstraintsType="Default" RelativeSize="4" Index="0" ViewItem="TrackingOid" />
+                <LayoutItem Id="Key" ViewItem="Key" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingEntryBrowse_col2" RelativeSize="50" Caption="TrackingEntryBrowse_col2" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+                <LayoutItem Id="Entity" SizeConstraintsType="Default" RelativeSize="61" ViewItem="Entity" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TrackingEntryBrowse_ListView" IsFooterVisible="False" AllowDelete="False" AllowNew="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Key" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="TrackingOid" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Type" Index="0" Width="118" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ID" Index="1" SortIndex="-1" SortOrder="None" Width="111" />
+        <ColumnInfo Id="Description" Index="2" />
+        <ColumnInfo Id="Entity" Index="3" Width="124" />
+        <ColumnInfo Id="AccountName" SortIndex="-1" SortOrder="None" Width="129" Index="4" />
+        <ColumnInfo Id="ReferenceNo" Index="5" />
+        <ColumnInfo Id="ParentTrackingEntry" Index="6" SortIndex="0" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingEntryBrowse_LookupListView" AllowDelete="False" AllowNew="False" DataAccessMode="Client" />
+  </Views>
+</Application>

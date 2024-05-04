@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectBrowseMethod" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectBrowseMethod_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="KeyProperty" Index="-1" />
+        <ColumnInfo Id="PropertyOid" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectBrowseMethod_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

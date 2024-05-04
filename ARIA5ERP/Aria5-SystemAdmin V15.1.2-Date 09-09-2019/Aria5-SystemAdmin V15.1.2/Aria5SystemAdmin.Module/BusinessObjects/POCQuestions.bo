@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.POCQuestions" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="POCQuestions_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16.634429400386846">
+            <LayoutGroup Id="POCQuestions" RelativeSize="100">
+              <LayoutItem Id="POC" RelativeSize="37.2093023255814" ViewItem="POC" />
+              <LayoutItem Id="Question" ViewItem="Question" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
+              <LayoutItem Id="Comment" Index="3" RelativeSize="27.272727272727273" ViewItem="Comment" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="83.36557059961315">
+            <LayoutItem Id="Refrence1" Index="0" RelativeSize="6.2645011600928076" ViewItem="Refrence1" />
+            <LayoutItem Id="Refrence2" Index="1" RelativeSize="5.5684454756380513" ViewItem="Refrence2" />
+            <LayoutItem Id="Comment" ViewItem="Comment" Index="2" RelativeSize="88.167053364269137" IsNewNode="True" />
+            <LayoutItem Id="Question" ViewItem="Question" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ProofOfConcept_Questions_ListView">
+      <Columns>
+        <ColumnInfo Id="POC" Width="225" Index="-1" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="Question" Index="0" Width="205" />
+        <ColumnInfo Id="Answer" Width="231" Index="1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Comment" Width="153" Index="2" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

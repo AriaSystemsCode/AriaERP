@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAResourceShare" IsDesigned="True" Caption="Resource Share">
+      <OwnMembers>
+        <Member Name="CapabiltyIndex" Caption="Capability Index %" />
+        <Member Name="ProjectTemplate" Caption="Project " />
+        <Member Name="ResourceName" DataSourceProperty="" DataSourcePropertyIsNullMode="SelectNothing" />
+        <Member Name="RolesandResponsabilities" Caption="Roles and Responsabilities" />
+        <Member Name="TotalShareHours" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_ResourceShares_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Application" SortIndex="-1" SortOrder="None" Width="46" Index="-1" />
+        <ColumnInfo Id="ProjectTemplate" SortIndex="-1" SortOrder="None" Width="46" Index="-1" />
+        <ColumnInfo Id="ResourceName" SortIndex="-1" SortOrder="None" Width="100" DataSourceProperty="" Index="0" />
+        <ColumnInfo Id="DepartmentName" SortIndex="0" SortOrder="Ascending" Width="76" Index="1" />
+        <ColumnInfo Id="M0SharePercentage" SortIndex="-1" SortOrder="None" Width="57" Index="2" />
+        <ColumnInfo Id="M1SharePercentage" SortIndex="-1" SortOrder="None" Width="57" Index="3" />
+        <ColumnInfo Id="M2SharePercentage" Width="57" SortIndex="-1" SortOrder="None" Index="4" />
+        <ColumnInfo Id="M3SharePercentage" Width="57" SortIndex="-1" SortOrder="None" Index="5" />
+        <ColumnInfo Id="CapabiltyIndex" Width="57" SortIndex="-1" SortOrder="None" Index="6" />
+        <ColumnInfo Id="TotalShareHours" SortIndex="-1" SortOrder="None" Width="57" Index="7" />
+        <ColumnInfo Id="UseCasePoints" SortIndex="-1" SortOrder="None" Width="68" Index="8" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QAResourceShare_DetailView">
+      <Items>
+        <PropertyEditor Id="Application" AllowEdit="False" />
+        <PropertyEditor Id="M0SharePercentage" Caption="M0 Share Hours" AllowEdit="False" />
+        <PropertyEditor Id="M1SharePercentage" Caption="M1 Share Hours" AllowEdit="False" />
+        <PropertyEditor Id="M2SharePercentage" Caption="M2 Share Hours" AllowEdit="False" />
+        <PropertyEditor Id="M3SharePercentage" Caption="M3 Share Hours" AllowEdit="False" />
+        <PropertyEditor Id="ResourceName" DataSourceProperty="DepartmentName.Resourceses" />
+        <PropertyEditor Id="UseCasePoints" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="38.297872340425535">
+            <LayoutGroup Id="QAResourceShare" RelativeSize="100" Caption="Resource Share">
+              <LayoutGroup Id="QAResourceShare_col1" RelativeSize="50.084602368866328">
+                <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" SizeConstraintsType="Default" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="Application" SizeConstraintsType="Default" RelativeSize="15" Index="1" ViewItem="Application" />
+                <LayoutItem Id="DepartmentName" ViewItem="DepartmentName" SizeConstraintsType="Default" Index="2" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="ResourceName" ViewItem="ResourceName" SizeConstraintsType="Default" Index="3" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="UseCasePoints" ViewItem="UseCasePoints" SizeConstraintsType="Default" Index="4" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="CapabiltyIndex" SizeConstraintsType="Default" Index="5" RelativeSize="20" ViewItem="CapabiltyIndex" IsNewNode="True" />
+                <LayoutItem Id="M0SharePercentage" SizeConstraintsType="Default" Index="6" RelativeSize="5.0420168067226889" ViewItem="M0SharePercentage" Removed="True" />
+                <LayoutItem Id="M1SharePercentage" SizeConstraintsType="Default" Index="6" RelativeSize="5.0420168067226889" ViewItem="M1SharePercentage" Removed="True" />
+                <LayoutItem Id="M2SharePercentage" SizeConstraintsType="Default" Index="6" RelativeSize="5.0420168067226889" ViewItem="M2SharePercentage" Removed="True" />
+                <LayoutItem Id="M3SharePercentage" SizeConstraintsType="Default" Index="6" RelativeSize="5.0420168067226889" ViewItem="M3SharePercentage" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAResourceShare_col2" RelativeSize="49.915397631133672" Caption="QAResourceShare_col2">
+                <LayoutItem Id="M0SharePercentage" ViewItem="M0SharePercentage" SizeConstraintsType="Default" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="M1SharePercentage" ViewItem="M1SharePercentage" SizeConstraintsType="Default" Index="1" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="ResourceName" SizeConstraintsType="Default" RelativeSize="5.0420168067226889" Index="1" ViewItem="ResourceName" Removed="True" />
+                <LayoutItem Id="M2SharePercentage" ViewItem="M2SharePercentage" SizeConstraintsType="Default" Index="2" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="M3SharePercentage" ViewItem="M3SharePercentage" SizeConstraintsType="Default" Index="3" RelativeSize="15" IsNewNode="True" />
+                <LayoutItem Id="TotalShareHours" SizeConstraintsType="Default" RelativeSize="15" Index="4" ViewItem="TotalShareHours" />
+                <LayoutItem Id="UseCasePoints" SizeConstraintsType="Default" Index="4" RelativeSize="78.151260504201687" ViewItem="UseCasePoints" Removed="True" />
+                <LayoutItem Id="M4SharePercentage" SizeConstraintsType="Default" Index="5" RelativeSize="20" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="DepartmentName" SizeConstraintsType="Default" RelativeSize="5.0420168067226889" ViewItem="DepartmentName" Removed="True" />
+                <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="61.702127659574465">
+            <LayoutGroup Id="TrainingNeeds" RelativeSize="100">
+              <LayoutItem Id="TrainingNeeds" SizeConstraintsType="Default" RelativeSize="100" ViewItem="TrainingNeeds" />
+            </LayoutGroup>
+            <LayoutGroup Id="RolesandResponsabilities" RelativeSize="100">
+              <LayoutItem Id="RolesandResponsabilities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="RolesandResponsabilities" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAResourceShare_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ResourceName" SortIndex="0" SortOrder="Descending" DataSourceProperty="" Width="101" />
+        <ColumnInfo Id="DepartmentName" Width="55" Index="1" />
+        <ColumnInfo Id="ProjectTemplate" SortIndex="-1" SortOrder="None" Width="35" Index="2" />
+        <ColumnInfo Id="Application" SortIndex="-1" SortOrder="None" Width="35" Index="3" />
+        <ColumnInfo Id="M0SharePercentage" Width="35" Index="4" />
+        <ColumnInfo Id="M1SharePercentage" Width="35" Index="5" />
+        <ColumnInfo Id="M2SharePercentage" Width="35" Index="6" />
+        <ColumnInfo Id="M3SharePercentage" Width="35" Index="7" />
+        <ColumnInfo Id="CapabiltyIndex" Width="35" Index="8" />
+        <ColumnInfo Id="TotalShareHours" Width="35" Index="9" />
+        <ColumnInfo Id="UseCasePoints" Width="35" Index="10" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAResourceShare_LookupListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ResourceName.Name" Width="330" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ProjectTemplate" Index="1" Caption="Project" PropertyName="ProjectTemplate" Width="256" SortIndex="0" SortOrder="Descending" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAUseCasePoints_ResourceShares_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ResourceName" SortIndex="0" SortOrder="Ascending" DataSourceProperty="" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

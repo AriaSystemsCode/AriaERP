@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="df4a029c-f9c7-4fd2-ba9d-17cd4dc3a6bb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:1361/LogService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LogService.xsd" MetadataType="Schema" ID="efe87400-ab81-4943-9783-f52999d1b668" SourceId="1" SourceUrl="http://localhost:1361/LogService.svc?xsd=xsd2" />
+    <MetadataFile FileName="LogService1.xsd" MetadataType="Schema" ID="6aae1ea6-6e21-4c90-891f-df2921a3d357" SourceId="1" SourceUrl="http://localhost:1361/LogService.svc?xsd=xsd3" />
+    <MetadataFile FileName="LogService.wsdl" MetadataType="Wsdl" ID="1d73f577-072d-4d39-b0ee-4d8ac4dec4cb" SourceId="1" SourceUrl="http://localhost:1361/LogService.svc?wsdl" />
+    <MetadataFile FileName="LogService2.xsd" MetadataType="Schema" ID="83a71cb2-8c97-4fc2-b4b2-cc46cd1c7c86" SourceId="1" SourceUrl="http://localhost:1361/LogService.svc?xsd=xsd1" />
+    <MetadataFile FileName="LogService3.xsd" MetadataType="Schema" ID="46d13e79-35fa-491d-9f9b-7e56dc2baa38" SourceId="1" SourceUrl="http://localhost:1361/LogService.svc?xsd=xsd0" />
+    <MetadataFile FileName="LogService.disco" MetadataType="Disco" ID="2ddfe530-5a59-4021-8d27-920fc8c1fa36" SourceId="1" SourceUrl="http://localhost:1361/LogService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

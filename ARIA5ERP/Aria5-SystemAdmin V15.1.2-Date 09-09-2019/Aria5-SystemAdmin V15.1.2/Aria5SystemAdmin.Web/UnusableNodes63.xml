@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Activity" ImageName="Action_ResumeRecording" />
+  </BOModel>
+  <Views Id="Views">
+    <DetailView Id="HR_Company_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22.77432712215321">
+            <LayoutGroup Id="HR_Company" RelativeSize="100">
+              <LayoutItem Id="Code" ViewItem="Code" SizeConstraintsType="Default" Index="0" RelativeSize="29.09090909090909" />
+              <LayoutItem Id="CompanyName" SizeConstraintsType="Default" Index="1" RelativeSize="21.818181818181817" />
+              <LayoutItem Id="Email" ViewItem="Email" SizeConstraintsType="Default" Index="2" RelativeSize="21.818181818181817" />
+              <LayoutItem Id="AboutCompany" SizeConstraintsType="Default" Index="3" RelativeSize="27.272727272727273" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Entity" RelativeSize="32.926829268292686" Caption="HR_Entity" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="Code" Removed="True" />
+              <LayoutItem Id="Email" Removed="True" />
+              <LayoutItem Id="Type" Removed="True" />
+              <LayoutItem Id="TypeId" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="77.22567287784679" Index="1">
+            <LayoutGroup Id="CompanyDepartments" RelativeSize="100">
+              <LayoutItem Id="CompanyDepartments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Employees" RelativeSize="100">
+              <LayoutItem Id="Employees" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Addresses" RelativeSize="100">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Phones" RelativeSize="100">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="11.801242236024844" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Description" Removed="True" />
+            <LayoutItem Id="Notes" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Department_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Department">
+              <LayoutItem Id="Company" SizeConstraintsType="Default" RelativeSize="27.272727272727273" Index="3" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Employees" RelativeSize="100">
+              <LayoutItem Id="Employees" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+              <Item Id="InDoorMap_ListView" ViewId="InDoorMap_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

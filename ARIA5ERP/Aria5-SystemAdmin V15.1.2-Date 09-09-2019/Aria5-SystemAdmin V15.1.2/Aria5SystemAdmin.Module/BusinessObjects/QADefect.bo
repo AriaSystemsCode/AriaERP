@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QADefect" IsDesigned="True" Caption="Defect">
+      <OwnMembers>
+        <Member Name="AssignedToWhom" Caption="Assigned To " />
+        <Member Name="Attachements" DataSourceProperty="projecttemplate.Attachements" Caption="Attachments" />
+        <Member Name="Comments" DataSourceProperty="ProjecTtemplate.Commentses" />
+        <Member Name="Entity" AllowEdit="False" DataSourceProperty="TestCase.Entity" />
+        <Member Name="TestCase" DataSourceProperty="TestRun.TestCases" />
+        <Member Name="TestRun" DataSourceProperty="" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ProjectTemplate_Defects_ListView">
+      <Columns>
+        <ColumnInfo Id="Title" Width="119" />
+        <ColumnInfo Id="Refrence" Width="52" />
+        <ColumnInfo Id="TestRun" Width="52" />
+        <ColumnInfo Id="TestCase" Width="52" />
+        <ColumnInfo Id="Entity" Width="52" />
+        <ColumnInfo Id="Status" Width="52" />
+        <ColumnInfo Id="Periority" Width="52" />
+        <ColumnInfo Id="Severity" Width="52" />
+        <ColumnInfo Id="AssignedToWhom" Width="63" />
+      </Columns>
+    </ListView>
+    <DetailView Id="QADefect_DetailView">
+      <Items>
+        <PropertyEditor Id="Entity" DataSourceProperty="" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="26.933333333333334">
+            <LayoutGroup Id="QADefect" RelativeSize="100" Direction="Vertical" Caption="Defect">
+              <LayoutGroup Id="QADefect_col1" RelativeSize="41.089108910891092">
+                <LayoutItem Id="Refrence" SizeConstraintsType="Default" RelativeSize="38.554216867469883" ViewItem="Refrence" />
+                <LayoutItem Id="Title" SizeConstraintsType="Default" RelativeSize="28.91566265060241" ViewItem="Title" />
+                <LayoutItem Id="TestRun" SizeConstraintsType="Default" RelativeSize="32.53012048192771" ViewItem="TestRun" />
+              </LayoutGroup>
+              <LayoutGroup Id="QADefect_col2" RelativeSize="41.089108910891092">
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="38.554216867469883" ViewItem="Status" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="68.666666666666671">
+            <LayoutGroup Id="ProjectTemplates" RelativeSize="100" Index="0">
+              <LayoutItem Id="ProjectTemplates" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ProjectTemplates" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attachements" RelativeSize="100" Index="1">
+              <LayoutItem Id="Attachements" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Attachements" />
+            </LayoutGroup>
+            <LayoutGroup Id="Comments" RelativeSize="100" Index="2">
+              <LayoutItem Id="Comments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Comments" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QADefect_ListView" GroupSummary="Empty" />
+  </Views>
+</Application>

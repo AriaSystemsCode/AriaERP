@@ -1,0 +1,415 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DevExpress.Xpo;
+using DevExpress.ExpressApp.Web;
+using System.Data;
+using DevExpress.Web;
+using Translator;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Web.Configuration;
+using System.Configuration;
+using AriaDevExpress.Module.BusinessObjects.Globalization;
+
+namespace AriaDevExpress.Web.UserControls.Globalization
+{
+    public partial class Globalization : System.Web.UI.UserControl
+    {
+        class UserTranslationChange
+        {
+            public UserTranslationChange() { Valid = true; }
+            public string Text { get; set; }
+            public bool Valid { get; set; }
+
+        }
+        Dictionary<int, UserTranslationChange> TranslationChangesDictionary = new Dictionary<int, UserTranslationChange>();
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            LanguagesXpoDataSource.Session = session;
+            ObjectGridXpoDataSource.Session = session;
+            if (Session["TranslationChangesDictionary"] != null)
+                TranslationChangesDictionary = Session["TranslationChangesDictionary"] as Dictionary<int, UserTranslationChange>;
+
+            pnlTooLong.Visible = false;
+
+            TranslationsGridSqlDatasource.ConnectionString = AriaDevExpress.Module.DataContext.ConnectionString.Getvalue();
+            SydStringSqlDatasource.ConnectionString = AriaDevExpress.Module.DataContext.ConnectionString.Getvalue();
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            lblStatus.Text = "";
+            if (IsPostBack)
+                SaveTranslationChanges();
+            else
+            {
+                TranslationChangesDictionary.Clear();
+                Session["ObjectID"] = null;
+                Session["ddlLanguages_SelectedIndex"] = null;
+                MainContentASPxPageControl.TabPages[1].Enabled = false;
+            }
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            Session["TranslationChangesDictionary"] = TranslationChangesDictionary;
+            if (ObjectsListASPxGridView.Selection.Count > 0 && ddlLanguages.SelectedIndex > -1)
+            {
+                List<object> selectedRow = ObjectsListASPxGridView.GetSelectedFieldValues("cObject");
+                string cObject = (selectedRow[0]) as string;
+                MainContentASPxPageControl.TabPages[1].ToolTip = cObject;
+                MainContentASPxPageControl.TabPages[1].Text = cObject;
+                MainContentASPxPageControl.TabPages[1].Enabled = true;
+            }
+            else if (ObjectsListASPxGridView.Selection.Count > 0 && ddlLanguages.SelectedIndex == -1)
+            {
+                MainContentASPxPageControl.TabPages[1].Text = "Please Select Language First";
+                MainContentASPxPageControl.TabPages[1].ToolTip = MainContentASPxPageControl.TabPages[1].Text;
+                MainContentASPxPageControl.TabPages[1].Enabled = false;
+                lblFirstTabStatus.Text = "Please Select Language First";
+                lblFirstTabStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                MainContentASPxPageControl.TabPages[1].ToolTip = "";
+                MainContentASPxPageControl.TabPages[1].Text = " ";
+                MainContentASPxPageControl.TabPages[1].Enabled = false;
+            }
+
+        }
+
+        // Maintain selectedvalue manually because selectedindexchanged event fire every postback 
+        protected void ddlLanguages_Init(object sender, EventArgs e)
+        {
+            ASPxComboBox cmb = (ASPxComboBox)sender;
+            if (Session["ddlLanguages_SelectedIndex"] != null)
+                cmb.SelectedIndex = (int)Session["ddlLanguages_SelectedIndex"];
+        }
+
+        private Session _session;
+        public Session session
+        {
+            get
+            {
+                if (_session == null)
+                {
+                    DevExpress.Xpo.Metadata.XPDictionary dict = new DevExpress.Xpo.Metadata.ReflectionDictionary();
+                    _session = new DevExpress.Xpo.Session();
+                    _session.Connection = new System.Data.SqlClient.SqlConnection(AriaDevExpress.Module.DataContext.ConnectionString.Getvalue());
+                }
+                return _session;
+            }
+        }
+
+        protected void ObjectsListASPxGridView_CustomButtonCallback(object sender, DevExpress.Web.ASPxGridViewCustomButtonCallbackEventArgs e)
+        {
+            ObjectsListASPxGridView.Selection.SelectRow(e.VisibleIndex);
+            if (e.VisibleIndex >= 0 && ddlLanguages.SelectedIndex > -1)
+            {
+                SydLangObject CurrentLangObject = ObjectsListASPxGridView.GetRow(e.VisibleIndex) as SydLangObject;
+                LoadTranslationsTab(CurrentLangObject.cObject, CurrentLangObject.Obj_Key);
+            }
+            else if (e.VisibleIndex >= 0 && ddlLanguages.SelectedIndex == -1)
+            {
+                MainContentASPxPageControl.TabPages[1].ToolTip = "Please Select Language First";
+                MainContentASPxPageControl.TabPages[1].Enabled = false;
+            }
+        }
+
+        protected void btn_SaveAnyWay_OnClick(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        protected void SaveASPxButton_Click(object sender, EventArgs e)
+        {
+            if (ValidateLength())
+            {
+                Save();
+            }
+            else
+            {
+                pnlTooLong.Visible = true;
+                lblStatus.Text = "";
+
+            }
+        }
+
+        protected void Save()
+        {
+            foreach (int id in TranslationChangesDictionary.Keys)
+            {
+                SydStringSqlDatasource.SelectParameters["EnStr_Key"].DefaultValue = id.ToString();
+                DataView selectResult = SydStringSqlDatasource.Select(new DataSourceSelectArguments()) as DataView;
+                if (selectResult.Count == 0)
+                {
+                    SydStringSqlDatasource.InsertParameters["EnStr_Key"].DefaultValue = id.ToString();
+                    SydStringSqlDatasource.InsertParameters["LangText"].DefaultValue = TranslationChangesDictionary[id].Text;
+                    SydStringSqlDatasource.Insert();
+                }
+                else
+                {
+                    SydStringSqlDatasource.UpdateParameters["EnStr_Key"].DefaultValue = id.ToString();
+                    SydStringSqlDatasource.UpdateParameters["LangText"].DefaultValue = TranslationChangesDictionary[id].Text;
+                    SydStringSqlDatasource.Update();
+                }
+            }
+            lblStatus.Text = "Saved Successfully";
+            lblStatus.ForeColor = Color.Green;
+        }
+
+        private bool ValidateLength()
+        {
+            bool IsValid = true, IsReport = false;
+
+            List<object> selectedRow = ObjectsListASPxGridView.GetSelectedFieldValues("Obj_Key");
+            int Obj_Key = ((int)selectedRow[0]);
+            SydLangObject CurrentObject = session.GetObjectByKey<SydLangObject>(Obj_Key);
+            IsReport = Convert.ToString(CurrentObject.cObjectType).Trim().ToUpper() == "FRX" || Convert.ToString(CurrentObject.cObjectType).Trim().ToUpper() == "LBX";
+
+            SycLang sycLang = session.GetObjectByKey<SycLang>(ddlLanguages.SelectedItem.Value);
+            Font font = null;
+            string sycLangfont = IsReport ? sycLang.cRepFont.Trim() : sycLang.cFormFont.Trim();
+            short sycLangnfont = IsReport ? sycLang.nRepFontS : sycLang.nFormFontS;
+            try
+            {
+                font = new Font(new FontFamily(sycLangfont), sycLangnfont);
+            }
+            catch
+            {
+                lblStatus.Text = "Unkown Font " + sycLangfont;
+                lblStatus.ForeColor = Color.Red;
+                return false;
+            }
+
+            SycLang EnsycLang = session.GetObjectByKey<SycLang>("EN");
+            Font Enfont = null;
+            if (EnsycLang == null)
+            {
+                lblStatus.Text = "English Language not defined in  Languages(SycLang) table.";
+                lblStatus.ForeColor = Color.Red;
+                return false;
+            }
+            string EnsycLangfont = IsReport ? EnsycLang.cRepFont.Trim() : EnsycLang.cFormFont.Trim();
+            short EnsycLangnfont = IsReport ? EnsycLang.nRepFontS : EnsycLang.nFormFontS;
+            try
+            {
+                Enfont = new Font(new FontFamily(EnsycLangfont), EnsycLangnfont);
+            }
+            catch
+            {
+                lblStatus.Text = "Unkown Font " + EnsycLangfont;
+                lblStatus.ForeColor = Color.Red;
+                return false;
+            }
+
+            if (font != null)
+            {
+                foreach (int id in TranslationChangesDictionary.Keys)
+                {
+                    SydEnString sydEnStringObject = session.GetObjectByKey<SydEnString>(id);
+                    if (sydEnStringObject.OriginalWidth == 0 || sydEnStringObject.OriginalText.Trim().ToLower() == TranslationChangesDictionary[id].Text.Trim().ToLower())
+                    {
+                        TranslationChangesDictionary[id].Valid = true;
+                        continue;
+                    }
+                    Size translatedSize = TextRenderer.MeasureText(TranslationChangesDictionary[id].Text.Trim(), font);
+                    Size OrignalSize = TextRenderer.MeasureText(sydEnStringObject.OriginalText.Trim(), Enfont);
+                    if (translatedSize.Width > OrignalSize.Width + 0)
+                        TranslationChangesDictionary[id].Valid = false;
+                    else
+                        TranslationChangesDictionary[id].Valid = true;
+
+                    IsValid = IsValid && TranslationChangesDictionary[id].Valid;
+                }
+            }
+            if (!IsValid)
+            {
+                lblStatus.Text = "Oner or more translated texts are too long.";
+                lblStatus.ForeColor = Color.Red;
+            }
+            return IsValid;
+        }
+
+        private void SaveTranslationChanges()
+        {
+            if (TranslateASPxGridView.VisibleRowCount > 0)
+            {
+                int start = TranslateASPxGridView.PageIndex * TranslateASPxGridView.SettingsPager.PageSize;
+                int end = (TranslateASPxGridView.PageIndex + 1) * TranslateASPxGridView.SettingsPager.PageSize;
+                GridViewDataColumn LangTextcolumn = TranslateASPxGridView.Columns["LangText"] as GridViewDataColumn;
+                if (LangTextcolumn != null)
+                {
+                    for (int i = start; i < end; i++)
+                    {
+                        ASPxTextBox TranslationTxtBox = (ASPxTextBox)TranslateASPxGridView.FindRowCellTemplateControl(i, LangTextcolumn, "TranslationTxtBox");
+                        if (TranslationTxtBox == null)
+                            continue;
+                        int id = Convert.ToInt32(TranslateASPxGridView.GetRowValues(i, TranslateASPxGridView.KeyFieldName));
+                        if (TranslationChangesDictionary.ContainsKey(id))
+                            TranslationChangesDictionary[id].Text = TranslationTxtBox.Text;
+                        else
+                            TranslationChangesDictionary.Add(id, new UserTranslationChange() { Text = TranslationTxtBox.Text });
+                    }
+                }
+            }
+        }
+
+        protected string GetLangText()
+        {
+            int id = int.Parse(Eval("EnStr_Key").ToString());
+            string langText = "";
+            if (TranslationChangesDictionary.ContainsKey(id))
+                langText = TranslationChangesDictionary[id].Text;
+            else
+                langText = Eval("LangText").ToString();
+            return langText;
+        }
+
+        protected Color GetLangTextBoxBackColor()
+        {
+            int id = int.Parse(Eval("EnStr_Key").ToString());
+            if (TranslationChangesDictionary.ContainsKey(id) && !TranslationChangesDictionary[id].Valid)
+                return Color.Red;
+            else
+                return Color.White;
+        }
+
+        protected DevExpress.Utils.DefaultBoolean GetRightToLeftStatus()
+        {
+            bool IsRtL = session.GetObjectByKey<SycLang>(ddlLanguages.SelectedItem.Value).lIs_RTL;
+            if (IsRtL)
+                return DevExpress.Utils.DefaultBoolean.True;
+            else
+                return DevExpress.Utils.DefaultBoolean.False;
+        }
+
+        protected void ddlLanguages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session["ddlLanguages_SelectedIndex"] = ddlLanguages.SelectedIndex;
+            lblFirstTabStatus.Text = "";
+            if (ObjectsListASPxGridView.Selection.Count > 0 && ddlLanguages.SelectedIndex > -1)
+            {
+                List<object> selectedRow = ObjectsListASPxGridView.GetSelectedFieldValues("cObject", "Obj_Key");
+                string cObject = ((object[])selectedRow[0])[0] as string;
+                int Obj_Key = ((int)((object[])selectedRow[0])[1]);
+                LoadTranslationsTab(cObject, Obj_Key);
+            }
+        }
+
+        private void LoadTranslationsTab(string cObject, int Obj_Key)
+        {
+            TranslationChangesDictionary.Clear();
+
+            MainContentASPxPageControl.ActiveTabIndex = 1;
+            TranslateASPxGridView.Columns["LangText"].Caption = string.Format("{0} Text", ddlLanguages.Text);
+
+            Session["ObjectID"] = Obj_Key.ToString();
+        }
+
+        protected void SuggestAllASPxButton_Click(object sender, EventArgs e)
+        {
+            Suggest(false);
+            ValidateLength();
+        }
+
+        protected void SuggestEmptyASPxButton_Click(object sender, EventArgs e)
+        {
+            Suggest(true);
+            ValidateLength();
+        }
+
+        protected void CancelASPxButton_Click(object sender, EventArgs e)
+        {
+            ObjectsListASPxGridView.Selection.UnselectAll();
+
+        }
+
+
+        protected void CheckLengthASPxButton_Click(object sender, EventArgs e)
+        {
+            ValidateLength();
+
+        }
+        static readonly Translator.TranslateEngine engine = new Translator.TranslateEngine();
+        private void Suggest(bool SuggestForNotTranslatedOnly)
+        {
+            List<StringInfo> ToTranslatorList = new List<StringInfo>();
+            List<int> ToTranlationObjectsIDs = new List<int>();
+            if (TranslateASPxGridView.VisibleRowCount > 0)
+            {
+                Languages CurrentLanguage;
+                if (!Enum.TryParse<Languages>(ddlLanguages.SelectedItem.Text, true, out CurrentLanguage))
+                {
+                    lblStatus.Text = "Unkown or UnSupported language " + ddlLanguages.SelectedItem.Text;
+                    lblStatus.ForeColor = Color.Red;
+                    return;
+                }
+
+                for (int i = 0; i < TranslateASPxGridView.VisibleRowCount; i++)
+                {
+                    DataRowView row = TranslateASPxGridView.GetRow(i) as DataRowView;
+                    bool DontBing = bool.Parse(row["DontBing"].ToString());
+                    if (DontBing) continue;
+                    int id = int.Parse(row["EnStr_Key"].ToString());
+                    if (SuggestForNotTranslatedOnly)
+                    {
+                        string langText = "";
+
+                        if (TranslationChangesDictionary.ContainsKey(id))
+                            langText = TranslationChangesDictionary[id].Text;
+                        else
+                            langText = Convert.ToString(row["LangText"]);
+                        if (langText != null && langText.Trim() != "")
+                            continue;
+                    }
+
+                    string fullText = row["fullText"].ToString();
+                    ToTranslatorList.Add(new StringInfo() { baseString = fullText.Trim() });
+                    ToTranlationObjectsIDs.Add(id);
+                }
+                var SettingsQueryResult = session.ExecuteQuery("Select Name,Value from Settings where name in ('TranslatorUserLoginId' , 'TranslatorUserPassword' )");
+                if (SettingsQueryResult.ResultSet[0].Rows[0].Values[0].ToString().Trim() == "TranslatorUserLoginId")
+                {
+                    engine.UserLoginId = SettingsQueryResult.ResultSet[0].Rows[0].Values[1].ToString().Trim();
+                    engine.UserPassword = SettingsQueryResult.ResultSet[0].Rows[1].Values[1].ToString().Trim();
+                }
+                else
+                {
+                    engine.UserLoginId = SettingsQueryResult.ResultSet[0].Rows[1].Values[1].ToString().Trim();
+                    engine.UserPassword = SettingsQueryResult.ResultSet[0].Rows[0].Values[1].ToString().Trim();
+                }
+
+
+                if (ToTranslatorList.Count > 0)
+                {
+                    try
+                    {
+
+
+                        TranslatorMain.Translate(engine, ToTranslatorList, CurrentLanguage);
+                    }
+                    catch (Exception ex)
+                    {
+                        lblStatus.Text = "Following error returned from Translation Server:" + ex.Message;
+                        lblStatus.ForeColor = Color.Red;
+                        return;
+                    }
+
+                    for (int i = 0; i < ToTranlationObjectsIDs.Count; i++)
+                    {
+                        int currentID = ToTranlationObjectsIDs[i];
+                        if (TranslationChangesDictionary.ContainsKey(currentID))
+                            TranslationChangesDictionary[currentID].Text = ToTranslatorList[i].translatedString;
+                        else
+                            TranslationChangesDictionary.Add(currentID, new UserTranslationChange() { Text = ToTranslatorList[i].translatedString });
+                    }
+                }
+            }
+        }
+    }
+}

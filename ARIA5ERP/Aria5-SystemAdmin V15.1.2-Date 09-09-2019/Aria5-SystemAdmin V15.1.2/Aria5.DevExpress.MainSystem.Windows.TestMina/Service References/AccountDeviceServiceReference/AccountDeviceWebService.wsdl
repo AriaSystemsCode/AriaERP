@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="AddNewDevice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="deviceInfo" type="tns:AccountDeviceMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccountDeviceMarshalling">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Account" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MACAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ASHWID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ScreenSize" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceSignature" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OperatingSystem" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Location" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddNewDeviceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddNewDeviceResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceAccountOid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="deviceSignature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceAccountOidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetDeviceAccountOidResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceOid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="deviceSignature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceOidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetDeviceOidResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountDevices">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountID" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountDevicesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountDevicesResult" type="tns:ArrayOfAccountDeviceMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAccountDeviceMarshalling">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountDeviceMarshalling" nillable="true" type="tns:AccountDeviceMarshalling" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDeviceAccountId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="deviceSignature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceAccountIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeviceAccountIdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceBusinessObject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="deviceSignature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeviceBusinessObjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeviceBusinessObjectResult" type="tns:AccountDeviceMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthanticateDevice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="accountOid" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="deviceSignature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthanticateDeviceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthanticateDeviceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddNewDeviceSoapIn">
+    <wsdl:part name="parameters" element="tns:AddNewDevice" />
+  </wsdl:message>
+  <wsdl:message name="AddNewDeviceSoapOut">
+    <wsdl:part name="parameters" element="tns:AddNewDeviceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceAccountOidSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeviceAccountOid" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceAccountOidSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeviceAccountOidResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceOidSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeviceOid" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceOidSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeviceOidResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountDevicesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountDevices" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountDevicesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountDevicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceAccountIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeviceAccountId" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceAccountIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeviceAccountIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceBusinessObjectSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeviceBusinessObject" />
+  </wsdl:message>
+  <wsdl:message name="GetDeviceBusinessObjectSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeviceBusinessObjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthanticateDeviceSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthanticateDevice" />
+  </wsdl:message>
+  <wsdl:message name="AuthanticateDeviceSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthanticateDeviceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AccountDeviceWebServiceSoap">
+    <wsdl:operation name="AddNewDevice">
+      <wsdl:input message="tns:AddNewDeviceSoapIn" />
+      <wsdl:output message="tns:AddNewDeviceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceAccountOid">
+      <wsdl:input message="tns:GetDeviceAccountOidSoapIn" />
+      <wsdl:output message="tns:GetDeviceAccountOidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceOid">
+      <wsdl:input message="tns:GetDeviceOidSoapIn" />
+      <wsdl:output message="tns:GetDeviceOidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountDevices">
+      <wsdl:input message="tns:GetAccountDevicesSoapIn" />
+      <wsdl:output message="tns:GetAccountDevicesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceAccountId">
+      <wsdl:input message="tns:GetDeviceAccountIdSoapIn" />
+      <wsdl:output message="tns:GetDeviceAccountIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceBusinessObject">
+      <wsdl:input message="tns:GetDeviceBusinessObjectSoapIn" />
+      <wsdl:output message="tns:GetDeviceBusinessObjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthanticateDevice">
+      <wsdl:input message="tns:AuthanticateDeviceSoapIn" />
+      <wsdl:output message="tns:AuthanticateDeviceSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccountDeviceWebServiceSoap" type="tns:AccountDeviceWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewDevice">
+      <soap:operation soapAction="http://tempuri.org/AddNewDevice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceAccountOid">
+      <soap:operation soapAction="http://tempuri.org/GetDeviceAccountOid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceOid">
+      <soap:operation soapAction="http://tempuri.org/GetDeviceOid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountDevices">
+      <soap:operation soapAction="http://tempuri.org/GetAccountDevices" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceAccountId">
+      <soap:operation soapAction="http://tempuri.org/GetDeviceAccountId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceBusinessObject">
+      <soap:operation soapAction="http://tempuri.org/GetDeviceBusinessObject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthanticateDevice">
+      <soap:operation soapAction="http://tempuri.org/AuthanticateDevice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AccountDeviceWebServiceSoap12" type="tns:AccountDeviceWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewDevice">
+      <soap12:operation soapAction="http://tempuri.org/AddNewDevice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceAccountOid">
+      <soap12:operation soapAction="http://tempuri.org/GetDeviceAccountOid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceOid">
+      <soap12:operation soapAction="http://tempuri.org/GetDeviceOid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountDevices">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountDevices" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceAccountId">
+      <soap12:operation soapAction="http://tempuri.org/GetDeviceAccountId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeviceBusinessObject">
+      <soap12:operation soapAction="http://tempuri.org/GetDeviceBusinessObject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthanticateDevice">
+      <soap12:operation soapAction="http://tempuri.org/AuthanticateDevice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountDeviceWebService">
+    <wsdl:port name="AccountDeviceWebServiceSoap" binding="tns:AccountDeviceWebServiceSoap">
+      <soap:address location="http://accountregistrationwebservice.cloudapp.net/WebServices/AccountDeviceWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AccountDeviceWebServiceSoap12" binding="tns:AccountDeviceWebServiceSoap12">
+      <soap12:address location="http://accountregistrationwebservice.cloudapp.net/WebServices/AccountDeviceWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="AriaObjectShelveMethodParameter_AriaObjectShelveMethodParameterSettings_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveMethodParameter" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="AriaObjectShelveMethodParameterSetting_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectShelveMethodParameterSetting" RelativeSize="100">
+              <LayoutGroup Id="AriaObjectShelveMethodParameterSetting_col1" RelativeSize="48.264984227129339">
+                <LayoutItem Id="SettingType" SizeConstraintsType="Default" RelativeSize="11.552346570397113" />
+                <LayoutItem Id="Value" SizeConstraintsType="Default" RelativeSize="8.6642599277978345" />
+                <LayoutItem Id="Width" SizeConstraintsType="Default" RelativeSize="79.783393501805051" Index="2" />
+                <LayoutItem Id="DataType" SizeConstraintsType="Default" RelativeSize="8.6642599277978345" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelveMethodParameterSetting_col2" RelativeSize="48.264984227129339" Caption="AriaObjectShelveMethodParameterSetting_col2">
+                <LayoutItem Id="Modified" SizeConstraintsType="Default" RelativeSize="100" Index="0" />
+                <LayoutItem Id="AriaObjectShelveMethodParameter" Removed="True" />
+                <LayoutItem Id="DecimalPlaces" SizeConstraintsType="Default" RelativeSize="11.552346570397113" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelveMethodParameterSetting_ListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveMethodParameter" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectShelveMethodParameterSetting_LookupListView">
+      <Columns>
+        <ColumnInfo Id="AriaObjectShelveMethodParameter" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

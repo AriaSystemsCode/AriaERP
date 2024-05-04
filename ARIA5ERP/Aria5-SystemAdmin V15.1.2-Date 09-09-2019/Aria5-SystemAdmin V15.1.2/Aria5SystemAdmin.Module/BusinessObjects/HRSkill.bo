@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRSkill" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="HRSkill_ListView">
+      <Columns>
+        <ColumnInfo Id="Description" Width="149" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Type" Width="144" Index="0" />
+        <ColumnInfo Id="Category" Width="144" Index="1" />
+        <ColumnInfo Id="Name" Width="143" Index="2" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="HRSkill_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Type" Index="0" Caption="Type" PropertyName="Type" Width="209" IsNewNode="True" />
+        <ColumnInfo Id="Name" SortOrder="Descending" Index="1" Width="371" />
+      </Columns>
+    </ListView>
+    <ListView Id="HRSkillsCategory_ListOfSkills_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Description" Width="159" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Type" Index="0" Width="98" />
+        <ColumnInfo Id="Category" Index="1" Width="131" />
+        <ColumnInfo Id="Name" Index="2" Width="192" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

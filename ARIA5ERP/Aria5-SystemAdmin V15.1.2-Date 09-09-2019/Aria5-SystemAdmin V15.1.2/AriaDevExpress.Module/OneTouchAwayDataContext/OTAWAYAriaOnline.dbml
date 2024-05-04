@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Aria5SystemAdmin" Class="OTAWAYAriaOnlineDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=u4hfi3e5h9.database.windows.net;Initial Catalog=Aria5SystemAdmin_Staging;User ID=azuresqladmin;Password=aria_123" SettingsObjectName="AriaDevExpress.Module.Properties.Settings" SettingsPropertyName="Aria5SystemAdminConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.OTAWAYApplicationModule" Member="OTAWAYApplicationModules">
+    <Type Name="OTAWAYApplicationModule">
+      <Column Name="AppModID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShortDesc" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LongDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserControl" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeaderImgUrl" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadHeaderImgUrl" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Image1Url" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadImage1Url" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Image2Url" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadImage2Url" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="AppRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToolTip" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Image3Url" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadImage3Url" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="VideoURL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="OTAWAYApplicationModule_OTAWAYApplicationModule" Member="OTAWAYApplicationModules" ThisKey="AppModID" OtherKey="ParentID" Type="OTAWAYApplicationModule" />
+      <Association Name="OTAWAYApplicationModule_OTAWAYApplicationModule" Member="OTAWAYApplicationModule1" ThisKey="ParentID" OtherKey="AppModID" Type="OTAWAYApplicationModule" IsForeignKey="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule" Member="OTAWAYFileDataEx" ThisKey="UploadHeaderImgUrl" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule1" Member="OTAWAYFileDataEx1" ThisKey="UploadImage1Url" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule2" Member="OTAWAYFileDataEx2" ThisKey="UploadImage2Url" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule3" Member="OTAWAYFileDataEx3" ThisKey="UploadImage3Url" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYSubject" Member="OTAWAYSubjects">
+    <Type Name="OTAWAYSubject">
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Outline" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImagePath" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ImageURL" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Audience" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="OTAWAYSubject_OTAWAYEvent" Member="OTAWAYEvents" ThisKey="SubjectID" OtherKey="SubjectID" Type="OTAWAYEvent" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYSubject" Member="OTAWAYFileDataEx" ThisKey="ImagePath" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYArticle" Member="OTAWAYArticles">
+    <Type Name="OTAWAYArticle">
+      <Column Name="Article_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="VisibleRank" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="OpenURL" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RightImage" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UploadRightImage" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MiddleImage" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UploadMiddleImage" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Description2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Released" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="VideoURL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="MenuDesc" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="OTAWAYCategory_OTAWAYArticle" Member="OTAWAYCategory" ThisKey="Category_ID" OtherKey="Category_ID" Type="OTAWAYCategory" IsForeignKey="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYArticle" Member="OTAWAYFileDataEx" ThisKey="UploadMiddleImage" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYArticle1" Member="OTAWAYFileDataEx1" ThisKey="UploadRightImage" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYASPNETCoursePeriod" Member="OTAWAYASPNETCoursePeriods">
+    <Type Name="OTAWAYASPNETCoursePeriod">
+      <Column Name="CourseID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="OTAWAYASPNETCourse_OTAWAYASPNETCoursePeriod" Member="OTAWAYASPNETCourse" ThisKey="CourseID" OtherKey="CourseID" Type="OTAWAYASPNETCourse" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYASPNETCourses" Member="OTAWAYASPNETCourses">
+    <Type Name="OTAWAYASPNETCourse">
+      <Column Name="CourseID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CourseName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Cost" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Outline" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Duration" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="cObjective" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="IntendedAudience" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DataPrerequisites" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="OTAWAYASPNETCourse_OTAWAYASPNETCoursePeriod" Member="OTAWAYASPNETCoursePeriods" ThisKey="CourseID" OtherKey="CourseID" Type="OTAWAYASPNETCoursePeriod" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYCategory" Member="OTAWAYCategories">
+    <Type Name="OTAWAYCategory">
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_Desc" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="RowRefrence" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ColumnReference" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MenuDesc" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="OTAWAYCategory_OTAWAYArticle" Member="OTAWAYArticles" ThisKey="Category_ID" OtherKey="Category_ID" Type="OTAWAYArticle" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYDocument" Member="OTAWAYDocuments">
+    <Type Name="OTAWAYDocument">
+      <Column Name="DocID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UploadDoc" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="DocType" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="UploadDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UploadTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UploadBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Available" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DOF" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYDocument" Member="OTAWAYFileDataEx" ThisKey="UploadDoc" OtherKey="Oid" Type="OTAWAYFileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYEmailTemplate" Member="OTAWAYEmailTemplates">
+    <Type Name="OTAWAYEmailTemplate">
+      <Column Name="ID" Type="System.String" DbType="Char(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[TO]" Member="TO" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="CC" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="BCC" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="ReplayTo" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Body" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYEvent" Member="OTAWAYEvents">
+    <Type Name="OTAWAYEvent">
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Outline" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Instructor" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="FromDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecordedFile" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Audience" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="OTAWAYEvent_OTAWAYEventAttendee" Member="OTAWAYEventAttendees" ThisKey="EventID" OtherKey="EventID" Type="OTAWAYEventAttendee" />
+      <Association Name="OTAWAYSubject_OTAWAYEvent" Member="OTAWAYSubject" ThisKey="SubjectID" OtherKey="SubjectID" Type="OTAWAYSubject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYEventAttendee" Member="OTAWAYEventAttendees">
+    <Type Name="OTAWAYEventAttendee">
+      <Column Name="EventID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Attended" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EventAttendeeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="OTAWAYEvent_OTAWAYEventAttendee" Member="OTAWAYEvent" ThisKey="EventID" OtherKey="EventID" Type="OTAWAYEvent" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYFileDataEx" Member="OTAWAYFileDataExes">
+    <Type Name="OTAWAYFileDataEx">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DefaultDirectory" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Size" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Content" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(260)" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule" Member="OTAWAYApplicationModules" ThisKey="Oid" OtherKey="UploadHeaderImgUrl" Type="OTAWAYApplicationModule" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule1" Member="OTAWAYApplicationModules1" ThisKey="Oid" OtherKey="UploadImage1Url" Type="OTAWAYApplicationModule" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule2" Member="OTAWAYApplicationModules2" ThisKey="Oid" OtherKey="UploadImage2Url" Type="OTAWAYApplicationModule" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYApplicationModule3" Member="OTAWAYApplicationModules3" ThisKey="Oid" OtherKey="UploadImage3Url" Type="OTAWAYApplicationModule" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYSubject" Member="OTAWAYSubjects" ThisKey="Oid" OtherKey="ImagePath" Type="OTAWAYSubject" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYArticle" Member="OTAWAYArticles" ThisKey="Oid" OtherKey="UploadMiddleImage" Type="OTAWAYArticle" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYArticle1" Member="OTAWAYArticles1" ThisKey="Oid" OtherKey="UploadRightImage" Type="OTAWAYArticle" />
+      <Association Name="OTAWAYFileDataEx_OTAWAYDocument" Member="OTAWAYDocuments" ThisKey="Oid" OtherKey="UploadDoc" Type="OTAWAYDocument" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYForms" Member="OTAWAYForms">
+    <Type Name="OTAWAYForm">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompanySize" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BusinessType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductInterest" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="HearAboutUs" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="customfield1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield4" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield5" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="EnteredDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYSEO" Member="OTAWAYSEOs">
+    <Type Name="OTAWAYSEO">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PageLink" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="KeyWords" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OTAWAYSiteMap" Member="OTAWAYSiteMaps">
+    <Type Name="OTAWAYSiteMap">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

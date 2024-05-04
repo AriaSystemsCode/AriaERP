@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetAccountStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="account" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegisterNewAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="account" type="tns:AccountMarshalling" />
+            <s:element minOccurs="0" maxOccurs="1" name="person" type="tns:PersonMarshalling" />
+            <s:element minOccurs="0" maxOccurs="1" name="contactAddress" type="tns:ContactAddressMarshalling" />
+            <s:element minOccurs="0" maxOccurs="1" name="contactPhone" type="tns:ContactPhoneMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccountMarshalling">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TradeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InternalContactNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Guide" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusSer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonMarshalling">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiddleName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Department" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NickName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BirthDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="SpouseName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SSN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Salutation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PositionTitle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Position" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepartmentName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TitleOfCourtesy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebPageAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentContact" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContactAddressMarshalling">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressLine3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RegionName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContactPhoneMarshalling">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PhoneType" type="s1:guid" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Extension" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneTypeDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegisterNewAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegisterNewAccountResult" type="tns:RegisterNewAountResultMarshalling" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RegisterNewAountResultMarshalling">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PersonGuid" type="s1:guid" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountGuid" type="s1:guid" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAccountStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegisterNewAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:RegisterNewAccount" />
+  </wsdl:message>
+  <wsdl:message name="RegisterNewAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:RegisterNewAccountResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AccountWebServiceSoap">
+    <wsdl:operation name="GetAccountStatus">
+      <wsdl:input message="tns:GetAccountStatusSoapIn" />
+      <wsdl:output message="tns:GetAccountStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterNewAccount">
+      <wsdl:input message="tns:RegisterNewAccountSoapIn" />
+      <wsdl:output message="tns:RegisterNewAccountSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccountWebServiceSoap" type="tns:AccountWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAccountStatus">
+      <soap:operation soapAction="http://tempuri.org/GetAccountStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterNewAccount">
+      <soap:operation soapAction="http://tempuri.org/RegisterNewAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AccountWebServiceSoap12" type="tns:AccountWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAccountStatus">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterNewAccount">
+      <soap12:operation soapAction="http://tempuri.org/RegisterNewAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountWebService">
+    <wsdl:port name="AccountWebServiceSoap" binding="tns:AccountWebServiceSoap">
+      <soap:address location="http://2102493a4b824971ad5a017346a7e01b.cloudapp.net/WebServices/AccountWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AccountWebServiceSoap12" binding="tns:AccountWebServiceSoap12">
+      <soap12:address location="http://2102493a4b824971ad5a017346a7e01b.cloudapp.net/WebServices/AccountWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

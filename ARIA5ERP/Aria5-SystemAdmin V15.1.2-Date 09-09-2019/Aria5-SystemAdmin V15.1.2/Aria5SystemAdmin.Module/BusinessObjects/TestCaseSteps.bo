@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TestCaseSteps" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Actualperformance" Caption="Act. Time Perf (Sec)" />
+        <Member Name="Attachements" Caption="Attachments" />
+        <Member Name="Expectedperformance" Caption="Exp. Time Perf (Sec)" />
+        <Member Name="Number" AllowEdit="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="TestCase_TestCaseSteps_ListView" GroupSummary="Empty" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="Number" SortOrder="Ascending" />
+      </Columns>
+    </ListView>
+    <DetailView Id="TestCaseSteps_DetailView">
+      <Items>
+        <PropertyEditor Id="Actualperformance" Caption="Actualperformance" PropertyName="Actualperformance" IsNewNode="True" />
+        <PropertyEditor Id="Expectedperformance" Caption="Expectedperformance" PropertyName="Expectedperformance" IsNewNode="True" />
+        <PropertyEditor Id="ExpectedResult" Caption="ExpectedResult" PropertyName="ExpectedResult" IsNewNode="True" />
+      </Items>
+    </DetailView>
+    <ListView Id="TestCaseSteps_ListView" GroupSummary="Empty" />
+  </Views>
+</Application>

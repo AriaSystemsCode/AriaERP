@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRSkillInstance" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="HREmployee_Qualifications_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Category" SortOrder="Ascending" GroupIndex="0" Index="1" />
+        <ColumnInfo Id="Skill" SortIndex="-1" SortOrder="None" Index="2" />
+        <ColumnInfo Id="Completed" Width="61" Index="3" />
+        <ColumnInfo Id="Level" Index="4" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HRSkillInstance_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HRSkillInstance" RelativeSize="100">
+              <LayoutGroup Id="HRSkillInstance_col1" RelativeSize="50">
+                <LayoutItem Id="Type" RelativeSize="13.061224489795919" ViewItem="Type" />
+                <LayoutItem Id="Category" RelativeSize="9.795918367346939" ViewItem="Category" />
+                <LayoutItem Id="Skill" RelativeSize="9.795918367346939" ViewItem="Skill" />
+                <LayoutItem Id="Level" Index="3" RelativeSize="9.795918367346939" ViewItem="Level" />
+                <LayoutItem Id="Completed" Index="4" RelativeSize="57.551020408163268" ViewItem="Completed" />
+              </LayoutGroup>
+              <LayoutGroup Id="HRSkillInstance_col2" RelativeSize="50">
+                <LayoutItem Id="DegreeType" ViewItem="DegreeType" Index="0" RelativeSize="13.061224489795919" IsNewNode="True" />
+                <LayoutItem Id="Faculty" RelativeSize="9.795918367346939" Index="1" ViewItem="Faculty" />
+                <LayoutItem Id="Unvirsety" RelativeSize="9.795918367346939" Index="2" ViewItem="Unvirsety" />
+                <LayoutItem Id="Grade" RelativeSize="9.795918367346939" Index="3" ViewItem="Grade" />
+                <LayoutItem Id="Major" RelativeSize="9.795918367346939" Index="5" ViewItem="Major" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HRSkillInstance_ListView">
+      <Columns>
+        <ColumnInfo Id="Type" Width="94" />
+        <ColumnInfo Id="Category" Width="94" />
+        <ColumnInfo Id="Skill" Width="94" />
+        <ColumnInfo Id="Completed" Width="67" />
+        <ColumnInfo Id="Level" Width="94" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

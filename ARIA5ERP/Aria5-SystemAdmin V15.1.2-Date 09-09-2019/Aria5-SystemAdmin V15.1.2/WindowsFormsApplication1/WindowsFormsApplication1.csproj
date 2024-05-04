@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E4CA25FA-B648-4BD3-AB5C-8A4C8A7A8C46}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <AssemblyName>WindowsFormsApplication1</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AccountWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AriaUserWebServiceRefrence\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference3\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="bin\Debug\WindowsFormsApplication1.exe.config" />
+    <None Include="bin\Debug\WindowsFormsApplication1.vshost.exe.config" />
+    <None Include="bin\Debug\WindowsFormsApplication1.vshost.exe.manifest" />
+    <None Include="bin\Debug\WindowsFormsApplication1.vshost.ldb" />
+    <None Include="bin\Production\WindowsFormsApplication1.exe.config" />
+    <None Include="bin\Production\WindowsFormsApplication1.vshost.exe.config" />
+    <None Include="bin\Staging\WindowsFormsApplication1.exe.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\AccountWebservice\AccountWebService.wsdl" />
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.AccountMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.CategoriesDataType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.CheckEmailResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetAccountObjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetAccountStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetAllDemoAccountsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetCategoryByAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetDemoAccountsForCategoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetDemoAccountsForStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetDemoGuideCategoriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.GetNewAccountObjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.NewAccountMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.RegisterNewAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AccountWebservice\WindowsFormsApplication1.AccountWebservice.RegisterNewAcountResultMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\AriaUserWebService.wsdl" />
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.AddNewUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.AriaUserMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.ChangePasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.GenerateTemporaryPasswordAdminResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.GenerateTemporaryPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.GetAccountUsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.RestPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.SendFeedbackResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.SendPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\WindowsFormsApplication1.AriaUserWebServiceRefrence.UserAuthenticationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\AccountWebService.wsdl" />
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.AccountMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.CategoriesDataType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.CheckEmailResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetAccountObjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetAccountStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetAllDemoAccountsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetCategoryByAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetDemoAccountsForCategoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetDemoAccountsForStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetDemoGuideCategoriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.GetNewAccountObjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.NewAccountMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.RegisterNewAccountResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\WindowsFormsApplication1.ServiceReference1.RegisterNewAcountResultMarshalling.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference2\AriaSynchronizationService.wsdl" />
+    <None Include="Service References\ServiceReference2\WindowsFormsApplication1.ServiceReference2.ArrayOfString.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference2\WindowsFormsApplication1.ServiceReference2.SyncDataObject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\AriaSynchronizationService1.wsdl" />
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.ArrayOfString.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.GetDBVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.GetMinFrontEndVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.NotifyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.PullDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.PushDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.RegisterResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference3\WindowsFormsApplication1.ServiceReference3.SyncDataObject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria5.DevExpress.SystemAdmin.WebServiceRole\Aria5.DevExpress.SystemAdmin.WebServiceRole.csproj">
+      <Project>{00c399cd-23b7-4901-91af-ac05bbb0fdb1}</Project>
+      <Name>Aria5.DevExpress.SystemAdmin.WebServiceRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module\Aria5SystemAdmin.Module.csproj">
+      <Project>{d28c293a-a455-47d5-8515-c9d019c1a538}</Project>
+      <Name>Aria5SystemAdmin.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AccountWebservice\" />
+    <WCFMetadataStorage Include="Service References\AriaUserWebServiceRefrence\" />
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
+    <WCFMetadataStorage Include="Service References\ServiceReference2\" />
+    <WCFMetadataStorage Include="Service References\ServiceReference3\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\AccountWebService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference2\AriaSynchronizationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference3\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference3\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference3\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Aria5.DevExpress.MainSystem.Module.dll" />
+    <Content Include="bin\Debug\Aria5.DevExpress.MainSystem.Module.pdb" />
+    <Content Include="bin\Debug\Aria5.DevExpress.OneTouchAway.Module.dll" />
+    <Content Include="bin\Debug\Aria5.DevExpress.OneTouchAway.Module.pdb" />
+    <Content Include="bin\Debug\Aria5.DevExpress.SystemAdmin.WebServiceRole.dll" />
+    <Content Include="bin\Debug\Aria5.DevExpress.SystemAdmin.WebServiceRole.pdb" />
+    <Content Include="bin\Debug\Aria5SystemAdmin.Module.dll" />
+    <Content Include="bin\Debug\Aria5SystemAdmin.Module.pdb" />
+    <Content Include="bin\Debug\Microsoft.Azure.NotificationHubs.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.OData.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.OData.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Diagnostics.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Diagnostics.xml" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\Debug\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\Debug\MonAgentListener.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\System.Spatial.dll" />
+    <Content Include="bin\Debug\System.Spatial.xml" />
+    <Content Include="bin\Debug\WindowsFormsApplication1.exe" />
+    <Content Include="bin\Debug\WindowsFormsApplication1.pdb" />
+    <Content Include="bin\Debug\WindowsFormsApplication1.vshost.exe" />
+    <Content Include="bin\Debug\WindowsFormsApplication1.vshost.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Production\Aria5.DevExpress.MainSystem.Module.dll" />
+    <Content Include="bin\Production\Aria5.DevExpress.MainSystem.Module.pdb" />
+    <Content Include="bin\Production\Aria5.DevExpress.SystemAdmin.WebServiceRole.dll" />
+    <Content Include="bin\Production\Aria5.DevExpress.SystemAdmin.WebServiceRole.pdb" />
+    <Content Include="bin\Production\Aria5SystemAdmin.Module.dll" />
+    <Content Include="bin\Production\Aria5SystemAdmin.Module.pdb" />
+    <Content Include="bin\Production\de\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\de\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\de\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\de\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\es\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\es\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\es\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\es\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\fr\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\fr\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\fr\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\fr\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\it\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\it\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\it\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\it\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\ja\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\ja\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\ja\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\ja\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\ko\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\ko\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\ko\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\ko\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\Microsoft.Azure.NotificationHubs.dll" />
+    <Content Include="bin\Production\Microsoft.Azure.NotificationHubs.xml" />
+    <Content Include="bin\Production\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\Production\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\Production\Microsoft.Data.OData.dll" />
+    <Content Include="bin\Production\Microsoft.Data.OData.xml" />
+    <Content Include="bin\Production\Microsoft.Data.Services.Client.dll" />
+    <Content Include="bin\Production\Microsoft.Data.Services.Client.xml" />
+    <Content Include="bin\Production\Microsoft.WindowsAzure.Diagnostics.dll" />
+    <Content Include="bin\Production\Microsoft.WindowsAzure.Diagnostics.xml" />
+    <Content Include="bin\Production\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\Production\Microsoft.WindowsAzure.Storage.xml" />
+    <Content Include="bin\Production\MonAgentListener.dll" />
+    <Content Include="bin\Production\Newtonsoft.Json.dll" />
+    <Content Include="bin\Production\Newtonsoft.Json.xml" />
+    <Content Include="bin\Production\ru\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\ru\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\ru\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\ru\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\System.Spatial.dll" />
+    <Content Include="bin\Production\System.Spatial.xml" />
+    <Content Include="bin\Production\WindowsFormsApplication1.exe" />
+    <Content Include="bin\Production\WindowsFormsApplication1.pdb" />
+    <Content Include="bin\Production\WindowsFormsApplication1.vshost.exe" />
+    <Content Include="bin\Production\zh-Hans\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\zh-Hans\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\zh-Hans\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\zh-Hans\System.Spatial.resources.dll" />
+    <Content Include="bin\Production\zh-Hant\Microsoft.Data.Edm.resources.dll" />
+    <Content Include="bin\Production\zh-Hant\Microsoft.Data.OData.resources.dll" />
+    <Content Include="bin\Production\zh-Hant\Microsoft.Data.Services.Client.resources.dll" />
+    <Content Include="bin\Production\zh-Hant\System.Spatial.resources.dll" />
+    <Content Include="bin\Staging\WindowsFormsApplication1.exe" />
+    <Content Include="bin\Staging\WindowsFormsApplication1.pdb" />
+    <None Include="Service References\AriaUserWebServiceRefrence\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AriaUserWebServiceRefrence\configuration.svcinfo" />
+    <None Include="Service References\AriaUserWebServiceRefrence\configuration91.svcinfo" />
+    <None Include="Service References\AriaUserWebServiceRefrence\AriaUserWebService.disco" />
+    <None Include="Service References\AccountWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AccountWebservice\configuration.svcinfo" />
+    <None Include="Service References\AccountWebservice\configuration91.svcinfo" />
+    <None Include="Service References\AccountWebservice\AccountWebService.disco" />
+    <None Include="Service References\ServiceReference3\AriaSynchronizationService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\de\" />
+    <Folder Include="bin\Debug\es\" />
+    <Folder Include="bin\Debug\fr\" />
+    <Folder Include="bin\Debug\it\" />
+    <Folder Include="bin\Debug\ja\" />
+    <Folder Include="bin\Debug\ko\" />
+    <Folder Include="bin\Debug\ru\" />
+    <Folder Include="bin\Debug\zh-Hans\" />
+    <Folder Include="bin\Debug\zh-Hant\" />
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

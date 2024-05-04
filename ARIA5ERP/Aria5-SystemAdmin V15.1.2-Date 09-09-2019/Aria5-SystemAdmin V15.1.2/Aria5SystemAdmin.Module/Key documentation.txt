@@ -1,0 +1,123 @@
+﻿---------------------------------Iteration 2016-03------------start-------------------
+Ahmed TAwfik 
+BaseLine Feature:
+1-Add End date field to (Requirement , QAUse Case, QAproject entity , Test Case, Qausecasepoints,QAMain Feature).
+2-Add CalcEndDate static class with static function that calculate the end date based aria duration and SPIG diagrame 
+3-Add Baseline Conreoller that inherit from View controller 
+>> check if the current view on of the previous view controller check the end date if the current date greater than the object end date
+>> it disable edit and delete actions 
+>> remove edit icon from list view from this previous Business objects 
+>> disable edit and delete action in those business objects list view 
+4-Add conditional apperance rule to prevent edit for the end date if the logged in user is not admin 
+
+/////////////////////////////////////////////////////
+
+AutoTask Integration:
+1- Add Autotask ID in the project template Business Object 
+2- Add Autotask ID in QAWBS     Business Object 
+3- Autotask ID in  Tracking Task   Business Object 
+4- Add (Autotaskid,DepartmentID,AutotaskName,Auto Task Departement Name,AutoTask Role ID) in the resources business objectt
+5- Add controller (AutoTask_Integration) 
+>> Add Action Named CreateProject     >>   Create the project on the autotask with it's phases
+>> Add Action Named UpdateProject     >>   check if there are any phase is not created and create it and any activity all tracking and create it 
+>> Add Action Named GetResourceinfo   >>  get the resource autotask information based on email 
+6- Add Class (AutoTaskIntegrationManager) contains all functions that called by previous actions.
+---------------------------------Iteration 2016-03---------------------END-------------
+
+
+--------------------------------Iteration 2016-04-------------------start-------------
+Ahmed Tawfik
+
+AutoTask Update:
+1- Add (autotaskestimate,autotaskactual) in the QAWBS business object 
+2- Add (autotaskestimate,autotaskactual, Remaining) in the Tracking Tasks Business obejcts 
+3- Add (TotalActualDetaildesign,TotalActualProgramming) in the QAproject entity business object 
+4- Add (PhaseM0,PhaseM1,PhaseM2,PhaseM3)   in the Projecttemplate business object 
+5- Add Project (Aria5Systemadmin.GaugePropertyEditor.Web) to the solution  use it as a module to display double value as a gauge 
+>> open Webmodule.cs under Aria5SystemAdmin.Web  add gaygepropertyeditor module
+>>use theis attribute ([DevExpress.Persistent.Base.EditorAlias("CircularGaugePropertyEditor")])over any double field you want to display as agauge
+
+6-Modify updateproject Action to get the actual time for each task and based on it get actual time for each phase 
+7- gauges display Phase Actual time / Phase Estimate Time 
+
+--------------------------------Iteration 2016-05------------------End---------------
+
+---------------------------------18/5/2016 ---Iteration 2016-05-------start--------------
+Ahmed Tawfik 
+iteration # 2016 -05 
+add new business objects 
+1- Average Handle Time 
+2- TicketAHT 
+3- Ticket Detail
+4 - delivery on time  
+
+add new actions in auto_task_integration controller
+1- Calculate AHT 
+2- Calculate_AHT_for_ticket
+3- Download The File
+4- calculate Dot 
+
+add 4 function in AutoTaskIntegrationManager
+1- get_tickets_Aht_by_date_range
+2- get_ticket_Aht_by_number
+3- CalculateAHT
+4- CreateAHTlist
+5- get_tickets_dot_by_date_range
+6-craete dot list 
+---------------------------------------18/5/2016------Iteration 2016-05-----END-------
+
+
+---------------------------------------iteration 2016- 6--------------start-----------
+Ahmed Tawfik
+1-add validation in tracking entry task saving to don't allow to
+ assign to tasks to the same resource at the same tracking 
+ by modify the tracking tasks saving function to check if the tracking task tracking number have a task on the same rsource or not 
+ 
+2- enhance iteration management ui 
+3-Clone Usecasepoints to project based on project type 
+	>>Add new controller Named(Clonetemplate)
+	>>This controller inherit from window controller 
+	>>to be able to Override the Save, Saveandclose,SaveandNew  Actions
+	>>show popup window contain a template based on project template 
+	>>if the user select the template 
+	>>it's be cloned with all it's sub levels and assigned to this project   
+-------------------------------------iteration - 6----------------End----------------
+
+
+-------------------------------------iteration - 7 --------------Start---------------
+Ahmed tawfik 
+
+Notification:
+1- add notification module  >> open Aria5SystemAdmin.Module. WebModule.cs  >> add >> Notification Module >> open Aria5SystemAdmin.Web
+>> WebApplication.cs >> add WebNotificationModule >> recheck the connection string after add the module 
+2- project template business object should implement the ISUpportNotification interface to be included in notification 
+3- modify saving function of project template to set the notification message and the alarm time 
+4- modify each base line business object saving to call project tempalte saving to modify the notification message or delete it if all the required items is added 
+(Requirement, QAUsecases, QAprojectEntity,testcase,QAUseCasepoints,EntityDetailDesign)
+2- add NotificationCustomization to customize notification module to work on xpo 
+3- modify Webmodule.cs to trigger the login event and determine notification collection criteria
+
+-------------------------------------iteration - 7 --------------End---------------
+
+
+----------------------------------Iteration -8------------------------Start-----------
+Ahmed Tawfik
+
+AHT and OTD calculation enhancement:
+1- Add AHT and OTD calculation  (Class)
+2- write all functions that used in the calculation in this class and use it in w eb job and action that calculate AHT 
+3- Modify Average Handle Time business object and Delivery on Time Business object (Delete some unneeded fields)
+4-Add new web job to Get AHT an OTD over night every day  (GET_DOT_AHT_Data)
+5-Add New web job to calculate AHT and OTD for each month and the first sundy of the next month    (DOTWebjob) 
+6-this web job published by this way >> build it >> then copy all it's files and dlls >> creat a .zip file included all the files 
+>> then open the azure portal >> select webjobs >> ADD >> upload the webjob >> and choose running criteria if once or schduale 
+7- DOT web job send the attachement in the mail 
+---------------------------Iteration -8------------------------------End-------------
+
+--------------------------iteration - 11 ------------------------------start---
+Ahmed Tawfik 
+
+HR-System :
+
+ 
+  

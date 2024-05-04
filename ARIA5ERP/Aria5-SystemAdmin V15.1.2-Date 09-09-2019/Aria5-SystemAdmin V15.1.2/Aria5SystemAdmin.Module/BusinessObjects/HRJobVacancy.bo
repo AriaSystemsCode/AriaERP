@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRJobVacancy" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="MinmumyearsOfExperience" Caption="Minmum Years Of Experience" />
+        <Member Name="RequestedBy" AllowEdit="False" />
+        <Member Name="RequestedDate" AllowEdit="False" />
+        <Member Name="RequestNumber" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="HRJobVacancy_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="61.05263157894737">
+            <LayoutGroup Id="HRJobVacancy" RelativeSize="100">
+              <LayoutGroup Id="HRJobVacancy_col1" RelativeSize="49.797570850202426">
+                <LayoutItem Id="RequestNumber" RelativeSize="23.529411764705884" ViewItem="RequestNumber" />
+                <LayoutItem Id="Department" RelativeSize="17.647058823529413" Index="1" ViewItem="Department" />
+                <LayoutItem Id="RequestedBy" RelativeSize="15" Index="1" ViewItem="RequestedBy" Removed="True" />
+                <LayoutItem Id="JobPosition" Index="2" RelativeSize="17.647058823529413" ViewItem="JobPosition" IsNewNode="True" />
+                <LayoutItem Id="NumberOfVacancies" Index="3" RelativeSize="17.647058823529413" ViewItem="NumberOfVacancies" IsNewNode="True" />
+                <LayoutItem Id="MinmumyearsOfExperience" ViewItem="MinmumyearsOfExperience" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="RequestedDate" RelativeSize="17.647058823529413" ViewItem="RequestedDate" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HRJobVacancy_col2" RelativeSize="50.202429149797574">
+                <LayoutItem Id="RequestedDate" ViewItem="RequestedDate" Index="0" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="MinmumyearsOfExperience" RelativeSize="17.647058823529413" Index="1" ViewItem="MinmumyearsOfExperience" Removed="True" />
+                <LayoutItem Id="RequestedBy" ViewItem="RequestedBy" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                <LayoutItem Id="Status" RelativeSize="58.8235294117647" Index="2" ViewItem="Status" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="38.94736842105263" Index="1">
+            <LayoutGroup Id="ApplicationScreening" Caption="Application Screening" Direction="Vertical" Index="0" RelativeSize="100">
+              <LayoutItem Id="ApplicationScreening" ShowCaption="False" ViewItem="ApplicationScreening" Index="0" RelativeSize="100" IsNewNode="True" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ManagerScreening" Index="1" RelativeSize="100" Caption="Manager Screening" Direction="Vertical">
+              <LayoutItem Id="ManagerScreening" ShowCaption="False" ViewItem="ManagerScreening" Index="0" RelativeSize="100" IsNewNode="True" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" Caption="Phone screening" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="PhoneScreening" ShowCaption="False" ViewItem="PhoneScreening" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" Caption="HR Interview" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="HRInterview" ShowCaption="False" ViewItem="HRInterview" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="4" Caption="Technical interview" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Technicalinterview" ShowCaption="False" ViewItem="Technicalinterview" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="HRInterview" Index="5" RelativeSize="0" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="HRInterview" RelativeSize="100" ViewItem="HRInterview" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item5" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="5" Caption="Sending  job offer" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="SendingJobOffer" ShowCaption="False" ViewItem="SendingJobOffer" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PhoneScreening" Index="6" RelativeSize="100" Removed="True">
+              <LayoutItem Id="PhoneScreening" RelativeSize="100" ViewItem="PhoneScreening" />
+            </LayoutGroup>
+            <LayoutGroup Id="SendingJobOffer" Index="6" RelativeSize="0" Caption="Sending Job Offer" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="SendingJobOffer" RelativeSize="100" ViewItem="SendingJobOffer" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Technicalinterview" Index="6" RelativeSize="0" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="Technicalinterview" RelativeSize="100" ViewItem="Technicalinterview" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Applicants" RelativeSize="0" Caption="Application Screening" Direction="Horizontal" ShowCaption="False" Removed="True">
+              <LayoutItem Id="Applicants" ShowCaption="False" ViewItem="Applicants" Index="1" RelativeSize="54.929577464788736" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PendingActivities" RelativeSize="100" Removed="True">
+              <LayoutItem Id="PendingActivities" RelativeSize="100" ViewItem="PendingActivities" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

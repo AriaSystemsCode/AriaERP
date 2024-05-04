@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TrackingEntry" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="AriaObjectShelves" DataSourcePropertyIsNullMode="SelectAll" />
+        <Member Name="CheckInComment" AllowEdit="False" />
+        <Member Name="Entity" DataSourceCriteria="[ObjectType.Name] = 'Entity'" DataSourceProperty="Application.AriaObjects" LookupEditorMode="Auto" />
+        <Member Name="EntityFeatures" DataSourceProperty="" DataSourceCriteria="[TrackingEntry] Is Null" />
+        <Member Name="ID" DisplayFormat="{0:d}" />
+        <Member Name="ModificationType" ImmediatePostData="True" Caption="Entity modification Type" />
+        <Member Name="ObjectName" Caption="Entity Name" />
+        <Member Name="ProjectTemplate" Caption="Project Name" />
+        <Member Name="ReferenceNo" Caption="Auto-Task Reference #" AllowEdit="True" />
+        <Member Name="State" AllowEdit="False" />
+        <Member Name="Status" AllowEdit="True" />
+        <Member Name="TechnicalInformation" Caption="Technical Consideration" />
+        <Member Name="TrackingFix" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="TrackingEntry_DetailView">
+      <Items>
+        <PropertyEditor Id="ApproveDate" AllowEdit="False" />
+        <PropertyEditor Id="ApprovedBy" AllowEdit="False" />
+        <PropertyEditor Id="BuildNo" AllowEdit="False" />
+        <PropertyEditor Id="Entity" DataSourceCriteria="[ObjectType.Name] = 'Entity' And [ConversionDate] Is Not Null" LookupEditorMode="Auto" />
+        <PropertyEditor Id="ID" AllowEdit="False" />
+        <PropertyEditor Id="ReleaseNo" AllowEdit="False" />
+        <PropertyEditor Id="ServicePackNo" AllowEdit="False" />
+        <PropertyEditor Id="Status" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="68.84210526315789">
+            <LayoutGroup Id="TrackingEntry" RelativeSize="100">
+              <LayoutGroup Id="TrackingEntry_col1" RelativeSize="64.346349745331068">
+                <LayoutGroup Id="Auto8093580b-a4c7-44b0-a89d-cde7f5c987c6" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="10.958904109589041" IsNewNode="True">
+                  <LayoutItem Id="ID" ViewItem="ID" Index="0" RelativeSize="50.659630606860155" IsNewNode="True" />
+                  <LayoutItem Id="HasChildren" ViewItem="HasChildren" Index="1" RelativeSize="49.340369393139845" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto41f7254b-3eda-44b1-b449-9f3462273bfc" ShowCaption="False" Caption="Auto41f7254b-3eda-44b1-b449-9f3462273bfc(6)" Direction="Vertical" Index="1" RelativeSize="12.328767123287671" IsNewNode="True">
+                  <LayoutItem Id="ParentTrackingEntry" ViewItem="ParentTrackingEntry" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="ProjectTemplate" ViewItem="ProjectTemplate" SizeConstraintsType="Default" Index="2" RelativeSize="8.2191780821917817" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Application" SizeConstraintsType="Default" Index="3" RelativeSize="8.2191780821917817" ViewItem="Application" />
+                <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="8.2191780821917817" Index="4" ViewItem="Type" />
+                <LayoutItem Id="ModificationType" ViewItem="ModificationType" SizeConstraintsType="Default" Index="5" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="Entity" ViewItem="Entity" SizeConstraintsType="Default" Index="6" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="AccountName" ViewItem="AccountName" Index="7" RelativeSize="7.2948328267477205" Removed="True" />
+                <LayoutItem Id="ObjectName" ViewItem="ObjectName" SizeConstraintsType="Default" Index="7" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" Index="8" RelativeSize="8.2191780821917817" ViewItem="Status" />
+                <LayoutItem Id="EnteredDate" ViewItem="EnteredDate" Index="9" RelativeSize="8.2191780821917817" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="Subject" ViewItem="Subject" SizeConstraintsType="Default" Index="9" RelativeSize="31.707317073170731" Removed="True" />
+                <LayoutItem Id="RequestedDate" Index="10" RelativeSize="10.958904109589041" ViewItem="RequestedDate" IsNewNode="True" />
+                <LayoutItem Id="Account" SizeConstraintsType="Default" RelativeSize="32" Index="11" ViewItem="Account" Removed="True" />
+                <LayoutItem Id="Priority" SizeConstraintsType="Default" RelativeSize="32" Index="11" ViewItem="Priority" Removed="True" />
+                <LayoutItem Id="ReleaseNo" SizeConstraintsType="Default" Index="11" RelativeSize="6.8181818181818183" ViewItem="ReleaseNo" Removed="True" />
+                <LayoutItem Id="ServicePackNo" SizeConstraintsType="Default" Index="11" RelativeSize="7.3170731707317076" ViewItem="ServicePackNo" Removed="True" />
+                <LayoutItem Id="AccountID" SizeConstraintsType="Default" RelativeSize="6" Index="12" ViewItem="AccountID" Removed="True" />
+                <LayoutItem Id="BuildNo" SizeConstraintsType="Default" Index="12" RelativeSize="9.75609756097561" ViewItem="BuildNo" Removed="True" />
+                <LayoutItem Id="ID" SizeConstraintsType="Default" RelativeSize="11.428571428571429" ViewItem="ID" Removed="True" />
+                <LayoutItem Id="TrackingFix" RelativeSize="6.8181818181818183" ViewItem="TrackingFix" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TrackingEntry_col2" RelativeSize="35.653650254668932">
+                <LayoutItem Id="Account" ViewItem="Account" SizeConstraintsType="Default" Index="0" RelativeSize="10.958904109589041" IsNewNode="True" />
+                <LayoutItem Id="HasChildren" RelativeSize="8.5714285714285712" Index="1" ViewItem="HasChildren" Removed="True" />
+                <LayoutItem Id="ReferenceNo" Index="1" RelativeSize="8.2191780821917817" ViewItem="ReferenceNo" />
+                <LayoutItem Id="ReferenceTitle" Index="1" RelativeSize="8.5714285714285712" ViewItem="ReferenceTitle" Removed="True" />
+                <LayoutItem Id="CompleteDate" Index="2" RelativeSize="0.303951367781155" ViewItem="CompleteDate" Removed="True" />
+                <LayoutItem Id="Priority" ViewItem="Priority" SizeConstraintsType="Default" Index="2" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="CheckInComment" ViewItem="CheckInComment" SizeConstraintsType="Default" Index="3" RelativeSize="8.2191780821917817" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="ModificationType" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" Index="4" ViewItem="ModificationType" Removed="True" />
+                <LayoutItem Id="ReleaseNo" ViewItem="ReleaseNo" SizeConstraintsType="Default" Index="4" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="ServicePackNo" ViewItem="ServicePackNo" SizeConstraintsType="Default" Index="5" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="BuildNo" ViewItem="BuildNo" SizeConstraintsType="Default" Index="6" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="TrackingFix" ViewItem="TrackingFix" Index="7" RelativeSize="8.2191780821917817" IsNewNode="True" />
+                <LayoutItem Id="TechnicalDocumentation" Index="8" RelativeSize="31.506849315068493" ViewItem="TechnicalDocumentation" />
+                <LayoutItem Id="ObjectName" SizeConstraintsType="Default" RelativeSize="36.363636363636367" Index="9" ViewItem="ObjectName" Removed="True" />
+                <LayoutItem Id="IsNew" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" Index="10" ViewItem="IsNew" Removed="True" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" Index="10" ViewItem="State" Removed="True" />
+                <LayoutItem Id="ParentTrackingEntry" SizeConstraintsType="Default" RelativeSize="5.6603773584905657" Index="11" ViewItem="ParentTrackingEntry" Removed="True" />
+                <LayoutItem Id="Disable" SizeConstraintsType="Default" RelativeSize="9.0909090909090917" Index="13" ViewItem="Disable" Removed="True" />
+                <LayoutItem Id="Entity" SizeConstraintsType="Default" RelativeSize="6.3829787234042552" ViewItem="Entity" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="17.05263157894737">
+            <LayoutItem Id="Description" RelativeSize="33.333333333333336" ViewItem="Description" />
+            <LayoutItem Id="ReleaseNote" RelativeSize="29.62962962962963" ViewItem="ReleaseNote" />
+            <LayoutItem Id="TechnicalInformation" RelativeSize="37.037037037037038" ViewItem="TechnicalInformation" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="14.105263157894736">
+            <LayoutGroup Id="TrackingEntryAttachments" RelativeSize="100">
+              <LayoutItem Id="TrackingEntryAttachments" RelativeSize="100" ViewItem="TrackingEntryAttachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChildTrackingEntries" RelativeSize="100">
+              <LayoutItem Id="ChildTrackingEntries" RelativeSize="100" ViewItem="ChildTrackingEntries" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectShelves" RelativeSize="100">
+              <LayoutItem Id="AriaObjectShelves" RelativeSize="100" ViewItem="AriaObjectShelves" />
+            </LayoutGroup>
+            <LayoutGroup Id="TrackingTasks" RelativeSize="100">
+              <LayoutItem Id="TrackingTasks" RelativeSize="100" ViewItem="TrackingTasks" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestCases" RelativeSize="100">
+              <LayoutItem Id="TestCases" RelativeSize="100" ViewItem="TestCases" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestPlans" RelativeSize="100">
+              <LayoutItem Id="TestPlans" RelativeSize="100" ViewItem="TestPlans" />
+            </LayoutGroup>
+            <LayoutGroup Id="Defects" RelativeSize="100">
+              <LayoutItem Id="Defects" RelativeSize="100" ViewItem="Defects" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChangeHistory" RelativeSize="100">
+              <LayoutItem Id="ChangeHistory" RelativeSize="100" ViewItem="ChangeHistory" />
+            </LayoutGroup>
+            <LayoutGroup Id="TestRuns" RelativeSize="100">
+              <LayoutItem Id="TestRuns" RelativeSize="100" ViewItem="TestRuns" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityFeatures" RelativeSize="100">
+              <LayoutItem Id="EntityFeatures" RelativeSize="100" ViewItem="EntityFeatures" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntitySystemDesign" RelativeSize="100">
+              <LayoutItem Id="EntitySystemDesign" RelativeSize="100" ViewItem="EntitySystemDesign" />
+            </LayoutGroup>
+            <LayoutGroup Id="DetailDesignEstimates" RelativeSize="100">
+              <LayoutItem Id="DetailDesignEstimates" RelativeSize="100" ViewItem="DetailDesignEstimates" />
+            </LayoutGroup>
+            <LayoutGroup Id="UserInterfaceRules" RelativeSize="100">
+              <LayoutItem Id="UserInterfaceRules" RelativeSize="100" ViewItem="UserInterfaceRules" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="TrackingEntry_ListView" IsGroupPanelVisible="True" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Account" Index="-1" />
+        <ColumnInfo Id="AccountID" Width="78" Index="-1" />
+        <ColumnInfo Id="BuildNo" Index="-1" />
+        <ColumnInfo Id="CheckInComment" Index="-1" />
+        <ColumnInfo Id="CompleteDate" Index="-1" />
+        <ColumnInfo Id="Disable" Index="-1" />
+        <ColumnInfo Id="HasChildren" Index="-1" />
+        <ColumnInfo Id="IsNew" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ObjectName" Index="-1" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Priority" Index="-1" />
+        <ColumnInfo Id="ProjectTemplate" Index="-1" />
+        <ColumnInfo Id="ReferenceNo" Index="-1" />
+        <ColumnInfo Id="ReferenceTitle" Width="46" Index="-1" />
+        <ColumnInfo Id="ReleaseNo" Index="-1" />
+        <ColumnInfo Id="ServicePackNo" Index="-1" />
+        <ColumnInfo Id="State" Width="78" Index="-1" />
+        <ColumnInfo Id="Subject" Index="-1" />
+        <ColumnInfo Id="ID" Width="57" Index="0" SortOrder="None" SortIndex="-1" />
+        <ColumnInfo Id="Application" Width="46" Index="1" />
+        <ColumnInfo Id="Type" Index="2" Width="52" />
+        <ColumnInfo Id="Status" Index="3" Width="78" />
+        <ColumnInfo Id="EnteredDate" Index="5" Width="78" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="RequestedDate" Width="102" Index="6" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="ParentTrackingEntry" Index="7" />
+        <ColumnInfo Id="ModificationType" Index="8" />
+        <ColumnInfo Id="Entity" Index="9" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="AccountName" SortOrder="None" Width="103" SortIndex="-1" Index="11" />
+      </Columns>
+    </ListView>
+    <ListView Id="TrackingEntry_LookupListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="ID" Index="0" Caption="ID" PropertyName="ID" Width="0" IsNewNode="True" />
+        <ColumnInfo Id="Type" Index="2" Caption="Type" PropertyName="Type" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="ProjectTemplate" Index="4" Caption="ProjectTemplate" PropertyName="ProjectTemplate" Width="189" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

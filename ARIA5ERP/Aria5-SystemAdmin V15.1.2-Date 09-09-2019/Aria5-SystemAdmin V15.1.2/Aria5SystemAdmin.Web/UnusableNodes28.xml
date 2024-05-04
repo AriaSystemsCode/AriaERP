@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProjectTemplate_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Autoffbf980c-dad7-49fe-bde3-2e2e38153972">
+              <LayoutGroup Id="Item1">
+                <LayoutGroup Id="Auto5e53c85a-2752-4c10-a8ee-8dd2931cd593">
+                  <LayoutGroup Id="Auto57497af0-38f9-43ab-88d0-4ab9e1b5b935" Caption="Auto57497af0-38f9-43ab-88d0-4ab9e1b5b935(26)" RelativeSize="41.860465116279073">
+                    <LayoutItem Id="PhaseM0_statues" RelativeSize="52.469135802469133" />
+                    <LayoutItem Id="PhaseM0_SPI" RelativeSize="47.530864197530867" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="Auto5ebd0018-e891-45e2-9be6-880bad123915">
+                  <LayoutGroup Id="Auto6ecd9fc4-6fef-48f3-a969-f25e6e2cde53">
+                    <LayoutGroup Id="Autod19b01f4-aa38-44ef-a152-cfeb6cbdcb51" Caption="Autod19b01f4-aa38-44ef-a152-cfeb6cbdcb51(33)" RelativeSize="44.186046511627907">
+                      <LayoutItem Id="PhaseM1_statues" RelativeSize="49.044585987261144" />
+                      <LayoutItem Id="PhaseM1_SPI" RelativeSize="50.955414012738856" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="Auto5eec65fd-dc89-48bc-8b84-dc5cb683b120">
+                    <LayoutGroup Id="Autoe83e31e5-dfb7-4bd0-b337-69623d67cb0d">
+                      <LayoutGroup Id="Auto55362f25-f625-43a2-b54e-cfca3ee8a39b" Caption="Auto55362f25-f625-43a2-b54e-cfca3ee8a39b(39)" RelativeSize="44.186046511627907">
+                        <LayoutItem Id="PhaseM2_statues" RelativeSize="44.5859872611465" />
+                        <LayoutItem Id="PhaseM2_SPI" RelativeSize="55.4140127388535" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                    <LayoutGroup Id="Auto58677ab8-e0a2-4a28-9da8-5465cb010875">
+                      <LayoutGroup Id="Auto38db0546-dda9-4d2b-bd1c-eb2f00ab0679" Caption="Auto38db0546-dda9-4d2b-bd1c-eb2f00ab0679(44)" RelativeSize="44.186046511627907">
+                        <LayoutItem Id="PhaseM3_statues" RelativeSize="47.530864197530867" />
+                        <LayoutItem Id="PhaseM3_SPI" RelativeSize="52.469135802469133" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="@3f596f34-a42e-49b4-9979-7b165173a5cc" ViewId="ClientOnlineGame_ListView" />
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+              <Item Id="EntityClassification_ListView" ViewId="ClientEntityClassification_ListView" />
+              <Item Id="EntityCategory_ListView" ViewId="ClientEntityCategory_ListView" />
+              <Item Id="DataSortColumn_ListView" ViewId="DataSortColumnFilter_ListView" />
+              <Item Id="DataSort_ListView" ViewId="DataSortColumnFilter_ListView" />
+              <Item Id="DataFilterColumn_ListView" ViewId="DataFilterColumnFilter_ListView" />
+              <Item Id="DataFilter_ListView" ViewId="ClientDataFilter_ListView" />
+              <Item Id="ClientEntityType_ListView" ViewId="ClientEntityType_ListView" />
+              <Item Id="AttachmentCategory_ListView" ViewId="ClientAttachmentCategory_ListView" />
+              <Item Id="Attachment_ListView" ViewId="ClientAttachments_ListView" />
+              <Item Id="ADS_ListView" ViewId="ClienADS_ListView" />
+              <Item Id="Events_ListView" ViewId="ClientEvents_ListView" />
+              <Item Id="News_ListView" ViewId="ClientNews_ListView" />
+              <Item Id="ClientInformation_ListView" ViewId="ClientInformation_ListView" />
+              <Item Id="LocationType_ListView" ViewId="ClientLocationType_ListView" />
+              <Item Id="Location_ListView" ViewId="Localization_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules>
+    <SchemaModule Name="SystemAspNetModule" Version="14.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="14.1.6.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="Application_T_DetailView">
+      <Items>
+        <PropertyEditor Id="AriaObjects" Index="1" />
+        <PropertyEditor Id="ApplicationSettings" Index="2" />
+      </Items>
+    </DetailView>
+    <ListView Id="TrackingEntry_AriaObjectShelves_ListView">
+      <HiddenActions>
+        <ActionLink ActionId="Link" Index="-1" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+  </Views>
+</Application>

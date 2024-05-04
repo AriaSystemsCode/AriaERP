@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Business" IsDesigned="True" DefaultListViewNewItemRowPosition="None" />
+  </BOModel>
+  <Views>
+    <DetailView Id="Business_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="58">
+            <LayoutGroup Id="Business" RelativeSize="14">
+              <LayoutItem Id="TradeName" SizeConstraintsType="Default" RelativeSize="51" ViewItem="TradeName" />
+              <LayoutItem Id="InternalContactNo" SizeConstraintsType="Default" RelativeSize="48" ViewItem="InternalContactNo" />
+            </LayoutGroup>
+            <LayoutGroup Id="Contact" RelativeSize="31">
+              <LayoutGroup Id="Contact_col1" RelativeSize="34">
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="28" ViewItem="Name" />
+                <LayoutItem Id="Language" SizeConstraintsType="Default" RelativeSize="21" ViewItem="Language" />
+                <LayoutItem Id="Currency" SizeConstraintsType="Default" RelativeSize="21" ViewItem="Currency" />
+                <LayoutItem Id="CreditLimit" SizeConstraintsType="Default" RelativeSize="28" ViewItem="CreditLimit" />
+              </LayoutGroup>
+              <LayoutGroup Id="Contact_col2" RelativeSize="63">
+                <LayoutItem Id="WebPageAddress" SizeConstraintsType="Default" RelativeSize="50" ViewItem="WebPageAddress" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Entity" RelativeSize="54">
+              <LayoutGroup Id="Entity_col1" RelativeSize="34">
+                <LayoutItem Id="Id" SizeConstraintsType="Default" RelativeSize="15" ViewItem="Id" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" RelativeSize="11" ViewItem="Status" />
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="StatusId" />
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="11" ViewItem="Description" />
+                <LayoutItem Id="EnteredBy" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EnteredBy" />
+                <LayoutItem Id="EnteredDate" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EnteredDate" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="63">
+                <LayoutItem Id="TypeId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="TypeId" />
+                <LayoutItem Id="EntityClassification" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EntityClassification" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="ClassificationId" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="11" ViewItem="EntityCategory" />
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" RelativeSize="11" ViewItem="CategoryId" />
+                <LayoutItem Id="IMAGE" SizeConstraintsType="Default" RelativeSize="15" ViewItem="IMAGE" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="41">
+            <LayoutGroup Id="Persons" RelativeSize="100">
+              <LayoutItem Id="Persons" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Persons" />
+            </LayoutGroup>
+            <LayoutGroup Id="Divisions" RelativeSize="100">
+              <LayoutItem Id="Divisions" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Divisions" />
+            </LayoutGroup>
+            <LayoutGroup Id="ContactPhones" RelativeSize="100" Index="2">
+              <LayoutItem Id="ContactPhones" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ContactPhones" />
+            </LayoutGroup>
+            <LayoutGroup Id="Locations" Index="3" RelativeSize="100">
+              <LayoutItem Id="Locations" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Locations" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" RelativeSize="100" Index="4">
+              <LayoutItem Id="EntityAddresses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAddresses" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityCategoryFiltered" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="EntityCategoryFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategoryFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassificationFiltered" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="EntityClassificationFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassificationFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatusFiltered" RelativeSize="100" Index="4" Removed="True">
+              <LayoutItem Id="EntityStatusFiltered" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatusFiltered" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAttachments" RelativeSize="100" Index="5">
+              <LayoutItem Id="EntityAttachments" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityAttachments" />
+            </LayoutGroup>
+            <LayoutGroup Id="ADS" Index="6" RelativeSize="100">
+              <LayoutItem Id="ADS" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ADS" />
+            </LayoutGroup>
+            <LayoutGroup Id="Events" Index="7" RelativeSize="100">
+              <LayoutItem Id="Events" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Events" />
+            </LayoutGroup>
+            <LayoutGroup Id="Information" Index="8" RelativeSize="100">
+              <LayoutItem Id="Information" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Information" />
+            </LayoutGroup>
+            <LayoutGroup Id="News" Index="9" RelativeSize="100">
+              <LayoutItem Id="News" SizeConstraintsType="Default" RelativeSize="100" ViewItem="News" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityRelationships" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityRelationships" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityRelationships" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Business_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Id" Width="249" />
+        <ColumnInfo Id="TradeName" Width="193" />
+        <ColumnInfo Id="InternalContactNo" Width="193" />
+        <ColumnInfo Id="Guide" Width="201" />
+      </Columns>
+    </ListView>
+    <ListView Id="Business_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntitySystemDesign" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="QAProjectEntity" Caption="Project Entity" AllowEdit="False" />
+        <Member Name="Status" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="EntitySystemDesign_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="29.696969696969695">
+            <LayoutGroup Id="EntitySystemDesign" RelativeSize="81.632653061224488">
+              <LayoutGroup Id="EntitySystemDesign_col1" RelativeSize="50.101010101010104">
+                <LayoutItem Id="QAProjectEntity" RelativeSize="36.363636363636367" Index="0" ViewItem="QAProjectEntity" />
+                <LayoutItem Id="TrackingEntry" RelativeSize="63.636363636363633" Index="1" ViewItem="TrackingEntry" />
+                <LayoutItem Id="ModificationType" RelativeSize="36.363636363636367" Index="2" ViewItem="ModificationType" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="EntitySystemDesign_col2" RelativeSize="49.898989898989896">
+                <LayoutItem Id="Enddate" RelativeSize="36.363636363636367" ViewItem="Enddate" />
+                <LayoutItem Id="Estimate" RelativeSize="27.272727272727273" ViewItem="Estimate" />
+                <LayoutItem Id="Status" RelativeSize="36.363636363636367" ViewItem="Status" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="Project" ViewItem="Project" Index="1" RelativeSize="18.367346938775512" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="70.3030303030303">
+            <LayoutItem Id="MemberFullName" SizeConstraintsType="Default" Index="0" RelativeSize="7.7586206896551726" ViewItem="MemberFullName" />
+            <LayoutItem Id="ModificationType" ViewItem="ModificationType" Index="1" RelativeSize="6.8965517241379306" IsNewNode="True" />
+            <LayoutItem Id="MemberType" SizeConstraintsType="Default" Index="2" RelativeSize="6.8965517241379306" ViewItem="MemberType" />
+            <LayoutItem Id="Design" SizeConstraintsType="Default" Index="3" RelativeSize="6.8965517241379306" ViewItem="Design" />
+            <LayoutItem Id="Activity" RelativeSize="71.551724137931032" Index="4" ViewItem="Activity" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

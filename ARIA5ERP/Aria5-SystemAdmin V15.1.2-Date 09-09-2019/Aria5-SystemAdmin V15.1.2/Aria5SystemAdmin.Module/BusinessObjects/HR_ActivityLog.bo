@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_ActivityLog" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Category" Caption="Activity Category" />
+        <Member Name="CompleteBy" AllowEdit="False" />
+        <Member Name="CompleteDate" AllowEdit="False" />
+        <Member Name="Department" Caption="Activity Department" />
+        <Member Name="Status" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_ActivityLog_DetailView">
+      <Items>
+        <PropertyEditor Id="Category" DataSourceCriteria="" DataSourceProperty="Department.Categories" />
+        <PropertyEditor Id="HRActivity" Caption="Activity" />
+        <PropertyEditor Id="RecurringTime" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="92.929292929292927">
+            <LayoutGroup Id="HR_ActivityLog" RelativeSize="100" Direction="Vertical" Caption="User Activity ">
+              <LayoutGroup Id="HR_ActivityLog_col1" RelativeSize="100">
+                <LayoutGroup Id="Autoc824ff93-2b68-4bb6-b0bd-31d6f2b32eaf" ShowCaption="False" Caption="Autoc824ff93-2b68-4bb6-b0bd-31d6f2b32eaf(5)" Direction="Vertical" Index="0" RelativeSize="43.764705882352942" IsNewNode="True">
+                  <LayoutGroup Id="Auto5e0ff564-756e-4af0-af56-1e535413f21f" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="17.204301075268816" IsNewNode="True">
+                    <LayoutItem Id="Department" ViewItem="Department" Index="0" RelativeSize="49.83050847457627" IsNewNode="True" />
+                    <LayoutItem Id="StartDate" ViewItem="StartDate" Index="1" RelativeSize="50.16949152542373" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Auto97167d85-787e-4c42-aa8a-aeb33ecdc3b2" ShowCaption="False" Caption="" Index="1" RelativeSize="82.795698924731184" IsNewNode="True">
+                    <LayoutGroup Id="Auto42ebd4d7-f9d3-41da-8549-6d68cce5c697" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="15.584415584415584" IsNewNode="True">
+                      <LayoutItem Id="Category" ViewItem="Category" Index="0" RelativeSize="50" IsNewNode="True" />
+                      <LayoutItem Id="EndDate" ViewItem="EndDate" Index="1" RelativeSize="50" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Auto685a9742-100b-4901-8c29-30565dc354e8" ShowCaption="False" Caption="" Index="1" RelativeSize="84.415584415584419" IsNewNode="True">
+                      <LayoutGroup Id="Autofc055bff-e3ad-429b-83f8-996b28db2913" ShowCaption="False" Caption="" Direction="Horizontal" Index="0" RelativeSize="18.46153846153846" IsNewNode="True">
+                        <LayoutItem Id="HRActivity" ViewItem="HRActivity" Index="0" RelativeSize="50" IsNewNode="True" />
+                        <LayoutItem Id="Duration" ViewItem="Duration" Index="1" RelativeSize="50" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Auto8642106a-4f7e-4813-95ec-45e4d9fa36db" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="81.538461538461533" IsNewNode="True">
+                        <LayoutGroup Id="Autoe6cccad6-af71-49e5-829f-7077a0efdf17" ShowCaption="False" Caption="" Index="0" RelativeSize="49.83050847457627" IsNewNode="True">
+                          <LayoutItem Id="ActivityName" ViewItem="ActivityName" Index="0" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="Type" ViewItem="Type" Index="1" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="TargetEntity" ViewItem="TargetEntity" Index="2" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="ActivityDetailLink" ViewItem="ActivityDetailLink" Index="3" RelativeSize="32.075471698113205" IsNewNode="True" />
+                        </LayoutGroup>
+                        <LayoutGroup Id="Auto9e625b63-148b-4495-9191-d1811138cb0b" ShowCaption="False" Caption="" Index="1" RelativeSize="50.16949152542373" IsNewNode="True">
+                          <LayoutItem Id="User" ViewItem="User" Index="0" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="Status" ViewItem="Status" Index="1" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="CompleteDate" ViewItem="CompleteDate" Index="2" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="CompleteBy" ViewItem="CompleteBy" Index="3" RelativeSize="22.641509433962263" IsNewNode="True" />
+                          <LayoutItem Id="Employee" Index="4" RelativeSize="9.433962264150944" ViewItem="Employee" IsNewNode="True" />
+                        </LayoutGroup>
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="Autoac1c41c9-1d41-48d2-8c42-c5ab9813ecc0" ShowCaption="False" Caption="Autoac1c41c9-1d41-48d2-8c42-c5ab9813ecc0(16)" Direction="Horizontal" Index="1" RelativeSize="40.470588235294116" IsNewNode="True">
+                  <LayoutGroup Id="Auto0ecb0eab-362a-4556-9ddf-fa159d489ce3" ShowCaption="False" Caption="Auto0ecb0eab-362a-4556-9ddf-fa159d489ce3(17)" Index="0" RelativeSize="49.83050847457627" IsNewNode="True">
+                    <LayoutItem Id="RecurringTime" ViewItem="RecurringTime" SizeConstraintsType="Default" Index="0" RelativeSize="17.441860465116278" IsNewNode="True" />
+                    <LayoutItem Id="RepeatedEvery" ViewItem="RepeatedEvery" SizeConstraintsType="Default" Index="1" RelativeSize="82.558139534883722" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Auto076865c8-f6c7-4456-aeb2-15ab297ce4ed" ShowCaption="False" Caption="Auto076865c8-f6c7-4456-aeb2-15ab297ce4ed(25)" Index="1" RelativeSize="50.16949152542373" IsNewNode="True">
+                    <LayoutGroup Id="Autoc5398e71-9794-4516-a041-ddac975260d9" ShowCaption="False" Caption="Autoc5398e71-9794-4516-a041-ddac975260d9(30)" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                      <LayoutGroup Id="Auto6db35770-bdd1-4251-bd18-de0933db06b3" ShowCaption="False" Caption="Auto6db35770-bdd1-4251-bd18-de0933db06b3(31)" Index="0" RelativeSize="49.324324324324323" IsNewNode="True">
+                        <LayoutItem Id="Sat" ViewItem="Sat" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="26.744186046511629" IsNewNode="True" />
+                        <LayoutItem Id="Mon" ViewItem="Mon" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="23.255813953488371" IsNewNode="True" />
+                        <LayoutItem Id="Wed" ViewItem="Wed" CaptionLocation="Top" SizeConstraintsType="Default" Index="2" RelativeSize="23.255813953488371" IsNewNode="True" />
+                        <LayoutItem Id="Fri" ViewItem="Fri" CaptionLocation="Top" SizeConstraintsType="Default" Index="3" RelativeSize="26.744186046511629" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Auto7f741ea0-c47b-4b0b-8a0f-475e6bbe0ffe" ShowCaption="False" Caption="Auto7f741ea0-c47b-4b0b-8a0f-475e6bbe0ffe(36)" Index="1" RelativeSize="50.675675675675677" IsNewNode="True">
+                        <LayoutItem Id="Sun" ViewItem="Sun" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="26.744186046511629" IsNewNode="True" />
+                        <LayoutItem Id="Tue" ViewItem="Tue" CaptionLocation="Top" SizeConstraintsType="Default" Index="1" RelativeSize="23.255813953488371" IsNewNode="True" />
+                        <LayoutItem Id="Thu" ViewItem="Thu" CaptionLocation="Top" SizeConstraintsType="Default" Index="2" RelativeSize="50" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="Type" SizeConstraintsType="Default" Index="1" RelativeSize="5.2173913043478262" ViewItem="Type" Removed="True" />
+                <LayoutItem Id="ActivityDetailLink" SizeConstraintsType="Default" RelativeSize="5.5427251732101617" Index="2" ViewItem="ActivityDetailLink" Removed="True" />
+                <LayoutItem Id="ActivityName" SizeConstraintsType="Default" RelativeSize="5.5427251732101617" Index="2" ViewItem="ActivityName" Removed="True" />
+                <LayoutGroup Id="Auto6a07538c-20b4-49f4-b34a-2c35e4f1dfcb" ShowCaption="False" Caption="Auto6a07538c-20b4-49f4-b34a-2c35e4f1dfcb(333)" Direction="Horizontal" Index="2" RelativeSize="0.47058823529411764" IsNewNode="True" />
+                <LayoutItem Id="HRActivity" SizeConstraintsType="Default" RelativeSize="5.5427251732101617" Index="2" ViewItem="HRActivity" Removed="True" />
+                <LayoutItem Id="RecurringTime" SizeConstraintsType="Default" Index="2" RelativeSize="5.5427251732101617" ViewItem="RecurringTime" Removed="True" />
+                <LayoutItem Id="Item2" ShowCaption="False" SizeConstraintsType="Default" Index="3" RelativeSize="2.3529411764705883" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Item7" ShowCaption="False" SizeConstraintsType="Default" Index="4" RelativeSize="12.941176470588236" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="Sat" SizeConstraintsType="Default" Index="8" RelativeSize="0.22075055187637968" ViewItem="Sat" Removed="True" />
+                <LayoutItem Id="Mon" SizeConstraintsType="Default" Index="9" RelativeSize="0.22172949002217296" ViewItem="Mon" Removed="True" />
+                <LayoutItem Id="Sun" SizeConstraintsType="Default" Index="9" RelativeSize="0.22123893805309736" ViewItem="Sun" Removed="True" />
+                <LayoutItem Id="Category" SizeConstraintsType="Default" RelativeSize="5.5427251732101617" ViewItem="Category" Removed="True" />
+                <LayoutItem Id="Department" SizeConstraintsType="Default" RelativeSize="5.333333333333333" ViewItem="Department" Removed="True" />
+                <LayoutItem Id="Tue" ViewItem="Tue" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_ActivityLog_col2" RelativeSize="50" Caption="HR_ActivityLog_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="Duration" ViewItem="Duration" Removed="True" />
+                <LayoutItem Id="EndDate" ViewItem="EndDate" Removed="True" />
+                <LayoutItem Id="Status" ViewItem="Status" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_ActivityLog_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="ActivityDetailLink" Width="50" Index="-1" />
+        <ColumnInfo Id="ActivityName" Index="-1" Width="121" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Fri" Index="-1" Removed="True" />
+        <ColumnInfo Id="Mon" Index="-1" Removed="True" />
+        <ColumnInfo Id="Notes" Index="-1" />
+        <ColumnInfo Id="RepeatedEvery" Index="-1" />
+        <ColumnInfo Id="Sat" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Summry" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" Removed="True" />
+        <ColumnInfo Id="Thu" Index="-1" Removed="True" />
+        <ColumnInfo Id="Tue" Index="-1" Removed="True" />
+        <ColumnInfo Id="Wed" Index="-1" Removed="True" />
+        <ColumnInfo Id="Department" Width="55" Index="1" />
+        <ColumnInfo Id="Category" Width="55" Index="2" />
+        <ColumnInfo Id="StartDate" Width="55" Index="4" />
+        <ColumnInfo Id="EndDate" Width="55" Index="5" />
+        <ColumnInfo Id="HRActivity" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Duration" Width="54" Index="6" />
+        <ColumnInfo Id="User" Width="69" Index="8" />
+        <ColumnInfo Id="Status" Width="55" Index="9" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_ActivityLog_LookupListView">
+      <Columns>
+        <ColumnInfo Id="ActivityName" Index="1" Width="234" />
+        <ColumnInfo Id="User" Index="2" Caption="User" PropertyName="User" Width="198" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="HRActivity_UserActivityList_ListView">
+      <Columns>
+        <ColumnInfo Id="Fri" Width="21" Index="-1" />
+        <ColumnInfo Id="HRActivity" Width="30" />
+        <ColumnInfo Id="Mon" Width="21" Index="-1" />
+        <ColumnInfo Id="Notes" Width="65" Index="-1" />
+        <ColumnInfo Id="Sat" Width="21" Index="-1" />
+        <ColumnInfo Id="Summry" Width="30" Index="-1" />
+        <ColumnInfo Id="Sun" Width="21" Index="-1" />
+        <ColumnInfo Id="Thu" Width="21" Index="-1" />
+        <ColumnInfo Id="Tue" Width="21" Index="-1" />
+        <ColumnInfo Id="Wed" Width="21" Index="-1" />
+        <ColumnInfo Id="ActivityName" Width="83" />
+        <ColumnInfo Id="Department" Width="30" />
+        <ColumnInfo Id="Category" Width="30" />
+        <ColumnInfo Id="ActivityDetailLink" Width="30" />
+        <ColumnInfo Id="RecurringTime" Width="30" />
+        <ColumnInfo Id="RepeatedEvery" Width="30" Index="7" />
+        <ColumnInfo Id="StartDate" Width="30" Index="8" />
+        <ColumnInfo Id="EndDate" Width="30" Index="9" />
+        <ColumnInfo Id="Duration" Width="30" Index="10" />
+        <ColumnInfo Id="User" Width="30" Index="11" />
+        <ColumnInfo Id="Status" Width="30" Index="12" />
+      </Columns>
+    </ListView>
+    <ListView Id="HREmployee_HistoryActivities_ListView">
+      <Columns>
+        <ColumnInfo Id="Fri" Width="21" Index="-1" />
+        <ColumnInfo Id="Mon" Width="21" Index="-1" />
+        <ColumnInfo Id="Notes" Width="36" Index="-1" />
+        <ColumnInfo Id="Sat" Width="21" Index="-1" />
+        <ColumnInfo Id="Summry" Width="21" Index="-1" />
+        <ColumnInfo Id="Sun" Width="21" Index="-1" />
+        <ColumnInfo Id="Thu" Width="21" Index="-1" />
+        <ColumnInfo Id="Tue" Width="21" Index="-1" />
+        <ColumnInfo Id="Wed" Width="21" Index="-1" />
+        <ColumnInfo Id="ActivityName" Width="86" />
+        <ColumnInfo Id="Department" Width="36" />
+        <ColumnInfo Id="Category" Width="36" />
+        <ColumnInfo Id="HRActivity" Width="36" />
+        <ColumnInfo Id="ActivityDetailLink" Width="36" />
+        <ColumnInfo Id="RecurringTime" Width="36" />
+        <ColumnInfo Id="RepeatedEvery" Width="36" Index="7" />
+        <ColumnInfo Id="StartDate" Width="36" Index="8" />
+        <ColumnInfo Id="EndDate" Width="36" Index="9" />
+        <ColumnInfo Id="Duration" Width="36" Index="10" />
+        <ColumnInfo Id="User" Width="36" Index="11" />
+        <ColumnInfo Id="Status" Width="56" Index="12" />
+      </Columns>
+    </ListView>
+    <ListView Id="HREmployee_PendingActivities_ListView">
+      <Columns>
+        <ColumnInfo Id="Fri" Width="21" Index="-1" />
+        <ColumnInfo Id="Mon" Width="21" Index="-1" />
+        <ColumnInfo Id="Notes" Width="36" Index="-1" />
+        <ColumnInfo Id="Sat" Width="21" SortIndex="0" SortOrder="Ascending" Index="-1" />
+        <ColumnInfo Id="Summry" Width="21" Index="-1" />
+        <ColumnInfo Id="Sun" Width="21" Index="-1" />
+        <ColumnInfo Id="Thu" Width="21" Index="-1" />
+        <ColumnInfo Id="Tue" Width="21" Index="-1" />
+        <ColumnInfo Id="Wed" Width="21" Index="-1" />
+        <ColumnInfo Id="ActivityName" Width="77" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Department" Width="37" />
+        <ColumnInfo Id="Category" Width="37" />
+        <ColumnInfo Id="HRActivity" Width="37" />
+        <ColumnInfo Id="ActivityDetailLink" Width="37" />
+        <ColumnInfo Id="RecurringTime" Width="37" />
+        <ColumnInfo Id="RepeatedEvery" Width="37" Index="7" />
+        <ColumnInfo Id="StartDate" Width="37" Index="8" />
+        <ColumnInfo Id="EndDate" Width="37" Index="9" />
+        <ColumnInfo Id="Duration" Width="37" Index="10" />
+        <ColumnInfo Id="User" Width="37" Index="11" />
+        <ColumnInfo Id="Status" Width="54" Index="12" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

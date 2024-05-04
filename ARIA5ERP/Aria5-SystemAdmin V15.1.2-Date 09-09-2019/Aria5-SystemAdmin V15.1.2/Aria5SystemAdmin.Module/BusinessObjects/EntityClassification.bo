@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityClassification" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Entity_EntityClassificationFiltered_ListView" DataAccessMode="DataView" />
+    <DetailView Id="EntityClassification_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="11">
+            <LayoutGroup Id="EntityClassification" RelativeSize="100">
+              <LayoutItem Id="ClassificationID" SizeConstraintsType="Default" RelativeSize="37" ViewItem="ClassificationID" />
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="27" ViewItem="Name" />
+              <LayoutItem Id="ParentClassification" SizeConstraintsType="Default" RelativeSize="34" ViewItem="ParentClassification" />
+              <LayoutItem Id="EntityType" ViewItem="EntityType" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="88">
+            <LayoutGroup Id="EntityClassifications" RelativeSize="100">
+              <LayoutItem Id="EntityClassifications" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassifications" />
+            </LayoutGroup>
+            <LayoutGroup Id="Entities" RelativeSize="100">
+              <LayoutItem Id="Entities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Entities" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityClassification_EntityClassifications_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityClassification_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityClassification_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="EntityType_EntityClassifications_ListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

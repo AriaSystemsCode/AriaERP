@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuild_T" IsDesigned="True" Caption="ApplicationBuild">
+      <AppearanceRules>
+        <AppearanceRule Id="ApproveController_Appearnce" AppearanceItemType="Action" Visibility="Hide" TargetItems="ApproveController" Criteria="[Status] = ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuildStatus,Open#" IsNewNode="True" />
+        <AppearanceRule Id="CompleteController_Appearnce" AppearanceItemType="Action" TargetItems="CompleteBuildController" Visibility="Hide" Criteria="[Status] = ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuildStatus,ReleaseCandidate#" IsNewNode="True" />
+        <AppearanceRule Id="GenerateController_Appearnce" AppearanceItemType="Action" Visibility="Hide" TargetItems="GenerateController" Criteria="[Status] &lt;&gt; ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuildStatus,Complete# And [Status] &lt;&gt; ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuildStatus,Open#" IsNewNode="True" />
+        <AppearanceRule Id="SwitchToEditMode_Disable" AppearanceItemType="Action" Enabled="False" TargetItems="SwitchToEditMode;Delete" Criteria="[Status] &lt;&gt; ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuildStatus,Open# And [Status] &lt;&gt; ##Enum#Aria5SystemAdmin.Module.BusinessObjects.ApplicationBuildStatus,Staging#" IsNewNode="True" />
+        <AppearanceRule Id="SwitchToEditModeNDelete_ListView" TargetItems="SwitchToEditMode;Delete" Context="ListView" AppearanceItemType="Action" Visibility="Hide" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="Application_T" Caption="Application" />
+        <Member Name="ApplicationBuildId" Caption="Build#" AllowEdit="False" />
+        <Member Name="ApproveDate" AllowEdit="False" />
+        <Member Name="ApprovedBy" AllowEdit="False" />
+        <Member Name="CompleteBy" AllowEdit="False" />
+        <Member Name="CompleteDate" AllowEdit="False" />
+        <Member Name="IssueDate" AllowEdit="False" />
+        <Member Name="ReleaseNo" AllowEdit="False" />
+        <Member Name="ServicePackNo" AllowEdit="False" />
+        <Member Name="Status" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="Application_T_ApplicationBuild_Ts_ListView" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="TFSLabel" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ApplicationBuild_T_DetailView">
+      <Items>
+        <PropertyEditor Id="BuildURL" AllowEdit="False" />
+        <PropertyEditor Id="TechnicalConsiderations" Caption="TechnicalConsiderations" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="22.533333333333335">
+            <LayoutGroup Id="ApplicationBuild_T" RelativeSize="100" Caption="ApplicationBuild">
+              <LayoutGroup Id="ApplicationBuild_T_col1" RelativeSize="76.236263736263737" Direction="Horizontal">
+                <LayoutGroup Id="Autoa88f2880-5f80-4e8d-9858-09acf95d5e20" ShowCaption="False" Caption="Autoa88f2880-5f80-4e8d-9858-09acf95d5e20(613)" Index="0" RelativeSize="63.423423423423422" IsNewNode="True">
+                  <LayoutGroup Id="Autoa114c42a-89c8-4a9d-a60e-9fe64dde31d3" ShowCaption="False" Caption="Autoa114c42a-89c8-4a9d-a60e-9fe64dde31d3(614)" Direction="Horizontal" Index="0" RelativeSize="32.061068702290079" IsNewNode="True">
+                    <LayoutGroup Id="Auto652a1f87-082d-4701-b8c6-5eabb9f8b6ea" ShowCaption="False" Caption="Auto652a1f87-082d-4701-b8c6-5eabb9f8b6ea(548)" Index="0" RelativeSize="48.863636363636367" IsNewNode="True">
+                      <LayoutItem Id="Application_T" ViewItem="Application_T" SizeConstraintsType="Default" Index="0" RelativeSize="76.19047619047619" IsNewNode="True" />
+                      <LayoutItem Id="Application" SizeConstraintsType="Default" Index="1" RelativeSize="23.80952380952381" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Autofbe02ae8-80bc-40ba-b6d6-0f4f491ba520" ShowCaption="False" Caption="Autofbe02ae8-80bc-40ba-b6d6-0f4f491ba520(617)" Index="1" RelativeSize="51.136363636363633" IsNewNode="True">
+                      <LayoutItem Id="ServicePackNo" ViewItem="ServicePackNo" SizeConstraintsType="Default" Index="0" RelativeSize="76.19047619047619" IsNewNode="True" />
+                      <LayoutGroup Id="Item2" ShowCaption="False" CaptionLocation="Top" Direction="Horizontal" Index="1" RelativeSize="23.80952380952381" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoba354441-8662-405f-beb9-85154f3820b2" ShowCaption="False" Caption="Autoba354441-8662-405f-beb9-85154f3820b2(620)" Index="1" RelativeSize="67.938931297709928" IsNewNode="True">
+                    <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="0" RelativeSize="30.337078651685392" IsNewNode="True" />
+                    <LayoutGroup Id="Autofdeb3a37-6d52-4554-a11c-88e3fbe9b9b8" ShowCaption="False" Caption="Autofdeb3a37-6d52-4554-a11c-88e3fbe9b9b8(622)" Direction="Horizontal" Index="1" RelativeSize="69.662921348314612" IsNewNode="True">
+                      <LayoutGroup Id="Autoabb96243-28f0-499d-85dc-872165f7211a" ShowCaption="False" Caption="Autoabb96243-28f0-499d-85dc-872165f7211a(623)" Index="0" RelativeSize="47.727272727272727" IsNewNode="True">
+                        <LayoutItem Id="ApproveDate" ViewItem="ApproveDate" SizeConstraintsType="Default" Index="0" RelativeSize="48.387096774193552" IsNewNode="True" />
+                        <LayoutItem Id="CompleteDate" ViewItem="CompleteDate" SizeConstraintsType="Default" Index="1" RelativeSize="51.612903225806448" IsNewNode="True" />
+                      </LayoutGroup>
+                      <LayoutGroup Id="Auto863ae72f-d5c8-4c35-a223-acebb9945731" ShowCaption="False" Caption="Auto863ae72f-d5c8-4c35-a223-acebb9945731(626)" Index="1" RelativeSize="52.272727272727273" IsNewNode="True">
+                        <LayoutItem Id="ApprovedBy" ViewItem="ApprovedBy" SizeConstraintsType="Default" Index="0" RelativeSize="48.387096774193552" IsNewNode="True" />
+                        <LayoutItem Id="CompleteBy" ViewItem="CompleteBy" SizeConstraintsType="Default" Index="1" RelativeSize="51.612903225806448" IsNewNode="True" />
+                      </LayoutGroup>
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="ApplicationBuildId" SizeConstraintsType="Default" Index="1" RelativeSize="11.538461538461538" ViewItem="ApplicationBuildId" Removed="True" />
+                <LayoutGroup Id="Auto03671d5a-00dc-49e7-9345-963207cdccda" ShowCaption="False" Caption="Auto03671d5a-00dc-49e7-9345-963207cdccda(629)" Index="1" RelativeSize="36.576576576576578" IsNewNode="True">
+                  <LayoutItem Id="ReleaseNo" ViewItem="ReleaseNo" SizeConstraintsType="Default" Index="0" RelativeSize="24.427480916030536" IsNewNode="True" />
+                  <LayoutItem Id="IssueDate" ViewItem="IssueDate" SizeConstraintsType="Default" Index="1" RelativeSize="75.572519083969468" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Description" SizeConstraintsType="Default" Index="1" RelativeSize="13.043478260869565" ViewItem="Description" Removed="True" />
+                <LayoutItem Id="ReleaseNo" SizeConstraintsType="Default" Index="2" RelativeSize="24.505928853754941" ViewItem="ReleaseNo" Removed="True" />
+                <LayoutItem Id="ServicePackNo" ViewItem="ServicePackNo" SizeConstraintsType="Default" Index="2" RelativeSize="19.682539682539684" Removed="True" />
+                <LayoutItem Id="Status" SizeConstraintsType="Default" Index="3" RelativeSize="24.365482233502537" ViewItem="Status" Removed="True" />
+                <LayoutItem Id="ApplicationId" SizeConstraintsType="Default" Index="4" RelativeSize="13.043478260869565" ViewItem="ApplicationId" Removed="True" />
+                <LayoutItem Id="ApplicationName" SizeConstraintsType="Default" Index="5" RelativeSize="13.043478260869565" ViewItem="ApplicationName" Removed="True" />
+                <LayoutItem Id="IsNew" ViewItem="IsNew" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ApplicationBuild_T_col2" RelativeSize="23.763736263736263" Direction="Vertical" Caption="ApplicationBuild_T_col2">
+                <LayoutItem Id="ApplicationBuildId" ViewItem="ApplicationBuildId" SizeConstraintsType="Default" Index="0" RelativeSize="24.427480916030536" IsNewNode="True" />
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="1" RelativeSize="75.572519083969468" IsNewNode="True" />
+                <LayoutItem Id="TFSLabel" SizeConstraintsType="Default" Index="1" RelativeSize="75.572519083969468" ViewItem="TFSLabel" Removed="True" />
+                <LayoutItem Id="Application_T" SizeConstraintsType="Default" Index="2" RelativeSize="56.25" ViewItem="Application_T" Removed="True" />
+                <LayoutItem Id="ApproveDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="ApproveDate" Removed="True" />
+                <LayoutItem Id="ApprovedBy" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="ApprovedBy" Removed="True" />
+                <LayoutItem Id="CompleteBy" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="CompleteBy" Removed="True" />
+                <LayoutItem Id="CompleteDate" SizeConstraintsType="Default" RelativeSize="11.538461538461538" ViewItem="CompleteDate" Removed="True" />
+                <LayoutItem Id="IssueDate" SizeConstraintsType="Default" RelativeSize="15.384615384615385" ViewItem="IssueDate" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item3" CaptionLocation="Top" Index="1" RelativeSize="77.466666666666669" IsNewNode="True">
+            <LayoutGroup Id="Item6" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Tracking Entrieses" IsNewNode="True">
+              <LayoutItem Id="ApplicationBuildEntries_Ts" ViewItem="ApplicationBuildEntries_Ts" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item4" ShowCaption="True" Caption="Release Notes" CaptionLocation="Top" Index="1" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="ReleaseNotes" ShowCaption="False" ViewItem="ReleaseNotes" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item5" ShowCaption="True" Caption="Technical Considerations" CaptionLocation="Top" Index="2" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="TechnicalConsiderations" ShowCaption="False" ViewItem="TechnicalConsiderations" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" Index="2" RelativeSize="56.70498084291188" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="ReleaseNotes" ViewItem="ReleaseNotes" Removed="True" />
+            <LayoutItem Id="TechnicalConsiderations" ViewItem="TechnicalConsiderations" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ApplicationBuild_T_ListView" AllowNew="True" AllowEdit="False" AllowDelete="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Application_T" Index="-1" Width="65" SortIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="ApprovedBy" Index="-1" Width="58" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="CompleteBy" Index="-1" Width="58" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="Description" Index="-1" Width="58" SortIndex="-1" SortOrder="None" />
+        <ColumnInfo Id="IsNew" SortIndex="-1" SortOrder="None" Index="-1" />
+        <ColumnInfo Id="ApplicationId" Index="0" Width="65" />
+        <ColumnInfo Id="ApplicationName" SortIndex="-1" SortOrder="None" Index="1" Width="153" />
+        <ColumnInfo Id="ReleaseNo" Index="2" Width="87" />
+        <ColumnInfo Id="ServicePackNo" Index="3" Width="87" />
+        <ColumnInfo Id="ApplicationBuildId" Index="4" Width="87" />
+        <ColumnInfo Id="Status" Index="5" Width="87" />
+        <ColumnInfo Id="IssueDate" Index="6" Width="95" />
+        <ColumnInfo Id="ApproveDate" Index="7" Width="87" />
+        <ColumnInfo Id="CompleteDate" Index="8" Width="87" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="ApplicationBuild_T_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

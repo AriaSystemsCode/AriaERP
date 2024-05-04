@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityType" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="EntityType_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="14">
+            <LayoutGroup Id="EntityType" RelativeSize="100" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="85">
+            <LayoutGroup Id="EntityCategories" RelativeSize="100" Index="0">
+              <LayoutItem Id="EntityCategories" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityCategories" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityClassifications" RelativeSize="100" Index="1">
+              <LayoutItem Id="EntityClassifications" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityClassifications" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityStatuses" RelativeSize="100" Index="2">
+              <LayoutItem Id="EntityStatuses" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityStatuses" />
+            </LayoutGroup>
+            <LayoutGroup Id="Entities" RelativeSize="100" Index="3">
+              <LayoutItem Id="Entities" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Entities" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityTypes" RelativeSize="100" Removed="True">
+              <LayoutItem Id="EntityTypes" SizeConstraintsType="Default" RelativeSize="100" ViewItem="EntityTypes" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityType_EntityTypes_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityType_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityType_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

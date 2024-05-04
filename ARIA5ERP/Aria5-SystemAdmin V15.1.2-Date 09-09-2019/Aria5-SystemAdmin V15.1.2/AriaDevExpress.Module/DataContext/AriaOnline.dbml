@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ArianyDevExpress" Class="AriaOnlineDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Street" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="StateProvince" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ZipPostal" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Country" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Address_Party" Member="Parties" ThisKey="Oid" OtherKey="Address1" Type="Party" />
+      <Association Name="Address_Party1" Member="Parties1" ThisKey="Oid" OtherKey="Address2" Type="Party" />
+      <Association Name="Country_Address" Member="Country1" ThisKey="Country" OtherKey="Oid" Type="Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ApplicationModule" Member="ApplicationModules">
+    <Type Name="ApplicationModule">
+      <Column Name="AppModID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShortDesc" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LongDesc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HeaderImgUrl" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadHeaderImgUrl" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Image1Url" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadImage1Url" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Image2Url" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadImage2Url" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="AppRank" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToolTip" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Image3Url" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UploadImage3Url" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Association Name="ApplicationModule_ApplicationModule" Member="ApplicationModules" ThisKey="AppModID" OtherKey="ParentID" Type="ApplicationModule" />
+      <Association Name="ApplicationModule_ApplicationModule" Member="ApplicationModule1" ThisKey="ParentID" OtherKey="AppModID" Type="ApplicationModule" IsForeignKey="true" />
+      <Association Name="FileDataEx_ApplicationModule" Member="FileDataEx" ThisKey="UploadHeaderImgUrl" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+      <Association Name="FileDataEx_ApplicationModule1" Member="FileDataEx1" ThisKey="UploadImage1Url" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+      <Association Name="FileDataEx_ApplicationModule2" Member="FileDataEx2" ThisKey="UploadImage2Url" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+      <Association Name="FileDataEx_ApplicationModule3" Member="FileDataEx3" ThisKey="UploadImage3Url" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Article" Member="Articles">
+    <Type Name="Article">
+      <Column Name="Article_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Visible" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="VisibleRank" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="OpenURL" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RightImage" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UploadRightImage" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MiddleImage" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="UploadMiddleImage" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Description2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Released" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MenuDesc" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Category_Article" Member="Category" ThisKey="Category_ID" OtherKey="Category_ID" Type="Category" IsForeignKey="true" />
+      <Association Name="FileDataEx_Article" Member="FileDataEx" ThisKey="UploadMiddleImage" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+      <Association Name="FileDataEx_Article1" Member="FileDataEx1" ThisKey="UploadRightImage" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ASPNETCoursePeriod" Member="ASPNETCoursePeriods">
+    <Type Name="ASPNETCoursePeriod">
+      <Column Name="CourseID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeFrom" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="ASPNETCourse_ASPNETCoursePeriod" Member="ASPNETCourse" ThisKey="CourseID" OtherKey="CourseID" Type="ASPNETCourse" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ASPNETCourses" Member="ASPNETCourses">
+    <Type Name="ASPNETCourse">
+      <Column Name="CourseID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CourseName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Cost" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Outline" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Duration" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="cObjective" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="rowguid" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="IntendedAudience" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DataPrerequisites" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="ASPNETCourse_ASPNETCoursePeriod" Member="ASPNETCoursePeriods" ThisKey="CourseID" OtherKey="CourseID" Type="ASPNETCoursePeriod" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_Desc" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="RowRefrence" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ColumnReference" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="MenuDesc" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Category_Article" Member="Articles" ThisKey="Category_ID" OtherKey="Category_ID" Type="Article" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Country" Member="Countries">
+    <Type Name="Country">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PhoneCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Country_Address" Member="Addresses" ThisKey="Oid" OtherKey="Country" Type="Address" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Document" Member="Documents">
+    <Type Name="Document">
+      <Column Name="DocID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DocName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="UploadDoc" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="DocType" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="UploadDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UploadTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UploadBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Available" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DOF" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FileDataEx_Document" Member="FileDataEx" ThisKey="UploadDoc" OtherKey="Oid" Type="FileDataEx" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmailTemplate" Member="EmailTemplates">
+    <Type Name="EmailTemplate">
+      <Column Name="ID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[TO]" Member="TO" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BCC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReplayTo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Body" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Event" Member="Events">
+    <Type Name="Event">
+      <Column Name="EventID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Outline" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Char" DbType="NChar(1)" CanBeNull="true" />
+      <Column Name="Instructor" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="FromDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ToDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RecordedFile" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Audience" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Event_EventAttendee" Member="EventAttendees" ThisKey="EventID" OtherKey="EventID" Type="EventAttendee" />
+      <Association Name="Subject_Event" Member="Subject" ThisKey="SubjectID" OtherKey="SubjectID" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EventAttendee" Member="EventAttendees">
+    <Type Name="EventAttendee">
+      <Column Name="EventID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventAttendeeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Event_EventAttendee" Member="Event" ThisKey="EventID" OtherKey="EventID" Type="Event" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FileDataEx" Member="FileDataExes">
+    <Type Name="FileDataEx">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DefaultDirectory" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Size" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Content" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(260)" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FileDataEx_ApplicationModule" Member="ApplicationModules" ThisKey="Oid" OtherKey="UploadHeaderImgUrl" Type="ApplicationModule" />
+      <Association Name="FileDataEx_ApplicationModule1" Member="ApplicationModules1" ThisKey="Oid" OtherKey="UploadImage1Url" Type="ApplicationModule" />
+      <Association Name="FileDataEx_ApplicationModule2" Member="ApplicationModules2" ThisKey="Oid" OtherKey="UploadImage2Url" Type="ApplicationModule" />
+      <Association Name="FileDataEx_ApplicationModule3" Member="ApplicationModules3" ThisKey="Oid" OtherKey="UploadImage3Url" Type="ApplicationModule" />
+      <Association Name="FileDataEx_Article" Member="Articles" ThisKey="Oid" OtherKey="UploadMiddleImage" Type="Article" />
+      <Association Name="FileDataEx_Article1" Member="Articles1" ThisKey="Oid" OtherKey="UploadRightImage" Type="Article" />
+      <Association Name="FileDataEx_Document" Member="Documents" ThisKey="Oid" OtherKey="UploadDoc" Type="Document" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Forms" Member="Forms">
+    <Type Name="Form">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CompanySize" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BusinessType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProductInterest" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="HearAboutUs" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="customfield1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield2" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield3" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield4" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="customfield5" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ModuleInfo" Member="ModuleInfos">
+    <Type Name="ModuleInfo">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Version" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AssemblyFileName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IsMain" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Party" Member="Parties">
+    <Type Name="Party">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Photo" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Address1" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Address2" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ObjectType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Party_Person" Member="Person" ThisKey="Oid" OtherKey="Oid" Type="Person" Cardinality="One" />
+      <Association Name="Party_PhoneNumber" Member="PhoneNumbers" ThisKey="Oid" OtherKey="Party" Type="PhoneNumber" />
+      <Association Name="Address_Party" Member="Address" ThisKey="Address1" OtherKey="Oid" Type="Address" IsForeignKey="true" />
+      <Association Name="Address_Party1" Member="Address3" ThisKey="Address2" OtherKey="Oid" Type="Address" IsForeignKey="true" />
+      <Association Name="XPObjectType_Party" Member="XPObjectType" ThisKey="ObjectType" OtherKey="OID" Type="XPObjectType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersistentPermission" Member="PersistentPermissions">
+    <Type Name="PersistentPermission">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SerializedPermission" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Role" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RoleBase_PersistentPermission" Member="RoleBase" ThisKey="Role" OtherKey="Oid" Type="RoleBase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Persons">
+    <Type Name="Person">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Person_User" Member="User" ThisKey="Oid" OtherKey="Oid" Type="User" Cardinality="One" />
+      <Association Name="Party_Person" Member="Party" ThisKey="Oid" OtherKey="Oid" Type="Party" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhoneNumber" Member="PhoneNumbers">
+    <Type Name="PhoneNumber">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Party" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="PhoneType" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Party_PhoneNumber" Member="Party1" ThisKey="Party" OtherKey="Oid" Type="Party" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Register" Member="Registers">
+    <Type Name="Register">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comapny" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CourseId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CoursePeriodId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Registeration" Member="Registerations">
+    <Type Name="Registeration">
+      <Column Name="CourseID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Add1" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Add2" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="CourseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RowID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Roles">
+    <Type Name="Role">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Role_UserUsers_RoleRole" Member="UserUsers_RoleRoles" ThisKey="Oid" OtherKey="Roles" Type="UserUsers_RoleRole" />
+      <Association Name="RoleBase_Role" Member="RoleBase" ThisKey="Oid" OtherKey="Oid" Type="RoleBase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoleBase" Member="RoleBases">
+    <Type Name="RoleBase">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GCRecord" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ObjectType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RoleBase_PersistentPermission" Member="PersistentPermissions" ThisKey="Oid" OtherKey="Role" Type="PersistentPermission" />
+      <Association Name="RoleBase_Role" Member="Role" ThisKey="Oid" OtherKey="Oid" Type="Role" Cardinality="One" />
+      <Association Name="XPObjectType_RoleBase" Member="XPObjectType" ThisKey="ObjectType" OtherKey="OID" Type="XPObjectType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SEO" Member="SEOs">
+    <Type Name="SEO">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PageLink" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="KeyWords" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SiteMap" Member="SiteMaps">
+    <Type Name="SiteMap">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="URL" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subject" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="SubjectID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Outline" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImagePath" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Audience" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="Subject_Event" Member="Events" ThisKey="SubjectID" OtherKey="SubjectID" Type="Event" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Oid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StoredPassword" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ChangePasswordOnFirstLogon" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="User_UserUsers_RoleRole" Member="UserUsers_RoleRoles" ThisKey="Oid" OtherKey="Users" Type="UserUsers_RoleRole" />
+      <Association Name="Person_User" Member="Person" ThisKey="Oid" OtherKey="Oid" Type="Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserUsers_RoleRoles" Member="UserUsers_RoleRoles">
+    <Type Name="UserUsers_RoleRole">
+      <Column Name="Roles" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Users" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="OID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OptimisticLockField" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Role_UserUsers_RoleRole" Member="Role" ThisKey="Roles" OtherKey="Oid" Type="Role" IsForeignKey="true" />
+      <Association Name="User_UserUsers_RoleRole" Member="User" ThisKey="Users" OtherKey="Oid" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.XPObjectType" Member="XPObjectTypes">
+    <Type Name="XPObjectType">
+      <Column Name="OID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeName" Type="System.String" DbType="NVarChar(254)" CanBeNull="true" />
+      <Column Name="AssemblyName" Type="System.String" DbType="NVarChar(254)" CanBeNull="true" />
+      <Association Name="XPObjectType_Party" Member="Parties" ThisKey="OID" OtherKey="ObjectType" Type="Party" />
+      <Association Name="XPObjectType_RoleBase" Member="RoleBases" ThisKey="OID" OtherKey="ObjectType" Type="RoleBase" />
+    </Type>
+  </Table>
+</Database>

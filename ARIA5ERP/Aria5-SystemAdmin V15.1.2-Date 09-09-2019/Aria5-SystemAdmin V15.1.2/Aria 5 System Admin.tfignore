@@ -1,0 +1,3 @@
+﻿######################################
+# Ignore .cpp files in the ProjA sub-folder and all its subfolders
+Aria5SystemAdmin.Module\*.csproj

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelve" IsDesigned="True">
+      <AppearanceRules>
+        <AppearanceRule Id="EnableAriaObjectShelve_ObjectName_ObjectType" TargetItems="ObjectName;ObjectType" Criteria="[ModificationType] = ##Enum#Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelve+ModificationTypes,Modify# Or [ModificationType] = ##Enum#Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelve+ModificationTypes,Delete#" Enabled="False" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="AriaObjectShelve_DetailView">
+      <Items>
+        <PropertyEditor Id="AriaObject" AllowEdit="False" />
+        <PropertyEditor Id="AriaObjectShelveProperties" AllowEdit="True" />
+        <PropertyEditor Id="AriaObjectShelveSettings" AllowEdit="True" />
+        <PropertyEditor Id="ChangeSet" AllowEdit="True" />
+        <PropertyEditor Id="ModificationType" AllowEdit="False" />
+        <PropertyEditor Id="ObjectDescription" AllowEdit="False" />
+        <PropertyEditor Id="ObjectID" AllowEdit="False" />
+        <PropertyEditor Id="ObjectName" AllowEdit="True" />
+        <PropertyEditor Id="ObjectType" AllowEdit="True" />
+        <PropertyEditor Id="ParentObject" AllowEdit="False" />
+        <PropertyEditor Id="TrackingEntry" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="71.573604060913709">
+            <LayoutGroup Id="AriaObjectShelve" RelativeSize="100" Index="0">
+              <LayoutGroup Id="AriaObjectShelve_col1" RelativeSize="48.287112561174553">
+                <LayoutItem Id="TrackingEntry" ViewItem="TrackingEntry" SizeConstraintsType="Default" Index="0" RelativeSize="13.168724279835391" IsNewNode="True" />
+                <LayoutItem Id="AriaObject" ViewItem="AriaObject" SizeConstraintsType="Default" Index="1" RelativeSize="9.8765432098765427" IsNewNode="True" />
+                <LayoutItem Id="ParentObject" SizeConstraintsType="Default" Index="2" RelativeSize="9.8765432098765427" ViewItem="ParentObject" />
+                <LayoutItem Id="ObjectType" SizeConstraintsType="Default" Index="3" RelativeSize="9.8765432098765427" ViewItem="ObjectType" IsNewNode="True" />
+                <LayoutItem Id="ChangeSet" SizeConstraintsType="Default" RelativeSize="9.8765432098765427" ViewItem="ChangeSet" />
+                <LayoutItem Id="ObjectDescription" SizeConstraintsType="Default" Index="5" RelativeSize="9.375" ViewItem="ObjectDescription" Removed="True" />
+                <LayoutItem Id="ObjectID" ViewItem="ObjectID" SizeConstraintsType="Default" Index="5" RelativeSize="9.8765432098765427" IsNewNode="True" />
+                <LayoutItem Id="ObjectName" SizeConstraintsType="Default" Index="6" RelativeSize="9.8765432098765427" ViewItem="ObjectName" />
+                <LayoutItem Id="ModificationType" SizeConstraintsType="Default" Index="7" RelativeSize="4.8192771084337354" ViewItem="ModificationType" Removed="True" />
+                <LayoutItem Id="ParentObjectType" SizeConstraintsType="Default" Index="7" RelativeSize="16.872427983539094" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="ModifiedType" SizeConstraintsType="Default" Index="8" RelativeSize="10.699588477366255" ShowCaption="False" ViewItem="" IsNewNode="True" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="AriaObjectShelve_col2" RelativeSize="48.123980424143554">
+                <LayoutItem Id="ObjectDescription" ViewItem="ObjectDescription" SizeConstraintsType="Default" Index="0" RelativeSize="13.168724279835391" IsNewNode="True" />
+                <LayoutItem Id="State" SizeConstraintsType="Default" RelativeSize="9.8765432098765427" Index="1" ViewItem="State" />
+                <LayoutItem Id="ModificationType" ViewItem="ModificationType" SizeConstraintsType="Default" Index="2" RelativeSize="9.8765432098765427" IsNewNode="True" />
+                <LayoutItem Id="TrackingEntry" SizeConstraintsType="Default" RelativeSize="30.522088353413654" ViewItem="TrackingEntry" Index="2" Removed="True" />
+                <LayoutItem Id="UpdatedToAcutual" SizeConstraintsType="Default" Index="3" RelativeSize="67.078189300411523" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                <LayoutItem Id="AriaObject" SizeConstraintsType="Default" Index="4" RelativeSize="50" ViewItem="AriaObject" Removed="True" />
+                <LayoutItem Id="ObjectID" ViewItem="ObjectID" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="6.0913705583756341" IsNewNode="True" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="6.0913705583756341" Direction="Horizontal" Caption="Description" Index="2">
+            <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="3" RelativeSize="16.243654822335024">
+            <LayoutGroup Id="AriaObjectShelveSettings" RelativeSize="100" Index="0">
+              <LayoutItem Id="AriaObjectShelveSettings" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectShelveSettings" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectShelveProperties" RelativeSize="100" Index="1">
+              <LayoutItem Id="AriaObjectShelveProperties" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectShelveProperties" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectShelveMethods" RelativeSize="100">
+              <LayoutItem Id="AriaObjectShelveMethods" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectShelveMethods" />
+            </LayoutGroup>
+            <LayoutGroup Id="AriaObjectShelveEvents" RelativeSize="100">
+              <LayoutItem Id="AriaObjectShelveEvents" SizeConstraintsType="Default" RelativeSize="100" ViewItem="AriaObjectShelveEvents" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectShelve_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelve_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="TrackingEntry_AriaObjectShelves_ListView" DataAccessMode="Client" />
+  </Views>
+</Application>

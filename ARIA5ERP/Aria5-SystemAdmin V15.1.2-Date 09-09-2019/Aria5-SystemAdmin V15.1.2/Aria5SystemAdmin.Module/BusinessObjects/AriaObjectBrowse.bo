@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectBrowse" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObjectBrowse_ListView" AllowNew="False" AllowDelete="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="Key" Index="-1" Removed="True" />
+        <ColumnInfo Id="ObjectOid" SortIndex="0" SortOrder="Ascending" Index="-1" Removed="True" />
+        <ColumnInfo Id="ObjectName" SortIndex="-1" SortOrder="None" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectBrowse_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TeamLeaderDailyFollowUp" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Date" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

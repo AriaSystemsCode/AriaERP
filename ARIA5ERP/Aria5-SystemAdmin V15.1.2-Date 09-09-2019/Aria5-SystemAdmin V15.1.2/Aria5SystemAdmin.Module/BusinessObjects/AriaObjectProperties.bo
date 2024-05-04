@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectProperties" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AriaObject_AriaObjectPropertieses_ListView" IsFooterVisible="False" Caption="All Properties Manuplation" />
+    <DetailView Id="AriaObjectProperties_DetailView">
+      <Items>
+        <PropertyEditor Id="PropertySettings" Index="-1" />
+        <PropertyEditor Id="AriaObject" AllowEdit="False" />
+        <PropertyEditor Id="ObjectRevision" DataSourceProperty="AriaObject.ActiveRevision" AllowEdit="False" />
+        <PropertyEditor Id="PropertyType" DataSourceProperty="AriaObject.ObjectType.PropertyTypes" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="AriaObjectProperties" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="AriaObjectRevision_AriaObjectPropertiess_ListView" AllowDelete="False" AllowNew="False" />
+  </Views>
+</Application>

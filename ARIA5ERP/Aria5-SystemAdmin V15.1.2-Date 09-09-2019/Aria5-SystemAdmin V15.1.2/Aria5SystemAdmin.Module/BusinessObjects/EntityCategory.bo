@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityCategory" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Entity_EntityCategoryFiltered_ListView" GroupSummary="Empty" />
+    <DetailView Id="EntityCategory_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="25.671641791044777">
+            <LayoutGroup Id="EntityCategory" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="EntityCategory_ListView" DataAccessMode="DataView" />
+    <ListView Id="EntityCategory_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

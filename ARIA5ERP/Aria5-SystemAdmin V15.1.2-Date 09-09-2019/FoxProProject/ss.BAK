@@ -1,0 +1,14 @@
+PARAMETERS pentry,ppath
+*XXXX
+'\\192.168.1.130\Aria4.0Working'
+*XXXX
+LOCAL lcExeFile ,lcGenExe 
+  lcExeFile = ppath + (pentry) +'.EXE'
+  * USE "(ppath)+genexe.dbf"
+  lcGenExe = (ppath)+ 'genexe.dbf'
+ 
+  lcGenExe=Strtran(lcGenExe,'.dbf','.pjx')
+ * Copy To (lcEntryFolder)+lcEntry+'Log3.xls'   Fields Name, Source, csubfold ,Type, Tag,Key Xls
+  Build Exe (lcExeFile) From (lcGenExe)
+ 
+  * lcEntryFolder=this.CLEAREntryFolder(lcEntryFolder)

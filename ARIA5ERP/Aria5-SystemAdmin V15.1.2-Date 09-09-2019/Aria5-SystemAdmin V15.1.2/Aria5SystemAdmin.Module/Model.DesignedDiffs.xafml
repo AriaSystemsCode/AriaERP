@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="Aria5 System Admin" Company="Aria Systems Inc." Description="System Admin. Module">
+  <ActionDesign>
+    <Actions>
+      <Action Id="AppBuildLinkController" ImageName="Action_LinkUnlink_Link" />
+      <Action Id="GenerateBuildAction" Caption="Release Candidate" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelveProperty">
+      <AppearanceRules>
+        <AppearanceRule Id="DisableAriaObjectShelveProperty_PropertyName" Enabled="False" Criteria="[IsNew] = False" TargetItems="PropertyName" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AutoTaskNotesTemplates" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.AutoTaskTimeEntry" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.DefectDensityvalues" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.EntityTypeSettings" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRExperience" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRPersonalFilesCheck" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HRSkillsCategory" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ImportRequirement" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Notes" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Product" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QABrowser" Caption="Browser" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAComplainType" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QADefectChild" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAEntityFeatures" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAHardware" IsDesigned="True" Caption="Hardware" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAPlateForm" IsDesigned="True" Caption="Plate Form" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QASoftware" IsDesigned="True" Caption="Software" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QATestCaseChild" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QATestRunChild" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAType" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCaseActorCategory" IsDesigned="True" Caption=" ActorName" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCaseChild" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCasePoint" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QueueName" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Resource" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ResourcesAHT" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TaskNote" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TeamLeaderDailyFollowUp" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Date" AllowEdit="False" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TicketDetail" IsDesigned="True" />
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.TypeSettings" IsDesigned="True" />
+  </BOModel>
+  <Localization>
+    <LocalizationGroup Name="Messages">
+      <LocalizationItem Name="CannnotBuild" Value="The current build for {0} application has not been completed yet. Can't generate new build" IsNewNode="True" />
+    </LocalizationGroup>
+  </Localization>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Account_ListView" Index="0" />
+          <Item Id="AccountDevice_ListView" Index="1" />
+          <Item Id="ActivationKey_ListView" Index="2" />
+          <Item Id="Activity_ListView" Index="3" />
+          <Item Id="Address_ListView" Index="4" />
+          <Item Id="AddressType_ListView" Index="5" />
+          <Item Id="CountryTS_ListView" Index="6" Caption="Country" />
+          <Item Id="Administration_ListView" Index="7" />
+          <Item Id="ADS_ListView" Index="8" />
+          <Item Id="ApplicationCategory_ListView" Index="9" />
+          <Item Id="ApplicationSetting_ListView" Index="10" />
+          <Item Id="Application_T_ListView" Index="11" />
+          <Item Id="ApplicationBuild_T_ListView" Index="12" />
+          <Item Id="ApplicationBuildEntries_T_ListView" Index="13" />
+          <Item Id="AriaObject_ListView" Index="14" />
+          <Item Id="AriaObjectBrowse_ListView" Index="15" />
+          <Item Id="AriaObjectBrowseEvent_ListView" Index="16" />
+          <Item Id="AriaObjectBrowseEventParameter_ListView" Index="17" />
+          <Item Id="AriaObjectBrowseMethod_ListView" Index="18" />
+          <Item Id="AriaObjectBrowseMethodParameter_ListView" Index="19" />
+          <Item Id="AriaObjectBrowseProperty_ListView" Index="20" />
+          <Item Id="AriaObjectEvent_ListView" Index="21" />
+          <Item Id="AriaObjectEventParameter_ListView" Index="22" />
+          <Item Id="AriaObjectEventParameterSetting_ListView" Index="23" />
+          <Item Id="AriaObjectMethod_ListView" Index="24" />
+          <Item Id="AriaObjectMethodParameter_ListView" Index="25" />
+          <Item Id="AriaObjectMethodParameterSetting_ListView" Index="26" />
+          <Item Id="AriaObjectProperty_ListView" Index="27" />
+          <Item Id="AriaObjectPropertySetting_ListView" Index="28" />
+          <Item Id="AriaObjectRevision_ListView" Index="29" />
+          <Item Id="AriaObjectSetting_ListView" Index="29" />
+          <Item Id="AriaObjectShelve_ListView" Index="30" />
+          <Item Id="AriaObjectShelveEvent_ListView" Index="31" />
+          <Item Id="AriaObjectShelveEventParameter_ListView" Index="32" />
+          <Item Id="AriaObjectShelveEventParameterSetting_ListView" Index="33" />
+          <Item Id="AriaObjectShelveMethod_ListView" Index="34" />
+          <Item Id="AriaObjectShelveMethodParameter_ListView" Index="35" />
+          <Item Id="AriaObjectShelveMethodParameterSetting_ListView" Index="36" />
+          <Item Id="AriaObjectShelveProperty_ListView" Index="37" />
+          <Item Id="AriaObjectShelvePropertySetting_ListView" Index="38" />
+          <Item Id="AriaObjectShelveSetting_ListView" Index="39" />
+          <Item Id="AriaSecuritySystemRole_ListView" Index="40" />
+          <Item Id="AriaSecuritySystemUser_ListView" Index="41" />
+          <Item Id="Attachment_ListView" Index="42" />
+          <Item Id="AttachmentCategory_ListView" Index="43" />
+          <Item Id="Business_ListView" Index="44" />
+          <Item Id="CategoryWithIssues_ListView" Index="45" />
+          <Item Id="ConfigurationItem_ListView" Index="46" />
+          <Item Id="Contact_ListView" Index="47" />
+          <Item Id="ContactAddress_ListView" Index="48" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="17.1.3.0" IsNewNode="True" />
+  </SchemaModules>
+  <Validation>
+    <Rules>
+      <RuleRequiredField Id="AriaObjectShelveProperty_PropertyName_Required" TargetType="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelveProperty" TargetPropertyName="PropertyName" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleRequiredField Id="AriaObjectShelveProperty_PropertyType_Required" TargetType="Aria5SystemAdmin.Module.BusinessObjects.AriaObjectShelveProperty" TargetPropertyName="PropertyType" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleRequiredField Id="DevExpress.Persistent.Validation.RuleRequiredField_Aria5SystemAdmin.Module.BusinessObjects.ActivationKey_ApplicationId" Removed="True" />
+      <RuleRequiredField Id="TrackingEntry_Application_Required" ResultType="Error" TargetContextIDs="Save" TargetType="Aria5SystemAdmin.Module.BusinessObjects.TrackingEntry" TargetPropertyName="Application" IsNewNode="True" />
+      <RuleRequiredField Id="TrackingEntry_Entity_Required" TargetType="Aria5SystemAdmin.Module.BusinessObjects.TrackingEntry" TargetPropertyName="Entity" TargetContextIDs="Save" TargetCriteria="[HasChildren] = False" IsNewNode="True" />
+    </Rules>
+  </Validation>
+  <Views>
+    <ListView Id="Account_ListView" DataAccessMode="DataView" />
+    <ListView Id="Account_LookupListView" DataAccessMode="DataView" />
+    <DetailView Id="Application_T_DetailView">
+      <Items>
+        <PropertyEditor Id="AriaObjects" Index="1" />
+        <PropertyEditor Id="ApplicationSettings" Index="2" />
+      </Items>
+    </DetailView>
+    <ListView Id="Application_T_ListView" DataAccessMode="DataView" />
+    <ListView Id="Application_T_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="Application_T_PreRequiste_Applications_ListView" Filter="" />
+    <ListView Id="AriaObject_Applications_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObject_AriaObjectProperties_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObject_AriaObjectPropertysArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectBrowseProperty_ListView" AllowNew="False" DataAccessMode="DataView">
+      <Columns>
+        <ColumnInfo Id="KeyProperty" Removed="True" />
+        <ColumnInfo Id="PropertyOid" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="AriaObjectBrowseProperty_LookupListView" AllowNew="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEventParameter_AriaObjectEventParameterSettings_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEventParameter_AriaObjectEventParameterSettingsArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEventParameterSetting_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectEventParameterSetting_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethodParameter_AriaObjectMethodParameterSettings_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethodParameter_AriaObjectMethodParameterSettingsArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethodParameterSetting_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectMethodParameterSetting_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectProperty_AriaObjectPropertiesSettings_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectProperty_AriaObjectPropertiesSettingsArray_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectProperty_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectProperty_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectPropertySetting_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectPropertySetting_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectRevision_AriaObjectProperties_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelve_AriaObjectShelveProperties_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelve_AriaObjectShelveSettings_ListView" AllowEdit="False" AllowNew="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveEventParameter_AriaObjectShelveEventParameterSettings_ListView" AllowNew="False" AllowEdit="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveEventParameterSetting_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveEventParameterSetting_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveMethodParameter_AriaObjectShelveMethodParameterSettings_ListView" AllowNew="False" AllowEdit="False" DataAccessMode="DataView" />
+    <DetailView Id="AriaObjectShelveMethodParameterSetting_DetailView" AllowNew="False" />
+    <ListView Id="AriaObjectShelveMethodParameterSetting_ListView" AllowNew="False" AllowEdit="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveMethodParameterSetting_LookupListView" AllowNew="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveProperty_AriaObjectShelvePropertySettings_ListView" AllowNew="False" AllowEdit="False" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveProperty_ListView" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveProperty_LookupListView" DataAccessMode="DataView" />
+    <DetailView Id="AriaObjectShelvePropertySetting_DetailView" AllowNew="False">
+      <Items>
+        <PropertyEditor Id="AriaObjectShelveProperty" AllowEdit="False" />
+        <PropertyEditor Id="DataType" AllowEdit="False" />
+        <PropertyEditor Id="DecimalPlaces" AllowEdit="False" />
+        <PropertyEditor Id="Modified" AllowEdit="False" />
+        <PropertyEditor Id="SettingType" AllowEdit="False" />
+        <PropertyEditor Id="Width" AllowEdit="False" />
+      </Items>
+    </DetailView>
+    <ListView Id="AriaObjectShelvePropertySetting_ListView" AllowNew="False" AllowEdit="True" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelvePropertySetting_LookupListView" AllowNew="False" AllowEdit="True" DataAccessMode="DataView" />
+    <DetailView Id="AriaObjectShelveSetting_DetailView" AllowNew="False">
+      <Items>
+        <PropertyEditor Id="AriaObjectShelve" AllowEdit="False" />
+        <PropertyEditor Id="DataType" AllowEdit="False" />
+        <PropertyEditor Id="DecimalPlaces" AllowEdit="False" />
+        <PropertyEditor Id="Modified" AllowEdit="False" />
+        <PropertyEditor Id="SettingType" AllowEdit="False" />
+        <PropertyEditor Id="Width" AllowEdit="False" />
+      </Items>
+    </DetailView>
+    <ListView Id="AriaObjectShelveSetting_ListView" AllowNew="False" AllowEdit="True" DataAccessMode="DataView" />
+    <ListView Id="AriaObjectShelveSetting_LookupListView" AllowNew="False" AllowEdit="True" DataAccessMode="DataView" />
+    <ListView Id="HRJobPosition_Revisions_ListView">
+      <Columns>
+        <ColumnInfo Id="BackUp" Width="39" Index="-1" />
+        <ColumnInfo Id="Department" Width="39" Index="-1" />
+        <ColumnInfo Id="Fri" Index="-1" Width="27" />
+        <ColumnInfo Id="JobDescription" Index="-1" />
+        <ColumnInfo Id="Mon" Index="-1" />
+        <ColumnInfo Id="ReportTo1" Width="39" Index="-1" />
+        <ColumnInfo Id="ReportTo2" SortIndex="0" SortOrder="Ascending" Width="39" Index="-1" />
+        <ColumnInfo Id="SalaryFrom" Index="-1" />
+        <ColumnInfo Id="SalaryTo" Index="-1" Width="27" />
+        <ColumnInfo Id="Sat" Index="-1" />
+        <ColumnInfo Id="Sun" Index="-1" />
+        <ColumnInfo Id="Thu" Index="-1" />
+        <ColumnInfo Id="Tue" Index="-1" />
+        <ColumnInfo Id="Wed" Index="-1" />
+        <ColumnInfo Id="WorkingHoursFrom" Index="-1" Width="39" />
+        <ColumnInfo Id="WorkingHoursTo" Index="-1" Width="39" />
+        <ColumnInfo Id="Name" Width="117" />
+        <ColumnInfo Id="RevisionNumber" Index="2" Width="113" />
+      </Columns>
+    </ListView>
+    <ListView Id="Industry_ListView" DataAccessMode="DataView" />
+    <ListView Id="Industry_LookupListView" DataAccessMode="DataView" />
+    <ListView Id="PropertyType_AriaObjectPropertieses_ListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

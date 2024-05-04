@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Company">
+      <OwnMembers>
+        <Member Name="CompanyName" Caption="Name" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="HR_Company_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HR_Company" RelativeSize="19.851576994434136">
+              <LayoutItem Id="Code" ViewItem="Code" SizeConstraintsType="Default" Index="0" RelativeSize="29.906542056074766" IsNewNode="True" />
+              <LayoutItem Id="CompanyName" SizeConstraintsType="Default" Index="1" RelativeSize="22.429906542056074" />
+              <LayoutItem Id="Email" ViewItem="Email" SizeConstraintsType="Default" Index="2" RelativeSize="22.429906542056074" IsNewNode="True" />
+              <LayoutItem Id="AboutCompany" SizeConstraintsType="Default" Index="3" RelativeSize="25.233644859813083" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Entity" RelativeSize="80.14842300556586" Caption="HR_Entity">
+              <LayoutItem Id="Email" SizeConstraintsType="Default" Index="0" RelativeSize="5.9210526315789478" Removed="True" />
+              <TabbedGroup Id="Item3" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="CompanyBranches" ShowCaption="True" Caption=" Branches" Index="0" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="CompanyBranches" ShowCaption="False" ViewItem="CompanyBranches" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="CompanyDepartments" ShowCaption="True" Caption=" Departments" Index="1" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="CompanyDepartments" ShowCaption="False" ViewItem="CompanyDepartments" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="100" Caption="Employees" IsNewNode="True">
+                  <LayoutItem Id="Employees" ViewItem="Employees" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="HR_Attachments" ShowCaption="True" Index="3" RelativeSize="100" Caption="Attachments" IsNewNode="True">
+                  <LayoutItem Id="HR_Attachments" ShowCaption="False" ViewItem="HR_Attachments" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Addresses" ShowCaption="True" Index="4" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="Addresses" ShowCaption="False" ViewItem="Addresses" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Phones" ShowCaption="True" Index="5" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="Phones" ShowCaption="False" ViewItem="Phones" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
+              </TabbedGroup>
+              <LayoutItem Id="Type" SizeConstraintsType="Default" Index="0" RelativeSize="33.333333333333336" Removed="True" />
+              <LayoutItem Id="TypeId" SizeConstraintsType="Default" Index="0" RelativeSize="47.368421052631582" Removed="True" />
+              <LayoutItem Id="Code" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="68.089053803339525" Index="1" Removed="True">
+            <LayoutGroup Id="Addresses" RelativeSize="100" Index="0">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="CompanyDepartments" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="CompanyDepartments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="CompanyBranches" RelativeSize="100" Removed="True">
+              <LayoutItem Id="CompanyBranches" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Phones" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="66.6048237476809" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Description" Removed="True" />
+            <LayoutItem Id="Notes" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Company_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" />
+        <ColumnInfo Id="CompanyName" Width="149" Index="1" />
+        <ColumnInfo Id="Email" Index="2" />
+        <ColumnInfo Id="AboutCompany" Width="361" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Company_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Caption="Code" PropertyName="Code" IsNewNode="True" />
+        <ColumnInfo Id="CompanyName" Index="1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

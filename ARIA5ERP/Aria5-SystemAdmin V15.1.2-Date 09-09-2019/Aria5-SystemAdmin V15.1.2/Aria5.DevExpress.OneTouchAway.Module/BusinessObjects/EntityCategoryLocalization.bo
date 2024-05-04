@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5.DevExpress.OneTouchAway.Module.BusinessObjects.EntityCategoryLocalization" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <DetailView Id="EntityCategoryLocalization_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" Direction="Horizontal" RelativeSize="100" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

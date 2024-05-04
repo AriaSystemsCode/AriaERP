@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QAUseCasePoints" IsDesigned="True" Caption="Use Case Points">
+      <OwnMembers>
+        <Member Name="ApproveStatus" AllowEdit="False" />
+        <Member Name="EffortBasedCosts" AllowEdit="False" />
+        <Member Name="Enddate" Caption="End Date" AllowEdit="True" />
+        <Member Name="ProjectEfforts" AllowEdit="False" />
+        <Member Name="ProjectSize" AllowEdit="False" />
+        <Member Name="TotalProjectCosts" AllowEdit="False" />
+        <Member Name="TotalUsecaseActorsPoints" AllowEdit="False" ImmediatePostData="True" />
+        <Member Name="TotalUsecaseCategoryPoints" AllowEdit="False" ImmediatePostData="True" />
+        <Member Name="TotalUsecaseEnvironmentalFactorsPoints" AllowEdit="False" />
+        <Member Name="TotalUsecaseTechnicalFactorsPoints" AllowEdit="False" />
+        <Member Name="Totalweight" AllowEdit="False" ImmediatePostData="True" Caption="Total weight" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="QAUseCasePoints_DetailView">
+      <Items>
+        <PropertyEditor Id="Enddate" AllowEdit="True" Caption="End Date" />
+        <PropertyEditor Id="ProjectEfforts" AllowEdit="False" />
+        <PropertyEditor Id="TotalUsecaseActorsPoints" AllowEdit="False" />
+        <PropertyEditor Id="TotalUsecaseCategoryPoints" AllowEdit="False" />
+        <PropertyEditor Id="Totalweight" AllowEdit="False" Caption="Total weight" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="51.915708812260533">
+            <LayoutGroup Id="QAUseCasePoints" RelativeSize="100" Caption="Use Case Points" Direction="Vertical">
+              <LayoutGroup Id="QAUseCasePoints_col1" RelativeSize="100" Direction="Horizontal">
+                <LayoutGroup Id="Autod2661a74-c1bc-4eb1-a2aa-18844aac410e" ShowCaption="False" Caption="Autod2661a74-c1bc-4eb1-a2aa-18844aac410e(5)" Index="0" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="Project" ViewItem="Project" SizeConstraintsType="Default" Index="0" RelativeSize="13.733905579399142" IsNewNode="True" />
+                  <LayoutItem Id="Title" ViewItem="Title" SizeConstraintsType="Default" Index="1" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="ProductivityFactor" ViewItem="ProductivityFactor" SizeConstraintsType="Default" Index="2" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="StandardCostRate" ViewItem="StandardCostRate" SizeConstraintsType="Default" Index="3" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="Notes" ViewItem="Notes" SizeConstraintsType="Default" Index="4" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="ProjectEfforts" ViewItem="ProjectEfforts" SizeConstraintsType="Default" Index="5" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="EffortBasedCosts" ViewItem="EffortBasedCosts" Index="6" RelativeSize="0.42918454935622319" IsNewNode="True" />
+                  <LayoutItem Id="FixedCost" ViewItem="FixedCost" SizeConstraintsType="Default" Index="7" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="ProjectSize" ViewItem="ProjectSize" SizeConstraintsType="Default" Index="8" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="Enddate" ViewItem="Enddate" SizeConstraintsType="Default" Index="9" RelativeSize="13.733905579399142" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto6f7e7703-d45a-449c-b548-33b2e6d9f1b9" ShowCaption="False" Caption="Auto6f7e7703-d45a-449c-b548-33b2e6d9f1b9(17)" Index="1" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="Totalweight" ViewItem="Totalweight" SizeConstraintsType="Default" Index="0" RelativeSize="13.733905579399142" IsNewNode="True" />
+                  <LayoutItem Id="TotalUsecaseCategoryPoints" ViewItem="TotalUsecaseCategoryPoints" SizeConstraintsType="Default" Index="1" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="TotalUsecaseActorsPoints" ViewItem="TotalUsecaseActorsPoints" SizeConstraintsType="Default" Index="2" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="TotalUsecaseTechnicalFactorsPoints" ViewItem="TotalUsecaseTechnicalFactorsPoints" SizeConstraintsType="Default" Index="3" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="TotalUsecaseEnvironmentalFactorsPoints" ViewItem="TotalUsecaseEnvironmentalFactorsPoints" SizeConstraintsType="Default" Index="4" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="TotalProjectCosts" ViewItem="TotalProjectCosts" SizeConstraintsType="Default" Index="5" RelativeSize="10.300429184549357" IsNewNode="True" />
+                  <LayoutItem Id="ApproveStatus" ViewItem="ApproveStatus" Index="6" RelativeSize="34.763948497854081" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="Title" SizeConstraintsType="Default" RelativeSize="9.022556390977444" Index="1" ViewItem="Title" Removed="True" />
+                <LayoutItem Id="EffortBasedCosts" Index="2" RelativeSize="0.49342105263157893" ViewItem="EffortBasedCosts" Removed="True" />
+                <LayoutItem Id="ProductivityFactor" ViewItem="ProductivityFactor" SizeConstraintsType="Default" Index="2" RelativeSize="9.022556390977444" Removed="True" />
+                <LayoutItem Id="StandardCostRate" ViewItem="StandardCostRate" SizeConstraintsType="Default" Index="3" RelativeSize="9.022556390977444" Removed="True" />
+                <LayoutItem Id="Totalweight" SizeConstraintsType="Default" RelativeSize="9.56175298804781" Index="3" ViewItem="Totalweight" Removed="True" />
+                <LayoutItem Id="Notes" ViewItem="Notes" SizeConstraintsType="Default" Index="4" RelativeSize="9.022556390977444" Removed="True" />
+                <LayoutItem Id="ProjectEfforts" ViewItem="ProjectEfforts" SizeConstraintsType="Default" Index="5" RelativeSize="9.022556390977444" Removed="True" />
+                <LayoutItem Id="FixedCost" ViewItem="FixedCost" SizeConstraintsType="Default" Index="7" RelativeSize="9.022556390977444" Removed="True" />
+                <LayoutItem Id="ProjectSize" ViewItem="ProjectSize" SizeConstraintsType="Default" Index="8" RelativeSize="9.022556390977444" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="QAUseCasePoints_col2" RelativeSize="47.877758913412563" Caption="QAUseCasePoints_col2" Direction="Horizontal" Removed="True">
+                <LayoutItem Id="EffortBasedCosts" ViewItem="EffortBasedCosts" Removed="True" />
+                <LayoutItem Id="Enddate" ViewItem="Enddate" Removed="True" />
+                <LayoutItem Id="Project" ViewItem="Project" Removed="True" />
+                <LayoutItem Id="TotalProjectCosts" ViewItem="TotalProjectCosts" Removed="True" />
+                <LayoutItem Id="TotalUsecaseActorsPoints" ViewItem="TotalUsecaseActorsPoints" Removed="True" />
+                <LayoutItem Id="TotalUsecaseCategoryPoints" ViewItem="TotalUsecaseCategoryPoints" Removed="True" />
+                <LayoutItem Id="TotalUsecaseEnvironmentalFactorsPoints" ViewItem="TotalUsecaseEnvironmentalFactorsPoints" Removed="True" />
+                <LayoutItem Id="TotalUsecaseTechnicalFactorsPoints" ViewItem="TotalUsecaseTechnicalFactorsPoints" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="48.084291187739467">
+            <LayoutGroup Id="UseCAsePointsCategories" RelativeSize="100" Caption="Use Case Points Categories">
+              <LayoutItem Id="UseCAsePointsCategories" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UseCAsePointsCategories" />
+            </LayoutGroup>
+            <LayoutGroup Id="UsecaseActors" RelativeSize="100">
+              <LayoutItem Id="UsecaseActors" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UsecaseActors" />
+            </LayoutGroup>
+            <LayoutGroup Id="UseCaseTechnicalFactors" RelativeSize="100">
+              <LayoutItem Id="UseCaseTechnicalFactors" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UseCaseTechnicalFactors" />
+            </LayoutGroup>
+            <LayoutGroup Id="UseCaseEnvironmentalFactors" RelativeSize="100">
+              <LayoutItem Id="UseCaseEnvironmentalFactors" SizeConstraintsType="Default" RelativeSize="100" ViewItem="UseCaseEnvironmentalFactors" />
+            </LayoutGroup>
+            <LayoutGroup Id="WBS" RelativeSize="100">
+              <LayoutItem Id="WBS" SizeConstraintsType="Default" RelativeSize="100" ViewItem="WBS" />
+            </LayoutGroup>
+            <LayoutGroup Id="ResourceShares" RelativeSize="100">
+              <LayoutItem Id="ResourceShares" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ResourceShares" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="QAUseCasePoints_ListView" GroupSummary="Empty">
+      <Columns>
+        <ColumnInfo Id="Notes" Index="-1" />
+        <ColumnInfo Id="Project" Index="1" />
+        <ColumnInfo Id="ProductivityFactor" Index="2" />
+        <ColumnInfo Id="StandardCostRate" Index="3" />
+        <ColumnInfo Id="FixedCost" Index="4" />
+        <ColumnInfo Id="ProjectSize" Index="5" />
+        <ColumnInfo Id="ProjectEfforts" Index="6" />
+        <ColumnInfo Id="EffortBasedCosts" Index="7" />
+        <ColumnInfo Id="TotalProjectCosts" Index="8" />
+        <ColumnInfo Id="TotalUsecaseCategoryPoints" Index="9" />
+        <ColumnInfo Id="TotalUsecaseActorsPoints" Index="10" />
+        <ColumnInfo Id="TotalUsecaseTechnicalFactorsPoints" Index="11" />
+        <ColumnInfo Id="TotalUsecaseEnvironmentalFactorsPoints" Index="12" />
+        <ColumnInfo Id="Totalweight" Index="13" />
+        <ColumnInfo Id="Enddate" Index="14" />
+      </Columns>
+    </ListView>
+    <ListView Id="QAUseCasePoints_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Title" Width="322" />
+        <ColumnInfo Id="Project" Index="1" Caption="Project" PropertyName="Project" Width="264" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.Department" ImageName="BO_Department" />
+  </BOModel>
+  <Views Id="Views">
+    <ListView Id="Department_DepartmentDOT_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="DeliveryOnTime" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Department_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main" RelativeSize="100" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="49" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+            <LayoutGroup Id="Entity" RelativeSize="100" Caption="Department" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+              <LayoutGroup Id="Entity_col1" RelativeSize="64" Caption="Entity_col1" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+                <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="11" Index="1" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Description" />
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" Index="2" RelativeSize="11" ViewItem="EntityType" />
+                <LayoutItem Id="Status" ViewItem="Status" SizeConstraintsType="Default" Index="3" RelativeSize="11" Removed="True" />
+                <LayoutItem Id="EntityCategory" ViewItem="EntityCategory" SizeConstraintsType="Default" Index="4" RelativeSize="11" />
+                <LayoutItem Id="DefaultAttachment" SizeConstraintsType="Default" Index="5" RelativeSize="17" ViewItem="DefaultAttachment" Removed="True" />
+                <LayoutItem Id="EnteredDate" ViewItem="EnteredDate" SizeConstraintsType="Default" Index="5" RelativeSize="11" Removed="True" />
+                <LayoutItem Id="EntityClassification" ViewItem="EntityClassification" SizeConstraintsType="Default" Index="6" RelativeSize="11" />
+                <LayoutItem Id="EnteredBy" ViewItem="EnteredBy" SizeConstraintsType="Default" Index="7" RelativeSize="15" Removed="True" />
+                <LayoutGroup Id="Autob43cf1d0-4bab-4b80-99d6-925831c8b2b7" ShowCaption="False" Caption="Autob43cf1d0-4bab-4b80-99d6-925831c8b2b7(8)" Direction="Horizontal" Index="8" RelativeSize="0">
+                  <LayoutGroup Id="Autofdf44a06-f7ea-42e8-9a6c-4c47772dcc64" ShowCaption="False" Caption="Autofdf44a06-f7ea-42e8-9a6c-4c47772dcc64(9)" Index="0" RelativeSize="47" Direction="Horizontal" />
+                  <LayoutGroup Id="Auto122f69b1-cc8a-4598-8eee-e277c3a8eb31" ShowCaption="False" Caption="Auto122f69b1-cc8a-4598-8eee-e277c3a8eb31(12)" Index="1" RelativeSize="52" Direction="Horizontal" />
+                </LayoutGroup>
+                <LayoutItem Id="StatusId" SizeConstraintsType="Default" RelativeSize="15" ViewItem="StatusId" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Entity_col2" RelativeSize="31" Caption="Entity_col2" Direction="Vertical" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="">
+                <LayoutItem Id="IMAGE" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="IMAGE" />
+                <LayoutItem Id="EntityClassification" SizeConstraintsType="Default" Index="1" RelativeSize="13" ViewItem="EntityClassification" Removed="True" />
+                <LayoutItem Id="ClassificationId" SizeConstraintsType="Default" Index="2" RelativeSize="15" ViewItem="ClassificationId" Removed="True" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" Index="2" RelativeSize="15" ViewItem="EntityCategory" Removed="True" />
+                <LayoutItem Id="CategoryId" SizeConstraintsType="Default" Index="3" RelativeSize="15" ViewItem="CategoryId" Removed="True" />
+                <LayoutItem Id="TypeId" ViewItem="TypeId" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="16" Caption="Attachments">
+            <LayoutItem Id="EntityAttachments" ViewItem="EntityAttachments" SizeConstraintsType="Default" Index="0" RelativeSize="69" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="33" Direction="Horizontal" Caption="Notes" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ImageName="" Index="2">
+            <LayoutItem Id="Notes" ViewItem="Notes" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="13" Removed="True">
+            <LayoutGroup Id="Images" Index="0" RelativeSize="100">
+              <LayoutItem Id="Images" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Images" />
+            </LayoutGroup>
+            <LayoutGroup Id="EntityAddresses" Removed="True" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Department_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Description" Index="1" />
+        <ColumnInfo Id="DefaultAttachment" Removed="True" />
+        <ColumnInfo Id="EnteredBy" Removed="True" />
+        <ColumnInfo Id="EnteredDate" Removed="True" />
+        <ColumnInfo Id="ExtraData" Removed="True" />
+        <ColumnInfo Id="Notes" Removed="True" />
+        <ColumnInfo Id="Status" Removed="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Attachment_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto5b4b57fe-5fe9-4d99-9529-61612e77ea6a">
+              <LayoutGroup Id="AttachmentCategories_Group">
+                <LayoutItem Id="AttachmentCategories" ViewItem="AttachmentCategories" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Attachment">
+              <LayoutGroup Id="Attachment_col2">
+                <LayoutItem Id="Image" ViewItem="Image" />
+                <LayoutItem Id="IsDefault" ViewItem="IsDefault" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ContactAddress_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ContactAddress">
+              <LayoutGroup Id="ContactAddress_col2">
+                <LayoutGroup Id="Auto0fa204e7-7b38-4b30-a174-0ac9d4bef65e">
+                  <LayoutGroup Id="Auto496cba98-490e-4277-8163-e1cdc7feaecb">
+                    <LayoutItem Id="CountryTS" ViewItem="CountryTS" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+  <NavigationItems Id="NavigationItems">
+    <Items Id="Items">
+      <Item Id="1TouchAway">
+        <Items Id="Items">
+          <Item Id="DataMangment">
+            <Items Id="Items">
+              <Item Id="Profile_ListView" ViewId="Profile_ListView" />
+              <Item Id="InDoorMapProvider_ListView" ViewId="InDoorMapProvider_ListView" />
+              <Item Id="InDoorMap_ListView" ViewId="InDoorMap_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemManager">
+        <Items Id="Items">
+          <Item Id="Codes">
+            <Items Id="Items">
+              <Item Id="Department_ListView" ViewId="Department_ListView" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="SystemAdmin">
+        <Items Id="Items">
+          <Item Id="ContentMangemnet">
+            <Items Id="Items">
+              <Item Id="SecurityManagement">
+                <Items Id="Items">
+                  <Item Id="SecurityUser_ListView" ViewId="SecurityUser_ListView" />
+                  <Item Id="SecurityRole_ListView" ViewId="SecurityRole_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+          <Item Id="QA">
+            <Items Id="Items">
+              <Item Id="Project">
+                <Items Id="Items">
+                  <Item Id="Departments" ViewId="Department_ListView" />
+                </Items>
+              </Item>
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>

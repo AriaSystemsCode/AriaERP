@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.HR_Activity" IsDesigned="True">
+      <OwnMembers>
+        <Member Name="Category" DataSourceCriteria="[Department] = 'This.Department'" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="AriaDepartment_Activities_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="39" />
+        <ColumnInfo Id="Name" Index="1" Width="104" />
+        <ColumnInfo Id="Department" Index="2" Width="45" />
+        <ColumnInfo Id="Category" Index="3" Width="45" />
+        <ColumnInfo Id="Frequency" Index="4" Width="45" />
+        <ColumnInfo Id="Calendar" Index="5" Width="45" />
+        <ColumnInfo Id="Duration" Index="6" Width="32" />
+        <ColumnInfo Id="Role" Index="7" Width="45" />
+        <ColumnInfo Id="Initiator" Index="8" Width="45" />
+        <ColumnInfo Id="DetailLink" Index="9" Width="65" />
+      </Columns>
+    </ListView>
+    <DetailView Id="HR_Activity_DetailView">
+      <Items>
+        <PropertyEditor Id="Category" DataSourceCriteria="" DataSourceProperty="Department.Categories" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="HR_Activity" RelativeSize="38.787878787878789" Caption="Activity">
+              <LayoutGroup Id="HR_Activity_col1" RelativeSize="50">
+                <LayoutItem Id="Code" ViewItem="Code" SizeConstraintsType="Default" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" Index="1" RelativeSize="15" />
+                <LayoutItem Id="Department" SizeConstraintsType="Default" Index="2" RelativeSize="15" />
+                <LayoutItem Id="Category" SizeConstraintsType="Default" Index="3" RelativeSize="15" />
+                <LayoutItem Id="Frequency" SizeConstraintsType="Default" Index="4" RelativeSize="15" />
+                <LayoutItem Id="Calendar" SizeConstraintsType="Default" Index="5" RelativeSize="20" ViewItem="Calendar" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Activity_col2" RelativeSize="50">
+                <LayoutItem Id="Duration" SizeConstraintsType="Default" RelativeSize="20" />
+                <LayoutItem Id="Role" SizeConstraintsType="Default" RelativeSize="15" />
+                <LayoutItem Id="Initiator" SizeConstraintsType="Default" RelativeSize="15" Index="2" />
+                <LayoutItem Id="DetailLink" SizeConstraintsType="Default" RelativeSize="50" Index="3" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="61.212121212121211" IsNewNode="True">
+              <LayoutGroup Id="ActivityLog" ShowCaption="True" Caption="Activity Log" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="ActivityLog" ShowCaption="False" ViewItem="ActivityLog" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="HR_Attachments" ShowCaption="True" Index="1" RelativeSize="100" Caption="Attachments" IsNewNode="True">
+                <LayoutItem Id="HR_Attachments" ShowCaption="False" ViewItem="HR_Attachments" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+            <LayoutGroup Id="HR_Entity" RelativeSize="62.913907284768214" Caption="HR_Entity" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="Code" Removed="True" />
+              <LayoutItem Id="Email" Removed="True" />
+              <LayoutItem Id="Type" Removed="True" />
+              <LayoutItem Id="TypeId" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="55.512572533849131" Index="1" Removed="True">
+            <LayoutGroup Id="Addresses" RelativeSize="100" Index="0">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100" Index="0" Removed="True">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ActivityLog" RelativeSize="100" Removed="True">
+              <LayoutItem Id="ActivityLog" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Phones" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="38.878143133462281" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Description" Removed="True" />
+            <LayoutItem Id="Notes" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HR_Activity_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="40" />
+        <ColumnInfo Id="Name" Index="1" Width="113" />
+        <ColumnInfo Id="Department" Index="2" Width="59" />
+        <ColumnInfo Id="Category" Index="3" Width="59" />
+        <ColumnInfo Id="Frequency" Index="4" Width="59" />
+        <ColumnInfo Id="Role" Index="5" Width="59" />
+        <ColumnInfo Id="Initiator" Index="6" Width="59" />
+        <ColumnInfo Id="DetailLink" Index="7" Width="62" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Activity_LookupListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Caption="Code" PropertyName="Code" Width="188" IsNewNode="True" />
+        <ColumnInfo Id="Name" Index="1" Width="322" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_ActivityCategory_Activities_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="35" />
+        <ColumnInfo Id="Name" Index="1" Width="95" />
+        <ColumnInfo Id="Department" Index="2" Width="48" />
+        <ColumnInfo Id="Category" Index="3" Width="48" />
+        <ColumnInfo Id="Frequency" Index="4" Width="48" />
+        <ColumnInfo Id="Calendar" Index="5" Width="48" />
+        <ColumnInfo Id="Duration" Index="6" Width="34" />
+        <ColumnInfo Id="Role" Index="7" Width="48" />
+        <ColumnInfo Id="Initiator" Index="8" Width="48" />
+        <ColumnInfo Id="DetailLink" Index="9" Width="58" />
+      </Columns>
+    </ListView>
+    <ListView Id="HR_Calendar_Activities_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" Width="35" />
+        <ColumnInfo Id="Name" Index="1" Width="96" />
+        <ColumnInfo Id="Department" Index="2" Width="48" />
+        <ColumnInfo Id="Category" Index="3" Width="48" />
+        <ColumnInfo Id="Frequency" Index="4" Width="48" />
+        <ColumnInfo Id="Calendar" Index="5" Width="48" />
+        <ColumnInfo Id="Duration" Index="6" Width="34" />
+        <ColumnInfo Id="Role" Index="7" Width="48" />
+        <ColumnInfo Id="Initiator" Index="8" Width="48" />
+        <ColumnInfo Id="DetailLink" Index="9" Width="57" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

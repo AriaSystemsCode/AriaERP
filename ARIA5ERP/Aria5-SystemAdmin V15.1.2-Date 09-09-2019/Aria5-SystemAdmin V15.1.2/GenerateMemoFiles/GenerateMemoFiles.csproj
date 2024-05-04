@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E687FA11-F31D-4139-B494-30FDAC9902AB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GenerateMemoFiles</RootNamespace>
+    <AssemblyName>GenerateMemoFiles</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Spreadsheet.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Azure.Common, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Azure.Common.NetFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.Module.Module.Web\Aria5.DevExpress.MainSystem.Module.Module.Web.csproj">
+      <Project>{0c729aad-7626-4668-a7f1-35f7d240489d}</Project>
+      <Name>Aria5.DevExpress.MainSystem.Module.Module.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.Module\Aria5.DevExpress.MainSystem.Module.csproj">
+      <Project>{b9ef03ff-d05b-4fd4-a8e9-f90d819cb1dc}</Project>
+      <Name>Aria5.DevExpress.MainSystem.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.WebServiceRole\Aria5.DevExpress.MainSystem.WebServiceRole.csproj">
+      <Project>{97fca2b4-c880-4344-939d-0ce84777f4ca}</Project>
+      <Name>Aria5.DevExpress.MainSystem.WebServiceRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.MainSystem.WorkerRole\Aria5.DevExpress.MainSystem.WorkerRole.csproj">
+      <Project>{0b58a65d-0f1e-474d-8c19-1be885cc45c1}</Project>
+      <Name>Aria5.DevExpress.MainSystem.WorkerRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.OneTouchAway.Module\Aria5.DevExpress.OneTouchAway.Module.csproj">
+      <Project>{8d5b207c-1228-4a8a-aa1d-4e8961840d23}</Project>
+      <Name>Aria5.DevExpress.OneTouchAway.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.SystemAdmin.WebServiceRole\Aria5.DevExpress.SystemAdmin.WebServiceRole.csproj">
+      <Project>{00c399cd-23b7-4901-91af-ac05bbb0fdb1}</Project>
+      <Name>Aria5.DevExpress.SystemAdmin.WebServiceRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.SystemAdmin.WorkerRole\Aria5.DevExpress.SystemAdmin.WorkerRole.csproj">
+      <Project>{f2b75e3e-b1e8-46e5-b5d0-df22cb4f9820}</Project>
+      <Name>Aria5.DevExpress.SystemAdmin.WorkerRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.SystemManager.WebServiceRole\Aria5.DevExpress.SystemManager.WebServiceRole.csproj">
+      <Project>{74145cf0-7d6d-4833-8867-4bba3e9220b1}</Project>
+      <Name>Aria5.DevExpress.SystemManager.WebServiceRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5.DevExpress.SystemManager.WorkerRole\Aria5.DevExpress.SystemManager.WorkerRole.csproj">
+      <Project>{bc9ed2c5-22ff-4fe9-b372-1b72bbb4780b}</Project>
+      <Name>Aria5.DevExpress.SystemManager.WorkerRole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module.Web\Aria5SystemAdmin.Module.Web.csproj">
+      <Project>{ef2c9e5c-2db0-45fc-b846-d6fcb9fe7bc6}</Project>
+      <Name>Aria5SystemAdmin.Module.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Module\Aria5SystemAdmin.Module.csproj">
+      <Project>{d28c293a-a455-47d5-8515-c9d019c1a538}</Project>
+      <Name>Aria5SystemAdmin.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aria5SystemAdmin.Web\Aria5SystemAdmin.Web.csproj">
+      <Project>{5da83b5d-8eaa-437d-adfa-16bb9fe18747}</Project>
+      <Name>Aria5SystemAdmin.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AriaDevExpress.Module\AriaDevExpress.Module.csproj">
+      <Project>{13df01cf-2fda-46be-8cd0-d95c93f72d6a}</Project>
+      <Name>AriaDevExpress.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GaugePropertyEditor.Web\Aria5Systemadmin.GaugePropertyEditor.Web.csproj">
+      <Project>{d7405fe5-4733-4700-8b8d-8ba1f61bb730}</Project>
+      <Name>Aria5Systemadmin.GaugePropertyEditor.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

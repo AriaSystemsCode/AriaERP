@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.JobPosition" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AriaDepartment_JobPositions_ListView">
+      <Columns>
+        <ColumnInfo Id="Code" Index="0" />
+        <ColumnInfo Id="Name" Width="132" Index="1" />
+        <ColumnInfo Id="JobDescription" Width="64" Index="3" />
+        <ColumnInfo Id="SalaryFrom" Width="45" Index="6" />
+        <ColumnInfo Id="SalaryTo" Width="45" Index="7" />
+        <ColumnInfo Id="Department" Index="8" />
+      </Columns>
+    </ListView>
+    <DetailView Id="JobPosition_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="75.435203094777563">
+            <LayoutGroup Id="JobPosition" RelativeSize="92.3076923076923">
+              <LayoutGroup Id="JobPosition_col1" RelativeSize="49.802371541501977">
+                <LayoutItem Id="Code" ViewItem="Code" SizeConstraintsType="Default" Index="0" RelativeSize="9.75609756097561" IsNewNode="True" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" Index="1" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="BackUp" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="Location" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="Department" SizeConstraintsType="Default" Index="4" RelativeSize="7.3170731707317076" ViewItem="Department" IsNewNode="True" />
+                <LayoutItem Id="ReportTo1" SizeConstraintsType="Default" Index="5" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="ReportTo2" SizeConstraintsType="Default" Index="6" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="Fri" SizeConstraintsType="Default" RelativeSize="61.572052401746724" Index="7" Removed="True" />
+                <LayoutItem Id="Mon" SizeConstraintsType="Default" RelativeSize="6.6298342541436464" Index="7" Removed="True" />
+                <LayoutItem Id="SalaryFrom" ViewItem="SalaryFrom" SizeConstraintsType="Default" Index="7" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="Thu" SizeConstraintsType="Default" RelativeSize="5.5299539170506913" Index="7" Removed="True" />
+                <LayoutItem Id="Tue" SizeConstraintsType="Default" RelativeSize="6.2176165803108807" Index="7" Removed="True" />
+                <LayoutItem Id="Wed" SizeConstraintsType="Default" RelativeSize="5.8536585365853657" Index="7" Removed="True" />
+                <LayoutItem Id="WorkingHoursFrom" ViewItem="WorkingHoursFrom" SizeConstraintsType="Default" Index="8" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="EducationCertificates" ViewItem="EducationCertificates" SizeConstraintsType="Default" Index="9" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="TechnicalKnowledge" ViewItem="TechnicalKnowledge" SizeConstraintsType="Default" Index="10" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="YearsOfExperience" ViewItem="YearsOfExperience" SizeConstraintsType="Default" Index="11" RelativeSize="17.073170731707318" IsNewNode="True" />
+                <LayoutItem Id="Sat" Removed="True" />
+                <LayoutItem Id="Sun" SizeConstraintsType="Default" RelativeSize="7.1005917159763312" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="JobPosition_col2" RelativeSize="50.197628458498023">
+                <LayoutItem Id="Sat" ViewItem="Sat" SizeConstraintsType="Default" Index="0" RelativeSize="9.75609756097561" IsNewNode="True" />
+                <LayoutItem Id="Sun" ViewItem="Sun" SizeConstraintsType="Default" Index="1" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="Mon" ViewItem="Mon" SizeConstraintsType="Default" Index="2" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="Tue" ViewItem="Tue" SizeConstraintsType="Default" Index="3" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="Wed" ViewItem="Wed" SizeConstraintsType="Default" Index="4" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="Thu" ViewItem="Thu" SizeConstraintsType="Default" Index="5" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="Fri" ViewItem="Fri" SizeConstraintsType="Default" Index="6" RelativeSize="7.3170731707317076" IsNewNode="True" />
+                <LayoutItem Id="SalaryTo" SizeConstraintsType="Default" RelativeSize="7.3170731707317076" Index="7" />
+                <LayoutItem Id="SalaryFrom" SizeConstraintsType="Default" RelativeSize="5.3571428571428568" Index="8" Removed="True" />
+                <LayoutItem Id="WorkingHoursFrom" SizeConstraintsType="Default" Index="8" RelativeSize="4.9792531120331951" Removed="True" />
+                <LayoutItem Id="WorkingHoursTo" SizeConstraintsType="Default" Index="8" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="Businessknowledge" SizeConstraintsType="Default" Index="9" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="EducationCertificates" SizeConstraintsType="Default" Index="9" RelativeSize="6" Removed="True" />
+                <LayoutItem Id="JobDescription" SizeConstraintsType="Default" Index="9" RelativeSize="5.6603773584905657" Removed="True" />
+                <LayoutItem Id="TechnicalKnowledge" SizeConstraintsType="Default" Index="9" RelativeSize="6.3829787234042552" Removed="True" />
+                <LayoutItem Id="PersonalAbilitiesSkills" SizeConstraintsType="Default" Index="10" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="ManagerialSkills" SizeConstraintsType="Default" Index="11" RelativeSize="7.3170731707317076" />
+                <LayoutItem Id="Languages" SizeConstraintsType="Default" Index="12" RelativeSize="9.75609756097561" />
+                <LayoutItem Id="YearsOfExperience" SizeConstraintsType="Default" Index="13" RelativeSize="9.0909090909090917" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutItem Id="JobDescription" ViewItem="JobDescription" SizeConstraintsType="Default" Index="1" RelativeSize="7.6923076923076925" IsNewNode="True" />
+            <LayoutGroup Id="HR_Entity" RelativeSize="62.913907284768214" Caption="HR_Entity" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="Code" Removed="True" />
+              <LayoutItem Id="Email" Removed="True" />
+              <LayoutItem Id="Type" Removed="True" />
+              <LayoutItem Id="TypeId" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="24.564796905222437" Index="1">
+            <LayoutGroup Id="Employees" RelativeSize="100">
+              <LayoutItem Id="Employees" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Activities" RelativeSize="100">
+              <LayoutItem Id="Activities" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="HR_Attachments" RelativeSize="100">
+              <LayoutItem Id="HR_Attachments" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Addresses" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Addresses" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Phones" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Phones" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="38.878143133462281" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Description" Removed="True" />
+            <LayoutItem Id="Notes" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.ProfileSection" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="Profile_ProfileSections_ListView" DataAccessMode="DataView" />
+    <DetailView Id="ProfileSection_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="16">
+            <LayoutGroup Id="ProfileSection" RelativeSize="100">
+              <LayoutGroup Id="ProfileSection_col1" RelativeSize="46">
+                <LayoutItem Id="SectionId" SizeConstraintsType="Default" RelativeSize="36" ViewItem="SectionId" />
+                <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="27" ViewItem="Name" />
+                <LayoutItem Id="Order" SizeConstraintsType="Default" RelativeSize="36" ViewItem="Order" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProfileSection_col2" RelativeSize="50">
+                <LayoutItem Id="EntityType" SizeConstraintsType="Default" RelativeSize="36" ViewItem="EntityType" />
+                <LayoutItem Id="EntityCategory" SizeConstraintsType="Default" RelativeSize="63" ViewItem="EntityCategory" />
+                <LayoutItem Id="Profile" SizeConstraintsType="Default" RelativeSize="36" ViewItem="Profile" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="83">
+            <LayoutGroup Id="ProfileSectionTiles" RelativeSize="100">
+              <LayoutItem Id="ProfileSectionTiles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ProfileSectionTiles" />
+            </LayoutGroup>
+            <LayoutGroup Id="Categories" RelativeSize="100" Removed="True">
+              <LayoutItem Id="Categories" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Categories" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ProfileSection_ListView" DataAccessMode="DataView" />
+    <ListView Id="ProfileSection_LookupListView" DataAccessMode="DataView" />
+  </Views>
+</Application>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Aria5SystemAdmin.Module.BusinessObjects.QueueValues" IsDesigned="True" />
+  </BOModel>
+  <Views>
+    <ListView Id="AverageHandleTime_QueuesValues_ListView">
+      <Columns>
+        <ColumnInfo Id="AverageHandleTime" Index="-1" />
+        <ColumnInfo Id="Ticket" Index="-1" />
+        <ColumnInfo Id="TicketCompleteDate" Index="-1" />
+        <ColumnInfo Id="NumberOfTickets" Index="2" />
+        <ColumnInfo Id="Average" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="QueueValues_ListView">
+      <Columns>
+        <ColumnInfo Id="AverageHandleTime" Index="-1" />
+        <ColumnInfo Id="Ticket" Index="-1" />
+        <ColumnInfo Id="TicketCompleteDate" Index="-1" />
+        <ColumnInfo Id="NumberOfTickets" Index="2" />
+        <ColumnInfo Id="Average" Index="3" />
+      </Columns>
+    </ListView>
+    <ListView Id="TicketAHT_QueuesValues_ListView">
+      <Columns>
+        <ColumnInfo Id="Average" Index="-1" />
+        <ColumnInfo Id="AverageHandleTime" Index="-1" />
+        <ColumnInfo Id="NumberOfTickets" Index="-1" />
+        <ColumnInfo Id="Ticket" Index="-1" />
+        <ColumnInfo Id="TicketCompleteDate" Index="2" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
