@@ -45,6 +45,7 @@
 * B612549,1 MMT 05/08/2022 User got an error while saving huge Key Off Transactions[T20220215.0003]
 * E612596,1 MMT 07/26/2022 Add memo field to the profiles list and profiles screens [T20220407.0001]
 * B612694,1 MMT 09/21/2023 Error in Cutting ticket form if the printed cutting ticket includes style has assigned image but it is related image file is not found[T-ERP-20230920.0002]
+* B612712,1 MMT 04/02/2024 problem to print a statements[T-ERP-20240402.0007]
 *:************************************************************************
 *-- Include the .H file
 #INCLUDE R:\ARIA4XP\PRGS\SY\ARIA.H
@@ -2108,7 +2109,10 @@ LLUSEDBY  = .F.
 LLCUSEDBY = .F.
 LLSUSEDBY = .F.
 LLUSESYCC = .F.
-LCCOMPID  = IIF(TYPE('lcCompId')<>'C',OARIAAPPLICATION.ACTIVECOMPANYID,LCCOMPID)
+*B612712,1 MMT 04/02/2024 problem to print a statements[T-ERP-20240402.0007][Start]
+*LCCOMPID  = IIF(TYPE('lcCompId')<>'C',OARIAAPPLICATION.ACTIVECOMPANYID,LCCOMPID)
+LCCOMPID  = IIF(TYPE('lcCompId')<>'C' OR EMPTY(ALLTRIM(lcCompId)),OARIAAPPLICATION.ACTIVECOMPANYID,LCCOMPID)
+*B612712,1 MMT 04/02/2024 problem to print a statements[T-ERP-20240402.0007][End]
 *B601818,1  Get company path
 LCCOMPDIR  = OARIAAPPLICATION.DATADIR
 IF OARIAAPPLICATION.ACTIVECOMPANYID <> LCCOMPID
