@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Request Builder/Aria5.2 R12
+/Request Builder/R13/Aria5.2
+/ARIA4XP
+/ARIA5ERP/CreateTestingEnvironment/CreateTestingEnvironment/obj/x86/Debug
+/ARIA5ERP/CreateTestingEnvironment/CreateTestingEnvironment/obj/x86/Release
