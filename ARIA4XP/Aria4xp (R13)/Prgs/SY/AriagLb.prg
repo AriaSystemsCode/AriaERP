@@ -46,6 +46,7 @@
 * E612596,1 MMT 07/26/2022 Add memo field to the profiles list and profiles screens [T20220407.0001]
 * B612694,1 MMT 09/21/2023 Error in Cutting ticket form if the printed cutting ticket includes style has assigned image but it is related image file is not found[T-ERP-20230920.0002]
 * B612712,1 MMT 04/02/2024 problem to print a statements[T-ERP-20240402.0007]
+* B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002]
 *:************************************************************************
 *-- Include the .H file
 #INCLUDE R:\ARIA4XP\PRGS\SY\ARIA.H
@@ -355,6 +356,9 @@ LLUSERUSED = USED('SYUUSER')
 LCCURRFILE = ALIAS()
 LAUSERLIST = " "
 LNUSRREC   = 0
+* B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][Start]
+llUseSyuStatc = .F.
+* B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][End]
 IF !USED("SYUSTATC")
   *! E302555,1 MMT 09/18/2008 Add Syustatc File For Aria4 and count A4 users[Start]
   *USE (oAriaApplication.SysPath+"SYUSTATC") IN 0 SHARED
@@ -372,6 +376,10 @@ IF !USED("SYUSTATC")
 
   USE (LCSQLDICPATH +"SYUSTATC") IN 0 SHARED
   *! E302555,1 MMT 09/18/2008 Add Syustatc File For Aria4 and count A4 users[End]
+  * B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][Start]
+  llUseSyuStatc = .T.
+  * B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][End]
+  
 ENDIF
 SELECT SYUSTATC
 
@@ -554,6 +562,14 @@ ENDIF
 IF !LLGETCOUNT AND !LLUSERUSED
   USE IN SYUUSER
 ENDIF
+* B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][Start]
+IF llUseSyuStatc
+  IF USED('SYUSTATC')
+    USE IN SYUSTATC
+  ENDIF
+ENDIF
+* B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][End]
+
 * B610604,1 MMT 11/27/2013 Aria4XP Login screen takes too long to appear[T20130726.0001][Start]
 = SYS(3051,VAL(lnOldInterval)) 
 * B610604,1 MMT 11/27/2013 Aria4XP Login screen takes too long to appear[T20130726.0001][End]
