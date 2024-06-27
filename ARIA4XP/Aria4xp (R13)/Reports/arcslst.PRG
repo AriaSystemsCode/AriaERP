@@ -45,7 +45,7 @@
 *! B611682,1 Es 10/09/2018 Modify the issue "Error in Customer List report when user select Account and Status and the report Long format is Cut off in Preview" [T20181005.0002]
 *! B611700,1 Es 11/29/2018 Modify Issue ' Customer Master list takes very long time to export report if list of accounts selected.' [T20181126.0007]
 *! B611891,1 Es 08/26/2019  Error while previewing or Exporting customer Master list report if user selected status then cleared status option. [T20190814.0005]
-
+*! E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003]
 
 #INCLUDE R:\Aria4xp\reports\arcslst.h
 *! B609212,1 MMT 04/21/2010 Fix bug of Wrong report orientataion[Start]
@@ -62,6 +62,7 @@ laCodDesc[2,2] =   "CDIVISION"
 laCodDesc[3,2] =   "REGION"
 laCodDesc[4,2] =   "SPCINST"
 laCodDesc[5,2] =   "CLASS"
+SET STEP ON 
 *! B609456,1 MMT 11/10/2010 customer report all codes don’t show in the report long format[End]
 *E303079,1 MMT 03/05/2012 Fixing Media issues[T20120304.0004][Start]
 lcOldCustValue  = ''
@@ -70,7 +71,9 @@ IF loOgScroll.llOGFltCh
 *AYM Account browser gets error -- alias conflicts  [Begin]
 *B611682 ,1 Es 10/09/2018 Modify the issue "Error in Customer List report when user select Account and Status and the report Long format is Cut off in Preview" [Start]
 *SELECT * FROM CUSTOMER_X WHERE ACCOUNT='*****' INTO CURSOR CUSTOMERF READWRITE
-	SELECT * FROM CUSTOMER_X WHERE .F. INTO CURSOR CUSTOMERF READWRITE
+	SELECT *, CAST(SPACE(100) as Memo) As mnotes ,CAST(SPACE(100) as Memo) AS cpro_value ,;
+	CAST(SPACE(100) as Memo) AS ccntctcode,CAST(SPACE(100) as Memo) AS 'Documents_Recipients',;
+	CAST(SPACE(100) as Memo) AS CPRO_CODE FROM CUSTOMER_X WHERE .F. INTO CURSOR CUSTOMERF READWRITE
 *B611682 ,1 Es 10/09/2018 Modify the issue "Error in Customer List report when user select Account and Status and the report Long format is Cut off in Preview" [End]
 
 *AYM Account browser gets error -- alias conflicts  [End]
@@ -80,9 +83,24 @@ IF loOgScroll.llOGFltCh
 *lcSelectedFields = "Customer.Type,Customer.Status,Customer.Account,Customer.store,Phone1,Fax,shipVia,SalesRep,Comm,Buyer,Btname,stname,Customer.CFACCODE,cCont_Cod2,cCont_Code,"+;
 "caddress1,caddress2,caddress3,Customer.caddress4,caddress5,caddress6,caddress12,caddress22,caddress32,caddress42,caddress52,caddress62,"+;
 "Region,Class,ctermCode,cDivision,Spcinst,Priority,factacct,Duns,upszone,cinsur,crlimit,cravail"
-	lcSelectedFields = "Customer.Type,Customer.Status,Customer.Account,Customer.store,Phone1,Fax,shipVia,SalesRep,Comm,Buyer,Btname,stname,Customer.CFACCODE,cCont_Cod2,cCont_Code,"+;
+    *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+	*lcSelectedFields = "Customer.Type,Customer.Status,Customer.Account,Customer.store,Phone1,Fax,shipVia,SalesRep,Comm,Buyer,Btname,stname,Customer.CFACCODE,cCont_Cod2,cCont_Code,"+;
 		"caddress1,caddress2,caddress3,Customer.caddress4,caddress5,caddress6,caddress12,caddress22,caddress32,caddress42,caddress52,caddress62,"+;
 		"Region,Class,ctermCode,cDivision,Spcinst,Priority,factacct,Duns,upszone,cinsur,crlimit,cravail,CEMAIL_ADD"
+	lcSelectedFields = "Customer.*"	
+	IF !USED('NOTEPAD')
+	  = gfOpenTable('NOTEPAD','NOTEPAD') 
+	ENDIF
+	IF !USED('PROFVALU')
+	  = gfOpenTable('PROFVALU','PROFILE') 
+	ENDIF
+    IF !USED('CONTACT')
+	  = gfOpenTable('CONTACT','CONTACT') 
+	ENDIF
+	IF !USED('PROFILE')
+	  = gfOpenTable('PROFILE','PROFILE') 
+	ENDIF
+	*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
 *E303385,1 TMI 05/02/2013 [End  ]
 	lcWhereconditoin = lfCreateWhereCondition()
 	lcSqlTempStatment = "SELECT "+lcSelectedFields+" FROM  Customer"+lcWhereconditoin
@@ -120,6 +138,59 @@ IF loOgScroll.llOGFltCh
 		SELECT TCustomer
 		SCAN
 			SCATTER MEMVAR MEMO
+			*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+			m.ccntctcode  =''
+			IF gfSeek('C'+PADR(m.Account,8)+m.Store,'CONTACT')
+			  SELECT CONTACT
+			  SCAN REST WHILE CCONTTYPE+CCONT_ID+STORE+CONTACT ='C'+PADR(m.Account,8)+m.Store
+			    m.ccntctcode  = m.ccntctcode + IIF(!EMPTY(m.ccntctcode),", ","")+ contact.ccontttl+": "+ contact.contact
+			  ENDSCAN
+			ENDIF
+			m.mnotes = ''
+	        IF gfSeek('A'+m.Account,'NOTEPAD')
+	          m.mnotes = NOTEPAD.mnotes
+	        ENDIF
+			m.CPRO_VALUE  =""
+            IF gfSEEK('CS'+m.Account+m.Store,'profvalu')
+              SELECT profvalu
+              SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE ='CS'+m.Account+m.Store
+                m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+              ENDSCAN
+            ENDIF
+            m.CPRO_CODE =''
+            IF gfSeek('C'+PADR(m.Account,8)+m.Store,'PROFILE','PROFILE')
+              SELECT PROFILE
+              SCAN REST WHILE CCONTTYPE+CCONT_ID+STORE+CPRO_CODE+CPRO_VALUE='C'+PADR(m.Account,8)+m.Store
+                m.CPRO_CODE = m.CPRO_CODE + IIF(!EMPTY(m.CPRO_CODE ),", ","")+ ALLTRIM( GFCODDES(PROFILE.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(PROFILE.cpro_value)
+              ENDSCAN
+            ENDIF
+            m.Documents_Recipients =''
+            lnEmailForm = oAriaApplication.RemoteCompanyData.execute("Select * From EMAIL_FORMS Where PARTNER_TYPES = 'C'"+;
+                                                          " AND PARTNER_ID ='"+;
+                                                          STRTRAN(m.Account,"'","''") +;
+                                                          "'"+;
+                                                          IIF(!EMPTY(m.Store),;
+                                                          " AND STORE_ID = '"+m.Store+"'"," AND STORE_ID = ''"),'',;
+                                                          "EMAIL_FORMS","",oAriaApplication.activecompanyconstr,3,"",SET("Datasession"))  
+
+    
+		    IF lnEmailForm > 0
+		      lnForms_t = oAriaApplication.RemoteCompanyData.execute("Select * From FORMS_T Where PARTNER_TYPES ='"+'C'+"'",'',;
+			          "FORMS_T","",oAriaApplication.sqlsysfilesconnectionstring,3,"",SET("Datasession"))  
+			  IF lnForms_t < 0 
+			    RETURN .F.
+			  ENDIF 
+		      SELECT EMAIL_FORMS
+		      LOCATE
+		      SCAN
+		        SELECT FORMS_T
+		        LOCATE FOR ID = EMAIL_FORMS.ID
+		        IF FOUND()
+     		      m.Documents_Recipients = m.Documents_Recipients +IIF(!EMPTY(m.Documents_Recipients),",","")+ ALLTRIM(FORMS_T.Description)+": "+ALLTRIM(EMAIL_FORMS.EMAIL_Addresses)
+     		    ENDIF  
+		      ENDSCAN 
+	        ENDIF
+			*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
 			INSERT INTO CUSTOMERF FROM MEMVAR
 		ENDSCAN
 
@@ -140,6 +211,60 @@ IF loOgScroll.llOGFltCh
 *INSERT INTO CUSTOMERF FROM MEMVAR
 			SCAN
 				SCATTER MEMVAR MEMO
+				*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+				m.ccntctcode  =''
+				IF gfSeek('C'+PADR(m.Account,8)+m.Store,'CONTACT')
+				  SELECT CONTACT
+				  SCAN REST WHILE CCONTTYPE+CCONT_ID+STORE+CONTACT ='C'+PADR(m.Account,8)+m.Store
+				    m.ccntctcode  = m.ccntctcode + IIF(!EMPTY(m.ccntctcode),", ","")+ contact.ccontttl+": "+ contact.contact
+				  ENDSCAN
+				ENDIF
+				m.mnotes = ''
+		        IF gfSeek('A'+m.Account,'NOTEPAD')
+		          m.mnotes = NOTEPAD.mnotes
+		        ENDIF
+				m.CPRO_VALUE  =""
+	            IF gfSEEK('CS'+m.Account+m.Store,'profvalu')
+	              SELECT profvalu
+	              SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE ='CS'+m.Account+m.Store
+	                m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+	              ENDSCAN
+	            ENDIF
+				m.CPRO_CODE =''
+	            IF gfSeek('C'+PADR(m.Account,8)+m.Store,'PROFILE','PROFILE')
+	              SELECT  PROFILE
+	              SCAN REST WHILE CCONTTYPE+CCONT_ID+STORE+CPRO_CODE+CPRO_VALUE='C'+PADR(m.Account,8)+m.Store
+	                m.CPRO_CODE = m.CPRO_CODE + IIF(!EMPTY(m.CPRO_CODE ),", ","")+ ALLTRIM( GFCODDES(PROFILE.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(PROFILE.cpro_value)
+	              ENDSCAN
+	            ENDIF
+	            m.Documents_Recipients =''
+	            lnEmailForm = oAriaApplication.RemoteCompanyData.execute("Select * From EMAIL_FORMS Where PARTNER_TYPES = 'C'"+;
+	                                                          " AND PARTNER_ID ='"+;
+	                                                          STRTRAN(m.Account,"'","''") +;
+	                                                          "'"+;
+	                                                          IIF(!EMPTY(m.Store),;
+	                                                          " AND STORE_ID = '"+m.Store+"'"," AND STORE_ID = ''"),'',;
+	                                                          "EMAIL_FORMS","",oAriaApplication.activecompanyconstr,3,"",SET("Datasession"))  
+
+	    
+			    IF lnEmailForm > 0
+			      lnForms_t = oAriaApplication.RemoteCompanyData.execute("Select * From FORMS_T Where PARTNER_TYPES ='"+'C'+"'",'',;
+				          "FORMS_T","",oAriaApplication.sqlsysfilesconnectionstring,3,"",SET("Datasession"))  
+				  IF lnForms_t < 0 
+				    RETURN .F.
+				  ENDIF 
+			      SELECT EMAIL_FORMS
+			      LOCATE
+			      SCAN
+			        SELECT FORMS_T
+			        LOCATE FOR ID = EMAIL_FORMS.ID
+			        IF FOUND()
+	     		      m.Documents_Recipients = m.Documents_Recipients +IIF(!EMPTY(m.Documents_Recipients),",","")+ ALLTRIM(FORMS_T.Description)+": "+ALLTRIM(EMAIL_FORMS.EMAIL_Addresses)
+	     		    ENDIF  
+			      ENDSCAN 
+		        ENDIF
+			    *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
+				
 				INSERT INTO CUSTOMERF FROM MEMVAR
 			ENDSCAN
 * B131866,1 TNA [End]
@@ -156,6 +281,59 @@ IF loOgScroll.llOGFltCh
 *INSERT INTO CUSTOMERF FROM MEMVAR
 			SCAN
 				SCATTER MEMVAR MEMO
+				*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+				m.ccntctcode  =''
+				IF gfSeek('C'+PADR(m.Account,8)+m.Store,'CONTACT')
+				  SELECT CONTACT
+				  SCAN REST WHILE CCONTTYPE+CCONT_ID+STORE+CONTACT ='C'+PADR(m.Account,8)+m.Store
+				    m.ccntctcode  = m.ccntctcode + IIF(!EMPTY(m.ccntctcode),", ","")+ contact.ccontttl+": "+ contact.contact
+				  ENDSCAN
+				ENDIF
+				m.mnotes = ''
+		        IF gfSeek('A'+m.Account,'NOTEPAD')
+		          m.mnotes = NOTEPAD.mnotes
+		        ENDIF
+				m.CPRO_VALUE  =""
+	            IF gfSEEK('CS'+m.Account+m.Store,'profvalu')
+	              SELECT profvalu
+	              SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE ='CS'+m.Account+m.Store
+	                m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+	              ENDSCAN
+	            ENDIF
+	            m.CPRO_CODE =''
+	            IF gfSeek('C'+PADR(m.Account,8)+m.Store,'PROFILE','PROFILE')
+	              SELECT  PROFILE
+	              SCAN REST WHILE CCONTTYPE+CCONT_ID+STORE+CPRO_CODE+CPRO_VALUE='C'+PADR(m.Account,8)+m.Store
+	                m.CPRO_CODE = m.CPRO_CODE + IIF(!EMPTY(m.CPRO_CODE ),", ","")+ ALLTRIM( GFCODDES(PROFILE.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(PROFILE.cpro_value)
+	              ENDSCAN
+	            ENDIF
+	            m.Documents_Recipients =''
+	            lnEmailForm = oAriaApplication.RemoteCompanyData.execute("Select * From EMAIL_FORMS Where PARTNER_TYPES = 'C'"+;
+	                                                          " AND PARTNER_ID ='"+;
+	                                                          STRTRAN(m.Account,"'","''") +;
+	                                                          "'"+;
+	                                                          IIF(!EMPTY(m.Store),;
+	                                                          " AND STORE_ID = '"+m.Store+"'"," AND STORE_ID = ''"),'',;
+	                                                          "EMAIL_FORMS","",oAriaApplication.activecompanyconstr,3,"",SET("Datasession"))  
+
+	    
+			    IF lnEmailForm > 0
+			      lnForms_t = oAriaApplication.RemoteCompanyData.execute("Select * From FORMS_T Where PARTNER_TYPES ='"+'C'+"'",'',;
+				          "FORMS_T","",oAriaApplication.sqlsysfilesconnectionstring,3,"",SET("Datasession"))  
+				  IF lnForms_t < 0 
+				    RETURN .F.
+				  ENDIF 
+			      SELECT EMAIL_FORMS
+			      LOCATE
+			      SCAN
+			        SELECT FORMS_T
+			        LOCATE FOR ID = EMAIL_FORMS.ID
+			        IF FOUND()
+	     		      m.Documents_Recipients = m.Documents_Recipients +IIF(!EMPTY(m.Documents_Recipients),",","")+ ALLTRIM(FORMS_T.Description)+": "+ALLTRIM(EMAIL_FORMS.EMAIL_Addresses)
+	     		    ENDIF  
+			      ENDSCAN 
+		        ENDIF
+    			*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
 				INSERT INTO CUSTOMERF FROM MEMVAR
 			ENDSCAN
 * B131866,1 TNA [End]
@@ -177,9 +355,12 @@ IF loOgScroll.llOGFltCh
 *lcSelectedFields = "CUSTOMERF.Type,CUSTOMERF.Status,CUSTOMERF.Account,CUSTOMERF.store,Phone1,Fax,shipVia,SalesRep,Comm,Buyer,Btname,stname,CUSTOMERF.CFACCODE,cCont_Cod2,cCont_Code,"+;
 "caddress1,caddress2,caddress3,CUSTOMERF.caddress4,caddress5,caddress6,caddress12,caddress22,caddress32,caddress42,caddress52,caddress62,"+;
 "Region,Class,ctermCode,cDivision,Spcinst,Priority,factacct,Duns,upszone,cinsur,crlimit,cravail"
-	lcSelectedFields = "CUSTOMERF.Type,CUSTOMERF.Status,CUSTOMERF.Account,CUSTOMERF.store,Phone1,Fax,shipVia,SalesRep,Comm,Buyer,Btname,stname,CUSTOMERF.CFACCODE,cCont_Cod2,cCont_Code,"+;
+    *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+	*lcSelectedFields = "CUSTOMERF.Type,CUSTOMERF.Status,CUSTOMERF.Account,CUSTOMERF.store,Phone1,Fax,shipVia,SalesRep,Comm,Buyer,Btname,stname,CUSTOMERF.CFACCODE,cCont_Cod2,cCont_Code,"+;
 		"caddress1,caddress2,caddress3,CUSTOMERF.caddress4,caddress5,caddress6,caddress12,caddress22,caddress32,caddress42,caddress52,caddress62,"+;
 		"Region,Class,ctermCode,cDivision,Spcinst,Priority,factacct,Duns,upszone,cinsur,crlimit,cravail,CEMAIL_ADD"
+	lcSelectedFields = "CUSTOMERF.*"
+	*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]	
 *E303385,1 TMI 05/02/2013 [End  ]
 	DO CASE
 	CASE !EMPTY(lcFinalSQL) AND !EMPTY(lcInnerJoincondition)

@@ -44,6 +44,7 @@
 *B611482,1 AHH 23/11/2017 Style Master List report is repeating colors in case of extended size scale companies [T20171009.0018]
 *B611505,1 AHH 09/01/2018 the style master list report prints only the first scale sizes only [T20171009.0018]
 *B612627,1 MMT 09/26/2022 Style Master List report gives error if user selected more than 25 item in In List[T20220922.0001]
+*E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003]
 *:***************************************************************************
 *N000682,1 MMT 02/11/2013 Globalization changes[Start]
 #include r:\aria4xp\reports\ic\icstylst.h
@@ -52,7 +53,7 @@ lcStTime   = TIME()
 llDontPrnt = .F.
 lcTime     = gfGetTime()
 lnMajLen   = LEN(SUBSTR(lcMajPic,4))
-llDummy    = loOgScroll.llOGFltCh AND lfCollData()
+llDummy    = (loOgScroll.llOGFltCh or (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL"))  AND lfCollData()
 *B610134,1 MMT 10/31/2012 Report prints repeated lines if print picture is set to Yes[Start]
 *!*	IF llRpPrnPic = 'Y' AND UPPER(ALLTRIM(lcRepMode)) <> "TEXT"
 *!*	  SELECT FStyle
@@ -88,9 +89,77 @@ DO gfDispRe WITH EVAL('lcRepNam')
 FUNCTION lfCollData
 
 SET STEP ON 
-
-  CREATE CURSOR FStyle(STYLE C(19),cstymajor C(19),DESC C(20),STATUS C(1),season C(6),cdivision C(6),cstygroup C(6),PATTERN C(10),fabric C(7),cColor M,START D,;
+  *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+  * CREATE CURSOR FStyle(STYLE C(19),cstymajor C(19),DESC C(20),STATUS C(1),season C(6),cdivision C(6),cstygroup C(6),PATTERN C(10),fabric C(7),cColor M,START D,;
     soldout D,location C(8),nstyweight N(5,2),qty_ctn N(3),pricea N(12,2),priceb N(12,2),pricec N(12,2),commission L,SCALE C(3),prepak C(1))
+  IF !USED('STYLEUPC')
+    = gfOpenTable('STYLEUPC','STYLEUPC') && STYLE+SIZE
+  ENDIF
+  
+  IF !USED('SCALE')
+    = gfOpenTable('SCALE','SCALE') 
+  ENDIF
+  IF !USED('NOTEPAD')
+    = gfOpenTable('NOTEPAD','NOTEPAD') 
+  ENDIF
+  IF !USED('PROFVALU')
+    = gfOpenTable('PROFVALU','PROFILE') 
+  ENDIF
+  SELECT STYLE
+  lnFlds = AFIELDS(laStyFld)
+  
+  lcNonNeededFlds = "ord1     ,ord2     ,ord3     ,ord4     ,ord5     ,ord6     ,ord7     ,ord8     ,totord   ,"+;
+  "wip1     ,wip2     ,wip3     ,wip4     ,wip5     ,wip6     ,wip7     ,wip8     ,totwip   ,"+;
+  "stk1     ,stk2     ,stk3     ,stk4     ,stk5     ,stk6     ,stk7     ,stk8     ,totstk   ,"+;
+  "alo1     ,alo2     ,alo3     ,alo4     ,alo5     ,alo6     ,alo7     ,alo8     ,totalo   ,"+;
+  "shp1     ,shp2     ,shp3     ,shp4     ,shp5     ,shp6     ,shp7     ,shp8     ,totshp   ,"+;
+  "ret1     ,ret2     ,ret3     ,ret4     ,ret5     ,ret6     ,ret7     ,ret8     ,totret   ,"+;
+  "ra1      ,ra2      ,ra3      ,ra4      ,ra5      ,ra6      ,ra7      ,ra8      ,totra    ,"+;
+  "intrans1 ,intrans2 ,intrans3 ,intrans4 ,intrans5 ,intrans6 ,intrans7 ,intrans8 ,totintrn ,"+;
+  "nwo1     ,nwo2     ,nwo3     ,nwo4     ,nwo5     ,nwo6     ,nwo7     ,nwo8     ,ntotwo, NSTKVAL"
+  lcNonNeededFlds = lcNonNeededFlds + ", cAdd_User, dAdd_Date, cAdd_Time, lLok_stat, cLok_User, dLok_Date, cLok_Time, cEdit_User, dEdit_Date, cEdit_Time,cedt_ver,cadd_ver"
+  DIMENSION laDelFlds[1]
+  =gfSubStr(lcNonNeededFlds ,@laDelFlds,",")
+  IF Type('laDelFlds[1]') <>'U'
+    FOR lnA=1 TO ALEN(laDelFlds,1)
+      lnP =ASCAN(laStyFld,ALLTRIM(UPPER(laDelFlds[lnA])),1)
+      IF lnP>0
+        lnPos = ASUBSCRIPT(laStyFld,lnP,1)
+        ADEL(laStyFld,lnPos )
+      ENDIF  
+    ENDFOR
+  ENDIF
+  DIMENSION lastyfld[alen(lastyfld,1)-alen(ladelFlds,1),18]
+  lnFlds = ALEN(laStyFld,1)
+  DIMENSION laStyFld[lnFlds +4,18]
+  laStyFld[lnFlds +1,1] = 'cColor'
+  laStyFld[lnFlds +1,2] = 'M'
+  laStyFld[lnFlds +1,3] = 4
+  laStyFld[lnFlds +1,4] = 0
+  laStyFld[lnFlds +2,1] = 'mnotes'
+  laStyFld[lnFlds +2,2] = 'M'
+  laStyFld[lnFlds +2,3] = 4
+  laStyFld[lnFlds +2,4] = 0
+  laStyFld[lnFlds +3,1] = 'CUPC'
+  laStyFld[lnFlds +3,2] = 'M'
+  laStyFld[lnFlds +3,3] = 4
+  laStyFld[lnFlds +3,4] = 0
+  laStyFld[lnFlds +4,1] = 'CPRO_VALUE'
+  laStyFld[lnFlds +4,2] = 'M'
+  laStyFld[lnFlds +4,3] = 4
+  laStyFld[lnFlds +4,4] = 0
+  
+  
+  FOR lnCount = 1 TO 4
+    STORE '' TO laStyFld[lnFlds +lnCount,7],laStyFld[lnFlds +lnCount,8],laStyFld[lnFlds +lnCount,9],;
+              laStyFld[lnFlds +lnCount,10],laStyFld[lnFlds +lnCount,11],laStyFld[lnFlds +lnCount,12],;
+              laStyFld[lnFlds +lnCount,13],laStyFld[lnFlds +lnCount,14],laStyFld[lnFlds +lnCount,15],;
+              laStyFld[lnFlds +lnCount,16]
+    STORE 0 TO  laStyFld[lnFlds +lnCount,17],laStyFld[lnFlds +lnCount,18]
+  ENDFOR
+
+  CREATE CURSOR FStyle FROM ARRAY laStyFld
+  *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
 
 *B612627,1 MMT 09/26/2022 Style Master List report gives error if user selected more than 25 item in In List[T20220922.0001][Start]
 *!*    IF lcRpDomImp <>  'B'
@@ -222,13 +291,57 @@ SET STEP ON
           IF !(SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen)  $ m.cColor )
             m.cColor = m.cColor + SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) + " "
           ENDIF
+          *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+          m.CUPC  =''
+          IF gfSEEK(Style.Style,'STYLEUPC')
+            =gfSeek('S'+Style.Scale,'SCALE')
+            
+            FOR ln=1 TO Scale.cnt
+               lcN = STR(ln,1)
+               IF gfSEEK(Style.Style+lcN ,'STYLEUPC') 
+                 m.CUPC  = m.CUPC + IIF(!EMPTY(m.CUPC),",","")+Scale.Sz&lcN.+" : "+ALLTRIM(StyleUPC.cupcnum1)+ALLTRIM(StyleUPC.cupcnum2)+ALLTRIM(StyleUPC.cupcnum3)
+               ENDIF
+            ENDFOR 
+          ENDIF
+          m.mnotes = ''
+          IF gfSeek('F'+SUBSTR(Style.Style,1,lnMajLen),'NOTEPAD')
+            m.mnotes = NOTEPAD.mnotes
+          ENDIF
+          m.CPRO_VALUE  =""
+          IF gfSEEK('ST'+Style.Style,'profvalu')
+            SELECT profvalu
+            SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE = 'ST'+Style.Style
+              m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+            ENDSCAN
+          ENDIF
+          *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
+          
           IF (lcStyMaj # STYLE.cstymajor)
+            SELECT STYLE
   	        SCATTER MEMVAR MEMO
   	        INSERT INTO FStyle FROM MEMVAR
+            IF (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
+              REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+            ENDIF
   	      ELSE
+          
   	        lcAlias = SELECT(0)
   	        SELECT FStyle
-  	        REPLACE cColor WITH m.cColor
+            IF !(oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
+  	          REPLACE cColor WITH m.cColor
+            ENDIF
+            *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+            IF (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
+              nRec = RECNO()
+              SELECT STYLE
+              SCATTER MEMVAR MEMO
+              INSERT INTO FStyle FROM MEMVAR
+              REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+              IF BETWEEN(nRec ,1,RECCOUNT('FStyle'))
+                GO RECORD nRec IN FStyle 
+              ENDIF
+            ENDIF
+            *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
   	        SELECT (lcAlias)
   	      ENDIF
           lcStyMaj = STYLE.cstymajor
@@ -245,14 +358,55 @@ SET STEP ON
       ENDIF
       IF !(SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen)  $ m.cColor )
         m.cColor = m.cColor + SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) + " "
-      ENDIF      
+      ENDIF
+      *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+      m.CUPC  =''
+      IF gfSEEK(Style.Style,'STYLEUPC')
+        =gfSeek('S'+Style.Scale,'SCALE')
+        
+        FOR ln=1 TO Scale.cnt
+           lcN = STR(ln,1)
+           IF gfSEEK(Style.Style+lcN ,'STYLEUPC') 
+             m.CUPC  = m.CUPC + IIF(!EMPTY(m.CUPC),",","")+Scale.Sz&lcN.+" : "+ALLTRIM(StyleUPC.cupcnum1)+ALLTRIM(StyleUPC.cupcnum2)+ALLTRIM(StyleUPC.cupcnum3)
+           ENDIF
+        ENDFOR 
+      ENDIF
+      m.mnotes = ''
+      IF gfSeek('F'+SUBSTR(Style.Style,1,lnMajLen),'NOTEPAD')
+        m.mnotes = NOTEPAD.mnotes
+      ENDIF
+      m.CPRO_VALUE  =""
+      IF gfSEEK('ST'+Style.Style,'profvalu')
+        SELECT profvalu
+        SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE = 'ST'+Style.Style
+          m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+        ENDSCAN
+      ENDIF
+      *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]     
       IF (lcStyMaj # STYLE.cstymajor)
+        SELECT STYLE
         SCATTER MEMVAR MEMO
         INSERT INTO FStyle FROM MEMVAR
+        IF (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
+          REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+        ENDIF
       ELSE
         lcAlias = SELECT(0)
         SELECT FStyle
         REPLACE cColor WITH m.cColor
+        *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]
+        IF (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
+          nRec = RECNO()
+          SELECT STYLE
+          SCATTER MEMVAR MEMO
+          INSERT INTO FStyle FROM MEMVAR
+          REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+          IF BETWEEN(nRec ,1,RECCOUNT('FStyle'))
+            GO RECORD nRec IN FStyle 
+          ENDIF
+        ENDIF
+        *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]
+
         SELECT (lcAlias)
       ENDIF
       lcStyMaj = STYLE.cstymajor
