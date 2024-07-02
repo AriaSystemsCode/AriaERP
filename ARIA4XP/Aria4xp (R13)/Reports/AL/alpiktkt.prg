@@ -23,6 +23,7 @@
 *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[T20131209.0045]
 *: B610932,1 MMT 01/20/2015 Picking ticket log report is not exporting Start date field to Excel[T20150116.0002]
 *: B611514,1,HMS 12/2/2018  Strangeness in the Pick Ticket Log - company J1 [T20171130.0022]
+*: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005] 
 *:***************************************************************************
 *--Section of Variables
 
@@ -53,7 +54,10 @@ If loOgScroll.llOGFltCh
     Use In (lcTempOrdHdr)
     *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[Start]
     *SELECT CORDTYPE,ACCOUNT,ORDER,cCurrCode,Nexrate,NcurrUnit,SHIPVIA FROM &lcTempOrdhd WHERE .F. into CURSOR &lcTempOrdHdr READWRITE
-    Select CORDTYPE,ACCOUNT,Order,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete From &lcTempOrdhd Where .F. Into Cursor &lcTempOrdHdr Readwrite
+    *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][Start]
+    *Select CORDTYPE,ACCOUNT,Order,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete From &lcTempOrdhd Where .F. Into Cursor &lcTempOrdHdr Readwrite
+    Select CORDTYPE,ACCOUNT,Order,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete,cTermCode From &lcTempOrdhd Where .F. Into Cursor &lcTempOrdHdr Readwrite
+    *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][End]
     *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[End]
     =lfMakeIndex(lcTempOrdHdr)
   Endif
@@ -272,7 +276,10 @@ loDBFPikLine = Createobject("RemoteTable","PikLine","PikLine",lcTempPikLine,Set(
 loDBFOrdhdr   = Createobject("RemoteTable","Ordhdr","Ordhdr",lcTempOrdhd,Set("DATASESSION"))
 *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[Start]
 *SELECT CORDTYPE,ACCOUNT,ORDER,cCurrCode,Nexrate,NcurrUnit,SHIPVIA FROM &lcTempOrdhd WHERE .F. into CURSOR &lcTempOrdHdr READWRITE
-Select CORDTYPE,ACCOUNT,Order,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete From &lcTempOrdhd Where .F. Into Cursor &lcTempOrdHdr Readwrite
+*: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][Start]
+*Select CORDTYPE,ACCOUNT,Order,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete From &lcTempOrdhd Where .F. Into Cursor &lcTempOrdHdr Readwrite
+Select CORDTYPE,ACCOUNT,Order,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete,cTermCode From &lcTempOrdhd Where .F. Into Cursor &lcTempOrdHdr Readwrite
+*: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][End]
 *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[End]
 =lfMakeIndex(lcTempOrdHdr)
 
@@ -465,6 +472,9 @@ If !Used(lcPickTmp)
     =lfAddField("laTempStru","cCurrCode","C",3,0)
     =lfAddField("laTempStru","lEndRep","L",1,0)
     =lfAddField("laTempStru","SHIPVIA","C",15,0)
+    *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][Start]
+    =lfAddField("laTempStru","CTERMCODE","C",15,0)
+    *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][End]
   Endif
 
   *!*	  IF llMultCurr AND (lcRpCurr = "F")
@@ -816,6 +826,7 @@ Else
     Endif
   Endif
   =lfOpenSql(lcSelFields ,lcSelectFile  ,lcFnlPikTKT,lcSelectCond)
+ 
   Select(lcFnlPikTKT)
   =lfGetOrdhdrFile()
   Return
@@ -1126,7 +1137,7 @@ lcScanExp = lcScanExp +" IIF(lcRpInv = 'Y' ,  &lcFnlPikTKT..Status$'C',"
 lcScanExp = lcScanExp +"IIF(llRPRelPT,&lcFnlPikTKT..Status $ 'OHPX',&lcFnlPikTKT..Status $ 'OHP' ))) =  .T.  AND"
 lcScanExp = lcScanExp +" IIF(lcRpPrint='B',.T.,"
 lcScanExp = lcScanExp +"IIF(lcRpPrint='Y' , &lcFnlPikTKT..PrtFlag= 'P',&lcFnlPikTKT..PrtFlag<>'P')) =  .T."
-
+ 
 Select(lcFnlPikTKT)
 Locate
 Scan
@@ -1135,7 +1146,10 @@ Scan
   Select(lcTempOrdhd)
   *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[Start]
   *SCATTER FIELDS ACCOUNT,ORDER,CORDTYPE,cCurrCode,Nexrate,NcurrUnit,SHIPVIA MEMO MEMVAR
-  Scatter Fields ACCOUNT,Order,CORDTYPE,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete Memo Memvar
+  *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][Start]
+  *Scatter Fields ACCOUNT,Order,CORDTYPE,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete Memo Memvar
+  Scatter Fields ACCOUNT,Order,CORDTYPE,cCurrCode,Nexrate,NcurrUnit,SHIPVIA,Start,Complete,cTermCode Memo Memvar
+  *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][End]
   *: E303473,1 MMT 05/13/2014 Add complete and start dates to Picking ticket log report[End]
   Insert Into (lcTempOrdHdr) From Memvar
 Endscan
@@ -1165,13 +1179,61 @@ Set Relation To 'O' + Order Into &lcTempOrdHdr Additive
 ENDIF 
 
 * B611514 ,1 HMS , 2/12/2018 - Strangeness in the Pick Ticket Log - company J1 [T20171130.0022][END]
+*: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][Start]
+*!*  Select(lcFnlPikTKT)
+*!*  Scan For &lcScanExp And PIKTKT # '******' .And. !Empty(PIKTKT) AND IIF(!EMPTY(lcSelectCond),EVALUATE(lcSelectCond),.T.)
+lcSelectCond = ""
+lnPosStDate = Ascan(loOgScroll.laOgFXFlt,"PIKTKT.START")
+If lnPosStDate > 0
+  lnPosStDate = Asubscript(loOgScroll.laOgFXFlt,lnPosStDate ,1)
+  SDATE = Substr(laOgFXFlt[lnPosStDate ,6],1,10)
+  EDATE = Substr(laOgFXFlt[lnPosStDate ,6],12,20)
 
+  If Substr(laOgFXFlt[lnPosStDate ,6],1,1) = "|"
+    SDATE = Dtoc({})
+    EDATE = Substr(laOgFXFlt[lnPosStDate ,6],2,11)
+  Endif
+  If (!Empty(EDATE) And !Empty(SDATE)) Or (!Empty(EDATE) And Empty(SDATE))
+    lcSelectCond = lcSelectCond + Iif(Empty(lcSelectCond ),""," AND ")+ "BETWEEN(&lcTempOrdHdr..Start,CTOD('"+SDATE+"'),CTOD('"+EDATE+"'))"
+  ENDIF
+ENDIF
+  
+lnPosCompDate = Ascan(loOgScroll.laOgFXFlt,"PIKTKT.COMPLETE")
+If lnPosCompDate > 0
+  lnPosCompDate = Asubscript(loOgScroll.laOgFXFlt,lnPosCompDate ,1)
+  SDATE = Substr(laOgFXFlt[lnPosCompDate ,6],1,10)
+  EDATE = Substr(laOgFXFlt[lnPosCompDate ,6],12,20)
+
+  If Substr(laOgFXFlt[lnPosCompDate ,6],1,1) = "|"
+    SDATE = Dtoc({})
+    EDATE = Substr(laOgFXFlt[lnPosCompDate ,6],2,11)
+  Endif
+  If (!Empty(EDATE) And !Empty(SDATE)) Or (!Empty(EDATE) And Empty(SDATE))
+    lcSelectCond = lcSelectCond + Iif(Empty(lcSelectCond ),""," AND ")+ "BETWEEN(&lcTempOrdHdr..Complete,CTOD('"+SDATE+"'),CTOD('"+EDATE+"'))"
+  ENDIF
+ENDIF
+llUseTermCode  = .F.
+lnTermPos = ASCAN(loOgScroll.laOgFXFlt,"PIKTKT.CTERMCODE")
+IF lnTermPos > 0
+  lnTermPos = ASUBSCRIPT(loOGScroll.laOgFxFlt,lnTermPos,1)
+  lcTermSel =IIF(!EMPTY(laOgFxFlt[lnTermPos,6]),laOgFxFlt[lnTermPos,6],'')
+  IF !EMPTY(lcTermSel)
+    lcTermFile = loOGScroll.gfTempName()
+    llUseTermCode = IIF(LEN(lcTermSel )>0,.T.,.F.) AND lfConvertToCursor(lcTermSel ,'CTERMCODE',lcTermFile)
+    IF llUseTermCode 
+      lcSelectCond = lcSelectCond + Iif(Empty(lcSelectCond ),""," AND ")+ "SEEK(&lcTempOrdHdr..CTERMCODE,lcTermFile)"
+    ENDIF
+  ENDIF
+ENDIF
 Select(lcFnlPikTKT)
-Scan For &lcScanExp And PIKTKT # '******' .And. !Empty(PIKTKT)
+Scan For &lcScanExp And PIKTKT # '******' .And. !Empty(PIKTKT) AND IIF(!EMPTY(lcSelectCond),EVALUATE(lcSelectCond),.T.)
+  *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][End]
   Scatter Memvar Memo
   m.cCurrCode = &lcTempOrdHdr..cCurrCode
   m.SHIPVIA=   Substr(gfCodDes(Eval(lcTempOrdHdr+'.SHIPVIA'),'SHIPVIA'),1,20)
-  
+  *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][Start]
+  m.cTermCode  = Substr(gfCodDes(Eval(lcTempOrdHdr+'.cTermCode'),'CTERMCODE'),1,20)
+  *: E304200,1 MMT 07/01/2024 Enhance the report to print Payment Terms and custpo[P-ERP-20240411.0005][End]
 * B611514 ,1 HMS , 2/12/2018 - Strangeness in the Pick Ticket Log - company J1 [T20171130.0022][Begin]
     IF lcRPPCKLST  <> 'B' AND ((llHasPack_List And !loPack_Hdr.Seek(&lcFnlPikTKT..PIKTKT)) Or (!llHasPack_List And loPack_Hdr.Seek(&lcFnlPikTKT..PIKTKT)))
       Loop
@@ -1221,3 +1283,41 @@ Else
   Return .F.
 Endif
 *-- end of lfOpenSql.
+*!*************************************************************
+*! Name      : lfConvertToCursor
+*: Developer : MAriam Mazhar (MMT)
+*: Date      : 07/01/2024
+*! Purpose   : Convert a list of values into a cusrsor
+*!*************************************************************
+FUNCTION lfConvertToCursor
+PARAMETERS lcStrToConv,lcFieldName ,lcNewFile
+lcCursorTemp = lcNewFile &&Cursor Hold Selected values
+DIMENSION laTempacstru[1,4]
+laTempacstru[1,1] = lcFieldName
+
+DO CASE
+  CASE   ALLTRIM(lcFieldName) = 'CTERMCODE'
+    laTempacstru[1,2]='C'
+    laTempacstru[1,3]= 6
+    laTempacstru[1,4]= 0
+ENDCASE
+ = gfCrtTmp(lcCursorTemp ,@laTempacstru,lcFieldName ,lcCursorTemp ,.T.)
+lcValuesToConvert = lcStrToConv
+IF !EMPTY(lcValuesToConvert)
+  lnStart=1
+  lnEnd=AT('|',lcValuesToConvert )
+  DO WHILE lnEnd <> 0
+    SELECT(lcCursorTemp )
+    APPEND BLANK
+    REPLACE &lcFieldName  WITH SUBSTR(lcValuesToConvert,lnStart,lnEnd-1)
+    lcValuesToConvert = STUFF(lcValuesToConvert ,lnStart,lnEnd,"")
+    lnEnd=AT('|',lcValuesToConvert )
+  ENDDO
+  IF lnEnd = 0
+    SELECT(lcCursorTemp )
+    APPEND BLANK
+    REPLACE &lcFieldName  WITH lcValuesToConvert
+  ENDIF
+ENDIF
+RETURN .T.
+
