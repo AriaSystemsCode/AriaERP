@@ -120,16 +120,18 @@ SET STEP ON
   lcNonNeededFlds = lcNonNeededFlds + ", cAdd_User, dAdd_Date, cAdd_Time, lLok_stat, cLok_User, dLok_Date, cLok_Time, cEdit_User, dEdit_Date, cEdit_Time,cedt_ver,cadd_ver"
   DIMENSION laDelFlds[1]
   =gfSubStr(lcNonNeededFlds ,@laDelFlds,",")
+  lnCntDel = 0
   IF Type('laDelFlds[1]') <>'U'
     FOR lnA=1 TO ALEN(laDelFlds,1)
       lnP =ASCAN(laStyFld,ALLTRIM(UPPER(laDelFlds[lnA])),1)
       IF lnP>0
         lnPos = ASUBSCRIPT(laStyFld,lnP,1)
         ADEL(laStyFld,lnPos )
+        lnCntDel = lnCntDel + 1 
       ENDIF  
     ENDFOR
   ENDIF
-  DIMENSION lastyfld[alen(lastyfld,1)-alen(ladelFlds,1),18]
+  DIMENSION lastyfld[alen(lastyfld,1)-lnCntDel,18]
   lnFlds = ALEN(laStyFld,1)
   DIMENSION laStyFld[lnFlds +4,18]
   laStyFld[lnFlds +1,1] = 'cColor'
@@ -321,7 +323,7 @@ SET STEP ON
   	        SCATTER MEMVAR MEMO
   	        INSERT INTO FStyle FROM MEMVAR
             IF (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
-              REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+              REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen)+" - "+ ALLTRIM(GFCODDES(SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen),'COLOR     '))  IN FStyle 
             ENDIF
   	      ELSE
           
@@ -336,7 +338,7 @@ SET STEP ON
               SELECT STYLE
               SCATTER MEMVAR MEMO
               INSERT INTO FStyle FROM MEMVAR
-              REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+              REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen)+" - "+ ALLTRIM(GFCODDES(SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen),'COLOR     ')) IN FStyle 
               IF BETWEEN(nRec ,1,RECCOUNT('FStyle'))
                 GO RECORD nRec IN FStyle 
               ENDIF
@@ -388,7 +390,7 @@ SET STEP ON
         SCATTER MEMVAR MEMO
         INSERT INTO FStyle FROM MEMVAR
         IF (oAriaApplication.gcDevice = "FILE" .And. loogScroll.cTextRepType = "EXCEL")
-          REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+          REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen)+" - "+ ALLTRIM(GFCODDES(SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen),'COLOR     '))  IN FStyle 
         ENDIF
       ELSE
         lcAlias = SELECT(0)
@@ -400,7 +402,7 @@ SET STEP ON
           SELECT STYLE
           SCATTER MEMVAR MEMO
           INSERT INTO FStyle FROM MEMVAR
-          REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) IN FStyle 
+          REPLACE cColor WITH SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen) +" - "+ ALLTRIM(GFCODDES(SUBSTR(STYLE.STYLE,lnClrPo,lnColorLen),'COLOR     ')) IN FStyle 
           IF BETWEEN(nRec ,1,RECCOUNT('FStyle'))
             GO RECORD nRec IN FStyle 
           ENDIF

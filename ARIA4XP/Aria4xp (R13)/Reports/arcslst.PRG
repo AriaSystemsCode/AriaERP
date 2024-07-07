@@ -376,6 +376,7 @@ IF loOgScroll.llOGFltCh
 		SELECT &lcSelectedFields FROM CUSTOMERF WHERE &lcFinalSQL.  INTO CURSOR CUSTOMERF READWRITE
 	CASE EMPTY(lcInnerJoincondition) AND EMPTY(lcFinalSQL)
 	ENDCASE
+	SET STEP ON 
 	IF llSqlErro
 		SELECT CUSTOMERF
 		IF RECCOUNT()>0
@@ -399,11 +400,18 @@ IF loOgScroll.llOGFltCh
 			SELECT CUSTOMERF
 			=CURSORSETPROP("Buffering",3,"CUSTOMERF")
 			INDEX ON &SORTFLD TAG "CUSTOMERF"
+			*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]	
+			INDEX on Type+Account+Store TAG "CUSTOMERT" ADDITIVE  
+			SET ORDER TO "CUSTOMERF"
+  		    *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]	
 			QSTATE = lcSTitle && State Title
 			QZIP   = lcZTitle && Zip Title
 			QSTATESORT = lcRpSort
 			QZIPSORT   = lcRpSort
 			IF llRpShipTo
+ 			  *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]	
+  			  SET ORDER TO "CUSTOMERT"
+ 			  *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]	 
 				SCAN
 					IF Type = "M"
 						lcDivision  = cDivision
@@ -435,6 +443,9 @@ IF loOgScroll.llOGFltCh
 					ENDIF
 					=SEEK('M'+lcAccount)
 				ENDSCAN
+				*E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][Start]	
+   			    SET ORDER TO "CUSTOMERF"
+   			    *E304198,1 MMT 06/27/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]	
 			ENDIF
 			WAIT CLEAR
 			=gfDispRe(lcRpName)
