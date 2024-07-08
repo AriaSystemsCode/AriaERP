@@ -10,6 +10,8 @@
 *:************************************************************************
 *Modifications
 *B610116,1 TMI 10/16/2012 [T20121016.0004] fix a bug Subscript is out of bound
+*B610454,1 TMI create the temp form if the var lcOGTmpForm is empty [T20130627.0025]
+*B610461,1 TMI 08/14/2013 [Start] fix the problem that dummy post does not work 
 **************************************************************************
 *N000682,1 MMT 02/10/2013 Globalization changes[Start]
 #include r:\aria4xp\reports\gl\glbalsht.H
@@ -82,13 +84,9 @@ DIMENSION laSegInf(1,2)
 *** Check if there is informations in rows or columns
 IF EMPTY(laRpMaType) OR EMPTY(laRpCol)
 
-* N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT "No columns has been defined " WINDOW NOWAIT
- *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_No_columns_has_been_defined WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_No_columns_has_been_defined,oAriaApplication.GetHeaderText("LANG_No_columns_has_been_defined",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  * N000682 ,1 Thabet Handle globalization issues [Start]
+  *  WAIT "No columns has been defined " WINDOW NOWAIT
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_No_columns_has_been_defined,oAriaApplication.GetHeaderText("LANG_No_columns_has_been_defined",AHEADERFILE)) WINDOW NOWAIT
   * N000682 ,1 Thabet Handle globalization issues [END]
 
  RETURN
@@ -100,13 +98,9 @@ ENDIF
 
   *** Create the dbf file structuer
 
- * N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT "Creating temporary files " WINDOW NOWAIT
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_Creating_temporary_files WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Creating_temporary_files,oAriaApplication.GetHeaderText("LANG_Creating_temporary_files",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  * N000682 ,1 Thabet Handle globalization issues [Start]
+  *  WAIT "Creating temporary files " WINDOW NOWAIT
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Creating_temporary_files,oAriaApplication.GetHeaderText("LANG_Creating_temporary_files",AHEADERFILE)) WINDOW NOWAIT
   * N000682 ,1 Thabet Handle globalization issues [END]
   laDbfName[1,1] = 'CacctCode'
   laDbfName[1,2] = 'C'
@@ -192,12 +186,8 @@ WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Creating_temporary_fi
       *** Collect the report data from actual or budget files
 
       * N000682 ,1 Thabet Handle globalization issues [Start]
-*      WAIT 'Collecting data from files' WINDOW NOWAIT
-            *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_Collectin_data_from_files WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Collectin_data_from_files,oAriaApplication.GetHeaderText("LANG_Collectin_data_from_files",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+	  *WAIT 'Collecting data from files' WINDOW NOWAIT
+	  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Collectin_data_from_files,oAriaApplication.GetHeaderText("LANG_Collectin_data_from_files",AHEADERFILE)) WINDOW NOWAIT
       * N000682 ,1 Thabet Handle globalization issues [END]
 
       =lfSelData()
@@ -211,6 +201,14 @@ WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Collectin_data_from_f
 
         =lfUpdWorkFile()
         *************************************
+
+        *B610454,1 TMI [START] create the temp form if the var lcOGTmpForm is empty
+        IF EMPTY(lcOGTmpForm )
+          lcOGTmpForm = gfTempName()
+          gcAct_Appl = 'GL'
+          =gfCrtFrm(lcRpForm,"",llOGRefForm)  
+        ENDIF 
+        *B610454,1 TMI [end  ] create the temp form if the var lcOGTmpForm is empty
 
         SELECT (lcWorkFile)
         DO gfDispRe WITH EVAL('lcRpForm')
@@ -276,6 +274,14 @@ DO CASE
     DO (lcProgDir+'GLBGPST.FXP') WITH lcTempPost
 ENDCASE
 
+*B610461,1 TMI 08/14/2013 [Start] fix the problem that dummy post does not work 
+IF !USED(lcTempPost) AND FILE(oAriaApplication.WorkDir+lcTempPost+'.DBF')
+  USE (oAriaApplication.WorkDir+lcTempPost) IN 0 EXCLUSIVE 
+ENDIF 
+*B610461,1 TMI 08/14/2013 [End  ] 
+
+
+
 gcWinAppl  = lcSaveAppl
 
 *!************************************************************************
@@ -299,11 +305,7 @@ DECLARE laRpRetFld(1)
 * N000682 ,1 Thabet Handle globalization issues [Start]
 *lcBrFields    = 'CGrpCode:H="Code",CGrplnhed:H="Description"'
 lcBrFields    = 'CGrpCode:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Code,oAriaApplication.GetHeaderText("LANG_Code",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",CGrplnhed:H="'+LANG_Description+'"'
-'",CGrplnhed:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Description,oAriaApplication.GetHeaderText("LANG_Description",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+				'",CGrplnhed:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Description,oAriaApplication.GetHeaderText("LANG_Description",AHEADERFILE))+'"'
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 lcOldAlias    = SELECT()
@@ -325,11 +327,7 @@ IF !EMPTY(&lcRpCurFld)
     ENDIF
     * N000682 ,1 Thabet Handle globalization issues [Start]
     *=gfBrows([""],'CGrpCode',"laRpRetFld",'Codes File',.F.)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows([""],'CGrpCode',"laRpRetFld",LANG_CODEFILE,.F.)
-=gfBrows([""],'CGrpCode',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODEFILE,oAriaApplication.GetHeaderText("LANG_CODEFILE",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+	=gfBrows([""],'CGrpCode',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_CODEFILE,oAriaApplication.GetHeaderText("LANG_CODEFILE",AHEADERFILE)),.F.)
     * N000682 ,1 Thabet Handle globalization issues [End]
     loOgScroll.&lcRpCurFld = laRpRetFld[1]
   ENDIF
@@ -1518,12 +1516,8 @@ ENDFOR
 IF !llDataFound
 
   * N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT 'There is no Data in type and ranges' WINDOW NOWAIT
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_There_is_no_Data_in_type_and_ranges WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_There_is_no_Data_in_type_and_ranges,oAriaApplication.GetHeaderText("LANG_There_is_no_Data_in_type_and_ranges",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  *  WAIT 'There is no Data in type and ranges' WINDOW NOWAIT
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_There_is_no_Data_in_type_and_ranges,oAriaApplication.GetHeaderText("LANG_There_is_no_Data_in_type_and_ranges",AHEADERFILE)) WINDOW NOWAIT
   * N000682 ,1 Thabet Handle globalization issues [END]
   RETURN
 ENDIF
@@ -2465,12 +2459,8 @@ ENDCASE
 IF !llRetVal
 
   * N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT 'You have to enter the column information' WINDOW NOWAIT
-  *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_You_have_to_enter_the_column_information WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_You_have_to_enter_the_column_information,oAriaApplication.GetHeaderText("LANG_You_have_to_enter_the_column_information",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  *  WAIT 'You have to enter the column information' WINDOW NOWAIT
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_You_have_to_enter_the_column_information,oAriaApplication.GetHeaderText("LANG_You_have_to_enter_the_column_information",AHEADERFILE)) WINDOW NOWAIT
   * N000682 ,1 Thabet Handle globalization issues [END]
   _CUROBJ = _CUROBJ
 ELSE
@@ -2510,11 +2500,7 @@ lcRpOld  = ALLTRIM(loFld.OldValue)
 *lcBrFields    = 'CFisFYear:H="Year",CFspprdid:H="Period",CFsppDesc:H="Month"'
 lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
                 '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",CFsppDesc:H="'+LANG_Month+'"'
 '",CFsppDesc:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Month,oAriaApplication.GetHeaderText("LANG_Month",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 && Check If year field is empty
@@ -2543,13 +2529,9 @@ laRpRetFld[1] = ''
   *E   =gfBrows(IIF(EMPTY(&lcYearVal),[oAriaApplication.Activecompanyid],[oAriaApplication.Activecompanyid+&lcYearVal]),'CFSPPRDID',"laRpRetFld",'Fiscal year ',.F.)
      IF '?' $ &lcRpCurFld. OR !SEEK(&lcYearVal+&lcRpCurFld)
        * N000682 ,1 Thabet Handle globalization issues [Start]
-      *=gfBrows(IIF(EMPTY(&lcYearVal),'',[&lcYearVal]),'CFSPPRDID',"laRpRetFld",'Fiscal year ',.F.)
-      *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows(IIF(EMPTY(&lcYearVal),'',[&lcYearVal]),'CFSPPRDID',"laRpRetFld",LANG_FISCYEAR,.F.)
-=gfBrows(IIF(EMPTY(&lcYearVal),'',[&lcYearVal]),'CFSPPRDID',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
-      * N000682 ,1 Thabet Handle globalization issues [End]
+       *=gfBrows(IIF(EMPTY(&lcYearVal),'',[&lcYearVal]),'CFSPPRDID',"laRpRetFld",'Fiscal year ',.F.)
+       =gfBrows(IIF(EMPTY(&lcYearVal),'',[&lcYearVal]),'CFSPPRDID',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)),.F.)
+       * N000682 ,1 Thabet Handle globalization issues [End]
     IF EMPTY(laRpRetFld[1])
       &lcRpCurFld         = lcRpOld
     ELSE
@@ -2560,13 +2542,9 @@ laRpRetFld[1] = ''
   ENDIF
 IF lcRpStYear+lcRpStPrid>lcRpEdYear+lcRpEdPrid
 
- * N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT 'Beginning year/period must be less than or equal to the Ending year/period' window nowait
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT Lang_Beginning window nowait
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Beginning,oAriaApplication.GetHeaderText("Lang_Beginning",AHEADERFILE)) window nowait
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  * N000682 ,1 Thabet Handle globalization issues [Start]
+  *  WAIT 'Beginning year/period must be less than or equal to the Ending year/period' window nowait
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",Lang_Beginning,oAriaApplication.GetHeaderText("Lang_Beginning",AHEADERFILE)) window nowait
   * N000682 ,1 Thabet Handle globalization issues [END]
   &lcRpCurFld=lcRpOld
   RETURN .F.
@@ -2590,12 +2568,8 @@ IF lcOGManRep <> 'GLINCST4' AND lcOGManRep <> 'GLBALS13'
   ELSE
 
     * N000682 ,1 Thabet Handle globalization issues [Start]
-*    WAIT 'The report width not enough for this range of periods' WINDOW NOWAIT
-        *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_The_report_width WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_The_report_width,oAriaApplication.GetHeaderText("LANG_The_report_width",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+    *WAIT 'The report width not enough for this range of periods' WINDOW NOWAIT
+    WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_The_report_width,oAriaApplication.GetHeaderText("LANG_The_report_width",AHEADERFILE)) WINDOW NOWAIT
     * N000682 ,1 Thabet Handle globalization issues [END]
     lcRpStPrid  = lcTmpStPr
     lcRpEdPrid  = lcTmpEdPr
@@ -2639,11 +2613,7 @@ lcOldAlias = SELECT()    && Save the current alias
 *lcBrFields    = 'CFisFYear:H="Year",CFspprdid:H="Period",CFsppDesc:H="Month"'
 lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
                 '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",CFsppDesc:H="'+LANG_Month+'"'
-'",CFsppDesc:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Month,oAriaApplication.GetHeaderText("LANG_Month",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+				'",CFsppDesc:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Month,oAriaApplication.GetHeaderText("LANG_Month",AHEADERFILE))+'"'
 * N000682 ,1 Thabet Handle globalization issues [END]
 
 laRpRetFld[1] = ''
@@ -2667,11 +2637,7 @@ laRpRetFld[1] = ''
   IF '?' $ &lcRpCurFld. OR !SEEK(&lcRpCurFld)
     * N000682 ,1 Thabet Handle globalization issues [Start]
     *=gfBrows('','CFisFyear',"laRpRetFld",'Fiscal year ',.F.)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows('','CFisFyear',"laRpRetFld",LANG_FISCYEAR,.F.)
-=gfBrows('','CFisFyear',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+	=gfBrows('','CFisFyear',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)),.F.)
     * N000682 ,1 Thabet Handle globalization issues [End]
     IF EMPTY(laRpRetFld[1])
       &lcRpCurFld         = lcRpOld
@@ -2683,13 +2649,9 @@ laRpRetFld[1] = ''
   ENDIF
 IF lcRpStYear>lcRpEdYear
 
-* N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT 'Beginning year must be less than or equal to the Ending year' window nowait
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_Beginning_year window nowait
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Beginning_year,oAriaApplication.GetHeaderText("LANG_Beginning_year",AHEADERFILE)) window nowait
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  * N000682 ,1 Thabet Handle globalization issues [Start]
+  *  WAIT 'Beginning year must be less than or equal to the Ending year' window nowait
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Beginning_year,oAriaApplication.GetHeaderText("LANG_Beginning_year",AHEADERFILE)) window nowait
   * N000682 ,1 Thabet Handle globalization issues [END]
   &lcRpCurFld=lcRpOld
   RETURN .F.
@@ -2716,12 +2678,8 @@ IF lcOGManRep <> 'GLINCST4' AND lcOGManRep <> 'GLBALS13'
   ELSE
 
     * N000682 ,1 Thabet Handle globalization issues [Start]
-*    WAIT 'The report width not enough for this range of periods' WINDOW NOWAIT
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_The_report_width WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_The_report_width,oAriaApplication.GetHeaderText("LANG_The_report_width",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+	*    WAIT 'The report width not enough for this range of periods' WINDOW NOWAIT
+    WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_The_report_width,oAriaApplication.GetHeaderText("LANG_The_report_width",AHEADERFILE)) WINDOW NOWAIT
     * N000682 ,1 Thabet Handle globalization issues [END]
     lcRpStPrid  = lcTmpStPr
     lcRpEdPrid  = lcTmpEdPr
@@ -2787,11 +2745,7 @@ IF lnSegNo = 0
 
 * N000682 ,1 Thabet Handle globalization issues [Start]
 *  gfModalGen('INM42138B00000','DIALOG','Valid Segment IDs are:'+lcSegs)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*gfModalGen('INM42138B00000','DIALOG',LANG_Valid_Segment_IDs_are +lcSegs)
 gfModalGen('INM42138B00000','DIALOG',IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Valid_Segment_IDs_are,oAriaApplication.GetHeaderText("LANG_Valid_Segment_IDs_are",AHEADERFILE)) +lcSegs)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
   lcRpSeg = loOgScroll.ActiveControl.OldValue
 ENDIF
@@ -2866,21 +2820,13 @@ SELECT cSegValue;
 DO WHILE .T.
   * N000682 ,1 Thabet Handle globalization issues [Start]
   *=lfOGMover(@laSelSegV,@laRpSegV,'Select Segment Values',.T.,'')
-  *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=lfOGMover(@laSelSegV,@laRpSegV,LANG_SELECTSEG,.T.,'')
-=lfOGMover(@laSelSegV,@laRpSegV,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SELECTSEG,oAriaApplication.GetHeaderText("LANG_SELECTSEG",AHEADERFILE)),.T.,'')
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  =lfOGMover(@laSelSegV,@laRpSegV,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_SELECTSEG,oAriaApplication.GetHeaderText("LANG_SELECTSEG",AHEADERFILE)),.T.,'')
   * N000682 ,1 Thabet Handle globalization issues [End]
   IF ALEN(laRpSegV,1)>8
 
     * N000682 ,1 Thabet Handle globalization issues [Start]
-*    WAIT 'Maximum number of segment values is 8' window nowait
-        *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT  LANG_Maximum_number window nowait
-WAIT  IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Maximum_number,oAriaApplication.GetHeaderText("LANG_Maximum_number",AHEADERFILE)) window nowait
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+    *    WAIT 'Maximum number of segment values is 8' window nowait
+    WAIT  IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Maximum_number,oAriaApplication.GetHeaderText("LANG_Maximum_number",AHEADERFILE)) window nowait
     * N000682 ,1 Thabet Handle globalization issues [END]
   ELSE
     EXIT
@@ -2915,11 +2861,7 @@ DECLARE laRpRetFld(2)
 *lcBrFields    = 'CFisFYear:H="Year",CFspprdid:H="Period",CFsppDesc:H="Month"'
 lcBrFields    = 'CFisFYear:H= "'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
                 '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",CFsppDesc:H="'+LANG_Month+'"'
 '",CFsppDesc:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Month,oAriaApplication.GetHeaderText("LANG_Month",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 laRpRetFld[2] = ''
@@ -2943,11 +2885,7 @@ laRpRetFld[2] = ''
    IF '?' $ &lcRpCurFld. OR !SEEK(&lcRpCurFld)
     * N000682 ,1 Thabet Handle globalization issues [Start]
     *=gfBrows('','CFisFyear,CFSPPRDID',"laRpRetFld",'Fiscal year ',.F.)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows('','CFisFyear,CFSPPRDID',"laRpRetFld",LANG_FISCYEAR ,.F.)
-=gfBrows('','CFisFyear,CFSPPRDID',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)) ,.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+	=gfBrows('','CFisFyear,CFSPPRDID',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)) ,.F.)
     * N000682 ,1 Thabet Handle globalization issues [END]
   *E300789,7 [END..]
     IF EMPTY(laRpRetFld[1])
@@ -2992,11 +2930,7 @@ DECLARE laRpRetFld(2)
 *lcBrFields    = 'CFisFYear:H="Year",CFspprdid:H="Period",CFsppDesc:H="Month"'
 lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
                 '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",CFsppDesc:H="'+LANG_Month+'"'
 '",CFsppDesc:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Month,oAriaApplication.GetHeaderText("LANG_Month",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 laRpRetFld[2] = ''
@@ -3022,11 +2956,7 @@ laRpRetFld[2] = ''
   IF '?' $ &lcRpCurFld. OR !SEEK(&lcYearVal+&lcRpCurFld)
     * N000682 ,1 Thabet Handle globalization issues [Start]
     *=gfBrows(IIF(EMPTY(&lcOtherFld),'',[&lcOtherFld]),'CFSPPRDID,CFisFyear',"laRpRetFld",'Fiscal year ',.F.)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows(IIF(EMPTY(&lcOtherFld),'',[&lcOtherFld]),'CFSPPRDID,CFisFyear',"laRpRetFld",LANG_FISCYEAR ,.F.)
-=gfBrows(IIF(EMPTY(&lcOtherFld),'',[&lcOtherFld]),'CFSPPRDID,CFisFyear',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)) ,.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+    =gfBrows(IIF(EMPTY(&lcOtherFld),'',[&lcOtherFld]),'CFSPPRDID,CFisFyear',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_FISCYEAR,oAriaApplication.GetHeaderText("LANG_FISCYEAR",AHEADERFILE)) ,.F.)
     * N000682 ,1 Thabet Handle globalization issues [END]
   *E300789,7 [END..]
     IF EMPTY(laRpRetFld[1])
@@ -3071,11 +3001,7 @@ DECLARE laRpRetFld(2)
 *lcBrFields    = 'CBUDCODE:H="Budget code",CBUDYEAR:H="Year",CBUDDES:H="Description"'
 lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
                 '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+'",CBUDDES:H="'+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*LANG_Description+'"'
 IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Description,oAriaApplication.GetHeaderText("LANG_Description",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 laRpRetFld[2] = ''
@@ -3096,11 +3022,7 @@ IF .NOT.EMPTY(ALLTRIM(&lcRpCurFld.))
      (!EMPTY(&lcOtherFld) AND !SEEK(&lcRpCurFld+&lcOtherFld))
     * N000682 ,1 Thabet Handle globalization issues [Start]
     *=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",'Budget code & Fiscal year ',.F.)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",LANG_BUDANDFIS,.F.)
-=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BUDANDFIS,oAriaApplication.GetHeaderText("LANG_BUDANDFIS",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+    =gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_BUDANDFIS,oAriaApplication.GetHeaderText("LANG_BUDANDFIS",AHEADERFILE)),.F.)
     * N000682 ,1 Thabet Handle globalization issues [END]
     &lcRpCurFld = laRpRetFld[1]
     *** Budget year variable
@@ -3136,11 +3058,7 @@ DECLARE laRpRetFld(2)
 *lcBrFields    = 'CBUDCODE:H="Budget code",CBUDYEAR:H="Year",CBUDDES:H="Description"'
 lcBrFields    = 'CBUDCODE:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+;
                 '",CBUDYEAR:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'" ,CBUDDES:H="'+LANG_Description+'"'
 '" ,CBUDDES:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Description,oAriaApplication.GetHeaderText("LANG_Description",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 laRpRetFld[2] = ''
@@ -3160,11 +3078,7 @@ IF .NOT.EMPTY(ALLTRIM(&lcRpCurFld.))
     !SEEK(&lcOtherFld+ALLTRIM(&lcRpCurFld.)))
     * N000682 ,1 Thabet Handle globalization issues [Start]
     *=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",'Budget code & Fiscal year ',.F.)
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",LANG_Budget_code+' & Fiscal year ',.F.)
-=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+' & Fiscal year ',.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+	=gfBrows([],'CBUDCODE,CBUDYEAR',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Budget_code,oAriaApplication.GetHeaderText("LANG_Budget_code",AHEADERFILE))+' & Fiscal year ',.F.)
     * N000682 ,1 Thabet Handle globalization issues [ENd]
     &lcRpCurFld  = laRpRetFld[2]
     &lcOtherFld  = laRpRetFld[1]
@@ -3195,7 +3109,10 @@ lcRpSeg = ALLTRIM(lcRpSeg)
 
 &lcRpCurFld. = PADL(ALLTRIM(&lcRpCurFld.),2,'0')
 IF !EMPTY(&lcRpCurFld) .AND. !BETWEEN(VAL(&lcRpCurFld),1,13)
-  WAIT [Invalid period. Period ranges between '01','13'] WINDOW NOWAIT
+  *N000682,1 MMT 03/17/2013 Fix issues of Globalization Testing Phase#2[Start]
+  *WAIT [Invalid period. Period ranges between '01','13'] WINDOW NOWAIT
+  WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_INVALIDPERIOD,oAriaApplication.GetHeaderText("LANG_INVALIDPERIOD",AHEADERFILE))  NOWAIT
+  *N000682,1 MMT 03/17/2013 Fix issues of Globalization Testing Phase#2[End]
   &lcRpCurFld = loFld.OldValue
   RETURN .F.
 ENDIF
@@ -4362,11 +4279,7 @@ PARAMETERS lnRpTotal,lnRpCount,lcMessage
 PRIVATE lcOldEsc
 * N000682 ,1 Thabet Handle globalization issues [Start]
 *lcMessage=IIF(TYPE('lcMessage')='C',lcMessage,'Collecting Data')
-*N000682,1 11/20/2012 MMT Globlization changes[Start]
-*lcMessage=IIF(TYPE('lcMessage')='C',lcMessage,LANG_COLLDATA)
 lcMessage=IIF(TYPE('lcMessage')='C',lcMessage,IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_COLLDATA,oAriaApplication.GetHeaderText("LANG_COLLDATA",AHEADERFILE)))
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 &lnRpCount = &lnRpCount + 1
 lcOldEsc=SET('ESCAPE')

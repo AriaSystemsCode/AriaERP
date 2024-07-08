@@ -2416,7 +2416,7 @@ FOR lnColCount = 1 TO (lnNoDecPoint)-MOD(lnNoDecPoint,4)
 ENDFOR
 lcRpColPic=PADL(lcRpColPic,lnNoDecPoint,'9')
 lcRpColPic=STUFF(lcRPTemPic,1,LEN(lcRpColPic),lcRpColPic)
-lcRpMarker = IIF(('PS' $ laColInf[1,lnColNo] OR 'OP' $ laColInf[1,lnColNo]),'','@$ ')
+lcRpMarker = IIF(('PS' $ laColInf[1,lnColNo] OR 'OP' $ laColInf[1,lnColNo]),'','@ ')
 lcRetVal=IIF(LIKE(lcRpTemPic,STR(lnRetVal/lnRpRound,lnRpColWid,lnRpColDis)),;
             TRANS(lnRetVal/lnRpRound,lcRpMarker+STRTRAN(lcRpColPic,'?','9')),;
             IIF(('PS' $ laColInf[1,lnColNo]),'N/A';
