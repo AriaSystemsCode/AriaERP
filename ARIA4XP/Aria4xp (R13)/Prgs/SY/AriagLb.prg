@@ -47,6 +47,7 @@
 * B612694,1 MMT 09/21/2023 Error in Cutting ticket form if the printed cutting ticket includes style has assigned image but it is related image file is not found[T-ERP-20230920.0002]
 * B612712,1 MMT 04/02/2024 problem to print a statements[T-ERP-20240402.0007]
 * B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002]
+* B611939,1 MMT 07/08/2024 Create syustatc table if it is corrupted[T-EDI-20240626.0003]
 *:************************************************************************
 *-- Include the .H file
 #INCLUDE R:\ARIA4XP\PRGS\SY\ARIA.H
@@ -373,8 +374,54 @@ IF !USED("SYUSTATC")
   *ENDIF
   *! E302567,1 MMT 01/06/2009 Change file paths for SAAS[End]
   *MEDIA MMT 05-19-2011[ENd]
+  *B611939,1 MMT 07/08/2024 Create syustatc table if it is corrupted[Start]
+  *USE (LCSQLDICPATH +"SYUSTATC") IN 0 SHARED
+  TRY
+    USE (LCSQLDICPATH +"SYUSTATC") IN 0 SHARED
+  CATCH
+    llDBFDel = .F.
+    IF FILE(LCSQLDICPATH +"SYUSTATC.DBF")  
+      TRY 
+        DELETE FILE (LCSQLDICPATH +"SYUSTATC.DBF")  
+        llDBFDel = .T.
+      CATCH
+        llDBFDel = .F.
+      ENDTRY   
+    ELSE
+      llDBFDel = .T.  
+    ENDIF
+    llCDXDel = .F.
+    IF FILE(LCSQLDICPATH +"SYUSTATC.CDX")  
+      TRY 
+        DELETE FILE (LCSQLDICPATH +"SYUSTATC.CDX")  
+        llCDXDel = .T.
+      CATCH
+        llCDXDel = .F.
+      ENDTRY  
+    ELSE
+      llCDXDel = .T.  
+    ENDIF
+    llFPTDel = .F.  
+    IF FILE(LCSQLDICPATH +"SYUSTATC.FPT")  
+      TRY 
+        DELETE FILE (LCSQLDICPATH +"SYUSTATC.FPT")  
+        llFPTDel = .T.  
+      CATCH
+        llFPTDel = .F.  
+      ENDTRY  
+    ELSE
+      llFPTDel = .T.    
+    ENDIF
+    IF (llCDXDel AND llFPTDel AND llDBFDel) AND FILE(LCSQLDICPATH +"XXUSTATC.FPT") AND FILE(LCSQLDICPATH +"XXUSTATC.CDX")  AND FILE(LCSQLDICPATH +"XXUSTATC.DBF")  
+      COPY FILE (LCSQLDICPATH +"XXUSTATC.FPT") TO (LCSQLDICPATH +"SYUSTATC.FPT")
+      COPY FILE (LCSQLDICPATH +"XXUSTATC.DBF") TO (LCSQLDICPATH +"SYUSTATC.DBF")
+      COPY FILE (LCSQLDICPATH +"XXUSTATC.CDX") TO (LCSQLDICPATH +"SYUSTATC.CDX")
+      USE (LCSQLDICPATH +"SYUSTATC") IN 0 SHARED
+    ENDIF   
+  ENDTRY
+  *B611939,1 MMT 07/08/2024 Create syustatc table if it is corrupted[End]
 
-  USE (LCSQLDICPATH +"SYUSTATC") IN 0 SHARED
+
   *! E302555,1 MMT 09/18/2008 Add Syustatc File For Aria4 and count A4 users[End]
   * B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002][Start]
   llUseSyuStatc = .T.
