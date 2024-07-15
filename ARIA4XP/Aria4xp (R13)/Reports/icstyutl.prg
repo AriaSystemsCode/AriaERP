@@ -12,12 +12,12 @@
 *:*************************************************************
 *: Modifications      :
 *: E303994,1 SAH  05/17/2018 CONVERT STYINVJL TO SQL 
+*: B611940,1 MMT 07/15/2024 Fix the error when filter by date in style utilization report[T-ERP-20240710.0002]
 *!*************************************************************
 *!*  _screen.Visible = .T.
 *!*  ACTIVATE WINDOW trace
 *!*  SUSPEND
 #INCLUDE R:\aria4xp\reports\icStyUtl.h
-
 IF llOgFltCh
 llDonprnt=.F.
 
@@ -26,7 +26,10 @@ LDATE = SUBSTR(laOGVRFlt[lnDatePos,6],1,ATC('|',laOGVRFlt[lnDatePos,6])-1)
 HDATE = SUBSTR(laOGVRFlt[lnDatePos,6],  ATC('|',laOGVRFlt[lnDatePos,6])+1)
 
 lcPeriod=IIF(EMPTY(LDATE ),'','Period From : '+LDATE +'  To  '+ HDATE)
-
+*: B611940,1 MMT 07/15/2024 Fix the error when filter by date in style utilization report[T-ERP-20240710.0002][Start]
+LDATE = CTOD(LDATE)
+HDATE = CTOD(HDATE)
+*: B611940,1 MMT 07/15/2024 Fix the error when filter by date in style utilization report[T-ERP-20240710.0002][End]
 lcSeek=' .T. '
 
 *-- Style Filter
@@ -535,9 +538,10 @@ SELECT STYINVJL
 =GFSEEK(lcKey)
 *E303994,1 SAH CONVERT STYINVJL TO SQL [END]
 lnNewBal=0
-
-SCAN REST WHILE Style+cwarecode+csession+DTOS(dtrdate)+ctrcode+STR(lineno,6) = lcKey FOR IIF(EMPTY(lDATE),.F., DTRDate<CTOD(lDATE))
-
+*B611940,1 MMT 07/15/2024 Fix the error when filter by date in style utilization report[T-ERP-20240710.0002][Start]
+*SCAN REST WHILE Style+cwarecode+csession+DTOS(dtrdate)+ctrcode+STR(lineno,6) = lcKey FOR IIF(EMPTY(lDATE),.F., DTRDate<CTOD(lDATE))
+SCAN REST WHILE Style+cwarecode+csession+DTOS(dtrdate)+ctrcode+STR(lineno,6) = lcKey FOR IIF(EMPTY(lDATE),.F., DTRDate<lDATE)
+*B611940,1 MMT 07/15/2024 Fix the error when filter by date in style utilization report[T-ERP-20240710.0002][End]
       M.PQTY1=M.PQTY1+NStk1
       M.PQTY2=M.PQTY2+NStk2
       M.PQTY3=M.PQTY3+NStk3
