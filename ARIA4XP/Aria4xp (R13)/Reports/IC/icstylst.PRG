@@ -313,7 +313,8 @@ SET STEP ON
           IF gfSEEK('ST'+Style.Style,'profvalu')
             SELECT profvalu
             SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE = 'ST'+Style.Style
-              m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+              m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+;
+               ALLTRIM(profvalu.cpro_value)+" "+ALLTRIM(profvalu.mnotes)+CHR(13)+CHR(10)
             ENDSCAN
           ENDIF
           *E304199,1 MMT 06/26/2024 Enhance the report to export more data[P-ERP-20240611.0003][End]

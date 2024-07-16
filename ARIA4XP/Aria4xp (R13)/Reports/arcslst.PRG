@@ -154,7 +154,8 @@ IF loOgScroll.llOGFltCh
             IF gfSEEK('CS'+m.Account+m.Store,'profvalu')
               SELECT profvalu
               SCAN REST WHILE CPRO_TYPE+CKEY+CPRO_CODE ='CS'+m.Account+m.Store
-                m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+" : "+ ALLTRIM(profvalu.cpro_value)
+                m.CPRO_VALUE  = m.CPRO_VALUE  + IIF(!EMPTY(m.CPRO_VALUE),", ","")+ ALLTRIM( GFCODDES(profvalu.CPRO_CODE,'CPRO_CODE '))+;
+                " : "+ ALLTRIM(profvalu.cpro_value)+" "+ALLTRIM(profvalu.mnotes)+CHR(13)+CHR(10)
               ENDSCAN
             ENDIF
             m.CPRO_CODE =''
