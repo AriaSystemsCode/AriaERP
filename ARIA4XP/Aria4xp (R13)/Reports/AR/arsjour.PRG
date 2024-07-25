@@ -41,6 +41,7 @@
 *B612241,1 MMT 10/25/2020 Incorrect Shipped amount displayed in case of 'Reconcile with GL' option = Yes[T20201009.0003]
 *E612429,1 MMT 07/05/2021 Convert Sales Journal Report to work from the Request Builder
 *E612288,1 MMT 07/20/2021 Allow user to filter by Invoice#[T20201207.0004]
+*E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003]
 *:**************************************************************************************************
 *----------------------- Report Code Begin -----------------------------
 *E612429,1 MMT 07/05/2021 Convert Sales Journal Report to work from the Request Builder[Start]
@@ -222,13 +223,68 @@ IF llFrTime
   
   *E303472,1 RAS 05/12/2014 add customer name field to sales journal excel report[begin]
   *!*	  lnTempStru=ALEN(laTempStru,1) + 1
-  lnTempStru=ALEN(laTempStru,1) + 2
+  lnTempStru=ALEN(laTempStru,1) + 8
   *E303472,1 RAS 05/12/2014 add customer name field to sales journal excel report[end]
   
   DIMENSION laTempStru[lnTempStru,18]
   
   *E303472,1 RAS 05/12/2014 add customer name field to sales journal excel report[begin]
-  laTempStru[lnTempStru-1,1] = 'cstname'
+  laTempStru[lnTempStru-7,1] = 'cstname'
+  laTempStru[lnTempStru-7,2] = 'C'
+  laTempStru[lnTempStru-7,3] = 30
+  laTempStru[lnTempStru-7,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-7,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-7,17], laTempStru[lnTempStru-7,18]
+  *E303472,1 RAS 05/12/2014 add customer name field to sales journal excel report[end]
+  *E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][Start]
+  laTempStru[lnTempStru-6,1] = 'stname'
+  laTempStru[lnTempStru-6,2] = 'C'
+  laTempStru[lnTempStru-6,3] = 30
+  laTempStru[lnTempStru-6,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-6,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-6,17], laTempStru[lnTempStru-6,18]
+  
+  laTempStru[lnTempStru-5,1] = 'CADDRESS1'
+  laTempStru[lnTempStru-5,2] = 'C'
+  laTempStru[lnTempStru-5,3] = 30
+  laTempStru[lnTempStru-5,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-5,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-5,17], laTempStru[lnTempStru-5,18]
+  
+  laTempStru[lnTempStru-4,1] = 'CADDRESS2'
+  laTempStru[lnTempStru-4,2] = 'C'
+  laTempStru[lnTempStru-4,3] = 30
+  laTempStru[lnTempStru-4,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-4,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-4,17], laTempStru[lnTempStru-4,18]
+  
+  laTempStru[lnTempStru-3,1] = 'CADDRESS3'
+  laTempStru[lnTempStru-3,2] = 'C'
+  laTempStru[lnTempStru-3,3] = 30
+  laTempStru[lnTempStru-3,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-3,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-3,17], laTempStru[lnTempStru-3,18]
+  
+  laTempStru[lnTempStru-2,1] = 'CADDRESS4'
+  laTempStru[lnTempStru-2,2] = 'C'
+  laTempStru[lnTempStru-2,3] = 30
+  laTempStru[lnTempStru-2,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-2,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-2,17], laTempStru[lnTempStru-2,18]
+  
+  laTempStru[lnTempStru-1,1] = 'CADDRESS5'
   laTempStru[lnTempStru-1,2] = 'C'
   laTempStru[lnTempStru-1,3] = 30
   laTempStru[lnTempStru-1,4] = 0
@@ -236,10 +292,22 @@ IF llFrTime
     STORE SPACE(1) TO laTempStru[lnTempStru-1,lnInc]
   ENDFOR
   STORE 0  TO laTempStru[lnTempStru-1,17], laTempStru[lnTempStru-1,18]
+
+  lnTempStru=ALEN(laTempStru,1) + 1
   *E303472,1 RAS 05/12/2014 add customer name field to sales journal excel report[end]
   
+  DIMENSION laTempStru[lnTempStru,18]
   
-  
+  *E303472,1 RAS 05/12/2014 add customer name field to sales journal excel report[begin]
+  laTempStru[lnTempStru-1,1] = 'CADDRESS6'
+  laTempStru[lnTempStru-1,2] = 'C'
+  laTempStru[lnTempStru-1,3] = 30
+  laTempStru[lnTempStru-1,4] = 0
+  FOR  lnInc=7 TO 16
+    STORE SPACE(1) TO laTempStru[lnTempStru-1,lnInc]
+  ENDFOR
+  STORE 0  TO laTempStru[lnTempStru-1,17], laTempStru[lnTempStru-1,18]
+  *E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][End]  
   *-- cTempKey : field used in most sort by case as the master key.
   *--          : note that field width is dependent on number of sort
   *--          : case he make.
@@ -1289,7 +1357,18 @@ IF STATUS = 'V' AND !EVALUATE(lcVoidExpr)
     ENDIF
   ENDIF
   *Add the code that use the posted date.[END]
-
+  *E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][Start]
+  lcShpTName  =''
+  DIMENSION laShipTo[6,1]
+  lfGetShipToAddress(m.Order)
+  m.stname = lcShpTName  
+  m.CADDRESS1 = laShipTo[1]
+  m.CADDRESS2 = laShipTo[2]
+  m.CADDRESS3 = laShipTo[3]
+  m.CADDRESS4 = laShipTo[4]    
+  m.CADDRESS5 = laShipTo[5]
+  m.CADDRESS6 = laShipTo[6]
+  *E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][End]
   INSERT INTO (lcWorkFile) FROM MEMVAR
 ENDSCAN
 *-- End of lfCollData.
@@ -3020,3 +3099,84 @@ IF llGlLink
 ENDIF
 SELECT (lnAlias)
 *E612018,1 MMT 02/18/2020 Add new option to display new report collects data from new GL tables [GL Enhacement][End]
+*E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][Start]
+FUNCTION lfGetShipToAddress
+LPARAMETERS lcOrderNum
+IF !USED('ORDHDR')
+  =gfOpenTable('ORDHDR','ORDHDR','SH')
+ENDIF
+
+=gfSeek('O'+lcOrderNum,'ORDHDR','ORDHDR')
+ IF Ordhdr.Alt_ShpTo
+    lcShpTName  = Ordhdr.STName
+    laShipTo[1] = Ordhdr.cAddress1
+    laShipTo[2] = Ordhdr.cAddress2
+    laShipTo[3] = Ordhdr.cAddress3
+    laShipTo[4] = Ordhdr.cAddress4
+    laShipTo[5] = Ordhdr.cAddress5
+  ELSE    && Else
+
+    lnCUSRec = 0
+    IF !EMPTY(CUSTOMER.STORE) AND !EMPTY(CUSTOMER.dist_ctr) AND !Ordhdr.lStrDirct
+      lnCUSRec = IIF(!EOF('CUSTOMER'),RECNO('CUSTOMER'),0)
+      =SEEK('S'+CUSTOMER.Account+CUSTOMER.dist_ctr)
+      lcDCCode    = CUSTOMER.STORE
+    ELSE
+      lcDCCode = ''
+    ENDIF
+
+    lcShpTName  = IIF(INVHDR.STORE = "********" , "At Store Level " ,;
+      IIF( EMPTY(CUSTOMER.DBA) , CUSTOMER.STName , CUSTOMER.DBA))
+
+    laShipTo[1] = IIF(INVHDR.STORE = "********" , "" ,Customer.cAddress1) &&gfGetAdr('CUSTOMER' , '' , '' , '' , 1))
+    laShipTo[2] = IIF(INVHDR.STORE = "********" , "" , Customer.cAddress2)
+    laShipTo[3] = IIF(INVHDR.STORE = "********" , "" , Customer.cAddress3)
+    laShipTo[4] = IIF(INVHDR.STORE = "********" , "" , Customer.cAddress4)
+    laShipTo[5] = IIF(INVHDR.STORE = "********" , "" , Customer.cAddress5)
+	laShipTo[6] = IIF(INVHDR.STORE = "********" , "" , Customer.cAddress6)
+    IF lnCUSRec <> 0
+      GOTO lnCUSRec IN CUSTOMER
+    ENDIF
+  ENDIF    && End of IF
+
+*  =lfAdrShift('laShipTo')
+    *!*************************************************************
+  *! Name      : lfAdrShift
+  *! Developer : Haytham El_Sheltawi
+  *! Date      : 01/15/1998
+  *! Purpose   : Function to Shift the Address array if there is any
+  *!             empty lines in the address
+  *!*************************************************************
+  *! Called from : ARPINVA.PRG , lfSolSpAdr()
+  *!*************************************************************
+  *! Calls       : None
+  *!*************************************************************
+  *! Passed Parameters : The Address Array name
+  *!*************************************************************
+  *! Return      : None
+  *!*************************************************************
+  *
+FUNCTION lfAdrShift
+
+  PARAMETERS lcArrayNam
+
+  *FOR Loop to loop the Address Array
+  FOR lnCount = 1 TO 6
+
+    *IF The current Array element is of type character and empty
+    IF TYPE(lcArrayNam + "[" + STR(lnCount , 1) + "]") = "C" .AND.;
+        EMPTY(&lcArrayNam.[lnCount])
+
+      =ADEL(&lcArrayNam , lnCount)
+      lnCount = lnCount - 1
+    ENDIF    && End of IF
+  ENDFOR    && End of FOR Loop
+
+  *FOR Loop to loop the Address Array
+  FOR lnCount = 1 TO ALEN(&lcArrayNam)
+    *IF The current Array element is not of type character
+    IF TYPE(lcArrayNam + "[" + STR(lnCount , 1) + "]") <> "C"
+      &lcArrayNam.[lnCount] = ''
+    ENDIF    && End of IF
+  ENDFOR    && End of FOR Loop
+*E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][End]
