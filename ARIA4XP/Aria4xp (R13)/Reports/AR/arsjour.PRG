@@ -1360,6 +1360,7 @@ IF STATUS = 'V' AND !EVALUATE(lcVoidExpr)
   *E304201,1 MMT 07/24/2024 Add Ship To Addresses to the Export to Excel List[T-ERP-20240709.0003][Start]
   lcShpTName  =''
   DIMENSION laShipTo[6,1]
+  laShipTo=''
   lfGetShipToAddress(m.Order)
   m.stname = lcShpTName  
   m.CADDRESS1 = laShipTo[1]
@@ -3119,7 +3120,7 @@ ENDIF
     lnCUSRec = 0
     IF !EMPTY(CUSTOMER.STORE) AND !EMPTY(CUSTOMER.dist_ctr) AND !Ordhdr.lStrDirct
       lnCUSRec = IIF(!EOF('CUSTOMER'),RECNO('CUSTOMER'),0)
-      =SEEK('S'+CUSTOMER.Account+CUSTOMER.dist_ctr)
+      =SEEK('S'+CUSTOMER.Account+CUSTOMER.dist_ctr,'CUSTOMER','CUSTOMER')
       lcDCCode    = CUSTOMER.STORE
     ELSE
       lcDCCode = ''
