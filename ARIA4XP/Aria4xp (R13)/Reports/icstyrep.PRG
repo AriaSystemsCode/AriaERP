@@ -70,6 +70,7 @@
 *! B612671,1 MMT 05/09/2023 Some styles total lines not printed if there is deleted records in style table[T-ERP-20230505.0001]
 *! B612682,1 MMT 06/14/2023 The report does not print style has OTS and immediate IOTS same value with opposite sign if show zero qty option is NO[T-ERP-20230531.0002]
 *! B612709,1 MMT 03/31/2024 Fix error with the 2nd preview if the 1st preview gives no data[T-ERP-20230927.0002]
+*! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001]
 *:**********************************************************************************************************************
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start]
 PARAMETERS lcRequestID, lcXMLFileName, ClientID
@@ -2726,12 +2727,19 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-	oProgress = Newobject('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
-	oProgress.TotalProgress = 100
-	lcCaptionVal = Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_CollData,oAriaApplication.GetHeaderText("LANG_ICSTYREP_CollData",AHEADERFILE))
-	oProgress.lblFirstLabel.Caption = lcCaptionVal
-	oProgress.Show()
-	oProgress.CurrentProgress(10)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  TRY 
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+    oProgress = Newobject('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
+  	oProgress.TotalProgress = 100
+  	lcCaptionVal = Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_CollData,oAriaApplication.GetHeaderText("LANG_ICSTYREP_CollData",AHEADERFILE))
+  	oProgress.lblFirstLabel.Caption = lcCaptionVal
+  	oProgress.Show()
+  	oProgress.CurrentProgress(10)
+	*! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+	CATCH
+	ENDTRY
+	*! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -2754,7 +2762,13 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-	oProgress.CurrentProgress(20)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress.CurrentProgress(20)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDIF
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 
@@ -2778,7 +2792,13 @@ If File(oAriaApplication.WorkDir +RevStyle+".DBF")
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-		oProgress.CurrentProgress(40)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  		oProgress.CurrentProgress(40)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    ENDIF
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -2808,7 +2828,13 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-	oProgress.CurrentProgress(60)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress.CurrentProgress(60)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDIF
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -2831,7 +2857,13 @@ If File(oAriaApplication.WorkDir +RevStyDy+".DBF")
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-		oProgress.CurrentProgress(70)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+	  	oProgress.CurrentProgress(70)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    ENDIF
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -2847,7 +2879,13 @@ If File(oAriaApplication.WorkDir +RevStyDy+".DBF")
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-		oProgress.CurrentProgress(80)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  		oProgress.CurrentProgress(80)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    ENDIF
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -2871,8 +2909,14 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [Start]
-	oProgress.CurrentProgress(100)
-	oProgress = Null
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress.CurrentProgress(100)
+	  oProgress = Null
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDIF
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B612019,1 Es 03/02/2020 The Style Summary report does not display the style total when report is sorted by Location and only one transaction is selected. [End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -5577,13 +5621,18 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *! B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][Start]
-	oProgress = Newobject('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
-	oProgress.TotalProgress = Reccount()
-	lcCaptionVal = Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_CollData,oAriaApplication.GetHeaderText("LANG_ICSTYREP_CollData",AHEADERFILE))
-	oProgress.lblFirstLabel.Caption = lcCaptionVal
-	oProgress.Show()
-	lcCaptionVal = Alltrim(lcCaptionVal)+Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_Style,oAriaApplication.GetHeaderText("LANG_ICSTYREP_Style",AHEADERFILE))+" : "
-
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  TRY
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress = Newobject('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
+  	oProgress.TotalProgress = Reccount()
+  	lcCaptionVal = Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_CollData,oAriaApplication.GetHeaderText("LANG_ICSTYREP_CollData",AHEADERFILE))
+  	oProgress.lblFirstLabel.Caption = lcCaptionVal
+  	oProgress.Show()
+  	lcCaptionVal = Alltrim(lcCaptionVal)+Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_Style,oAriaApplication.GetHeaderText("LANG_ICSTYREP_Style",AHEADERFILE))+" : "
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDTRY
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 	lnCntRecProg  = 1
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -5602,9 +5651,15 @@ Scan
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *! B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][Start]
-		oProgress.lblFirstLabel.Caption = lcCaptionVal + Style
-		oProgress.CurrentProgress(lnCntRecProg)
-		lnCntRecProg  = lnCntRecProg + 1
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  		oProgress.lblFirstLabel.Caption = lcCaptionVal + Style
+  		oProgress.CurrentProgress(lnCntRecProg)
+  		lnCntRecProg  = lnCntRecProg + 1
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    ENDIF
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *! B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][End]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -5721,9 +5776,13 @@ lfClearMemory()
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
 IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
-
-	oProgress = Null
-
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress = Null
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDIF
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
 ENDIF
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
@@ -6762,14 +6821,19 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][Start]
-	oProgress = Newobject('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
-	oProgress.TotalProgress = Reccount()
-	lcCaptionVal = Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_CollData,oAriaApplication.GetHeaderText("LANG_ICSTYREP_CollData",AHEADERFILE))
-	oProgress.lblFirstLabel.Caption = lcCaptionVal
-	oProgress.Show()
-	lcCaptionVal = Alltrim(lcCaptionVal)+Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_Style,oAriaApplication.GetHeaderText("LANG_ICSTYREP_Style",AHEADERFILE))+" : "
-	lnCntRecProg  = 1
-
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  TRY 
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress = Newobject('ariaprogressbar',oAriaApplication.classdir+'utility.vcx')
+  	oProgress.TotalProgress = Reccount()
+  	lcCaptionVal = Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_CollData,oAriaApplication.GetHeaderText("LANG_ICSTYREP_CollData",AHEADERFILE))
+  	oProgress.lblFirstLabel.Caption = lcCaptionVal
+  	oProgress.Show()
+  	lcCaptionVal = Alltrim(lcCaptionVal)+Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_Style,oAriaApplication.GetHeaderText("LANG_ICSTYREP_Style",AHEADERFILE))+" : "
+  	lnCntRecProg  = 1
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDTRY
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
 ENDIF
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
@@ -6785,9 +6849,15 @@ Scan
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][Start]
-		oProgress.lblFirstLabel.Caption = Alltrim(lcCaptionVal)+ Style
-		oProgress.CurrentProgress(lnCntRecProg)
-		lnCntRecProg  = lnCntRecProg + 1
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  		oProgress.lblFirstLabel.Caption = Alltrim(lcCaptionVal)+ Style
+	  	oProgress.CurrentProgress(lnCntRecProg)
+		  lnCntRecProg  = lnCntRecProg + 1
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+    ENDIF  
+    *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][END]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
@@ -7136,7 +7206,13 @@ IF TYPE('lcXMLFileName') <> 'C'
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
 
 *B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][Start]
-	oProgress = Null
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  IF TYPE('oProgress')='O' AND !ISNULL(oProgress)
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
+  	oProgress = Null
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  ENDIF
+  *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *B611928,1 MMT 10/13/2019 - Enhance Report performance[T20181224.0003][END]
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start
