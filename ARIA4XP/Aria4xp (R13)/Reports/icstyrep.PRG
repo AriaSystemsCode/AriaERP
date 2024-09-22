@@ -71,6 +71,7 @@
 *! B612682,1 MMT 06/14/2023 The report does not print style has OTS and immediate IOTS same value with opposite sign if show zero qty option is NO[T-ERP-20230531.0002]
 *! B612709,1 MMT 03/31/2024 Fix error with the 2nd preview if the 1st preview gives no data[T-ERP-20230927.0002]
 *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001]
+*! B611942,1 MMT 09/22/2024 Style Summary report export wrong primary fabric to Excel[T-ERP-20240827.0001]
 *:**********************************************************************************************************************
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start]
 PARAMETERS lcRequestID, lcXMLFileName, ClientID
@@ -4806,7 +4807,10 @@ Dimension laFileStru[lnArrayLen+1,18]
 
 laFileStru[lnArrayLen+1,1] = 'FGroup'
 laFileStru[lnArrayLen+1,2] = 'C'
-laFileStru[lnArrayLen+1,3] = 7
+*! B611942,1 MMT 09/22/2024 Style Summary report export wrong primary fabric to Excel[T-ERP-20240827.0001][Start]
+*laFileStru[lnArrayLen+1,3] = 7
+laFileStru[lnArrayLen+1,3] = 19
+*! B611942,1 MMT 09/22/2024 Style Summary report export wrong primary fabric to Excel[T-ERP-20240827.0001][End]
 laFileStru[lnArrayLen+1,4] = 0
 
 
@@ -5865,6 +5869,9 @@ Replace StyCode   With &lcStyle..Style,;
 	Dept      With &lcStyle..Dept,;
 	Desc      With &lcStyle..Desc
 
+*! B611942,1 MMT 09/22/2024 Style Summary report export wrong primary fabric to Excel[T-ERP-20240827.0001][Start]
+REPLACE FGroup  With &lcStyle..cprifabric
+*! B611942,1 MMT 09/22/2024 Style Summary report export wrong primary fabric to Excel[T-ERP-20240827.0001][End]
 *B611662,1 Es 09/09/2018 Modify the issue "Style Summary report exports the Division and Style group as code not description to Excel" [End]
 
 *B612323,1 Es 03/04/2021 Style Summary Report does not export sizes description when exported to Excel [T20210122.0001][Start]
