@@ -27,7 +27,6 @@
 *: B611626,1 SAH 07/29/2018 Modify function lfwRepWhen to add lines to avoid exporting the Ship Amount as Zero to Excel [T20180719.0018]
 *: B611988,1 Es 12/05/2019 Shipping log report does exports the state field as empty to Excel. [T20191122.0006]
 *: B612570,1 MMT 05/26/2022 Adjust the report variables to use fields name without working file name[T20220525.0002]
-*: C202467,1 MMT 10/03/2024 Dash - Missing Brand filter on shipping log report options grid[T-ERP-20240801.0005]
 *:**************************************************************************
 *----------------------- Report Code Begin -----------------------------
 
@@ -327,13 +326,14 @@ IF llClearFn OR loOGScroll.llOGFltCh
   IF !EMPTY(lcGrpCursor)
     SET ORDER TO TAG (lcGrpCursor)
   ENDIF
-  *: C202467,1 MMT 10/03/2024 Dash - Missing Brand filter on shipping log report options grid[T-ERP-20240801.0005][Start]
+  *XX
   lcBrndCursor =""
   lnBrandGroup = ASCAN(loOgScroll.laOgFxFlt,"STYLE.BRANDCODE")
+  IF lnBrandGroup > 0
   lnBrandGroup= ASUBSCRIPT(loOGScroll.laOgFxFlt,lnBrandGroup,1)
   lcBrandGroups= loOgScroll.laOgFxFlt[lnBrandGroup,6]
   IF !EMPTY( lcBrandGroups)
-    IF lnInvGrp > 0
+    IF lnBrandGroup > 0
       lcBrndCursor= loOgScroll.gfTempName() &&Cursor Hold Selected Style Groups
       DIMENSION laTempacstru[1,4]
       laTempacstru[1,1]='BRANDCODE'
@@ -362,7 +362,8 @@ IF llClearFn OR loOGScroll.llOGFltCh
   IF !EMPTY(lcBrndCursor )
     SET ORDER TO TAG (lcBrndCursor )
   ENDIF
-  *: C202467,1 MMT 10/03/2024 Dash - Missing Brand filter on shipping log report options grid[T-ERP-20240801.0005][End]
+  ENDIF
+  *XX
   *--Make Temp File For Selected Invoice Currencies
   lcCurCursor =""
   lnInvCurr = ASCAN(loOgScroll.laOgFxFlt,"INVHDR.CCURRCODE")
@@ -464,13 +465,13 @@ IF llClearFn OR loOGScroll.llOGFltCh
         LOOP
       ENDIF
     ENDIF
-    *: C202467,1 MMT 10/03/2024 Dash - Missing Brand filter on shipping log report options grid[T-ERP-20240801.0005][Start]
+    *xx
     IF !EMPTY(lcBrndCursor)
      IF !SEEK(STYLE.BRANDCODE,lcBrndCursor)
        LOOP
      ENDIF
     ENDIF
-    *: C202467,1 MMT 10/03/2024 Dash - Missing Brand filter on shipping log report options grid[T-ERP-20240801.0005][End]
+    *xx
     IF !EMPTY(lcCurCursor)
       IF !SEEK(INVHDR.CCURRCODE,lcCurCursor)
         LOOP
