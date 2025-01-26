@@ -11,6 +11,7 @@
 *!E303357,1 SAB 02/24/2013 Modify BOL report to run the optional programs [T20121017.0023]
 *!C201586,1 SAB 07/09/2013 Fix issue 3 in IKE00 customization [T20121017.0023]
 *!B611224,1 MAA 01/11/2016 Fix issue 2 Missing data from Report [P20160428.0001]
+*!B611943,1 MMT 10/10/2024 Fix the issue of the incomplete zip code[T-ERP-20241004.0021]
 *:***************************************************************************
 *N000682,1 MMT 02/06/2013 Globalization changes[Start]
 #INCLUDE r:\aria4xp\reports\al\alpbol.H
@@ -354,8 +355,12 @@ SCAN REST WHILE LLBLPRINT = .T.
   IF !EMPTY(laAddress)
     FOR lnCount = 1 TO ALEN(laAddress,1)
       lcCount = STR(laAddress[lnCount,1],1)
-      m.whADD&lcCount = m.whADD&lcCount + IIF(EMPTY(m.whADD&lcCount),'',',')+;
+      *!B611943,1 MMT 10/10/2024 Fix the issue of the incomplete zip code[T-ERP-20241004.0021][Start]
+      *m.whADD&lcCount = m.whADD&lcCount + IIF(EMPTY(m.whADD&lcCount),'',',')+;
         SUBSTR(laAddress[lnCount,2],1,laAddress[lnCount,3])
+      m.whADD&lcCount = ALLTRIM(m.whADD&lcCount) + IIF(EMPTY(m.whADD&lcCount),'',',')+;
+        SUBSTR(laAddress[lnCount,2],1,laAddress[lnCount,3])
+      *!B611943,1 MMT 10/10/2024 Fix the issue of the incomplete zip code[T-ERP-20241004.0021][End]
     ENDFOR
   ENDIF
   IF SEEK('M'+m.account,'Customer')
@@ -372,8 +377,12 @@ SCAN REST WHILE LLBLPRINT = .T.
   IF !EMPTY(laAddress)
     FOR lnCount = 1 TO ALEN(laAddress,1)
       lcCount = STR(laAddress[lnCount,1],1)
-      m.STAdd&lcCount = m.STAdd&lcCount + IIF(EMPTY(m.STAdd&lcCount),'',',')+;
+      *!B611943,1 MMT 10/10/2024 Fix the issue of the incomplete zip code[T-ERP-20241004.0021][Start]
+      *m.STAdd&lcCount = m.STAdd&lcCount + IIF(EMPTY(m.STAdd&lcCount),'',',')+;
         SUBSTR(laAddress[lnCount,2],1,laAddress[lnCount,3])
+      m.STAdd&lcCount = ALLTRIM(m.STAdd&lcCount) + IIF(EMPTY(m.STAdd&lcCount),'',',')+;
+        SUBSTR(laAddress[lnCount,2],1,laAddress[lnCount,3])
+        *!B611943,1 MMT 10/10/2024 Fix the issue of the incomplete zip code[T-ERP-20241004.0021][End]  
     ENDFOR
   ENDIF
 

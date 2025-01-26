@@ -8,6 +8,9 @@
 *:***************************************************************************
 *Modifications:
 *!B609980,1 SAB 06/27/2012 Fix error that occure when run BOL report [Media R12 Issues]
+*!E303357,1 SAB 02/24/2013 Modify BOL report to run the optional programs [T20121017.0023]
+*!C201586,1 SAB 07/09/2013 Fix issue 3 in IKE00 customization [T20121017.0023]
+*!B611224,1 MAA 01/11/2016 Fix issue 2 Missing data from Report [P20160428.0001]
 *:***************************************************************************
 *N000682,1 MMT 02/06/2013 Globalization changes[Start]
 #INCLUDE r:\aria4xp\reports\al\alpbol.H
@@ -17,8 +20,7 @@ PRIVATE laCodes, laCrstlSet
 STORE '' TO laCodes
 *!B609980,1 SAB 06/27/2012 Fix error that occure when run BOL report [End]
 DIMENSION laCrstlSet[8]
-_SCREen.Visible =.t.
-SET STEP ON 
+
 lcRepDir   = gfTempName()
 TmpBol_Hdr = gfTempName()
 
@@ -46,6 +48,10 @@ IF RECCOUNT('BolHdr') <= 0
 ENDIF
 
 =lfAdjustCRSettings()
+
+*!E303357,1 SAB 02/24/2013 Modify BOL report to run the optional programs [T20121017.0023][Start]
+=lfOptProg()
+*!E303357,1 SAB 02/24/2013 Modify BOL report to run the optional programs [T20121017.0023][End]
 
 IF USED('BolHdr')
   USE IN ('BolHdr')
@@ -110,46 +116,46 @@ PRIVATE lnSavIntTg, lnSavCmpTg, lcCurAlias, lnOldTag,;
  IF EMPTY(lcAlias) .OR. TYPE('lcTag') <> 'C'
    IF EMPTY(ALIAS())
      RETURN .F.
-   ELSE   
+   ELSE
      lcAlias = ALIAS()
-   ENDIF  
+   ENDIF
  ENDIF
  IF EMPTY(lcAddGrp) OR TYPE('lcAddGrp') <> 'C'
    lcAddGrp  = ''
    lcGrpCode = 'E'
- ELSE  
+ ELSE
    lcAddGrp  = ALLTRIM(lcAddGrp)
    lcGrpCode = lcAddGrp
- ENDIF   
+ ENDIF
  lcCurAlias = ALIAS()
  SELECT (lcAlias)
- lnOldTag = VAL(SYS(21))   
- IF EMPTY(lcAdrCode) 
+ lnOldTag = VAL(SYS(21))
+ IF EMPTY(lcAdrCode)
    IF !EMPTY(lcKeyCode) .AND. TYPE('lcKeyCode') <> 'C'
      DO CASE
        CASE (EMPTY(lcTag) .OR. TYPE('lcTag') <> 'C') AND EMPTY(SYS(22))
-         SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)  
+         SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)
          RETURN .F.
 
        CASE !EMPTY(lcTag)
          SET ORDER TO TAG (lcTag)
          IF !SEEK(lcKeyCode)
            SET ORDER TO lnOldTag
-           SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)  
+           SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)
            RETURN .F.
          ENDIF
- 
-       OTHERWISE 
-         IF EMPTY(SYS(22)) 
-           SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)  
+
+       OTHERWISE
+         IF EMPTY(SYS(22))
+           SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)
            RETURN .F.
          ENDIF
          IF !SEEK(lcKeyCode)
-           SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)  
+           SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)
            RETURN .F.
          ENDIF
-     ENDCASE 
-   ENDIF  
+     ENDCASE
+   ENDIF
    lcAdrCode = cCont_Cod&lcGrpCode
  ENDIF
 
@@ -157,51 +163,51 @@ DECLARE laAddress[6,3]
 laAddress = " "
 lnLineNo  = IIF(TYPE('lnLineNo')='N' AND BETWEEN(lnLineNo,1,5),INT(lnLineNo),1)
 STORE .F. TO llOpenInt, llOpenCmp
-   
+
 IF !USED('SYCINT')  && Check if the internationals file is open or not.
   llOpenInt  = .T.     && Indicates that the file is open by the function.
-  USE (oAriaApplication.SysPath+'SYCINT') ORDER TAG cContCode IN 0 
+  USE (oAriaApplication.SysPath+'SYCINT') ORDER TAG cContCode IN 0
 ELSE
-  SELECT SYCINT       
+  SELECT SYCINT
   lnSavIntTg = VAL(SYS(21))
   SET ORDER TO TAG cContCode   && Change the order
-ENDIF  
+ENDIF
 
 IF !USED('SYCCOMP')  && Check if the internationals file is open or not.
   llOpenCmp  = .T.     && Indicates that the file is open by the function.
-  USE (oAriaApplication.SysPath+'SYCCOMP') ORDER TAG cComp_ID IN 0 
+  USE (oAriaApplication.SysPath+'SYCCOMP') ORDER TAG cComp_ID IN 0
 ELSE
-  SELECT SYCCOMP       
+  SELECT SYCCOMP
   lnSavCmpTg = VAL(SYS(21))
   lnCompRec  = RECNO()
   SET ORDER TO TAG cComp_ID   && Change the order
-ENDIF  
+ENDIF
 
-SET STEP ON
+*SET STEP ON
 IF SEEK(lcAdrCode,'SYCINT') .OR. (SEEK(oAriaApplication.ActiveCompanyID,'SYCCOMP') ;
    .AND.  SEEK(SYCCOMP.cCont_Code,'SYCINT'))
   laAddress[1,1] = SYCINT.nPart1Ord
   laAddress[1,2] = EVAL(lcAlias+'.cAddress1'+lcAddGrp)
   laAddress[1,3] = SYCINT.nPart1LEN
   laAddress[2,1] = SYCINT.nPart2Ord
-  laAddress[2,2] = EVAL(lcAlias+'.cAddress2'+lcAddGrp) 
+  laAddress[2,2] = EVAL(lcAlias+'.cAddress2'+lcAddGrp)
   laAddress[2,3] = SYCINT.nPart2LEN
   laAddress[3,1] = SYCINT.nPart3Ord
   laAddress[3,2] = EVAL(lcAlias+'.cAddress3'+lcAddGrp)
-  laAddress[3,3] = SYCINT.nPart3LEN      
+  laAddress[3,3] = SYCINT.nPart3LEN
   laAddress[4,1] = SYCINT.nPart4Ord
   laAddress[4,2] = EVAL(lcAlias+'.cAddress4'+lcAddGrp)
-  laAddress[4,3] = SYCINT.nPart4LEN      
+  laAddress[4,3] = SYCINT.nPart4LEN
   laAddress[5,1] = SYCINT.nPart5Ord
   laAddress[5,2] = EVAL(lcAlias+'.cAddress5'+lcAddGrp)
-  laAddress[5,3] = SYCINT.nPart5LEN      
+  laAddress[5,3] = SYCINT.nPart5LEN
   laAddress[6,1] = SYCINT.nPart6Ord
   laAddress[6,2] = EVAL(lcAlias+'.cAddress6'+lcAddGrp)
   laAddress[6,3] = SYCINT.nPart6LEN
   IF TYPE("lcCurrCode") = 'C'
     &lcCurrCode    = SYCINT.cCurrCode
     SHOW GET (lcCurrCode)
-  ENDIF  
+  ENDIF
   =ASORT(laAddress,1)
   lcRetVal=''
   FOR lnCount = 1 TO ALEN(laAddress,1)
@@ -212,28 +218,28 @@ IF SEEK(lcAdrCode,'SYCINT') .OR. (SEEK(oAriaApplication.ActiveCompanyID,'SYCCOMP
   ENDFOR
 ELSE
   lcRetVal= EVAL(lcAlias+'.cAddress'+STR(lnLineNo,1)+lcAddGrp)
-ENDIF  
+ENDIF
 
 IF USED('SYCCOMP')
-  IF llOpenCmp 
+  IF llOpenCmp
     USE IN SYCCOMP
   ELSE
-    SET ORDER TO lnSavCmpTg IN SYCCOMP  
+    SET ORDER TO lnSavCmpTg IN SYCCOMP
     IF BETWEEN(lnCompRec,1,RECCOUNT("SYCCOMP"))
       GOTO lnCompRec IN SYCCOMP
-    ENDIF  
+    ENDIF
   ENDIF
 ENDIF
-  
+
 IF USED('SYCINT')
   IF llOpenInt
     USE IN SYCINT
   ELSE
     SET ORDER TO lnSavIntTg IN SYCINT
-  ENDIF  
+  ENDIF
 ENDIF
 SET ORDER TO lnOldTag IN (lcAlias)
-SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)  
+SELECT IIF(!EMPTY(lcCurAlias),(lcCurAlias),0)
 RETURN lcRetVal
 
 ENDFUNC
@@ -328,13 +334,19 @@ SCAN REST WHILE LLBLPRINT = .T.
   =SEEK(EVAL(TmpBol_Hdr+'.BOL_NO'),'BOL_HDR','BOL_HDR')
   m.CPUA = BOL_HDR.CPUA
   m.cMasterbol = BOL_HDR.cMasterbol
-  
+
   IF !USED('WareHous')
     =gfOpenTable('WareHous', 'WAREHOUS', 'SH')   && CWARECODE
   ENDIF
   =SEEK(m.W_Code, 'WareHous')
   m.whname = WareHous.cDesc
+  *!C201586,1 SAB 07/09/2013 Fix issue 3 in IKE00 customization [T20121017.0023][Start]
+  **!C201554,2 SAB 04/14/2013 Fix issue 1 and 2 on the project [T20121017.0023][Start]
+  **IF UPPER(RIGHT(lcRpForm,1))='B'
+  *IF UPPER(RIGHT(lcRpForm,1))='B' .OR. UPPER(RIGHT(lcRpForm,2))='IK'
+  **!C201554,2 SAB 04/14/2013 Fix issue 1 and 2 on the project [T20121017.0023][End]  
   IF UPPER(RIGHT(lcRpForm,1))='B'
+  *!C201586,1 SAB 07/09/2013 Fix issue 3 in IKE00 customization [T20121017.0023][End]
     m.whname =oAriaApplication.ActiveCompanyName
   ENDIF
   STORE '' TO m.whADD1,m.whADD2,m.whADD3,m.whADD4,m.whADD5,m.whADD6,laAddress
@@ -342,7 +354,7 @@ SCAN REST WHILE LLBLPRINT = .T.
   IF !EMPTY(laAddress)
     FOR lnCount = 1 TO ALEN(laAddress,1)
       lcCount = STR(laAddress[lnCount,1],1)
-      m.whADD&lcCount = m.whADD&lcCount + IIF(EMPTY(m.whADD&lcCount),'',',')+;
+      m.whADD&lcCount = ALLTRIM(m.whADD&lcCount) + IIF(EMPTY(m.whADD&lcCount),'',',')+;
         SUBSTR(laAddress[lnCount,2],1,laAddress[lnCount,3])
     ENDFOR
   ENDIF
@@ -353,18 +365,18 @@ SCAN REST WHILE LLBLPRINT = .T.
   =IIF(EMPTY(m.Store),SEEK('M'+m.account,'Customer'),SEEK('S'+m.account+m.Store,'Customer'))
   IF ALLTRIM(m.Store)='D2S'
     =SEEK(m.BOL_NO,'BOL_LIN') and SEEK(BOL_LIN.pack_no,'PACK_HDR','pack_hdr') and SEEK('S'+m.account+PACK_HDR.Store,'Customer')
-  ENDIF 
+  ENDIF
   m.STName  = Customer.STName
   STORE '' TO m.STAdd1,m.STAdd2,m.STAdd3,m.STAdd4,m.STAdd5,m.STAdd6,laAddress
   =lfGetAddress('Customer','','','',1,'')
   IF !EMPTY(laAddress)
     FOR lnCount = 1 TO ALEN(laAddress,1)
       lcCount = STR(laAddress[lnCount,1],1)
-      m.STAdd&lcCount = m.STAdd&lcCount + IIF(EMPTY(m.STAdd&lcCount),'',',')+;
+      m.STAdd&lcCount = ALLTRIM(m.STAdd&lcCount) + IIF(EMPTY(m.STAdd&lcCount),'',',')+;
         SUBSTR(laAddress[lnCount,2],1,laAddress[lnCount,3])
     ENDFOR
   ENDIF
-  
+
   IF !USED('EdiAcPrt')
     =gfOpenTable('EdiAcPrt', 'ACCFACT', 'SH')   && TYPE+CPARTNER
   ENDIF
@@ -409,7 +421,15 @@ SCAN REST WHILE LLBLPRINT = .T.
       lcCustPo = OrdLine.CustPo
     ENDIF
     m.lplt = SEEK(BOL_LIN.pack_no,'PACK_LIN','PACK_LIN') AND Pack_Lin.npltno != 0
-    IF UPPER(RIGHT(lcRpForm,1))='B'
+    *!C201554,2 SAB 04/14/2013 Fix issue 1 and 2 on the project [T20121017.0023][Start]
+    *IF UPPER(RIGHT(lcRpForm,1))='B'
+    
+    *B611224,1 MAA 01/11/2016 Fix issue 2 Missing data from Report [P20160428.0001][Start]
+    * IF UPPER(RIGHT(lcRpForm,1))='B' .OR. UPPER(RIGHT(lcRpForm,2))='IK' 
+    IF UPPER(RIGHT(lcRpForm,1))='B' .OR. UPPER(RIGHT(lcRpForm,2))='IK' .OR. UPPER(RIGHT(lcRpForm,2))='KK'  
+    *B611224,1 MAA 01/11/2016 Fix issue 2 Missing data from Report [P20160428.0001] [END]
+    
+    *!C201554,2 SAB 04/14/2013 Fix issue 1 and 2 on the project [T20121017.0023][End]
       IF M.lplt = .T.
         REPLACE BolHdr.h_pltqty WITH Pack_Hdr.Tot_Cart + BolHdr.h_pltqty,;
           BolHdr.p_pltqty WITH Pack_Hdr.Tot_Cart + BolHdr.p_pltqty,;
@@ -441,8 +461,8 @@ SCAN REST WHILE LLBLPRINT = .T.
       (BOL_NO,pack_no,ORDER,nCartons,nWeight,nPieces,Dept,CustPo,STORE,lplt) VALUES ;
       (BOL_LIN.BOL_NO,BOL_LIN.pack_no,BOL_LIN.ORDER,Pack_Hdr.Tot_Cart,Pack_Hdr.Tot_Wght,Pack_Hdr.Tot_Pcs,;
       OrdHdr.Dept,lcCustPo,Pack_Hdr.STORE,M.lplt)
-    
-    IF UPPER(RIGHT(lcRpForm,1))='C'      
+
+    IF UPPER(RIGHT(lcRpForm,1))='C'
       SELECT edicrtsq
       *-SABER
       SET ORDER TO PCKCRTSQ   && PACK_NO+STR(CART_NO,6)
@@ -454,12 +474,18 @@ SCAN REST WHILE LLBLPRINT = .T.
           GATHER MEMVAR MEMO
           SELECT edicrtsq
         ENDSCAN
-      ENDIF      
+      ENDIF
     ENDIF
 
   ENDSCAN
-  
-  IF UPPER(RIGHT(lcRpForm,1))='B'
+
+  *!C201554,2 SAB 04/14/2013 Fix issue 1 and 2 on the project [T20121017.0023][Start]
+  *IF UPPER(RIGHT(lcRpForm,1))='B'
+  *B611224,1 MAA 01/11/2016 Fix issue 2 Missing data from Report [P20160428.0001][Start]
+  *IF UPPER(RIGHT(lcRpForm,1))='B' .OR. UPPER(RIGHT(lcRpForm,2))='IK'
+  IF UPPER(RIGHT(lcRpForm,1))='B' .OR. UPPER(RIGHT(lcRpForm,2))='IK' .OR. UPPER(RIGHT(lcRpForm,2))='KK' 
+  *B611224,1 MAA 01/11/2016 Fix issue 2 Missing data from Report [P20160428.0001] [END]
+  *!C201554,2 SAB 04/14/2013 Fix issue 1 and 2 on the project [T20121017.0023][End]
     REPLACE BolHdr.OrdCount WITH IIF(!EMPTY(Arr(1,1)),ALEN(Arr,1)-1,0) IN BolHdr
     IF ALEN(Arr,1)<=6 AND !EMPTY(Arr(1,1))
       FOR I = 1 TO (ALEN(Arr,1)-1)
@@ -500,7 +526,11 @@ laCrstlSet[4] = IIF(llPrntComp, m.STAdd3, '')
 laCrstlSet[5] = IIF(llPrntComp, m.STAdd4, '')
 *N000682,1 MMT 02/06/2013 Globalization changes[Start]
 *laCrstlSet[6] = IIF(llPrntComp, 'DUNS#: '+m.Duns, '')
-laCrstlSet[6] = IIF(llPrntComp, LANG_DUNSNO+' '+m.Duns, '')
+*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*laCrstlSet[6] = IIF(llPrntComp, LANG_DUNSNO+' '+m.Duns, '')
+laCrstlSet[6] = IIF(llPrntComp, IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_DUNSNO,oAriaApplication.GetHeaderText("LANG_DUNSNO",AHEADERFILE))+' '+m.Duns, '')
+*N000682,1 11/20/2012 MMT Globlization changes[End]
+
 *N000682,1 MMT 02/06/2013 Globalization changes[END]
 laCrstlSet[7] = IIF(llPrntComp, TRANSFORM(SycComp.cCom_Phon,"@R XXX-XXX-XXXX/XXXXX"), '')
 laCrstlSet[8] = ''
@@ -548,7 +578,7 @@ SCAN FOR &lcRpExp
   m.ccomm_desc = BOL_HDR.ccomm_desc
   m.nNMFC_No   = BOL_HDR.nNMFC_No
   m.nClass     = BOL_HDR.nClass
-  m.Carriercod = BOL_HDR.Carriercod  
+  m.Carriercod = BOL_HDR.Carriercod
   IF EMPTY(m.Carrier)
     lnLoc = ASCAN(laCodes,m.SHIPVIA)
     IF lnLoc > 0 AND lnLoc < ALEN(laCodes)
@@ -556,7 +586,7 @@ SCAN FOR &lcRpExp
     ENDIF
   ENDIF
   m.cFactBOL  = BOL_HDR.cFactBOL
-    
+
   INSERT INTO (TmpBol_Hdr) FROM MEMVAR
 ENDSCAN
 
@@ -596,7 +626,7 @@ IF UPPER(RIGHT(lcRpForm,1))='C'
 ENDIF
 *!B609980,1 SAB 06/27/2012 Fix error that occure when run BOL report [End]
 
-LOCAL lnI 
+LOCAL lnI
 lnI  = 0
 lnI = lnI + 1
 loOgScroll.laCRParams[lnI, 1] = 'CMPADDR1'
@@ -633,7 +663,7 @@ ENDPROC
 *! Name      : lfCreateTemp
 *: Developer : Saber A.Razek (SAB)
 *: Date      : 02/22/2012
-*! Purpose   : Procedure to create temp.file 
+*! Purpose   : Procedure to create temp.file
 *!*************************************************************
 PROCEDURE lfCreateTemp
 
@@ -1005,7 +1035,7 @@ laFields(lnALen,4) = 0
 laFields(lnALen,17) = 0
 laFields(lnALen,18) = 0
 
-FOR lnI=1 TO 5  
+FOR lnI=1 TO 5
   lnALen = ALEN(laFields,1)+1
   DIMENSION laFields[lnALen,ALEN(laFields,2)]
   laFields(lnALen,1) = 'DEPT'+STR(lnI,1)
@@ -1015,7 +1045,7 @@ FOR lnI=1 TO 5
   laFields(lnALen,17) = 0
   laFields(lnALen,18) = 0
 ENDFOR
-FOR lnI=1 TO 5  
+FOR lnI=1 TO 5
   lnALen = ALEN(laFields,1)+1
   DIMENSION laFields[lnALen,ALEN(laFields,2)]
   laFields(lnALen,1) = 'STORE'+STR(lnI,1)
@@ -1023,22 +1053,22 @@ FOR lnI=1 TO 5
   laFields(lnALen,3) = 8
   laFields(lnALen,4) = 0
   laFields(lnALen,17) = 0
-  laFields(lnALen,18) = 0  
+  laFields(lnALen,18) = 0
 ENDFOR
 
 FOR lnCount = lnBolHdrFlds+1 TO ALEN(laFields,1)
   laFields(lnCount,7) = ''
-  laFields(lnCount,8) = ''  
-  laFields(lnCount,9) = ''  
-  laFields(lnCount,10) = ''  
-  laFields(lnCount,11) = ''  
-  laFields(lnCount,12) = ''  
-  laFields(lnCount,13) = ''  
-  laFields(lnCount,14) = ''  
-  laFields(lnCount,15) = ''  
-  laFields(lnCount,16) = ''  
+  laFields(lnCount,8) = ''
+  laFields(lnCount,9) = ''
+  laFields(lnCount,10) = ''
+  laFields(lnCount,11) = ''
+  laFields(lnCount,12) = ''
+  laFields(lnCount,13) = ''
+  laFields(lnCount,14) = ''
+  laFields(lnCount,15) = ''
+  laFields(lnCount,16) = ''
   laFields(lnCount,17) = 0
-  laFields(lnCount,18) = 0  
+  laFields(lnCount,18) = 0
 ENDFOR
 lnALen = ALEN(laFields,1)
 DIMENSION laFields(lnALen+6,ALEN(laFields,2))
@@ -1092,15 +1122,15 @@ laFields(lnALen,18) = 0
 
 FOR lnCount = lnALen - 6 TO lnALen
   laFields(lnCount,7) = ''
-  laFields(lnCount,8) = ''  
-  laFields(lnCount,9) = ''  
-  laFields(lnCount,10) = ''  
-  laFields(lnCount,11) = ''  
-  laFields(lnCount,12) = ''  
-  laFields(lnCount,13) = ''  
-  laFields(lnCount,14) = ''  
-  laFields(lnCount,15) = ''  
-  laFields(lnCount,16) = ''  
+  laFields(lnCount,8) = ''
+  laFields(lnCount,9) = ''
+  laFields(lnCount,10) = ''
+  laFields(lnCount,11) = ''
+  laFields(lnCount,12) = ''
+  laFields(lnCount,13) = ''
+  laFields(lnCount,14) = ''
+  laFields(lnCount,15) = ''
+  laFields(lnCount,16) = ''
   laFields(lnCount,17) = 0
   laFields(lnCount,18) = 0
 ENDFOR
@@ -1110,7 +1140,7 @@ CREATE TABLE (oAriaApplication.WorkDir+lcRepDir+'\tmpBolHd') FROM ARRAY laFields
 CREATE TABLE (oAriaApplication.WorkDir+lcRepDir+'\tmpBolLn') ;
              (BOL_NO C(6),Pack_NO C(6),Order C(6),nCartons N(8),nWeight N(13,2),nPieces N(8),DEPT C(5),;
               CUSTPO C(15),Store C(8), lplt L)
-SELECT CODES 
+SELECT CODES
 SET ORDER TO TAG IDRLTFNAME
 LOCAL I
 I = 1
