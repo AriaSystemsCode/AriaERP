@@ -24,6 +24,7 @@
 *! B611393,1 AHH 24/08/2017 Testing the Inventory Locking functionality[T20170817.0022]
 *! B611490,1 AHH 11/12/2017 Stock adjustment report doesn't display some styles[T20171204.0037]
 *! B611716,1 Es 2/10/2019 Modify issue "When user does not select Style in Inventory adjustment report, report does not show data." [T20190204.0016]
+*! B611946,1 MMT 02/20/2025  La Cera - Stock Adjustment Journal - Print Issue[T-ERP-20250107.002]
 *:***************************************************************************
 *N000682,1 MMT 02/11/2013 Globalization changes[Start] 
 #include  r:\aria4xp\reports\ic\icstkjl.h
@@ -203,8 +204,9 @@ IF llOGFltCh &&OR llClearFn
 
   *B131829,1 WSH 04/19/2006 [Start]
   IF llFromScreen
-    USE oAriaApplication.WorkDir + lcScreenTemp + ".DBF" IN 0 ALIAS (lcScreenTemp)
-
+    IF !USED(lcScreenTemp )
+      USE oAriaApplication.WorkDir + lcScreenTemp + ".DBF" IN 0 ALIAS (lcScreenTemp)
+    ENDIF
     *B607853,1 MMT 12/03/2006	Error while printing report after saving phyiscal inventory[Start]
     IF USED(lcInvTmp)
       *B607853,1 MMT 12/03/2006	Error while printing report after saving phyiscal inventory[End]
@@ -277,7 +279,11 @@ ELSE
   DIMENSION loOGScroll.lacrTABLES[2]  && array For Temp Table & pathes
   loOGScroll.lacrTABLES[1]= oAriaApplication.WorkDir+lcRepFile+'.DBF'
   loOGScroll.lacrTABLES[2]= oAriaApplication.WorkDir+lcScaleRep+'.DBF'
-
+*! B611946,1 MMT 02/20/2025  La Cera - Stock Adjustment Journal - Print Issue[T-ERP-20250107.002][Start]
+IF llFromScreen
+ oAriaApplication.gcDevice = lcDevice
+ENDIF
+*! B611946,1 MMT 02/20/2025  La Cera - Stock Adjustment Journal - Print Issue[T-ERP-20250107.002][End]
   *B131829,1 WSH 04/19/2006 [Start]
   *= gfDispRe("ICSTKJL")
   = gfDispRe(IIF(llFromScreen, "ICSTKJL", .F.))
