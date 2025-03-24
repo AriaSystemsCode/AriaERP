@@ -20,7 +20,7 @@ ENDIF
 DIMENSION laPartDesc[1],laPartValues[1]
 STORE '' TO  laPartDesc[1],laPartValues[1]
 SELECT sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
-       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='CST')and ediacprt.type="D" ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
+       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='CST')and INLIST(ediacprt.type ,"D","W") ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
 
 lnPartCnt = RECCOUNT('EDIPART')
 IF RECCOUNT('EDIPART') > 0 
@@ -40,7 +40,7 @@ STORE '' TO  laPartVDesc[1],laPartVValues[1]
 
 
 SELECT sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
-       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='VND')and ediacprt.type="D" ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
+       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='VND')and INLIST(ediacprt.type ,"D","W") ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
 
 lnPartCnt = RECCOUNT('EDIPART')
 IF RECCOUNT('EDIPART') > 0 
@@ -59,7 +59,7 @@ DIMENSION laPartSDesc[1],laPartSValues[1]
 STORE '' TO  laPartSDesc[1],laPartSValues[1]
 
 SELECT sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
-       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='STY')and ediacprt.type="D" ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
+       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='STY') and INLIST(ediacprt.type ,"D","W") ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
 
 lnPartCnt = RECCOUNT('EDIPART')
 IF RECCOUNT('EDIPART') > 0 
@@ -424,11 +424,17 @@ DO CASE
         llDataToExport = .T.
         IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
           *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[Start]
+          *XX
+          lcType = 'D'
+          IF SEEK('D'+lcPartCode,'EDIACPRT','ACCFACT') OR SEEK('W'+lcPartCode,'EDIACPRT','ACCFACT') 
+            lcType = EDIACPRT.TYPE
+          ENDIF
+          *XX
           *IF !SEEK('CST'+PADR(CUSTOMER.Account,40)+'R'+lcPartCode ,'EDITRANS')
-          IF !SEEK('CST'+PADR(CUSTOMER.Account,40)+'D'+lcPartCode ,'EDITRANS')
+          IF !SEEK('CST'+PADR(CUSTOMER.Account,40)+lcType +lcPartCode ,'EDITRANS')
           *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[End]
             INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-                ('CST',CUSTOMER.Account,'D',lcPartCode )
+                ('CST',CUSTOMER.Account,lcType ,lcPartCode )
           ENDIF
           REPLACE cStatus WITH 'N' IN EDITRANS
           =gfAdd_Info('EDITRANS')  
@@ -472,12 +478,18 @@ DO CASE
             ENDIF  
             llDataToExport = .T.
             IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
+             *XX
+             lcType = 'D'
+             IF SEEK('D'+lcPartCode,'EDIACPRT','ACCFACT') OR SEEK('W'+lcPartCode,'EDIACPRT','ACCFACT') 
+               lcType = EDIACPRT.TYPE
+             ENDIF
+             *XX
               *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[Start]
               *IF !SEEK('CST'+PADR(CUSTOMER.Account,40)+'R'+lcPartCode ,'EDITRANS')              
-              IF !SEEK('CST'+PADR(CUSTOMER.Account,40)+'D'+lcPartCode ,'EDITRANS')
+              IF !SEEK('CST'+PADR(CUSTOMER.Account,40)+lcType +lcPartCode ,'EDITRANS')
               *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[EEnd]
                 INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-                    ('CST',CUSTOMER.Account,'D',lcPartCode )
+                    ('CST',CUSTOMER.Account,lcType ,lcPartCode )
               ENDIF
               REPLACE cStatus WITH 'N' IN EDITRANS
               =gfAdd_Info('EDITRANS')  
@@ -539,12 +551,18 @@ CASE lcRPEntity ='V'
           ENDIF  
           llDataToExport = .T.          
           IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
+            *XX
+            lcType = 'D'
+            IF SEEK('D'+lcPartCode,'EDIACPRT','ACCFACT') OR SEEK('W'+lcPartCode,'EDIACPRT','ACCFACT') 
+              lcType = EDIACPRT.TYPE
+            ENDIF
+            *XX
             *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[Start]
             *IF !SEEK('VND'+PADR(APVENDOR.CVENDCODE,40)+'D'+lcPartCode ,'EDITRANS')            
-            IF !SEEK('VND'+PADR(APVENDOR.CVENDCODE,40)+'R'+lcPartCode ,'EDITRANS')
+            IF !SEEK('VND'+PADR(APVENDOR.CVENDCODE,40)+lcType +lcPartCode ,'EDITRANS')
             *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[End]
               INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-                  ('VND',APVENDOR.CVENDCODE,'D',lcPartCode)
+                  ('VND',APVENDOR.CVENDCODE,lcType ,lcPartCode)
             ENDIF
             REPLACE cStatus WITH 'N' IN EDITRANS
             =gfAdd_Info('EDITRANS')  
@@ -584,12 +602,18 @@ CASE lcRPEntity ='V'
             ENDIF  
             llDataToExport = .T.            
             IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
+              *XX
+              lcType = 'D'
+              IF SEEK('D'+lcPartCode,'EDIACPRT','ACCFACT') OR SEEK('W'+lcPartCode,'EDIACPRT','ACCFACT') 
+                lcType = EDIACPRT.TYPE
+              ENDIF
+              *XX
               *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[Start]
               *IF !SEEK('VND'+PADR(APVENDOR.CVENDCODE,40)+'R'+lcPartCode ,'EDITRANS')              
-              IF !SEEK('VND'+PADR(APVENDOR.CVENDCODE,40)+'D'+lcPartCode ,'EDITRANS')
+              IF !SEEK('VND'+PADR(APVENDOR.CVENDCODE,40)+lcType +lcPartCode ,'EDITRANS')
               *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[End]
                 INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-                    ('VND',APVENDOR.CVENDCODE,'D',lcPartCode )
+                    ('VND',APVENDOR.CVENDCODE,lcType ,lcPartCode )
               ENDIF
               REPLACE cStatus WITH 'N' IN EDITRANS
               =gfAdd_Info('EDITRANS')  
@@ -674,12 +698,18 @@ CASE lcRPEntity ='V'
           IIF(!EMPTY(ldRpAddEdt),(STYLE.dAdd_date > ldRpAddEdt OR STYLE.dedit_date > ldRpAddEdt),.T.) 
          llDataToExport = .T.            
          IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
+           *XX
+           lcType = 'D'
+           IF SEEK('D'+lcPartCode,'EDIACPRT','ACCFACT') OR SEEK('W'+lcPartCode,'EDIACPRT','ACCFACT') 
+             lcType = EDIACPRT.TYPE
+           ENDIF
+           *XX
            *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[Start]
            *IF !SEEK('STY'+PADR(STYLE.CSTYMAJOR,40)+'R'+lcPartCode ,'EDITRANS')
-           IF !SEEK('STY'+PADR(STYLE.CSTYMAJOR,40)+'D'+lcPartCode ,'EDITRANS')
+           IF !SEEK('STY'+PADR(STYLE.CSTYMAJOR,40)+lcType +lcPartCode ,'EDITRANS')
            *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[End]
              INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-                  ('STY',STYLE.CSTYMAJOR,'D',lcPartCode )
+                  ('STY',STYLE.CSTYMAJOR,lcType ,lcPartCode )
            ENDIF
            REPLACE cStatus WITH 'N' IN EDITRANS
            =gfAdd_Info('EDITRANS')  
@@ -698,12 +728,18 @@ CASE lcRPEntity ='V'
           IIF(!EMPTY(ldRpAddEdt),(STYLE.dAdd_date > ldRpAddEdt OR STYLE.dedit_date > ldRpAddEdt),.T.) 
         llDataToExport = .T.            
         IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
+          *XX
+          lcType = 'D'
+          IF SEEK('D'+lcPartCode,'EDIACPRT','ACCFACT') OR SEEK('W'+lcPartCode,'EDIACPRT','ACCFACT') 
+            lcType = EDIACPRT.TYPE
+          ENDIF
+          *XX
           *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[Start]
 *         IF !SEEK('STY'+PADR(STYLE.CSTYMAJOR,40)+'R'+lcPartCode ,'EDITRANS')
-          IF !SEEK('STY'+PADR(STYLE.CSTYMAJOR,40)+'D'+lcPartCode ,'EDITRANS')
+          IF !SEEK('STY'+PADR(STYLE.CSTYMAJOR,40)+lcType +lcPartCode ,'EDITRANS')
           *! B612657,1 MMT 02/07/2023 Exporting Style duplicates records in EDITRANS[End]
             INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-                 ('STY',STYLE.CSTYMAJOR,'D',lcPartCode )
+                 ('STY',STYLE.CSTYMAJOR,lcType ,lcPartCode )
           ENDIF
           REPLACE cStatus WITH 'N' IN EDITRANS
           =gfAdd_Info('EDITRANS')  
