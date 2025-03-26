@@ -14583,8 +14583,12 @@ lcCstShtTyp = Iif(lcStyType = "U","M",Iif(lcStyType = "P","I",Iif(lcStyType = "F
 *B608643,1 WAM 08/05/2008 Get cost from estimated records if some of the POs in the shipment don't have adjusted cost for receiving records
 If loFormSet.lcPType = 'S' .And. !Empty(lcShipNo)
   lcTrancd = Iif(loFormSet.lcPType $ 'SUF','3','6')
-  lcSqlStatement = "SELECT * FROM BOMLINE [INDEX=BOMLINE] "+ "WHERE cImTyp = '" + lcCstShtTyp +;
+  *MMT99
+  *  lcSqlStatement = "SELECT * FROM BOMLINE [INDEX=BOMLINE] "+ "WHERE cImTyp = '" + lcCstShtTyp +;
     "' AND CTYPE ='2' AND ShipNo = '" + lcShipNo + "' AND CRSESSION = '' AND CTKTNO IN ("
+  lcSqlStatement = "SELECT * FROM BOMLINE [INDEX=BOMLINE] "+ "WHERE cImTyp = '" + lcCstShtTyp +;
+    "' AND CTYPE ='2' AND CRSESSION = '' AND CTKTNO IN ("
+    *MMT99
   lcSqlStatement  =  lcSqlStatement+"SELECT PO FROM POSLN WHERE POSLN.cBusDocu = '" + loFormSet.lcBusDoc +;
     "' AND POSLN.cStyType = '" + loFormSet.lcWorkOrd +;
     "' AND POSLN.ShipNo = '" + lcShipNo + "' AND TranCd ='" + lcTrancd + "') UNION "
