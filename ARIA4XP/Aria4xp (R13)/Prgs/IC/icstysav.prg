@@ -40,6 +40,7 @@
 *! Modifications :
 *! E303825,1 MMT 05/25/2017 Modify the Style screen saving to be called from anywhere[P20170503.0001]
 *! B612610,1 MMT 08/02/2022 Modify the lfSaveBOM in style screen saving function to use SEEK and Locate REST instead of LOCATE FOR{T20220729.0001}
+*! E304205,1 MMT 04/07/2025 Add EDITRANS records in case of Adding or editing styles[I46-Transaction Enhacement]
 *!*************************************************************
 #INCLUDE r:\aria4xp\screens\ic\icstyle.h 
 FUNCTION lfSaveStyle
@@ -76,7 +77,19 @@ lcIMjrPt = ''
 lfGetSegmentinfo()            
 llCostPrv  = gfUserPriv('IC','ICSTYLE','COSTING')
 SELECT(lcColorFil)
-
+*! E304205,1 MMT 04/07/2025 Add EDITRANS records in case of Adding or editing styles[I46-Transaction Enhacement][Start]
+IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules )
+  IF !USED('EDIACPRT')
+    =gfOpenTable(oAriaApplication.DataDir+'EDIACPRT',oAriaApplication.DataDir+'ACCFACT','SH')
+  ENDIF
+  IF !USED('EDIPD')
+    =gfOpenTable(oAriaApplication.DataDir+'EDIPD',oAriaApplication.DataDir+'PARTTRANS','SH')
+  ENDIF
+  IF !USED('EDITRANS')
+    =gfOpenTable(oAriaApplication.DataDir+'EDITRANS',oAriaApplication.DataDir+'TYPEKEY','SH')
+  ENDIF
+ENDIF
+*! E304205,1 MMT 04/07/2025 Add EDITRANS records in case of Adding or editing styles[I46-Transaction Enhacement][End]
 IF !USED('Style')
   = gfOpenTable(oAriaApplication.DataDir + 'Style', 'Style', 'SH')
 ENDIF  
@@ -248,7 +261,25 @@ IF llClearBOM
   DELETE FROM (lcBOM)
 ENDIF
 LOCAL nClrNo
-
+*! E304205,1 MMT 04/07/2025 Add EDITRANS records in case of Adding or editing styles[I46-Transaction Enhacement][Start]
+IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules)
+  SELECT EDIACPRT
+  IF gfSEEK('D','EDIACPRT') 
+    SCAN REST WHILE TYPE+CPARTNER ='D'
+      IF gfSEEK(EDIACPRT.cPartCode+'STY','EDIPD')
+        IF !SEEK('STY'+PADR(lcStyMajor,40)+'D'+EDIACPRT.CPARTNER ,'EDITRANS')
+          INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
+          ('STY',lcStyMajor,'R',EDIACPRT.CPARTNER)
+        ENDIF
+        REPLACE cStatus WITH 'N' IN EDITRANS
+        =gfAdd_Info('EDITRANS')
+        SELECT EDITRANS
+        =gfReplace('')
+      ENDIF
+    ENDSCAN 
+  ENDIF
+ENDIF          
+*! E304205,1 MMT 04/07/2025 Add EDITRANS records in case of Adding or editing styles[I46-Transaction Enhacement][End]
 nClrNo = 0
 SELECT STYLE
 =SEEK(lcStyleKey)
@@ -407,7 +438,11 @@ IF lcActiveMode = 'E' AND llNCInstl AND lcSysType = "B"
   llSusses = llSusses AND gfTABLEUPDATE(lcTranCode, 'EDICatgH')
   llSusses = llSusses AND gfTABLEUPDATE(lcTranCode, 'EDITrans')
 ENDIF
-
+*XX
+IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.CompanySetupModules )
+ llSusses = llSusses AND gfTABLEUPDATE(lcTranCode, 'EDITrans')
+ENDIF
+*XX
 *--Run Saving Trigger.
 *--Update Master STYLE file (Buffer Tables).***************************************************************
 SELECT STYLE
