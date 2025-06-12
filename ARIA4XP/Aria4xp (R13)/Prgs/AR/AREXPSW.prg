@@ -19,7 +19,7 @@ IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.Compa
 ENDIF
 DIMENSION laPartDesc[1],laPartValues[1]
 STORE '' TO  laPartDesc[1],laPartValues[1]
-SELECT sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
+SELECT distinct sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
        ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='CST')and INLIST(ediacprt.type ,"D","W") ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
 
 lnPartCnt = RECCOUNT('EDIPART')
@@ -29,9 +29,9 @@ IF RECCOUNT('EDIPART') > 0
   LOCATE
   lnCntP = 1
   SCAN
-    laPartDesc[lnPartCnt] = EDIPART.cpartname
-    laPartValues[lnPartCnt] = EDIPART.cpartner 
-    lnPartCnt = lnPartCnt + 1 
+    laPartDesc[lnCntP ] = EDIPART.cpartname
+    laPartValues[lnCntP ] = EDIPART.cpartner 
+    lnCntP = lnCntP + 1 
   ENDSCAN 
 ENDIF
 
@@ -39,7 +39,7 @@ DIMENSION laPartVDesc[1],laPartVValues[1]
 STORE '' TO  laPartVDesc[1],laPartVValues[1]
 
 
-SELECT sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
+SELECT distinct sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
        ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='VND')and INLIST(ediacprt.type ,"D","W") ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
 
 lnPartCnt = RECCOUNT('EDIPART')
@@ -49,17 +49,18 @@ IF RECCOUNT('EDIPART') > 0
   LOCATE
   lnCntP = 1
   SCAN
-    laPartVDesc[lnPartCnt] = EDIPART.cpartname
-    laPartVValues[lnPartCnt] = EDIPART.cpartner 
-    lnPartCnt = lnPartCnt + 1 
+    laPartVDesc[lnCntP ] = EDIPART.cpartname
+    laPartVValues[lnCntP ] = EDIPART.cpartner 
+    lnCntP = lnCntP + 1 
   ENDSCAN 
 ENDIF
 *! E612624,1 MMT 09/11/2022 Export Style Entity to SIIWII[START]
 DIMENSION laPartSDesc[1],laPartSValues[1]
 STORE '' TO  laPartSDesc[1],laPartSValues[1]
 
-SELECT sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
-       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='STY') and INLIST(ediacprt.type ,"D","W") ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
+SELECT distinct sycediph.cpartname, ediacprt.cpartner FROM sycediph INNER JOIN ediacprt ON ediacprt.cpartcode == sycediph.cpartcode WHERE ;
+       ediacprt.cpartcode in (SELECT  CPARTCODE FROM EDIPD WHERE  ceditrntyp='STY') and INLIST(ediacprt.type ,"D","W");
+       ORDER BY sycediph.cpartname INTO CURSOR 'EDIPART'
 
 lnPartCnt = RECCOUNT('EDIPART')
 IF RECCOUNT('EDIPART') > 0 
@@ -68,9 +69,9 @@ IF RECCOUNT('EDIPART') > 0
   LOCATE
   lnCntP = 1
   SCAN
-    laPartSDesc[lnPartCnt] = EDIPART.cpartname
-    laPartSValues[lnPartCnt] = EDIPART.cpartner 
-    lnPartCnt = lnPartCnt + 1 
+    laPartSDesc[lnCntP] = EDIPART.cpartname
+    laPartSValues[lnCntP] = EDIPART.cpartner 
+    lnCntP = lnCntP + 1 
   ENDSCAN 
 ENDIF
 *! E612624,1 MMT 09/11/2022 Export Style Entity to SIIWII[End]
