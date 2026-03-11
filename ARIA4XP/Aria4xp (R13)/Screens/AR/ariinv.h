@@ -94,3 +94,7 @@
 #DEFINE LANG_Carrier                "Carrier"
 #DEFINE LANG_ProcessCarrierShipment "Process Carrier Shipmen\<t"
 *E302945, 1 WAM 07 / 26 / 2011 (End)
+*!* E304214,1 MMT 03/11/2026 Add Sort by Style/Line# to options menu[E-ERP-20251015.0007][Start]
+#DEFINE LANG_ARIINV_SORT_BY_STYLE 'Sort by Style' 
+#DEFINE LANG_ARIINV_SORT_BY_LINE_NO 'Sort by Line#' 
+*!* E304214,1 MMT 03/11/2026 Add Sort by Style/Line# to options menu[E-ERP-20251015.0007][End]
