@@ -1,0 +1,45 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: UPS.UPSShip.LabelType
+// Assembly: UPS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: FE2C527D-E7B1-4D14-9A59-DD5F5EB261A9
+// Assembly location: D:\Aria4xp\DLLS\UPS.dll
+
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+
+namespace UPS.UPSShip
+{
+    [DebuggerStepThrough]
+    [XmlType(Namespace = "http://www.ups.com/XMLSchema/XOLTWS/Ship/v1.0")]
+    [GeneratedCode("System.Xml", "4.6.1087.0")]
+    [DesignerCategory("code")]
+    [Serializable]
+    public class LabelType : ImageType
+    {
+      private string internationalSignatureGraphicImageField;
+      private string hTMLImageField;
+      private string pDF417Field;
+
+      public string InternationalSignatureGraphicImage
+      {
+        get => this.internationalSignatureGraphicImageField;
+        set => this.internationalSignatureGraphicImageField = value;
+      }
+
+      public string HTMLImage
+      {
+        get => this.hTMLImageField;
+        set => this.hTMLImageField = value;
+      }
+
+      public string PDF417
+      {
+        get => this.pDF417Field;
+        set => this.pDF417Field = value;
+      }
+    }
+}

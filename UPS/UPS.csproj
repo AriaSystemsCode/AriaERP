@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: D:\Aria4xp\DLLS\UPS.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B5626AC8-5019-4CE2-8475-92F9A6AA1175}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>UPS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>UPS</RootNamespace>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Helper">
+      <HintPath>lib\Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UPS.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="UPSShip\ShipService.cs" />
+    <Compile Include="UPSShip\UPSSecurity.cs" />
+    <Compile Include="UPSShip\UPSSecurityUsernameToken.cs" />
+    <Compile Include="UPSShip\HighValueReportType.cs" />
+    <Compile Include="UPSShip\ImageType.cs" />
+    <Compile Include="UPSShip\ImageFormatType.cs" />
+    <Compile Include="UPSShip\ReceiptType.cs" />
+    <Compile Include="UPSShip\LabelType.cs" />
+    <Compile Include="UPSShip\SCReportType.cs" />
+    <Compile Include="UPSShip\FormImageType.cs" />
+    <Compile Include="UPSShip\FormType.cs" />
+    <Compile Include="UPSShip\PackageResultsType.cs" />
+    <Compile Include="UPSShip\ShipChargeType.cs" />
+    <Compile Include="UPSShip\BillingUnitOfMeasurementType.cs" />
+    <Compile Include="UPSShip\BillingWeightType.cs" />
+    <Compile Include="UPSShip\TransportationChargeType.cs" />
+    <Compile Include="UPSShip\FRSShipmentDataType.cs" />
+    <Compile Include="UPSShip\NegotiatedRateChargesType.cs" />
+    <Compile Include="UPSShip\ShipmentChargesType.cs" />
+    <Compile Include="UPSShip\ShipmentResultsType.cs" />
+    <Compile Include="UPSShip\CodeDescriptionType.cs" />
+    <Compile Include="UPSShip\ResponseType.cs" />
+    <Compile Include="UPSShip\TransactionReferenceType.cs" />
+    <Compile Include="UPSShip\LabelStockSizeType.cs" />
+    <Compile Include="UPSShip\LabelImageFormatType.cs" />
+    <Compile Include="UPSShip\LabelSpecificationType.cs" />
+    <Compile Include="UPSShip\NMFCType.cs" />
+    <Compile Include="UPSShip\CommodityType.cs" />
+    <Compile Include="UPSShip\PSONotificationType.cs" />
+    <Compile Include="UPSShip\EmailDetailsType.cs" />
+    <Compile Include="UPSShip\VerbalConfirmationType.cs" />
+    <Compile Include="UPSShip\ContactInfoType.cs" />
+    <Compile Include="UPSShip\ShipPhoneType.cs" />
+    <Compile Include="UPSShip\PSOCODType.cs" />
+    <Compile Include="UPSShip\CurrencyMonetaryType.cs" />
+    <Compile Include="UPSShip\DeclaredValueType.cs" />
+    <Compile Include="UPSShip\PackageDeclaredValueType.cs" />
+    <Compile Include="UPSShip\PackageServiceOptionsType.cs" />
+    <Compile Include="UPSShip\DeliveryConfirmationType.cs" />
+    <Compile Include="UPSShip\PackageWeightType.cs" />
+    <Compile Include="UPSShip\ShipUnitOfMeasurementType.cs" />
+    <Compile Include="UPSShip\DimensionsType.cs" />
+    <Compile Include="UPSShip\PackagingType.cs" />
+    <Compile Include="UPSShip\PackageType.cs" />
+    <Compile Include="UPSShip\ReferenceNumberType.cs" />
+    <Compile Include="UPSShip\LabelMethodType.cs" />
+    <Compile Include="UPSShip\LicenseType.cs" />
+    <Compile Include="UPSShip\BlanketPeriodType.cs" />
+    <Compile Include="UPSShip\OtherChargesType.cs" />
+    <Compile Include="UPSShip\IFChargesType.cs" />
+    <Compile Include="UPSShip\ScheduleBType.cs" />
+    <Compile Include="UPSShip\UnitOfMeasurementType.cs" />
+    <Compile Include="UPSShip\ProductWeightType.cs" />
+    <Compile Include="UPSShip\NetCostDateType.cs" />
+    <Compile Include="UPSShip\UnitType.cs" />
+    <Compile Include="UPSShip\ProductType.cs" />
+    <Compile Include="UPSShip\PhoneType.cs" />
+    <Compile Include="UPSShip\CompanyInfoType1.cs" />
+    <Compile Include="UPSShip\SoldToType.cs" />
+    <Compile Include="UPSShip\AddressType.cs" />
+    <Compile Include="UPSShip\ProducerType.cs" />
+    <Compile Include="UPSShip\IntermediateConsigneeType.cs" />
+    <Compile Include="UPSShip\UltimateConsigneeType.cs" />
+    <Compile Include="UPSShip\ForwardAgentType.cs" />
+    <Compile Include="UPSShip\ContactType.cs" />
+    <Compile Include="UPSShip\InternationalFormType.cs" />
+    <Compile Include="UPSShip\LabelDeliveryType.cs" />
+    <Compile Include="UPSShip\NotificationType.cs" />
+    <Compile Include="UPSShip\CODType.cs" />
+    <Compile Include="UPSShip\PickupDetailsType.cs" />
+    <Compile Include="UPSShip\OnCallType.cs" />
+    <Compile Include="UPSShip\ShipmentServiceOptionsType.cs" />
+    <Compile Include="UPSShip\ServiceType.cs" />
+    <Compile Include="UPSShip\RateInfoType.cs" />
+    <Compile Include="UPSShip\PaymentType.cs" />
+    <Compile Include="UPSShip\FRSPaymentInfoType.cs" />
+    <Compile Include="UPSShip\AccountAddressType.cs" />
+    <Compile Include="UPSShip\BillThirdPartyChargeType.cs" />
+    <Compile Include="UPSShip\BillReceiverAddressType.cs" />
+    <Compile Include="UPSShip\BillReceiverType.cs" />
+    <Compile Include="UPSShip\CreditCardAddressType.cs" />
+    <Compile Include="UPSShip\CreditCardType.cs" />
+    <Compile Include="UPSShip\BillShipperType.cs" />
+    <Compile Include="UPSShip\ShipmentChargeType.cs" />
+    <Compile Include="UPSShip\PaymentInfoType.cs" />
+    <Compile Include="UPSShip\ShipAddressType.cs" />
+    <Compile Include="UPSShip\ShipToAddressType.cs" />
+    <Compile Include="UPSShip\CompanyInfoType.cs" />
+    <Compile Include="UPSShip\ShipFromType.cs" />
+    <Compile Include="UPSShip\ShipToType.cs" />
+    <Compile Include="UPSShip\ShipperType.cs" />
+    <Compile Include="UPSShip\ReturnServiceType.cs" />
+    <Compile Include="UPSShip\ShipmentType.cs" />
+    <Compile Include="UPSShip\ShipmentTypeShipmentServiceOptions.cs" />
+    <Compile Include="UPSShip\RequestType.cs" />
+    <Compile Include="UPSShip\UPSSecurityServiceAccessToken.cs" />
+    <Compile Include="UPSShip\ShipmentRequest.cs" />
+    <Compile Include="UPSShip\ShipmentResponse.cs" />
+    <Compile Include="UPSShip\ShipConfirmRequest.cs" />
+    <Compile Include="UPSShip\ShipConfirmResponse.cs" />
+    <Compile Include="UPSShip\ShipAcceptRequest.cs" />
+    <Compile Include="UPSShip\ShipAcceptResponse.cs" />
+    <Compile Include="UPSShip\ProcessShipmentCompletedEventHandler.cs" />
+    <Compile Include="UPSShip\ProcessShipmentCompletedEventArgs.cs" />
+    <Compile Include="UPSShip\ProcessShipConfirmCompletedEventHandler.cs" />
+    <Compile Include="UPSShip\ProcessShipConfirmCompletedEventArgs.cs" />
+    <Compile Include="UPSShip\ProcessShipAcceptCompletedEventHandler.cs" />
+    <Compile Include="UPSShip\ProcessShipAcceptCompletedEventArgs.cs" />
+    <Compile Include="UPSTrack\TrackService.cs" />
+    <Compile Include="UPSTrack\UPSSecurity.cs" />
+    <Compile Include="UPSTrack\UPSSecurityUsernameToken.cs" />
+    <Compile Include="UPSTrack\ProductCodeDescriptionType.cs" />
+    <Compile Include="UPSTrack\MessageType.cs" />
+    <Compile Include="UPSTrack\StatusType.cs" />
+    <Compile Include="UPSTrack\PODLetterType.cs" />
+    <Compile Include="UPSTrack\ImageFormatType.cs" />
+    <Compile Include="UPSTrack\SignatureImageType.cs" />
+    <Compile Include="UPSTrack\ActivityLocationType.cs" />
+    <Compile Include="UPSTrack\AddressType.cs" />
+    <Compile Include="UPSTrack\ActivityType.cs" />
+    <Compile Include="UPSTrack\PackageServiceOptionsType.cs" />
+    <Compile Include="UPSTrack\CODType.cs" />
+    <Compile Include="UPSTrack\AmountType.cs" />
+    <Compile Include="UPSTrack\CODStatusType.cs" />
+    <Compile Include="UPSTrack\CodeDescriptionType1.cs" />
+    <Compile Include="UPSTrack\ReRouteType.cs" />
+    <Compile Include="UPSTrack\ReturnToType.cs" />
+    <Compile Include="UPSTrack\PackageType.cs" />
+    <Compile Include="UPSTrack\DeliveryType.cs" />
+    <Compile Include="UPSTrack\WeightType.cs" />
+    <Compile Include="UPSTrack\UnitOfMeasurementType.cs" />
+    <Compile Include="UPSTrack\ReferenceNumberType.cs" />
+    <Compile Include="UPSTrack\AppointmentType.cs" />
+    <Compile Include="UPSTrack\DateTime.cs" />
+    <Compile Include="UPSTrack\DocumentType.cs" />
+    <Compile Include="UPSTrack\CarrierActivityInformationType.cs" />
+    <Compile Include="UPSTrack\DestinationPortDetailsType.cs" />
+    <Compile Include="UPSTrack\OriginPortDetailsType.cs" />
+    <Compile Include="UPSTrack\ShipmentActivityType.cs" />
+    <Compile Include="UPSTrack\EstimatedDeliveryDetailsType.cs" />
+    <Compile Include="UPSTrack\ServiceCenterType.cs" />
+    <Compile Include="UPSTrack\ShipmentServiceOptionsType.cs" />
+    <Compile Include="UPSTrack\DeliveryDetailsType.cs" />
+    <Compile Include="UPSTrack\ShipmentReferenceNumberType.cs" />
+    <Compile Include="UPSTrack\ServiceType.cs" />
+    <Compile Include="UPSTrack\ShipToType.cs" />
+    <Compile Include="UPSTrack\ShipperType.cs" />
+    <Compile Include="UPSTrack\CodeDescriptionValueType.cs" />
+    <Compile Include="UPSTrack\ShipmentType.cs" />
+    <Compile Include="UPSTrack\RefShipmentType.cs" />
+    <Compile Include="UPSTrack\CodeDescriptionType.cs" />
+    <Compile Include="UPSTrack\ResponseType.cs" />
+    <Compile Include="UPSTrack\TransactionReferenceType.cs" />
+    <Compile Include="UPSTrack\ShipperAccountInfoType.cs" />
+    <Compile Include="UPSTrack\ShipToRequestType.cs" />
+    <Compile Include="UPSTrack\AddressRequestType.cs" />
+    <Compile Include="UPSTrack\ShipFromRequestType.cs" />
+    <Compile Include="UPSTrack\PickupDateRangeType.cs" />
+    <Compile Include="UPSTrack\RequestType.cs" />
+    <Compile Include="UPSTrack\UPSSecurityServiceAccessToken.cs" />
+    <Compile Include="UPSTrack\TrackRequest.cs" />
+    <Compile Include="UPSTrack\TrackResponse.cs" />
+    <Compile Include="UPSTrack\ProcessTrackCompletedEventHandler.cs" />
+    <Compile Include="UPSTrack\ProcessTrackCompletedEventArgs.cs" />
+    <Compile Include="UPSVoid\VoidService.cs" />
+    <Compile Include="UPSVoid\UPSSecurity.cs" />
+    <Compile Include="UPSVoid\UPSSecurityUsernameToken.cs" />
+    <Compile Include="UPSVoid\PackageLevelResult.cs" />
+    <Compile Include="UPSVoid\CodeDescriptionType.cs" />
+    <Compile Include="UPSVoid\ResponseType.cs" />
+    <Compile Include="UPSVoid\TransactionReferenceType.cs" />
+    <Compile Include="UPSVoid\RequestType.cs" />
+    <Compile Include="UPSVoid\UPSSecurityServiceAccessToken.cs" />
+    <Compile Include="UPSVoid\VoidShipmentRequest.cs" />
+    <Compile Include="UPSVoid\VoidShipmentRequestVoidShipment.cs" />
+    <Compile Include="UPSVoid\VoidShipmentResponse.cs" />
+    <Compile Include="UPSVoid\VoidShipmentResponseSummaryResult.cs" />
+    <Compile Include="UPSVoid\ProcessVoidCompletedEventHandler.cs" />
+    <Compile Include="UPSVoid\ProcessVoidCompletedEventArgs.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
