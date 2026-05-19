@@ -269,7 +269,7 @@ IF ('EB' $ oAriaApplication.CompanySetupModules OR 'NC' $ oAriaApplication.Compa
       IF gfSEEK(EDIACPRT.cPartCode+'STY','EDIPD')
         IF !SEEK('STY'+PADR(lcStyMajor,40)+'D'+EDIACPRT.CPARTNER ,'EDITRANS')
           INSERT INTO ('EDITRANS') (CEDITRNTYP,KEY,TYPE,CPARTNER) VALUES ;
-          ('STY',lcStyMajor,'R',EDIACPRT.CPARTNER)
+          ('STY',lcStyMajor,'D',EDIACPRT.CPARTNER)
         ENDIF
         REPLACE cStatus WITH 'N' IN EDITRANS
         =gfAdd_Info('EDITRANS')

@@ -82,7 +82,7 @@ FUNCTION lfFormInit
 
   IF !EMPTY(loFormSet.pcBatchno)
     loFormSet.Ariaform1.pbPost.VISIBLE = .F.
-    loFormSet.Ariaform1.pbEntries.LEFT = loFormSet.Ariaform1.WIDTH/2 - loFormSet.Ariaform1.pbEntries.WIDTH/2
+    *loFormSet.Ariaform1.pbEntries.LEFT = loFormSet.Ariaform1.WIDTH/2 - loFormSet.Ariaform1.pbEntries.WIDTH/2
     *E303161,4 TMI 10/07/2012 [Start] add a caption in case of modal open
     *N000682,1 MMT 11/20/2012 Globalization Changes[Start]
     *loFormset.Ariaform1.Caption = 'Transaction'

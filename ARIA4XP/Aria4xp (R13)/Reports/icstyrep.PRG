@@ -125,7 +125,7 @@ ELSE
 ENDIF
 
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][End]
-#INCLUDE R:\Aria4xp\reports\ICSTYREP.H
+#INCLUDE r:\Aria4xp\reports\ICSTYREP.H
 *xxxxx
 IF TYPE('lcXMLFileName') = 'C'
 
@@ -5635,6 +5635,7 @@ IF TYPE('lcXMLFileName') <> 'C'
   	oProgress.Show()
   	lcCaptionVal = Alltrim(lcCaptionVal)+Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_Style,oAriaApplication.GetHeaderText("LANG_ICSTYREP_Style",AHEADERFILE))+" : "
   *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  CATCH
   ENDTRY
   *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 	lnCntRecProg  = 1
@@ -6839,6 +6840,7 @@ IF TYPE('lcXMLFileName') <> 'C'
   	lcCaptionVal = Alltrim(lcCaptionVal)+Iif(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_ICSTYREP_Style,oAriaApplication.GetHeaderText("LANG_ICSTYREP_Style",AHEADERFILE))+" : "
   	lnCntRecProg  = 1
   *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][Start]
+  CATCH
   ENDTRY
   *! B611941,1 MMT 08/08/2024 Random error while running the Style summary report[T-ERP-20240805.0001][End]
 *E612104,1 Es 04/26/2020 Modify the Style Summary report to filter data based on a new option "Show Only styles below minimum inventory level" and work from the Request builder screen [P20200316.0001][Start

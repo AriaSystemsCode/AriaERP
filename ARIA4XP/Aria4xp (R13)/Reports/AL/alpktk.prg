@@ -33,6 +33,7 @@
 *! E612626,1 MMT 09/11/2022 Modify Picking ticket form GP to have sort by option[T20220907.0002]
 *! E612702,1 MMT 11/19/2023 Add The customer user fields to the fields list that are exported from the Picking ticket form to Excel[T-ERP-20231102.0002]
 *! B612704,1 MMT 02/11/2024 Fix the error happens if the customer UDF has special chars[T-ERP-20240206.0001]
+*! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006]
 *!*****************************************************************************************
 
 *! E303322,1 SAB 12/06/2012 Modify the report to run from request builder [Start]
@@ -367,7 +368,7 @@ ENDIF
 *B607979,1 AYM  add the sort by style to the standard , suppress this option if a custom form is used [START]
 *E612626,1 MMT 09/11/2022 Modify Picking ticket form GP to have sort by option[T20220907.0002][Start]
 *llSuppress = LEN(lcFormName)=8 .OR. RIGHT(lcFormName,1)$'BE'
-llSuppress = (LEN(lcFormName)=8 .OR. RIGHT(lcFormName,1)$'BE') AND RIGHT(lcFormName,2) != 'GP' 
+llSuppress = (LEN(lcFormName)=8 .OR. RIGHT(lcFormName,1)$'BE') AND RIGHT(lcFormName,2) != 'GP'  AND RIGHT(lcFormName,2) != 'AZ' 
 *E612626,1 MMT 09/11/2022 Modify Picking ticket form GP to have sort by option[T20220907.0002][End]
 IF !llSuppress .AND. lcRpStBy= 'S'
   lcKey = STRTRAN(UPPER(KEY()),'STR(LINENO,6)','STYLE+STR(LINENO,6)')
@@ -1759,6 +1760,11 @@ FUNCTION lfSolSpAdr
   ELSE    && Else
     SELECT(lcCustomer)
     lcDistCntr = &lcCustomer..Dist_Ctr
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    IF !EMPTY(&lcPiktktTemp..distrb_no)
+      lcDistCntr = SUBSTR(&lcPiktktTemp..distrb_no,1,8)
+    ENDIF
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
     *--If there is a distribution center
     *N000592,1 HBG 02/27/2007 Print Store Address or DC Address depnding on the Flag of Dircet To Store in ORDHDR [Begin]
     *IF !EMPTY(lcDistCntr)
@@ -2897,6 +2903,15 @@ FUNCTION lfGetTempFiles
       ENDIF
       *B607878,1 MMT 12/14/2006 Bug in ship to if DC is used [End]
     ENDIF
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    IF !EMPTY(&lcPiktktTemp..distrb_no) AND  !SEEK('S'+&lcPiktktTemp..Account + SUBSTR(&lcPiktktTemp..distrb_no,1,8),lcCustomer)
+       IF loCustomer.SEEK('S'+ &lcPiktktTemp..Account + SUBSTR(&lcPiktktTemp..distrb_no,1,8))
+          SELECT(lcTempCustomer)
+          SCATTER MEMO MEMVAR
+          INSERT INTO (lcCustomer) FROM MEMVAR
+        ENDIF
+    ENDIF
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
 
   ENDSCAN
 

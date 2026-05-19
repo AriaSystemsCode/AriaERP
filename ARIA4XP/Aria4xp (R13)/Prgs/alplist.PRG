@@ -91,8 +91,9 @@
 *! B612392,1 MMT 05/18/2021 Incorrect Packing list totals - Random issue [T20210426.0002]
 *! B612417,1 MMT 06/27/2021 The Manaul Packing List screen takes long time to load huge Packing list data at BBC10 [T20210329.0003]
 *! B612497,1 MMT 11/22/2021 The Packed Qtys is Ordline is got corrupted if user Edited/Deleted Packing list while another user is editing the SO, and the SO saving is done after the Packing list saving[T20211011.0005]
+*! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010]
 *:************************************************************************
-#INCLUDE R:\Aria4xp\PRGs\ALPLIST.h
+#INCLUDE  r:\aria4xp\prgs\ALPLIST.h
 
 *E302507,1 WLD 03/17/2008 Call Packing List screen by parameter [Begin]
 PARAMETERS lcPackLsNo
@@ -4339,6 +4340,14 @@ FUNCTION lfNewBOL
   lcAccount = loFormSet.ariaForm1.kbAccount.keytextbox.VALUE
   lcStore   = loFormSet.ariaForm1.kbStore.keytextbox.VALUE
   lcShipVia = loFormSet.ariaForm1.pgfPacking.HEADER.cboShipViaH.VALUE
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+  lcPkTkt = loFormSet.ariaForm1.kbPkTktNo.keytextbox.VALUE  
+  =SEEK(lcPkTkt,'PIKTKT','PIKTKT')
+  lcDistCtr =''
+  IF !EMPTY(PIKTKT.DISTRB_NO)
+    lcDistCtr = SUBSTR(PIKTKT.DISTRB_NO,1,8)
+  ENDIF
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
   *! B609167,1 MMT 03/11/2010 the orders are not changing the ship to address's should either be stores or to DC[Start]
   *!*	  loFormSet.ariaForm1.pgfPacking.HEADER.txtBOL.VALUE = ;
   *!*	    loFormSet.AriaForm1.alclass.lfGetBOL("",lcAccount,lcStore,loFormSet.lcWareCode,;
@@ -4347,7 +4356,7 @@ FUNCTION lfNewBOL
   loFormSet.ariaForm1.pgfPacking.HEADER.txtBOL.VALUE = ;
     loFormSet.ariaForm1.alclass.lfGetBOL("",lcAccount,lcStore,loFormSet.lcWareCode,;
     lcShipVia,IIF(loFormSet.lnCtnTyp=1,'Y','N'),"laFields",.F.,.F.,;
-    IIF(loFormSet.lnDrctTo=2,"C","S"),OrdHdr.LSTRDIRCT)
+    IIF(loFormSet.lnDrctTo=2,"C","S"),OrdHdr.LSTRDIRCT,lcDistCtr)
   *! B609167,1 MMT 03/11/2010 the orders are not changing the ship to address's should either be stores or to DC[End]
   *-- End Of Function lfNewBOL
 
@@ -9955,7 +9964,10 @@ FUNCTION lfCrSavFiles
   DIMENSION laIndx[2,2]
 
   laIndx[1,1] = "STR(Cart_No,4)+Style+Dyelot+STR(nOrdLineNo,6)"
-  laIndx[1,2] = loFormSet.lcTmCtnDtl
+  *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][Start]
+  *  laIndx[1,2] = loFormSet.lcTmCtnDtl
+  laIndx[1,2] = lcTmCtnDtl
+  *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][End]
   laIndx[2,1] = "cStatus"
   laIndx[2,2] = "Status"
   *! E303769,1 MMT 03/12/2017 Change the Saving of the Manual Packing list to be used from another programs[P20161215.00002][Start]
@@ -11295,7 +11307,7 @@ FUNCTION lfSavCartn
   LPARAMETERS lcPack_no,lcTmAsnShp
   *! E303769,1 MMT 03/12/2017 Change the Saving of the Manual Packing list to be used from another programs[P20161215.00002][End]
   *E302315 WLD Print Visual lables from Packing List 10/10/2006 [Begin]
-
+SET STEP ON 
   lcSetDele = SET('DELETE')
   *! E303769,1 MMT 03/12/2017 Change the Saving of the Manual Packing list to be used from another programs[P20161215.00002][Start]
   *IF !loformset.llIncPLNum
@@ -11347,7 +11359,16 @@ FUNCTION lfSavCartn
     oAriaApplication.ScreenHome = lcEdiPath +  'SCREENS\'
     SET CLASSLIB TO (oAriaApplication.ClassDir +'EDI.VCX') ADDIT
     SET PROCEDURE TO (oAriaApplication.ApplicationHome +'EDIGLOBL.FXP') ADDITIV
-    loFormSet.EDICRTSQ.SetOrder('PCKCRTSQ')
+    *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][Start]
+    IF TYPE('loFormSet')='O'
+      loFormSet.EDICRTSQ.SetOrder('PCKCRTSQ')
+    ELSE
+      IF !USED('EDICRTSQ')
+        =gfOpenTable('EDICRTSQ','PCKCRTSQ')
+      ENDIF
+      SET ORDER TO PCKCRTSQ IN EDICRTSQ
+    ENDIF   
+    *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][End]
     IF EMPTY(lcBol)
       SELECT (lcCtnHdr)
       SCAN
@@ -13439,7 +13460,10 @@ FUNCTION lfSavePack
     *lnLastCtn = lnLastCrt
     *! E303769,2 MMT 03/28/2017 Error while saving PL if company setup'UCC # Structure' =5[P20161215.00002][End]
     *B611396 ,1 MHM 09/5/2017 Manual PL doesnot give new carton the correct seqeunce [Begin]
-    lnLastCtn = IIF((!loFormSet.llIncPLNum AND loFormSet.ActiveMode = 'E') OR lcActiveMode = 'A',lnLastCrt,lnLastCtn)
+    *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][Start]
+    *lnLastCtn = IIF((!loFormSet.llIncPLNum AND loFormSet.ActiveMode = 'E') OR lcActiveMode = 'A',lnLastCrt,lnLastCtn)
+    lnLastCtn = IIF((TYPE('loFormSet')='O' AND !loFormSet.llIncPLNum AND loFormSet.ActiveMode = 'E') OR lcActiveMode = 'A',lnLastCrt,lnLastCtn)
+    *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][End]
     *B611396 ,1 MHM 09/5/2017 Manual PL doesnot give new carton the correct seqeunce [END]
     =gfREPLACE("nLastLno  WITH MAX(nLastLno,lnLastNo) ,;
 			            nLastCart WITH lnLastCtn")
@@ -13519,6 +13543,10 @@ FUNCTION lfSavePack
     =gfTableUpdate()
     SELECT BOL_HDR
     =gfTableUpdate()
+    *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][Start]
+    SELECT EDICRTSQ
+    =gfTableUpdate()
+    *! E304207,1 MMT 05/13/2025 Adjust the Saving function to be called from the EDI Adaptors [T-ERP-20250320.0010][End]
   ENDIF
 
   SELECT(lnCurAlias)

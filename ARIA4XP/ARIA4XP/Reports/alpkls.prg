@@ -27,6 +27,7 @@
 *! B609458,1 MMT 11/11/2010 Check if cursors are opened before using it[T20101029.0010]
 *! E303451,1 SAB 03/17/2014 Convert Packing List Report to Run From RB [T20140113.0002][Start]
 *! E303464,1 HES 04/23/2014 Add new print flag field in P\L and populate it when P\L's printed [T20140414.0001]
+*! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006]
 *:**************************************************************************
 *! E303451,1 SAB 03/17/2014 Convert Packing List Report to Run From RB [T20140113.0002][Start]
 PARAMETERS lcRequestID, lcXMLFileName, ClientId
@@ -1105,6 +1106,12 @@ ELSE
     lnCUSRec = IIF(!EOF(lcCustomer),RECNO(lcCustomer),0)
     =SEEK('S'+&lcCustomer..Account+&lcCustomer..Dist_ctr)
   ENDIF
+*! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+IF !EMPTY(&lcTempPikTkt..distrb_no)
+  lnCUSRec = IIF(!EOF(lcCustomer),RECNO(lcCustomer),0)
+  =SEEK('S'+&lcCustomer..Account+SUBSTR(&lcTempPikTkt..distrb_no,1,8))
+ENDIF
+*! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
 
   =gfGetAdr(lcCustomer , '' , '' , '' , @laShipTo)
   =lfAdrShift('laShipTo')

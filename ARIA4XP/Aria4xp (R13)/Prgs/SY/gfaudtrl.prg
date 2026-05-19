@@ -36,6 +36,7 @@
 *E301298,1 this program was added by HS for the entry E301298,1.
 *! N039625,1 MAH 08/24/2005 Enhance Production Schadule Process.
 *! E302741,1 WAM 08/25/2010 Convert Audit Trail file into SQL [T20100819.0020]
+*! E304212,1 MMT 09/24/2025 Dispaly the Audit trail date.time in user's time zone[P-ERP-20250502.0011]
 *:************************************************************************
 *
 *! N039625,1 MAH 08/24/2005 [BEGIN]
@@ -73,11 +74,21 @@ lcAudTrlID = gfSequence('cAudTralID')
 *--         cAudTralID , cAdd_User , dAdd_Date  , cAdd_Time);
 *-- VALUES (lcObjectID , lcKey     , lcEvnObjID , lcEventID , lcInform   ,;
 *--         lcAudTrlID , oAriaApplication.User_ID , DATE()     , gfGetTime())
+*E304212,1 MMT 09/24/2025 Dispaly the Audit trail date.time in user's time zone[P-ERP-20250502.0011][Start]
+*!*	INSERT INTO AUDTRAIL ;
+*!*	                        (cApObjNam  , key       , cEvntObjID , cEvent_ID , mNeededInf , ;
+*!*	                         cAudTralID , cAdd_User , dAdd_Date  , cAdd_Time, mUsrComm) ;
+*!*	                        VALUES (lcObjectID , lcKey     , lcEvnObjID , lcEventID , lcInform   , ;
+*!*	
+lcUTCDateTime = GetUtcTime(DateTime())
+lcDateUTC = TTOD(lcUTCDateTime)
+lcTimeUTC = TTOC(lcUTCDateTime,2)
 INSERT INTO AUDTRAIL ;
                         (cApObjNam  , key       , cEvntObjID , cEvent_ID , mNeededInf , ;
                          cAudTralID , cAdd_User , dAdd_Date  , cAdd_Time, mUsrComm) ;
                         VALUES (lcObjectID , lcKey     , lcEvnObjID , lcEventID , lcInform   , ;
-                                        lcAudTrlID , oAriaApplication.User_ID , DATE()     , gfGetTime(), lcUserComments)
+                                        lcAudTrlID , oAriaApplication.User_ID , lcDateUTC ,lcTimeUTC , lcUserComments)                                       
+*E304212,1 MMT 09/24/2025 Dispaly the Audit trail date.time in user's time zone[P-ERP-20250502.0011][End]                                        
 *E302741,1 WAM 08/25/2010 Convert Audit Trail file into SQL
 =gfReplace('')
 =gfReplace("mNeededInf WITH lcInform")

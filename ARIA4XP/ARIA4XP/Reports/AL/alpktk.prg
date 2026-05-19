@@ -26,6 +26,7 @@
 *! E303352,1 SAB 02/14/2013 RB Enhancement to work with one EXE []
 *! E303388,1 MMT 06/13/2013 Add Sort by DC# option to Picking ticket form A[T20130213.0029]
 *! B610536,1 MMT 09/30/2013 Picking ticket sort by DC# does not display lines[T20130923.0025]
+*! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006]
 *!*****************************************************************************************
 
 *! E303322,1 SAB 12/06/2012 Modify the report to run from request builder [Start]
@@ -1568,6 +1569,12 @@ IF &lcORDHDR..Alt_ShpTo
 ELSE    && Else
   SELECT(lcCUSTOMER)
   lcDistCntr = &lcCUSTOMER..Dist_Ctr
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    IF !EMPTY(&lcPiktktTemp..distrb_no)
+      lcDistCntr = SUBSTR(&lcPiktktTemp..distrb_no,1,8)
+    ENDIF
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
+  
   *--If there is a distribution center
   *N000592,1 HBG 02/27/2007 Print Store Address or DC Address depnding on the Flag of Dircet To Store in ORDHDR [Begin]
   *IF !EMPTY(lcDistCntr)
@@ -2601,7 +2608,16 @@ SCAN
     ENDIF 
     *B607878,1 MMT 12/14/2006 Bug in ship to if DC is used [End]
   ENDIF   
-  
+      *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    IF !EMPTY(&lcPiktktTemp..distrb_no) AND  !SEEK('S'+&lcPiktktTemp..Account + SUBSTR(&lcPiktktTemp..distrb_no,1,8),lcCustomer)
+       IF loCustomer.SEEK('S'+ &lcPiktktTemp..Account + SUBSTR(&lcPiktktTemp..distrb_no,1,8))
+          SELECT(lcTempCustomer)
+          SCATTER MEMO MEMVAR
+          INSERT INTO (lcCustomer) FROM MEMVAR
+        ENDIF
+    ENDIF
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
+
 ENDSCAN 
 
 *--Style File

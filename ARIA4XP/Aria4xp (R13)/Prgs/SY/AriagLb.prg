@@ -48,6 +48,8 @@
 * B612712,1 MMT 04/02/2024 problem to print a statements[T-ERP-20240402.0007]
 * B611936,1 MMT 06/06/2024 Incorrect logged in users count in Aria5ERP login page[T-ERP-20240531.0002]
 * B611939,1 MMT 07/08/2024 Create syustatc table if it is corrupted[T-EDI-20240626.0003]
+* B611944,1 MMT 01/30/2025 adjust user count to deduct Support user count[T-ERP-20250124.0003]
+* E304212,1 MMT 09/24/2025 Dispaly the Audit trail date.time in user's time zone[P-ERP-20250502.0011]
 *:************************************************************************
 *-- Include the .H file
 #INCLUDE R:\ARIA4XP\PRGS\SY\ARIA.H
@@ -458,7 +460,7 @@ SET ORDER TO CUSER_ID
 *!*	             gfCheckUser(SYUSTATC.CUSER_ID,CSTATION) ;
 *!*	       INTO ARRAY  laUserList
 LCCURUSER= OARIAAPPLICATION.USER_ID
-LCCURSTAT= OARIAAPPLICATION.STATION
+LCCURSTAT= OARIAAPPLICATION.ref4.STATION
 IF !LLGETCOUNT
   LNREMRESULT = OARIAAPPLICATION.REMOTESYSTEMDATA.EXECUTE("Select * from syuuser",'',"syuuser","",OARIAAPPLICATION.SYSTEMCONNECTIONSTRING,3,"",1)
 
@@ -572,10 +574,16 @@ ELSE
 
   *! E302555,1 MMT 09/18/2008 Add Syustatc File For Aria4 and count A4 users[End]
   *B128052,1 AMH [End]
-
+SET STEP ON 
   *! E303294,1 HIA 11/11/2012 Add new support login[T20120726.0060][Start]
   IF LNSUPPORTUSERCOUNT > 0
-    LNUSERCOUNT = LNUSERCOUNT -1
+    *B611944,1 MMT 01/30/2025 adjust user count to deduct Support user count[T-ERP-20250124.0003][Star]
+    *LNUSERCOUNT = LNUSERCOUNT -1
+    LNUSERCOUNT = LNUSERCOUNT -LNSUPPORTUSERCOUNT
+    IF LNUSERCOUNT = 0
+      LNUSERCOUNT = -1
+    ENDIF
+    *B611944,1 MMT 01/30/2025 adjust user count to deduct Support user count[T-ERP-20250124.0003][End]
   ENDIF
   *! E303294,1 HIA 11/11/2012 Add new support login[T20120726.0060][End]
 
@@ -21076,3 +21084,90 @@ ENDIF
 SELECT(lnSelAlias)
 RETURN lcReturnText 
 * E612596,1 MMT 07/26/2022 Add memo field to the profiles list and profiles screens [T20220407.0001][End]
+* E304212,1 MMT 09/24/2025 Dispaly the Audit trail date.time in user's time zone[P-ERP-20250502.0011][Start]
+************************************************************************
+* GetUtcTime
+****************************************
+*** Function: Returns UTC time from local time
+*** Assume:
+*** Pass:
+*** Return:
+************************************************************************
+FUNCTION GetUtcTime(ltTime)
+
+IF EMPTY(ltTime)
+ltTime = DATETIME()
+ENDIF
+
+*** Adjust the timezone offset
+RETURN ltTime + (GetTimeZone() * 60)
+ENDFUNC
+* GetUtcTime
+
+************************************************************************
+* FromUtcTime
+****************************************
+*** Function: Returns local time from UTC Time
+*** Assume:
+*** Pass:
+*** Return:
+************************************************************************
+FUNCTION FromUtcTime(ltTime)
+RETURN ltTime - (GetTimeZone() * 60)
+ENDFUNC
+* FromUtcTime
+
+************************************************************************
+FUNCTION GetTimeZone
+*********************************
+*** Function: Returns the TimeZone offset from GMT including
+*** daylight savings. Result is returned in minutes.
+************************************************************************
+local __TimeZone
+
+*** Cache the timezone so this is fast
+*!*	IF VARTYPE(__TimeZone) = "N"
+*!*	RETURN __TimeZone
+*!*	ENDIF
+
+DECLARE integer GetTimeZoneInformation IN Win32API ;
+STRING @ TimeZoneStruct
+
+lcTZ = SPACE(256)
+
+lnDayLightSavings = GetTimeZoneInformation(@lcTZ)
+lnOffset = CharToBin(SUBSTR(lcTZ,1,4),.T.)
+
+*** Subtract an hour if daylight savings is active
+IF lnDaylightSavings = 2
+lnOffset = lnOffset - 60
+ENDIF
+
+__TimeZone = lnOffset
+
+RETURN lnOffSet
+
+************************************************************************
+FUNCTION CharToBin(lcBinString,llSigned)
+****************************************
+*** Function: Binary Numeric conversion routine.
+*** Converts DWORD or Unsigned Integer string
+*** to Fox numeric integer value.
+*** Pass: lcBinString - String that contains the binary data
+*** llSigned - if .T. uses signed conversion
+*** otherwise value is unsigned (DWORD)
+*** Return: Fox number
+************************************************************************
+LOCAL m.i, lnWord
+
+lnWord = 0
+FOR m.i = 1 TO LEN(lcBinString)
+lnWord = lnWord + (ASC(SUBSTR(lcBinString, m.i, 1)) * (2 ^ (8 * (m.i - 1))))
+ENDFOR
+
+IF llSigned AND lnWord > 0x80000000
+lnWord = lnWord - 1 - 0xFFFFFFFF
+ENDIF
+
+RETURN lnWord 	
+* E304212,1 MMT 09/24/2025 Dispaly the Audit trail date.time in user's time zone[P-ERP-20250502.0011][End]

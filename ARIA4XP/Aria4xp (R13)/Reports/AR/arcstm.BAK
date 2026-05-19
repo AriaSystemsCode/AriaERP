@@ -27,6 +27,14 @@
 *: B609612,1 MMT 06/12/2011 Customer statement report Prints Wrong Division long name[T20110502.0026]
 *: B609661,1 WAM 08/16/2011 Fix calculation of amount for partially paid invoices [T20110607.0020]
 *: B609671,1 WAM 09/19/2011 Create new temporary file to be used when export to excel [T20110627.0014]
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes []
+*! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder []
+*! E303352,1 SAB 02/14/2013 RB Enhancement to work with one EXE []
+*! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media]
+*! B610376,1 MMT 06/11/2013 Fix the problem of missing report data due to VFP9 SP2[T20130606.0026]
+*! E303437,1 SAB 12/24/2013 Modify Aria RB Troubleshooting tool to run with R13[Troublshooting R13]
+*! E303583,1 MMT 05/31/2015 Add Fax# to Bill To address in Customer Statement form A[T20150513.0012]
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
 *:**********************************************************************
 *: Notes : var lcFormType must be defined in SyFrmCdD file in memo field
 *:         called mFrmSpSets it takes one of the following values but it is noe disabled and replaced with
@@ -41,9 +49,17 @@
 PARAMETERS lcRequestID, lcXMLFileName, ClientID
 * MAH
 
+*E303352,1 SAB 02/14/2013 RB Enhancement to work with one EXE [Start]
+IF TYPE('lcRequestID') = 'C' .AND. 'TEMP.TXT' $ UPPER(lcRequestID)  
+  *! E303437,1 SAB 12/24/2013 Modify Aria RB Troubleshooting tool to run with R13[Troublshooting R13][Start]
+  *STRTOFILE("2.0.0.1", lcRequestID, .F.)
+  STRTOFILE("3.0.0.0", lcRequestID, .F.)
+  *! E303437,1 SAB 12/24/2013 Modify Aria RB Troubleshooting tool to run with R13[Troublshooting R13][End]
+  RETURN
+ENDIF
+*E303352,1 SAB 02/14/2013 RB Enhancement to work with one EXE [End]
 
 #INCLUDE R:\Aria4xp\reports\ar\arcstm.H
-
 
 
 IF TYPE('lcXMLFileName') = 'C'
@@ -53,14 +69,23 @@ IF TYPE('lcXMLFileName') = 'C'
   gcRequestID = lcRequestID
   gcClientID = ClientId
 
-  loEnvironment = goRemoteCall.GetRemoteObject("Aria.Environment.AriaEnviromentVariables" + gcInstanceName, gcServerName, gnPort)
+  *! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][Start]
+  *loEnvironment = CREATEOBJECT("Aria.Environment.AriaEnviromentVariables")
+  loEnvironment = goRemoteCall.GetRemoteObject("Aria.Environment.AriaEnviromentVariables")
+  *! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][End]
   loEnvironment.ClientID = ClientID
   loEnvironment.ConnectionsRefresh()
   PRIVATE loAgent
-  loAgent = goRemoteCall.GetRemoteObject("Aria.EnterpriseServices.RequestHandler.AriaRequestAgent" + gcInstanceName, gcServerName, gnPort)
+  *! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][Start]
+  *loAgent = CREATEOBJECT("Aria.EnterpriseServices.RequestHandler.AriaRequestAgent")
+  loAgent = goRemoteCall.GetRemoteObject("Aria.EnterpriseServices.RequestHandler.AriaRequestAgent")
+  *! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][End]
 
   PRIVATE loProgress
-  loProgress = goRemoteCall.GetRemoteObject("Aria.DataTypes.RequestHandler.AriaRequestProgress" + gcInstanceName, gcServerName, gnPort)
+  *! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][Start]
+  loProgress = CREATEOBJECT("Aria.DataTypes.RequestHandler.AriaRequestProgress")
+  *loProgress = goRemoteCall.GetRemoteObject("Aria.DataTypes.RequestHandler.AriaRequestProgress")
+  *! E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][End]
 
   loProgress.Percent = 0
   loProgress.Description = "Opening Data Files..."
@@ -76,7 +101,7 @@ IF TYPE('lcXMLFileName') = 'C'
   SET DEFAULT TO &lcCurrentProcedure.
 
   = gfOpenFile('CUSTOMER','CUSTOMER')
-  = gfOpenFile('CODES')
+  = gfOpenFile('CODES','CODES')
   = gfOpenFile('SYCCURR','CCURRCODE')
   = gfOpenFile('NOTEPAD','NOTEPAD')
   = gfOpenFile('CREDIT','CREDIT')
@@ -93,8 +118,12 @@ IF TYPE('lcXMLFileName') = 'C'
   oAriaEnvironment.xml.RestoreFromXML(FILETOSTR(lcXMLFileName),.T.)
   oAriaEnvironment.Report.gcAct_Appl = 'AR'
 
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
+  *= lfIntializ()
+  *= lfwRepWhen()
     = lfwRepWhen()
     = lfIntializ()
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]  
 
   PUBLIC gcAct_Appl
   gcAct_Appl = 'AR'
@@ -105,9 +134,10 @@ IF TYPE('lcXMLFileName') = 'C'
   ELSE
     oAriaEnvironment.gcDevice = "FILE"
   ENDIF
-
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
   lcFormName = oAriaEnvironment.REPORT.GetForm('ARCSTM')
   lcPrgName  = lcFormName
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]
 ENDIF
 
 
@@ -178,8 +208,6 @@ llLogo = IIF(SEEK('*' + 'LOGO' , 'OBJLINK') .AND. SEEK(OBJLINK.cObject_ID ,;
              'OBJECTS') , .T. , .F.)        && Flag to know if we are to print the Company Logo
 lcTaxRef = gfGetMemVar('M_TAX_REFE')
 
-
-
 lcSelectCommand=[SELECT * FROM SYCCOMP WHERE Ccomp_id=']+oAriaApplication.ActiveCompanyID+[']
 lnResult = oAriaApplication.remotesystemdata.execute(lcSelectCommand,"","SYCCOMP","",oAriaApplication.SystemConnectionString,3,"",SET("DATASESSION"))
 IF lnResult >= 1
@@ -193,12 +221,16 @@ IF lnResult >= 1
 ENDIF
 
 
-
 *-- Checking if Current and all Aging not False (at least one is selected)
 IF !llRpCurrnt AND !llRp30 AND !llRp60 AND !llRp90 AND !llRp120
   *-- Message <You have to select at least one balance period.>
   *-- Buttons <                     OK                      >
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
+  *=gfModalGen('TRM40136B40011','ALERT')
+  IF TYPE('lcXMLFileName') <> 'C'    
   =gfModalGen('TRM40136B40011','ALERT')
+  ENDIF
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]
   RETURN
 ENDIF
 
@@ -209,7 +241,10 @@ IF !FILE('&lcPath.ARSTMSG.MEM')
 
   *-- Message <Statement Message is Empty>
   *-- Buttons <  <Proceed>     <Cancel>  >
-  IF gfModalGen('QRM40157B40003','DIALOG') = 2
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
+  *IF gfModalGen('QRM40157B40003','DIALOG') = 2
+  IF TYPE('lcXMLFileName') <> 'C' .AND. gfModalGen('QRM40157B40003','DIALOG') = 2
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]
     RETURN
   ELSE
     STORE SPACE(60) TO MADL1 , MADL2 , MADL3 , MADL4, MADL5 , M120L1, M120L2, M120L3, M90L1, M90L2 , M90L3 , M60L1 , M60L2 , M60L3, M30L1 , M30L2 , M30L3
@@ -225,12 +260,16 @@ ENDIF
 IF lcRpRemit='F' AND EMPTY(lcRpFactor)
   *-- Message <You have to enter a factor code.>
   *-- Buttons <              OK                >
-  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
   *=gfModalGen('TRM00250B40011','ALERT',LANG_Arcstm_Faccod)
-  =gfModalGen('TRM00250B40011','ALERT',;
-              IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Faccod,oAriaApplication.GetHeaderText("LANG_Arcstm_Faccod",AHEADERFILE)))
-  *N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  IF TYPE('lcXMLFileName') <> 'C'    
+    *N000682,1 11/20/2012 MMT Globlization changes[Start]
+    *=gfModalGen('TRM00250B40011','ALERT',LANG_Arcstm_Faccod)
+    =gfModalGen('TRM00250B40011','ALERT',;
+                IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Faccod,oAriaApplication.GetHeaderText("LANG_Arcstm_Faccod",AHEADERFILE)))
+    *N000682,1 11/20/2012 MMT Globlization changes[End]
+  ENDIF
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]  
   RETURN
 ENDIF
 
@@ -241,8 +280,6 @@ ELSE
   =ACOPY(laCompany,laFactTo)
 ENDIF
 *- [End]
-
-
 
 *-- if Filter Expression changed (ReCollect data again)
 IF llOGFltCh
@@ -285,7 +322,6 @@ IF llOGFltCh
   *-- check for Date used in Aging
   ldRpHDate = IIF(EMPTY(ldRpHDate),oAriaApplication.SystemDate,ldRpHDate)
 
-
   *-- Re-Initialize Age , currency variable
   lcOldAgeFl = ""
   lcSavedCur = ""
@@ -317,7 +353,10 @@ ENDIF
 *-- Endif of Filter Expression changed
 
 *- Reuse the transaction file the get the recno.[Start]
-IF RIGHT(lcFormName,1)= "B" AND lcRepMode = "Text"
+*! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
+*IF RIGHT(lcFormName,1)= "B" AND lcRepMode = "Text"
+IF TYPE('lcXMLFileName') <> 'C' .AND. RIGHT(lcFormName,1)= "B" AND lcRepMode = "Text"
+*! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]
   lcAliasB = SELECT(0)
   IF USED(lcTmpTrn_A)
     USE IN (lcTmpTrn_A)
@@ -366,19 +405,24 @@ DO lpApplyRel  && Apply Relations...
 *-- Calculate spent time in collecting data.
 lnInterval = lfCollTime(lcStTime,TIME())  && Calculate collecting data spent time.
 *!*	WAIT WINDOW 'Selected ' + ALLTRIM(STR(RECCOUNT(lcTmpAcct))) + ' Customer(s), ' + ALLTRIM(STR(RECCOUNT())) + ' Transaction(s) in ' + ALLTRIM(STR(lnInterval,6,2)) + ' Seconds...' NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[Start]
+*! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
 *WAIT WINDOW LANG_Arcstm_Slctd + ALLTRIM(STR(RECCOUNT(lcTmpAcct))) + LANG_Arcstm_Cstmrs + ALLTRIM(STR(RECCOUNT())) + LANG_Arcstm_Tran + ALLTRIM(STR(lnInterval,6,2)) + LANG_Arcstm_Sec NOWAIT
-WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Slctd,oAriaApplication.GetHeaderText("LANG_Arcstm_Slctd",AHEADERFILE)) +;
-            ALLTRIM(STR(RECCOUNT(lcTmpAcct))) +;
-            IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Cstmrs,oAriaApplication.GetHeaderText("LANG_Arcstm_Cstmrs",AHEADERFILE)) +;
-            ALLTRIM(STR(RECCOUNT())) + ;
-            IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Tran,oAriaApplication.GetHeaderText("LANG_Arcstm_Tran",AHEADERFILE)) + ;
-            ALLTRIM(STR(lnInterval,6,2)) +;
-            IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Sec,oAriaApplication.GetHeaderText("LANG_Arcstm_Sec",AHEADERFILE)) NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+IF TYPE('lcXMLFileName') <> 'C'    
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]
+  *WAIT WINDOW LANG_Arcstm_Slctd + ALLTRIM(STR(RECCOUNT(lcTmpAcct))) + LANG_Arcstm_Cstmrs + ALLTRIM(STR(RECCOUNT())) + LANG_Arcstm_Tran + ALLTRIM(STR(lnInterval,6,2)) + LANG_Arcstm_Sec NOWAIT
+  WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Slctd,oAriaApplication.GetHeaderText("LANG_Arcstm_Slctd",AHEADERFILE)) +;
+              ALLTRIM(STR(RECCOUNT(lcTmpAcct))) +;
+              IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Cstmrs,oAriaApplication.GetHeaderText("LANG_Arcstm_Cstmrs",AHEADERFILE)) +;
+              ALLTRIM(STR(RECCOUNT())) + ;
+              IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Tran,oAriaApplication.GetHeaderText("LANG_Arcstm_Tran",AHEADERFILE)) + ;
+              ALLTRIM(STR(lnInterval,6,2)) +;
+              IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Sec,oAriaApplication.GetHeaderText("LANG_Arcstm_Sec",AHEADERFILE)) NOWAIT
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
+ENDIF
+*! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]
 
 *-- Call the Optional Program
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
 *MAH
 *! E302715,1 MMT 07/13/2010 Convert Invoice Form to work from the request builder[Start]
 IF TYPE('lcXMLFileName') = 'C'
@@ -405,6 +449,7 @@ IF TYPE('lcXMLFileName') = 'C'
   ENDIF
 ELSE
   =lfOptProg()
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]
 ENDIF
 *MAH
 
@@ -425,7 +470,6 @@ ELSE
 ENDIF
 *MAH
 
-
 IF llIsAparel
   DO EVALUATE('lcPrgName')
   DO ENDREPORT
@@ -440,7 +484,28 @@ ELSE    && Else Report is FRX
   IF RIGHT(lcFormName,1)= "A"
     =lfCutDate()
   ENDIF
+  
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
+  *DO gfDispRe WITH EVAL('lcFormName')
+  IF TYPE('lcXMLFileName') = 'C'
+    oAriaEnvironment.REPORT.OGLastForm = lcFormName
+    loProgress.Percent = 0.9
+    loProgress.DESCRIPTION = "Printing Report..."
+    loAgent.UpdateObjectProgress(lcRequestID, loProgress, ClientID)
+    PRIVATE loProxy
+    *E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][Start]
+    *loProxy = CREATEOBJECT("Aria.EnterpriseServices.RequestHandler.Proxy.AriaRequestProxy")
+    loProxy = goRemoteCall.GetRemoteObject("Aria.EnterpriseServices.RequestHandler.Proxy.AriaRequestProxy")
+    *E303361,1 SAB 02/28/2013 Merge RB R13 modification with R12 and update R13 VSS [Aria5.2 R13 Media][End]
+        
+    oAriaEnvironment.REPORT.PRINT(oAriaEnvironment.REPORT.OGLastForm)
+    loProgress.Percent = 1.0
+    loProgress.DESCRIPTION = "Printing Report..."
+    loAgent.UpdateObjectProgress(lcRequestID, loProgress, ClientId)
+  ELSE
   DO gfDispRe WITH EVAL('lcFormName')
+ENDIF
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]
 ENDIF
 *-- EndIf of Report type is @SAY
 *!**************************************************************************
@@ -467,9 +532,11 @@ LOCAL llSKip1
 IF !EOF()
   SKIP 1            && Move to next record
   * MAH
-*!*	  IF TYPE('lcXMLFileName') = 'C'
-*!*	    llSKip1 = .T.
-*!*	  ENDIF
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
+  *IF TYPE('lcXMLFileName') = 'C'
+  *  llSKip1 = .T.
+  *ENDIF
+  *! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]
   * MAH
 ENDIF
 IF lnGroupNo >= nGroup OR EOF()
@@ -482,14 +549,16 @@ ELSE
   ENDIF
 ENDIF
 * MAH
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
 SKIP -1           && Move to previous record
-*!*	IF TYPE('lcXMLFileName') = 'C'
-*!*	  IF llSKip1
-*!*	    SKIP -1           && Move to previous record
-*!*	  ENDIF
-*!*	ELSE
-*!*	  SKIP -1           && Move to previous record
-*!*	ENDIF
+*IF TYPE('lcXMLFileName') = 'C'
+*  IF llSKip1
+*    SKIP -1           && Move to previous record
+*  ENDIF
+*ELSE
+*  SKIP -1           && Move to previous record
+*ENDIF
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]
 * MAH
 
 
@@ -536,6 +605,9 @@ ENDIF
 IF TYPE('lcXMLFileName') != 'C'
 *MAH
 *-- Disable only open Invoice in case of not debit
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
+TRY 
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
 LAOGOBJCNT[LFVARPOS('LLRPINVOIE')] = IIF(LCRPTRANS = 'D',.T.,.F.)
 =LFOGSHOWGET('LLRPINVOIE')
 
@@ -546,13 +618,21 @@ LAOGOBJCNT[LFVARPOS('LLRPPRNBAL')] = IIF(LCRPTRANS <> 'D',.T.,.F.)
 *-- Disable ChargeBack Option in case of Credit
 LAOGOBJCNT[LFVARPOS('LLRPPRNCHA')] = IIF(LCRPTRANS $ 'DB',.T.,.F.)
 =LFOGSHOWGET('LLRPPRNCHA')
-
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
+CATCH
+ENDTRY
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
 *MAH
 ENDIF
 *MAH
-
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
+TRY
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
 =lfvInvoice()  &&Checking if Only open invoice is YES from Saved filter
-
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
+CaTch
+Endtry
+*!* E304135,1 DM 17/4/2019 T20180718.0019 - print the Customer Statement Form from Customer screen
 *-- End of lfwRepWhen.
 *!**************************************************************************
 *! Name      : lfItmPos
@@ -604,7 +684,12 @@ lcObjNam = _Screen.ActiveForm.ActiveControl.Name                && Varible to ho
 lcObjVal = _Screen.ActiveForm.ActiveControl.Value      && Varible to hold  the value of the current GET field
 
 IF !EMPTY(lcObjVal) .AND.  lcObjVal > (oAriaApplication.SystemDate)
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
+  *=gfModalGen('TRM40135B40011','ALERT')
+  IF TYPE('lcXMLFileName') <> 'C'
   =gfModalGen('TRM40135B40011','ALERT')
+  ENDIF
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]
   lcObjVal = oAriaApplication.SystemDate
 ENDIF
 ldRpHDate = IIF(EMPTY(ldRpHDate),lcObjVal,MAX(ldRpHDate,lcObjVal))
@@ -738,7 +823,10 @@ FUNCTION lfIntializ
 lnRpLines = 11
 
 *-- Array to hold the account Sold To Address and Company Address
-DIMENSION laSoldTo [5,1] , laCompany[6,1] , laSortDesc[4,1] , laSortVal[4,1], laSetups[2,2]
+*! E303583,1 MMT 05/31/2015 Add Fax# to Bill To address in Customer Statement form A[T20150513.0012][Start]
+*DIMENSION laSoldTo [5,1] , laCompany[6,1] , laSortDesc[4,1] , laSortVal[4,1], laSetups[2,2]
+DIMENSION laSoldTo [6,1] , laCompany[6,1] , laSortDesc[4,1] , laSortVal[4,1], laSetups[2,2]
+*! E303583,1 MMT 05/31/2015 Add Fax# to Bill To address in Customer Statement form A[T20150513.0012][End]
 laSoldTo   = ''
 laCompany  = ''
 
@@ -811,6 +899,10 @@ ENDIF
 llMulCurr = laSetups[1,2]
 lcAgeType = laSetups[2,2]
 
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes [Start]
+*lcAgeType = 'D'
+*llMulCurr = .F.
+*! N000683,1 SAB 11/12/2012 Append Request Builder Changes [End]
 
 *-- Heading displayed in Option Grid according to Age Type (Date or Terms)
 IF lcAgeType = 'D'
@@ -1122,10 +1214,14 @@ PROCEDURE lpCreatFil
  IF RIGHT(lcFormName,1)= "A"
 *--HFK, Create Temp. Loop File.
 lcTmpLoop = loOGScroll.gfTempName()
-gfCrtTmp(lcTmpLoop,"(cLoop C(1))","cLoop",lcTmpLoop,.T.)
-INSERT INTO (lcTmpLoop) (cLoop) VALUES ("A")
-INSERT INTO (lcTmpLoop) (cLoop) VALUES ("B")
-
+*! B610376,1 MMT 06/11/2013 Fix the problem of missing report data due to VFP9 SP2[T20130606.0026][Start]
+*!*	gfCrtTmp(lcTmpLoop,"(cLoop C(1))","cLoop",lcTmpLoop,.T.)
+*!*	INSERT INTO (lcTmpLoop) (cLoop) VALUES ("A")
+*!*	INSERT INTO (lcTmpLoop) (cLoop) VALUES ("B")
+gfCrtTmp(lcTmpLoop,"(cDumm C(1),cLoop C(1))","cDumm+cLoop",lcTmpLoop,.T.)
+INSERT INTO (lcTmpLoop) (cDumm,cLoop) VALUES (SPACE(1),"A")
+INSERT INTO (lcTmpLoop) (cDumm,cLoop) VALUES (SPACE(1),"B")
+*! B610376,1 MMT 06/11/2013 Fix the problem of missing report data due to VFP9 SP2[T20130606.0026][End]
 *-- HFK, Create Temp. Group File.
 lcTmpGroup = loOGScroll.gfTempName()
 gfCrtTmp(lcTmpGroup,"(cGroupKey C(35) , nGroup N(6,0) , nPosition N(2,0) ,Account C(5) , cAddress4 C(30) , cAddress5 C(30) , Region C(6))","cGroupKey + STR(nGroup,6)",lcTmpGroup,.T.)
@@ -1528,11 +1624,15 @@ ELSE  && else if this account not found before.
 
   *-- Add new record in temporary total files.
   *!*    WAIT WINDOW 'Collect data for Customer ' + Account NOWAIT
-  *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT WINDOW LANG_Arcstm_Colct + Account NOWAIT
-WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Colct,oAriaApplication.GetHeaderText("LANG_Arcstm_Colct",AHEADERFILE)) + Account NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [Start]
+  *WAIT WINDOW LANG_Arcstm_Colct + Account NOWAIT
+  IF TYPE('lcXMLFileName') <> 'C'
+    *N000682,1 11/20/2012 MMT Globlization changes[Start]
+    *WAIT WINDOW LANG_Arcstm_Colct + Account NOWAIT
+    WAIT WINDOW IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Colct,oAriaApplication.GetHeaderText("LANG_Arcstm_Colct",AHEADERFILE)) + Account NOWAIT
+    *N000682,1 11/20/2012 MMT Globlization changes[End]
+  ENDIF
+  *! B610194,1 SAB 02/04/2013 Fix error when running the report from request builder [End]  
 
 
   *-- Adding postDated Cheques to lcTmpAcct file in single currency comp.
@@ -1601,6 +1701,11 @@ laSoldTo = ''
 lcacc= &lcTmpTrans..Account
 IF SEEK('M'+lcacc,'Customer')
  =gfGetAdr('Customer', '' , '' , '' , @laSoldTo , '2')
+ *E303583,1 MMT 05/31/2015 Add Fax# to Bill To address in Customer Statement form A[T20150513.0012][Start]
+ IF !EMPTY(customer.fax)
+   laSoldTo [6,1]= "Fax# : "+TRANSFORM(customer.fax, '@R ' +  gfPhoneTem())  && Fax No. Pic
+ ENDIF  
+ *E303583,1 MMT 05/31/2015 Add Fax# to Bill To address in Customer Statement form A[T20150513.0012][End]
 ENDIF
 
 lnAlias = SELECT()
@@ -1812,9 +1917,6 @@ SELECT (lnAlias)         && Restore Old Table
 *
 PROCEDURE lpApplyAge
 lcAgeFlt = ''
-
-set step on
-set debug on
 
 *-- Account has Total Credit Balance
 IF !llRpPrnBal
@@ -2042,6 +2144,7 @@ lnAlias = SELECT()      && Save current Table
 **************************************************************
 
 SELECT (lcTmpAcct)
+
 DO CASE
 
   *-- If Report is Form A
@@ -2051,8 +2154,10 @@ DO CASE
     SET RELATION TO cGroupKey INTO (lcTmpGroup)
     SELECT (lcTmpGroup)
     SET ORDER TO (lcTmpGroup) ASCENDING
-    SET RELATION TO "" INTO (lcTmpLoop)
-
+    *! B610376,1 MMT 06/11/2013 Fix the problem of missing report data due to VFP9 SP2[T20130606.0026][Start]
+    *SET RELATION TO "" INTO (lcTmpLoop)
+    SET RELATION TO SPACE(1) INTO (lcTmpLoop)
+	*! B610376,1 MMT 06/11/2013 Fix the problem of missing report data due to VFP9 SP2[T20130606.0026][End]
     SELECT (lcTmpLoop)
     SET RELATION TO &lcTmpGroup..cGroupKey + STR(&lcTmpGroup..nGroup,6) INTO (lcTmpTrans)
 
@@ -2272,15 +2377,13 @@ FUNCTION lfvFactor
 IF !EMPTY(lcRpFactor) AND !SEEK(lcRpFactor,'SycFact')
   PRIVATE lcBrFields , lcAlias
   lcAlias = ALIAS()
+  *N000682,1 11/20/2012 MMT Globlization changes[Start]  
   *!*    lcBrFields  = [cFacCode:H='Factor',cFacComp:H='Name',cFacCont:H='Contact',cPhoneNo :P= gfPhoneTem() :H='Phone']
   lcBrFields  = [cFacCode:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Factr,oAriaApplication.GetHeaderText("LANG_Arcstm_Factr",AHEADERFILE))+;
                 [',cFacComp:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Name,oAriaApplication.GetHeaderText("LANG_Arcstm_Name",AHEADERFILE))+;
                 [',cFacCont:H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Cntct,oAriaApplication.GetHeaderText("LANG_Arcstm_Cntct",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*[',cPhoneNo :P= gfPhoneTem() :H=']+LANG_Arcstm_Phone+[']
-[',cPhoneNo :P= gfPhoneTem() :H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Phone,oAriaApplication.GetHeaderText("LANG_Arcstm_Phone",AHEADERFILE))+[']
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+				[',cPhoneNo :P= gfPhoneTem() :H=']+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Arcstm_Phone,oAriaApplication.GetHeaderText("LANG_Arcstm_Phone",AHEADERFILE))+[']
+  *N000682,1 11/20/2012 MMT Globlization changes[End]
   SELECT SycFact
   *N000682,1 MMT 02/10/2013 Globalization changes[Start]
 *!*	  lcRpFactor = IIF(ARIABROW('',"Factors",gnBrFSRow1, gnBrFSCol1,;
@@ -2319,10 +2422,6 @@ IF lnTranDate > 0
   *-- EndIf of system uses 4 Char. for Century
 ENDIF
 ldCutDate = IIF(EMPTY(ldCutDate),oAriaApplication.SystemDate,ldCutDate)
-
-
-
-
 *-- End of lfCutDate.
 
 *! #038979, HFK, 01/26/2005, adding browse function and remove validation function.

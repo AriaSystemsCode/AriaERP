@@ -4087,15 +4087,29 @@ laFields[3,2] = "CTN25"
 lcAccount = loFormSet.AriaForm1.kbAccount.keytextbox.VALUE
 lcStore   = loFormSet.AriaForm1.kbStore.keytextbox.VALUE
 lcShipVia = loFormSet.ariaForm1.pgfPacking.HEADER.cboShipViaH.VALUE
+*E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+  lcPkTkt = loFormSet.ariaForm1.kbPkTktNo.keytextbox.VALUE  
+  =SEEK(lcPkTkt,'PIKTKT','PIKTKT')
+  lcDistCtr =''
+  IF !EMPTY(PIKTKT.DISTRB_NO)
+    lcDistCtr = SUBSTR(PIKTKT.DISTRB_NO,1,8)
+  ENDIF
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
 *! B609167,1 MMT 03/11/2010 the orders are not changing the ship to address's should either be stores or to DC[Start]
 *!*	  loFormSet.ariaForm1.pgfPacking.HEADER.txtBOL.VALUE = ;
 *!*	    loFormSet.AriaForm1.alclass.lfGetBOL("",lcAccount,lcStore,loFormSet.lcWareCode,;
 *!*	    lcShipVia,IIF(loFormSet.lnCtnTyp=1,'Y','N'),"laFields",.F.,.F.,;
 *!*	    IIF(loFormSet.lnDrctTo=2,"C","S"))
-loFormSet.ariaForm1.pgfPacking.HEADER.txtBOL.VALUE = ;
+*E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+*loFormSet.ariaForm1.pgfPacking.HEADER.txtBOL.VALUE = ;
   loFormSet.AriaForm1.alclass.lfGetBOL("",lcAccount,lcStore,loFormSet.lcWareCode,;
   lcShipVia,IIF(loFormSet.lnCtnTyp=1,'Y','N'),"laFields",.F.,.F.,;
   IIF(loFormSet.lnDrctTo=2,"C","S"),ORDHDR.LSTRDIRCT)
+  loFormSet.ariaForm1.pgfPacking.HEADER.txtBOL.VALUE = ;
+    loFormSet.ariaForm1.alclass.lfGetBOL("",lcAccount,lcStore,loFormSet.lcWareCode,;
+    lcShipVia,IIF(loFormSet.lnCtnTyp=1,'Y','N'),"laFields",.F.,.F.,;
+    IIF(loFormSet.lnDrctTo=2,"C","S"),OrdHdr.LSTRDIRCT,lcDistCtr)
+*E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]  
 *! B609167,1 MMT 03/11/2010 the orders are not changing the ship to address's should either be stores or to DC[End]
 *-- End Of Function lfNewBOL
 

@@ -45,6 +45,7 @@
 *B611762,1 ES 05/29/2019 - Style wrong ordered quantity in the Rebalance program - [T20181017.0004]
 *E612337,1 MMT 02/10/2021 Automatic Allocation does not update Entity table when picking ticket is created/released [T20201008.0003]
 *B612690,1 MMT 09/11/2023 Automatic Allocation corrupts the Order Qty of the Styles when the user changes the Pick From warehouse[T-ERP-20230907.0001]
+*E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006]
 *!***************************************************************************************************************************
 
 #INCLUDE R:\Aria4XP\Screens\AL\ALAUTAL.h
@@ -4936,11 +4937,18 @@ SCAN FOR lnSel = 1 .AND. totpik > 0 .AND. nProcNo < 4
 
   *IF the first step for this record
   IF nProcNo = 0
-    IF SEEK(ORDER+STORE+cWareCode,loFormSet.lcTmpPkTk)
+    *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    * IF SEEK(ORDER+STORE+cWareCode,loFormSet.lcTmpPkTk)
+    IF SEEK(ORDER+STORE+DISTRB_NO+cWareCode,loFormSet.lcTmpPkTk)
+    *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
       lcPiktkt = EVALUATE(loFormSet.lcTmpPkTk+'.PikTkt')
     ELSE
+     *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+*!*	      lcPiktkt = loFormSet.oAlObj.lfGetPkTkt(ORDER , ORDHDR.cDivision , STORE , cWareCode ,;
+*!*	        loFormSet.lnRpGenNew , IIF(loFormSet.llRpPkHPck,'Y','N'))
       lcPiktkt = loFormSet.oAlObj.lfGetPkTkt(ORDER , ORDHDR.cDivision , STORE , cWareCode ,;
-        loFormSet.lnRpGenNew , IIF(loFormSet.llRpPkHPck,'Y','N'))
+        loFormSet.lnRpGenNew , IIF(loFormSet.llRpPkHPck,'Y','N'),DISTRB_NO)
+     *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]   
     ENDIF
   ENDIF    && End of IF
   =lfGenPikTk(lcPiktkt,loFormSet)
@@ -5021,13 +5029,20 @@ IF FILE(oAriaApplication.Workdir+loFormSet.lcTmpPkTk+'.CDX')
 ENDIF
 
 IF llBuild
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+*!*	  CREATE TABLE (oAriaApplication.Workdir + loFormSet.lcTmpPkTk) ;
+*!*	    (ORDER  C(6), STORE C(8), cWareCode C(6),PIKTKT C(6),cLineNo C(6))
   CREATE TABLE (oAriaApplication.Workdir + loFormSet.lcTmpPkTk) ;
-    (ORDER  C(6), STORE C(8), cWareCode C(6),PIKTKT C(6),cLineNo C(6))
+    (ORDER  C(6), STORE C(8), cWareCode C(6),PIKTKT C(6),cLineNo C(6), DISTRB_NO C(10))
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]  
   ZAP
   *B609356,1 SMA 07/25/2010 remove of clause to prevent empty *.cdx files from creation.....[BEGIN]
   *INDEX ON Order + Store + cWareCode + PikTkt + cLineNo TAG (loFormSet.lcTmpPkTk) OF ;
   (oAriaApplication.WorkDir+loFormSet.lcTmpPkTk+'.CDX')
-  INDEX ON ORDER + STORE + cWareCode + PIKTKT + cLineNo TAG (loFormSet.lcTmpPkTk)
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+  *INDEX ON ORDER + STORE + cWareCode + PIKTKT + cLineNo TAG (loFormSet.lcTmpPkTk)
+  INDEX ON ORDER + STORE+DISTRB_NO  + cWareCode + PIKTKT + cLineNo TAG (loFormSet.lcTmpPkTk)
+  *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
   *B609356,1 SMA 07/25/2010 remove of clause to prevent empty *.cdx files from creation.....[END]
 ENDIF
 SELECT (lcCurrAls)
@@ -5508,8 +5523,10 @@ IF nProcNo = 0
       =gfModalGen("TRM44004B00000","ALERT")
       RETURN
     ELSE    && Else
-
-      IF SEEK(ORDER+STORE+cWareCode+PIKTKT+STR(LINENO,6),loFormSet.lcTmpPkTk)
+      *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+      *IF SEEK(ORDER+STORE+cWareCode+PIKTKT+STR(LINENO,6),loFormSet.lcTmpPkTk)
+      IF SEEK(ORDER+STORE+DISTRB_NO+cWareCode+PIKTKT+STR(LINENO,6),loFormSet.lcTmpPkTk)
+      *E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
         SELECT (loFormSet.lcTmpPkTk)
         DELETE
         SELECT (loFormSet.lcTmpOrdLn)
@@ -6304,7 +6321,9 @@ IF nProcNo = 2
       cWareCode WITH EVALUATE(loFormSet.lcTmpOrdLn+'.cWareCode') ,;
       CustPo    WITH IIF(ORDHDR.MultiPo , EVALUATE(loFormSet.lcTmpOrdLn+'.CustPo') , ORDHDR.CustPo) ,;
       STATUS    WITH 'O'
-
+    *!* E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    REPLACE DISTRB_NO WITH EVALUATE(loFormSet.lcTmpOrdLn+'.DISTRB_NO')
+    *!* E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
     =gfAdd_Info('PIKTKT',loFormSet)
     UNLOCK
     *:   B609785,1 MMT 12/26/2011 Creating PIKTKT does not fire an event in request builder[Start]
@@ -6324,6 +6343,9 @@ IF nProcNo = 2
   m.cWareCode = cWareCode
   m.PIKTKT = PIKTKT
   m.cLineNo = STR(EVALUATE(loFormSet.lcTmpOrdLn+'.LineNo'),6)
+  *!* E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+  m.DISTRB_NO = EVALUATE(loFormSet.lcTmpOrdLn+'.DISTRB_NO')
+  *!* E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
   INSERT INTO (loFormSet.lcTmpPkTk) FROM MEMVAR
 
   SELECT (loFormSet.lcTmpOrdLn)

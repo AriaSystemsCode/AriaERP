@@ -61,7 +61,7 @@ ENDIF
 
 #INCLUDE R:\Aria4xp\reports\ar\arcstm.H
 
-
+1="test"
 IF TYPE('lcXMLFileName') = 'C'
 
   llOGFltCh = .T.

@@ -2131,6 +2131,9 @@ ENDIF
 IF LOFORMSET.LLINQUIRY
 *13Q: can we use seekrecord() here ?
 *apinvhdr.cvendcode      = loFormSet.lcVenCode  &&BOHO
+*xx
+    =gfSeek(PADR(LOFORMSET.lcInvNo, 12) + PADR(LOFORMSET.lcVenCode,8),'apinvhdr','INVVEND')
+   *xx
 
 	LOFORMSET.ARIAFORM1.KBVENDCODE.KEYTEXTBOX.VALUE      = LOFORMSET.LCVENCODE
 *apinvhdr.cinvno      = loFormSet.lcInvNo  &&BOHO

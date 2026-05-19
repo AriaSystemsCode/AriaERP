@@ -32,6 +32,10 @@ DO CASE
     *E303241,1 TMI 10/02/2012 [Start]
     lcrpFields = GetRpField() + ;
                  ',GLPTRNDT.CACCTCODE ,GLPTRNDT.CTRDTEXP  ,GLPTRNDT.CDRORCR   ,GLPTRNDT.NAMOUNT'
+    *XX
+    lcrpFields = lcrpFields + ",glacchar.caccnsdes"
+    lcRpFiles   = lcRpFiles + ",glacchar"
+    *XX             
     *E303241,1 TMI 10/02/2012 [End  ]
 ENDCASE
 
@@ -71,17 +75,20 @@ IF llOGFltCh .OR. (lcRpOldOrd <> lcPrOrder)
     lcRpExp = lcRpExp + ;
               ' AND GLPTRNHD.CBATCHNO = GLPTRNDT.CBATCHNO    AND  GLPTRNHD.CTRANNO = GLPTRNDT.CTRANNO'
     *E303241,1 TMI 10/02/2012 [End  ]
+    *XX
+    lcRpExp = lcRpExp + " AND GLPTRNDT.cacctcode = glacchar.cacctcode"
+    *XX
     SELECT &lcRpFields;
     FROM  &lcRpFiles ;
     WHERE  &lcRpExp  .AND. lfWaitMsg();
     &lcPrOrder.;
-    INTO CURSOR (lcRpTargt)
+    INTO CURSOR (lcRpTargt) READWRITE 
   ELSE
     SELECT DISTINCT &lcRpFields;
     FROM  &lcRpFiles ;
     WHERE  &lcRpExp  .AND. lfWaitMsg();
     &lcPrOrder.;
-    INTO CURSOR (lcRpTargt)
+    INTO CURSOR (lcRpTargt) READWRITE 
   ENDIF
 
     IF lcRpForm = "GLPOTRAD"

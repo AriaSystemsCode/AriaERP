@@ -68,6 +68,7 @@
 *!B611691,1 HMS 11/13/2018 - Gross Profit report is exporting data outside [T20181106.0001]
 *!E304133,1 HMS 04/07/2019 - ERP - Gross Profit Report [T20190301.0007]
 *!B611788,1 HMS 18/06/2019 - Company S2 - A/R Gross Profit data on style P19B17Tx - Gross profit figures are crazy [T20190604.0001]
+*!E304213,1 MMT 10/02/2025 Enhance the AR Gross Profit report to add the Brand filter[T-ERP-20250521.0031]
 *:***********************************************************************************
 #INCLUDE R:\aria4xp\reports\ar\argrossp.H
 lcStTime   = TIME() 
@@ -400,6 +401,20 @@ FUNCTION lfCollData
     ENDIF
   ENDIF
 
+  *Brand
+  *!E304213,1 MMT 10/02/2025 Enhance the AR Gross Profit report to add the Brand filter[T-ERP-20250521.0031][Start]
+  llRetBrand= .F.
+  lcStyBrdFile = ''
+  lnPosBrand= ASCAN(loOgScroll.laOGFxFlt,"STYLE.BRAND")
+  IF lnPosBrand> 0
+    lnPosBrand = ASUBSCRIPT(loOgScroll.laOGFxFlt,lnPosBrand,1)
+    lcStyBrd= loOgScroll.laOGFxFlt[lnPosBrand,6]
+    IF !EMPTY(lcStyBrd)
+      lcStyBrdFile= loOgScroll.gfTempName()
+      llRetBrand= IIF(LEN(lcStyBrd)>0,.T.,.F.) AND lfConvertToCursor(lcStyBrd,'BRAND',lcStyBrdFile)
+    ENDIF
+  ENDIF
+  *!E304213,1 MMT 10/02/2025 Enhance the AR Gross Profit report to add the Brand filter[T-ERP-20250521.0031][End]
   *Season
   llRetSeason = .F.
   lcStySeaFile = ''
@@ -487,7 +502,8 @@ FUNCTION lfCollData
         IF SEEK(INVHDR.invoice)
           SCAN WHILE INVLINE.invoice = INVHDR.invoice FOR IIF(llRetStyle ,SEEK(INVLINE.STYLE,lcStyleFile),.T.) AND ;
               SEEK(INVLINE.STYLE,'Style') AND;
-              IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.)
+              IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.) AND;
+              IIF(llRetBrand,SEEK(STYLE.brandcode,lcStyBrdFile),.T.)
             SCATTER MEMVAR MEMO
             INSERT INTO FInvline FROM MEMVAR
             REPLACE FInvline.TYPE      WITH 'INV', ;
@@ -562,7 +578,8 @@ FUNCTION lfCollData
       SELECT INVLINE
       IF SEEK(INVHDR.invoice)
         SCAN WHILE INVLINE.invoice = INVHDR.invoice FOR IIF(llRetStyle ,SEEK(INVLINE.STYLE,lcStyleFile),.T.) AND ;
-            SEEK(INVLINE.STYLE,'Style') AND IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.)
+            SEEK(INVLINE.STYLE,'Style') AND IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.) AND;
+            IIF(llRetBrand,SEEK(STYLE.brandcode,lcStyBrdFile),.T.)
           *B609746,1 MMT 11/27/2011 Getting an error message when running gross profit report[END]
 
           SCATTER MEMVAR MEMO
@@ -827,7 +844,8 @@ FUNCTION lfCollData
                 SCAN REST WHILE crmemo+STYLE+cret_linno+cret_trncd = Rethdr.crmemo FOR cret_trncd = '2' AND ;
                     IIF(llRetStyle ,SEEK(RETLINE.STYLE,lcStyleFile ),.T.) AND ;
                     SEEK(RETLINE.STYLE,'Style') AND  IIF(llRetSeason ,SEEK(STYLE.Season,lcStySeaFile),.T.) AND ;
-                    IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.)
+                    IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.) AND;
+                    IIF(llRetBrand,SEEK(STYLE.brandcode,lcStyBrdFile),.T.)
                   *B608724,1 10/15/2008 WAM (End)
 
                   SCATTER MEMVAR MEMO
@@ -963,7 +981,8 @@ FUNCTION lfCollData
             SCAN REST WHILE crmemo+STYLE+cret_linno+cret_trncd = Rethdr.crmemo FOR cret_trncd = '2' AND ;
                 IIF(llRetStyle ,SEEK(RETLINE.STYLE,lcStyleFile ),.T.) AND ;
                 SEEK(RETLINE.STYLE,'Style') AND  IIF(llRetSeason ,SEEK(STYLE.Season,lcStySeaFile),.T.) AND ;
-                IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.)
+                IIF(llRetStyGrp ,SEEK(STYLE.cStyGroup,lcStyGrpFile ),.T.) AND;
+                IIF(llRetBrand,SEEK(STYLE.brandcode,lcStyBrdFile),.T.)
               *B608724,1 10/15/2008 WAM (End)
 
               SCATTER MEMVAR MEMO
@@ -1652,7 +1671,12 @@ FUNCTION lfConvertToCursor
       laTempacstru[1,2]='C'
       laTempacstru[1,3]= 6
       laTempacstru[1,4]= 0
-
+    *!E304213,1 MMT 10/02/2025 Enhance the AR Gross Profit report to add the Brand filter[T-ERP-20250521.0031][Start]
+    CASE  ALLTRIM(lcFieldName) = 'BRAND'
+      laTempacstru[1,2]='C'
+      laTempacstru[1,3]= 6
+      laTempacstru[1,4]= 0
+	*!E304213,1 MMT 10/02/2025 Enhance the AR Gross Profit report to add the Brand filter[T-ERP-20250521.0031][End]
   ENDCASE
   = gfCrtTmp(lcCursorTemp ,@laTempacstru,lcFieldName ,lcCursorTemp ,.T.)
   lcValuesToConvert = lcStrToConv

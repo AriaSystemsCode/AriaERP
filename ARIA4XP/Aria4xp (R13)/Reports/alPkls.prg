@@ -37,6 +37,7 @@
 *! E612239,1 MMT 10/15/2020 Enahnce Packing List form to Export Order header info. to Excel[T20200918.0005]
 *! E612543,1 MMT 04/03/2022 Add a new option to the Packing list form to allow user to select the form he wants to print[T20211208.0003]
 *! B612568,1 MMT 05/19/2022 Print Packing list Qty and Cartons when select by Picking ticket[T20220421.0001]
+*! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006]
 *:*****************************************************************************************************************************
 *N000682,1 MMT 02/25/2013 Globalization changes[Start]
 #INCLUDE R:\Aria4xp\reports\alPkls.h
@@ -1165,7 +1166,12 @@ FUNCTION lfHeadVar
       lnCUSRec = IIF(!EOF(lcCustomer),RECNO(lcCustomer),0)
       =SEEK('S'+&lcCustomer..Account+&lcCustomer..Dist_Ctr)
     ENDIF
-
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][Start]
+    IF !EMPTY(&lcTempPikTkt..distrb_no)
+      lnCUSRec = IIF(!EOF(lcCustomer),RECNO(lcCustomer),0)
+      =SEEK('S'+&lcCustomer..Account+SUBSTR(&lcTempPikTkt..distrb_no,1,8))
+    ENDIF
+    *! E304215,1 MMT 04/02/2026 Blum & Fink - Update Order fields in ERP[T-ERP-20250828.0006][End]
     =gfGetAdr(lcCustomer , '' , '' , '' , @laShipTo)
     =lfAdrShift('laShipTo')
 

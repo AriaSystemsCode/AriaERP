@@ -32,6 +32,10 @@ DO CASE
     *E303241,1 TMI 10/02/2012 [Start]
     lcrpFields = GetRpField() + ;
                  ',GLPTRNDT.CACCTCODE ,GLPTRNDT.CTRDTEXP  ,GLPTRNDT.CDRORCR   ,GLPTRNDT.NAMOUNT'
+    *XX
+    lcrpFields = lcrpFields + ",glacchar.caccnldes"
+    lcRpFiles   = lcRpFiles + ",glacchar"
+    *XX             
     *E303241,1 TMI 10/02/2012 [End  ]
 ENDCASE
 
@@ -60,12 +64,8 @@ IF llOGFltCh .OR. (lcRpOldOrd <> lcPrOrder)
   SET TALK ON
 
   * N000682 ,1 Thabet Handle globalization issues [Start]
-*  WAIT 'Collecting data...' WINDOW NOWAIT
-    *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*WAIT LANG_Collecting_data WINDOW NOWAIT
-WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Collecting_data,oAriaApplication.GetHeaderText("LANG_Collecting_data",AHEADERFILE)) WINDOW NOWAIT
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  *  WAIT 'Collecting data...' WINDOW NOWAIT
+  WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Collecting_data,oAriaApplication.GetHeaderText("LANG_Collecting_data",AHEADERFILE)) WINDOW NOWAIT
   * N000682 ,1 Thabet Handle globalization issues [END]
 
   *** Select data from file(s)
@@ -75,17 +75,20 @@ WAIT IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Collecting_data,oAria
     lcRpExp = lcRpExp + ;
               ' AND GLPTRNHD.CBATCHNO = GLPTRNDT.CBATCHNO    AND  GLPTRNHD.CTRANNO = GLPTRNDT.CTRANNO'
     *E303241,1 TMI 10/02/2012 [End  ]
+    *XX
+    lcRpExp = lcRpExp + " AND GLPTRNDT.cacctcode = glacchar.cacctcode"
+    *XX
     SELECT &lcRpFields;
     FROM  &lcRpFiles ;
     WHERE  &lcRpExp  .AND. lfWaitMsg();
     &lcPrOrder.;
-    INTO CURSOR (lcRpTargt)
+    INTO CURSOR (lcRpTargt) READWRITE 
   ELSE
     SELECT DISTINCT &lcRpFields;
     FROM  &lcRpFiles ;
     WHERE  &lcRpExp  .AND. lfWaitMsg();
     &lcPrOrder.;
-    INTO CURSOR (lcRpTargt)
+    INTO CURSOR (lcRpTargt) READWRITE 
   ENDIF
 
     IF lcRpForm = "GLPOTRAD"
@@ -163,11 +166,7 @@ DECLARE laRpRetFld(1)
 *lcBrFields    = 'CFisFYear:H="Year",DFisBgDat:H="Begin date",DFisEnDat:H="End date"'
 lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
                '",DFisBgDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Begin_date,oAriaApplication.GetHeaderText("LANG_Begin_date",AHEADERFILE))+;
-               *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",DFisEnDat:H="'+LANG_End_date+'"'
 '",DFisEnDat:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_End_date,oAriaApplication.GetHeaderText("LANG_End_date",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 
 laRpRetFld[1] = ''
@@ -193,11 +192,7 @@ IF .NOT.EMPTY(lcRpPostYr)
       !SEEK(lcRpPostYr)) .AND. !EMPTY(ALLTRIM(&lcRpCurFld.))
         * N000682 ,1 Thabet Handle globalization issues [Start]
         *=gfBrows('','CFisFyear',"laRpRetFld",'Transaction Codes ',.F.)
-        *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows('','CFisFyear',"laRpRetFld",LANG_TRANCODE,.F.)
-=gfBrows('','CFisFyear',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TRANCODE,oAriaApplication.GetHeaderText("LANG_TRANCODE",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+		=gfBrows('','CFisFyear',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TRANCODE,oAriaApplication.GetHeaderText("LANG_TRANCODE",AHEADERFILE)),.F.)
         * N000682 ,1 Thabet Handle globalization issues [END]
       &lcRpCurFld. = laRpRetFld[1]
       lcRpPostYr   = laRpRetFld[1]
@@ -229,11 +224,7 @@ DECLARE laRpRetFld(1)
 *lcBrFields    = 'CFisFYear:H="Year",CFspprdid:H="Period",CFsppDesc:H="Month"'
 lcBrFields    = 'CFisFYear:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_Year,oAriaApplication.GetHeaderText("LANG_Year",AHEADERFILE))+;
                 '",CFspprdid:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_PERIOD,oAriaApplication.GetHeaderText("LANG_PERIOD",AHEADERFILE))+;
-                *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*'",CFsppDesc:H="'+LANG_MONTH+'"'
 '",CFsppDesc:H="'+IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_MONTH,oAriaApplication.GetHeaderText("LANG_MONTH",AHEADERFILE))+'"'
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
 * N000682 ,1 Thabet Handle globalization issues [END]
 laRpRetFld[1] = ''
 
@@ -258,11 +249,7 @@ IF .NOT. EMPTY(lcRpPostYr)
       .AND. !EMPTY(ALLTRIM(&lcRpCurFld.))
         * N000682 ,1 Thabet Handle globalization issues [Start]
         *=gfBrows([ALLTRIM(lcRpPostYr)],'CFsppRdid',"laRpRetFld",'Transaction Codes ',.F.)
-        *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows([ALLTRIM(lcRpPostYr)],'CFsppRdid',"laRpRetFld",LANG_TRANCODE,.F.)
-=gfBrows([ALLTRIM(lcRpPostYr)],'CFsppRdid',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TRANCODE,oAriaApplication.GetHeaderText("LANG_TRANCODE",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+		=gfBrows([ALLTRIM(lcRpPostYr)],'CFsppRdid',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TRANCODE,oAriaApplication.GetHeaderText("LANG_TRANCODE",AHEADERFILE)),.F.)
         * N000682 ,1 Thabet Handle globalization issues [End]
       &lcRpCurFld = laRpRetFld[1]
     ENDIF
@@ -327,11 +314,7 @@ IF ('?' $ &lcRpCurFld. .OR. !FOUND()) .AND. !EMPTY(ALLTRIM(&lcRpCurFld.))
   ENDIF
   * N000682 ,1 Thabet Handle globalization issues [Start]
   *=gfBrows('','CTRANNO',"laRpRetFld",'Transaction Codes ',.F.)
-  *N000682,1 11/20/2012 MMT Globlization changes[Start]
-*=gfBrows('','CTRANNO',"laRpRetFld",LANG_TRANCODE,.F.)
-=gfBrows('','CTRANNO',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TRANCODE,oAriaApplication.GetHeaderText("LANG_TRANCODE",AHEADERFILE)),.F.)
-*N000682,1 11/20/2012 MMT Globlization changes[End]
-
+  =gfBrows('','CTRANNO',"laRpRetFld",IIF(oAriaApplication.oActivelang.cLang_ID = "EN",LANG_TRANCODE,oAriaApplication.GetHeaderText("LANG_TRANCODE",AHEADERFILE)),.F.)
   * N000682 ,1 Thabet Handle globalization issues [END]
   IF EMPTY(laRpRetFld[1])
     laRpRetFld[1] = loFld.OldVAlue
