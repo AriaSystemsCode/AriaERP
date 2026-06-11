@@ -10,7 +10,7 @@
 *B611893,1 Es 08/27/2019 Carrier Integration screen hangs after selecting order if user opened Edited Carrier credentails in Carrier Setup screen [T20190826.0010]
 
 *mt
-#iNCLUDE R:\Aria4XP\Screens\AL\ALSTPCR.h
+#iNCLUDE X:\Aria4XP\PRGs\AL\ALSTPCR.h
 *mt
 lcCarrierRepID = 'ALSTPCR' && variable to hold the SYDREPRT.CREP_ID
 
@@ -113,11 +113,11 @@ DO WHILE !EOF('CARRIER_LOGIN_REQUIREMENTS_T')
 		MSUPEXPR   WITH "EMPTY(lcCarrier) OR lcCarrier<>'"+lcCarrierID+"'" ;
 		MVENTRIES  WITH 'Active|Hold~A|H'
 
-
+SET STEP ON 
 	SELECT CARRIER_LOGIN_REQUIREMENTS_T
 	SCAN REST WHILE CARRIER_ID = lcCarrierID
 		SCATTER MEMVAR MEMO
-
+		m.CARRIER_ID =PADR(m.CARRIER_ID ,40)
 		SELECT SYREPUVR
 		APPEND BLANK
 
@@ -345,7 +345,7 @@ Local lnConnHandler
 lnConnHandler = 0
 lnResult  = 0
 *B611893,1 Es 08/27/2019 Carrier Integration screen hangs after selecting order if user opened Edited Carrier credentails in Carrier Setup screen [End]
-
+SET STEP ON 
 
 FOR lnI = 1 TO ALEN(laCarrierID,1)
 	lcCarrier = laCarrierID[lnI]
@@ -380,7 +380,7 @@ FOR lnI = 1 TO ALEN(laCarrierID,1)
 			IF !EMPTY(lcReqVal)
 				=SEEK(lcCarrier+lcReqID,'CARRIER_LOGIN_REQUIREMENTS_T','CARR_REQ')
 				lcReqKey = ALLTRIM(CARRIER_LOGIN_REQUIREMENTS_T.LOGIN_REQUIREMENTS_KEY)
-				IF !SEEK(lcCarrier+lcReqID,'CARRIER_LOGIN_INFORMATION_T')
+				IF !SEEK(PADR(lcCarrier,40)+lcReqID,'CARRIER_LOGIN_INFORMATION_T')
 					lcSqlStatement = "INSERT INTO CARRIER_LOGIN_INFORMATION_T "+;
 						"(CARRIER_ID,LOGIN_REQUIREMENT_ID,LOGIN_REQUIREMENT_VALUE,LOGIN_REQUIREMENTS_KEY) VALUES "+;
 						"('&lcCarrier','&lcReqID','&lcReqVal',&lcReqKey)"
